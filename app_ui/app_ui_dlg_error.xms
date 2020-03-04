@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.error##" WIDTH="90zr" HEIGHT="40zr" WIDTH-EXPR="Ps.width + 'px'" HEIGHT-EXPR="Ps.height + 'zr'" BEFORE-INIT-ACTION="
+		Ps.init();
+" INIT-ACTION="
+		Screen.FindItem( 'ok' ).SetFocus();
+		Cancel();
+">
+
+<PANEL HEIGHT="7px">
+</PANEL>
+
+<PANEL HEIGHT="-7zrc">
+
+<LINE CHILD-VERT-ALIGN="top">
+	<PANEL WIDTH="1px">
+	</PANEL>
+
+	<PANEL WIDTH="40px">
+		<IMAGE URL="/theme/pict/msg_error.svg"/>
+		<BR/>
+	</PANEL>
+	
+	<PANEL WIDTH="2px">
+	</PANEL>
+
+	<PANEL MIN-HEIGHT="60px">
+		<LABEL TITLE-EXPR="Ps.user_desc"/>
+	</PANEL>
+</LINE>
+
+
+
+<IF EXPR="Ps.show_details">
+	<BR/>
+	<EDIT SOURCE="Ps.error_info" MULTILINE="1" READ-ONLY="1" VERT-SCROLL="1" HEIGHT="100%"/>
+</IF>
+
+</PANEL>
+
+<PANEL HEIGHT="1zr">
+</PANEL>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="1zr"/>
+		<COL WIDTH="20epx"/>
+		<COL WIDTH="3zr"/>
+		<COL WIDTH="16px"/>
+		<COL WIDTH="16px"/>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+	
+	<IF EXPR="Ps.show_details">
+		<ActionImage IMAGE-URL="/theme/pict/up_double.svg" TIP-TEXT="Кратко" lang-en:TIP-TEXT="Hide Details" ACTION="
+				Ps.show_details = false;
+				Ps.init();
+		" lang-ua:TIP-TEXT="Стисло"/>
+	</IF>
+	<ELSE>
+		<ActionImage IMAGE-URL="/theme/pict/drop_double.svg" TIP-TEXT="Подробно" lang-en:TIP-TEXT="Details" ACTION="
+				Ps.show_details = true;
+				//Screen.RunCommand( 'Ok' );
+				Ps.width = ( Ps.width * 3 ) / 2;
+				Ps.height *= 2;
+		" lang-ua:TIP-TEXT="Детально"/>
+	</ELSE>
+
+	<LINE/>
+
+	<IMAGE URL="//app/pict/copy.ico" TIP-TEXT="Копировать текст ошибки" lang-en:TIP-TEXT="Copy error text" ACTION="
+			SetClipboard( Ps.error_info );
+	" PASSIVE="1" lang-ua:TIP-TEXT="Копіювати текст помилки"/>
+
+	<IMAGE URL="//app/pict/email_message.ico" TIP-TEXT="Отправить сообщение об ошибке в службу технической поддержки продукта" lang-en:TIP-TEXT="Send error report to the technical support" ACTION="
+			e = Ps.error_info;
+			
+			try
+			{
+				eval( AppConfig.GetProperty( 'SEND-ERROR-REPORT-ACTION' ) );
+				return;
+			}
+			catch ( e )
+			{
+			}
+
+			email = AppConfig.GetOptProperty( 'support-email', '' );
+			if ( email == '' )
+				return;
+
+			str = AppName + ' ' + AppVersion + ' ' + AppSubName + '\r\n';
+			str += 'build: ' + StrDate( AppBuildDate, false ) + '\r\n';
+			str += 'sn: ' + AppSn + '\r\n';
+			str += '\r\n';
+
+			str += e;
+
+			//url = 'mailto:' + email + '?subject=ERROR REPORT&body=' + UrlEncode( EncodeCharset( str, 'utf-8' ) );
+			url = 'mailto:' + email + '?subject=ERROR REPORT&body=' + UrlEncode( str );
+			ShellExecute( 'open', url );
+	" PASSIVE="1" lang-ua:TIP-TEXT="Надіслати повідомлення про помилку в службу технічної підтримки продукту"/>
+
+	<LABEL/>
+
+	<BUTTON TITLE="OK" CMD="Ok" NAME="ok"/>
+</TABLE>
+
+</SPXML-SCREEN>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+
+<view_generic_list>
+	<view_id TYPE="string"/>
+
+	<param_ref TYPE="variant"/>
+	<param PROPERTY="1" EXPR="param_ref.Object"/>
+
+	<view_ref TYPE="variant"/>
+	<view PROPERTY="1" EXPR="view_ref.Object"/>
+
+	<filter_ref TYPE="variant"/>
+	<filter PROPERTY="1" EXPR="filter_ref.Object"/>
+</view_generic_list>
+
+</SPXML-INLINE-FORM>

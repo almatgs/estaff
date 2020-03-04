@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<mail_templates>
+	<items>
+		<item MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<dest_type TYPE="string" NOT-NULL="1" DEFAULT="person"/>
+
+			<is_group_starter TYPE="bool" NOT-NULL="1"/>
+			<is_std TYPE="bool" NOT-NULL="1"/>
+
+			<subject TYPE="string"/>
+			<text TYPE="string" MULTILINE="1"/>
+
+			<attachments>
+				<attachment MULTIPLE="1">
+					<name TYPE="string"/>
+					<data TYPE="binary"/>
+				</attachment>
+			</attachments>
+
+			<card_attachments>
+				<card_attachment MULTIPLE="1">
+					<card_attachment_type_id TYPE="string" FOREIGN-ARRAY="card_attachment_types.items"/>
+					<name TYPE="string"/>
+					<src_object_type_id TYPE="string" FOREIGN-ARRAY="object_types.items"/>
+					<is_optional TYPE="bool" NOT-NULL="1"/>
+				</card_attachment>
+			</card_attachments>
+
+			<should_register TYPE="bool" NOT-NULL="1"/>
+			<record_type_id TYPE="string" FOREIGN-ARRAY="record_types.items"/>
+		</item>
+	</items>
+</mail_templates>
+
+
+
+</SPXML-FORM>

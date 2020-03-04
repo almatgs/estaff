@@ -1,0 +1,49 @@
+<%
+	Response.WriteMode = 'single';
+	Response.ContentType = 'text/xml';
+
+	srcDoc = OpenDoc( ObjectDocUrl( 'data', 'vacancy', Int( Request.QueryString.eid ) ) );
+	respDoc = OpenNewDoc( 'x-app://rcr/portal30/active_position.xmd' );
+
+	respDoc.TopElem.AssignElem( srcDoc.TopElem );
+	
+	srcDivision = srcDoc.TopElem.division_id.OptForeignElem;
+	if ( srcDivision != undefined )
+	{
+		respDoc.TopElem.subdivision_eid = srcDivision.eid;
+		respDoc.TopElem.subdivision_data.AssignElem( srcDivision );
+		respDoc.TopElem.subdivision_data.disp_name = srcDivision.name;
+	}
+
+	if ( srcDoc.TopElem.rr_persons.ChildNum != 0 )
+	{
+		srcPerson = srcDoc.TopElem.rr_persons[0].person_id.ForeignElem;
+
+		respDoc.TopElem.person_eid = srcPerson.eid;
+		respDoc.TopElem.person_data.AssignElem( srcPerson );
+	}
+
+	respDoc.TopElem.comment = srcDoc.TopElem.job_desc;
+
+	respDoc.TopElem.state_name = srcDoc.TopElem.state_id.ForeignElem.name;
+	respDoc.TopElem.user_data.disp_name = srcDoc.TopElem.user_id.ForeignDispName;
+
+	for ( candidate in XQuery( 'for $elem in candidates where MatchSome( $elem/spots/spot/vacancy_id, ' + srcDoc.DocID + ' ) return $elem' ) )
+	{
+		if ( AppModuleUsed( 'module_baltika' ) || AppModuleUsed( 'module_datex' ) )
+		{
+			spot = candidate.spots.GetChildByKey( srcDoc.TopElem.id, 'vacancy_id' );
+			if ( ! spot.state_id.ForeignElem.show_object_on_portal )
+				continue;
+		}
+
+		elem = respDoc.TopElem.work_candidates.AddChild();
+		elem.AssignElem( candidate );
+		elem.candidate_eid = candidate.id;
+		elem.state_desc = candidate.state_id.ForeignDispName;
+	}
+
+	Response.Write( '<?xml version="1.0" encoding="windows-1251"?>' );
+	//Response.Write( '<?xml-stylesheet type="text/xsl" href="active_position.xsl"?>' );
+	Response.Write( respDoc.TopElem.Xml );
+%>

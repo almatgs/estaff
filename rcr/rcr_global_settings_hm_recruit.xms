@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.rr_recruit_interface##" SAVE-ACTION="
+		UpdateScreens( '*', '*' );
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<CHECK SOURCE="Ps.disable_vacancy_requests" AUTO-LABEL="1" WIDTH="auto"/>
+	<DELIM/>
+	<GROUP>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.default_vacancy_request_workflow_type_id" AUTO-LABEL="1" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.default_vacancy_request_workflow_type_id, 40, 80 )"/>
+	</GROUP>
+	<DELIM/>
+	
+	<GROUP>
+		<LABEL TITLE="##UiText.titles.workflow_types##:"/>
+		<IMAGE URL="//base_pict/plus.ico" ACTION="Ps.vacancy_request_workflows.AddChild()" WIDTH="16px" HEIGHT="16px" KEEP-RIGHT__="1"/>
+	</GROUP>
+
+	<LOOP EXPR="Ps.vacancy_request_workflows" VAR="_item">
+		<BR/>
+		<GROUP>
+			<ITEM TYPE="voc_elem_selector" SOURCE="_item.workflow_type_id" AUTO-LABEL="1" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.default_vacancy_request_workflow_type_id, 40, 80 )"/>
+			<IMAGE URL="//base_pict/more_actions.ico" WIDTH="16px" HEIGHT="16px" KEEP-RIGHT="1">
+				<MENU>
+					<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+							_item.Delete();
+							Ps.Doc.SetChanged( true );
+					"/>
+				</MENU>
+			</IMAGE>
+			<SEPARATOR/>
+			<EDIT SOURCE="_item.exist_req_expr" AUTO-LABEL="1"/>
+		</GROUP>
+	</LOOP>
+	<BR/>
+	
+	<CHECK SOURCE="Ps.skip_nonexistent_workflow" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="Ps.vacancy_request_workflows.ChildNum != 0"/>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.hide_divisions_section" AUTO-LABEL="1" WIDTH="auto"/>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.restrict_shown_candidates" AUTO-LABEL="1" WIDTH="auto"/>
+	<DELIM/>
+
+	<!--
+	<CHECK SOURCE="Ps.allow_direct_vacancies" AUTO-LABEL="1" WIDTH="auto"/>
+	<DELIM/>
+	-->
+</PANEL>
+
+</SPXML-SCREEN>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>orgs_active</id>
+	<name VALUE="Активные клиенты" lang-en:VALUE="Active clients" lang-ua:VALUE="Активні клієнти"/>
+	<parent_id>orgs</parent_id>
+
+	<static_filters>
+		<static_filter>
+			<id>is_active</id>
+			<value>true</value>
+		</static_filter>
+	</static_filters>
+</std_view>
+

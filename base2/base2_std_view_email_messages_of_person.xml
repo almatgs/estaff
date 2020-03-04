@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>email_messages_of_person</id>
+	<name VALUE="Загруженные письма по контактному лицу" lang-en:VALUE="Loaded messages of contact person" lang-ua:VALUE="Завантаженi листи по контактнiй особi"/>
+	<parent_id>email_messages</parent_id>
+
+	<allow_preview>1</allow_preview>
+
+	<is_card_page>1</is_card_page>
+	<card_object_type_id>person</card_object_type_id>
+	<card_page_title VALUE="##UiText.titles.email_conversation##"/>
+
+	<exist_req_expr>! person.is_own_person</exist_req_expr>
+
+	<drop_all_dyn_filters>1</drop_all_dyn_filters>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>peer_person_id</id>
+			<is_auto>1</is_auto>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>date</id>
+			<use_time>1</use_time>
+		</field>
+		<field>
+			<id>is_outgoing</id>
+			<title_expr>is_outgoing ? StrLowerCase( UiText.titles.outgoing ) : StrLowerCase( UiText.titles.incoming )</title_expr>
+			<width>14zr</width>
+		</field>
+		<field>
+			<id>subject</id>
+		</field>
+		<field>
+			<id>person_id</id>
+			<width>32zr</width>
+		</field>
+	</fields>
+</std_view>
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>persons_own_with_division</id>
+	<name VALUE="Сотрудники по подразделениям" lang-en:VALUE="Employees by division" lang-ua:VALUE="Співробітники по підрозділам"/>
+	<parent_id>persons_own</parent_id>
+	<catalog_name>persons</catalog_name>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>division_id</id>
+			<width>50zr</width>
+		</dyn_filter>
+	</dyn_filters>
+</std_view>
+

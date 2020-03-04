@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.voc_elem_selection##" WIDTH="110zr" HEIGHT="70zr" INIT-ACTION="
+		list = Screen.FindItem( 'MainList' );
+
+		if ( Ps.multi_select )
+		{
+			for ( row in list.Rows )
+			{
+				if ( Ps.elems.ChildByKeyExists( '' + row.Env.ListElem.id ) )
+					row.SetSel( true );
+			}
+		}
+		else
+		{
+			for ( row in list.Rows )
+			{
+				if ( '' + row.Env.ListElem.id == Ps.elem_id )
+				{
+					row.SetSel( true );
+					break;
+				}
+			}
+		}
+
+		Screen.FindItemBySource( Ps.filter.used_fulltext ).SetFocus();
+		Cancel();
+" OK-ACTION="
+		list = Screen.FindItem( 'MainList' );
+
+		if ( Ps.multi_select )
+		{
+			Ps.elems.Clear();
+
+			for ( row in list.SelRows )
+				Ps.elems.ObtainChildByKey( '' + row.Env.ListElem.id )
+		}
+		else
+		{
+			if ( list.HasSel )
+				Ps.elem_id = list.SelRow.Env.ListElem.id;
+			else
+				Ps.elem_id.Clear();
+		}
+">
+
+
+
+<WITH VAR="_voc_info" EXPR="lib_voc.get_voc_info( eval( Ps.voc_id ) )">
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="55%"/>
+		<COL WIDTH="45%"/>
+	</COLUMNS>
+
+	<ITEM TYPE="dlg_ft_filter_base" SOURCE="Ps.filter"/>
+	<LABEL/>
+</TABLE>
+
+<ITEM TYPE="dlg_header_end"/>
+
+
+<PANEL SUNKEN="1" HEIGHT-EXPR="lib_base.dlg_body_height">
+	<IF EXPR="_voc_info.is_hier">
+		<LIST NAME="MainList" LOOP-CATALOG-EXPR="Ps.voc_id" FT-FILTER="Ps.filter" HIER="1" XQUERY-QUAL-EXPR="
+					qual = '';
+
+					if ( FetchForm( _voc_info.object_form_url ).TopElem.ChildExists( 'is_active' ) )
+					{
+						qual += '$elem/is_active = true()';
+					}
+
+					return qual;
+		" SINGLE-SEL-EXPR="! Ps.multi_select">
+			<ROW OPEN-ACTION="Screen.RunCommand( 'Ok' )" IMAGE-URL-EXPR="
+					if ( ListElem.ChildExists( 'is_folder' ) && ListElem.is_folder )
+						return '//base_pict/folder.ico';
+					else
+						return '//base_pict/generic_item.ico';
+			">
+				<COL WIDTH="100%" COL-TITLE="##UiText.fields.name##" TITLE-EXPR="ListElem.name" lang-en:COL-TITLE="Name"/>
+
+				<IF EXPR="! _voc_info.auto_order">
+					<COL WIDTH="9zr" COL-TITLE="№" ALIGN="center" TITLE-EXPR="ListElem.order_index" DEFAULT-SORT="1"/>
+				</IF>
+			</ROW>
+		</LIST>
+	</IF>
+	<ELSE>
+		<IF EXPR="true &amp;&amp; FetchForm( _voc_info.object_form_url ).TopElem.ChildExists( 'target_group_id' )">
+			<LIST NAME="MainList" LOOP-EXPR="
+					if ( Ps.filter.used_fulltext.HasValue )
+					{
+						queryStr = 'for $elem in ' + Ps.voc_id + ' where doc-contains( $elem/id, \'data\', ' + XQueryLiteral( Ps.filter.used_fulltext ) + ', ' + XQueryLiteral( _voc_info.object_name ) + ' ) order by $elem/order_index return $elem';
+						array = XQuery( queryStr );
+
+						if ( FetchForm( _voc_info.object_form_url ).TopElem.ChildExists( 'is_active' ) )
+							array = ArraySelect( array, 'is_active' );
+					}
+					else
+					{
+						array = lib_voc.get_sorted_voc( lib_voc.get_voc_by_id( Ps.voc_id ) );
+					}
+
+					if ( Ps.view_filter_ref.HasValue )
+					{
+						for ( propName in Ps.view_filter_ref.Object )
+							array = ArraySelectByKey( array, Ps.view_filter_ref.Object[propName], propName );
+					}
+
+					return array;
+			" FT-FILTER="Ps.filter" SINGLE-SEL-EXPR="! Ps.multi_select">
+				<ROW OPEN-ACTION="Screen.RunCommand( 'Ok' )" IMAGE-URL-EXPR="
+						if ( ListElem.ChildExists( 'is_folder' ) && ListElem.is_folder )
+							return '//base_pict/folder.ico';
+						else
+							return '//base_pict/generic_item.ico';
+				">
+					<COL WIDTH-EXPR="_voc_info.use_full_name ? '30%' : '100%'" COL-TITLE="##UiText.fields.name##" TITLE-EXPR="ListElem.name" TEXT-COLOR-EXPR="Ps.voc_id.ForeignElem.use_text_color ? ListElem.text_color : ''" BK-COLOR-EXPR="Ps.voc_id.ForeignElem.use_bk_color ? ListElem.bk_color : ''" lang-en:COL-TITLE="Name"/>
+
+					<IF EXPR="_voc_info.use_full_name">
+						<COL WIDTH="70%" COL-TITLE="##UiText.fields.full_name##" TITLE-EXPR="ListElem.full_name" lang-en:COL-TITLE="Full name"/>
+					</IF>
+
+					<IF EXPR="! _voc_info.auto_order">
+						<COL WIDTH="9zr" COL-TITLE="№" ALIGN="center" TITLE-EXPR="ListElem.order_index" DEFAULT-SORT="1"/>
+					</IF>
+				</ROW>
+			</LIST>
+		</IF>
+		<ELSE>
+			<LIST NAME="MainList" LOOP-CATALOG-EXPR="Ps.voc_id" FT-FILTER="Ps.filter" XQUERY-QUAL-EXPR="
+					qual = '';
+
+					if ( FetchForm( _voc_info.object_form_url ).TopElem.ChildExists( 'is_active' ) )
+					{
+						qual += '$elem/is_active = true()';
+					}
+
+					if ( Ps.view_filter_ref.HasValue )
+					{
+						for ( propName in Ps.view_filter_ref.Object )
+						{
+							if ( qual != '' )
+								qual += ' and ';
+
+							qual += '$elem/' + propName + ' = ' + XQueryLiteral( Ps.view_filter_ref.Object.GetProperty( propName ) );
+						}
+					}
+
+					return qual;
+			" SINGLE-SEL-EXPR="! Ps.multi_select">
+				<ROW OPEN-ACTION="Screen.RunCommand( 'Ok' )" IMAGE-URL-EXPR="
+						if ( ListElem.ChildExists( 'is_folder' ) && ListElem.is_folder )
+							return '//base_pict/folder.ico';
+						else
+							return '//base_pict/generic_item.ico';
+				">
+					<COL WIDTH-EXPR="_voc_info.use_full_name ? '30%' : '100%'" COL-TITLE="##UiText.fields.name##" TITLE-EXPR="ListElem.name" TEXT-COLOR-EXPR="Ps.voc_id.ForeignElem.use_text_color ? ListElem.text_color : ''" BK-COLOR-EXPR="Ps.voc_id.ForeignElem.use_bk_color ? ListElem.bk_color : ''" lang-en:COL-TITLE="Name"/>
+
+					<IF EXPR="_voc_info.use_full_name">
+						<COL WIDTH="70%" COL-TITLE="##UiText.fields.full_name##" TITLE-EXPR="ListElem.full_name" lang-en:COL-TITLE="Full name"/>
+					</IF>
+
+					<IF EXPR="! _voc_info.auto_order">
+						<COL WIDTH="9zr" COL-TITLE="№" ALIGN="center" TITLE-EXPR="ListElem.order_index" DEFAULT-SORT="1"/>
+					</IF>
+				</ROW>
+			</LIST>
+		</ELSE>
+	</ELSE>
+</PANEL>
+
+
+
+
+
+<ITEM TYPE="dlg_footer_start"/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<BUTTON TITLE="OK" CMD="1"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2"/>
+</TABLE>
+
+</WITH>
+
+
+</SPXML-SCREEN>

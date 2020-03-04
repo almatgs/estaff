@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<USE FORM="old_general.xmd"/>
+
+
+<record_types>
+	<items>
+		<item MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+
+			<use_end_date TYPE="bool" NOT-NULL="1"/>
+			<use_completion TYPE="bool" NOT-NULL="1"/>
+			<use_auto_completion TYPE="bool" NOT-NULL="1"/>
+			<use_start_completion TYPE="bool" NOT-NULL="1"/>
+			<show_dyn_state TYPE="bool" NOT-NULL="1"/>
+			<is_due TYPE="bool" NOT-NULL="1"/>
+
+			<use_auto_schedule TYPE="bool" NOT-NULL="1"/>
+			<auto_schedule_term TYPE="au_term"/>
+
+			<use_room TYPE="bool" NOT-NULL="1"/>
+			<show_in_calendar TYPE="bool" NOT-NULL="1"/>
+
+			<text_color TYPE="string"/>
+			<bk_color TYPE="string"/>
+			<image_url TYPE="string" NOT-NULL="1" DEFAULT="//au/pict/event.ico"/>
+
+			<default_term TYPE="au_term"/>
+
+			<is_sig TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+			<custom>
+				<completed>
+					<str TYPE="string"/>
+					<name TYPE="string"/>
+					<text_color TYPE="string"/>
+					<bk_color TYPE="string"/>
+				</completed>
+				<not_completed>
+					<str TYPE="string"/>
+					<name TYPE="string"/>
+					<text_color TYPE="string"/>
+					<bk_color TYPE="string"/>
+				</not_completed>
+			</custom>
+
+
+			<str_planned PROPERTY="1" EXPR="'запланировано'"/>
+			<str_reached PROPERTY="1" EXPR="'ожидается сейчас'"/>
+			<str_started PROPERTY="1" EXPR="'начато'"/>
+			<str_completed PROPERTY="1" EXPR="custom.completed.str != '' ? custom.completed.str : ( is_due ? 'выполнено' : 'состоялось' )"/>
+			<str_not_completed PROPERTY="1" EXPR="custom.not_completed.str != '' ? custom.not_completed.str : ( is_due ? 'не выполнено' : 'не состоялось' )"/>
+			<str_expired PROPERTY="1" EXPR="'просрочено'"/>
+
+			<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+			<is_ext TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+			<use_creation_date TYPE="bool" NOT-NULL="1"/>
+			<require_position TYPE="bool" NOT-NULL="1"/>
+			<stop_active TYPE="bool" NOT-NULL="1"/>
+			<close_order TYPE="bool" EXPR-INIT="id == 'hire'"/>
+			<is_aux TYPE="bool" NOT-NULL="1"/>
+
+			<require_comment TYPE="bool" NOT-NULL="1"/>
+			<min_comment_len TYPE="integer"/>
+
+			<use_ext_calendar TYPE="bool" NOT-NULL="1"/>
+			<prefer_ext_calendar_planner TYPE="bool" NOT-NULL="1"/>
+			<ext_calendar_template_id TYPE="string" FOREIGN-ARRAY="mail_templates.items"/>
+
+			<use_column TYPE="bool" NOT-NULL="1"/>
+			<column_title TYPE="string"/>
+
+			<action_name TYPE="string"/>
+
+			<next_types>
+				<next_type MULTIPLE="1" PRIMARY-KEY="type_id">
+					<type_id TYPE="string" FOREIGN-ARRAY="record_types.items"/>
+				</next_type>
+			</next_types>
+			<is_std TYPE="bool" NOT-NULL="1"/>
+		</item>
+	</items>
+</record_types>
+
+
+
+</SPXML-FORM>

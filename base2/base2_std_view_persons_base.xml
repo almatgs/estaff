@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>persons_base</id>
+	<name VALUE="##UiText.fields.contact_persons##" lang-en:VALUE="Contacts"/>
+	<parent_id>persons</parent_id>
+
+	<catalog_name>persons</catalog_name>
+
+	<drop_all_dyn_filters>1</drop_all_dyn_filters>
+	
+	<dyn_filters>
+		<dyn_filter>
+			<id>is_candidate</id>
+			<exist_req_expr>AppModuleUsed( 'rcr' )</exist_req_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+		<dyn_filter>
+			<id>org_id</id>
+			<width>40zr</width>
+			<exist_req_expr>AppModuleUsed( 'rcr' )</exist_req_expr>
+		</dyn_filter>
+		<dyn_filter>
+			<id>user_id</id>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}</view_filter_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+		<dyn_filter>
+			<id>group_id</id>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>fullname</id>
+		</field>
+		<field>
+			<id>org_id</id>
+			<width>60%</width>
+		</field>
+		<field>
+			<id>position_name</id>
+			<width>40%</width>
+		</field>
+		<field>
+			<id>disp_phone</id>
+		</field>
+		<field>
+			<id>last_contact_date</id>
+			<use_time>0</use_time>
+			<col_title VALUE="##UiText.fields.last_contact##"/>
+		</field>
+		<field>
+			<id>user_id</id>
+		</field>
+	</fields>
+</std_view>
+

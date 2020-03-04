@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<SPXML-FORM>
+
+<view_html>
+	<html_url TYPE="string"/>
+</view_html>
+
+</SPXML-FORM>

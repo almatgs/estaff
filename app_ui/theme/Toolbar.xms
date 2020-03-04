@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+<COMPLEX-ITEM NAME="TOOLBAR" INNER-ALIAS="toolbar" SAMPLE="1" VIEW="ToolbarView">
+</COMPLEX-ITEM>
+
+
+<COMPLEX-ITEM NAME="TOOLBAR-ENTRY" SAMPLE="1">
+	<ATTRIBUTE NAME="SEPARATOR" TYPE="bool"/>
+</COMPLEX-ITEM>
+
+
+<PANEL NAME="ToolbarView" INNER-ALIAS="toolbarView" SAMPLE="1" WIDTH="100%">
+	<PANEL HEIGHT="2.3em" BK-COLOR__="200,200,255">
+		<LINE>
+			<LOOP EXPR="toolbarView.MasterItem.Entries" VAR="entry">
+				<IF EXPR="entry.GetOptAttrValue( 'SEPARATOR' )">
+					<SUBST TYPE="ToolbarSeparatorView" MASTER-ITEM="entry"/>
+				</IF>
+				<ELSE>
+					<SUBST TYPE="ToolbarEntryView" MASTER-ITEM="entry"/>
+				</ELSE>
+			</LOOP>
+		</LINE>
+	</PANEL>
+	<IF EXPR="AppUi.useCompatMode1">
+		<SPLIT FIXED="1"/>
+	</IF>
+</PANEL>
+
+
+<PANEL NAME="ToolbarEntryView" SAMPLE="1" INNER-ALIAS="entryView" HEIGHT="100%" STATES="hover,pressed" PADDING="1epx 5epx 2epx 5epx" STD-MARGINS="0" BK-COLOR-EXPR="
+		switch ( State )
+		{
+			case 'hover':
+			case 'pressed':
+				return AppUi.gThemeData.colors.gray_hover;
+		}
+
+		return '';
+" OnBeforeBuild="
+		entryView.AuxData.imageUrl = entry.ImageUrl;
+		if ( entryView.AuxData.imageUrl == '' )
+			entryView.AuxData.imageUrl = undefined;
+" OnMouseDown="
+		if ( entryView.MasterItem.DropDownItem != undefined )
+		{
+			if ( entryView.MasterItem.DropDownItem.IsDisplayed )
+				entryView.MasterItem.DropDownItem.CloseDropDown();
+			else
+				entryView.MasterItem.DropDownItem.OpenDropDown( entryView, 'bottom-left', 0, -1 );
+		}
+" ACTION="
+		if ( entry.DropDownItem != undefined )
+			return;
+
+		MasterItem.RunActions()
+" PASSIVE="1" TIP-TEXT-EXPR="entry.TipText">
+	<LINE HEIGHT="100%">
+		<IF EXPR="entryView.AuxData.imageUrl != undefined">
+			<IF EXPR="StrEnds( UrlPath( entryView.AuxData.imageUrl ), '.ico' )">
+				<IMAGE URL-EXPR="entryView.AuxData.imageUrl" ALLOW-EMPTY="1" WIDTH="16px" HEIGHT="16px"/>
+			</IF>
+			<ELSE>
+				<IMAGE URL-EXPR="entryView.AuxData.imageUrl" ALLOW-EMPTY="1"/>
+			</ELSE>
+		</IF>
+
+		<IF EXPR="entry.Title != ''">
+			<PANEL WIDTH="0.4em">
+			</PANEL>
+			<LABEL TITLE-EXPR="entry.Title" MULTILINE="0" TEXT-COLOR-EXPR="
+					switch ( BaseSampleItem.State )
+					{
+						case 'hover':
+						case 'pressed':
+							return AppUi.gThemeData.colors.blue_text;
+					}
+
+					if ( entryView.AuxData.isCurrent )
+						return AppUi.gThemeData.colors.blue_text;
+
+					return '';
+			"/>
+		</IF>
+
+		<IF EXPR="entry.DropDownItem != undefined">
+			<PANEL PADDING="0 0 0 3epx" STD-MARGINS="0">
+				<IMAGE URL-EXPR="
+						colorMapping = new Object;
+
+						switch ( BaseSampleItem.State )
+						{
+							case 'hover':
+								colorMapping[AppUi.gThemeData.colors.icon] = AppUi.gThemeData.colors.primary;
+								break;
+
+							case 'pressed':
+								colorMapping[AppUi.gThemeData.colors.icon] = AppUi.gThemeData.colors.dark;
+								break;
+						}
+
+						return AppUi.GetStateImageUrl( '/theme/pict/dropdown.svg', BaseSampleItem.State, colorMapping );
+				" ALIGN="center" VERT-ALIGN="center"/>
+			</PANEL>
+		</IF>
+	</LINE>
+</PANEL>
+
+
+
+<PANEL NAME="ToolbarSeparatorView" SAMPLE="1" HEIGHT="100%" PADDING="3px 4px 3px 4px" STD-MARGINS="0">
+	<PANEL WIDTH="1px" HEIGHT="100%" BK-COLOR-EXPR="AppUi.themeColors.separator"/>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+
+

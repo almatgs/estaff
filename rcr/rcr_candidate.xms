@@ -1,0 +1,996 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="Ps.fullname + ' - ' + UiText.objects.candidate" BEFORE-INIT-ACTION="
+		Ps.view.prev_data.AssignElem( Ps.id.Parent );
+		Ps.	adjust_recruit_type();
+		Ps.UpdateJobSearchLocation();
+		Ps.init_target_events();
+		Ps.update_state();
+		Ps.adjust_bad_attachments();
+		//Ps.restore_prev_spots();
+" BEFORE-SAVE-ACTION="
+		Ps.check_before_screen_save();
+" SAVE-ACTION="
+		Ps.on_ui_save();
+" IS-DOC-CHANGED-EXPR="Ps.is_doc_changed()" MAXIMIZED="1">
+
+
+<USE FORM="//base2/base2_general_skills.xms"/>
+
+<USE FORM="rcr_candidate_1.xms"/>
+<USE FORM="rcr_candidate_2.xms"/>
+<USE FORM="rcr_candidate_3.xms"/>
+
+
+<IF EXPR="Screen.EditMode">
+	<INHERIT TYPE="candidate_menus"/>
+	<INHERIT TYPE="candidate_toolbar"/>
+</IF>
+
+
+
+
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="39zr" WIDTH-EXPR="AppModuleUsed( 'module_sanofi' ) ? '41zr' : '39zr'" HEIGHT="100%">
+	<PANEL BK-COLOR-EXPR="" HEIGHT="34zr">
+		<TREE SUNKEN="1" SWITCH-TYPE="selector" TARGET="main_selector">
+		</TREE>
+	</PANEL>
+
+	<SPLIT HEIGHT="1px"/>
+
+	<ITEM TYPE="candidate_left_panel_state"/>
+	
+	<ITEM TYPE="candidate_left_panel_actions"/>
+
+	<PANEL HEIGHT-EXPR="'-' + lib_base.GetCardInfoHeightMeasure( TopElem )">
+		<PANEL NAME="LeftCsdAnchor">
+		</PANEL>
+
+		<PANEL BK-COLOR="sys-bk-ctrl" SUNKEN="1" VERT-SCROLL="1" HEIGHT="100%">
+			<INHERIT TYPE="candidate_left_panel_info"/>
+		</PANEL>
+	</PANEL>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+
+<PAGE TITLE="##UiText.objects.candidate##" SUNKEN="1" EXPANDED="1" IMAGE-URL-EXPR="Ps.ImageUrl" lang-en:TITLE="Candidate">
+
+
+
+
+
+<PAGE TITLE="##UiText.sections.general##" IMAGE-URL="//base_pict/common.ico" lang-en:TITLE="General">
+
+
+<PANEL STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="0">
+	<TABLE>
+		<COLUMNS>
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'code', 'common' )">
+				<COL WIDTH="10zr"/>
+				<COL WIDTH="1zr"/>
+			</IF>
+
+			<COL WIDTH="19zr"/>
+			<COL WIDTH="15zr"/>
+			<IF EXPR="base1_config.use_person_middlename">
+				<COL WIDTH="17zr"/>
+			</IF>
+
+			<COL WIDTH="1zr"/>
+
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'gender_id', 'common' )">
+				<COL WIDTH="9zr"/>
+			</IF>
+			<COL WIDTH="11zrc"/>
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'age' )">
+				<COL WIDTH="9zr"/>
+			</IF>
+
+			<COL WIDTH="1zr"/>
+
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'country_id', 'common' )">
+				<COL WIDTH="20zr" WIDTH-EXPR="Ps.CalcLine1ItemWidthMeasure( Ps.country_id )"/>
+			</IF>
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'location_id' )">
+				<COL WIDTH="20zr" WIDTH-EXPR="Ps.CalcLine1ItemWidthMeasure( Ps.location_id )"/>
+			</IF>
+			<IF EXPR="Ps.show_metro_station()">
+				<COL WIDTH="20zr" WIDTH-EXPR="Ps.CalcLine1ItemWidthMeasure( Ps.metro_station_id )"/>
+			</IF>
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'job_search_location_id' )">
+				<COL WIDTH="20zr" WIDTH-EXPR="Ps.CalcLine1ItemWidthMeasure( Ps.job_search_location_id )"/>
+			</IF>
+		</COLUMNS>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'code', 'common' )">
+			<EDIT SOURCE="Ps.code" AUTO-LABEL="1" PASSIVE="1"/>
+			<LABEL/>
+		</IF>
+
+		<EDIT SOURCE="Ps.lastname" LABEL-TITLE-EXPR="fields_usage.get_field_ext_title( Ps.lastname ) + ':'" UPDATE-ACTION="
+				if ( Ps.ChildExists( 'gender_id' ) && Ps.gender_id == null )
+					Ps.guess_gender_by_names();
+		"/>
+
+		<EDIT SOURCE="Ps.firstname" LABEL-TITLE-EXPR="fields_usage.get_field_ext_title( Ps.firstname ) + ':'" UPDATE-ACTION="
+				if ( Ps.ChildExists( 'gender_id' ) && Ps.gender_id == null )
+					Ps.guess_gender_by_names();
+		"/>
+
+		<IF EXPR="base1_config.use_person_middlename">
+			<PANEL>
+				<GROUP>
+					<LABEL TITLE-EXPR="fields_usage.get_field_ext_title( Ps.middlename ) + ':'"/>
+					<IF EXPR="global_settings.use_candidate_name_en">
+						<PANEL WIDTH="-3zr"/>
+						<LINK TITLE="EN" UNDERLINE="0" TIP-TEXT-EXPR="Ps.fullname_en" TEXT-COLOR="0,40,106" FONT-SIZE="8" KEEP-RIGHT="1"ACTION="
+								Screen.ExposeItemBySource( Ps.lastname_en );
+						"/>
+					</IF>
+				</GROUP>
+			
+				<EDIT SOURCE="Ps.middlename" UPDATE-ACTION="
+						if ( Ps.ChildExists( 'gender_id' ) && Ps.gender_id == null )
+							Ps.guess_gender_by_names();
+				"/>
+			</PANEL>
+		</IF>
+
+		<LABEL/>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'gender_id', 'common' )">
+			<ITEM TYPE="elem_selector" SOURCE="Ps.gender_id" ELEM="ListElem.name" AUTO-LABEL="1" PASSIVE="1"/>
+		</IF>
+		
+		<PANEL HSPAN-EXPR="fields_usage.use_object_field( 'candidate', 'age' ) ? 2 : 1">
+			<LABEL TITLE-EXPR="fields_usage.get_field_ext_title( Ps.birth_date ) + ':'"/>
+			<LINE>
+				<ITEM TYPE="birth_date_edit" WIDTH="11zrc"/>
+				<IF EXPR="fields_usage.use_object_field( 'candidate', 'age' )">
+					<LABEL TITLE-EXPR="Ps.age.HasValue ? Ps.age + ' ' + IntModSelector( Ps.age, UiText.titles.years__mod ) : ''" TEXT-COLOR="50,50,50"/>
+				</IF>
+			</LINE>
+		</PANEL>
+
+		<LABEL/>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'country_id', 'common' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.country_id" AUTO-LABEL="1" PASSIVE="1"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'location_id' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.location_id" AUTO-LABEL="1" UPDATE-ACTION="lib_candidate.GuessCandidateCountry( Ps )"/>
+		</IF>
+
+		<IF EXPR="Ps.show_metro_station()">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.metro_station_id" AUTO-LABEL="1" view-filter-expr="Ps.location_id.HasValue ? ({location_id:Ps.location_id}) : undefined"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'job_search_location_id' )">
+			<PANEL>
+				<LABEL TITLE-EXPR="Ps.job_search_location_id.FormElem.Title + ':'" MULTILINE="0"/>
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.job_search_location_id"/>
+			</PANEL>
+		</IF>
+	</TABLE>
+
+	<BR HEIGHT="7px"/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH-EXPR="( CalcTextScreenWidth( Ps.mobile_phone ) + 28 ) + 'px'" MIN-WIDTH="24zr" MAX-WIDTH="36zr"/>
+
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'home_phone' )">
+				<COL WIDTH-EXPR="( CalcTextScreenWidth( Ps.home_phone ) + 28 ) + 'px'" MIN-WIDTH="20zr" MAX-WIDTH="36zr"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'work_phone' )">
+				<COL WIDTH-EXPR="( CalcTextScreenWidth( Ps.work_phone ) + 28 ) + 'px'" MIN-WIDTH="20zr" MAX-WIDTH="36zr"/>
+			</IF>
+
+			<COL WIDTH-EXPR="( CalcTextScreenWidth( Ps.email ) + 18 ) + 'px'" MIN-WIDTH="26zr" MAX-WIDTH="32zr"/>
+
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'email2' )">
+				<COL WIDTH-EXPR="( CalcTextScreenWidth( Ps.email2 ) + 18 ) + 'px'" MIN-WIDTH="12zr" MAX-WIDTH="26zr"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'skype' )">
+				<COL WIDTH-EXPR="( CalcTextScreenWidth( Ps.skype ) + 18 ) + 'px'" MIN-WIDTH="16zr" MAX-WIDTH="26zr"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'address', 'common' )">
+				<COL WIDTH="100%"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'citizenship_id', 'common' )">
+				<COL WIDTH="24zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.citizenship_id, 20, 26 )"/>
+			</IF>
+			<IF EXPR="base1_config.is_int_version">
+				<COL WIDTH="20zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.language_id, 10, 21 )"/>
+			</IF>
+		</COLUMNS>
+
+		<ITEM TYPE="phone_edit_ext" destType="candidate" SOURCE="Ps.mobile_phone" TITLE-EXPR="fields_usage.get_field_ext_title( Ps.mobile_phone ) + ':'"/>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'home_phone' )">
+			<ITEM TYPE="phone_edit_ext" destType="candidate" SOURCE="Ps.home_phone" TITLE-EXPR="Ps.home_phone.Title + ':'"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'work_phone' )">
+			<ITEM TYPE="phone_edit_ext" destType="candidate" SOURCE="Ps.work_phone" TITLE-EXPR="Ps.work_phone.Title + ':'"/>
+		</IF>
+		
+		<ITEM TYPE="email_edit" destType="candidate" templateAction="
+				mailMessage = lib_mail.build_mail_message( _template, Ps, Ps.Parent, Ps.Parent.build_mail_env_object( Ps.Parent.get_screen_target_vacancy_id() ) );
+				lib_mail.show_mail_message( mailMessage );
+
+				TopElem.register_mail_message_event( _template, TopElem.get_screen_target_vacancy_id() );
+		" SOURCE="Ps.email" TITLE="E-Mail:"/>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'email2' )">
+			<ITEM TYPE="email_edit" destType="candidate" templateAction="
+					mailMessage = lib_mail.build_mail_message( _template, Ps, Ps.Parent, Ps.Parent.build_mail_env_object( Ps.Parent.get_screen_target_vacancy_id() ) );
+					lib_mail.show_mail_message( mailMessage );
+
+					TopElem.register_mail_message_event( _template, TopElem.get_screen_target_vacancy_id() );
+			" SOURCE="Ps.email2" TITLE="E-Mail 2:"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'skype' )">
+			<ITEM TYPE="skype_edit" SOURCE="Ps.skype" TITLE-EXPR="Ps.skype.Title + ':'"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'address', 'common' )">
+			<EDIT SOURCE="Ps.address" AUTO-LABEL="1" PASSIVE="1"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'citizenship_id', 'common' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.citizenship_id" AUTO-LABEL="1" PASSIVE="1"/>
+		</IF>
+		<IF EXPR="base1_config.is_int_version">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.language_id" AUTO-LABEL="1"/>
+		</IF>
+	</TABLE>
+
+	<BR HEIGHT="2px"/>
+	<DELIM/>
+
+
+
+	<TABLE>
+		<COLUMNS>
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'desired_position_name' )">
+				<COL WIDTH="50%" WIDTH-EXPR="fields_usage.use_object_field( 'candidate', 'profession_id' ) ? '50%' : '100%'"/>
+			</IF>
+			
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'work_type_id', 'common' )">
+				<COL WIDTH="10zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.work_type_id, 15, 40 )"/>
+			</IF>
+
+			<COL WIDTH-EXPR="global_settings.use_multi_currencies.candidate_salary ? '20zr' : '14zr'"/>
+
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'exp_years' )">
+				<COL WIDTH="8zr"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'educ_type_id', 'common' )">
+				<COL WIDTH="2zr" WIDTH-EXPR="lib_base.CalcElemSelectorWidthMeasure( Ps.educ_type_id, 20, 32 )"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'profession_id' )">
+				<COL WIDTH="50%" WIDTH-EXPR="fields_usage.use_object_field( 'candidate', 'desired_position_name' ) ? '50%' : '100%'"/>
+			</IF>
+
+			<IF EXPR="lib_app2.AppFeatureEnabled( 'classic_recruit' ) &amp;&amp; lib_app2.AppFeatureEnabled( 'mass_recruit' ) &amp;&amp; fields_usage.use_object_field( 'candidate', 'recruit_type_id', 'common' )">
+				<COL WIDTH="24zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.recruit_type_id, 20, 30 )"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'score' )">
+				<COL WIDTH="8zr"/>
+			</IF>
+
+			<IF EXPR="Ps.ChildExists( 'rating' ) &amp;&amp; fields_usage.use_object_field( 'candidate', 'rating' )">
+				<COL WIDTH="8zrc"/>
+			</IF>
+		</COLUMNS>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'desired_position_name' )">
+			<EDIT SOURCE="Ps.desired_position_name" AUTO-LABEL="1" PASSIVE="1"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'work_type_id', 'common' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.work_type_id" AUTO-LABEL="1" PASSIVE="1"/>
+		</IF>
+
+		<ITEM TYPE="amount_edit" SOURCE="Ps.salary" class="candidate_salary" AUTO-LABEL="1"/>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'exp_years' )">
+			<EDIT SOURCE="Ps.exp_years" AUTO-LABEL="1" TIP-TEXT="##UiText.fields.work_experience_in_years##" lang-en:TIP-TEXT="Work experience, years" PASSIVE="1"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'educ_type_id', 'common' )">
+			<ITEM TYPE="elem_selector" SOURCE="Ps.educ_type_id" ELEM="ListElem.name" LABEL-TITLE-EXPR="fields_usage.get_field_ext_title( Ps.educ_type_id ) + ':'" PASSIVE="1"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'profession_id' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.profession_id" AUTO-LABEL="1" PASSIVE="1" UPDATE-ACTION="
+					if ( AppModuleUsed( 'module_lukoil' ) )
+						Screen.Update();
+			"/>
+		</IF>
+
+		<IF EXPR="lib_app2.AppFeatureEnabled( 'classic_recruit' ) &amp;&amp; lib_app2.AppFeatureEnabled( 'mass_recruit' ) &amp;&amp; fields_usage.use_object_field( 'candidate', 'recruit_type_id', 'common' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.recruit_type_id" AUTO-LABEL="1"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'score' )">
+			<EDIT SOURCE="Ps.score" AUTO-LABEL="1" PASSIVE="1"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'rating' )">
+			<ITEM TYPE="elem_selector" SOURCE="Ps.rating" AUTO-LABEL="1" PASSIVE="1" foreign-array="lib_recruit.build_candidate_ratings_array()"/>
+		</IF>
+	</TABLE>
+
+	<IF EXPR="global_settings.show_last_job_first &amp;&amp; Ps.prev_jobs.ChildNum != 0">
+		<BR/>
+
+		<LINE MULTILINE="1">
+			<LABEL TITLE-EXPR="Ps.last_job_org_name.Title + ':'"/>
+			<LABEL TITLE-EXPR="Ps.last_prev_job.org_name" UNDERLINE="1"/>
+			<LABEL TITLE=",  "/>
+			<LABEL TITLE-EXPR="Ps.last_prev_job.position_name" UNDERLINE="1"/>
+		</LINE>
+	</IF>
+
+	<IF EXPR="fields_usage.UseSomeOfObjectFields( 'candidate', 'org_id,position_name', 'common' )">
+		<BR/>
+
+		<LINE>
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'org_id', 'common' )">
+				<ITEM TYPE="object_selector" SOURCE="Ps.org_id" AUTO-LABEL="1" PASSIVE="1" WIDTH="40%"/>
+			</IF>
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'position_name', 'common' )">
+				<EDIT SOURCE="Ps.position_name" AUTO-LABEL="1" PASSIVE="1"/>
+			</IF>
+		</LINE>
+	</IF>
+
+	<IF EXPR="Ps.agency_org_id.HasValue &amp;&amp; Ps.agency_end_date.HasValue &amp;&amp; Ps.agency_end_date >= DateNewTime( CurDate )">
+		<BR/>
+		<PANEL BK-COLOR="131,203,237" WIDTH="100%" STD-MARGINS="0">
+			<BR HEIGHT="3px"/>
+				<LABEL TITLE-EXPR="'  ' + Ps.agency_org_id.Title + ': ' + Ps.agency_org_id.ForeignDispName + ', ' + UiText.titles.till + ' ' + Ps.agency_end_date"/>
+			<BR HEIGHT="3px"/>
+		</PANEL>
+	</IF>
+
+	<PANEL NAME="PreSpotsCsdAnchor">
+	</PANEL>
+
+	<IF EXPR="lib_app2.AppFeatureEnabled( 'mass_recruit' ) &amp;&amp; ( recruitType = Ps.get_recruit_type(), recruitType.use_candidate_position_type || recruitType.use_candidate_desired_division )">
+		<DELIM/>
+
+		<LINE>
+			<IF EXPR="Ps.get_recruit_type().use_candidate_position_type">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.position_type_id" AUTO-LABEL="1" view-filter-expr="
+						viewFilter = new Object;
+			
+						if ( Ps.recruit_type_id.HasValue )
+							viewFilter.target_recruit_type_id = Ps.recruit_type_id;
+			
+						return viewFilter;
+				" WIDTH="40zr"/>
+			</IF>
+			<IF EXPR="Ps.get_recruit_type().use_candidate_desired_division">
+				<ITEM TYPE="object_selector" SOURCE="Ps.desired_division_id" AUTO-LABEL="1" view="divisions_with_mass_recruit" view-filter-expr="
+						viewFilter = new Object;
+			
+						if ( Ps.location_id.HasValue )
+							viewFilter.location_id = Ps.location_id;
+			
+						return viewFilter;
+				"/>
+			</IF>
+		</LINE>
+	</IF>
+
+	<IF EXPR="! Ps.spots_prohibited() || Ps.spots.ChildNum != 0">
+		<BR HEIGHT="6px"/>
+
+		<ITEM TYPE="candidate_spots" NAME="SpotsList" HEIGHT="14zrc" HEIGHT-EXPR="Ps.spots.ChildNum > 2 ? '17zrc' : ( Ps.spots.ChildNum > 1 ? '14zrc' : '11zrc' )"/>
+
+		<IF EXPR="! global_settings.is_agency && global_settings.allow_bind_candidates_to_position && ! Ps.division_id.HasValue && Ps.main_vacancy_id.HasValue && ! Ps.main_vacancy_id.ForeignElem.division_id.HasValue">
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="60%"/>
+					<COL WIDTH="40%"/>
+				</COLUMNS>
+
+				<ITEM TYPE="object_selector" SOURCE="Ps.division_id" AUTO-LABEL="1"/>
+
+				<IF EXPR="global_settings.use_positions">
+					<ITEM TYPE="object_selector" SOURCE="Ps.position_id" AUTO-LABEL="1" view-filter-expr="Ps.division_id.HasValue ? {division_id:Ps.division_id} : undefined"/>
+				</IF>
+			</TABLE>
+		</IF>
+	</IF>
+
+	<IF EXPR="Ps.division_id.HasValue">
+		<DELIM/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.division_id" AUTO-LABEL="1"/>
+	</IF>
+	<IF EXPR="lib_app2.AppFeatureEnabled( 'mass_recruit' ) &amp;&amp; ( recruitType = Ps.get_recruit_type(), recruitType.require_hired_candidate_position ) &amp;&amp; Ps.position_id.HasValue">
+		<ITEM TYPE="object_selector" SOURCE="Ps.position_id" AUTO-LABEL="1" WIDTH="60%" view-filter-expr="Ps.division_id.HasValue ? {division_id:Ps.division_id} : undefined"/>
+	</IF>
+
+	<IF EXPR="( Ps.state_id.ForeignElem.make_candidate_final || Ps.state_id.ForeignElem.require_empl_start_date || Ps.est_empl_start_date.HasValue || Ps.probation_end_date.HasValue ) &amp;&amp; fields_usage.UseSomeOfObjectFields( 'candidate', 'est_empl_start_date,probation_end_date', 'common' )">
+		<BR HEIGHT="2px"/>
+		<ITEM TYPE="candidate_hire_info" section="common"/>
+	</IF>
+
+	<PANEL HEIGHT="1px">
+	</PANEL>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+</PANEL>
+
+
+<IF EXPR="local_settings.candidate_main_page.show_events && Ps.view.target_events.ChildNum != 0">
+	<SPLIT FIXED="1"/>
+
+	<IF EXPR="local_settings.candidate_main_page.show_resume">
+		<PANEL SUNKEN="1" MAX-HEIGHT="50%">
+			<ITEM TYPE="candidate_events"/>
+		</PANEL>
+	</IF>
+	<ELSE>
+		<PANEL SUNKEN="1" HEIGHT="100%">
+			<ITEM TYPE="candidate_events"/>
+		</PANEL>
+	</ELSE>
+</IF>
+
+<IF EXPR="local_settings.candidate_main_page.show_resume &amp;&amp; ( ! Ps.ChildExists( 'cs_pd_hidden' ) || ! Ps.cs_pd_hidden )">
+	<SPLIT FIXED="1"/>
+
+	<IF EXPR="Ps.opt_default_attachment != undefined">
+		<LOOP EXPR="array = new Array; array[0] = Ps.state_id + Ps.view.target_events.ChildNum + Ps.view_spot_index; return array" VAR="ListElem">
+			<ITEM TYPE="card_attachment_content" SOURCE="Ps.opt_default_attachment"/>
+		</LOOP>
+	</IF>
+	<ELSE>
+		<PANEL SUNKEN="1" HEIGHT="100%" BK-COLOR="sys-bk-ctrl">
+			<PANEL HEIGHT="40%">
+			</PANEL>
+
+			<LABEL TITLE="##UiText.titles.no_resume##" ALIGN="center" TEXT-COLOR="128,0,0"/>
+		</PANEL>
+	</ELSE>
+</IF>
+
+
+<IF EXPR="! local_settings.candidate_main_page.show_events && ! local_settings.candidate_main_page.show_resume">
+	<PANEL SUNKEN="1" HEIGHT="100%">
+	</PANEL>
+</IF>
+
+</PAGE>
+
+
+
+
+
+
+
+
+<PAGE TITLE="##UiText.sections.add_info##" IMAGE-URL="//base_pict/aux_info.ico" HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+
+<LINE>
+	<IF EXPR="fields_usage.use_object_field( 'candidate', 'code', 'add_info' )">
+		<EDIT SOURCE="Ps.code" AUTO-LABEL="1" PASSIVE="1" WIDTH="10zr"/>
+	</IF>
+
+	<IF EXPR="global_settings.use_candidate_name_en">
+		<EDIT SOURCE="Ps.lastname_en" AUTO-LABEL="1" WIDTH="28zr"/>
+		<EDIT SOURCE="Ps.firstname_en" AUTO-LABEL="1" WIDTH="18zr"/>
+	</IF>
+
+	<IF EXPR="fields_usage.use_object_field( 'candidate', 'gender_id', 'add_info' )">
+		<ITEM TYPE="elem_selector" SOURCE="Ps.gender_id" ELEM="ListElem.name" AUTO-LABEL="1" PASSIVE="1" WIDTH="8zr"/>
+	</IF>
+
+	<IF EXPR="fields_usage.use_object_field( 'candidate', 'marital_status_id', 'add_info' )">
+		<ITEM TYPE="elem_selector" SOURCE="Ps.marital_status_id" foreign-disp-name="candidate.gender_id == 0 ? name_male : ( candidate.gender_id == 1 ? name_female : name )" AUTO-LABEL="1" PASSIVE="1" WIDTH="31zr"/>
+	</IF>
+
+	<IF EXPR="fields_usage.use_object_field( 'candidate', 'children_num', 'add_info' )">
+		<EDIT SOURCE="Ps.children_num" AUTO-LABEL="1" WIDTH="8zr"/>
+	</IF>
+</LINE>
+
+
+
+<IF EXPR="fields_usage.UseSomeOfObjectFields( 'candidate', 'address,country_id,educ_type_id,citizenship_id', 'add_info' )">
+	<BR/>
+	<TABLE>
+		<COLUMNS>
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'country_id', 'add_info' )">
+				<COL WIDTH="20zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.country_id, 20, 30 )"/>
+			</IF>
+	
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'address', 'add_info' )">
+				<COL WIDTH="100%"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'citizenship_id', 'add_info' )">
+				<COL WIDTH="20zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.country_id, 20, 30 )"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'candidate', 'educ_type_id', 'add_info' )">
+				<COL WIDTH="24zr" WIDTH-EXPR="lib_base.CalcElemSelectorWidthMeasure( Ps.country_id, 24, 30 )"/>
+			</IF>
+		</COLUMNS>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'country_id', 'add_info' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.country_id" AUTO-LABEL="1" PASSIVE="1"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'address', 'add_info' )">
+			<EDIT SOURCE="Ps.address" AUTO-LABEL="1" PASSIVE="1"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'citizenship_id', 'add_info' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.citizenship_id" AUTO-LABEL="1" PASSIVE="1"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'educ_type_id', 'add_info' )">
+			<ITEM TYPE="elem_selector" SOURCE="Ps.educ_type_id" ELEM="ListElem.name" LABEL-TITLE-EXPR="fields_usage.get_field_ext_title( Ps.educ_type_id ) + ':'" PASSIVE="1"/>
+		</IF>
+	</TABLE>
+</IF>
+<DELIM/>
+
+
+<IF EXPR="lib_app2.AppFeatureEnabled( 'classic_recruit' ) &amp;&amp; lib_app2.AppFeatureEnabled( 'mass_recruit' ) &amp;&amp; fields_usage.use_object_field( 'candidate', 'recruit_type_id', 'add_info' )">
+	<GROUP>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.recruit_type_id" AUTO-LABEL="1"  WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.recruit_type_id, 20, 30 )"/>
+	</GROUP>
+	<DELIM/>
+</IF>
+
+
+<IF EXPR="fields_usage.UseSomeOfObjectFields( 'candidate', 'entrance_type_id,source_id,source_person_id', 'add_info' )">
+	<LINE>
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'entrance_type_id', 'add_info' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.entrance_type_id" AUTO-LABEL="1" PASSIVE="1" WIDTH="20zr"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'source_id', 'add_info' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.source_id" AUTO-LABEL="1" PASSIVE="1" WIDTH="35zr"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'source_person_id', 'add_info' )">
+			<ITEM TYPE="object_selector" SOURCE="Ps.source_person_id" AUTO-LABEL="1" view-filter-expr="({is_candidate:false})" WIDTH="38zr"/>
+		</IF>
+	</LINE>
+	<DELIM/>
+</IF>
+
+
+<IF EXPR="fields_usage.use_object_field( 'candidate', 'agency_org_id', 'add_info' )">
+	<GROUP>
+		<ITEM TYPE="object_selector" SOURCE="Ps.agency_org_id" AUTO-LABEL="1" view-filter-expr="({is_recruiting_agency:true})" WIDTH="50zr"/>
+		<ITEM TYPE="date_selector" SOURCE="Ps.agency_end_date" AUTO-LABEL="1"/>
+	</GROUP>
+	<DELIM/>
+</IF>
+
+<IF EXPR="fields_usage.use_object_field( 'candidate', 'src_competitor_org_id', 'add_info' )">
+	<GROUP>
+		<ITEM TYPE="object_selector" SOURCE="Ps.src_competitor_org_id" AUTO-LABEL="1" view-filter-expr="({is_competitor:true})"/>
+	</GROUP>
+	<DELIM/>
+</IF>
+
+
+<IF EXPR="fields_usage.UseSomeOfObjectFields( 'candidate', 'org_id,position_name', 'add_info' ) || fields_usage.use_object_field( 'candidate', 'work_type_id' ) || fields_usage.use_object_field( 'candidate', 'employment_percent' )">
+	<LINE>
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'org_id', 'add_info' )">
+			<ITEM TYPE="object_selector" SOURCE="Ps.org_id" AUTO-LABEL="1" PASSIVE="1" WIDTH="40%"/>
+		</IF>
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'position_name', 'add_info' )">
+			<EDIT SOURCE="Ps.position_name" AUTO-LABEL="1" PASSIVE="1" WIDTH="-16zr"/>
+		</IF>
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'work_type_id', 'add_info' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.work_type_id" AUTO-LABEL="1" PASSIVE="1" WIDTH="10zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.work_type_id, 15, 40 )"/>
+		</IF>
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'employment_percent' )">
+			<COMBO EDITABLE="1" SOURCE="Ps.employment_percent" AUTO-LABEL="1" WIDTH="15zr">
+				<COMBO-ENTRY VALUE="50"/>
+			</COMBO>
+		</IF>
+	</LINE>
+	<DELIM/>
+</IF>
+
+<IF EXPR="fields_usage.use_object_field( 'candidate', 'pd_consent_received' )">
+	<ITEM TYPE="candidate_pd_consent_info"/>
+	<DELIM/>
+</IF>
+
+
+<IF EXPR="fields_usage.UseSomeOfObjectFields( 'candidate', 'est_empl_start_date,probation_end_date', 'add_info' ) || global_settings.use_fractional_mp_vacancies">
+	<ITEM TYPE="candidate_hire_info" section="add_info"/>
+	<DELIM/>
+</IF>
+
+
+<IF EXPR="fields_usage.use_object_field( 'candidate', 'time_zone' )">
+	<GROUP>
+		<ITEM TYPE="time_zone_edit" SOURCE="Ps.time_zone" AUTO-LABEL="1"/>
+	</GROUP>
+	<DELIM/>
+</IF>
+
+<IF EXPR="rcr_config.use_ext_duplicates_search">
+	<GROUP>
+		<EDIT SOURCE="Ps.external_storage_eid" WIDTH="25zr" LABEL-TITLE="Идентификатор в другой базе:"/>
+	</GROUP>
+	<DELIM/>
+</IF>
+
+
+<PANEL NAME="AddInfoCsdAnchor">
+</PANEL>
+
+</PAGE>
+
+
+
+<ITEM TYPE="person_skills_page"/>
+
+
+
+<PAGE TITLE-EXPR="UiText.fields.education + ( Ps.prev_educations.ChildNum != 0 ? ' (' + Ps.prev_educations.ChildNum + ')' : '' )" IMAGE-URL="//base_pict/education.ico" SUNKEN="1" VERT-SCROLL="1">
+
+<LOOP EXPR="ArraySort( Ps.prev_educations, 'end_year', '-', 'start_date', '-' )" VAR="ListElem">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="16zr"/>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="1zr"/>
+			<COL WIDTH="button"/>
+		</COLUMNS>
+
+		<LABEL TITLE="##UiText.fields.end_year##:"/>
+
+		<LABEL TITLE="Учебное заведение:" lang-en:TITLE="Educational institution:" lang-ua:TITLE="Навчальний заклад:"/>
+
+		<LABEL/>
+		<LABEL/>
+
+		<EDIT SOURCE="ListElem.end_year"/>
+
+		<IF EXPR="rcr_config.use_person_educ_institutions">
+			<COMBO SOURCE="ListElem.org_name" EDITABLE="1" UPDATE-ACTION="
+					ListElem.org_name = Trim( UnifySpaces( ListElem.org_name ) );
+					if ( ListElem.org_name == '' )
+						return;
+
+					educInstitution = ArrayOptFindByKey( educ_institutions, ListElem.org_name, 'name' );
+					if ( educInstitution != undefined )
+						return;
+
+					doc = DefaultDb.OpenNewObjectDoc( 'educ_institution', lib_voc.obtain_next_voc_elem_id( educ_institutions ) );
+					doc.TopElem.name = ListElem.org_name;
+					
+					try // quick fix for permission problem
+					{
+						doc.Save();
+					}
+					catch ( e )
+					{
+					}
+			">
+				<LOOP EXPR="lib_voc.get_sorted_voc( educ_institutions )" VAR="_educ_institution">
+					<COMBO-ENTRY VALUE-EXPR="_educ_institution.name" TITLE-EXPR="_educ_institution.name"/>
+				</LOOP>
+			</COMBO>
+		</IF>
+		<ELSE>
+			<EDIT SOURCE="ListElem.org_name"/>
+		</ELSE>
+
+		<LABEL/>
+
+		<IMAGE URL="//base_pict/more_actions.ico">
+			<MENU>
+				<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+						ListElem.Delete();
+						Ps.Doc.SetChanged( true );
+				"/>
+			</MENU>
+		</IMAGE>
+	</TABLE>
+
+	<TABLE>
+		<COLUMNS>
+			<IF EXPR="ListElem.ChildExists( 'city_name' )">
+				<COL WIDTH="30zr"/>
+			</IF>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="30zr"/>
+		</COLUMNS>
+
+		<IF EXPR="ListElem.ChildExists( 'city_name' )">
+			<LABEL TITLE="##UiText.fields.city##:"/>
+		</IF>
+		<LABEL TITLE="##UiText.fields.profession##:"/>
+		<LABEL/>
+
+		<IF EXPR="ListElem.ChildExists( 'city_name' )">
+			<EDIT SOURCE="ListElem.city_name"/>
+		</IF>
+
+		<EDIT SOURCE="ListElem.speciality_name"/>
+		<CHECK SOURCE="ListElem.is_secondary" TITLE="##UiText.titles.additional_education##"/>
+	</TABLE>
+
+	<IF EXPR="rcr_config.show_educ_departments">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="45%"/>
+				<COL WIDTH="55%"/>
+				<IF EXPR="AppModuleUsed( 'module_alfa' )">
+					<COL WIDTH="10zr"/>
+				</IF>
+			</COLUMNS>
+
+			<EDIT SOURCE="ListElem.department_name" LABEL-TITLE="Факультет:" lang-en:LABEL-TITLE="Department:" lang-ua:LABEL-TITLE="Факультет:"/>
+			<EDIT SOURCE="ListElem.sub_department_name" LABEL-TITLE="Кафедра:" lang-en:LABEL-TITLE="Sub-Department:" lang-ua:LABEL-TITLE="Кафедра:"/>
+			
+			<IF EXPR="AppModuleUsed( 'module_alfa' )">
+				<EDIT SOURCE="ListElem.cur_year" LABEL-TITLE="Курс:" lang-en:LABEL-TITLE="Year:" lang-ua:LABEL-TITLE="Курс:"/>
+			</IF>
+		</TABLE>
+	</IF>
+	
+	<PANEL NAME="PrevEducCsdAnchor">
+	</PANEL>
+
+	<LABEL TITLE="##UiText.sections.add_info##:" lang-en:TITLE="Add. info:"/>
+	<EDIT SOURCE="ListElem.comment" MULTILINE="1" HEIGHT="auto"/>
+
+	<DELIM/>
+</LOOP>
+
+
+</PAGE>
+
+
+
+<PAGE TITLE-EXPR="UiText.fields.prev_jobs + ( Ps.prev_jobs.ChildNum != 0 ? ' (' + Ps.prev_jobs.ChildNum + ')' : '' )" IMAGE-URL="//base_pict/org.ico" SUNKEN="1" VERT-SCROLL="1">
+
+<LOOP EXPR="ArraySort( Ps.prev_jobs, 'start_date', '-' )" VAR="ListElem">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="14zr"/>
+			<COL WIDTH="15zrc"/>
+			<COL WIDTH="30%"/>
+			<COL WIDTH="15%"/>
+			<COL WIDTH="40%"/>
+			<COL WIDTH="15%"/>
+			<COL WIDTH="1zr"/>
+			<COL WIDTH="button"/>
+		</COLUMNS>
+
+		<LABEL TITLE="##UiText.fields.start_date##:" lang-en:TITLE="Start Date:"/>
+		<LABEL TITLE="##UiText.fields.end_date##:" lang-en:TITLE="End date:"/>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+
+				<IF EXPR="global_settings.is_agency">
+					<COL WIDTH="21zr"/>
+				</IF>
+			</COLUMNS>
+
+			<LABEL TITLE="##UiText.objects.company##:" lang-en:TITLE="Company:"/>
+
+			<IF EXPR="global_settings.is_agency">
+				<CHECK TITLE="Из списка клиентов" SOURCE="ListElem.use_org_id" UPDATE-ACTION="
+						if ( ! ListElem.use_org_id )
+							ListElem.org_id.Clear();
+				" lang-en:TITLE="From clients list" lang-ua:TITLE="Зі списку клієнтів"/>
+			</IF>
+		</TABLE>
+
+		<LABEL TITLE="##UiText.fields.city##:"/>
+		<LABEL TITLE="##UiText.fields.industry##:"/>
+		<LABEL TITLE="##UiText.fields.web_site##:"/>
+		<LABEL/>
+		<LABEL/>
+
+		<ITEM TYPE="date_selector" SOURCE="ListElem.start_date" allow-no-month="1"/>
+		<ITEM TYPE="date_selector" SOURCE="ListElem.end_date" allow-no-month="1"/>
+
+		<IF EXPR="ListElem.use_org_id">
+			<ITEM TYPE="object_selector" SOURCE="ListElem.org_id"/>
+		</IF>
+		<ELSE>
+			<EDIT SOURCE="ListElem.org_name" UPDATE-ACTION="lib_recruit.guess_candidate_src_competitor_org( Ps )"/>
+		</ELSE>
+
+		<EDIT SOURCE="ListElem.org_location_name"/>
+		<EDIT SOURCE="ListElem.org_industry_name"/>
+		<EDIT SOURCE="ListElem.org_web"/>
+
+		<LABEL/>
+
+		<IMAGE URL="//base_pict/more_actions.ico">
+			<MENU>
+				<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+						ListElem.Delete();
+						Ps.Doc.SetChanged( true );
+				"/>
+			</MENU>
+		</IMAGE>
+	</TABLE>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="12zr"/>
+		</COLUMNS>
+
+		<LABEL TITLE="##UiText.fields.position##:" lang-en:TITLE="Position:"/>
+		<LABEL TITLE="##UiText.fields.salary_level##:"/>
+
+		<EDIT SOURCE="ListElem.position_name"/>
+		<EDIT SOURCE="ListElem.salary"/>
+	</TABLE>
+
+	<IF EXPR="AppModuleUsed( 'module_pm' )">
+		<ITEM TYPE="voc_elem_selector" SOURCE="ListElem.profession_id" LABEL-TITLE="##UiText.fields.profession##:"/>
+	</IF>
+
+	<LABEL TITLE="Обязанности, основные достижения:" lang-en:TITLE="Description:" lang-ua:TITLE="Обов'язки, основні досягнення:"/>
+	<EDIT SOURCE="ListElem.comment" MULTILINE="1" HEIGHT="auto"/>
+	<DELIM/>
+
+	<IF EXPR="AppModuleUsed( 'module_lukoil' )">
+		<SUBST FORM-EXPR="'//module_lukoil/lukoil_fields_prev_job.xms'" SOURCE="ListElem"/>
+	</IF>
+</LOOP>
+
+
+</PAGE>
+
+
+
+
+<PAGE TITLE="##UiText.titles.vacancies##" SUNKEN="1" STD-MARGINS="1" IMAGE-URL="//base_pict/vacancy.ico">
+	<ITEM TYPE="candidate_spots" NAME="SpotsList" HEIGHT="100%"/>
+</PAGE>
+
+
+
+<PAGE TITLE-EXPR="UiText.fields.personal_records + ( Ps.view.target_events.ChildNum != 0 ? '  (' + Ps.view.target_events.ChildNum + ')' : '' )" IMAGE-URL="//base_pict/event.ico">
+	<PANEL SUNKEN="1" HEIGHT="100%">
+		<ITEM TYPE="candidate_events"/>
+	</PANEL>
+</PAGE>
+
+
+<ITEM FORM-DATA-EXPR="lib_base.get_card_pages_form( 'candidate' )"/>
+
+<IF EXPR="! Ps.ChildExists( 'cs_pd_hidden' ) || ! Ps.cs_pd_hidden">
+	<ITEM TYPE="card_attachments"/>
+</IF>
+
+
+
+</PAGE>
+
+</SELECTOR>
+
+</LINE>
+
+
+<COMMAND-HANDLER CMD="CheckSpelling" ACTION="
+		Screen.CheckSpelling();
+"/>
+
+
+<COMMAND-HANDLER CMD="SelectToVacancy" ACTION="
+		Ps.add_new_spot( Screen );
+"/>
+
+
+<COMMAND-HANDLER CMD="Print" ACTION="
+		if ( AppModuleUsed( 'module_pm' ) )
+			reportStr = EvalCodePageUrl( '//module_pm/pm_candidate.xmp', 'strict-errors=1' );
+		else
+			reportStr = EvalCodePageUrl( 'rcr_candidate.xmp', 'strict-errors=1' );
+		
+		lib_base.print_report( reportStr );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="PrintDocument" ACTION="
+		if ( candidate.active_attachment == undefined )
+			return;
+
+		lib_base.print_card_attachment( candidate.active_attachment );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="AddPrevEducation" ACTION="
+		prevEducation = Ps.prev_educations.AddChild();
+
+		Ps.Doc.SetChanged( true );
+
+		Screen.Update();
+		Screen.ExposeItemBySource( prevEducation.end_year );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="AddPrevJob" ACTION="
+		prevJob = Ps.prev_jobs.AddChild();
+		prevJob.use_org_id = false;
+
+		Ps.Doc.SetChanged( true );
+
+		Screen.Update();
+		Screen.ExposeItemBySource( prevJob.start_date );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="AddSkill" ACTION="
+		skillTypeID = lib_voc.select_voc_elem( skill_types );
+
+		if ( GetForeignElem( skill_types, skillTypeID ).is_folder )
+			throw UserError( UiText.errors.unable_to_add_skill_group );
+
+		if ( Ps.skills.GetOptChildByKey( skillTypeID ) != undefined )
+			throw UserError( UiText.errors.skill_already_added );
+
+		skill = Ps.skills.AddChild();
+		skill.type_id = skillTypeID;
+
+		Ps.Doc.SetChanged( true );
+
+		Screen.Update();
+		Screen.ExposeItemBySource( skill.comment );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="Help" HREF="help/candidate_card.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+
+<INHERIT TYPE="generic_screen_commands"/>
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+
+
+

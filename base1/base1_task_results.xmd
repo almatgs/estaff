@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM CODE-LIB="1" AUTO-SAVE="1">
+
+<task_results>	
+	<result_entries>	
+		<result_entry MULTIPLE="1" PRIMARY-KEY="task_id">
+			<task_id TYPE="string"/>
+			<last_run_date TYPE="date"/>
+		</result_entry>
+	</result_entries>	
+</task_results>
+
+
+
+</SPXML-FORM>

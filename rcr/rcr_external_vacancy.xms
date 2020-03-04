@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.external_vacancy##" WIDTH="100zr" HEIGHT="60zr" BEFORE-INIT-ACTION="
+		//Screen.EditMode = false;
+">
+
+
+<ITEM TYPE="card_menu_start"/>
+
+<ITEM TYPE="card_toolbar"/>
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1">
+	<GROUP>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.recruit_provider_id" WIDTH="25zr" AUTO-LABEL="1"/>
+		<SEPARATOR/>
+		<EDIT SOURCE="Ps.eid" WIDTH="15zr" READ-ONLY="1" AUTO-LABEL="1"/>
+		<SEPARATOR/>
+		<EDIT SOURCE="Ps.name" READ-ONLY="1" AUTO-LABEL="1"/>
+	</GROUP>
+	<DELIM/>
+	<GROUP>
+		<ITEM TYPE="object_selector" SOURCE="Ps.user_id" WIDTH="35zr" AUTO-LABEL="1"/>
+	</GROUP>
+</PANEL>
+
+
+<COMMAND-HANDLER CMD="Help" HREF="//rc/help/intro.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1" TARGET-NEW-WINDOW="1"/>
+
+</SPXML-SCREEN>

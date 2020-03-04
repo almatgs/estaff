@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_vacancy_record_types SPXML-FORM="rcr_std_vacancy_record_types.xmd">
+	<std_vacancy_record_type>
+		<id>position_open</id>
+		<name VALUE="##UiText.titles.opened##" lang-en:VALUE="Opened"/>
+		<is_open_date>1</is_open_date>
+	</std_vacancy_record_type>
+
+	<std_vacancy_record_type>
+		<id>position_close</id>
+		<name VALUE="##UiText.titles.closed_f##" lang-en:VALUE="Closed"/>
+		<text_color>0,128,0</text_color>
+		<deactivate_object>1</deactivate_object>
+		<candidate_record_type_id>close</candidate_record_type_id>
+	</std_vacancy_record_type>
+
+	<std_vacancy_record_type>
+		<id>position_suspend</id>
+		<name VALUE="##UiText.titles.suspended_f##"/>
+		<text_color>255,128,0</text_color>
+		<deactivate_object>1</deactivate_object>
+	</std_vacancy_record_type>
+
+	<std_vacancy_record_type>
+		<id>position_reopen</id>
+		<name VALUE="##UiText.titles.renewed##" lang-en:VALUE="Renewed"/>
+	</std_vacancy_record_type>
+
+	<std_vacancy_record_type>
+		<id>position_cancel</id>
+		<name VALUE="##UiText.titles.cancelled##" lang-en:VALUE="Cancelled"/>
+		<text_color>128,0,0</text_color>
+		<deactivate_object>1</deactivate_object>
+		<candidate_record_type_id>cancel</candidate_record_type_id>
+	</std_vacancy_record_type>
+</std_vacancy_record_types>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

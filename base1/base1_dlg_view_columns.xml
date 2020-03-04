@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_voc_param>
+	<view_ref TYPE="variant"/>
+	<view PROPERTY="1" EXPR="view_ref.Object"/>
+
+	<param_ref TYPE="variant"/>
+	<param PROPERTY="1" EXPR="param_ref.Object"/>
+
+	<use_subst TYPE="bool" NULL-FALSE="1"/>
+</dlg_voc_param>
+
+
+
+</SPXML-INLINE-FORM>

@@ -1,0 +1,35 @@
+<%
+Server.Execute( 'include/std_head.htm' );
+
+eventID = Int( Request.Query.id );
+event = GetOptForeignElem( events, eventID );
+if ( event == undefined )
+	throw 'Event not found';
+
+eventDoc = OpenDoc( DefaultDb.GetRecordPrimaryObjectUrl( event ) );
+event = eventDoc.TopElem;
+
+candidate = OpenDoc( event.candidate_id.ForeignObjectUrl ).TopElem;
+prevCandidateStateID = RValue( candidate.state_id );
+
+participant = event.participants.GetChildByKey( curPerson.id );
+
+if ( ! Request.Form.HasProperty( 'approve' ) )
+	HandlePostError( 'Не выбран ответ' );
+
+approvalEntry = event.approval_entries.ObtainChildByKey( participant.person_id );
+approvalEntry.date = CurDate;
+approvalEntry.is_approved = ( Request.Form.approve == '1' );
+
+//LogEvent( '', 'event_approval_change ' + curPerson.fullname );
+
+eventDoc.Save();
+
+candidateDoc = OpenDoc( event.candidate_id.ForeignObjectUrl );
+candidate = candidateDoc.TopElem;
+//if ( candidate.state_id != prevCandidateStateID )
+	//lib_recruit.set_candidate_state_finish( candidate, event, event.occurrence_id, event.vacancy_id, Object() );
+
+if ( outerEnv == undefined )
+	Response.Redirect( 'event.htm?id=' + eventID );
+%>

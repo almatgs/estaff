@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base1_ui_text xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<titles>
+	</titles>
+	<actions>
+		<upload_to_wts VALUE="Выгрузить в E-Staff Online" lang-en:VALUE="Upload to E-Staff Online" lang-ua:VALUE="Розмістити на E-Staff Online"/>
+	</actions>
+	<errors>
+		<wts_access_token_not_specified VALUE="В общих настройках не указан ключ доступа к E-Staff Online" lang-en:VALUE="Access token for E-Staff Online is not specified in global settings" lang-ua:VALUE="У загальних настройках не вказано ключ доступу до E-Staff Online"/>
+		<poll_spec_not_uploaded_to_wts VALUE="Опросный лист не загружен в E-Staff Online" lang-en:VALUE="Poll specification has not been uploaded to E-Staff Online" lang-ua:VALUE="Опитувальний лист не завантажений в E-Staff Online"/>
+	</errors>
+</base1_ui_text>

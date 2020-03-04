@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+<COMPLEX-ITEM NAME="TREE" SAMPLE="1" VIEW="TreeView" OnBeforeBuild="
+		if ( GetAttrValue( 'SWITCH-TYPE' ) == 'selector' )
+			BuildPageLayoutFormEntries();
+" OnCurrentEntryChanged="
+		LibTree.OnTreeViewCurrentEntryChanged( ViewItem, CurrentEntry );
+">
+	<ATTRIBUTE NAME="SWITCH-TYPE" DEFAULT="selector"/>
+</COMPLEX-ITEM>
+
+
+<PANEL NAME="TreeView" SAMPLE="1" INNER-ALIAS="treeView" WIDTH="100%" HEIGHT="100%" OnBeforeBuild="
+		LibTree.OnBuildTreeView( treeView );
+" VERT-SCROLL="1">
+	<INSERT-ITEMS OnBeforeBuild="LibTree.OnBuildTreeViewCore( treeView, Item )"/>
+</PANEL>
+
+
+<PANEL NAME="TreeEntryView" SAMPLE="1" INNER-ALIAS="entryView" WIDTH="100%" STATES="hover,pressed" STD-MARGINS="0" PADDING="0 0 0 0" HEIGHT="1.8em" BK-COLOR-EXPR="
+		if ( entryView.AuxData.isCurrent )
+			return AppUi.gThemeData.colors.gray_hover;
+		else
+			return '';
+
+		switch ( State )
+		{
+			case 'hover':
+			case 'pressed':
+				return AppUi.gThemeData.colors.gray_hover;
+		}
+
+		return '';
+" OnBuild="
+		//entryView.AuxData.isCurrent = ( treeView.MasterItem.CurrentEntry === entryView.MasterItem );
+" ACTION="LibTree.OnTreeEntryClick( treeView, entryView )" OnDoubleClick="LibTree.OnTreeEntryDoubleClick( treeView, entryView )" PASSIVE="1">
+	<LINE STD-MARGINS="0">
+		<PANEL WIDTH="3px" HEIGHT="100%" BK-COLOR-EXPR="
+				if ( entryView.AuxData.isCurrent )
+					return AppUi.gThemeData.colors.blue_text;
+
+				return '';
+		">
+		</PANEL>
+
+		<PANEL WIDTH-EXPR="AppUi.metrics.treeHierIndent * BaseSampleItem.AuxData.hierLevel">
+		</PANEL>
+
+		<IF EXPR="AppUi.useCompatMode1 || entryView.AuxData.hierLevel == 0">
+			<PANEL WIDTH="3.1em" PADDING="0 0 0 1.2em">
+				<IF EXPR="BaseSampleItem.AuxData.imageUrl != undefined">
+					<IF EXPR="StrEnds( UrlPath( entryView.AuxData.imageUrl ), '.ico' )">
+						<IMAGE URL-EXPR="entryView.AuxData.imageUrl" ALLOW-EMPTY="1" WIDTH="16px" HEIGHT="16px"/>
+					</IF>
+					<ELSE>
+						<IMAGE URL-EXPR="entryView.AuxData.imageUrl" ALLOW-EMPTY="1"/>
+					</ELSE>
+				</IF>
+			</PANEL>
+		</IF>
+		<ELSE>
+			<PANEL WIDTH="1.5em">
+			</PANEL>
+		</ELSE>
+
+		<LABEL TITLE-EXPR="entryView.MasterItem.Title" WIDTH="100%" MULTILINE="0" END-ELLIPSIS="1" TIP-DEFAULT="1" TIP-CLIPPED-TEXT="1" TEXT-COLOR-EXPR="
+				switch ( BaseSampleItem.State )
+				{
+					case 'hover':
+					case 'pressed':
+						return AppUi.gThemeData.colors.blue_text;
+				}
+
+				level = entryView.AuxData.hierLevel;
+				if ( level == 0 )
+					return AppUi.gThemeData.colors.text;
+				else
+					return AppUi.gThemeData.colors.button_gray_text;
+		" FONT-WEIGHT-EXPR="
+				level = entryView.AuxData.hierLevel;
+				if ( level == 0 )
+					return 700;
+				else
+					return 400;
+		" F="12px bold/normal"/>
+
+		<PANEL ALIGN="right" PADDING="0 0 0 5epx" STD-MARGINS="0">
+			<IF EXPR="BaseSampleItem.AuxData.hasChildren">
+				<IF EXPR="entryView.AuxData.isExpanded">
+					<ActionImage IMAGE-URL="pict/tree_entry_collapse.svg" HEIGHT="100%" PADDING="0" OnMouseDown="LibTree.OnTreeEntryToggle( treeView, entryView )" PASSIVE="1"/>
+				</IF>
+				<ELSE>
+					<ActionImage IMAGE-URL="pict/tree_entry_expand.svg" HEIGHT="100%" PADDING="0" OnMouseDown="LibTree.OnTreeEntryToggle( treeView, entryView )" PASSIVE="1"/>
+				</ELSE>
+			</IF>
+		</PANEL>
+	</LINE>
+</PANEL>
+
+
+
+<COMPLEX-ITEM NAME="MinimizableTree" SAMPLE="1" VIEW="MinimizableTreeView" OnBeforeBuild="
+		if ( GetAttrValue( 'SWITCH-TYPE' ) == 'selector' )
+			BuildPageLayoutFormEntries();
+" OnCurrentEntryChanged="
+		LibTree.OnTreeViewCurrentEntryChanged( ViewItem, CurrentEntry );
+">
+	<ATTRIBUTE NAME="SWITCH-TYPE" DEFAULT="selector"/>
+</COMPLEX-ITEM>
+
+
+
+<PANEL NAME="MinimizableTreeView" SAMPLE="1" INNER-ALIAS="treeView" WIDTH__="100%" HEIGHT__="100%" OnBeforeBuild="
+		LibTree.OnBuildTreeView( treeView );
+
+		srcObject = AppLocalStorage.LoadEntryValue( treeView.MasterItem.LocalStorageKey );
+		if ( srcObject != undefined )
+			treeView.AuxData.isMinimized = srcObject.is_minimized;
+">
+	<IF EXPR="treeView.AuxData.isMinimized">
+		<PANEL WIDTH="25vpx" HEIGHT="100%" BK-COLOR-EXPR="AppUi.themeColors.window_title_bar">
+			<ActionImage IMAGE-URL="pict/right_double_small.svg" WIDTH="19vpx" HEIGHT="22vpx" PADDING="0" ACTION="
+					LibTree.SetTreeViewMinimized( treeView, ! treeView.AuxData.isMinimized );
+			" ALIGN="center"/>
+
+			<BR HEIGHT="8vpx"/>
+
+			<PANEL WIDTH="100%" HEIGHT="100%" STATES="hover,pressed" INNER-ALIAS="minimizedBasePanel" DROP-DOWN-BASE="1" OnMouseDown="
+					if ( minimizedBasePanel.DropDownItem != undefined &amp;&amp; minimizedBasePanel.DropDownItem.IsDisplayed )
+					{
+						minimizedBasePanel.DropDownItem.CloseDropDown();
+						return;
+					}
+
+					dropDownItem = minimizedBasePanel.Env.CreateItemBySample( 'DropDownTreeView' );
+					dropDownItem.MasterItem = treeView.MasterItem;
+					dropDownItem.OpenDropDown( minimizedBasePanel, 'top-right', 0, 0 );
+			" PASSIVE="1">
+				<LABEL TITLE="##UiText.titles.menu##" ROTATION="90" FONT-CLASS="small-bold" TEXT-COLOR-EXPR="
+						switch ( minimizedBasePanel.State )
+						{
+							case 'hover':
+							case 'pressed':
+								return AppUi.themeColors.primary;
+
+							default:
+								return AppUi.themeColors.button_gray_text;
+						}
+				" ALIGN="center"/>
+			</PANEL>
+		</PANEL>
+	</IF>
+	<ELSE>
+		<ActionImage IMAGE-URL="pict/left_double_small.svg" WIDTH="22vpx" HEIGHT="22vpx" PADDING="0" ACTION="
+				LibTree.SetTreeViewMinimized( treeView, ! treeView.AuxData.isMinimized );
+		"/>
+
+		<BR HEIGHT="2vpx"/>
+
+		<SUBST TYPE="TreeView" MASTER-ITEM="treeView.MasterItem" WIDTH-EXPR="LibTree.CalcTreeReqWidthMeasure( treeView.MasterItem )"/>
+	</ELSE>
+</PANEL>
+
+
+<PANEL NAME="DropDownTreeView" SAMPLE="1" INNER-ALIAS="treeView" WIDTH-EXPR="LibTree.CalcTreeReqWidthMeasure( treeView.MasterItem )" HEIGHT_="100%" OnBeforeBuild="
+		LibTree.OnBuildTreeView( treeView );
+" VERT-SCROLL="1" BORDER-WIDTH="1" SHADOW="1" BK-COLOR-EXPR="AppUi.themeColors.background">
+	<INSERT-ITEMS OnBeforeBuild="LibTree.OnBuildTreeViewCore( treeView, Item )"/>
+</PANEL>
+
+
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+
+
+

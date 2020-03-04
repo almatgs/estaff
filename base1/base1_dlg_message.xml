@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_message>
+	<message_type TYPE="string" DEFAULT="warning"/>
+	<title TYPE="string"/>
+	<text TYPE="string" MULTILINE="1"/>
+	<never_show_again TYPE="bool" NOT-NULL="1"/>
+
+	<calc_width_px PROPERTY="1" EXPR="
+			maxLineLen = 0;
+
+			for ( line in String( text ).split( '\n' ) )
+			{
+				lineLen = CalcTextScreenWidth( line );
+				if ( lineLen > maxLineLen )
+					maxLineLen = lineLen;
+			}
+			
+			return Min( Max( maxLineLen + 60, 360 ), 720 );
+	"/>
+
+	
+	<calc_height_zr PROPERTY="1" EXPR="
+			linesNum = 0;
+
+			for ( line in String( text ).split( '\n' ) )
+			{
+				linesNum++;
+
+				lineLen = StrCharCount( line );
+				if ( lineLen > 100 )
+					linesNum++;
+			}
+
+			zrNum = ( linesNum * 3 ) / 2;
+			
+			return Min( Max( zrNum + 22, 25 ), 300 );
+	"/>
+</dlg_message>
+
+
+
+</SPXML-INLINE-FORM>

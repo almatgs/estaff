@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SPXML-SCREEN>
+
+<PANEL NAME="MenuView" SAMPLE="1" INNER-ALIAS="menuView" STD-MARGINS="0"
+		BK-COLOR-EXPR="AppUi.gThemeData.colors.background"
+		BORDER-WIDTH="1px"
+		BORDER-COLOR-EXPR="AppUi.gThemeData.colors.menu_border"
+		BORDER-RADIUS="2px"
+		SHADOW-BLUR-RADIUS="2px"
+		SHADOW-OFFSET="1px 1px"
+		SHADOW-COLOR-EXPR="AppUi.gThemeData.colors.shadow_inner"
+		SHADOW-GRADIENT-OPACITY="0">
+	<TABLE>
+		<COLUMNS>
+			<COL/>
+			<COL/>
+			<COL/>
+			<COL WIDTH="20epx"/>
+		</COLUMNS>
+
+		<LOOP EXPR="menuView.MasterItem.Entries" VAR="entry">
+			<IF EXPR="entry.FormItem.IsSeparator">
+				<SUBST TYPE="MenuSeparatorView" MASTER-ITEM="entry"/>
+			</IF>
+			<ELSE>
+				<SUBST TYPE="MenuEntryView" MASTER-ITEM="entry"/>
+			</ELSE>
+		</LOOP>
+	</TABLE>
+</PANEL>
+
+
+<TABLE-ROW NAME="MenuEntryView" INNER-ALIAS="entryView" SAMPLE="1" STATES="hover,pressed,disabled" OnBuild___="DebugMsg(MasterItem.Title)" BK-COLOR-EXPR="
+		switch ( entryView.State )
+		{
+			case 'normal':
+				return AppUi.gThemeData.colors.background;
+
+			case 'hover':
+				return AppUi.gThemeData.colors.gray_hover;
+
+			case 'pressed':
+				return AppUi.gThemeData.colors.gray_pressed;
+		}
+" OnVisualStateChange="
+		LibMenu.OnMenuEntryVisualStateChange( menuView, entryView );
+" OnMouseDown="
+		LibMenu.OnMenuEntryMouseDown( menuView, entryView );
+" ACTION="
+		if ( entryView.MasterItem.Entries.length != 0 )
+			return;
+
+		CloseAllDropDownItems();
+		MasterItem.RunActions();
+" PASSIVE="1">
+	<ATTRIBUTE NAME="isChecked" TYPE="bool"/>
+
+	<PANEL PADDING="6epx 18epx 6epx 4zr">
+		<LABEL TITLE-EXPR="
+				obj = String( entryView.MasterItem.Title ).split( '\t' );
+				return obj[0]
+		" MULTILINE="0" TEXT-COLOR-EXPR="
+				switch ( entryView.State )
+				{
+					case 'normal':
+						return AppUi.gThemeData.colors.text;
+
+					case 'hover':
+						return AppUi.gThemeData.colors.primary;
+
+					case 'pressed':
+						return AppUi.gThemeData.colors.dark;
+
+					case 'disabled':
+						return AppUi.gThemeData.colors.disabled_text;
+				}
+		"/>
+	</PANEL>
+
+	<PANEL PADDING="6epx 18epx 6epx 18epx" FULL-WIDTH="1">
+		<LABEL TITLE-EXPR="
+				obj = String( entryView.MasterItem.Title ).split( '\t' );
+				if ( obj.length > 1 )
+					return obj[1];
+				else
+					return '';
+		" MULTILINE="0" ALIGN="right" TEXT-COLOR-EXPR="
+				switch ( entryView.State )
+				{
+					case 'normal':
+						return AppUi.gThemeData.colors.text;
+
+					case 'hover':
+						return AppUi.gThemeData.colors.primary;
+
+					case 'pressed':
+						return AppUi.gThemeData.colors.dark;
+
+					case 'disabled':
+						return AppUi.gThemeData.colors.disabled_text;
+				}
+		"/>
+	</PANEL>
+
+	<IF EXPR="
+			//return entryView.MasterItem.AuxData.isChecked;
+			entryView.MasterItem.IsChecked;
+	">
+		<PANEL PADDING="8epx">
+			<IMAGE URL-EXPR="
+				colorMapping = new Object;
+				return AppUi.GetStateImageUrl( '/theme/pict/menu_entry_check.svg', entryView.State, colorMapping );
+			" WIDTH="11epx" HEIGHT="9epx"/>
+		</PANEL>
+	</IF>
+	<ELSE>
+		<LABEL/>
+	</ELSE>
+
+	<IF EXPR="entryView.MasterItem.Type == 'MENU' || entryView.MasterItem.Entries.length != 0">
+		<PANEL PADDING="8epx">
+				<IMAGE URL-EXPR="
+				colorMapping = new Object;
+				return AppUi.GetStateImageUrl( '/theme/pict/arrow_right_small.svg', entryView.State, colorMapping );
+			"/>
+		</PANEL>
+	</IF>
+</TABLE-ROW>
+
+
+
+<TABLE-ROW NAME="MenuSeparatorView" SAMPLE="1">
+	<PANEL HSPAN="4" STD-MARGINS="0" PADDING="2px 4px">
+		<PANEL WIDTH="100%" HEIGHT="1px" BK-COLOR-EXPR="AppUi.themeColors.menu_separator">
+		</PANEL>
+	</PANEL>
+</TABLE-ROW>
+
+
+		
+<COMPLEX-ITEM NAME="MenuBar" SAMPLE="1" VIEW="MenuBarView" MENU-ENTRIES="1">
+</COMPLEX-ITEM>
+
+
+<PANEL NAME="MenuBarView" INNER-ALIAS="menuBarView" SAMPLE="1" WIDTH="100%">
+	<PANEL HEIGHT="2.2em" BK-COLOR__="200,200,255">
+		<LINE>
+			<LOOP EXPR="menuBarView.MasterItem.Entries" VAR="entry">
+				<SUBST TYPE="MenuBarEntryView" MASTER-ITEM="entry"/>
+			</LOOP>
+		</LINE>
+	</PANEL>
+	<IF EXPR="AppUi.useCompatMode1">
+		<SPLIT FIXED="1"/>
+	</IF>
+</PANEL>
+
+
+<PANEL NAME="MenuBarEntryView" INNER-ALIAS="entryView" SAMPLE="1" HEIGHT="100%" STATES="hover,pressed" TRANSFERABLE-PRESSED-STATE="1" DROP-DOWN-BASE="1" STD-MARGINS="0" BK-COLOR-EXPR="
+	if ( entryView.AuxData.isCurrent )
+		return AppUi.gThemeData.colors.gray_hover;
+	else
+		return '';
+
+	switch ( State )
+	{
+		case 'hover':
+		case 'pressed':
+			return AppUi.gThemeData.colors.gray_hover;
+	}
+
+	return '';
+" OnBeforeBuild="
+		entryView.AuxData.imageUrl = entry.ImageUrl;
+		if ( entryView.AuxData.imageUrl == '' )
+			entryView.AuxData.imageUrl = undefined;
+" OnMouseDown="
+		LibMenu.OnMenuBarEntryMouseDown( menuBarView, entryView )
+" OnVisualStateChange="
+		LibMenu.OnMenuBarEntryVisualStateChange( menuBarView, entryView )
+" PASSIVE="1">
+	<PANEL PADDING="1px 4px 2px 4px">
+		<LINE HEIGHT="100%">
+			<IF EXPR="entry.Title != ''">
+				<PANEL WIDTH="9epx">
+				</PANEL>
+				<LABEL TITLE-EXPR="entry.Title" TEXT-COLOR-EXPR="
+					switch ( entryView.State )
+					{
+						case 'hover':
+						case 'pressed':
+							return AppUi.gThemeData.colors.blue_text;
+					}
+
+					if ( entryView.AuxData.isCurrent )
+						return AppUi.gThemeData.colors.blue_text;
+
+					return '';
+			"/>
+			</IF>
+		</LINE>
+	</PANEL>
+</PANEL>
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+

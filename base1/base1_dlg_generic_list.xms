@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="UiText.titles.object_selection + ': ' + Ps.param.objectForm.Title" WIDTH-EXPR="( 160 + lib_view.calc_measure_hash( Ps.param ) ) + 'zr'" HEIGHT-EXPR="( 92 + lib_view.calc_measure_hash( Ps.param ) ) + 'zr'" OK-ACTION="
+			okActionCode = 'list = Screen.FindItem( \'MainList\' );' + '\n';
+			okActionCode += 'for ( row in list.SelRows ) { Ps.object_id.Add().Value = row.Env.ListElem.id; }' + '\n';
+			okActionCode += 'if ( ! Ps.object_id.HasValue ) { Cancel(); }' + '\n';
+
+
+
+		list = Screen.FindItem( 'MainList' );
+		
+		for ( row in list.SelRows )
+			Ps.object_id.Add().Value = row.Env.ListElem.id;
+
+		if ( ! Ps.object_id.HasValue )
+			Cancel();
+">
+
+<ITEM TYPE="dlg_ft_filter_base" SOURCE="Ps.filter" WIDTH="55zr"/>
+<BR/>
+
+
+<LIST NAME="MainList" SUNKEN="1" HEIGHT-EXPR="lib_base.dlg_body_height" LOOP-CATALOG-EXPR="Ps.catalog_name" FT-FILTER="Ps.filter">
+	<ROW SELECTED-EXPR="ListElem.id == Ps.object_id" OPEN-ACTION="Screen.RunCommand( 'Ok' )" DELETE-ACTION="DeleteDoc( ObjectDocUrl( 'data_local', 'inet_search', ListElem.id ) )" IMAGE-URL-EXPR="ListElem.ImageUrl">
+		<COL WIDTH="100%" COL-TITLE="##UiText.fields.object##" TITLE-EXPR="ListElem.PrimaryDispName" lang-en:COL-TITLE="Object"/>
+	</ROW>
+</LIST>
+
+
+<ITEM TYPE="dlg_footer_start"/>
+
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<BUTTON TITLE="OK" CMD="1"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2" lang-en:TITLE="Cancel"/>
+</TABLE>
+
+</SPXML-SCREEN>

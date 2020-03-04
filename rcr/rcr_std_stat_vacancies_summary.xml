@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd" xmlns:lang-en="http://www.datex-soft.com/schema">
+	<id>vacancies_summary</id>
+	<name VALUE="Общие показатели" lang-en:VALUE="Common statistics" lang-ua:VALUE="Загальні показники"/>
+	<section_id>vacancies</section_id>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>start_date</id>
+			<source_id>vacancies</source_id>
+			<use_range>1</use_range>
+			<use_period_quick_selector>1</use_period_quick_selector>
+		</dyn_filter>
+		
+		<dyn_filter>
+			<id>recruit_type_id</id>
+			<source_id>vacancies</source_id>
+			<is_multiple>1</is_multiple>
+			<width>25zr</width>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<source_id>vacancies</source_id>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}</view_filter_expr>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<source_id>vacancies</source_id>
+			<exist_req_expr>ArrayCount( groups ) != 0</exist_req_expr>
+		</dyn_filter>
+	</dyn_filters>
+
+	<sources>
+		<source>
+			<id>vacancies</id>
+			<stat_only>1</stat_only>
+		</source>
+	</sources>
+
+	<fields>
+		<field>
+			<col_title VALUE="Открыто вакансий" lang-en:VALUE="Opened vacancies" lang-ua:VALUE="Відкрито вакансій"/>
+			<width>12zr</width>
+			<align>center</align>
+			<stat_func>count</stat_func>
+			<ref_id>opened</ref_id>
+		</field>
+
+		<field>
+			<col_title VALUE="Из них закрыто" lang-en:VALUE="Closed" lang-ua:VALUE="З них закрито"/>
+			<width>12zr</width>
+			<align>center</align>
+			<stat_qual>state_id == 'vacancy_closed'</stat_qual>
+			<stat_func>count</stat_func>
+			<ref_id>closed</ref_id>
+		</field>
+
+		<field>
+			<col_title VALUE="  ##UiText.titles.in_percent_to_opened##"/>
+			<width>12zr</width>
+			<align>center</align>
+			<expr>opened > 0 ? ( closed * 100 ) / opened : null</expr>
+			<is_percent>1</is_percent>
+		</field>
+
+		<field>
+			<col_title VALUE="##UiText.titles.closed_in_time##"/>
+			<width>12zr</width>
+			<align>center</align>
+			<stat_qual>state_id == 'vacancy_closed' &amp;&amp; close_date &lt;= req_close_date</stat_qual>
+			<stat_func>count</stat_func>
+			<ref_id>closed_in_time</ref_id>
+		</field>
+
+		<field>
+			<col_title VALUE="  ##UiText.titles.percent_to_closed##"/>
+			<width>12zr</width>
+			<align>center</align>
+			<expr>closed > 0 ? ( closed_in_time * 100 ) / closed : null</expr>
+			<is_percent>1</is_percent>
+		</field>
+
+		<field>
+			<id>work_days_num</id>
+			<col_title VALUE="Средний срок закрытия, дней" lang-en:VALUE="Average close term, days" lang-ua:VALUE="Середній термін закриття, днів"/>
+			<align>center</align>
+			<stat_qual>state_id == 'vacancy_closed'</stat_qual>
+			<stat_func>average</stat_func>
+		</field>
+
+		<field>
+			<col_title VALUE="##UiText.titles.cancelled__n##"/>
+			<width>12zr</width>
+			<align>center</align>
+			<stat_qual>state_id == 'vacancy_cancelled'</stat_qual>
+			<stat_func>count</stat_func>
+			<ref_id>cancelled</ref_id>
+		</field>
+
+		<field>
+			<col_title VALUE="  ##UiText.titles.in_percent_to_opened##"/>
+			<width>12zr</width>
+			<align>center</align>
+			<expr>opened > 0 ? ( cancelled * 100 ) / opened : null</expr>
+			<is_percent>1</is_percent>
+		</field>
+	</fields>
+
+	<show_total>1</show_total>
+	<is_vert>1</is_vert>
+</std_stat>
+

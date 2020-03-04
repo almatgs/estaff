@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN TITLE="##UiText.titles.import_mail_message##" WIDTH="120zr" HEIGHT="60zr" SOURCE="TopElem">
+
+<PANEL HEIGHT-EXPR="lib_base.dlg_body_height" VERT-SCROLL="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="4zr"/>
+			<COL WIDTH="16px"/>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="50zr"/>
+		</COLUMNS>
+	
+		<LABEL/>
+		<LABEL HSPAN="2" TITLE="##UiText.titles.file##:"/>
+		<LABEL TITLE="##UiText.fields.attachment_type##:"/>
+
+		<BR HSPAN="4"/>
+
+
+		<LOOP EXPR="Ps.attachments" VAR="ListElem">
+			<CHECK SOURCE="ListElem.skip" INVERTED="1"/>
+
+			<IMAGE URL-EXPR="'x-sys-image://shell-icon/' + UrlPathSuffix( ListElem.file_name )" WIDTH="16px" HEIGHT="16px"/>
+			<LABEL TITLE-EXPR="ListElem.file_name"/>
+			
+			<ITEM TYPE="voc_elem_selector" SOURCE="ListElem.dest_card_attachment_type_id" view-filter-expr="({target_object_type_id:'candidate'})" UPDATE-ACTION="
+					if ( ListElem.dest_card_attachment_type_id.ForeignElem.allow_multiple_files )
+					{
+						for ( attachment in Ps.Doc.TopElem.attachments )
+						{
+							if ( attachment === ListElem )
+								continue;
+
+							if ( attachment.dest_card_attachment_type_id.HasValue )
+								continue;
+
+							if ( UrlPathSuffix( attachment.file_name ) == UrlPathSuffix( ListElem.file_name ) )
+								attachment.dest_card_attachment_type_id = ListElem.dest_card_attachment_type_id;
+						}
+					}
+			"/>
+		</LOOP>
+	</TABLE>
+</PANEL>
+
+<PANEL STD-MARGINS="1">
+	<ITEM TYPE="dlg_footer"/>
+</PANEL>
+
+
+
+</SPXML-SCREEN>

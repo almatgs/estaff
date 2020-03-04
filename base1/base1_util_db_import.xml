@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<util_db_import>
+	<METHOD NAME="import_db" PROGRESS="1" RUN-UI="1" SHOW-COMPLETION-MESSAGE="1">
+		<PARAM NAME="srcDir"/>
+		<PARAM NAME="startFromPrev"/>
+		<PARAM NAME="importCsd"/>
+
+		<STATISTICS>
+			<total_count TYPE="integer" TITLE="##UiText.titles.loaded_objects__num##"/>
+			<new_count TYPE="integer" TITLE="##UiText.titles.of_them_new##"/>
+			<failed_count TYPE="integer" TITLE="##UiText.titles.not_loaded##"/>
+		</STATISTICS>
+	</METHOD>
+</util_db_import>
+
+
+</SPXML-INLINE-FORM>

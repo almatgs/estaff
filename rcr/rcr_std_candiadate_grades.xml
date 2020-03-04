@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems_int.xmd">
+	<std_voc_elem>
+		<id>1</id>
+		<bk_color>192,192,192</bk_color>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>2</id>
+		<bk_color>192,192,128</bk_color>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>3</id>
+		<bk_color>255,255,128</bk_color>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>4</id>
+		<bk_color>255,128,0</bk_color>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>5</id>
+		<bk_color>255,0,0</bk_color>
+	</std_voc_elem>
+</std_voc_elems>
+

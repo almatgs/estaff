@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<spxml_module>
+	<ui_texts>
+		<ui_text>
+			<url>mcaller_ui_text.xml</url>
+		</ui_text>
+	</ui_texts>
+
+	<shared_docs>
+		<shared_doc>
+			<url>mcaller_lib_mcaller.js</url>
+			<exist_req_expr>! UseLds</exist_req_expr>
+		</shared_doc>
+		<shared_doc>
+			<url>mcaller_lib_mcaller_ui.js</url>
+		</shared_doc>
+	</shared_docs>
+</spxml_module>
+
+
+

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<overlay id="estaff-Overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/x-javascript" src="mailLoad.js" />
+	<script type="application/x-javascript" src="XMLWriter.js"/>
+	<script type="application/x-javascript" src="IO.js"/>
+
+	<script>
+		gStrNoItemsSelected = '##STR_NO_ITEMS_SELECTED##';
+	</script>
+
+	<toolbox id="mail-toolbox">
+        <toolbar id="EStaffToolbar" toolbarname="EStaff Toolbar"
+                 class="chromeclass-toolbar" context="toolbar-context-menu" 
+                 hidden="false"  persist="hidden">        
+        </toolbar>
+    </toolbox>
+</overlay>
+
+
+            <toolbarbutton id="TBloadResume" label="E-Staff"
+                           type="menu" tooltiptext="E-Staff" accesskey="E" style="list-style-image: url('file://C:/work/SpXml/base_pict/candidate.ico');">
+            <menupopup>
+                    <menuitem id="LoadResume" label="Load Resume to E-Staff" 
+                              class="menuitem-iconic" tooltiptext="Load Resume"
+                              oncommand="objEStaffToolbar.runAction(id);"/>
+                </menupopup>
+            </toolbarbutton>

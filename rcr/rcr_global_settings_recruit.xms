@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.sections.global_settings_recruit##" BEFORE-SAVE-ACTION="
+		if ( Ps.use_vacancy_work_wdays != FetchDoc( 'x-local://data/static/global_settings.xml' ).TopElem.use_vacancy_work_wdays )
+			Screen.MsgBox( UiText.messages.changes_require_app_restart, UiText.messages.info_msg_title, 'info' );
+" SAVE-ACTION="
+		UpdateScreens( '*', '*' );
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+
+<CHECK SOURCE="Ps.use_vacancy_orgs" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="! Ps.is_agency"/>
+<CHECK SOURCE="Ps.require_vacancy_positions" AUTO-LABEL="1" WIDTH="auto"/>
+<CHECK SOURCE="Ps.force_vacancy_position_names" AUTO-LABEL="1" WIDTH="auto"/>
+<DELIM/>
+
+<CHECK SOURCE="Ps.auto_load_vacancy_rr_persons_by_org" AUTO-LABEL="1" WIDTH="auto"/>
+<DELIM/>
+
+<CHECK SOURCE="Ps.use_mp_vacancies" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="lib_vacancy.AllowMpVacanies()"/>
+<CHECK SOURCE="Ps.use_fractional_mp_vacancies" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="lib_vacancy.AllowMpVacanies() &amp;&amp; Ps.use_mp_vacancies"/>
+<CHECK SOURCE="Ps.use_mass_vacancies" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="lib_vacancy.AllowMpVacanies() &amp;&amp; Ps.use_mp_vacancies"/>
+<BR/>
+
+<CHECK SOURCE="Ps.prohibit_duplicate_mass_vacancies" AUTO-LABEL="1" WIDTH="auto"/>
+<CHECK SOURCE="Ps.require_vacancy_templates" AUTO-LABEL="1" WIDTH="auto"/>
+<DELIM/>
+
+<CHECK SOURCE="Ps.update_mp_vacancy_start_date" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="Ps.use_mp_vacancies"/>
+<DELIM/>
+
+<CHECK SOURCE="Ps.allow_multi_spots" AUTO-LABEL="1" WIDTH="auto"/>
+<DELIM/>
+
+<LINE>
+	<LABEL TITLE="Предельный срок окончания подбора по вакансии:" lang-en:TITLE="Maximal recruiting end date:" lang-ua:TITLE="Граничний термін закінчення підбору по вакансії:"/>
+	<ITEM TYPE="dm_period" SOURCE="Ps.vacancy_default_max_work_period" WIDTH="26zr"/>
+</LINE>
+<BR/>
+<LINE>
+	<LABEL TITLE="Показывать срок поиска по вакансии:" lang-en:TITLE="Show vacancy recruiting period:" lang-ua:TITLE="Показувати термін пошуку по вакансії:"/>
+	<RADIO-BUTTON SOURCE="Ps.use_vacancy_work_wdays" TITLE="в днях" SWITCH-VALUE="false" WIDTH="auto" lang-en:TITLE="in days" lang-ua:TITLE="в днях"/>
+	<RADIO-BUTTON SOURCE="Ps.use_vacancy_work_wdays" TITLE="в рабочих днях" SWITCH-VALUE="true" WIDTH="auto" lang-en:TITLE="in working days" lang-ua:TITLE="в робочих днях"/>
+</LINE>
+
+<DELIM/>
+
+<LABEL TITLE="Задавать плановые сроки:" lang-en:TITLE="Specify planned time to:" lang-ua:TITLE="Задавати планові терміни:"/>
+<BR/>
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="40zr"/>
+		<COL WIDTH="100%"/>
+	</COLUMNS>
+	
+	<CHECK SOURCE="Ps.target_vacancy_terms.job_offer.is_enabled" TITLE="##UiText.titles.job_offer##"/>
+	<CHECK SOURCE="Ps.vacancy_work_end_final_candidate_state == 'job_offer'" SET-VALUE-ACTION="Ps.vacancy_work_end_final_candidate_state = 'job_offer'; Ps.use_vacancy_work_end_final_candidate_state = true; Ps.Doc.SetChanged( true );" TITLE="##UiText.fields.recruitment_end_date##"/>
+
+	<CHECK SOURCE="Ps.target_vacancy_terms.job_offer_acceptance.is_enabled" TITLE="##UiText.titles.job_offer_accepted##" WIDTH="auto"/>
+	<CHECK SOURCE="Ps.vacancy_work_end_final_candidate_state == 'job_offer:succeeded'" SET-VALUE-ACTION="Ps.vacancy_work_end_final_candidate_state = 'job_offer:succeeded'; Ps.use_vacancy_work_end_final_candidate_state = true; Ps.Doc.SetChanged( true );" TITLE="##UiText.fields.recruitment_end_date##"/>
+
+	<CHECK SOURCE="Ps.target_vacancy_terms.vacancy_close.is_enabled" TITLE="Закрытие вакансии" lang-en:TITLE="Closing a Vacancy" lang-ua:TITLE="Закриття вакансії" WIDTH="auto"/>
+	<CHECK SOURCE="Ps.vacancy_work_end_final_candidate_state == ''" SET-VALUE-ACTION="Ps.vacancy_work_end_final_candidate_state = ''; Ps.use_vacancy_work_end_final_candidate_state = false; Ps.Doc.SetChanged( true );" TITLE="##UiText.fields.recruitment_end_date##"/>
+</TABLE>
+
+<DELIM/>
+
+
+<CHECK SOURCE="Ps.hide_vacancy_work_start_date" AUTO-LABEL="1"/>
+
+<LINE>
+	<LABEL TITLE="Считать фактический срок поиска по вакансии:" lang-en:TITLE="Calculate actual recruiting time:" lang-ua:TITLE="Вважати фактичний термін пошуку по вакансії:"/>
+	<RADIO-BUTTON SOURCE="Ps.use_vacancy_work_end_final_candidate_state" TITLE="по дате закрытия вакансии" SWITCH-VALUE="false" WIDTH="auto" lang-en:TITLE="by vacancy close date" lang-ua:TITLE="за датою закриття вакансії"/>
+	<RADIO-BUTTON SOURCE="Ps.use_vacancy_work_end_final_candidate_state" TITLE="по дате статуса финального кандидата" SWITCH-VALUE="true" WIDTH="auto" lang-en:TITLE="by final candidate state date" lang-ua:TITLE="за датою статуса фінального кандидата"/>
+</LINE>
+<BR/>
+<GROUP>
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.vacancy_work_end_final_candidate_state" LABEL-TITLE="##UiText.fields.final_candidate_state##" WIDTH="40zr" ENABLE-EXPR="Ps.use_vacancy_work_end_final_candidate_state"/>
+</GROUP>
+<DELIM/>
+
+<CHECK SOURCE="Ps.use_vacancy_recruit_plans" AUTO-LABEL="1" WIDTH="auto"/>
+<CHECK SOURCE="Ps.use_vacancy_term_adjustments" AUTO-LABEL="1" WIDTH="auto"/>
+<BR/>
+<GROUP>
+	<EDIT SOURCE="Ps.mp_vacancy_term_multiplier" AUTO-LABEL="1" WIDTH="8zr"/>
+</GROUP>
+
+<DELIM/>
+
+
+
+<CHECK SOURCE="Ps.use_vacancy_dual_users" AUTO-LABEL="1" WIDTH="auto"/>
+<DELIM/>
+
+
+<CHECK SOURCE="Ps.use_vacancy_change_state_notif" AUTO-LABEL="1" WIDTH="auto"/>
+<CHECK SOURCE="Ps.confirm_vacancy_change_state_notif" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="Ps.use_vacancy_change_state_notif"/>
+<CHECK SOURCE="Ps.update_vacancy_group_by_user" AUTO-LABEL="1" WIDTH="auto"/>
+<DELIM/>
+
+
+<GROUP>
+	<ITEM TYPE="dm_period" SOURCE="Ps.probation_period" AUTO-LABEL="1"/>
+</GROUP>
+<CHECK SOURCE="Ps.use_candidate_probation_period" AUTO-LABEL="1" WIDTH="auto"/>
+
+</PANEL>
+
+
+<COMMAND-HANDLER CMD="Help" HREF="help/settings_policy.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+</SPXML-SCREEN>

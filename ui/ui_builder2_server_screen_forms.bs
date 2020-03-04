@@ -1,0 +1,733 @@
+"META:NAMESPACE:ui_builder2_server"
+
+
+function BuildTemplate2ScreenForm( template, options )
+{
+	options.SetStrictMode( false );
+	if ( options.showTitleNumbers )
+		options.nextTitleNumber = 1;
+
+	rootNode = OpenDocFromStr( '<SPXML-SCREEN></SPXML-SCREEN>' ).TopElem;
+
+	if ( ! options.isFragment )
+	{
+		rootNode.AddAttr( 'SOURCE', 'TopElem' );
+		rootNode.AddAttr( 'MAXIMIZED', '1' );
+		rootNode.AddAttr( 'CUSTOM-FRAME', '1' );
+	}
+
+	//DebugMsg( template.Xml );
+	BuildTemplate2ItemScreenNode( template, options, rootNode );
+
+	screenFormData = rootNode.Xml;
+	PutUrlData( 'x-local://Logs/view_forms_2/' + template.Name + '.xms', screenFormData );
+	return screenFormData;
+}
+
+
+function BuildTemplate2ItemScreenNode( item, options, baseNode )
+{
+	if ( item.GetOptAttr( 'HIDDEN' ) == '1' )
+		return;
+
+	if ( item.GetOptAttr( 'BIND-TO-PREV-SELECTOR-OPTION' ) == '1' )
+		baseNode = ObtainItemPrevSelectorOptionNode( item, options, baseNode );
+
+	baseNode2 = baseNode;
+
+	if ( ( showConditionExpr = item.GetOptAttr( 'SHOW-CONDITION' ) ) != undefined )
+	{
+		baseNode2 = baseNode.AddChild( 'IF' );
+		baseNode2.AddAttr( 'EXPR', BuildItemAttrCode( item, showConditionExpr ) );
+		baseNode2.AddAttr( 'IGNORE-ERRORS', '0' );
+	}
+
+	if ( ! StrContains( item.Name, ':' ) )
+	{
+		typeStr = item.GetOptAttr( 'TYPE' );
+		switch ( typeStr )
+		{
+			case undefined:
+				BuildTemplate2ScreenNodeForStruct( item, options, baseNode2 );
+				break;
+			
+			case 'bool':
+				BuildTemplate2ScreenNodeForBool( item, options, baseNode2 );
+				break;
+
+			case 'select':
+				BuildTemplate2SelectScreenNode( item, options, baseNode2 );
+				break;
+
+			default:
+				BuildTemplate2ScreenNodeForEdit( item, options, baseNode2 );
+		}
+	}
+	else
+	{
+		auxItemTypeID = xml_utils.GetElemCoreName( item );
+		switch ( auxItemTypeID )
+		{
+			case 'LABEL':
+				BuildTemplate2LabelScreenNode( item, options, baseNode2 );
+				break;
+		}
+	}
+
+	tailDesc = item.GetOptAttr( 'TAIL-DESCRIPTION' );
+	if ( tailDesc != undefined )
+	{
+		node = baseNode.AddChild( 'LABEL' );
+		node.AddAttr( 'TITLE', tailDesc );
+		//node.AddAttr( 'FONT-CLASS', 'small' );
+	}
+}
+
+
+function BuildTemplate2ScreenNodeForStruct( item, options, baseNode )
+{
+	count = 0;
+
+	for ( subItem in item )
+	{
+		if ( count != 0 && subItem.GetOptAttr( 'BIND-TO-PREV' ) != '1' )
+		{
+			node = baseNode.AddChild( 'BR' );
+			node.AddAttr( 'HEIGHT', '4zr' );
+		}
+
+		BuildTemplate2ItemScreenNode( subItem, options, baseNode );
+		count++;
+	}
+}
+
+
+function BuildTemplate2ScreenNodeForEdit( item, options, baseNode )
+{
+	title = GetItemFullTitle( item, options );
+	if ( title != undefined )
+	{
+		node = baseNode.AddChild( 'LABEL' );
+		node.AddAttr( 'TITLE', title + ':' );
+		ApplyItemLabelNodeAttr( node );
+	}
+
+	node = baseNode.AddChild( 'EDIT' );
+	node.AddAttr( 'SOURCE', 'Ps.' + item.Name );
+
+	if ( item.GetOptAttr( 'TYPE') == 'real' )
+	{
+		node.AddAttr( 'WIDTH', '10zr' );
+	}
+
+	if ( item.GetOptAttr( 'MULTILINE' ) == '1' )
+	{
+		node.AddAttr( 'MULTILINE', '1' );
+		node.AddAttr( 'MAX-WIDTH', '100zr' );
+		node.AddAttr( 'HEIGHT', '10zr' );
+	}
+	else if ( ( maxLen = OptInt( item.GetOptAttr( 'MAX-LEN' ) ) ) != undefined )
+	{
+		node.AddAttr( 'WIDTH', ( maxLen + 2 ) + 'zr' );
+	}
+}
+
+
+function BuildTemplate2ScreenNodeForBool( item, options, baseNode )
+{
+	title = GetItemFullTitle( item, options );
+
+	node = baseNode.AddChild( 'LABEL' );
+	node.AddAttr( 'TITLE', title + ':' );
+	ApplyItemLabelNodeAttr( node );
+
+	lineNode = baseNode.AddChild( 'LINE' );
+
+	node = lineNode.AddChild( 'RADIO-BUTTON' );
+	node.AddAttr( 'TITLE', UiText.titles.yes );
+	node.AddAttr( 'SOURCE', 'Ps.' + item.Name );
+	node.AddAttr( 'SWITCH-VALUE', 'true' );
+
+	node = lineNode.AddChild( 'RADIO-BUTTON' );
+	node.AddAttr( 'TITLE', UiText.titles.no );
+	node.AddAttr( 'SOURCE', 'Ps.' + item.Name );
+	node.AddAttr( 'SWITCH-VALUE', 'false' );
+}
+
+
+function BuildTemplate2SelectScreenNode( item, options, baseNode )
+{
+	foreigArrayExpStr = item.GetOptAttr( 'FOREIGN-ARRAY' );
+	isArray = ( item.GetOptAttr( 'ARRAY') == '1' );
+	useInlineSelect = true;
+	
+	if ( foreigArrayExpStr != undefined )
+	{
+		baseID = undefined;
+
+		if ( ( vocInfo = lib_voc.get_opt_voc_info( foreigArrayExpStr ) ) != undefined )
+		{
+			array = lib_voc.get_sorted_voc( lib_voc.get_voc_by_id( vocInfo.id ) );
+			isHier = vocInfo.is_hier;
+			if ( isHier )
+				baseID = '';
+
+			if ( ArrayCount( array ) > 30 )
+				useInlineSelect = false;
+		}
+		else
+		{
+			throw 'Not supported yet';
+			array = eval( foreigArrayExpStr );
+			isHier = false;
+		}
+
+		if ( isArray )
+		{
+			if ( ( selectionOrderNames = GetItemSelectionOrderNames( item ) ) != undefined )
+				BuildTemplate2ScreenNodeForInlineOrderedMultiSelectLevel( item, options, baseNode, array, isHier, baseID, 0, selectionOrderNames, GetItemSelectionOrderTextColors( item ) );
+			else
+				BuildTemplate2ScreenNodeForInlineMultiSelectLevel( item, options, baseNode, array, isHier, baseID, 0 );
+		}
+		else
+		{
+			if ( useInlineSelect )
+				BuildTemplate2ScreenNodeForInlineSingleSelectLevel( item, options, baseNode, array, isHier, baseID, 0 );
+			else
+				BuildTemplate2ScreenNodeForSingleVocSelect( item, options, baseNode, array, vocInfo );
+		}
+	}
+	else
+	{
+		if ( isArray )
+			BuildTemplate2ScreenNodeForInlineMultiSelect( item, options, baseNode );
+		else
+			BuildTemplate2ScreenNodeForInlineSingleSelect( item, options, baseNode );
+	}
+}
+
+
+function BuildTemplate2ScreenNodeForSingleVocSelect( item, options, baseNode, voc, vocInfo )
+{
+	title = GetItemFullTitle( item, options );
+
+	node = baseNode.AddChild( 'LABEL' );
+	node.AddAttr( 'TITLE', title + ':' );
+	ApplyItemLabelNodeAttr( node );
+
+	if ( item.GetOptAttr( 'USE-NAME-AS-KEY' ) == '1' )
+	{
+		if ( item.GetOptAttr( 'ALLOW-OTHER-VALUE' ) == '1' )
+		{
+			node = baseNode.AddChild( 'EDIT' );
+			node.AddAttr( 'SOURCE', 'Ps.' + item.Name );
+			node.AddAttr( 'AUTO-COMPLETE-SOURCE', 'ui_client.BuildEditAutoCompleteSourceForCatalog( Item, ' + CodeLiteral( vocInfo.id ) + ', {use_index:true} )' );
+			node.AddAttr( 'WIDTH', '40zr' );
+		}
+		else
+		{
+			lineNode = baseNode.AddChild( 'LINE' );
+
+			node = lineNode.AddChild( 'EDIT' );
+			node.AddAttr( 'SOURCE', 'Ps.' + item.Name );
+			node.AddAttr( 'READ-ONLY', '1' );
+			node.AddAttr( 'WIDTH', '40zr' );
+
+			node = lineNode.AddChild( 'BUTTON' );
+			node.AddAttr( 'IMAGE-URL', 'x-app://base_pict/dots.ico' );
+			node.AddAttr( 'ACTION', 'Ps.' + item.Name + ' = GetForeignElem( ' + vocInfo.id + ', lib_voc.select_voc_elem( ' + vocInfo.id + ' ) ).name' );
+			node.AddAttr( 'WIDTH', '4zr' );
+			node.AddAttr( 'HEIGHT', 'edit' );
+		}
+	}
+	else
+	{
+		node = baseNode.AddChild( 'ITEM' );
+		node.AddAttr( 'TYPE', 'voc_elem_selector' );
+		node.AddAttr( 'SOURCE', 'Ps.' + item.Name );
+		//node.AddAttr( 'WIDTH', lib_voc.CalcVocElemSelectorWidthMeasureCore( voc, vocInfo, title, 30, 80 ) );
+		node.AddAttr( 'WIDTH', '40zr' );
+	}
+}
+
+
+function GetItemSelectionOrderNames( item )
+{
+	if ( item.GetOptAttr( 'PRESERVE-ORDER' ) != '1' || ( maxChoices = OptInt( item.GetOptAttr( 'MAX-LENGTH' ) ) ) == undefined )
+		return undefined;
+
+	arrayElem = item.OptChild( 'UI:SELECTION-ORDER' );
+	if ( arrayElem == undefined )
+		return undefined;
+
+	if ( arrayElem.ChildNum < maxChoices )
+		return undefined;
+
+	return ArrayExtract( ArrayRange( arrayElem, 0, maxChoices ), 'This.GetOptAttr( \'TITLE\', \'\' )' );
+}
+
+
+function GetItemSelectionOrderTextColors( item )
+{
+	if ( item.GetOptAttr( 'PRESERVE-ORDER' ) != '1' || ( maxChoices = OptInt( item.GetOptAttr( 'MAX-LENGTH' ) ) ) == undefined )
+		return undefined;
+
+	arrayElem = item.OptChild( 'UI:SELECTION-ORDER' );
+	if ( arrayElem == undefined )
+		return undefined;
+
+	if ( arrayElem.ChildNum < maxChoices )
+		return undefined;
+
+	return ArrayExtract( ArrayRange( arrayElem, 0, maxChoices ), 'This.GetOptAttr( \'TEXT-COLOR\', \'\' )' );
+}
+
+
+function BuildTemplate2ScreenNodeForInlineSingleSelect( item, options, baseNode )
+{
+	title = GetItemFullTitle( item, options );
+	if ( title != undefined )
+	{
+		node = baseNode.AddChild( 'LABEL' );
+		node.AddAttr( 'TITLE', title + ':' );
+		ApplyItemLabelNodeAttr( node );
+	}
+
+	panelNode = baseNode.AddChild( 'PANEL' );
+	panelNode.AddAttr( 'PADDING', '0 0 0 4zr' );
+
+	optionsArrayElem = item.OptChild( 'UI:OPTIONS' );
+	if ( optionsArrayElem == undefined )
+		return;
+
+	for ( option in optionsArrayElem )
+	{
+		if ( option.Name != 'UI:OPTION' )
+			continue;
+
+		node = panelNode.AddChild( 'RADIO-BUTTON' );
+		
+		sourceExprStr = 'Ps.' + item.Name;
+		node.AddAttr( 'SOURCE', sourceExprStr );
+
+		title = option.GetOptAttr( 'TITLE' );
+		value = option.GetOptAttr( 'VALUE' );
+		if ( value == undefined )
+			value = title;
+		
+		if ( title != undefined )
+			node.AddAttr( 'TITLE', title );
+
+		node.AddAttr( 'SWITCH-VALUE', value );
+	}
+}
+
+
+function BuildTemplate2ScreenNodeForInlineMultiSelect( item, options, baseNode )
+{
+	title = GetItemFullTitle( item, options );
+
+	node = baseNode.AddChild( 'LABEL' );
+	node.AddAttr( 'TITLE', title + ':' );
+	ApplyItemLabelNodeAttr( node );
+
+	panelNode = baseNode.AddChild( 'PANEL' );
+	panelNode.AddAttr( 'PADDING', '0 0 0 4zr' );
+
+	optionsArrayElem = item.OptChild( 'UI:OPTIONS' );
+	if ( optionsArrayElem == undefined )
+		return;
+
+	for ( option in optionsArrayElem )
+	{
+		if ( option.Name != 'UI:OPTION' )
+			continue;
+
+		value = option.GetOptAttr( 'VALUE' );
+		title = option.GetOptAttr( 'TITLE' );
+		if ( value == undefined )
+			value = title;
+
+		wrapperNode = panelNode.AddChild( 'PANEL' );
+		wrapperNode.AddAttr( 'PADDING', '1vpx 0 1vpx 0' );
+
+		node = wrapperNode.AddChild( 'CHECK-BOX' );
+		
+		sourceExprStr = 'Ps.' + item.Name;
+
+		node.AddAttr( 'SOURCE', sourceExprStr + '.ChildByValueExists( ' + CodeLiteral( value ) + ' )' );
+		node.AddAttr( 'SET-VALUE-ACTION', 'if ( NewValue ) { ' + sourceExprStr + '.ObtainChildByValue( ' + CodeLiteral( value ) + ' ) } else { ' + sourceExprStr + '.DeleteChildrenByValue( ' + CodeLiteral( value ) + ' ) }' );
+
+		if ( title != undefined )
+			node.AddAttr( 'TITLE', title );
+	}
+}
+
+
+function BuildTemplate2ScreenNodeForInlineSingleSelectLevel( item, options, baseNode, array, isHier, baseID, hierLevel )
+{
+	if ( ! isHier || hierLevel == 0 )
+	{
+		title = GetItemFullTitle( item, options );
+
+		node = baseNode.AddChild( 'LABEL' );
+		node.AddAttr( 'TITLE', title + ':' );
+		ApplyItemLabelNodeAttr( node );
+	}
+
+	panelNode = baseNode.AddChild( 'PANEL' );
+	panelNode.AddAttr( 'PADDING', '0 0 0 4zr' );
+
+	if ( isHier )
+	{
+		array2 = ArraySelectByKey( array, baseID, 'parent_id' );
+		leafNodeOnly = ( item.GetOptAttr( 'LEAF-NODES-ONLY' ) == '1' );
+	}
+	else
+	{
+		array2 = array;
+	}
+
+	for ( elem in array2 )
+	{
+		title = elem.name;
+
+		if ( isHier && leafNodeOnly && ArrayOptFindByKey( array, elem.id, 'parent_id' ) != undefined )
+		{
+			node = panelNode.AddChild( 'LABEL' );
+			node.AddAttr( 'TITLE', title );
+		}
+		else
+		{
+			node = panelNode.AddChild( 'RADIO-BUTTON' );
+		
+			sourceExprStr = 'Ps.' + item.Name;
+			node.AddAttr( 'SOURCE', sourceExprStr );
+
+			value = elem.id;
+		
+			node.AddAttr( 'TITLE', title );
+			node.AddAttr( 'SWITCH-VALUE', value );
+		}
+
+		if ( isHier )
+			BuildTemplate2ScreenNodeForInlineSingleSelectLevel( item, options, panelNode, array, isHier, elem.id, hierLevel + 1 );
+	}
+}
+
+
+function BuildTemplate2ScreenNodeForInlineMultiSelectLevel( item, options, baseNode, array, isHier, baseID, hierLevel )
+{
+	if ( ! isHier || hierLevel == 0 )
+	{
+		title = GetItemFullTitle( item, options );
+
+		node = baseNode.AddChild( 'LABEL' );
+		node.AddAttr( 'TITLE', title + ':' );
+		ApplyItemLabelNodeAttr( node );
+	}
+
+	panelNode = baseNode.AddChild( 'PANEL' );
+	panelNode.AddAttr( 'PADDING', '0 0 0 4zr' );
+
+	if ( isHier )
+	{
+		array2 = ArraySelectByKey( array, baseID, 'parent_id' );
+		leafNodeOnly = ( item.GetOptAttr( 'LEAF-NODES-ONLY' ) == '1' );
+	}
+	else
+	{
+		array2 = array;
+	}
+
+	for ( elem in array2 )
+	{
+		title = elem.name;
+
+		if ( isHier && leafNodeOnly && ArrayOptFindByKey( array, elem.id, 'parent_id' ) != undefined )
+		{
+			node = panelNode.AddChild( 'LABEL' );
+			node.AddAttr( 'TITLE', title );
+		}
+		else
+		{
+			value = elem.id;
+
+			node = panelNode.AddChild( 'CHECK-BOX' );
+		
+			sourceExprStr = 'Ps.' + item.Name;
+
+			node.AddAttr( 'SOURCE', sourceExprStr + '.ChildByValueExists( ' + CodeLiteral( value ) + ' )' );
+			node.AddAttr( 'SET-VALUE-ACTION', 'if ( NewValue ) { ' + sourceExprStr + '.ObtainChildByValue( ' + CodeLiteral( value ) + ' ) } else { ' + sourceExprStr + '.DeleteChildrenByValue( ' + CodeLiteral( value ) + ' ) }' );
+		
+			node.AddAttr( 'TITLE', title );
+		}
+
+		if ( isHier )
+			BuildTemplate2ScreenNodeForInlineMultiSelectLevel( item, options, panelNode, array, isHier, elem.id, hierLevel + 1 );
+	}
+}
+
+
+function BuildTemplate2ScreenNodeForInlineOrderedMultiSelectLevel( item, options, baseNode, array, isHier, baseID, hierLevel, selectionOrderNames, selectionOrderTextColors )
+{
+	useStyle1 = false;
+
+	if ( ! isHier || hierLevel == 0 )
+	{
+		BuildItemTitleLabel( item, options, baseNode );
+
+		tableNode = baseNode.AddChild( 'TABLE' );
+		columnsNode = tableNode.AddChild( 'COLUMNS' );
+		node = columnsNode.AddChild( 'COL' );
+		node.AddAttr( 'WIDTH', '56zr' );
+
+		for ( i = 0; i < selectionOrderNames.length; i++ )
+		{
+			node = columnsNode.AddChild( 'COL' );
+			node.AddAttr( 'WIDTH', useStyle1 ? '15zr' : Int( StrCharCount( selectionOrderNames[i] ) * 1.1 + 5 ) + 'zr' );
+		}
+
+		if ( useStyle1 )
+		{
+			tableNode.AddChild( 'LABEL' );
+
+			for ( i = 0; i < selectionOrderNames.length; i++ )
+			{
+				node = tableNode.AddChild( 'LABEL' );
+				node.AddAttr( 'TITLE', selectionOrderNames[i] );
+				node.AddAttr( 'ALIGN', 'center' );
+				node.AddAttr( 'FONT-CLASS', 'small' );
+
+				textColor = selectionOrderTextColors[i];
+				if ( textColor != undefined )
+					node.AddAttr( 'TEXT-COLOR', textColor );
+				else
+					ApplyItemLabelNodeAttr( node );
+			}
+		}
+
+		baseNode = tableNode;
+	}
+
+	if ( isHier )
+	{
+		array2 = ArraySelectByKey( array, baseID, 'parent_id' );
+		leafNodeOnly = ( item.GetOptAttr( 'LEAF-NODES-ONLY' ) == '1' );
+	}
+	else
+	{
+		array2 = array;
+	}
+
+	for ( elem in array2 )
+	{
+		title = elem.name;
+		if ( item.GetOptAttr( 'SHOW-ENTRY-IDS' ) )
+			title = elem.id + '. ' + title;
+
+		panelNode = baseNode.AddChild( 'PANEL' );
+		panelNode.AddAttr( 'PADDING', '1vpx 0 1vpx ' + hierLevel * 4 + 'zr' );
+		panelNode.AddAttr( 'WIDTH', '100%' );
+
+		if ( isHier && leafNodeOnly && ArrayOptFindByKey( array, elem.id, 'parent_id' ) != undefined )
+		{
+			panelNode.AddAttr( 'HSPAN', selectionOrderNames.length + 1 );
+
+			node = panelNode.AddChild( 'LABEL' );
+			node.AddAttr( 'TITLE', title );
+			ApplyItemLabelNodeAttr( node );
+			node.AddAttr( 'BOLD', '1' );
+		}
+		else
+		{
+			value = elem.id;
+
+			lineNode = panelNode.AddChild( 'LINE' );
+			
+			if ( useStyle1 )
+			{
+			}
+			else
+			{
+				sourceExprStr = 'Ps.' + item.Name;
+
+				node = lineNode.AddChild( 'CHECK-BOX' );
+				//node.AddAttr( 'TITLE', title );
+				node.AddAttr( 'SOURCE', sourceExprStr + '.ChildByValueExists( ' + CodeLiteral( value ) + ' )' );
+				node.AddAttr( 'SET-VALUE-ACTION', 'if ( NewValue ) { ' + sourceExprStr + '.ObtainChildByValue( ' + CodeLiteral( value ) + ' ) } else { ' + sourceExprStr + '.DeleteChildrenByValue( ' + CodeLiteral( value ) + ' ) }' );
+				node.AddAttr( 'ENABLE-EXPR', 'Source || ArrayCount( ' + sourceExprStr + ' ) < ' + selectionOrderNames.length );
+			}
+
+			node = lineNode.AddChild( 'LABEL' );
+			node.AddAttr( 'TITLE', title );
+			//node.AddAttr( 'ALIGN', 'right' );
+
+			if ( useStyle1 )
+			{
+				for ( i = 0; i < selectionOrderNames.length; i++ )
+				{
+					node = baseNode.AddChild( 'CHECK-BOX' );
+		
+					sourceExprStr = 'Ps.' + item.Name;
+
+					node.AddAttr( 'SOURCE', 'ui_client.GetOrderedMultiValueSelectFlag( ' + sourceExprStr + ', ' + CodeLiteral( value ) + ', ' + i + ' )' );
+					node.AddAttr( 'SET-VALUE-ACTION', 'ui_client.ToggleOrderedMultiValueSelectFlag( ' + sourceExprStr + ', ' + CodeLiteral( value ) + ', ' + i + ', NewValue )' );
+
+					node.AddAttr( 'ENABLE-EXPR', 'ui_client.IsOrderedMultiValueSelectEnabled( ' + sourceExprStr + ', ' + CodeLiteral( value ) + ', ' + i + ' )' );
+
+					node.AddAttr( 'ALIGN', 'center' );
+				}
+			}
+			else
+			{
+				ifNode = baseNode.AddChild( 'IF' );
+				ifNode.AddAttr( 'EXPR', sourceExprStr + '.ChildByValueExists( ' + CodeLiteral( value ) + ' )' );
+
+				for ( i = 0; i < selectionOrderNames.length; i++ )
+				{
+					node = ifNode.AddChild( 'RADIO-BUTTON' );
+		
+					sourceExprStr = 'Ps.' + item.Name;
+
+					node.AddAttr( 'TITLE', selectionOrderNames[i] );
+					node.AddAttr( 'SOURCE', 'ui_client.GetOrderedMultiValueSelectFlag( ' + sourceExprStr + ', ' + CodeLiteral( value ) + ', ' + i + ' )' );
+					node.AddAttr( 'SET-VALUE-ACTION', 'ui_client.ToggleOrderedMultiValueSelectFlag( ' + sourceExprStr + ', ' + CodeLiteral( value ) + ', ' + i + ', NewValue )' );
+
+					node.AddAttr( 'ENABLE-EXPR', 'ui_client.IsOrderedMultiValueSelectEnabled( ' + sourceExprStr + ', ' + CodeLiteral( value ) + ', ' + i + ' )' );
+
+					node.AddAttr( 'SWITCH-VALUE', 'true' );
+					node.AddAttr( 'ALIGN', 'center' );
+				}
+
+				elseNode = baseNode.AddChild( 'ELSE' );
+				node = elseNode.AddChild( 'LABEL' );
+				node.AddAttr( 'HSPAN', selectionOrderNames.length );
+			}
+		}
+
+		if ( isHier )
+			BuildTemplate2ScreenNodeForInlineOrderedMultiSelectLevel( item, options, baseNode, array, isHier, elem.id, hierLevel + 1, selectionOrderNames, selectionOrderTextColors );
+	}
+}
+
+
+function BuildTemplate2LabelScreenNode( item, options, baseNode )
+{
+	title = GetItemFullTitle( item, options );
+
+	node = baseNode.AddChild( 'LABEL' );
+	node.AddAttr( 'TITLE', title );
+}
+
+
+function BuildItemTitleLabel( item, options, baseNode )
+{
+	title = GetItemFullTitle( item, options );
+
+	node = baseNode.AddChild( 'LABEL' );
+	node.AddAttr( 'TITLE', title + ':' );
+	ApplyItemLabelNodeAttr( node );
+
+	titleAuxDesc = item.GetOptAttr( 'TITLE-AUX-DESCRIPTION' );
+	if ( titleAuxDesc != undefined )
+	{
+		node = baseNode.AddChild( 'LABEL' );
+		node.AddAttr( 'TITLE', titleAuxDesc );
+		//node.AddAttr( 'FONT-CLASS', 'small' );
+	}
+}
+
+
+function GetItemFullTitle( item, options )
+{
+	title = GetItemTitle( item );
+	if ( title == undefined )
+		return undefined;
+
+	isAuxItem = ( StrBegins( item.Name, 'UI:' ) );
+
+	if ( options.showTitleNumbers && ! isAuxItem && item.GetOptAttr( 'BIND-TO-PREV' ) != '1' )
+	{
+		title = options.nextTitleNumber + '. ' + title;
+		options.nextTitleNumber++;
+	}
+
+	return title;
+}
+
+
+function ApplyItemLabelNodeAttr( node )
+{
+	//node.AddAttr( 'TEXT-COLOR-EXPR', 'AppUi.themeColors.gray_text' );
+	//node.AddAttr( 'BOLD', '1' );
+}
+
+
+function GetItemTitle( item )
+{
+	if ( item.GetOptAttr( 'HIDE-TITLE' ) == '1' )
+		return undefined;
+	
+	return item.GetOptAttr( 'TITLE' );
+}
+
+
+function BuildItemAttrCode( item, origCodeStr )
+{
+	code = 'object = Ps;'
+	
+	if ( ! StrContains( item.Name, ':' ) )
+		code += 'field = Ps.' + item.Name + ';';
+	
+	code += BuildScreenCode( origCodeStr, 'Ps' );
+	return code;
+}
+
+
+function BuildScreenCode( origCodeStr, baseObjCodeStr )
+{
+	isBlock = StrContains( origCodeStr, 'return ' );
+
+	codeStr = 'with ( ' + baseObjCodeStr + ' ) { ';
+	
+	if ( isBlock )
+		codeStr += origCodeStr;
+	else
+		codeStr += ' return ' + origCodeStr + ';';
+
+	codeStr += ' }';
+	return codeStr;
+}
+
+
+function ObtainItemPrevSelectorOptionNode( item, options, baseNode )
+{
+	itemPos = item.ChildIndex;
+	if ( itemPos == 0 )
+		return baseNode;
+
+	prevItem = item.Parent[itemPos - 1];
+	if ( prevItem.GetOptAttr( 'TYPE' ) != 'select' )
+		return baseNode;
+
+	prevNode = baseNode[baseNode.ChildNum - 1];
+	//DebugMsg( prevNode.Xml );
+
+	nodesArray = ArraySelectByKey( XmlHier( prevNode ), 'RADIO-BUTTON', 'Name' );
+	if ( nodesArray.length == 0 )
+		nodesArray = ArraySelectByKey( XmlHier( prevNode ), 'CHECK-BOX', 'Name' );
+	if ( nodesArray.length == 0 )
+		return baseNode;
+
+	lastRadioButtonNode = nodesArray[nodesArray.length - 1];
+	if ( lastRadioButtonNode.Parent.Name == 'LINE' )
+		return baseNode;
+	
+	lineNode = lastRadioButtonNode.Parent.InsertChild( lastRadioButtonNode.ChildIndex, 'LINE' );
+	lastRadioButtonNode.Delete();
+	lineNode.AddChildElem( lastRadioButtonNode );
+	
+	//DebugMsg( lastRadioButtonNode.Xml );
+	return lineNode;
+}

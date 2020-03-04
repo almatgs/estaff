@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml">
+
+<recruit_type>
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<text_color TYPE="string"/>
+	<bk_color TYPE="string"/>
+
+	<select_name_from_position_types TYPE="bool" NULL-FALSE="1" TITLE="Выбирать название вакансии из списка типовых должностей" lang-en:TITLE="Select vacancy name from the list of position types" lang-ua:TITLE="Вибирати назву вакансії зі списку типових посад"/>
+
+	<use_candidate_position_type TYPE="bool" NULL-FALSE="1" TITLE="Прикреплять кандидата к типовой должности" lang-en:TITLE="Bind candidates to position types" lang-ua:TITLE="Прикріплювати кандидата до типової посади"/>
+	<use_candidate_desired_division TYPE="bool" NULL-FALSE="1" TITLE="Указывать филиалы, в которых готов работать кандидат" lang-en:TITLE="Bind candidates to target divisions" lang-ua:TITLE="Вказувати філії, в яких готовий працювати кандидат"/>
+	<prohibit_spots TYPE="bool" NULL-FALSE="1" TITLE="Запретить прикрепление кандидатов к вакансии, за исключением финального кандидата" lang-en:TITLE="Prohibit selection of intermediate candidates to a vacancy" lang-ua:TITLE="Заборонити прикріплення кандидатів до вакансії, за винятком фінального кандидата"/>
+
+	<require_hired_candidate_vacancy TYPE="bool" NULL-FALSE="1" TITLE="Прикреплять кандидата к вакансии в момент приема на работу" lang-en:TITLE="Bind hired candidate to a vacancy" lang-ua:TITLE="Прикріплювати кандидата до вакансії в момент прийому на роботу"/>
+	<require_hired_candidate_division TYPE="bool" NULL-FALSE="1" TITLE="Прикреплять кандидата к структурному подразделению в момент приема на работу" lang-en:TITLE="Bind hired candidate to a division" lang-ua:TITLE="Прикріплювати кандидата до структурного підрозділу в момент прийому на роботу"/>
+	<require_hired_candidate_position TYPE="bool" NULL-FALSE="1" TITLE="Прикреплять кандидата к штатной должности в момент приема на работу" lang-en:TITLE="Bind hired candidate to a position" lang-ua:TITLE="Прикріплювати кандидата до штатної посади в момент прийому на роботу"/>
+	<hire_event_type_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="event_types" TITLE="Тип события, обозначающий прием на работу" lang-en:TITLE="Hire-related event type" lang-ua:TITLE="Тип події, що позначає прийом на роботу"/>
+
+	<max_work_term TYPE="term" TITLE="##UiText.fields.max_term_to_vacancy_close##"/>
+	<max_job_offer_term TYPE="term" TITLE="##UiText.fields.max_term_to_job_offer##"/>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</recruit_type>
+
+
+</SPXML-FORM>

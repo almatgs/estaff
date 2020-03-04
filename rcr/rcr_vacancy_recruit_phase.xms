@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+<USE FORM="//base2/base2_general_state.xms"/>
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="40zr" STD-MARGINS="0">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="0">
+		</TREE>
+	</PANEL>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.titles.candidate_state##" SUNKEN="1" EXPANDED="1" IMAGE-URL="//base_pict/generic_item.ico">
+
+
+<PAGE TITLE="##UiText.sections.general##" SUNKEN="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/common.ico" EXPANDED="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="button"/>
+		</COLUMNS>
+
+		<LABEL TITLE-EXPR="Ps.req_candidate_conditions.Title + ':'"/>
+
+		<IMAGE URL="//base_pict/plus.ico" ACTION="
+				Ps.req_candidate_conditions.AddChild();
+				//Ps.Doc.SetChanged( true );
+		"/>
+	</TABLE>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="40zr"/>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="button"/>
+		</COLUMNS>
+
+		<LOOP EXPR="Ps.req_candidate_conditions" VAR="ListElem">
+			<LABEL TITLE="##UiText.fields.event_type##:"/>
+			<LABEL/>
+			<LABEL/>
+
+			<ITEM TYPE="voc_elem_selector" SOURCE="ListElem.event_type_id"/>
+			<LABEL/>
+
+			<IMAGE URL="//base_pict/more_actions.ico">
+				<MENU>
+					<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+							ListElem.Delete();
+							Ps.Doc.SetChanged( true );
+					"/>
+				</MENU>
+			</IMAGE>
+		</LOOP>
+	</TABLE>
+</PAGE>
+
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+
+</LINE>
+
+
+
+</SPXML-SCREEN>

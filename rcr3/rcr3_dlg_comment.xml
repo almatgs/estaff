@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_comment>
+	<comment TYPE="string" MULTILINE="1" TITLE="##UiText.fields.comment##"/>
+</dlg_comment>
+
+
+</SPXML-INLINE-FORM>
+

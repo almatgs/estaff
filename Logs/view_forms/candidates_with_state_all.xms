@@ -1,0 +1,57 @@
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Кандидаты по статусу - все" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/list.ico">
+	<PANEL SUNKEN="1" STD-MARGINS="1" BK-COLOR-EXPR="SysColors.PanelLightBackground">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="38zr"/>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="21zr"/>
+			</COLUMNS>
+			<ITEM TYPE="ft_filter" SOURCE="Ps.filter"/>
+			<PANEL/>
+			<PANEL>
+				<LABEL TITLE="Рекрутер:"/>
+				<ITEM TYPE="object_selector" view-filter-expr="with ( Ps ) { return filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}; }" usage="filter" SOURCE="Ps.filter.user_id" UPDATE-ACTION="lib_view.store_filter_elem( 'candidates_with_state_all', Source );"/>
+			</PANEL>
+		</TABLE>
+		<PANEL HEIGHT="2px"/>
+		<TABLE>
+			<COLUMNS/>
+		</TABLE>
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="Очистить форму" ACTION="lib_view.clear_filters( 'candidates_with_state_all', Ps ); lib_view.clear_stored_filters( 'candidates_with_state_all' ); lib_view.adjust_filters( 'candidates_with_state_all', Ps );Screen.Update()" PASSIVE="1"/>
+		</MENU>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+	<PANEL BK-COLOR-EXPR="" HEIGHT-EXPR="lib_view.use_preview( 'candidates_with_state_all' ) ? '40%' : '100%'">
+		<LIST NAME="MainList" USE-KEY-SEL="1" SUNKEN="1" LOOP-CATALOG="candidates" FT-FILTER="Ps.filter" XQUERY-QUAL-EXPR="lib_view.build_xquery_qual( 'candidates_with_state_all', Ps )" XQUERY-FIELDS-EXPR="['id','is_derived','is_own_person','is_candidate','is_tentative','is_active','image_url','state_date','fullname','state_id','main_vacancy_id','main_vacancy_division_id','last_job_org_name','user_id']" AFTER-BUILD-ASYNC-ACTION="if ( StrContains( Screen.FrameName, 'Sub' ) ) return; size = ArrayOptSize( MainArray ); if ( size == undefined ) { StatusMsg( '' ); return; }; StatusMsg( UiText.titles.items_in_list + ': ' + StrInt( size, 0, true ) + ( lib_view.is_some_filter_applied( 'candidates_with_state_all', Ps ) ? '  (с учетом фильтра)' : '' ) )">
+			<ROW IMAGE-URL-EXPR="ListElem.ImageUrl" SET-SEL-ACTION="if ( ! lib_view.use_preview( 'candidates_with_state_all' ) ) Cancel();item = Screen.FindOptItem( 'FrameObjectPreview' );doc = DefaultDb.OpenObjectDoc( 'candidate', ListElem.id );item.InnerScreen.EditMode = false;&#10;item.InnerScreen.SetDoc( doc, 'x-app://rcr/rcr_candidate.xms' );Cancel();">
+				<COL COL-TITLE="Дата" WIDTH="14zr" TITLE-EXPR="StrDate( ListElem.state_date, false )" ORDER="state_date" ORDER-DIR="-"/>
+				<COL COL-TITLE="ФИО" WIDTH="36zr" TITLE-EXPR="ListElem.fullname" ORDER="fullname"/>
+				<COL COL-TITLE="Статус" WIDTH="26zr" TITLE-EXPR="ListElem.state_id.ForeignDispName" ORDER="state_id.ForeignDispName" ALIGN="center" TEXT-COLOR-EXPR="ListElem.state_id.ForeignElem.text_color" BK-COLOR-EXPR="with ( Ps ) { with ( ListElem ) {  return get_state_bk_color(); }}"/>
+				<COL COL-TITLE="Вакансия" WIDTH="40%" TITLE-EXPR="ListElem.main_vacancy_id.ForeignDispName" ORDER="main_vacancy_id.ForeignDispName" ALIGN="left"/>
+				<COL COL-TITLE="Структурное подразделение" WIDTH="30%" TITLE-EXPR="ListElem.main_vacancy_division_id.ForeignDispName" ORDER="main_vacancy_division_id.ForeignDispName" ALIGN="left"/>
+				<COL COL-TITLE="Последнее место работы" WIDTH="30%" TITLE-EXPR="ListElem.last_job_org_name" ORDER="last_job_org_name" TEXT-COLOR="90,0,120"/>
+				<COL COL-TITLE="Рекрутер" WIDTH="15zr" TITLE-EXPR="ListElem.user_id.ForeignDispName" ORDER="user_id.ForeignDispName" ALIGN="center"/>
+			</ROW>
+			<MENU RIGHT-CLICK="1">
+				<MENU-ENTRY TITLE="Открыть" CMD="OpenSel"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Удалить" CMD="Clear"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name" ACTION="lib_view.ShowScreenInExcel( Screen, List )" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Режим предварительного просмотра" ACTION="lib_view.set_use_preview( 'candidates_with_state_all', ! lib_view.use_preview( 'candidates_with_state_all' ) )"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Отобрать на вакансию..." ACTION="lib_base.run_list_object_action( List, 'add_candidate_spot', 'add_candidate_spot' )" ENABLE-EXPR="lib_app2.AppFeatureEnabled( 'classic_recruit' )"/>
+				<MENU-ENTRY TITLE="Изменить статус..." ACTION="lib_base.run_list_object_action( List, 'add_candidate_event', 'add_candidate_event' )"/>
+				<MENU-ENTRY TITLE="Отправить контактным лицам по вакансии..." ACTION="lib_base.run_list_object_action( List, 'send_candidate_to_rr_person', 'send_candidate_to_rr_person' )"/>
+				<MENU-ENTRY TITLE="Отправить произвольным контактным лицам..." ACTION="lib_base.run_list_object_action( List, 'send_candidate_to_arbitrary_person', 'send_candidate_to_arbitrary_person' )"/>
+				<MENU-ENTRY TITLE="Найти дубликаты" ACTION="lib_base.run_list_object_action( List, 'find_candidate_dup_candidates', 'find_candidate_dup_candidates' )"/>
+			</MENU>
+		</LIST>
+	</PANEL>
+	<SPLIT/>
+	<FRAME NAME="FrameObjectPreview" HREF="x-app://base1/base1_blank.xms"/>
+	<INHERIT TYPE="view_commands"/>
+	<INHERIT TYPE="view_commands_2"/>
+</SPXML-SCREEN>

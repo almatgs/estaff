@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<org_types SPXML-FORM="x-app://base2/base2_org_types.xmd"><org_type><id>agency</id><name>КА</name><order_index>0</order_index><is_recruiting_agency>1</is_recruiting_agency><is_std>1</is_std></org_type><org_type><id>mass_media</id><name>СМИ</name><order_index>1</order_index><is_std>1</is_std></org_type><org_type><id>src_competitor</id><name>Компания-донор</name><order_index>2</order_index><is_competitor>1</is_competitor><is_std>1</is_std></org_type></org_types>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<cluster_config>
+	<is_master TYPE="bool" NOT-NULL="1"/>
+	<node_id TYPE="string"/>
+	<access_token TYPE="string"/>
+
+	<tenant_id TYPE="string"/>
+
+	<nodes>
+		<node MULTIPLE="1">
+			<id TYPE="string"/>
+			<host TYPE="string"/>
+			<access_token TYPE="string"/>
+		</node>
+	</nodes>
+
+	<master_node>
+		<id TYPE="string"/>
+		<host TYPE="string"/>
+		<access_token TYPE="string"/>
+	</master_node>
+
+	<slave_nodes>
+		<slave_node MULTIPLE="1">
+			<id TYPE="string"/>
+			<host TYPE="string"/>
+			<access_token TYPE="string"/>
+		</slave_node>
+	</slave_nodes>
+</cluster_config>
+
+
+
+</SPXML-FORM>

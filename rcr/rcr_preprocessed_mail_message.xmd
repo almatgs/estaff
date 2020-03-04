@@ -1,0 +1,28 @@
+<SPXML-FORM>
+
+<preprocessed_mail_message>
+	<body>
+		<plain_text TYPE="string" MULTILINE="1"/>
+		<html_text TYPE="string" SUBTYPE="html"/>
+
+		<resume_rating TYPE="integer"/>
+
+		<should_load TYPE="bool" NOT-NULL="1"/>
+		<card_attachment_type_id TYPE="string" FOREIGN-ARRAY="card_attachment_types"/>
+	</body>
+
+	<attachments>
+		<attachment MULTIPLE="1">
+			<name TYPE="string"/>
+			<data TYPE="binary"/>
+
+			<resume_rating TYPE="integer"/>
+
+			<should_load TYPE="bool" NOT-NULL="1"/>
+			<card_attachment_type_id TYPE="string" FOREIGN-ARRAY="card_attachment_types"/>
+		</attachment>
+	</attachments>
+</preprocessed_mail_message>
+
+
+</SPXML-FORM>

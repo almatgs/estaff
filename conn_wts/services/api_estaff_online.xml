@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1" WEB-SERVICE="1">
+<EStaffOnlineService>
+	<host TYPE="string" DEFAULT="https://estaff-online.webtutor.ru/"/>
+	
+	<METHOD NAME="Test">
+		<PARAM NAME="param">
+			<name TYPE="string"/>
+		</PARAM>
+		<RESULT NAME="result" TYPE="string" OPTIONAL="1"/>
+	</METHOD>
+	
+	
+	<METHOD NAME="UpdatePoll">
+		<PARAM NAME="poll">
+			<code TYPE="string"/>
+			<name TYPE="string"/>
+			<start_date TYPE="date"/>
+			<end_date TYPE="date"/>
+			<questions>
+				<question MULTIPLE="1" PRIMARY-KEY="id">
+					<id TYPE="string" EXPR-INIT="Random( 10000000, 99999999 )"/>
+					<type_id TYPE="string" NOT-NULL="1" DEFAULT="string" TITLE="const=wn6qh2maou"/>
+					<title TYPE="string" TITLE="const=c_heading"/>
+					<min_entry_value TYPE="integer" />
+					<max_entry_value TYPE="integer" />
+					<preparation_time TYPE="integer" />
+					<max_duration TYPE="integer" TITLE="const=3c9n8xs4j2"/>
+					<entries TITLE="const=5ed2971r62">
+						<entry MULTIPLE="1" PRIMARY-KEY="id">
+							<id TYPE="integer" EXPR-INIT="Random( 10000000, 99999999 )"/>
+							<name TYPE="string" TITLE="const=c_value"/>
+						</entry>
+					</entries>
+				</question>
+                <prohibit_viewing TYPE="bool" NULL-FALSE="1" />
+                <prohibit_overwriting TYPE="bool" NULL-FALSE="1"/>
+                <preparation_time TYPE="integer" />
+                <max_duration TYPE="integer"/>
+			</questions>
+			<ext_form_fields TYPE="string"/>
+			<complete_message TYPE="string"/>
+		</PARAM>
+		<RESULT NAME="poll_id" TYPE="integer"/>
+	</METHOD>
+
+	<METHOD NAME="ClosePoll">
+		<PARAM NAME="poll">
+			<code TYPE="string"/>
+		</PARAM>
+	</METHOD>
+
+	<METHOD NAME="AssignPoll">
+		<PARAM NAME="poll">
+			<code TYPE="string"/>
+			<link_exp_period_poll_launch TYPE="integer" DEFAULT="7"/>
+		</PARAM>
+		<PARAM NAME="candidate">
+			<code TYPE="string"/>
+			<eid TYPE="integer"/>
+			<lastname TYPE="string"/>
+			<firstname TYPE="string"/>
+			<middlename TYPE="string"/>
+			<email TYPE="string"/>
+			<phone TYPE="string"/>
+			<birth_date TYPE="date"/>
+		</PARAM>
+		<PARAM NAME="poll_result">
+			<code TYPE="string"/>
+		</PARAM>
+		<!--<RESULT NAME="person_id" TYPE="integer"/>-->
+		<RESULT NAME="url_launch" TYPE="string"/>
+		<RESULT NAME="url_resultinfo" TYPE="string"/>
+	</METHOD>
+	
+
+	
+	<METHOD NAME="UpdateVacancy">
+		<PARAM NAME="vacancy">
+			<source_id TYPE="string"/>
+			<name TYPE="string"/>
+			<region_id TYPE="string"/>
+			<schedule_work_id TYPE="string"/>
+			<educ_type_id TYPE="string"/>
+			<employment_type_id TYPE="string"/>
+			<min_exp_years TYPE="integer"/>
+			<min_age TYPE="integer"/>
+			<max_age TYPE="integer"/>
+			<min_wage TYPE="integer"/>
+			<max_wage TYPE="integer"/>
+			<currency_type_id TYPE="string"/>
+			<pub_period TYPE="integer"/>
+			<is_closed TYPE="bool"/>
+			<contact_fullname TYPE="string"/>
+			<contact_phone TYPE="string"/>
+		</PARAM>
+		<PARAM NAME="poll">
+			<code TYPE="string"/>
+		</PARAM>
+		<RESULT NAME="vacancy_id" TYPE="integer"/>
+		<RESULT NAME="url_launch" TYPE="string"/>
+	</METHOD>
+	
+	
+	
+	<METHOD NAME="GetPollResults">
+		<PARAM NAME="date" TYPE="date"/>
+		<RESULT NAME="poll_results">
+			<poll_result MULTIPLE="1">
+				<poll_result_code TYPE="string"/>
+				
+				<poll_result_id TYPE="integer"/>
+				<person_id TYPE="integer"/>
+				<vacancy_response_id TYPE="integer"/>
+				<!--<person_code TYPE="string"/>-->
+				<create_date TYPE="string"/>
+				<modification_date TYPE="string"/>
+				<status TYPE="integer"/>
+			</poll_result>
+		</RESULT>
+	</METHOD>
+	
+	<METHOD NAME="GeneratePollResultReportUrl">
+		<PARAM NAME="id" TYPE="integer"/>
+		<PARAM NAME="code" TYPE="string"/>
+		<PARAM NAME="period" TYPE="integer" DEFAULT="86400"/>
+		<RESULT NAME="url" TYPE="string"/>
+	</METHOD>
+	
+	<METHOD NAME="GetVacancyResponses">
+		<PARAM NAME="date" TYPE="date"/>
+		<RESULT NAME="vacancy_responses">
+			<vacancy_response MULTIPLE="1" PRIMARY-KEY="id">
+				<id TYPE="integer"/>
+				<vacancy_id TYPE="integer"/>
+				<vacancy_code TYPE="string"/>
+				<person>
+					<id TYPE="integer"/>
+					<!--eid TYPE="string"/-->
+					<lastname TYPE="string"/>
+					<firstname TYPE="string"/>
+					<middlename TYPE="string"/>
+					<birthdate TYPE="string"/>
+					<phone TYPE="string"/>
+					<email TYPE="string"/>
+				</person>
+				<files>
+					<file MULTIPLE="1" PRIMARY-KEY="id">
+						<id TYPE="integer"/>
+						<name TYPE="string"/>
+						<data TYPE="string"/>
+					</file>
+				</files>
+				<create_date TYPE="string"/>
+				<modification_date TYPE="string"/>
+			</vacancy_response>
+		</RESULT>
+	</METHOD>
+</EStaffOnlineService>
+</SPXML-INLINE-FORM>

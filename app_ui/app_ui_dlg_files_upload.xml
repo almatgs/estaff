@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_files_upload>
+	<file_id TYPE="string"/>
+</dlg_files_upload>
+
+</SPXML-INLINE-FORM>
+

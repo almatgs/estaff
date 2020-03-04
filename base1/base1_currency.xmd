@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml">
+
+
+<currency>
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<full_name TYPE="string"/>
+	<cent_name TYPE="string"/>
+	<mod_names>
+		<mod_name MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+			<cent_name TYPE="string"/>
+		</mod_name>
+	</mod_names>
+	<text_color TYPE="string"/>			
+	<bk_color TYPE="string"/>
+	
+	<rate TYPE="real"/>			
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</currency>
+
+
+
+</SPXML-FORM>

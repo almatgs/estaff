@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<view_stat_details>
+	<object_type_id TYPE="string"/>
+	<ids_array_ref TYPE="variant"/>
+
+	<ids_array PROPERTY="1" EXPR="ids_array_ref.Object"/>
+</view_stat_details>
+
+</SPXML-INLINE-FORM>

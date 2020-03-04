@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<spxml_module>
+	<ui_texts>
+		<ui_text>
+			<url>staff_ui_text.xml</url>
+		</ui_text>
+	</ui_texts>
+
+	<sample_forms>
+		<sample_form>
+			<url>staff_general.xmd</url>
+		</sample_form>
+	</sample_forms>
+
+	<sample_screen_forms>
+		<sample_screen_form>
+			<url>staff_general.xms</url>
+		</sample_screen_form>
+	</sample_screen_forms>
+
+
+	<shared_docs>
+		<shared_doc>
+			<url>staff_common.xml</url>
+		</shared_doc>
+		<shared_doc>
+			<url>staff_lib_struct.js</url>
+		</shared_doc>
+		<shared_doc>
+			<url>staff_lib_testing.js</url>
+		</shared_doc>
+	</shared_docs>
+
+
+	<object_types>
+		<object_type>
+			<form_url>staff_division.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>staff_position.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>staff_testing.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>staff_training_group.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>staff_person_struct_role.xmd</form_url>
+		</object_type>
+	</object_types>
+
+	<start_url>staff_main.xml</start_url>
+</spxml_module>
+
+
+

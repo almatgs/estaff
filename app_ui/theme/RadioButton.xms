@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+<COMPLEX-ITEM NAME="RADIO-BUTTON" SAMPLE="1" VIEW="RadioButtonView" OWN-TITLE="1">
+	<ATTRIBUTE NAME="SWITCH-VALUE" TYPE="string" REQUIRED="1"/>
+</COMPLEX-ITEM>
+	
+	
+<PANEL NAME="RadioButtonView" SAMPLE="1" STD-MARGINS="0" PADDING="0 2epx 0 0" STATES="hover,pressed,disabled" OnCreate="BaseSampleItem.AuxData.isChecked = false" ACTION="
+		baseItem = BaseSampleItem;
+		if ( baseItem.AuxData.isChecked )
+			return;
+
+		MasterItem.SetSourceValue( baseItem.MasterItem.GetAttrValue( 'SWITCH-VALUE' ) );
+		
+		if ( MasterItem.IsPassive )
+			BaseSampleItem.Update();
+		else
+			Screen.Update();
+" PASSIVE="1">
+	<WITH VAR="dummy" EXPR="
+			baseItem = BaseSampleItem;
+
+			newIsChecked = ( baseItem.MasterItem.Source + '' == baseItem.MasterItem.GetAttrValue( 'SWITCH-VALUE' ) );
+				baseItem.AuxData.isChecked = newIsChecked;
+			return;
+
+			if ( baseItem.AuxData.isChecked != newIsChecked )
+			{
+				baseItem.AuxData.isChecked = newIsChecked;
+				
+				image = baseItem.FindOptSubItemByType( 'IMAGE' );
+				if ( image != undefined )
+					image.Update();
+			}
+	"/>
+
+	<LINE>
+		<IMAGE URL-EXPR="
+			if ( BaseSampleItem.AuxData.isChecked )
+				return '/theme/pict/radio_button_checked.svg';
+			else
+				return '/theme/pict/radio_button_unchecked.svg';
+		" EFFECTS-EXPR="
+				switch ( BaseSampleItem.State )
+				{
+					case 'hover':
+						return {primary_color:AppUi.gThemeData.colors.primary};
+
+					case 'pressed':
+						return {primary_color:AppUi.gThemeData.colors.dark};
+
+					case 'disabled':
+						return {primary_color:AppUi.gThemeData.colors.edit_border_disabled};
+
+					default:
+						if ( BaseSampleItem.AuxData.isChecked )
+							return {primary_color:AppUi.gThemeData.colors.primary};
+						else
+							return undefined;
+				}
+		"/>
+
+		<PANEL WIDTH="0.4em">
+		</PANEL>
+
+		<LABEL TITLE-EXPR="BaseSampleItem.MasterItem.Title" TEXT-COLOR-EXPR="
+				switch ( BaseSampleItem.State )
+				{
+					case 'normal':
+						return AppUi.gThemeData.colors.text;
+
+					case 'hover':
+						return AppUi.gThemeData.colors.primary;
+
+					case 'pressed':
+						return AppUi.gThemeData.colors.dark;
+				}
+		" MULTILINE="0"/>
+	</LINE>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+

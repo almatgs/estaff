@@ -1,0 +1,204 @@
+namespace LibCalendarControl {
+
+
+function OnCreateCalendarControl( item )
+{
+	item.AuxData.curDate = DateNewTime( CurDate );
+	item.AuxData.activeYear = undefined;
+	item.AuxData.activeMonth = undefined;
+
+	if ( SystemLocaleInfo.FirstDayOfWeek == 1 )
+		item.AuxData.weekDaysSeq = [1,2,3,4,5,6,0];
+	else
+		item.AuxData.weekDaysSeq = [0,1,2,3,4,5,6];
+
+	item.AuxData.coreCellDates = new Array( 42 );
+}
+
+
+function OnBuildCalendarControl( item )
+{
+	sourceVal = item.Source;
+	if ( sourceVal != null )
+		item.AuxData.selDate = sourceVal;
+	else
+		item.AuxData.selDate = item.AuxData.curDate;
+
+	if ( item.AuxData.activeYear == undefined )
+	{
+		item.AuxData.activeYear = Year( item.AuxData.selDate );
+		item.AuxData.activeMonth = Month( item.AuxData.selDate );
+	}
+
+	UpdateActiveMonth( item );
+}
+
+
+function UpdateActiveMonth( item )
+{
+	startDate = Date( item.AuxData.activeYear, item.AuxData.activeMonth, 1 );
+	startWeekDay = WeekDay( startDate );
+
+	startOffset = item.AuxData.weekDaysSeq.indexOf( startWeekDay );
+	if ( startOffset == 0 )
+		startOffset += 7;
+
+	for ( i = 1; i <= 31; i++ )
+	{
+		date = Date( item.AuxData.activeYear, item.AuxData.activeMonth, i );
+		if ( i > 28 && ! IsValidDate( date ) )
+			break;
+
+		offset = startOffset + i - 1;
+		item.AuxData.coreCellDates[offset] = date;
+	}
+
+	nextStartOffset = startOffset + i - 1;
+	nextDaysNum = 42 - nextStartOffset;
+
+	if ( item.AuxData.activeMonth < 12 )
+	{
+		nextYear = item.AuxData.activeYear;
+		nextMonth = item.AuxData.activeMonth + 1;
+	}
+	else
+	{
+		nextYear = item.AuxData.activeYear + 1;
+		nextMonth = 1;
+	}
+
+	for ( i = 1; i <= nextDaysNum; i++ )
+	{
+		date = Date( nextYear, nextMonth, i );
+
+		offset = nextStartOffset + i - 1;
+		item.AuxData.coreCellDates[offset] = date;
+	}
+
+
+	if ( item.AuxData.activeMonth > 1 )
+	{
+		prevYear = item.AuxData.activeYear;
+		prevMonth = item.AuxData.activeMonth - 1;
+	}
+	else
+	{
+		prevYear = item.AuxData.activeYear - 1;
+		prevMonth = 12;
+	}
+
+	prevEndDate = DateOffset( startDate, - 86400 );
+	prevYear = Year( prevEndDate );
+	prevMonth = Month( prevEndDate );
+	prevEndDay = Day( prevEndDate );
+
+	for ( offset = 0; offset < startOffset; offset++ )
+	{
+		date = Date( prevYear, prevMonth, (prevEndDay - startOffset) + offset + 1 );
+		item.AuxData.coreCellDates[offset] = date;
+	}
+}
+
+
+function GetCellTextColor( item, cell, date )
+{
+	if ( date == item.AuxData.selDate )
+		return AppUi.gThemeData.colors.background;
+
+	if ( cell.State == 'hover' )
+		return AppUi.gThemeData.colors.primary;
+	else if ( cell.State == 'pressed' )
+		return AppUi.gThemeData.colors.dark;
+
+	if ( LibCalendarControl.IsNonWorkingDay( date ) )
+	{
+		if ( Month( date ) == item.AuxData.activeMonth )
+			return ( UseInternationalColors() ? AppUi.gThemeData.colors.light_blue_text : AppUi.gThemeData.colors.red_text );
+		else
+			return ( UseInternationalColors() ? AppUi.gThemeData.colors.bleak_light_blue_text : AppUi.gThemeData.colors.bleak_red_text );
+	}
+	else
+	{
+		if ( Month( date ) == item.AuxData.activeMonth )
+			return AppUi.gThemeData.colors.text;
+		else
+			return AppUi.gThemeData.colors.gray_fill;
+	}
+}
+
+
+function GetCellBkColor( item, cell, date )
+{
+	if ( date == item.AuxData.selDate )
+		return AppUi.gThemeData.colors.primary_bright;
+	else
+		return '';
+	//return AppUi.gThemeData.colors.background;
+}
+
+
+function GetCellBorderWidth( item, cell, date )
+{
+	if ( date == DateNewTime( CurDate ) )
+		return 1;
+
+	return 0;
+}
+
+
+function OnCellClick( item, date )
+{
+	item.AuxData.selDate = date;
+	item.SetSourceValue( item.AuxData.selDate );
+	
+	if ( item.IsDropDown )
+	{
+		item.CloseDropDown();
+		if ( ! item.IsPassive )
+			item.Screen.Update();
+	}
+	else
+	{
+		if ( item.IsPassive )
+			item.Update();
+		else
+			item.Screen.Update();
+	}
+}
+
+
+function OnMonthShift( item, delta )
+{
+	if ( delta > 0 && item.AuxData.activeMonth == 12 )
+	{
+		item.AuxData.activeYear++;
+		item.AuxData.activeMonth = 1;
+	}
+	else if ( delta < 0 && item.AuxData.activeMonth == 1 )
+	{
+		item.AuxData.activeYear--;
+		item.AuxData.activeMonth = 12;
+	}
+	else
+	{
+		item.AuxData.activeMonth += delta;
+	}
+
+	UpdateActiveMonth( item );
+	item.Update();
+}
+
+
+function IsNonWorkingDay( date )
+{
+	return ( WeekDay( date ) == 0 || WeekDay( date ) == 6 );
+}
+
+
+function UseInternationalColors()
+{
+	return false;
+}
+
+
+}

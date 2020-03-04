@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" IMAGE-URL="//base_pict/generic_item.ico">
+
+
+<testing_system>
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+
+	<is_wt TYPE="bool" NULL-FALSE="1" EXPR="id == 'webtutor' ? true : is_wt" TITLE="Интерфейс системы WebTutor" lang-en:TITLE="Use WebTutor interface" lang-ua:TITLE="Інтерфейс системи WebTutor"/>
+	<use_own_site TYPE="bool" NULL-FALSE="1" TITLE="Располагается на собственном сайте" lang-en:TITLE="Use own site" lang-ua:TITLE="Розташовується на власному сайті"/>
+	<own_site_id TYPE="string" FOREIGN-ARRAY="own_sites" TITLE="##UiText.titles.own_site##"/>
+	<recruit_provider_id TYPE="string" FOREIGN-ARRAY="recruit_providers" TITLE="##UiText.titles.provider##"/>
+
+	<address TYPE="string"/>
+	<protocol_version TYPE="string" DEFAULT="1"/>
+
+	<use_local_logins TYPE="bool" NOT-NULL="1" TITLE="##UiText.titles.use_local_logins##"/>
+	<login TYPE="string" TITLE="##UiText.fields.login##"/>
+	<password TYPE="string" TITLE="##UiText.fields.password##"/>
+
+	<send_assign_notif TYPE="bool" NULL-FALSE="1"/>
+	<assign_notif_template_id TYPE="string" FOREIGN-ARRAY="mail_templates"/>
+
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</testing_system>
+
+
+
+</SPXML-FORM>

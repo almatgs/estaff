@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<EDIT NAME="elem_str_attr_edit" PARAM-attr-name="" SAMPLE="1" SOURCE="
+		Ps.GetOptAttr( GetSampleParam( 'attr-name' ), '' )
+" SET-VALUE-ACTION="
+		if ( NewValue != '' )
+			Ps.ObtainAttr( GetSampleParam( 'attr-name' ), NewValue );
+		else
+			Ps.DeleteOptAttr( GetSampleParam( 'attr-name' ) );
+							
+		Ps.Doc.SetChanged( true );
+">
+</EDIT>
+
+
+
+<EDIT NAME="elem_str_attr_multiline_edit" PARAM-attr-name="" SAMPLE="1" MULTILINE="1" SOURCE="
+		Ps.GetOptAttr( GetSampleParam( 'attr-name' ), '' )
+" SET-VALUE-ACTION="
+		if ( NewValue != '' )
+			Ps.ObtainAttr( GetSampleParam( 'attr-name' ), NewValue );
+		else
+			Ps.DeleteOptAttr( GetSampleParam( 'attr-name' ) );
+							
+		Ps.Doc.SetChanged( true );
+" HEIGHT="6zr">
+</EDIT>
+
+
+<CHECK NAME="elem_bool_attr_check_box" PARAM-attr-name="" SAMPLE="1" SOURCE="
+		Ps.GetOptAttr( GetSampleParam( 'attr-name' ) ) == '1'
+" SET-VALUE-ACTION="
+		if ( NewValue )
+			Ps.ObtainAttr( GetSampleParam( 'attr-name' ), '1' );
+		else
+			Ps.DeleteOptAttr( GetSampleParam( 'attr-name' ) );
+							
+		Ps.Doc.SetChanged( true );
+">
+</CHECK>
+
+
+
+</SPXML-SCREEN>
+
+

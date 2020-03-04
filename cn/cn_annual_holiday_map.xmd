@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" IMAGE-URL="//base_pict/generic_item.ico">
+
+<annual_holiday_map>
+	<id TYPE="string"/>
+	<name TYPE="string" EXPR="country_id.ForeignDispName + ' ' + year"/>
+
+	<country_id TYPE="string" FOREIGN-ARRAY="lib_location.get_std_countries()" TITLE="##UiText.fields.country##"/>
+	<year TYPE="integer" TITLE="##UiText.titles.year##"/>
+
+	<items>
+		<item MULTIPLE="1" PRIMARY-KEY="month_day">
+			<month TYPE="integer" FOREIGN-ARRAY="base1_common.months"/>
+			<day TYPE="integer"/>
+			<month_day TYPE="integer" EXPR="month * 100 + day"/>
+			<name TYPE="string"/>
+			<is_working_day TYPE="bool" NULL-FALSE="1"/>
+		</item>
+	</items>
+
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</annual_holiday_map>
+
+
+</SPXML-FORM>

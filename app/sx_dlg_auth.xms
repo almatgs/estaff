@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="dlg_auth" TITLE="##UiText.titles.user_auth##" WIDTH="46zr" HEIGHT="34zr" INIT-ACTION="
+		if ( dlg_auth.login != '' &amp;&amp; dlg_auth.password != '' )
+			Screen.FindItem( 'Ok' ).SetFocus();
+		else if ( dlg_auth.login != '' )
+			Screen.FindItem( 'Password' ).SetFocus();
+		else
+			Screen.FindItem( 'Login' ).SetFocus();
+">
+
+<LINE>
+	<IMAGE URL="pict/auth.ico" WIDTH="32px" HEIGHT="32px"/>
+	<LABEL TITLE-EXPR="Ps.prompt"/>
+</LINE>
+<DELIM/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="19zr"/>
+		<COL WIDTH="100%"/>
+	</COLUMNS>
+
+	<LABEL TITLE="##UiText.fields.user_name##:" ALIGN="right" lang-en:TITLE="User name:"/>
+	<EDIT SOURCE="Ps.login" NAME="Login" ACTION="Screen.RunCommand( 'Ok' )" PASSIVE="1"/>
+
+	<LABEL TITLE="##UiText.fields.password##:" ALIGN="right" lang-en:TITLE="Password:"/>
+	<EDIT SOURCE="Ps.password" PASSWORD="1" NAME="Password" ACTION="Screen.RunCommand( 'Ok' )" PASSIVE="1"/>
+
+	<LABEL/>
+	<CHECK TITLE="##UiText.titles.save_password##" SOURCE="Ps.save_password"/>
+</TABLE>
+<DELIM/>
+
+<PANEL HEIGHT="1px">
+</PANEL>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+	<LABEL/>
+	<BUTTON TITLE="OK" CMD="Ok" NAME="Ok"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="Cancel" lang-en:TITLE="Cancel"/>
+</TABLE>
+
+</SPXML-SCREEN>

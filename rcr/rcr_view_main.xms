@@ -1,0 +1,802 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="Ps.get_window_title()" BEFORE-INIT-ACTION="
+		if ( ! UseLds )
+			lib_app2.check_app_activation();
+
+		if ( ! UseLds )
+		{
+			view_main.check_old_data();
+		}
+
+		if ( ! System.IsWebClient )
+			lib_malware.check_init_warnings();
+
+		Ps.check_init_global_settings();
+		Ps.check_init_local_settings();
+
+		lib_app2.check_trial_messages();
+" RESIZE="1" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/estaff_wnd.ico">
+
+
+<USE FORM="//cn/cn_general.xms"/>
+<USE FORM="//imod/imod_general.xms"/>
+
+
+<MENU TITLE="##UiText.titles.file##" GLOBAL="1">
+	<MENU TITLE="##UiText.actions.create__new##">
+		<IF EXPR="global_settings.use_divisions">
+			<MENU-ENTRY TITLE="##UiText.objects.division##" CMD="NewDivision"/>
+			<MENU-ENTRY TITLE="##UiText.objects.position##" CMD="NewPosition"/>
+		</IF>
+
+		<IF EXPR="global_settings.use_own_persons">
+			<MENU-ENTRY TITLE="##UiText.objects.employee##" CMD="NewOwnPerson"/>
+		</IF>
+
+		<IF EXPR="global_settings.use_other_orgs || global_settings.is_agency">
+			<MENU-ENTRY TITLE-EXPR="global_settings.is_agency ? UiText.objects.client : UiText.fields.counterpart" CMD="NewOrg"/>
+			<MENU-ENTRY TITLE="##UiText.objects.contact_person##" CMD="NewPerson"/>
+
+			<IF EXPR="global_settings.use_contact_lists">
+				<MENU-ENTRY TITLE="##UiText.objects.contact_list##" CMD="NewContactsList"/>
+			</IF>
+		</IF>
+
+		<IF EXPR="global_settings.use_agreements">
+			<MENU-ENTRY TITLE="##UiText.objects.agreement##" CMD="NewAgreement" ENABLE-EXPR="! lib_user.active_user_access.prohibit_view_agreements"/>
+		</IF>
+
+		<IF EXPR="global_settings.use_expenses">
+			<MENU-ENTRY TITLE="##UiText.objects.recruiting_expense##" CMD="NewExpense" ENABLE-EXPR="! lib_user.active_user_access.prohibit_view_expenses"/>
+		</IF>
+
+		<IF EXPR="global_settings.use_budgets">
+			<MENU-ENTRY TITLE="##UiText.titles.quarterly_budget##" CMD="NewBudget"/>
+		</IF>
+
+		<MENU-ENTRY TITLE="##UiText.objects.vacancy##" CMD="NewVacancy"/>
+		<MENU-ENTRY TITLE="##UiText.objects.candidate##" CMD="NewCandidate"/>
+
+		<IF EXPR="lib_app2.AppFeatureEnabled( 'rr_recruit' )">
+			<MENU-ENTRY TITLE="##UiText.objects.vacancy_request##" ACTION="
+					doc = DefaultDb.OpenNewObjectDoc( 'vacancy_request' );
+					lib_base.init_new_card_object( doc.TopElem );
+					CreateDocScreen( doc );
+			" PASSIVE="1"/>
+		</IF>
+
+		<IF EXPR="AppModuleUsed( 'module_expressbank' )">
+			<MENU-ENTRY TITLE="Новое замещение" ACTION="
+					doc = DefaultDb.OpenNewObjectDoc( 'employee_substitution' );
+					CreateDocScreen( doc );
+			" PASSIVE="1" lang-en:TITLE="New replacement" lang-ua:TITLE="Нове заміщення"/>
+		</IF>
+
+		<IF EXPR="lib_app2.AppFeatureEnabled( 'mass_recruit' )">
+			<MENU-ENTRY TITLE="##UiText.objects.training_group##" ACTION="
+					doc = DefaultDb.OpenNewObjectDoc( 'training_group' );
+					lib_base.init_new_card_object( doc.TopElem );
+					CreateDocScreen( doc );
+			" PASSIVE="1"/>
+		</IF>
+
+		<IF EXPR="AppModuleUsed( 'ras' )">
+			<MENU-ENTRY TITLE="##UiText.titles.resume_search_template##" ACTION="
+					doc = DefaultDb.OpenNewObjectDoc( 'resume_search_template' );
+					lib_base.init_new_card_object( doc.TopElem );
+					CreateDocScreen( doc );
+			" PASSIVE="1"/>
+		</IF>
+
+		<IF EXPR="false">
+			<MENU-ENTRY TITLE="Электронная заявка" CMD="NewWorkflowDocument" lang-en:TITLE="Workflow document" lang-ua:TITLE="Електронна заявка"/>
+		</IF>
+	</MENU>
+
+	<INHERIT TYPE="card_objects_create_menu_entries"/>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+	<MENU-ENTRY TITLE="##UiText.actions.import_cv##" CMD="LoadResume" lang-en:TITLE="Import Resume"/>
+	<MENU-ENTRY SEPARATOR="1"/>
+	<MENU-ENTRY TITLE="##UiText.actions.print##&#09;Ctrl+P" CMD="Print" lang-en:TITLE="Print&#09;Ctrl+P"/>
+	
+	<MENU-ENTRY TITLE-EXPR="UiText.titles.export_to + ' ' + ( System.IsWebClient ? 'MS Excel' : lib_office.active_calc_name )" CMD="ShowInOfficeCalc"/>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<IF EXPR="System.IsWebClient">
+		<MENU-ENTRY TITLE="##UiText.actions.logout##" ACTION="ui_client.HandleLogout();" PASSIVE="1"/>
+	</IF>
+	<ELSE>
+		<MENU-ENTRY TITLE="Выход&#09;Ctrl+Q" CMD="Quit" lang-en:TITLE="Exit&#09;Ctrl+Q" lang-ua:TITLE="Вийти&#09;Ctrl+Q"/>
+	</ELSE>
+</MENU>
+
+<INHERIT TYPE="edit_menu"/>
+<INHERIT TYPE="main_screen_view_menu"/>
+
+<MENU TITLE="##UiText.sections.service##" GLOBAL="1">
+	<IF EXPR="rcr_config.use_inet">
+		<MENU-ENTRY TITLE="##UiText.titles.search_inet_resumes##" ACTION="
+				lib_imod.open_main_search();
+		" PASSIVE="1"/>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+	</IF>
+
+	<MENU-ENTRY TITLE="##UiText.sections.stats##" ACTION="
+			Screen.Navigate( '//base1/base1_view_stats.xml', 'FrameStats' );
+	" PASSIVE="1"/>
+
+	<MENU-ENTRY TITLE="##UiText.sections.personal_settings##" ACTION="
+			Screen.Navigate( 'rcr_view_local.xml', 'FrameLocal' );
+	" PASSIVE="1"/>
+
+	<MENU-ENTRY TITLE="##UiText.sections.administration##" ACTION="
+			Screen.Navigate( '//base1/base1_view_admin.xml', 'FrameAdmin' );
+	" PASSIVE="1" ENABLE-EXPR="base1_config.allow_admin_section"/>
+
+	<IF EXPR="ArrayOptFirstElem( lib_voc.get_sorted_voc( import_scenarios ) ) != undefined || ArrayOptFirstElem( lib_voc.get_sorted_voc( export_scenarios ) ) != undefined">
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU TITLE="##UiText.titles.import##">
+			<LOOP EXPR="import_scenarios" VAR="_scenario">
+				<MENU-ENTRY TITLE-EXPR="_scenario.name" ACTION="
+						lib_import.run_import_scenario( _scenario );
+						UpdateScreens( '*', '*' );
+				" PASSIVE="1"/>
+			</LOOP>
+		</MENU>
+
+		<MENU TITLE="##UiText.titles.export##">
+			<LOOP EXPR="export_scenarios" VAR="_scenario">
+				<MENU-ENTRY TITLE-EXPR="_scenario.name" ACTION="
+						lib_export.run_export_scenario( _scenario );
+						UpdateScreens( '*', '*' );
+				" PASSIVE="1"/>
+			</LOOP>
+		</MENU>
+	</IF>
+
+
+	<IF EXPR="! System.IsWebClient">
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="Поиск дубликатов" ACTION="
+				lib_candidate_dup.handle_find_all_dup_candidates();
+		" PASSIVE="1" lang-en:TITLE="Search Duplicate Candidates" lang-ua:TITLE="Пошук дублікатів"/>
+	</IF>
+
+	<IF EXPR="lib_telephony.is_telephony_enabled">
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="##UiText.titles.call_history##&#09;Ctrl+Shift+T" CMD="ViewPhoneCallHistory"/>
+	</IF>
+
+	<INHERIT TYPE="main_service_menu_end_entries"/>
+
+	<IF EXPR="AppModuleUsed( 'module_efko' ) &amp;&amp;! System.IsWebClient">
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="Отчет о переписке рекрутера..." ACTION="
+				OpenCodeLib( 'x-app://module_efko/efko_lib_efko_report.js' ).HandleBuildReport2();
+		" PASSIVE="1"/>
+	</IF>
+</MENU>
+
+
+<MENU TITLE="##UiText.titles.actions##" GLOBAL="1">
+	<INHERIT TYPE="main_actions_menu_end_entries"/>
+</MENU>
+
+
+
+<MENU TITLE="##UiText.titles.help__menu##" GLOBAL="1">
+	<MENU-ENTRY TITLE="##UiText.sections.help##" CMD="Help" PASSIVE="1"/>
+	<MENU-ENTRY SEPARATOR="1"/>
+	<MENU-ENTRY TITLE="##UiText.sections.about_program##..." CMD="About"/>
+</MENU>
+
+
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1" TOP-DIVIDER__="0">
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/print.ico" CMD="Print" TIP-TEXT="##UiText.actions.print##" lang-en:TIP-TEXT="Print"/>
+	<INHERIT TYPE="edit_toolbar_entries"/>
+
+	<IF EXPR="global_settings.use_divisions">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/division.ico" CMD="NewDivision" TIP-TEXT="##UiText.actions.new_division##"/>
+
+		<IF EXPR="global_settings.use_own_persons && ! AppModuleUsed( 'module_vtb24' )">
+			<TOOLBAR-ENTRY IMAGE-URL="//base_pict/own_person.ico" CMD="NewOwnPerson" TIP-TEXT="##UiText.actions.new_own_person##"/>
+		</IF>
+
+		<IF EXPR="global_settings.use_positions && ! ArrayOptFindByKey( card_object_types, 'position' ).prohibit_change">
+			<TOOLBAR-ENTRY IMAGE-URL="//base_pict/position.ico" CMD="NewPosition" TIP-TEXT="##UiText.actions.new_position##"/>
+		</IF>
+	</IF>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<IF EXPR="global_settings.is_agency">
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/org.ico" CMD="NewOrg" TITLE="##UiText.actions.new_client##"/>
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+	</IF>
+	<IF EXPR="global_settings.use_other_orgs && ! global_settings.is_agency">
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/org.ico" CMD="NewOrg" TIP-TEXT="##UiText.actions.new_cpart##"/>
+	</IF>
+
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/contact_person.ico" CMD="NewPerson" TIP-TEXT="##UiText.actions.new_contact_person##"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/event.ico" CMD="NewEvent" TIP-TEXT="Новое событие" lang-en:TIP-TEXT="New Event" lang-ua:TIP-TEXT="Нова подія">
+		<MENU>
+			<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( event_types ), '! target_object_type_id.ByValueExists( \'candidate\' )' )" VAR="_event_type">
+				<MENU-ENTRY TITLE-EXPR="_event_type.name" ACTION="
+						eventDoc = DefaultDb.OpenNewObjectDoc( _event_type.get_object_name() );
+						eventDoc.TopElem.type_id = _event_type.id;
+						eventDoc.TopElem.date = CurDate;
+						eventDoc.TopElem.init();
+
+						if ( _event_type.has_occurrence( 'scheduled' ) )
+							eventDoc.TopElem.occurrence_id = 'scheduled';
+
+						CreateDocScreen( eventDoc );
+				" PASSIVE="1"/>
+			</LOOP>
+		</MENU>
+	</TOOLBAR-ENTRY>
+
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/vacancy.ico" TITLE="##UiText.actions.new_vacancy##" CMD="NewVacancy" lang-en:TITLE="New Vacancy"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/candidate.ico" TITLE="##UiText.actions.new_candidate##" CMD="NewCandidate" lang-en:TITLE="New Candidate"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/paste.ico" TITLE="Вставка резюме" CMD="PasteResume" lang-en:TITLE="Paste Resume" lang-ua:TITLE="Вставка резюме"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/word_doc.ico" TITLE="##UiText.actions.import_cv##" CMD="LoadResume" lang-en:TITLE="Import Resume"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/excel.ico" CMD="ShowInOfficeCalc" TIP-TEXT-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY TIP-TEXT="##UiText.sections.stats##" IMAGE-URL="//base_pict/stat.ico" ACTION="Screen.Navigate( '//base1/base1_view_stats.xml', 'FrameStats' );" PASSIVE="1"/>
+	
+	<IF EXPR="local_settings.show_toolbar_entry_admin">
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/design.ico" ACTION="Screen.Navigate( '//base1/base1_view_admin.xml', 'FrameAdmin' )" TIP-TEXT="##UiText.sections.administration##" ENABLE-EXPR="base1_config.allow_admin_section"/>
+	</IF>
+
+	<IF EXPR="local_settings.show_toolbar_entry_local">
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/settings.ico" ACTION="Screen.Navigate( 'rcr_view_local.xml', 'FrameLocal' );" TIP-TEXT="##UiText.sections.personal_settings##" lang-en:TIP-TEXT="Personal Settings"/>
+	</IF>
+
+	<IF EXPR="rcr_config.use_inet">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/inet_search.ico">
+			<MENU>
+				<INHERIT TYPE="main_inet_menu_entries"/>
+			</MENU>
+		</TOOLBAR-ENTRY>
+	</IF>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/help.ico" CMD="Help" TIP-TEXT="##UiText.sections.help##"/>
+</TOOLBAR>
+
+
+<STATUS-BAR>
+	<STATUS-BAR-ENTRY WIDTH="100%"/>
+	<STATUS-BAR-ENTRY WIDTH="20zr"/>
+</STATUS-BAR>
+
+
+
+
+
+<LINE STD-MARGINS="0">
+
+
+<PANEL WIDTH="41zr" HEIGHT="100%">
+	<PANEL HEIGHT-EXPR="local_settings.show_up_events ? '-3gr' : '100%'" BK-COLOR-EXPR="">
+		<TREE SWITCH-TYPE="frame" TARGET="FrameMain" SUNKEN="1">
+			<IF EXPR="global_settings.use_client_orgs">
+				<TREE-ENTRY TITLE="Клиенты" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'orgs' )" IMAGE-URL="//base_pict/org.ico" lang-en:TITLE="Clients" lang-ua:TITLE="Клієнти">
+					<TREE-ENTRY TITLE="##UiText.fields.active_s##" HREF-EXPR="lib_view.obtain_view_url( 'orgs_active' )" IMAGE-URL="//base_pict/org.ico"/>
+					<TREE-ENTRY TITLE="Потенциальные" HREF-EXPR="lib_view.obtain_view_url( 'orgs_tentative' )" IMAGE-URL="//base_pict/org_tentative.ico" lang-en:TITLE="Tentative" lang-ua:TITLE="Потенційні"/>
+
+					<IF EXPR="( view = GetOptForeignElem( views, 'orgs_lost' ) ) != undefined &amp;&amp; view.is_active">
+						<TREE-ENTRY TITLE="Потерянные" HREF-EXPR="lib_view.obtain_view_url( 'orgs_lost' )" IMAGE-URL="//base_pict/org_inactive.ico" lang-en:TITLE="Lost" lang-ua:TITLE="Втрачені"/>
+					</IF>
+
+					<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( views ), 'is_main_section &amp;&amp; parent_main_section_id == \'orgs\'' )" VAR="_view">
+						<TREE-ENTRY TITLE-EXPR="_view.name" HREF-EXPR="lib_view.obtain_view_url( _view.id )" IMAGE-URL="//base_pict/org_inactive.ico" IMAGE-URL-EXPR__="_view.object_form.ImageUrl"/>
+					</LOOP>
+
+					<IF EXPR="false">
+						<TREE-ENTRY TITLE="##UiText.sections.partners##" HREF-EXPR="lib_view.obtain_view_url( 'orgs_partner' )" IMAGE-URL="//base_pict/org.ico"/>
+					</IF>
+				</TREE-ENTRY>
+
+				<TREE-ENTRY TITLE="##UiText.fields.contacts##" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'persons_base' )" IMAGE-URL="//base_pict/contact_person.ico" lang-en:TITLE="Contacts">
+					<TREE-ENTRY TITLE="##UiText.fields.active_s##" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'persons_base_active' )" IMAGE-URL="//base_pict/contact_person.ico"/>
+					
+					<IF EXPR="false">
+						<TREE-ENTRY TITLE="##UiText.titles.inactive_p##" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'persons_base_inactive' )" IMAGE-URL="//base_pict/person_inactive.ico"/>
+					</IF>
+					<IF EXPR="global_settings.use_contact_lists">
+						<TREE-ENTRY TITLE="##UiText.sections.contact_lists##" HREF-EXPR="lib_view.obtain_view_url( 'contact_lists' )" IMAGE-URL="//base_pict/contact_list.ico"/>
+					</IF>
+				</TREE-ENTRY>
+			</IF>
+
+			<IF EXPR="global_settings.use_divisions">
+				<TREE-ENTRY TITLE="##UiText.sections.org_structure##" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'divisions' )" IMAGE-URL="//base_pict/division.ico">
+					<IF EXPR="lib_app2.AppFeatureEnabled( 'mass_recruit' )">
+						<TREE-ENTRY TITLE="##UiText.titles.mass_recruit##" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'divisions_with_mass_recruit' )" IMAGE-URL="//base_pict/division.ico"/>
+					</IF>
+
+					<IF EXPR="global_settings.use_own_persons">
+						<TREE-ENTRY TITLE="##UiText.sections.employees##" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'persons_own' )" IMAGE-URL="//base_pict/own_person.ico"/>
+					</IF>
+
+					<IF EXPR="global_settings.use_positions">
+						<TREE-ENTRY TITLE="##UiText.fields.positions##" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'positions' )" IMAGE-URL="//base_pict/position.ico"/>
+					</IF>
+					<IF EXPR="AppModuleUsed( 'module_vtb24' )">
+						<TREE-ENTRY TITLE="Должности" HREF-EXPR="lib_view.obtain_view_url( 'position_types' )" IMAGE-URL="//base_pict/generic_item.ico" lang-en:TITLE="Positions" lang-ua:TITLE="Посади"/>
+					</IF>
+
+					<IF EXPR="( view = GetOptForeignElem( views, 'person_struct_roles' ) ) != undefined &amp;&amp; view.is_active">
+						<TREE-ENTRY TITLE="##UiText.titles.struct_roles##" HREF-EXPR="lib_view.obtain_view_url( 'person_struct_roles' )" IMAGE-URL="//base_pict/generic_item.ico"/>
+					</IF>
+				</TREE-ENTRY>
+			</IF>
+
+
+			<TREE-ENTRY TITLE="##UiText.titles.vacancies##" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'vacancies' )" IMAGE-URL="//base_pict/vacancy.ico">
+				<TREE-ENTRY TITLE="##UiText.fields.active_s##" HREF-EXPR="lib_view.obtain_view_url( 'vacancies_active' )" IMAGE-URL="//base_pict/vacancy.ico"/>
+
+				<IF EXPR="GetForeignElem( vacancy_states, 'vacancy_submitted' ).is_active">
+					<TREE-ENTRY TITLE="##UiText.actions.new_requests##" HREF-EXPR="lib_view.obtain_view_url( 'vacancies_tentative' )" IMAGE-URL="//base_pict/vacancy_tentative.ico"/>
+				</IF>
+
+				<TREE-ENTRY TITLE="##UiText.titles.inactive_p##" HREF-EXPR="lib_view.obtain_view_url( 'vacancies_inactive' )" IMAGE-URL="//base_pict/vacancy_inactive.ico" lang-en:TITLE="Inactive"/>
+
+				<IF EXPR="global_settings.use_mp_vacancies">
+					<TREE-ENTRY TITLE="Детализированные" HREF-EXPR="lib_view.obtain_view_url( 'vacancy_instances' )" IMAGE-URL="//base_pict/vacancy_instance.ico" lang-en:TITLE="Atomized" lang-ua:TITLE="Деталізовані"/>
+				</IF>
+
+				<IF EXPR="rcr_config.use_inet">
+					<TREE-ENTRY TITLE="##UiText.sections.ads##" HREF="//imod/imod_view_vacancy_ads.xml" IMAGE-URL="//base_pict/web_posting.ico"/>
+					<TREE-ENTRY TITLE="Отклики с сайтов" HREF="//imod/imod_view_resp_candidates.xml" IMAGE-URL="//base_pict/resp_candidate.ico" lang-en:TITLE="Web Site Responses" lang-ua:TITLE="Відгуки з сайтів"/>
+				</IF>
+
+				<IF EXPR="lib_app2.AppFeatureEnabled( 'classic_recruit' ) &amp;&amp; ! global_settings.hide_section_recruit_current_progress">
+					<TREE-ENTRY TITLE="##UiText.titles.current_progress##" HREF-EXPR="lib_stat.build_stat_url( 'recruit_current_progress' )" SET-SEL-ACTION="lib_stat.obtain_stat_url( 'recruit_current_progress' )" IMAGE-URL="//base_pict/dashboard.ico"/>
+				</IF>
+
+				<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( views ), 'is_main_section &amp;&amp; parent_main_section_id == \'vacancies\'' )" VAR="_view">
+					<TREE-ENTRY TITLE-EXPR="_view.name" HREF-EXPR="lib_view.obtain_view_url( _view.id )" IMAGE-URL-EXPR="_view.object_form.ImageUrl"/>
+				</LOOP>
+			</TREE-ENTRY>
+
+			<TREE-ENTRY TITLE="##UiText.titles.candidates##" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'candidates_with_state_all' )" NAME="TreeEntryCandidatesAll" IMAGE-URL="//base_pict/candidate.ico" lang-en:TITLE="Candidates">
+				<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( views ), 'is_main_section &amp;&amp; parent_main_section_id == \'candidates\'' )" VAR="_view">
+					<TREE-ENTRY TITLE-EXPR="_view.name" HREF-EXPR="lib_view.obtain_view_url( _view.id )" IMAGE-URL-EXPR="_view.object_form.ImageUrl"/>
+				</LOOP>
+
+				<IF EXPR="! global_settings.hide_section_candidates_duty">
+					<TREE-ENTRY TITLE="##UiText.fields.is_user_duty##" HREF-EXPR="lib_view.obtain_view_url( 'candidates_duty' )" IMAGE-URL="//base_pict/candidate_todo.ico"/>
+				</IF>
+
+				<IF EXPR="! global_settings.hide_section_candidates_call_again">
+					<TREE-ENTRY TITLE="##UiText.sections.call_again##" HREF-EXPR="lib_view.obtain_view_url( 'candidates_call_again' )" IMAGE-URL="//base_pict/candidate_call_again.ico"/>
+				</IF>
+
+				<IF EXPR="! global_settings.hide_section_candidates_expired">
+					<TREE-ENTRY TITLE="##UiText.titles.state_overdue##" HREF-EXPR="lib_view.obtain_view_url( 'candidates_expired' )" IMAGE-URL="//base_pict/candidate_overdue.ico"/>
+				</IF>
+
+				<IF EXPR="lib_app2.AppFeatureEnabled( 'classic_recruit' )">
+					<TREE-ENTRY TITLE="По вакансиям" HREF-EXPR="lib_view.obtain_view_url( 'vacancies_active_with_candidates' )" IMAGE-URL="//base_pict/candidate_spot.ico" lang-en:TITLE="By Vacancy" lang-ua:TITLE="По вакансіям"/>
+				</IF>
+
+				<TREE-ENTRY TITLE="##UiText.titles.candidates_search##" HREF-EXPR="lib_view.obtain_view_url( 'candidates_search' )" IMAGE-URL="//base_pict/candidate_search.ico"/>
+			</TREE-ENTRY>
+
+			<TREE-ENTRY NAME="CandidatesWithState" TITLE="##UiText.sections.candidates_with_state##" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'candidates_with_state_all' )" IMAGE-URL="//base_pict/candidate.ico">
+				<TREE-ENTRY TITLE="##UiText.titles.new__p##" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'candidates_new' )" IMAGE-URL="//base_pict/candidate.ico"/>
+
+				<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( candidate_states ), 'build_state_view' )" VAR="_state">
+					<TREE-ENTRY TITLE-EXPR="_state.name" HREF-EXPR="
+							if ( ( view = ArrayOptFindByKey( views, 'candidates_with_state_' + _state.id ) ) != undefined )
+								return lib_view.obtain_view_url( view.id );
+							else
+								return lib_view.obtain_view_url( 'candidates_with_state', 'state_id=' + _state.id );
+					" IMAGE-URL="//base_pict/candidate.ico"/>
+				</LOOP>
+			</TREE-ENTRY>
+
+			<TREE-ENTRY TITLE="##UiText.sections.events##" HREF-EXPR="lib_view.obtain_view_url( 'events' )" EXPANDED="1" IMAGE-URL="//base_pict/event.ico">
+				<TREE-ENTRY TITLE="##UiText.titles.calendar##" HREF="//cn/cn_view_calendar.xml" EXPANDED="1" IMAGE-URL="//base_pict/calendar.ico"/>
+
+				<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( event_types ), 'build_view' )" VAR="_event_type">
+					<TREE-ENTRY TITLE-EXPR="_event_type.name" HREF-EXPR="
+							if ( ( view = ArrayOptFindByKey( views, lib_base.object_name_to_catalog_name( _event_type.id ) ) ) != undefined )
+								return lib_view.obtain_view_url( view.id );
+							else
+								return lib_view.obtain_view_url( lib_base.object_name_to_catalog_name( _event_type.get_object_name() ) + '_with_type', 'type_id=' + _event_type.id );
+					" IMAGE-URL="//base_pict/event.ico"/>
+				</LOOP>
+
+				<TREE-ENTRY TITLE="##UiText.sections.tasks##" HREF="rcr_view_task_board.xml" IMAGE-URL="//base_pict/task.ico"/>
+
+				<TREE-ENTRY TITLE-EXPR="UiText.titles.notifications + ( lib_notif.unread_notifications_num != 0 ? '  (' + lib_notif.unread_notifications_num + ')' : '' )" HREF-EXPR="lib_view.obtain_view_url( 'notifications' )" EXPANDED="1" IMAGE-URL="//base_pict/notification.ico"/>
+			</TREE-ENTRY>
+
+
+
+			<IF EXPR="global_settings.use_other_orgs && ! global_settings.is_agency">
+				<TREE-ENTRY TITLE="##UiText.sections.vocs_org##" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'orgs' )" IMAGE-URL="//base_pict/org.ico">
+					<TREE-ENTRY TITLE="##UiText.fields.contacts##" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'persons_other' )" IMAGE-URL="//base_pict/contact_person.ico" lang-en:TITLE="Contacts"/>
+
+					<IF EXPR="global_settings.use_contact_lists">
+						<TREE-ENTRY TITLE="##UiText.sections.contact_lists##" HREF-EXPR="lib_view.obtain_view_url( 'contact_lists' )" IMAGE-URL="//base_pict/contact_list.ico"/>
+					</IF>
+
+					<IF EXPR="AppModuleUsed( 'module_vtb24' )">
+						<TREE-ENTRY TITLE="##UiText.titles.budget##" HREF-EXPR="lib_view.obtain_view_url( 'cs_budgets' )" IMAGE-URL="//base_pict/budget.ico"/>
+					</IF>
+				</TREE-ENTRY>
+			</IF>
+
+			<IF EXPR="AppModuleUsed( 'module_sanofi' ) || AppModuleUsed( 'module_efko' ) || AppModuleUsed( 'module_ingbank' ) || lib_app2.AppFeatureEnabled( 'mass_recruit' ) || lib_app2.AppFeatureEnabled( 'rr_recruit' ) || lib_recruit_provider.ExternalVacanciesEnabled() || ArrayOptFind( lib_voc.get_sorted_voc( views ), 'is_main_section &amp;&amp; parent_main_section_id == \'other\'' ) != undefined || global_settings.use_agreements || global_settings.use_expenses || global_settings.use_budgets">
+				<TREE-ENTRY TITLE="##UiText.sections.misc##" EXPANDED="1" IMAGE-URL="//base_pict/folder.ico">
+					<IF EXPR="global_settings.use_agreements &amp;&amp; ! lib_user.active_user_access.prohibit_view_agreements">
+						<TREE-ENTRY TITLE="##UiText.sections.agreements##" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'agreements' )" IMAGE-URL="//base_pict/agreement.ico"/>
+					</IF>
+
+					<IF EXPR="global_settings.use_expenses &amp;&amp; ! lib_user.active_user_access.prohibit_view_expenses">
+						<TREE-ENTRY TITLE="##UiText.titles.recruiting_expenses##" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'expenses' )" IMAGE-URL="//base_pict/expense.ico"/>
+					</IF>
+
+					<IF EXPR="global_settings.use_budgets">
+						<TREE-ENTRY TITLE="##UiText.titles.budget##" HREF-EXPR="lib_view.obtain_view_url( 'budgets' )" IMAGE-URL="//base_pict/budget.ico"/>
+					</IF>
+
+					<IF EXPR="lib_app2.AppFeatureEnabled( 'rr_recruit' ) || AppModuleUsed( 'module_sanofi' )">
+						<TREE-ENTRY TITLE="##UiText.titles.vacancy_requests##" HREF-EXPR="lib_view.obtain_view_url( 'vacancy_requests' )" IMAGE-URL="//base_pict/task.ico"/>
+					</IF>
+
+					<!--
+					<IF EXPR="lib_app2.AppFeatureEnabled( 'rr_recruit' )">
+						<TREE-ENTRY TITLE="##UiText.sections.workflow_documents##" HREF-EXPR="lib_view.obtain_view_url( 'workflow_documents' )" IMAGE-URL="//base_pict/task.ico"/>
+					</IF>
+					-->
+
+					<IF EXPR="AppModuleUsed( 'module_sanofi' )">
+						<TREE-ENTRY TITLE="Отчеты о тестировании" HREF-EXPR="lib_view.obtain_view_url( 'testing_reports' )" IMAGE-URL="//base_pict/generic_item.ico"/>
+					</IF>
+
+					<IF EXPR="lib_app2.AppFeatureEnabled( 'mass_recruit' )">
+						<TREE-ENTRY TITLE="##UiText.titles.call_center##" HREF="rcr_view_call_center.xml" IMAGE-URL="//base_pict/phone_call_incoming.ico"/>
+						<TREE-ENTRY TITLE="##UiText.titles.training_groups##" HREF-EXPR="lib_view.obtain_view_url( 'training_groups' )" IMAGE-URL="//base_pict/generic_item.ico"/>
+					</IF>
+
+					<IF EXPR="lib_recruit_provider.ExternalVacanciesEnabled()">
+						<TREE-ENTRY TITLE="##UiText.titles.external_vacancies##" HREF-EXPR="lib_view.obtain_view_url( 'external_vacancies' )" IMAGE-URL="//base_pict/generic_item.ico"/>
+					</IF>
+
+					<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( views ), 'is_main_section &amp;&amp; parent_main_section_id == \'other\'' )" VAR="_view">
+						<TREE-ENTRY TITLE-EXPR="_view.name" HREF-EXPR="lib_view.obtain_view_url( _view.id )" IMAGE-URL-EXPR="_view.object_form.ImageUrl"/>
+					</LOOP>
+
+					<IF EXPR="AppModuleUsed( 'module_efko' )">
+						<TREE-ENTRY TITLE="Прогнозы по вакансиям" HREF-EXPR="lib_view.obtain_view_url( 'cs_vacancy_forecasts' )" IMAGE-URL="//base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Выведено из ШР" HREF-EXPR="lib_view.obtain_view_url( 'cs_deleted_vacancy_stats' )" IMAGE-URL="//base_pict/generic_item.ico"/>
+					</IF>
+
+					<IF EXPR="global_settings.mailbox_scanner.is_enabled">
+						<TREE-ENTRY TITLE="##UiText.sections.mailbox_scanner##" HREF-EXPR="lib_view.obtain_view_url( 'email_messages' )" IMAGE-URL="//base_pict/email_message.ico" lang-en:TITLE="E-mail conversations" lang-ua:TITLE="Листування з кандидатами"/>
+					</IF>
+				</TREE-ENTRY>
+			</IF>
+
+			<IF EXPR="AppModuleUsed( 'ras' ) &amp;&amp; ( true || lib_app2.AppFeatureEnabled( 'ras' ) )">
+				<TREE-ENTRY TITLE="##UiText.titles.automated_search##" EXPANDED="1" IMAGE-URL="//base_pict/folder.ico">
+					<TREE-ENTRY TITLE="##UiText.sections.settings##" EXPANDED="1" IMAGE-URL="//base_pict/folder.ico">
+						<TREE-ENTRY TITLE="##UiText.titles.resume_search_templates##" HREF-EXPR="lib_view.obtain_view_url( 'resume_search_templates' )" IMAGE-URL="//base_pict/settings.ico"/>
+						<TREE-ENTRY TITLE="##UiText.titles.bot_templates##" HREF-EXPR="'//base1/base1_view_voc_elems.xml' + '?voc_id=' + 'bot_templates'" IMAGE-URL="//base_pict/settings.ico"/>
+					</TREE-ENTRY>
+
+					<TREE-ENTRY TITLE="##UiText.titles.vacancies##" EXPANDED="1" IMAGE-URL="//base_pict/folder.ico">
+						<TREE-ENTRY TITLE="##UiText.titles.active_vacancies##" HREF-EXPR="lib_view.obtain_view_url( 'vacancies_with_ras_active' )" IMAGE-URL="//base_pict/vacancy.ico"/>
+						<TREE-ENTRY TITLE="##UiText.titles.appointment_slots##" HREF-EXPR="lib_view.obtain_view_url( 'appointment_slot_sets' )" IMAGE-URL="//base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+
+					<TREE-ENTRY TITLE="##UiText.titles.activities##" EXPANDED="1" IMAGE-URL="//base_pict/folder.ico">
+						<TREE-ENTRY TITLE="##UiText.titles.resume_search_activities##" HREF-EXPR="lib_view.obtain_view_url( 'resume_search_activities' )" IMAGE-URL="//base_pict/task.ico"/>
+						<TREE-ENTRY TITLE="##UiText.titles.calling_bot_tasks##" HREF-EXPR="lib_view.obtain_view_url( 'bot_tasks' )" IMAGE-URL="//base_pict/task.ico"/>
+					</TREE-ENTRY>
+
+					<TREE-ENTRY TITLE="##UiText.titles.data##" EXPANDED="1" IMAGE-URL="//base_pict/folder.ico">
+						<TREE-ENTRY TITLE="##UiText.titles.web_resume_instances##" HREF-EXPR="lib_view.obtain_view_url( 'web_resume_instances' )" IMAGE-URL="//base_pict/resp_candidate.ico"/>
+						<TREE-ENTRY TITLE="##UiText.titles.web_candidates##" HREF-EXPR="lib_view.obtain_view_url( 'web_candidates' )" IMAGE-URL="//base_pict/resp_candidate.ico"/>
+					</TREE-ENTRY>
+				</TREE-ENTRY>
+			</IF>
+
+			<TREE-ENTRY TITLE="Все физические лица" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'persons' )" IMAGE-URL="//base_pict/person_generic.ico" lang-en:TITLE="All Persons" lang-ua:TITLE="Всі фізичні особи">
+				<TREE-ENTRY TITLE="##UiText.sections.birtdays##" HREF-EXPR="lib_view.obtain_view_url( 'persons_birthdays' )" IMAGE-URL="//base_pict/birthday.ico"/>
+			</TREE-ENTRY>
+
+
+			<TREE-ENTRY TITLE="##UiText.actions.import_cv##" EXPANDED="1" HREF-EXPR="lib_view.obtain_view_url( 'parsed_messages' )" IMAGE-URL="//base_pict/email_message.ico" lang-en:TITLE="Import Resume">
+				<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( raw_storages ), 'user_id == null || user_id == LdsCurUserID' )" VAR="_storage">
+					<TREE-ENTRY TITLE-EXPR="_storage.name" HREF-EXPR="lib_view.obtain_view_url( ( _storage.type_id == 'mailbox' ? 'parsed_messages_of_raw_mailbox_storage' : 'parsed_messages_of_raw_folder_storage' ), 'raw_storage_id=' + _storage.id )" IMAGE-URL-EXPR="_storage.ImageUrl"/>
+				</LOOP>
+			</TREE-ENTRY>
+
+			<IF EXPR="true">
+				<ITEM TYPE="custom_views_tree_entries"/>
+			</IF>
+
+			<IF EXPR="AppModuleUsed( 'module_expressbank' )">
+				<TREE-ENTRY TITLE="Заявки" HREF-EXPR="lib_view.obtain_view_url( 'object_requests' )" IMAGE-URL="//base_pict/task.ico" lang-en:TITLE="Requests" lang-ua:TITLE="Заявки"/>
+				<TREE-ENTRY TITLE="Замещение сотрудников" HREF-EXPR="lib_view.obtain_view_url( 'employee_substitutions' )" IMAGE-URL="//base_pict/generic_item.ico" lang-en:TITLE="Absences" lang-ua:TITLE="Заміщення співробітників"/>
+			</IF>
+
+			<IF EXPR="AppModuleUsed( 'module_hoff' )">
+				<TREE-ENTRY TITLE="##UiText.titles.vacancy_requests##" HREF-EXPR="lib_view.obtain_view_url( 'vacancy_requests' )" IMAGE-URL="//base_pict/task.ico"/>
+			</IF>
+
+			<TREE-ENTRY TITLE="Корзина" HREF="//base1/base1_view_trash.xml" IMAGE-URL="//base_pict/trash.ico" lang-en:TITLE="Deleted Items" lang-ua:TITLE="Кошик"/>
+		</TREE>
+	</PANEL>
+
+	<IF EXPR="local_settings.show_up_events">
+		<SPLIT HORIZ="1"/>
+		<FRAME NAME="FrameUpEvents" HREF="//cn/cn_view_up_calendar_entries.xml" HEIGHT="100%"/>
+	</IF>
+</PANEL>
+
+<SPLIT FIXED="1"/>
+
+<FRAME NAME="FrameMain" HREF-EXPR="lib_view.obtain_view_url( global_settings.use_divisions ? 'divisions' : 'orgs' )" HEIGHT="100%"/>
+
+</LINE>
+
+
+
+
+
+
+
+
+
+
+<COMMAND-HANDLER CMD="NewOrg" ACTION="
+		doc = DefaultDb.OpenNewObjectDoc( 'org' );
+		CreateDocScreen( doc );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="NewPerson" ACTION="
+		doc = DefaultDb.OpenNewObjectDoc( 'person' );
+		CreateDocScreen( doc );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="NewContactsList" ACTION="
+		doc = DefaultDb.OpenNewObjectDoc( 'contact_list' );
+		CreateDocScreen( doc );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="NewOwnPerson" ACTION="
+		doc = DefaultDb.OpenNewObjectDoc( 'person' );
+		doc.TopElem.is_own_person = true;
+		CreateDocScreen( doc );
+" PASSIVE="1" ENABLE-EXPR="! AppModuleUsed( 'module_vtb24' )"/>
+
+
+<COMMAND-HANDLER CMD="NewEvent" ACTION="
+		doc = DefaultDb.OpenNewObjectDoc( 'event' );
+
+		doc.TopElem.date = Date();
+		CreateDocScreen( doc );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="NewAgreement" ACTION="
+		doc = DefaultDb.OpenNewObjectDoc( 'agreement' );
+		CreateDocScreen( doc );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="NewExpense" ACTION="
+		doc = DefaultDb.OpenNewObjectDoc( 'expense' );
+		CreateDocScreen( doc );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="NewBudget" ACTION="
+		doc = DefaultDb.OpenNewObjectDoc( 'budget' );
+		CreateDocScreen( doc );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="NewDivision" ACTION="
+		doc = DefaultDb.OpenNewObjectDoc( 'division' );
+		CreateDocScreen( doc );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="NewPosition" ACTION="
+		doc = DefaultDb.OpenNewObjectDoc( 'position' );
+		CreateDocScreen( doc );
+" PASSIVE="1" ENABLE-EXPR="! ArrayOptFindByKey( card_object_types, 'position' ).prohibit_change"/>
+
+
+<COMMAND-HANDLER CMD="NewVacancy" ACTION="
+		lib_vacancy.handle_add_new_vacancy();
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="NewWorkflowDocument" ACTION="
+		doc = DefaultDb.OpenNewObjectDoc( 'workflow_document' );
+		CreateDocScreen( doc );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="NewCandidate" ACTION="
+		doc = DefaultDb.OpenNewObjectDoc( 'candidate' );
+		doc.TopElem.location_id = global_settings.default_location_id;
+		CreateDocScreen( doc );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="LoadResume" ACTION="
+		lib_user.check_real_user();
+
+		if ( System.IsWebClient )
+		{
+			candidate_client_lib.HandleCreateCandidateFromResumeFile();
+			return;
+		}
+
+		mask = ArrayMerge( ArrayUnion( lib_office.active_editor_file_suffix_list, ['.htm', 'html', 'pdf'] ), '\'*\' + This', ';' );
+		
+		srcUrl = Screen.AskFileOpen( '', lib_office.active_editor_document_ui_name + ', ' + UiText.titles.pdf_documents + ' (' + mask + ')\t' + mask + '\t' + lib_base.all_files_suffix_pattern );
+
+		doc = DefaultDb.OpenNewObjectDoc( 'candidate' );
+
+		lib_resume.load_resume_file( doc.TopElem, srcUrl );
+		doc.SetChanged( true );
+
+		CreateDocScreen( doc );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="PasteResume" ACTION="
+		if ( System.IsWebClient )
+		{
+			candidate_client_lib.HandlePasteResume();
+			return;
+		}
+
+		doc = DefaultDb.OpenNewObjectDoc( 'candidate' );
+
+		if ( ClipboardFormatAvailable( 'text/html' ) )
+		{
+			resumeText = GetClipboard( 'text/html' );
+			//resumeText = LoadUrlData( 'file:///C:/Temp/clipboard_resume.htm' );
+			
+			try
+			{
+				PutUrlData( 'x-local://Logs/clipboard_resume.htm', resumeText );
+			}
+			catch ( e )
+			{
+			}
+
+			//PutUrlData( 'zz.htm', DecodeCharset( resumeText, 'utf-8' ) );
+
+			resumeContentType = 'text/html';
+			srcUrl = lib_html.get_html_src_url( resumeText );
+		}
+		else
+		{
+			resumeText = GetClipboard();
+			resumeContentType = 'text/plain';
+			srcUrl = '';
+		}
+
+		lib_resume.load_resume_text( doc.TopElem, srcUrl, resumeText, resumeContentType, undefined );
+		
+		if ( UrlSchema( srcUrl ) == 'http' || UrlSchema( srcUrl ) == 'https' )
+		{
+			doc.TopElem.entrance_type_id = 'active_search';
+
+			//record = doc.TopElem.records.AddChild();
+			//record.type_id = 'inet_resume_load';
+		}
+
+		doc.SetChanged( true );
+		CreateDocScreen( doc );
+" PASSIVE="1" ENABLE-EXPR="System.IsWebClient || ClipboardFormatAvailable()"/>
+
+
+
+<COMMAND-HANDLER CMD="ViewGenericCatalog" HREF="//base1/base1_view_generic_catalog.xml" TARGET="ViewGenericCatalog"/>
+
+<COMMAND-HANDLER CMD="ViewSimulate" HREF="simulate/rc_view_simulate.xml" TARGET="ViewSimulate"/>
+
+
+<COMMAND-HANDLER CMD="AAA"/>
+
+<INHERIT TYPE="generic_screen_commands"/>
+<INHERIT TYPE="main_screen_commands"/>
+
+
+<COMMAND-HANDLER CMD="About" ACTION="
+		Screen.ModalDlg( OpenDoc( 'rcr_dlg_about.xml' ) );
+" PASSIVE="1"/>
+
+
+
+<!--
+<FRAME-INIT NAME="FrameHelp" HREF="x-app://rcr/help/rcr_view_help.xms" TARGET="SeFrameHelp"/>
+-->
+
+<ACCELERATOR KEY="Ctrl+N" CMD="NewWindow"/>
+<ACCELERATOR KEY="Ctrl+O" CMD="Open"/>
+<ACCELERATOR KEY="Ctrl+S" CMD="Save"/>
+<ACCELERATOR KEY="Ctrl+P" CMD="Print"/>
+<ACCELERATOR KEY="Ctrl+Q" CMD="Quit"/>
+<ACCELERATOR KEY="F1" CMD="Help"/>
+
+<ACCELERATOR KEY="Ctrl+Z" CMD="Undo"/>
+<ACCELERATOR KEY="Ctrl+X" CMD="Cut"/>
+<ACCELERATOR KEY="Ctrl+C" CMD="Copy"/>
+<ACCELERATOR KEY="Ctrl+V" CMD="Paste"/>
+<ACCELERATOR KEY="Del" CMD="Clear"/>
+<ACCELERATOR KEY="Ctrl+A" CMD="SelectAll"/>
+<ACCELERATOR KEY="Ctrl+F" CMD="Find"/>
+<ACCELERATOR KEY="F3" CMD="FindNext"/>
+<ACCELERATOR KEY="F5" CMD="Refresh"/>
+<ACCELERATOR KEY="F7" CMD="CheckSpelling"/>
+
+<ACCELERATOR KEY="Ins" CMD="AddElem"/>
+
+
+<ACCELERATOR KEY="Ctrl+Shift+T" CMD="ViewPhoneCallHistory"/>
+
+<ACCELERATOR KEY="Ctrl+Shift+F8" CMD="ViewGenericCatalog"/>
+<ACCELERATOR KEY="Ctrl+Shift+L" CMD="RunDebugCode"/>
+
+
+
+<COMMAND-HANDLER CMD="Help" HREF-EXPR="lib_base.build_help_article_url( 'intro.htm' )" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+
+<PANEL NAME="AnchorEnd">
+</PANEL>
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+

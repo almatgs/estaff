@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<web_form>
+	<object_type_id TYPE="string" FOREIGN-ARRAY="card_object_types"/>
+	<title TYPE="string"/>
+
+	<fields RECURSIVE-ARRAY="1">
+		<field MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<web_id TYPE="string"/>
+			<title TYPE="string"/>
+			<suffix_title TYPE="string"/>
+			<is_multiline TYPE="bool" NULL-FALSE="1"/>
+			<is_optional TYPE="bool" NULL-FALSE="1"/>
+
+			<dest_attc_type_id TYPE="string"/>
+			<use_selector TYPE="bool" NULL-FALSE="1"/>
+			<use_outer_selector TYPE="bool" NULL-FALSE="1"/>
+
+			<value_entries>
+				<value_entry MULTIPLE="1" PRIMARY-KEY="id">
+					<id TYPE="string"/>
+					<value TYPE="string"/>
+				</value_entry>
+			</value_entries>
+
+			<is_multi_value TYPE="bool" NULL-FALSE="1"/>
+		</field>
+	</fields>
+</web_form>
+
+
+
+</SPXML-FORM>

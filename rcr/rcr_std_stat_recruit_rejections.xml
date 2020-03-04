@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>recruit_rejections</id>
+	<name VALUE="Отказы" lang-en:VALUE="Candidate Rejection" lang-ua:VALUE="Відмови"/>
+	<section_id>recruit</section_id>
+
+	<is_v2>1</is_v2>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>date</id>
+			<data_type>date</data_type>
+			<title VALUE="##UiText.titles.time_period##"/>
+			<use_range>1</use_range>
+			<use_period_quick_selector>1</use_period_quick_selector>
+			<default_period>
+				<unit_id>m</unit_id>
+				<unit_specifier_id>cur</unit_specifier_id>
+			</default_period>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>recruit_type_id</id>
+			<source_id>vacancies</source_id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.fields.recruiter##"/>
+			<foreign_array>users</foreign_array>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue &amp;&amp; ArrayCount( filter.group_id.Instances ) == 1 ? {main_group_id:ArrayFirstElem( filter.group_id.Instances ),is_active:true}:{is_active:true}</view_filter_expr>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.objects.group##"/>
+			<foreign_array>groups</foreign_array>
+			<is_multiple>1</is_multiple>
+			<is_hier>1</is_hier>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+		</dyn_filter>
+	</dyn_filters>
+
+	<groups>
+		<group>
+			<id>group_id</id>
+			<foreign_array>groups</foreign_array>
+		</group>
+		<group>
+			<id>user_id</id>
+			<foreign_array>users</foreign_array>
+		</group>
+		<group>
+			<id>vacancy_id</id>
+			<foreign_array>vacancies</foreign_array>
+		</group>
+	</groups>
+
+	<fields>
+		<field>
+			<id>name</id>
+			<col_title VALUE="##UiText.objects.vacancy##"/>
+			<width>100%</width>
+		</field>
+
+		<field>
+			<id>selected_candidate_count</id>
+			<col_title VALUE="Всего кандидатов" lang-en:VALUE="All Candidates" lang-ua:VALUE="Всього кандидатів"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+		</field>
+
+		<field>
+			<id>failed_candidate_count</id>
+			<span_title VALUE="Не прошло отбор" lang-en:VALUE="Not Hired" lang-ua:VALUE="Не минуло відбір"/>
+			<col_title VALUE="##UiText.titles.quantity__short##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<rotation>90</rotation>
+			<width>6zr</width>
+		</field>
+		<field>
+			<id>failed_candidate_percent</id>
+			<col_title VALUE="%"/>
+			<keep_to_prev>1</keep_to_prev>
+			<is_percent>1</is_percent>
+			<numerator_field_id>failed_candidate_count</numerator_field_id>
+			<denominator_field_id>selected_candidate_count</denominator_field_id>
+		</field>
+
+		<field>
+			<id>rejected_by_recruiter_candidate_count</id>
+			<span_title VALUE="##UiText.titles.of_them##"/>
+			<col_title VALUE="##UiText.titles.rejected_by_recruiter__n##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<rotation>90</rotation>
+			<width>5zr</width>
+		</field>
+		<field>
+			<id>rejected_by_rr_candidate_count</id>
+			<col_title VALUE="##UiText.titles.rejected_by_rr__n##"/>
+			<keep_to_prev>1</keep_to_prev>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<rotation>90</rotation>
+			<width>5zr</width>
+		</field>
+		<field>
+			<id>withdrawn_candidate_count</id>
+			<col_title VALUE="##UiText.titles.application_withdrawn##"/>
+			<keep_to_prev>1</keep_to_prev>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<width>5zr</width>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>other_failed_candidate_count</id>
+			<col_title VALUE="##UiText.titles.other##"/>
+			<keep_to_prev>1</keep_to_prev>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<width>5zr</width>
+			<rotation>90</rotation>
+		</field>
+
+		<field>
+			<id>rejected_by_recruiter_candidate_percent</id>
+			<span_title VALUE="##UiText.titles.of_them##, %"/>
+			<col_title VALUE="##UiText.titles.rejected_by_recruiter__n##"/>
+			<is_percent>1</is_percent>
+			<numerator_field_id>rejected_by_recruiter_candidate_count</numerator_field_id>
+			<denominator_field_id>failed_candidate_count</denominator_field_id>
+			<rotation>90</rotation>
+			<width>6zr</width>
+		</field>
+		<field>
+			<id>rejected_by_rr_candidate_percent</id>
+			<col_title VALUE="##UiText.titles.rejected_by_rr__n##"/>
+			<keep_to_prev>1</keep_to_prev>
+			<is_percent>1</is_percent>
+			<numerator_field_id>rejected_by_rr_candidate_count</numerator_field_id>
+			<denominator_field_id>failed_candidate_count</denominator_field_id>
+			<rotation>90</rotation>
+			<width>6zr</width>
+		</field>
+		<field>
+			<id>withdrawn_candidate_percent</id>
+			<col_title VALUE="##UiText.titles.application_withdrawn##"/>
+			<keep_to_prev>1</keep_to_prev>
+			<is_percent>1</is_percent>
+			<numerator_field_id>withdrawn_candidate_count</numerator_field_id>
+			<denominator_field_id>failed_candidate_count</denominator_field_id>
+			<width>6zr</width>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>other_failed_candidate_percent</id>
+			<col_title VALUE="##UiText.titles.other##"/>
+			<keep_to_prev>1</keep_to_prev>
+			<is_percent>1</is_percent>
+			<numerator_field_id>other_failed_candidate_count</numerator_field_id>
+			<denominator_field_id>failed_candidate_count</denominator_field_id>
+			<width>6zr</width>
+			<rotation>90</rotation>
+		</field>
+	</fields>
+
+	<show_total>1</show_total>
+	<show_chart>0</show_chart>
+
+	<use_group_bk_colors>1</use_group_bk_colors>
+
+	<code_lib_url>x-app://rcr/rcr_std_stat_recruit_rejections.js</code_lib_url>
+</std_stat>
+

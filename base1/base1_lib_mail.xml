@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<lib_mail>
+	<cached_templates>
+		<cached_template MULTIPLE="1" PRIMARY-KEY="template_id">
+			<template_id TYPE="string"/>
+			<template_ref TYPE="variant"/>
+			<template_doc_ref TYPE="variant"/>
+		</cached_template>
+	</cached_templates>
+</lib_mail>
+
+
+</SPXML-INLINE-FORM>

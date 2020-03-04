@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<view_local_settings>
+	<sections>
+		<section MULTIPLE="1">
+			<name TYPE="string"/>
+
+			<parts>
+				<part MULTIPLE="1">
+					<name TYPE="string"/>
+					<holder TYPE="string"/>
+					<screen_form TYPE="string"/>
+					<sub_name TYPE="string"/>
+				</part>
+			</parts>
+		</section>
+	</sections>
+</view_local_settings>
+
+
+<OnInit PROPERTY="1" EXPR="
+		section = TopElem.sections.AddChild();
+		section.name = UiText.sections.common;
+
+		part = section.parts.AddChild();
+		part.name = UiText.sections.settings_view;
+		part.holder = 'local_settings';
+		part.screen_form = '//rcr/rcr_local_settings_common.xms';
+
+		part = section.parts.AddChild();
+		part.name = UiText.sections.reminder;
+		part.holder = 'local_settings';
+		part.screen_form = '//base2/base2_local_settings_reminder.xms';
+
+		part = section.parts.AddChild();
+		part.name = UiText.titles.calendar;
+		part.holder = 'local_settings';
+		part.screen_form = '//cn/cn_local_settings_calendar.xms';
+
+		part = section.parts.AddChild();
+		part.name = UiText.titles.telephony;
+		part.holder = 'local_settings.telephony';
+		part.screen_form = '//base1/base1_local_settings_telephony.xms';
+
+		part = section.parts.AddChild();
+		part.name = UiText.fields.signature;
+		part.holder = 'local_settings';
+		part.screen_form = '//base1/base1_local_settings_mail_signature.xms';
+
+		if ( AppModuleUsed( 'module_sanofi' ) || AppModuleUsed( 'module_sibur' ) )
+		{
+			part = section.parts.AddChild();
+			part.name = UiText.sections.settings_target_testing_systems;
+			part.holder = 'local_settings';
+			part.screen_form = '//staff/staff_local_settings_target_testing_systems.xms';
+		}
+
+
+		section = TopElem.sections.AddChild();
+		section.name = UiText.sections.settings_technical;
+
+		part = section.parts.AddChild();
+		part.name = UiText.sections.settings_ui;
+		part.holder = 'spxml_settings';
+		part.screen_form = '//base1/base1_spxml_settings_ui.xms';
+
+		part = section.parts.AddChild();
+		part.name =  UiText.sections.settings_conn;
+		part.holder = 'spxml_settings';
+		part.screen_form = '//base1/base1_spxml_settings_conn.xms';
+
+		part = section.parts.AddChild();
+		part.name = UiText.sections.settings_office_app;
+		part.holder = 'local_settings';
+		part.screen_form = '//base1/base1_local_settings_office_app.xms';
+
+		part = section.parts.AddChild();
+		part.name = UiText.sections.settings_mail;
+		part.holder = 'local_settings';
+		part.screen_form = '//base1/base1_local_settings_mail.xms';
+
+		part = section.parts.AddChild();
+		part.name = UiText.sections.settings_mail_plugins;
+		part.holder = 'local_settings';
+		part.screen_form = '//rcr/rcr_local_settings_mail_plugins.xms';
+
+		if ( ! System.IsWebClient )
+		{
+			part = section.parts.AddChild();
+			part.name = UiText.sections.settings_outlook;
+			part.holder = 'outlook_local_settings';
+			part.screen_form = '//outlook/outlook_local_settings.xms';
+
+			part = section.parts.AddChild();
+			part.name = UiText.sections.settings_lotus;
+			part.holder = 'lotus_local_settings';
+			part.screen_form = '//lotus/lotus_local_settings.xms';
+
+			part = section.parts.AddChild();
+			part.name = UiText.sections.settings_google;
+			part.holder = 'google_local_settings';
+			part.screen_form = '//conn_google/google_local_settings.xms';
+
+			part = section.parts.AddChild();
+			part.name = UiText.titles.imod;
+			part.holder = 'imod_local_settings.web_engine';
+			part.screen_form = '//imod/imod_local_settings.xms';
+
+			if ( AppModuleUsed( 'conn_naumen' ) )
+			{
+				part = section.parts.AddChild();
+				part.name = UiText.sections.settings_naumen;
+				part.holder = 'naumen_local_settings';
+				part.screen_form = '//conn_naumen/naumen_local_settings.xms';
+			}
+		}
+
+		if ( ! UseLds )
+		{
+			part = section.parts.AddChild();
+			part.name = UiText.sections.settings_replica;
+			part.holder = 'local_settings.replica';
+			part.screen_form = '//base1/base1_local_settings_replica.xms';
+		}
+
+		if ( UseLds )
+		{
+			part = section.parts.AddChild();
+			part.name = UiText.sections.settings_lds;
+			part.holder = 'spxml_machine_settings';
+			part.screen_form = '//base1/base1_spxml_settings_lds.xms';
+		}
+
+		part = section.parts.AddChild();
+		part.name = UiText.sections.logs;
+		part.holder = 'spxml_settings.logs';
+		part.screen_form = '//base1/base1_spxml_settings_logs.xms';
+"/>
+
+
+</SPXML-INLINE-FORM>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_workflow_document_types SPXML-FORM="//base2/base2_std_workflow_document_types.xmd">
+	<std_workflow_document_type>
+		<id>vacancy_request</id>
+		<name VALUE="##UiText.objects.vacancy_request##"/>
+	</std_workflow_document_type>
+</std_workflow_document_types>
+

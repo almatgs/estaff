@@ -1,0 +1,13 @@
+<%
+	Request.CheckLdsAuth();
+	Request.UseSoapFault = true;
+
+	url = Request.Query.url;
+	Request.CheckUrlReadAccess( url );
+
+	if ( UrlSchema( url ) != 'x-app' && UrlSchema( url ) != 'x-local' )
+		throw 'Invalid url schema';
+
+	PutUrlData( url, Request.Body );
+%>
+

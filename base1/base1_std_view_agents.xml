@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>agents</id>
+	<name VALUE="##UiText.sections.agents##"/>
+
+	<fields>
+		<field>
+			<id>name</id>
+			<width>65%</width>
+		</field>
+		<field>
+			<id>run_on_client</id>
+			<col_title VALUE="##UiText.titles.run_on_workstation##"/>
+			<width>4zr</width>
+			<align>center</align>
+			<title_expr>run_on_client ? 'v' : ''</title_expr>
+		</field>
+		<field>
+			<id>schedule_desc</id>
+			<width>14zr</width>
+			<align>center</align>
+		</field>
+		<field>
+			<id>is_running</id>
+			<width>10zr</width>
+			<align>center</align>
+			<bk_color_expr>is_running ? '255,200,180' : ''</bk_color_expr>
+		</field>
+		<field>
+			<id>get_last_run_start_date</id>
+			<use_time>1</use_time>
+			<width>19zr</width>
+		</field>
+		<field>
+			<id>get_last_run_end_date</id>
+			<use_time>1</use_time>
+			<width>19zr</width>
+		</field>
+		<field>
+			<id>get_last_run_error_str</id>
+			<width>35%</width>
+			<title_expr>( err = get_last_run_error_str() ), err != '' ? err : ( get_last_run_start_date() != null ? 'OK' : '' )</title_expr>
+			<text_color_expr>get_last_run_error_str() != '' ? '200,0,0' : ''</text_color_expr>
+		</field>
+		<field>
+			<id>order_index</id>
+			<width>5zr</width>
+			<is_default_sort>1</is_default_sort>
+		</field>
+	</fields>
+</std_view>
+

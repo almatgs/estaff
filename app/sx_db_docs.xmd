@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM CATALOG="1" LARGE="1">
+
+<db_docs>
+	<db_doc MULTIPLE="1" PRIMARY-KEY="id">
+		<id TYPE="integer" INDEXED="1"/>
+		<mod_date TYPE="date" INDEXED="1"/>
+
+
+		<OnBuild PROPERTY="1" EXPR="
+				try
+				{
+					mod_date = SrcDoc.TopElem.doc_info.modification.date;
+					if ( mod_date == null )
+						mod_date = Date();
+				}
+				catch ( e )
+				{
+					mod_date = Date();
+				}
+		"/>
+	</db_doc>
+</db_docs>
+
+
+<MatchDocType PROPERTY="1" EXPR="
+		true
+"/>
+
+
+
+</SPXML-FORM>
+
+
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<ext_calendar_entry>
+	<id TYPE="integer"/>
+
+	<date TYPE="date"/>
+	<end_date TYPE="date"/>
+
+	<subject TYPE="string"/>
+
+	<participants>
+		<participant MULTIPLE="1" PRIMARY-KEY="person_id">
+			<person_id TYPE="integer" FOREIGN-ARRAY="persons"/>
+			<is_optional TYPE="bool" NULL-FALSE="1"/>
+			<status_id TYPE="integer" FOREIGN-ARRAY="cn_common.participant_statuses"/>
+
+			<outlook_name TYPE="string"/>
+			<email TYPE="string"/>
+			<is_resource TYPE="bool" NULL-FALSE="1"/>
+		</participant>
+	</participants>
+			
+	<room_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="rooms"/>
+	<comment TYPE="string" MULTILINE="1"/>
+
+	<outlook_eid TYPE="string" FT-IGNORE="1"/>
+	<room_outlook_name TYPE="string" FT-IGNORE="1"/>
+
+	<lotus_eid TYPE="string" FT-IGNORE="1"/>
+
+	<google_eid TYPE="string" FT-IGNORE="1"/>
+</ext_calendar_entry>
+
+
+
+</SPXML-FORM>

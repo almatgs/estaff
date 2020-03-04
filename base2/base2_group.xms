@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="Ps.name + ' - ' + UiText.objects.group" WINDOW-ICON-URL="//base_pict/group.ico" MAXIMIZED="1">
+
+
+<ITEM TYPE="card_menu_start"/>
+<ITEM TYPE="card_toolbar"/>
+
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="38zr" STD-MARGINS="0">
+	<TREE HEIGHT-EXPR="'-' + lib_base.GetCardInfoHeightMeasure( TopElem )" SWITCH-TYPE="selector" TARGET="main_selector">
+	</TREE>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.objects.group##" SUNKEN="1" EXPANDED="1" IMAGE-URL="//base_pict/group.ico">
+
+
+<PAGE TITLE="##UiText.sections.general##" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/common.ico">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="50zr"/>
+		</COLUMNS>
+		<LABEL TITLE="##UiText.fields.name##:" lang-en:TITLE="Name:"/>
+		<EDIT SOURCE="Ps.name"/>
+	</TABLE>
+
+	<BR/>
+	<ITEM TYPE="object_selector" SOURCE="Ps.parent_id" AUTO-LABEL="1"/>
+	<DELIM/>
+
+	<LABEL TITLE="##UiText.titles.inner_groups##:"/>
+	<ITEM FORM-DATA-EXPR="lib_view.build_card_view_list( 'groups_of_group' )" HEIGHT="42zr" TYPE="MainList"/>
+	<DELIM/>
+
+	<IF EXPR="AppModuleUsed( 'crm' )">
+		<CHECK SOURCE="Ps.is_user_group" AUTO-LABEL="1"/>
+		<DELIM/>
+	</IF>
+
+	<IF EXPR="lib_app2.AppFeatureEnabled( 'mass_recruit' )">
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.recruit_type_id" AUTO-LABEL="1" WIDTH="30zr"/>
+		<DELIM/>
+	</IF>
+
+	<IF EXPR="AppModuleUsed( 'staff' )">
+		<IF EXPR="global_settings.use_divisions">
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="100%"/>
+					<COL WIDTH="16px"/>
+				</COLUMNS>
+			
+				<LABEL TITLE="Подразделения, за которые отвечает данная группа:" lang-en:TITLE="Target divisions:" lang-ua:TITLE="Підрозділи, за які відповідає дана група:"/>
+				<IMAGE URL="//base_pict/select.ico" TIP-TEXT="Выбрать подразделения" lang-en:TIP-TEXT="Select divisions" ACTION="
+						Ps.handle_select_base_divisions();
+				" lang-ua:TIP-TEXT="Вибрати підрозділи"/>
+			</TABLE>
+			<LIST HEIGHT="20zr" SUNKEN="1" LOOP-EXPR="Ps.base_divisions">
+				<ROW IMAGE-URL-EXPR="ListElem.division_id.ForeignElem.ImageUrl" OPEN-ACTION="ObtainDocScreen( ListElem.division_id.ForeignObjectUrl )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );">
+					<COL WIDTH="100%" COL-TITLE="##UiText.objects.division##" TITLE-EXPR="ListElem.division_id.ForeignDispName"/>
+				</ROW>
+			</LIST>
+			<BR/>
+		</IF>		
+		
+		<GROUP>
+			<ITEM TYPE="object_selector" SOURCE="Ps.vacancy_load_default_user_id" AUTO-LABEL="1" WIDTH="45zr"/>
+		</GROUP>
+	
+		<IF EXPR="AppModuleUsed( 'module_rgs' )">
+			<BR/>
+
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="62zr"/>
+				</COLUMNS>
+
+				<EDIT SOURCE="Ps.vacancy_import.create_notif_email" LABEL-TITLE="E-Mail для отправки уведомлений о подаче новой заявки на вакансию:" lang-en:LABEL-TITLE="E-mail for notifications on new vacancy request:" lang-ua:LABEL-TITLE="E-Mail для відправлення повідомлень про подачу нової заявки на вакансію:"/>
+			</TABLE>
+		</IF>
+		<DELIM/>
+	</IF>
+	
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="16px"/>
+		</COLUMNS>
+			
+		<LABEL TITLE="Включает в себя права групп:" lang-en:TITLE="Includes groups:" lang-ua:TITLE="Включає в себе права груп:"/>
+		<IMAGE URL="//base_pict/select.ico" TIP-TEXT="Выбрать группы" lang-en:TIP-TEXT="Select groups" ACTION="
+				Ps.handle_select_member_groups();
+		" lang-ua:TIP-TEXT="Вибрати групи"/>
+	</TABLE>
+	<LIST HEIGHT="25zr" SUNKEN="1" LOOP-EXPR="ArraySort( Ps.member_groups, 'name', '+' )">
+		<ROW IMAGE-URL-EXPR="ListElem.ImageUrl" OPEN-ACTION="ObtainDocScreen( ListElem.group_id.ForeignObjectUrl )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );">
+			<COL WIDTH="100%" COL-TITLE="##UiText.objects.group##" TITLE-EXPR="ListElem.group_id.ForeignDispName"/>
+		</ROW>
+	</LIST>
+	<BR/>
+
+	<EDIT SOURCE="Ps.comment" MULTILINE="1" HEIGHT="auto" LABEL-TITLE="##UiText.fields.comment##:"/>
+
+
+	<IF EXPR="AppModuleUsed( 'crm' )">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="16px"/>
+			</COLUMNS>
+
+			<LABEL TITLE="##UiText.fields.participants##:"/>
+
+			<IMAGE URL="//base_pict/select.ico" TIP-TEXT="##UiText.actions.select_person##" ACTION="
+					Ps.select_member();
+					Ps.Doc.SetChanged( true );
+			"/>
+		</TABLE>
+
+		<LIST SUNKEN="1" LOOP-CATALOG="persons" XQUERY-QUAL-EXPR="
+				return 'MatchSome( $elem/id, ( ' + ArrayMerge( Ps.members, 'This', ',' ) + ' ) )';
+		" HEIGHT="10zr">
+			<ROW DELETE-ACTION="Ps.members.person_id.DeleteByValue( ListElem.id ); Ps.Doc.SetChanged( true );" IMAGE-URL-EXPR="ListElem.ImageUrl">
+				<COL WIDTH="40%" COL-TITLE="##UiText.fields.fullname##" TITLE-EXPR="ListElem.fullname"/>
+				<COL WIDTH="40%" COL-TITLE="##UiText.fields.position##" TITLE-EXPR="ListElem.position_name" lang-en:COL-TITLE="Position"/>
+				<COL WIDTH="20%" COL-TITLE="##UiText.fields.phone##" TITLE-EXPR="ListElem.disp_phone"/>
+			</ROW>
+		</LIST>
+	</IF>
+</PAGE>
+
+</PAGE>
+
+</SELECTOR>
+
+
+</LINE>
+
+
+<COMMAND-HANDLER CMD="Help" HREF-EXPR="lib_base.build_help_article_url( 'intro.htm' )" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1" TARGET-NEW-WINDOW="1"/>
+
+</SPXML-SCREEN>

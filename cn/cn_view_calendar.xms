@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.calendar##" WIDTH-EXPR="Ps.is_dlg ? '145zr' : '100%'" HEIGHT-EXPR="Ps.is_dlg ? '112zr' : '100%'" BEFORE-INIT-ACTION="
+		lib_calendar.obtain_annual_day_mask( Year( CurDate ) );
+		//Ps.cur_date = Date();
+" OK-ACTION="
+		if ( ! Ps.sel_date.HasValue )
+		{
+			lib_base.show_error_message( ActiveScreen, UiText.errors.time_not_selected );
+			Cancel();
+		}
+
+		if ( Hour( Ps.sel_date ) == undefined )
+		{
+			lib_base.show_error_message( ActiveScreen, UiText.errors.time_not_selected );
+			Cancel();
+		}
+
+		if ( Ps.select_multi_rows )
+		{
+			Ps.selTimeRows = ArrayExtract( FindItem( 'MainGrid' ).SelRows, 'Env._time_row' );
+		}
+		else
+		{
+			if ( Ps.auto_select_room &amp;&amp; ! Ps.sel_room_id.HasValue )
+				Ps.sel_room_id = Ps.get_free_room_id( Ps.sel_date, DateOffset( Ps.sel_date, Ps.req_duration_minutes * 60 ) );
+		}
+" STD-MARGINS="0">
+
+
+
+<LIST NAME="week_calendar_panel" SAMPLE="1" PARAM-panel-index="" OPT-SUNKEN="1" ROW-IMAGES="0" LOOP-EXPR="
+		ArraySelectByKey( Ps.entries, Int( GetSampleParam( 'panel-index' ) ), 'target_date_index' );
+">
+	<ROW OPEN-ACTION="
+				if ( Ps.is_dlg )
+				{
+				}
+				else
+				{
+					lib_calendar.open_calendar_entry_ext( ListElem.src_entry );
+				}
+		" DELETE-ACTION="
+				lib_base.ask_warning_to_continue( ActiveScreen, UiText.messages.event_will_be_deleted );
+				lib_calendar.delete_calendar_entry( ListElem.src_entry )
+		">
+		<COL WIDTH="100%" COL-TITLE-EXPR="
+				targetDate = Ps.target_dates[Int( GetSampleParam( 'panel-index' ) )];
+				return base1_common.week_days[Int( GetSampleParam( 'panel-index' ) )].short_name + ',  ' + StrLongDate( targetDate.date, false, false );
+		" TITLE-EXPR="StrTime( ListElem.date ) + '  ' + ListElem.desc" TEXT-COLOR-EXPR="ListElem.src_entry.get_text_color()"/>
+	</ROW>
+</LIST>
+
+
+
+
+
+
+<WITH VAR="_dummy" EXPR="
+		try
+		{
+			Ps.build();
+		}
+		catch ( e )
+		{
+			alert( e );
+		}
+">
+</WITH>
+
+
+<PANEL HEIGHT="22zr">
+	<LINE>
+		<PANEL WIDTH="-25zrc" HEIGHT="100%" SUNKEN="1">
+			<LINE>
+				<PANEL WIDTH="-50zr">
+					<LABEL TITLE-EXPR="
+							if ( cn_local_views.calendar_type_id == 'day' )
+							{
+								if ( DateNewTime( Ps.start_date ) == DateNewTime( Date() ) )
+									str = UiText.titles.today + ',  '
+								else if ( DateNewTime( Ps.start_date ) == DateNewTime( DateOffset( Date(), 86400 ) ) )
+									str = UiText.titles.tomorrow + ',  '
+								else if ( DateNewTime( Ps.start_date ) == DateNewTime( DateOffset( Date(), ( 0 - 1 ) * 86400 ) ) )
+									str = UiText.titles.yesterday + ',  '
+								else
+									str = '';
+
+								str = str + Ps.start_date;
+							}
+							else if ( cn_local_views.calendar_type_id == 'work_week' || cn_local_views.calendar_type_id == 'week' )
+							{
+								str = StrLongDate( Ps.start_date, false, false ) + ' - ' + StrLongDate( Ps.end_date, false, false );
+							}
+							else if ( cn_local_views.calendar_type_id == 'month' )
+							{
+								str = base1_common.months[Month( Ps.start_date ) - 1].name + ' ' + Year( Ps.start_date );
+							}
+							
+							return str;
+					" BOLD="1"/>
+
+					<IF EXPR="cn_local_views.calendar_type_id == 'day'">
+						<LABEL TITLE-EXPR="
+								return base1_common.week_days.GetChildByKey( WeekDay( Ps.start_date ) ).name;
+						" BOLD="1"/>
+					</IF>
+				</PANEL>
+				<PANEL>
+					<LINE>
+						<RADIO-BUTTON SOURCE="cn_local_views.calendar_type_id" SWITCH-VALUE="day" TITLE="День" lang-en:TITLE="Day" WIDTH="auto" SET-VALUE-ACTION="Ps.set_calendar_type( NewValue )" lang-ua:TITLE="День"/>
+						<RADIO-BUTTON SOURCE="cn_local_views.calendar_type_id" SWITCH-VALUE="work_week" TITLE="Рабочая неделя" lang-en:TITLE="Work Week" WIDTH="auto" SET-VALUE-ACTION="Ps.set_calendar_type( NewValue )" lang-ua:TITLE="Робочий тиждень"/>
+						<RADIO-BUTTON SOURCE="cn_local_views.calendar_type_id" SWITCH-VALUE="week" TITLE="Неделя" lang-en:TITLE="Week" WIDTH="auto" SET-VALUE-ACTION="Ps.set_calendar_type( NewValue )" lang-ua:TITLE="Тиждень"/>
+						<RADIO-BUTTON SOURCE="cn_local_views.calendar_type_id" SWITCH-VALUE="month" TITLE="Месяц" lang-en:TITLE="Month" WIDTH="auto" SET-VALUE-ACTION="Ps.set_calendar_type( NewValue )" lang-ua:TITLE="Місяць"/>
+					</LINE>
+
+					<PANEL HEIGHT="10px">
+					</PANEL>
+				</PANEL>
+			</LINE>
+
+			<GROUP>
+				<LABEL/>
+				<IF EXPR="lib_app2.AppFeatureEnabled( 'mass_recruit' )">
+					<CHECK SOURCE="cn_local_views.group_entries_by_time" TITLE="Группировать записи" lang-en:TITLE="Group entries" lang-ua:TITLE="Групувати записи" KEEP-RIGHT="1" WIDTH="auto" ENABLE-EXPR="cn_local_views.calendar_type_id == 'day' || cn_local_views.calendar_type_id == 'work_week'"/>
+				</IF>
+
+				<CHECK SOURCE="cn_local_views.show_delegate_entries" TITLE="##UiText.fields.is_delegate##" KEEP-RIGHT="1" WIDTH="auto"/>
+			</GROUP>
+			
+			<PANEL HEIGHT="-8zr">
+			</PANEL>
+
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="12zr"/>
+					<COL WIDTH="12zr"/>
+
+					<COL WIDTH="100%"/>
+
+					<COL WIDTH="16zr"/>
+					<COL WIDTH="20zr"/>
+
+					<IF EXPR="lib_user.use_groups">
+						<COL WIDTH="15zr"/>
+					</IF>
+				</COLUMNS>
+
+				<LABEL/>
+				<LABEL/>
+
+				<LABEL/>
+
+				<LABEL TITLE="##UiText.objects.room##:"/>
+				<LABEL TITLE="##UiText.objects.user##:"/>
+
+				<IF EXPR="lib_user.use_groups">
+					<LABEL TITLE="##UiText.objects.group##:"/>
+				</IF>
+
+
+				<BUTTON TITLE="<<<" BOLD="1" ACTION="
+						if ( cn_local_views.calendar_type_id == 'day' )
+							newDate = DateOffset( Ps.start_date, ( 0 - 1 ) * 86400 );
+						else if ( cn_local_views.calendar_type_id == 'work_week' || cn_local_views.calendar_type_id == 'week' )
+							newDate = DateOffset( Ps.start_date, ( 0 - 1 ) * 86400 * 7 );
+						else if ( cn_local_views.calendar_type_id == 'month' )
+							newDate = lib_base.get_month_date_offset( Ps.start_date, ( 0 - 1 ) );
+						
+						Ps.set_flex_date( newDate );
+				"/>
+
+				<BUTTON TITLE=">>>" BOLD="1" ACTION="
+						if ( cn_local_views.calendar_type_id == 'day' )
+							newDate = DateOffset( Ps.start_date, 86400 );
+						else if ( cn_local_views.calendar_type_id == 'work_week' || cn_local_views.calendar_type_id == 'week' )
+							newDate = DateOffset( Ps.start_date, 86400 * 7 );
+						else if ( cn_local_views.calendar_type_id == 'month' )
+							newDate = lib_base.get_month_date_offset( Ps.start_date, 1 );
+
+						Ps.set_flex_date( newDate );
+				"/>
+
+				<LABEL/>
+
+				<ITEM TYPE="voc_elem_selector" usage="filter" SOURCE="Ps.filter.room_id" FOREIGN-ARRAY="ArrayUnion( Ps.view.dummy_rooms, rooms )" ELEM="ListElem.name"/>
+
+				<ITEM TYPE="object_selector" usage="filter" SOURCE="Ps.filter.user_id" CHECK-VALUE-ACTION="lib_base.check_catalog_filter_constraints( 'calendar_entries', 'user_id', NewValue )" UPDATE-ACTION="
+						lib_view.store_filter_elem( 'calendar', Source );
+				"/>
+
+				<IF EXPR="lib_user.use_groups">
+					<ITEM TYPE="object_selector" usage="filter" SOURCE="Ps.filter.group_id" CHECK-VALUE-ACTION="lib_base.check_catalog_filter_constraints( 'calendar_entries', 'group_id', NewValue )" UPDATE-ACTION="
+							lib_view.store_filter_elem( 'calendar', Source );
+					"/>
+				</IF>
+			</TABLE>
+
+			<MENU RIGHT-CLICK="1">
+				<MENU-ENTRY TITLE="##UiText.actions.clear_form##" ACTION="
+						Ps.filter.Clear();
+						//lib_view.clear_stored_filters( 'calendar' );
+						//lib_view.adjust_filters( 'calendar', Ps );
+				"/>
+			</MENU>
+		</PANEL>
+
+		<SPLIT FIXED="1"/>
+
+		<PANEL HEIGHT="100%" SUNKEN="1" STD-MARGINS="0" BK-COLOR="white">
+			<ITEM TYPE="small_calendar" SOURCE="Ps.small_calendar"/>
+		</PANEL>
+	</LINE>
+</PANEL>
+
+
+<SPLIT FIXED="1"/>
+
+
+<PANEL HEIGHT-EXPR="Ps.is_dlg ? '-8zr' : '100%'">
+
+
+<IF EXPR="cn_local_views.calendar_type_id == 'day'">
+
+
+<GRID NAME="MainGrid" HEIGHT-EXPR="local_settings.show_calendar_workload ? '-6zrc' : '100%'" NO-MARKS="1" SOLID-ROWS="1" FIXED-WORK-ROW-HEIGHT="1" ROW-HEIGHT-EXPR="( Screen.ZrSize * 2 + 7 ) + 'px'" VERT-SCROLL="1" EXT-CLIENT-AREA__="1">
+	<COLUMNS>
+		<COL WIDTH="7zr"/>
+
+		<IF EXPR="cn_local_views.group_entries_by_time">
+			<COL WIDTH="10zr"/>
+			<COL WIDTH="30%"/>
+			<COL WIDTH="70%"/>
+		</IF>
+		<ELSE>
+			<COL WIDTH="27%"/>
+
+			<COL WIDTH="26%"/>
+			<COL WIDTH="20%"/>
+
+			<IF EXPR="AppModuleUsed( 'rcr' )">
+				<COL WIDTH="24zr"/>
+			</IF>
+
+			<COL WIDTH="27%"/>
+
+			<COL WIDTH="15zr"/>
+
+			<IF EXPR="ArrayCount( rooms ) != 0">
+				<COL WIDTH="8zr"/>
+			</IF>
+		</ELSE>
+	</COLUMNS>
+
+	<ROW HEADER="1">
+		<LABEL TITLE="##UiText.titles.time##" ALIGN="center"/>
+
+		<IF EXPR="cn_local_views.group_entries_by_time">
+			<LABEL TITLE="##UiText.fields.quantity__short##" ALIGN="center"/>
+			<LABEL TITLE="##UiText.objects.event##" ALIGN="center"/>
+			<LABEL TITLE="##UiText.titles.contact##" ALIGN="center"/>
+		</IF>
+		<ELSE>
+			<LABEL TITLE="##UiText.objects.event##" ALIGN="center"/>
+
+			<LABEL TITLE="##UiText.titles.contact##" ALIGN="center"/>
+			<LABEL TITLE="##UiText.fields.phone##" ALIGN="center"/>
+
+			<IF EXPR="AppModuleUsed( 'rcr' )">
+				<LABEL TITLE="##UiText.objects.vacancy##" ALIGN="center"/>
+			</IF>
+
+			<LABEL TITLE="##UiText.fields.comment##" ALIGN="center"/>
+
+			<LABEL TITLE="##UiText.objects.user##" ALIGN="center"/>
+
+			<IF EXPR="ArrayCount( rooms ) != 0">
+				<LABEL TITLE="##UiText.objects.room##" ALIGN="center"/>
+			</IF>
+		</ELSE>
+	</ROW>
+	
+	<LOOP EXPR="
+			Grid.CurXQueryStr = Ps.cur_query;
+			return Ps.time_rows;
+	" VAR="_time_row">
+		<ROW BK-COLOR-EXPR="_time_row.bk_color" OPEN-ACTION="
+				Ps.sel_date = DateNewTime( Ps.start_date, _time_row.hour, _time_row.minute );
+
+				if ( Ps.is_dlg )
+				{
+					Screen.RunCommand( 'Ok' );
+				}
+				else
+				{
+					entryTypeID = lib_voc.select_voc_elem( event_types, {is_calendar_entry:true} );
+					
+					doc = DefaultDb.OpenNewObjectDoc( 'calendar_entry' );
+					doc.TopElem.date = Ps.sel_date;
+					doc.TopElem.type_id = entryTypeID;
+					doc.TopElem.init();
+					CreateDocScreen( doc );
+				}
+		" DELETE-ACTION="
+				lib_base.ask_warning_to_continue( ActiveScreen, UiText.messages.event_will_be_deleted );
+				lib_calendar.delete_calendar_entry( _time_row.src_entry )
+		" SET-SEL-ACTION="
+				if ( _time_row.hour != 24 )
+					Ps.sel_date = DateNewTime( Ps.start_date, _time_row.hour, _time_row.minute );
+		">
+			<LABEL TITLE-EXPR="_time_row.comb_minute.HasValue ? _time_row.hour + ':' + StrInt( _time_row.minute, 2 ) : '----'" FLAT="1" ALIGN="center" TEXT-COLOR-EXPR="
+					_time_row.minute == 0 ? '' : '100,100,100'
+			"/>
+			
+			<IF EXPR="cn_local_views.group_entries_by_time">
+				<LABEL TITLE-EXPR="
+						dateEntry = _time_row.date_entries.GetOptChildByKey( Ps.start_date );
+						if ( dateEntry == undefined )
+							return '';
+
+						if ( dateEntry.grouped_entries.ChildNum == 0 )
+							return '';
+
+						return dateEntry.grouped_entries.ChildNum;
+				" FLAT="1" ALIGN="center"/>
+
+				<LABEL TITLE-EXPR="
+						dateEntry = _time_row.date_entries.GetOptChildByKey( Ps.start_date );
+						if ( dateEntry == undefined )
+							return '';
+
+						return ArrayMerge( ArraySelectDistinct( dateEntry.grouped_entries, 'event.type_id' ), 'event.type_id.ForeignElem.name', ';  ' );
+				" FLAT="1"/>
+
+				<LABEL TITLE-EXPR="
+						dateEntry = _time_row.date_entries.GetOptChildByKey( Ps.start_date );
+						if ( dateEntry == undefined )
+							return '';
+
+						return ArrayMerge( ArraySelectDistinct( dateEntry.grouped_entries, 'event.type_id' ), 'event.get_contacts_desc()', ';  ' );
+				" FLAT="1"/>
+			</IF>
+			<ELSE>
+				<LABEL FLAT="1" TITLE-EXPR="Ps.check_rooms && _time_row.show_sel_room_as_busy( Ps.start_date ) ? 'xxxxxxxxxxxxxxxx' : ''" ALIGN="center"/>
+				<LABEL FLAT="1"/>
+				<LABEL FLAT="1"/>
+
+				<IF EXPR="AppModuleUsed( 'rcr' )">
+					<LABEL FLAT="1"/>
+				</IF>
+
+				<LABEL FLAT="1"/>
+				<LABEL FLAT="1"/>
+
+				<IF EXPR="ArrayCount( rooms ) != 0">
+					<LABEL FLAT="1"/>
+				</IF>
+			</ELSE>
+		</ROW>
+	</LOOP>
+
+
+
+	<LOOP EXPR="cn_local_views.group_entries_by_time ? [] : Ps.entries" VAR="_entry">
+		<PANEL BORDER="1" BORDER-COLOR="100,100,100" SHADOW="1" STD-MARGINS="0" FREE-POSITION="1" HORIZ-POS-EXPR="
+				Grid.GetCellHorizPos( _entry.row_index + 1, 1 );
+		" VERT-POS-EXPR="
+				Grid.GetCellVertPos( _entry.row_index + 1, 1 );
+		" WIDTH-EXPR="
+				width = 0;
+				
+				for ( i = 1; i &lt;= 5; i++ )
+					width += Grid.GetCellWidth( _entry.row_index + 1, i );
+
+				if ( AppModuleUsed( 'rcr' ) )
+				{
+					width += Grid.GetCellWidth( _entry.row_index + 1, i );
+					i++;
+				}
+
+				if ( ArrayCount( rooms ) != 0 )
+				{
+					width += Grid.GetCellWidth( _entry.row_index + 1, i );
+					i++;
+				}
+
+				return width + 'px';
+		" HEIGHT-EXPR="
+				height = 0;
+				
+				for ( i = _entry.row_index; i &lt;= _entry.end_row_index; i++ )
+					height += Grid.GetCellHeight( _entry.row_index + 1, 1 );
+
+				return ( height + 1 ) + 'px';
+		" OPEN-ACTION="
+				lib_calendar.open_calendar_entry_ext( _entry.src_entry );
+		" BK-COLOR="black" BK-COLOR-EXPR="
+				if ( _entry.is_road_time )
+					return '230,230,230';
+				else if ( _entry.has_conflicts )
+					return '255,180,180';
+				else
+					return 'white';
+		" BK-GRADIENT-BASE="bottom" BK-GRADIENT-RANGE="10">
+			<TABLE CHILD-VERT-ALIGN="top">
+				<COLUMNS>
+					<COL WIDTH-EXPR="Grid.GetCellWidth( 0, 1 ) + 'px'"/>
+					<COL WIDTH-EXPR="Grid.GetCellWidth( 0, 2 ) + 'px'"/>
+					<COL WIDTH-EXPR="Grid.GetCellWidth( 0, 3 ) + 'px'"/>
+
+					<IF EXPR="AppModuleUsed( 'rcr' )">
+						<COL WIDTH-EXPR="Grid.GetCellWidth( 0, 4 ) + 'px'"/>
+					</IF>
+
+					<COL WIDTH-EXPR="Grid.GetCellWidth( 0, 5 ) + 'px'"/>
+					<COL WIDTH-EXPR="Grid.GetCellWidth( 0, 6 ) + 'px'"/>
+
+					<IF EXPR="ArrayCount( rooms ) != 0">
+						<COL WIDTH-EXPR="Grid.GetCellWidth( 0, 7 ) + 'px'"/>
+					</IF>
+				</COLUMNS>
+
+				<LINE>
+					<IF EXPR="_entry.is_road_time">
+						<LABEL TITLE="  "/>
+						<IMAGE URL="//base_pict/trip.png" WIDTH="16px" HEIGHT="16px"/>
+					</IF>
+					<ELSE>
+						<LABEL TITLE-EXPR="StrTime( _entry.date )" TEXT-COLOR-EXPR="_entry.src_entry.get_text_color()" TOP-MARGIN="1"/>
+						<LABEL TITLE="  "/>
+
+						<LABEL TITLE-EXPR="
+								str = _entry.src_entry.type_id.ForeignDispName;
+
+								if ( _entry.is_tail )
+									str = '>> ' + str;
+								
+								if ( _entry.has_tail )
+									str += ' >>';
+									
+								return str;
+						" TEXT-COLOR-EXPR="_entry.src_entry.get_text_color()" TOP-MARGIN="1" MULTILINE="0"/>
+					</ELSE>
+				</LINE>
+
+				<IF EXPR="! _entry.is_road_time">
+					<LABEL TITLE-EXPR="_entry.src_entry.contacts_desc" TEXT-COLOR-EXPR="_entry.src_entry.get_text_color()" TOP-MARGIN="1"/>
+					<LABEL TITLE-EXPR="_entry.src_entry.contact_phones_desc" TEXT-COLOR-EXPR="_entry.src_entry.get_text_color()" TOP-MARGIN="1"/>
+
+					<IF EXPR="AppModuleUsed( 'rcr' )">
+						<LABEL TITLE-EXPR="_entry.src_entry.vacancy_id.ForeignElem.name" TEXT-COLOR-EXPR="_entry.src_entry.get_text_color()" TOP-MARGIN="1" MULTILINE="0"/>
+					</IF>
+
+					<LABEL TITLE-EXPR="_entry.src_entry.comment" TEXT-COLOR-EXPR="_entry.src_entry.get_text_color()" TOP-MARGIN="1"/>
+					<LABEL TITLE-EXPR="_entry.src_entry.user_id.ForeignDispName" TEXT-COLOR-EXPR="_entry.src_entry.get_text_color()" TOP-MARGIN="1"/>
+					
+					<IF EXPR="ArrayCount( rooms ) != 0">
+						<LABEL TITLE-EXPR="_entry.src_entry.room_id.ForeignDispName" TEXT-COLOR-EXPR="_entry.src_entry.get_text_color()" TOP-MARGIN="1"/>
+					</IF>
+				</IF>
+			</TABLE>
+
+			<INHERIT TYPE="calendar_entry_menus"/>
+		</PANEL>
+	</LOOP>
+</GRID>
+
+
+<IF EXPR="local_settings.show_calendar_workload">
+
+<PANEL HEIGHT="100%" SUNKEN="1" VERT-SCROLL="1" BK-COLOR="white">
+	<TABLE STD-MARGINS="0">
+		<COLUMNS>
+			<COL WIDTH="7zr"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<LINE>
+			<PANEL HEIGHT="100%" BK-COLOR="white" WIDTH="-1px" STD-MARGINS="0" LEFT-MARGIN="11" TOP-MARGIN="1">
+				<IMAGE URL="//base_pict/src_entry.ico"/>
+
+				<PANEL HEIGHT="1px">
+				</PANEL>
+
+				<IMAGE URL="//base_pict/task.ico"/>
+			</PANEL>
+
+			<PANEL HEIGHT="100%" BK-COLOR="black">
+			</PANEL>
+		</LINE>
+
+		<WITH EXPR="Ps.target_dates[0]" VAR="_target_date">
+			<PANEL>
+				<ITEM TYPE="percentage_cell_panel" HEIGHT="50%" left-title-expr="_target_date.entries_num" TITLE-EXPR="_target_date.entries_num != 0 ? lib_base.seconds_period_desc( _target_date.sum_entry_seconds ) : ''" SOURCE="_target_date.sum_entry_seconds" max-range-expr="local_settings.work_hours_num * 3600" fill-color-expr="'255,128,64'"/>
+
+				<PANEL HEIGHT="1px" WIDTH="100%" BK-COLOR="black">
+				</PANEL>
+
+				<ITEM TYPE="percentage_cell_panel" HEIGHT="100%" left-title-expr="_target_date.tasks_num" TITLE-EXPR="_target_date.tasks_num != 0 ? lib_base.seconds_period_desc( _target_date.sum_task_seconds ) : ''" SOURCE="_target_date.sum_task_seconds" max-range-expr="local_settings.work_hours_num * 3600" fill-color-expr="'128,128,192'"/>
+			</PANEL>
+		</WITH>
+	</TABLE>
+</PANEL>
+
+</IF>
+
+
+</IF>
+
+
+
+
+
+
+
+
+
+
+<IF EXPR="cn_local_views.calendar_type_id == 'work_week'">
+
+
+<GRID HEIGHT-EXPR="local_settings.show_calendar_workload ? '-6zrc' : '100%'" NO-MARKS="1" SOLID-ROWS__="1" FIXED-WORK-ROW-HEIGHT="1" ROW-HEIGHT-EXPR="( Screen.ZrSize * 2 + 7 ) + 'px'" VERT-SCROLL="1" EXT-CLIENT-AREA__="1">
+	<COLUMNS>
+		<COL WIDTH="7zr"/>
+
+		<IF EXPR="Ps.target_dates.ChildNum == 5">
+			<COL WIDTH="20%"/>
+			<COL WIDTH="20%"/>
+			<COL WIDTH="20%"/>
+			<COL WIDTH="20%"/>
+			<COL WIDTH="20%"/>
+		</IF>
+		<ELSE>
+			<COL WIDTH="16%"/>
+			<COL WIDTH="16%"/>
+			<COL WIDTH="16%"/>
+			<COL WIDTH="16%"/>
+			<COL WIDTH="16%"/>
+			<COL WIDTH="10%"/>
+			<COL WIDTH="10%"/>
+		</ELSE>
+	</COLUMNS>
+
+	<ROW HEADER="1">
+		<LABEL TITLE="##UiText.titles.time##" ALIGN="center"/>
+
+		<LOOP EXPR="Ps.target_dates" VAR="_target_date">
+			<LABEL TITLE-EXPR="
+					_target_date.week_day.ForeignElem.short_name + ',  ' + ( _target_date.ChildIndex &lt; 5 ? StrLongDate( _target_date.date, false, false ) : Day( _target_date.date ) )
+			" ALIGN="center" BK-COLOR-EXPR="
+					if ( _target_date.date == DateNewTime( CurDate ) )
+						return '10,36,106';
+					else if ( ! lib_calendar.is_wday( _target_date.date ) )
+						return '200,60,60';
+					else
+						return '';
+			" TEXT-COLOR-EXPR="
+					if ( _target_date.date != DateNewTime( CurDate ) )
+						return '100,100,100';
+					else
+						return '';
+			"/>
+		</LOOP>
+	</ROW>
+	
+	<LOOP EXPR="
+			Grid.CurXQueryStr = Ps.cur_query;
+			return Ps.time_rows;
+	" VAR="_time_row">
+		<ROW BK-COLOR-EXPR="_time_row.bk_color">
+			
+			<LABEL TITLE-EXPR="_time_row.comb_minute.HasValue ? _time_row.hour + ':' + StrInt( _time_row.minute, 2 ) : '----'" FLAT="1" ALIGN="center" TEXT-COLOR-EXPR="
+					_time_row.minute == 0 ? '' : '100,100,100'
+			"/>
+			
+			<LOOP EXPR="Ps.target_dates" VAR="_target_date">
+				<LABEL TITLE-EXPR="
+						if ( ! cn_local_views.group_entries_by_time )
+							return '';
+
+						dateEntry = _time_row.date_entries.GetOptChildByKey( _target_date.date );
+						if ( dateEntry == undefined )
+							return '';
+
+						str = ' ';
+						str += dateEntry.grouped_entries.ChildNum;
+						str += '  - ';
+						str += ArrayMerge( ArraySelectDistinct( dateEntry.grouped_entries, 'event.type_id' ), 'event.type_id.ForeignElem.name', ', ' );
+
+						return str;
+				" FLAT="1" BK-COLOR-EXPR="
+						_target_date.date == DateNewTime( CurDate ) ? _time_row.today_bk_color : _time_row.other_day_bk_color
+				" TIP-TEXT-EXPR="
+						if ( ! cn_local_views.group_entries_by_time )
+							return '';
+
+						dateEntry = _time_row.date_entries.GetOptChildByKey( _target_date.date );
+						if ( dateEntry == undefined )
+							return '';
+
+						return ArrayMerge( dateEntry.grouped_entries, 'event.get_contacts_desc()', '; ' );
+				" OPEN-ACTION="
+						Ps.sel_date = DateNewTime( _target_date.date, _time_row.hour, _time_row.minute );
+
+						if ( Ps.is_dlg )
+						{
+							Ps.start_date = DateNewTime( _target_date.date, _time_row.hour, _time_row.minute );
+							Screen.RunCommand( 'Ok' );
+						}
+						else
+						{
+							entryTypeID = lib_voc.select_voc_elem( event_types, {is_calendar_entry:true} );
+							
+							doc = DefaultDb.OpenNewObjectDoc( 'calendar_entry' );
+							doc.TopElem.date = DateNewTime( _target_date.date, _time_row.hour, _time_row.minute );
+							doc.TopElem.type_id = entryTypeID;
+							doc.TopElem.init();
+							CreateDocScreen( doc );
+						}
+				" SET-SEL-ACTION="
+						Ps.sel_date = DateNewTime( _target_date.date, _time_row.hour, _time_row.minute );
+				"/>
+			</LOOP>
+		</ROW>
+	</LOOP>
+
+
+	<LOOP EXPR="cn_local_views.group_entries_by_time ? [] : Ps.entries" VAR="_entry">
+		<PANEL BK-COLOR_="white" BORDER="1" BORDER-COLOR="100,100,100" SHADOW="1" STD-MARGINS="0" LEFT-MARGIN="1" FREE-POSITION="1" HORIZ-POS-EXPR="
+				Grid.GetCellHorizPos( _entry.row_index + 1, _entry.target_date_index + 1 );
+		" VERT-POS-EXPR="
+				Grid.GetCellVertPos( _entry.row_index + 1, 1 );
+		" WIDTH-EXPR="
+				Grid.GetCellWidth( _entry.row_index + 1, _entry.target_date_index + 1 ) + 'px';
+		" HEIGHT-EXPR="
+				height = 0;
+				
+				for ( i = _entry.row_index; i &lt;= _entry.end_row_index; i++ )
+					height += Grid.GetCellHeight( _entry.row_index + 1, 1 );
+
+				return ( height + 1 ) + 'px';
+		" OPEN-ACTION="
+				lib_calendar.open_calendar_entry_ext( _entry.src_entry );
+		" BK-COLOR-EXPR="
+				if ( _entry.is_road_time )
+					return '210,210,210';
+				else if ( _entry.has_conflicts )
+					return '255,180,180';
+				else
+					return 'white';
+		" BK-GRADIENT-BASE="bottom" BK-GRADIENT-RANGE="20">
+			<LINE CHILD-VERT-ALIGN="top">
+				<IF EXPR="_entry.is_road_time">
+					<LABEL/>
+					<IMAGE URL="//base_pict/trip.png" WIDTH="16px" HEIGHT="16px"/>
+				</IF>
+				<ELSE>
+					<LABEL TITLE-EXPR="StrTime( _entry.date )" TEXT-COLOR-EXPR="_entry.src_entry.get_text_color()" TOP-MARGIN="1"/>
+					<LABEL TITLE="  "/>
+
+					<LABEL TITLE-EXPR="_entry.desc" TEXT-COLOR-EXPR="_entry.src_entry.get_text_color()" TOP-MARGIN="1" MULTILINE_="0"/>
+				</ELSE>
+			</LINE>
+
+
+			<INHERIT TYPE="calendar_entry_menus"/>
+		</PANEL>
+	</LOOP>
+</GRID>
+
+
+
+<IF EXPR="local_settings.show_calendar_workload">
+
+<PANEL HEIGHT="100%" SUNKEN="1" VERT-SCROLL="1" BK-COLOR="white">
+	<TABLE STD-MARGINS="0">
+		<COLUMNS>
+			<COL WIDTH="7zr"/>
+
+			<IF EXPR="Ps.target_dates.ChildNum == 5">
+				<COL WIDTH="20%"/>
+				<COL WIDTH="20%"/>
+				<COL WIDTH="20%"/>
+				<COL WIDTH="20%"/>
+				<COL WIDTH="20%"/>
+			</IF>
+			<ELSE>
+				<COL WIDTH="16%"/>
+				<COL WIDTH="16%"/>
+				<COL WIDTH="16%"/>
+				<COL WIDTH="16%"/>
+				<COL WIDTH="16%"/>
+				<COL WIDTH="10%"/>
+				<COL WIDTH="10%"/>
+			</ELSE>
+		</COLUMNS>
+
+		<LINE>
+			<PANEL HEIGHT="100%" BK-COLOR="white" WIDTH="-1px" STD-MARGINS="0" LEFT-MARGIN="11" TOP-MARGIN="1">
+				<IMAGE URL="//base_pict/src_entry.ico"/>
+
+				<PANEL HEIGHT="1px">
+				</PANEL>
+
+				<IMAGE URL="//base_pict/task.ico"/>
+			</PANEL>
+
+			<PANEL HEIGHT="100%" BK-COLOR="black">
+			</PANEL>
+		</LINE>
+
+		<LOOP EXPR="Ps.target_dates" VAR="_target_date">
+			<PANEL>
+				<ITEM TYPE="percentage_cell_panel" HEIGHT="50%" left-title-expr="_target_date.entries_num" TITLE-EXPR="_target_date.entries_num != 0 ? lib_base.seconds_period_desc( _target_date.sum_entry_seconds ) : ''" SOURCE="_target_date.sum_entry_seconds" max-range-expr="local_settings.work_hours_num * 3600" fill-color-expr="'255,128,64'"/>
+
+				<PANEL HEIGHT="1px" WIDTH="100%" BK-COLOR="black">
+				</PANEL>
+
+				<ITEM TYPE="percentage_cell_panel" HEIGHT="100%" left-title-expr="_target_date.tasks_num" TITLE-EXPR="_target_date.tasks_num != 0 ? lib_base.seconds_period_desc( _target_date.sum_task_seconds ) : ''" SOURCE="_target_date.sum_task_seconds" max-range-expr="local_settings.work_hours_num * 3600" fill-color-expr="'128,128,192'"/>
+			</PANEL>
+		</LOOP>
+	</TABLE>
+</PANEL>
+
+</IF>
+
+
+</IF>
+
+
+
+
+
+
+
+
+<IF EXPR="cn_local_views.calendar_type_id == 'week'">
+
+<PANEL SUNKEN="1" STD-MARGINS="0">
+
+<LINE>
+	<PANEL WIDTH="50%">
+		<ITEM TYPE="week_calendar_panel" panel-index="0" HEIGHT="33%"/>
+		<SPLIT FIXED="1"/>
+		<ITEM TYPE="week_calendar_panel" panel-index="1" HEIGHT="50%"/>
+		<SPLIT FIXED="1"/>
+		<ITEM TYPE="week_calendar_panel" panel-index="2" HEIGHT="100%"/>
+	</PANEL>
+
+	<SPLIT FIXED="1"/>
+
+	<PANEL WIDTH="100%">
+		<ITEM TYPE="week_calendar_panel" panel-index="3" HEIGHT="33%"/>
+		<SPLIT FIXED="1"/>
+		<ITEM TYPE="week_calendar_panel" panel-index="4" HEIGHT="50%"/>
+		<SPLIT FIXED="1"/>
+		<ITEM TYPE="week_calendar_panel" panel-index="5" HEIGHT="50%"/>
+		<SPLIT FIXED="1"/>
+		<ITEM TYPE="week_calendar_panel" panel-index="6" HEIGHT="100%"/>
+	</PANEL>
+</LINE>
+
+</PANEL>
+
+</IF>
+
+
+
+
+
+
+
+<IF EXPR="cn_local_views.calendar_type_id == 'month'">
+
+<PANEL SUNKEN="1" STD-MARGINS="0">
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="17%"/>
+		<COL WIDTH="17%"/>
+		<COL WIDTH="17%"/>
+		<COL WIDTH="17%"/>
+		<COL WIDTH="17%"/>
+		<COL WIDTH="8%"/>
+		<COL WIDTH="7%"/>
+	</COLUMNS>
+
+	<LOOP EXPR="PlainSeq( 7 )" VAR="_horiz_index">
+		<PANEL>
+			<LABEL TITLE-EXPR="
+					if ( _horiz_index < 5 )
+						return base1_common.week_days[_horiz_index].name;
+					else
+						return base1_common.week_days[_horiz_index].short_name;
+			" ALIGN="center"/>
+		</PANEL>
+	</LOOP>
+
+	<LOOP EXPR="PlainSeq( 6 )" VAR="_vert_index">
+		<LOOP EXPR="PlainSeq( 7 )" VAR="_horiz_index">
+			<LIST BORDER="0" ROW-IMAGES="0" LOOP-EXPR="
+					ArraySelectByKey( Ps.entries, _vert_index * 7 + _horiz_index, 'target_date_index' );
+			" HEIGHT-EXPR="
+					if ( _vert_index < 6 )
+						return ( AvailHeight / 6 ) + 'px';
+					else
+						return '15%';
+			" ENABLE-EXPR="Month( Ps.target_dates[_vert_index * 7 + _horiz_index].date ) == Month( Ps.start_date )">
+				<ROW OPEN-ACTION="
+						if ( Ps.is_dlg )
+						{
+						}
+						else
+						{
+							lib_calendar.open_calendar_entry_ext( ListElem.src_entry );
+						}
+				" DELETE-ACTION="
+						lib_calendar.delete_calendar_entry( ListElem.src_entry )
+				">
+					<COL WIDTH="100%" COL-TITLE-EXPR="
+							targetDate = Ps.target_dates[_vert_index * 7 + _horiz_index];
+							
+							if ( Month( targetDate.date ) == Month( Ps.start_date ) )
+								return Day( targetDate.date );
+							else
+								return StrLongDate( targetDate.date, false, false );
+					" TITLE-EXPR="ListElem.desc" TEXT-COLOR-EXPR="ListElem.src_entry.get_text_color()"/>
+				</ROW>
+			</LIST>
+		</LOOP>
+	</LOOP>
+</TABLE>
+
+</PANEL>
+
+</IF>
+
+</PANEL>
+
+
+
+
+<IF EXPR="Ps.is_dlg">
+
+<BR/>
+
+
+<PANEL STD-MARGINS="1">
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LINE>
+		<LABEL TITLE="##UiText.fields.date##:"/>
+		<EDIT SOURCE="StrDate( Ps.sel_date, false )" SET-VALUE-ACTION="
+				Ps.sel_date = lib_base.ProcessInputDate( NewValue );
+		" WIDTH="12zr"/>
+
+		<LABEL/>
+
+		<LABEL TITLE="##UiText.titles.time##:"/>
+		<EDIT SOURCE="StrTime( Ps.sel_date )" SET-VALUE-ACTION="
+				Ps.sel_date = lib_base.ProcessInputTime( NewValue, ( Ps.sel_date.HasValue ? Ps.sel_date : DateNewTime( CurDate ) ) );
+		" WIDTH="8zr"/>
+
+		<IF EXPR="Ps.check_rooms">
+			<LABEL/>
+			<LABEL/>
+
+			<LABEL TITLE="##UiText.objects.room##:"/>
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.sel_room_id" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.sel_room_id, 10, 40 )"/>
+		</IF>
+	</LINE>
+
+	<BUTTON TITLE="OK" CMD="1"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2" lang-en:TITLE="Cancel"/>
+</TABLE>
+
+</PANEL>
+
+
+</IF>
+
+
+<COMMAND-HANDLER CMD="Print" ACTION="
+	docForPrint = OpenDoc('//cn/cn_view_calendar_print.xml'); 
+	docForPrint.TopElem.ref = Ps;
+	ScreenForPrint = CreateDocScreen( docForPrint, '//cn/cn_view_calendar_print.xms' );
+	lib_base.print_main_list( ScreenForPrint );
+	ScreenForPrint.Close();			
+" PASSIVE="1"/>
+
+<COMMAND-HANDLER CMD="ShowInOfficeCalc" ACTION="
+	docForPrint = OpenDoc('//cn/cn_view_calendar_print.xml'); 
+	docForPrint.TopElem.ref = Ps;
+	ScreenForPrint = CreateDocScreen( docForPrint, '//cn/cn_view_calendar_print.xms' );
+	lib_office.show_screen_in_calc( ScreenForPrint );
+	ScreenForPrint.Close();
+" PASSIVE="1"/>
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<country_packages>
+	<country_package MULTIPLE="1" PRIMARY-KEY="country_id">
+		<country_id TYPE="string"/>
+		<has_locations TYPE="bool" NULL-FALSE="1"/>
+		<has_public_holiday_map TYPE="bool" NULL-FALSE="1"/>
+		<has_annual_holiday_map TYPE="bool" NULL-FALSE="1"/>
+	</country_package>
+</country_packages>
+
+
+</SPXML-FORM>

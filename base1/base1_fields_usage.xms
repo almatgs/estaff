@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.sections.global_settings_field_usage##" SAVE-ACTION="
+		UpdateScreens( '*', '*' );
+" WINDOW-ICON-URL="//base_pict/settings.ico" MAXIMIZED="1" xmlns:lang-en="http://www.datex-soft.com/ns/lang-en" xmlns:lang-ua="http://www.datex-soft.com/ns/lang-ua">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="55zr" STD-MARGINS="0">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="0">
+		</TREE>
+	</PANEL>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.sections.global_settings_field_usage##" SUNKEN="1" EXPANDED="1" IMAGE-URL="//base_pict/folder.ico">
+
+<PAGE TITLE="Включение/отключение стандартных полей" lang-en:TITLE="Enabling/disabling standard fields" lang-ua:TITLE="Включення/відключення стандартних полів" IMAGE-URL="//base_pict/folder.ico" EXPANDED="1">
+	<LOOP EXPR="base1_config.field_usage_fragments" VAR="ListElem">
+		<PAGE TITLE-EXPR="ListElem.name" IMAGE-URL="//base_pict/generic_item.ico" SOURCE="ListElem" SUNKEN="1">
+			<GRID FIXED-ROW-HEIGHT="1" MARKS="0" HEIGHT="100%">
+				<COLUMNS>
+					<COL WIDTH="40zr"/>
+					<COL WIDTH="18zr"/>
+					<COL WIDTH="22zr"/>
+					<COL WIDTH="22zr"/>
+				</COLUMNS>
+				
+				<ROW HEADER="1">
+					<LABEL TITLE="##UiText.fields.field##"/>
+					<LABEL TITLE="##UiText.titles.enabled##" ALIGN="center"/>
+					<LABEL HSPAN="2" TITLE="##UiText.titles.section##" ALIGN="center"/>
+				</ROW>
+				<ROW HEADER="1">
+					<LABEL/>
+					<LABEL/>
+					<LABEL TITLE="##UiText.sections.general##" ALIGN="center"/>
+					<LABEL TITLE="##UiText.sections.add_info##" ALIGN="center"/>
+				</ROW>
+
+				<LOOP EXPR="
+						formElem = Screen.Doc.TopElem.GetFragmentFormElem( Ps );
+						return ArraySelect( formElem, 'GetBoolAttr( \'allow-hide\' )' );
+				" VAR="_form_elem" IGNORE-ERRORS="0">
+					<ROW>
+						<WITH EXPR="Screen.Doc.TopElem.use_object_field( Ps.object_type_id, _form_elem.Name )" VAR="_use" IGNORE-ERRORS="1">
+							<LABEL TITLE-EXPR="_form_elem.Title" FLAT="1" TEXT-COLOR-EXPR="_use ? '' : '100,100,100'"/>
+
+							<CHECK SOURCE="_use" SET-VALUE-ACTION="
+									Screen.Doc.TopElem.object_types.ObtainChildByKey( Ps.object_type_id ).fields.ObtainChildByKey( _form_elem.Name ).use = NewValue;
+									Screen.Doc.SetChanged( true );
+							" FLAT="1" ALIGN="center"/>
+
+							<IF EXPR="Screen.Doc.TopElem.get_object_field_default_section( Ps.object_type_id, _form_elem.Name ) != undefined">
+								<IF EXPR="_use">
+									<LOOP EXPR="['common', 'add_info']" VAR="_section_id">
+										<CHECK SOURCE="Screen.Doc.TopElem.use_object_field( Ps.object_type_id, _form_elem.Name, _section_id )" SET-VALUE-ACTION="
+												objectType = Screen.Doc.TopElem.object_types.ObtainChildByKey( Ps.object_type_id ).fields.ObtainChildByKey( _form_elem.Name );
+												if ( NewValue )
+													objectType.sections.ObtainChildByValue( _section_id );
+												else if ( objectType.sections.ChildByValueExists( _section_id ) )
+													objectType.sections.DeleteChildByValue( _section_id );
+
+												if ( objectType.sections.ChildNum == 0 )
+													objectType.use = false;
+
+												Ps.Doc.SetChanged( true );
+										" FLAT="1" ALIGN="center"/>
+									</LOOP>
+								</IF>
+								<ELSE>
+									<LABEL FLAT="1"/>
+									<LABEL FLAT="1"/>
+								</ELSE>
+							</IF>
+							<ELSE>
+								<LABEL HSPAN="2"/>
+							</ELSE>
+						</WITH>
+					</ROW>
+				</LOOP>
+			</GRID>
+		</PAGE>
+	</LOOP>
+</PAGE>
+
+
+<PAGE TITLE="Обязательные к заполнению поля" lang-en:TITLE="Required fields" VALUE="required" lang-ua:TITLE="Обов'язкові до заповнення поля" IMAGE-URL="//base_pict/folder.ico" EXPANDED="1">
+	<LOOP EXPR="base1_config.field_usage_fragments" VAR="ListElem">
+		<PAGE TITLE-EXPR="ListElem.name" IMAGE-URL="//base_pict/generic_item.ico" SOURCE="ListElem" SUNKEN="1" VERT-SCROLL="1">
+				<LOOP EXPR="
+						formElem = Screen.Doc.TopElem.GetFragmentFormElem( Ps );
+						return ArraySelect( formElem, 'Title != \'\'' );
+				" VAR="_form_elem" IGNORE-ERRORS="0">
+						<IF EXPR="
+								if ( _form_elem.IsMethod )
+									return false;
+
+								if ( _form_elem.Expr != '' )
+									return false;
+
+								if ( _form_elem.IsSecondary )
+									return false;
+
+								if ( ! Screen.Doc.TopElem.use_object_field( Ps.object_type_id, _form_elem.Name ) )
+									return false;
+
+								if ( _form_elem.Name == 'id' || _form_elem.Name == 'parent_id' || _form_elem.Name == 'hce' || _form_elem.Name == 'hlevel' )
+									return false;
+
+								if ( StrBegins( _form_elem.Name, 'idata_' ) )
+									return false;
+
+								if ( _form_elem.Name == 'is_candidate' )
+									return false;
+
+								if ( _form_elem.Title == '' &amp;&amp; _form_elem.ColTitle == '' )
+									return false;
+
+								if ( _form_elem.Type == '' &amp;&amp; ! ( ArrayCount( _form_elem ) == 1 &amp;&amp; _form_elem[0].IsMultiple ) )
+									return false;
+
+								return true;
+						" IGNORE-ERRORS="0">
+							<CHECK TITLE-EXPR="_form_elem.Title" SOURCE="Screen.Doc.TopElem.is_object_field_required( Ps.object_type_id, _form_elem.Name )" SET-VALUE-ACTION="
+									Screen.Doc.TopElem.object_types.ObtainChildByKey( Ps.object_type_id ).fields.ObtainChildByKey( _form_elem.Name ).is_required = NewValue;
+									Screen.Doc.SetChanged( true );
+							"/>
+						</IF>
+				</LOOP>
+			</PAGE>
+	</LOOP>
+</PAGE>
+
+
+</PAGE>
+</SELECTOR>
+</LINE>
+
+<COMMAND-HANDLER CMD="Help" HREF="help/settings_policy.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+</SPXML-SCREEN>

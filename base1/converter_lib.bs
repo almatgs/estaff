@@ -1,0 +1,48 @@
+"META:NAMESPACE:converter_lib";
+
+
+function ConvertFileToHtmlFile( srcFilePath, destFilePath )
+{
+	if ( StrLowerCase( UrlPathSuffix( srcFilePath ) ) == '.pdf' )
+		oLib = new ActiveXObject( 'Websoft.Office.Pdf.Document' );
+	else
+		oLib = new ActiveXObject( 'Websoft.Office.Word.Document' );
+
+	successs = oLib.Open( srcFilePath );
+	if ( ! successs )
+		throw UserError( "Unable to convert file: " + FileName( srcFilePath ) );
+
+	successs = oLib.SaveAs( destFilePath );
+	if ( ! successs )
+		throw UserError( "Unable to save converted file: " + FileName( srcFilePath ) );
+}
+
+
+function ConvertFileToHtml( srcFilePath )
+{
+	tempDirUrl = ObtainTempFile();
+	tempFileUrl = UrlAppendPath( tempDirUrl, '1.html' );
+	ObtainDirectory( tempDirUrl, true );
+
+	ConvertFileToHtmlFile( srcFilePath, UrlToFilePath( tempFileUrl ) );
+
+	htmlStr = BuildCompoundHtml( tempFileUrl );
+
+	//DeleteDirectory( tempDirUrl );
+	return htmlStr;
+}
+
+
+function IsFileSuffixSupported( suffix )
+{
+	switch ( suffix )
+	{
+		case '.doc':
+		case '.docx':
+		case '.rtf':
+		case '.pdf':
+			return true;
+	}
+
+	return false;
+}

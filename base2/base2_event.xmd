@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM TITLE="##UiText.objects.event##" CODE-LIB="1" IMAGE-URL="//base_pict/event.ico" IMAGE-URL-EXPR="type_id.ForeignElem.get_image_url()">
+
+<event PRIMARY-DISP-NAME="type_id.ForeignDispName + '  ' + StrDate( date, ( Hour( date ) != undefined ), false )">
+	<id TYPE="integer"/>
+
+	<type_id TYPE="string" NOT-NULL="1" FOREIGN-ARRAY="event_types" TITLE="##UiText.fields.event_type##" EXP-MAX-LEN="25"/>
+	<is_derived TYPE="bool" NULL-FALSE="1"/>
+	<is_calendar_entry TYPE="bool" NULL-FALSE="1"/>
+
+	<date TYPE="date" TITLE="##UiText.fields.date##" ABSTRACT-TIME="0" INDEXED="1" ALL-ACCESS="1"/>
+	<duration TYPE="term" TITLE="##UiText.titles.duration##"/>
+	<end_date TYPE="date" TITLE="##UiText.fields.end_date##" ABSTRACT-TIME="0" INDEXED="1"/>
+	<INHERIT TYPE="time_zone_base"/>
+
+	<occurrence_id TYPE="string" FOREIGN-ARRAY="base2_common.event_occurrences" TITLE="Подстатус" lang-en:TITLE="Substate" lang-ua:TITLE="Підстатус"/>
+
+	<eid TYPE="string" INDEXED="1" FT-IGNORE="1"/>
+	<inet_uid TYPE="string" INDEXED="1" FT-IGNORE="1"/>
+
+	<org_id TYPE="integer" FOREIGN-ARRAY="orgs" INDEXED="1" TITLE="##UiText.objects.company##"/>
+	<person_id TYPE="integer" FOREIGN-ARRAY="persons" TITLE="##UiText.objects.contact_person##" INDEXED__="1"/>
+
+	<participants>
+		<participant MULTIPLE="1" PRIMARY-KEY="person_id">
+			<person_id TYPE="integer" FOREIGN-ARRAY="persons" INDEXED="1"/>
+			<is_optional TYPE="bool" NULL-FALSE="1"/>
+			<status_id TYPE="integer" FOREIGN-ARRAY="cn_common.participant_statuses"/>
+
+			<approval_flag PROPERTY="1" EXPR="
+					approvalEntry = Parent.Parent.approval_entries.GetOptChildByKey( person_id );
+					if ( approvalEntry == undefined )
+						return null;
+					
+					return approvalEntry.is_approved;
+			"/>
+
+			<max_approval_date TYPE="date" TIME="0"/>
+
+
+			<person TYPE="variant" STRICT="1" TEMP="1"/>
+			<result_occurrence_id TYPE="string" FT-IGNORE="1"/>
+		</participant>
+	</participants>
+			
+	<participants_num TYPE="integer" EXPR="participants.ChildNum" TITLE="##UiText.fields.participants_num##"/>
+	<max_participants_num TYPE="integer" TITLE="Макс. кол-во" lang-en:TITLE="Max no. of participants" lang-ua:TITLE="Макс. кількість"/>
+
+	<location_id TYPE="string" DOC-ID="1" FOREIGN-ARRAY="locations" TITLE="##UiText.fields.location##" IDATA="1"/>
+	<office_id TYPE="integer" FOREIGN-ARRAY="offices" TITLE="##UiText.objects.office##"/>
+	<room_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="rooms" TITLE="##UiText.objects.room##"/>
+
+	<road_time TYPE="term" TITLE="Время на дорогу" lang-en:TITLE="Trip Time" lang-ua:TITLE="Час на дорогу"/>
+	<return_road_time TYPE="term" TITLE="Время на обратную дорогу" lang-en:TITLE="Return Trip Time" lang-ua:TITLE="Час на зворотну дорогу"/>
+
+	<group_event_id TYPE="integer" FOREIGN-ARRAY="events" TITLE="Групповое событие" lang-en:TITLE="Group Event" lang-ua:TITLE="Групова подія"/>
+
+	<activation_code TYPE="string" TITLE="##UiText.fields.activation_code##"/>
+	<web_url TYPE="string" TITLE="##UiText.titles.portal_link##"/>
+	<participant_web_url TYPE="string" TITLE="Ссылка на портал для участника" lang-en:TITLE="Link For Participant" lang-ua:TITLE="Посилання на портал для учасника"/>
+
+	<talk_transcript TYPE="string" MULTILINE="1"/>
+	<talk_recording_url TYPE="string"/>
+
+	<multi_contact_type_id TYPE="string" MULTIPLE="1" TITLE="##UiText.titles.contact_type##" FOREIGN-ARRAY="contact_types"/>
+
+	<approval_entries DOC-ONLY="1">
+		<approval_entry MULTIPLE="1" PRIMARY-KEY="person_id">
+			<person_id TYPE="integer" FOREIGN-ARRAY="persons"/>
+			<date TYPE="date" TITLE="##UiText.fields.date##"/>
+			<is_approved TYPE="bool" NULL-FALSE="1" TITLE="Утвержден" lang-en:TITLE="Approved" lang-ua:TITLE="Затверджено"/>
+		</approval_entry>
+	</approval_entries>
+
+	<comment TYPE="string" LARGE="1" TITLE="##UiText.fields.comment##"/>
+	<is_shared_comment TYPE="bool" NULL-FALSE="1" TITLE="##UiText.titles.shared_comment##"/>
+
+	<reminder_date TYPE="date" TIME="1" INDEXED="1" TITLE="Дата напоминания" lang-en:TITLE="Reminder Date" lang-ua:TITLE="Дата нагадування"/>
+	<is_exact_time_reminder TYPE="bool" NULL-FALSE="1"/>
+
+	<reminder_disp_target_date PROPERTY="1" TYPE="date" DEPENDS="reminder_date,is_exact_time_reminder" TITLE="Целевая дата напоминания" lang-en:TITLE="Reminder Target Date" lang-ua:TITLE="Цільова дата нагадування"/>
+
+	<wts_eid TYPE="integer" DOC-ID="1"/>
+
+	<INHERIT TYPE="card_attachments"/>
+
+	<user_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="users" TITLE="##UiText.objects.user##" EXP-MAX-LEN="13" COL-ALIGN="center" INDEXED="1"/>
+	<group_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="groups" TITLE="##UiText.objects.group##" EXP-MAX-LEN="12" COL-ALIGN="center" EXPR__="user_id.HasValue ? user_id.ForeignElem.main_group_id : group_id" EXPR-SHOW-ERRORS="1"/>
+	<author_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="persons" TITLE="##UiText.titles.author##" INDEXED="1"/>
+
+	<INHERIT TYPE="card_info_base"/>
+
+
+	<image_url PROPERTY="1" EXPR="get_image_url()" DEPENDS="candidate_id"/>
+
+
+	<outlook_eid TYPE="string" OBSOLETE="1"/>
+
+	<view TEMP="1" DOC-ONLY="1">
+		<prev_data>
+			<date TYPE="date"/>
+			<end_date TYPE="date"/>
+		</prev_data>
+	</view>
+
+	<t01 TYPE="bool" TEMP="1" EXPR__="update_auto_occurrence()" EXPR-SHOW-ERRORS="1"/>
+
+
+	<contacts_desc TYPE="string" TITLE="##UiText.fields.contacts##"/>
+	<contact_phones_desc TYPE="string" EXPR="get_contact_phones_desc()" TITLE="##UiText.fields.phones##"/>
+
+	<has_free_places TYPE="bool" NULL-FALSE="1" EXPR="! type.register_participants || ! max_participants_num.HasValue || participants_num &lt; max_participants_num" TITLE="Есть места" lang-en:TITLE="Has vacant places" lang-ua:TITLE="Є місця"/>
+
+
+	<expiration_state_id PROPERTY="1" DEPENDS="type_id,occurrence_id,date,end_date"/>
+
+
+	<OnCheckReadAccess PROPERTY="1" DEPENDS="user_id,group_id"/>
+</event>
+
+
+
+</SPXML-FORM>

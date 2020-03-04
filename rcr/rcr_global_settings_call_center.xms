@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="90zr" HEIGHT="34zr" TITLE="##UiText.titles.call_center##" WINDOW-ICON-URL="//base_pict/settings.ico" RESIZE="1" BEFORE-INIT-ACTION="
+		if ( ! Ps.init_event_type_id.HasValue )
+			Ps.init_event_type_id.ObtainByValue( 'group_interview_reg' );
+">
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" SUNKEN="1" STD-MARGINS="1">
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.init_event_type_id" AUTO-LABEL="1"/>
+	<BR/>
+	<CHECK SOURCE="Ps.allow_save_new" AUTO-LABEL="1"/>
+</PANEL>
+
+
+</SPXML-SCREEN>

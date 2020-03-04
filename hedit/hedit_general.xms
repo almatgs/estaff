@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<UNIT NAME="html_edit" SAMPLE="1">
+	<HYPER NAME="HtmlEditHyper" URL-EXPR="
+			context = lib_hedit.InitEditorContext( Ps );
+			context.use_full_html = GetSampleParam( 'full-html' );
+			context.hide_editor = GetSampleParam( 'hide-editor' );
+			if ( context.hide_editor )
+				context.selector = 'source';
+
+			return context.temp_file_url;
+	" NAVIGATE-COMPLETED-ACTION="
+			lib_hedit.OnEditorLoaded( Item, Ps.Parent.html_edit_context );
+	" DESTROY-ACTION="
+			if ( lib_hedit.IsEditorContentModified( Item, Ps.Parent.html_edit_context ) )
+			{
+				Ps.Value = lib_hedit.ExtractEditorHtmlContent( Item, Ps.Parent.html_edit_context );
+				Ps.Doc.SetChanged( true );
+			}
+	"/>
+</UNIT>
+
+
+
+<UNIT NAME="html_edit_read_only" SAMPLE="1">
+	<HYPER SOURCE="lib_html.add_default_style( Ps, FilePathToUrl( UrlToFilePath( 'style_editor.css' ) ) )"/>
+</UNIT>
+
+
+
+<UNIT NAME="html_ext_edit" SAMPLE="1" PARAM-preview="optional=1;default=''" PARAM-full-html="optional=1;default=''" PARAM-hide-editor="optional=1;default=''">
+	<PANEL HEIGHT="-25px">
+		<IF EXPR="Ps.Parent.html_edit_context.selector == 'edit'">
+			<ITEM TYPE="html_edit" SOURCE="Ps"/>
+		</IF>
+		<IF EXPR="Ps.Parent.html_edit_context.selector == 'source'">
+			<CODE-EDIT NAME="CodeEdit" SOURCE="Ps" VERT-SCROLL="1" CONTENT-TYPE-EXPR="'text/html'"/>
+		</IF>
+		<IF EXPR="Ps.Parent.html_edit_context.selector == 'preview'">
+			<HYPER SOURCE="Ps" EDITABLE="1"/>
+		</IF>
+	</PANEL>
+	<PANEL HEIGHT="100%" BK-COLOR-EXPR="">
+		<LINE>
+			<TOOLBAR RIGHT-LABELS="1">
+				<IF EXPR="! Ps.Parent.html_edit_context.hide_editor">
+					<TOOLBAR-ENTRY TITLE="Текст" IMAGE-URL="//base_pict/text_attachment.ico" ACTION="Ps.Parent.html_edit_context.selector = 'edit'" CHECKED-EXPR="Ps.Parent.html_edit_context.selector == 'edit'"/>
+					<TOOLBAR-ENTRY SEPARATOR="1"/>
+				</IF>
+				<TOOLBAR-ENTRY TITLE="HTML" IMAGE-URL="//base_pict/generic_item.ico" ACTION="Ps.Parent.html_edit_context.selector = 'source'" CHECKED-EXPR="Ps.Parent.html_edit_context.selector == 'source'"/>
+				<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+				<IF EXPR="GetSampleParam( 'preview' ) == '1'">
+					<TOOLBAR-ENTRY TITLE="##UiText.titles.preview##" IMAGE-URL="//base_pict/ie.ico" ACTION="Ps.Parent.html_edit_context.selector = 'preview'" CHECKED-EXPR="Ps.Parent.html_edit_context.selector == 'preview'"/>
+					<TOOLBAR-ENTRY SEPARATOR="1"/>
+				</IF>
+
+				<IF EXPR="! AppModuleUsed( 'rcr' )">
+					<TOOLBAR-ENTRY IMAGE-URL="//base_pict/more_actions_2.ico">
+						<MENU>
+							<MENU-ENTRY TITLE="Открыть редактор в IE" ACTION="
+									ShellExecute( 'open', 'iexplore.exe', Ps.Parent.html_edit_context.temp_file_url );
+							" PASSIVE="1"/>			
+
+							<MENU-ENTRY TITLE="Открыть редактор в браузере по умолчанию" ACTION="
+									ShellExecute( 'open', Ps.Parent.html_edit_context.temp_file_url );
+							" PASSIVE="1"/>			
+						</MENU>
+					</TOOLBAR-ENTRY>
+				</IF>
+			</TOOLBAR>
+		</LINE>
+	</PANEL>
+</UNIT>
+
+
+
+<UNIT NAME="hedit_toolbar_entries" SAMPLE="1">
+	<IF EXPR="! AppModuleUsed( 'rcr' )">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/spelling.ico" HANDLE-CMD="CheckSpelling" ACTION="lib_hedit.RunActiveEditorSpellCheck()" TIP-TEXT="##UiText.actions.check_spelling##"/>
+
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+	</IF>
+
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/paste.ico">
+		<MENU>
+			<MENU-ENTRY TITLE="Текст без стилей" lang-en:TITLE="Use Destination Styles" lang-ua:TITLE="Текст без стилів" ACTION="lib_hedit.HandleActiveEditorPasteContentOnly()" PASSIVE="1"/>
+			<MENU-ENTRY TITLE="##UiText.titles.plain_text##" ACTION="lib_hedit.HandleActiveEditorPastePlainText()" PASSIVE="1"/>
+		</MENU>
+	</TOOLBAR-ENTRY>
+	
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/bold.ico" ACTION="lib_hedit.ApplyActiveEditorSelectionStyle( {nodeName:'b'} )" PASSIVE="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/italic.ico" ACTION="lib_hedit.ApplyActiveEditorSelectionStyle( {nodeName:'i'} )" TIP-TEXT="Курсив"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/underline.ico" ACTION="lib_hedit.ApplyActiveEditorSelectionStyle( {nodeName:'u'} )" TIP-TEXT="Подчеркнутый"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/align_left.ico" ACTION="lib_hedit.ApplyActiveEditorSelectionStyle( {textAlign:'left'} )" TIP-TEXT="Выравнивание по левому краю"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/align_center.ico" ACTION="lib_hedit.ApplyActiveEditorSelectionStyle( {textAlign:'center'} )" TIP-TEXT="Выравнивание по центру"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/align_right.ico" ACTION="lib_hedit.ApplyActiveEditorSelectionStyle( {textAlign:'right'} )" TIP-TEXT="Выравнивание по правому краю"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY TITLE="&lt;P&gt;" ACTION="lib_hedit.ApplyActiveEditorSelectionStyle( {nodeName:'p'} )" PASSIVE="1"/>
+	<TOOLBAR-ENTRY TITLE="&lt;H1&gt;" ACTION="lib_hedit.ApplyActiveEditorSelectionStyle( {nodeName:'h1'} )" PASSIVE="1"/>
+	<TOOLBAR-ENTRY TITLE="&lt;H2&gt;" ACTION="lib_hedit.ApplyActiveEditorSelectionStyle( {nodeName:'h2'} )" PASSIVE="1"/>
+	<TOOLBAR-ENTRY TITLE="&lt;H3&gt;" ACTION="lib_hedit.ApplyActiveEditorSelectionStyle( {nodeName:'h3'} )" PASSIVE="1"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/order_list.ico" ACTION="lib_hedit.ApplyActiveEditorSelectionStyle( {nodeName:'ol'} )" TIP-TEXT="Нумерация"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/bullet_list.ico" ACTION="lib_hedit.ApplyActiveEditorSelectionStyle( {nodeName:'ul'} )" TIP-TEXT="Неупорядоченный список"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/hyperlink.ico" ACTION="lib_hedit.InsertActiveEditorHyperlink()" TIP-TEXT="Вставить ссылку"/>
+
+	<IF EXPR="AppModuleUsed( 'cms' )">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/manager_work.ico" ACTION="
+				Ps.text = OpenCodeLib( '//cms/cms_lib_cms_import.js' ).RemoveHtmlExtraFormat( Ps.text );
+				Ps.Doc.SetChanged( true );
+		" TIP-TEXT="Удалить лишнее форматирование"/>
+	</IF>
+</UNIT>
+
+
+</SPXML-SCREEN>

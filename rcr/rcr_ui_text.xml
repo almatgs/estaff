@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<rcr_ui_text xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<objects>
+		<vacancy_instance VALUE="Детализированная вакансия" lang-en:VALUE="Atomized vacancy" lang-ua:VALUE="Деталізована вакансія"/>
+		<recruit_type VALUE="Направление подбора" lang-en:VALUE="Recruitment Category" lang-ua:VALUE="Напрямок підбору"/>
+		<difficulty_level VALUE="Категория сложности" lang-en:VALUE="Difficulty" lang-ua:VALUE="Категорія складності"/>
+		<rr_poll VALUE="Оценка руководителями" lang-en:VALUE="Client assessment" lang-ua:VALUE="Оцінка керівниками"/>
+		<vacancy_request VALUE="Заявка на вакансию" lang-en:VALUE="Job Requisition" lang-ua:VALUE="Заявка на вакансію"/>
+		<recruit_plan VALUE="Расчетный план подбора" lang-en:VALUE="Recruitment plan" lang-ua:VALUE="Розрахунковий план підбору"/>
+		<recruiting_expense VALUE="Затрата на подбор" lang-en:VALUE="Recruiting Expense" lang-ua:VALUE="Витрата на підбір"/>
+	</objects>
+	<fields>
+		<recruiter VALUE="Рекрутер" lang-en:VALUE="Recruiter" lang-ua:VALUE="Рекрутер"/>
+		<reason_of_vacancy VALUE="Основание появления" lang-en:VALUE="Reason of Vacancy" lang-ua:VALUE="Підстава появи"/>
+		<recruit_phase VALUE="Этап подбора" lang-en:VALUE="Recruitment phase" lang-ua:VALUE="Етап підбору"/>
+		<vacancy_close_date VALUE="Дата закрытия" lang-en:VALUE="Closed" lang-ua:VALUE="Дата закриття"/>
+		<vacancy_work_end_date VALUE="Дата окончания подбора" lang-en:VALUE="Recruiting finished" lang-ua:VALUE="Дата закінчення підбору"/>
+		<recruitment_end_date VALUE="Дата окончания поиска" lang-en:VALUE="End of Recruitment Process" lang-ua:VALUE="Дата закінчення пошуку"/>
+		<spot_start_date VALUE="С даты" lang-en:VALUE="Start Date" lang-ua:VALUE="З дати"/>
+		<exp_years__short VALUE="Стаж" lang-en:VALUE="W.e" lang-ua:VALUE="Стаж"/>
+		<personal_records VALUE="Личное дело" lang-en:VALUE="Events" lang-ua:VALUE="Особиста справа"/>
+		<candidate_creation_date VALUE="Дата внесения кандидата" lang-en:VALUE="Candidate Creation Date" lang-ua:VALUE="Дата внесення кандидата"/>
+		<vacancy_start_date VALUE="Дата открытия вакансии" lang-en:VALUE="Vacancy Open Date" lang-ua:VALUE="Дата відкриття вакансії"/>
+		<average_search_term VALUE="Средний срок поиска" lang-en:VALUE="Average Search Term" lang-ua:VALUE="Середній термін пошуку"/>
+		<vacancy_req_persons_num VALUE="Требуемое количество человек" lang-en:VALUE="Required number of persons" lang-ua:VALUE="Необхідну кількість осіб"/>
+		<online_interview VALUE="Онлайн-интервью" lang-en:VALUE="Online Interview" lang-ua:VALUE="Онлайн-інтерв'ю"/>
+		<vacancy_template VALUE="Шаблон вакансии" lang-en:VALUE="Vacancy template" lang-ua:VALUE="Шаблон вакансії"/>
+		<creation_date_in_db VALUE="Дата внесения в базу" lang-en:VALUE="Added to database" lang-ua:VALUE="Дата внесення до бази"/>
+		<card_comment__s VALUE="Доп. свед." lang-en:VALUE="Add. info" lang-ua:VALUE="Дод. від."/>
+		<salary__s VALUE="З/п" lang-en:VALUE="Salary" lang-ua:VALUE="З/п"/>
+		<work_type VALUE="Тип занятости" lang-en:VALUE="Type of Employment" lang-ua:VALUE="Тип зайнятості"/>
+		<final_candidate VALUE="Финальный кандидат" lang-en:VALUE="Final Candidate" lang-ua:VALUE="Фінальний кандидат"/>
+		<final_candidate_source_id VALUE="Источник подбора" lang-en:VALUE="Source of Recruitment" lang-ua:VALUE="Джерело підбору"/>
+		<final_candidate_state VALUE="Статус финального кандидата" lang-en:VALUE="Final Candidate's Status" lang-ua:VALUE="Статус фінального кандидата"/>
+		<vacancy_desc VALUE="Описание вакансии" lang-en:VALUE="Vacancy description" lang-ua:VALUE="Опис вакансії"/>
+		<job_references VALUE="Рекомендации" lang-en:VALUE="Job references" lang-ua:VALUE="Рекомендації"/>
+		<empl_start_date VALUE="Дата выхода на работу" lang-en:VALUE="Start date of employment" lang-ua:VALUE="Дата виходу на роботу"/>
+		<probation_end_date VALUE="Дата окончания испытательного срока" lang-en:VALUE="End of probationary period" lang-ua:VALUE="Дата закінчення випробувального терміну"/>
+		<probation_period VALUE="Испытательный срок" lang-en:VALUE="Probationary Period" lang-ua:VALUE="Випробувальний термін"/>
+		<req_close_date VALUE="Плановая дата закрытия" lang-en:VALUE="Planned Closing Date" lang-ua:VALUE="Планова дата закриття"/>
+		<req_empl_start_date VALUE="Желаемая дата выхода" lang-en:VALUE="Target Hire Date" lang-ua:VALUE="Бажана дата виходу"/>
+		<req_empl_start_date__short VALUE="Жел. дата выхода" lang-en:VALUE="Target Hire Date" lang-ua:VALUE="Бажана дата виходу"/>
+		<planned_empl_start_date VALUE="Плановая дата выхода сотрудника" lang-en:VALUE="Planned Start Date" lang-ua:VALUE="Планова дата виходу співробітника"/>
+		<job_offer_date VALUE="Дата оффера" lang-en:VALUE="Job Offer Date" lang-ua:VALUE="Дата оффера"/>
+		<job_offer_acceptance_date VALUE="Дата принятия оффера" lang-en:VALUE="Accepted Job Offer Date" lang-ua:VALUE="Дата прийняття оффера"/>
+		<max_term_to_job_offer_acceptance VALUE="Плановый срок до принятия оффера" lang-en:VALUE="Planned Time to Accepted Job Offer" lang-ua:VALUE="Плановий термін до прийняття оффера"/>
+		<max_term_to_job_offer VALUE="Плановый срок оффера" lang-en:VALUE="Planned Time to Job Offer" lang-ua:VALUE="Плановий термін оффера"/>
+		<max_term_to_vacancy_close  VALUE="Плановый срок закрытия вакансии" lang-en:VALUE="Planned Time to Job Offer" lang-ua:VALUE="Плановий термін закриття вакансії"/>
+		<candidate_withdrawal_reason VALUE="Причина самоотказа кандидата" lang-en:VALUE="Reason for candidate withdrawal" lang-ua:VALUE="Причина самовідмова кандидата"/>
+		<last_job_org VALUE="Последнее место работы" lang-en:VALUE="Last Employer" lang-ua:VALUE="Останнє місце роботи"/>
+		<last_position VALUE="Последняя должность" lang-en:VALUE="Last Position" lang-ua:VALUE="Остання посада"/>
+		<video_interview_poll_spec VALUE="Опросный лист для видео-интервью" lang-en:VALUE="Video Interview Poll Type" lang-ua:VALUE="Опитувальний лист для відео-інтерв'ю"/>
+		<overdue_days_num VALUE="Просрочено, дней" lang-en:VALUE="Days Overdue" lang-ua:VALUE="Прострочено, днів"/>
+	</fields>
+	<vacancy_fields>
+		<req_quantity VALUE="Кол-во позиций" lang-en:VALUE="Position Count" lang-ua:VALUE="Кількість позицій"/>
+		<work_days_num VALUE="##UiText.titles.actual_duration__s##"/>
+		<work_wdays_num VALUE="##UiText.titles.actual_duration__s## (##UiText.titles.wdays__short##)"/>
+		<cur_work_days_num VALUE="Дней в работе" lang-en:VALUE="Duration" lang-ua:VALUE="Днів в роботі"/>
+		<cur_work_wdays_num VALUE="В работе (рабочие дни)" lang-en:VALUE="Duration in Working Days" lang-ua:VALUE="У роботі (робочі дні)"/>
+		<suspended_days_num VALUE="Дней on-hold" lang-en:VALUE="Days on hold" lang-ua:VALUE="Днів on-hold"/>
+		<suspended_wdays_num VALUE="Рабочих дней on-hold" lang-en:VALUE="Working Days on Hold" lang-ua:VALUE="Робочих днів on-hold"/>
+	</vacancy_fields>
+	<titles>
+		<vacancy_name VALUE="Наименование вакансии" lang-en:VALUE="Vacancy name" lang-ua:VALUE="Найменування вакансії"/>
+		<vacancies VALUE="Вакансии" lang-en:VALUE="Vacancies" lang-ua:VALUE="Вакансії"/>
+		<vacancy_instances VALUE="Детализированные вакансии" lang-en:VALUE="Atomized vacancies" lang-ua:VALUE="Деталізовані вакансії"/>
+		<vacancy_requests VALUE="Заявки на подбор" lang-en:VALUE="Job Requisitions" lang-ua:VALUE="Заявки на підбір"/>
+		<candidates VALUE="Кандидаты" lang-en:VALUE="Candidates" lang-ua:VALUE="Кандидати"/>
+		<all_candidates VALUE="Все кандидаты" lang-en:VALUE="All Candidates" lang-ua:VALUE="Всі кандидати"/>
+		<vacancies_in_database VALUE="Вакансии в базе" lang-en:VALUE="Vacancies in the database" lang-ua:VALUE="Вакансії в базі"/>
+		<renewed VALUE="Возобновлена" lang-en:VALUE="Renewed" lang-ua:VALUE="Відновлено"/>
+		<hr_department VALUE="Кадровая служба компании" lang-en:VALUE="HR department" lang-ua:VALUE="Кадрова служба компанії"/>
+		<opened VALUE="Открыта" lang-en:VALUE="Opened" lang-ua:VALUE="Відкрита"/>
+		<by_profession VALUE="По специальностям" lang-en:VALUE="By Profession" lang-ua:VALUE="За спеціальностями"/>
+		<candidates_search VALUE="Поиск кандидатов" lang-en:VALUE="Search Candidates" lang-ua:VALUE="Пошук кандидатів"/>
+		<suspended_f VALUE="Приостановлена" lang-en:VALUE="Suspended" lang-ua:VALUE="Призупинена"/>
+		<no_resume VALUE="Резюме отсутствует" lang-en:VALUE="No resume" lang-ua:VALUE="Резюме відсутнє"/>
+		<candidate_events VALUE="События по кандидату" lang-en:VALUE="Candidate Events" lang-ua:VALUE="Події за кандидата"/>
+		<client_events VALUE="События по клиенту" lang-en:VALUE="Client Events" lang-ua:VALUE="Події за клієнту"/>
+		<default_mail_store_title VALUE="Основная (по умолчанию)" lang-en:VALUE="Default" lang-ua:VALUE="Основна (за замовчуванням)"/>
+		<inbox VALUE="Входящие" lang-en:VALUE="Inbox" lang-ua:VALUE="Вхідні"/>
+		<in_percent_to_opened VALUE="в % к числу открытых" lang-en:VALUE="% to opened" lang-ua:VALUE="у % до числа відкритих"/>
+		<closed_in_time VALUE="Закрыто в срок" lang-en:VALUE="Closed in time" lang-ua:VALUE="Закрито у термін"/>
+		<active_vacancies VALUE="Активные вакансии" lang-en:VALUE="Active Vacancies" lang-ua:VALUE="Активні вакансії"/>
+		<vacancy_assigned VALUE="Назначена вакансия" lang-en:VALUE="Vacancy assigned" lang-ua:VALUE="Призначена вакансія"/>
+		<spot_added VALUE="Отобран кандидат" lang-en:VALUE="Candidate selected" lang-ua:VALUE="Відібраний кандидат"/>
+		<vacancy_state_changed VALUE="Статус вакансии изменен" lang-en:VALUE="Vacancy status changed" lang-ua:VALUE="Статус вакансії змінений"/>
+		<vacancy_instance_state_changed VALUE="Статус детализированной вакансии изменен" lang-en:VALUE="Atomized vacancy status changed" lang-ua:VALUE="Статус деталізованої вакансії змінений"/>
+		<select_candidate_day_ratio VALUE="Ставка, на которую идет кандидат" lang-en:VALUE="Candidate's rate" lang-ua:VALUE="Ставка, на яку йду кандидат"/>
+		<percent_to_closed VALUE="в % к числу закрытых" lang-en:VALUE="% to closed" lang-ua:VALUE="у % до числа закритих"/>
+		<recruiting_expenses VALUE="Затраты на подбор" lang-en:VALUE="Recruiting expenses" lang-ua:VALUE="Витрати на підбір"/>
+		<video_interview VALUE="Видео-интервью" lang-en:VALUE="Video interview" lang-ua:VALUE="Відео-інтерв'ю"/>
+		<phone_interview VALUE="Тел. интервью" lang-en:VALUE="Phone interview" lang-ua:VALUE="Тел. інтерв'ю"/>
+		<interview VALUE="Интервью" lang-en:VALUE="Interview" lang-ua:VALUE="Інтерв'ю"/>
+		<scheduled_interview VALUE="Запланированное интервью" lang-en:VALUE="Scheduled Interview" lang-ua:VALUE="Заплановане інтерв'ю"/>
+		<client_interview VALUE="Интервью с заказчиком" lang-en:VALUE="Interview with Hiring Manager" lang-ua:VALUE="Інтерв'ю з замовником"/>
+		<scheduled_rr_interview VALUE="Запланированное интервью с заказчиком" lang-en:VALUE="Scheduled Interview with Hiring Manager" lang-ua:VALUE="Заплановане інтерв'ю з замовником"/>
+		<selected__n VALUE="Отобрано" lang-en:VALUE="Selected" lang-ua:VALUE="Відібрано"/>
+		<salary_currency VALUE="Валюта зарплаты" lang-en:VALUE="Salary currency" lang-ua:VALUE="Валюта зарплати"/>
+		<estaff_web_interface VALUE="Web-интерфейс E-Staff" lang-en:VALUE="E-Staff Web interface" lang-ua:VALUE="Web-інтерфейс E-Staff"/>
+		<resume VALUE="Резюме" lang-en:VALUE="Resume" lang-ua:VALUE="Резюме"/>
+		<import_mail_message VALUE="Импорт почтового сообщения" lang-en:VALUE="Import mail message" lang-ua:VALUE="Імпорт поштового повідомлення"/>
+		<adjustment VALUE="Корректировка" lang-en:VALUE="Adjustment" lang-ua:VALUE="Коригування"/>
+		<term_adjustments VALUE="Корректировки сроков" lang-en:VALUE="Adjustments of Planned Dates" lang-ua:VALUE="Коригування терміну"/>
+		<end_of_recruitment VALUE="Окончание подбора" lang-en:VALUE="Recruiting finished" lang-ua:VALUE="Закінчення підбору"/>
+		<active_vacancy_instances_num VALUE="Активных детализированных вакансий" lang-en:VALUE="Total number of active atomized vacancies" lang-ua:VALUE="Активних деталізованих вакансій"/>
+		<vacancy_instances_num VALUE="Всего детализированных вакансий" lang-en:VALUE="Total number of atomized vacancies" lang-ua:VALUE="Всього деталізованих вакансій"/>
+		<resume_last_update_on_xxx VALUE="Резюме от %s" lang-en:VALUE="Resume last updated on: %s" lang-ua:VALUE="Резюме від %s"/>
+		<total_work_experience VALUE="Общий стаж" lang-en:VALUE="Total work experience" lang-ua:VALUE="Загальний стаж"/>
+		<classic_recruit VALUE="Классический подбор" lang-en:VALUE="Classic recruitment" lang-ua:VALUE="Класичний підбір"/>
+		<mass_recruit VALUE="Массовый подбор" lang-en:VALUE="Mass recruitment" lang-ua:VALUE="Масовий підбір"/>
+		<imod VALUE="Интернет-модуль" lang-en:VALUE="Integration with job sites" lang-ua:VALUE="Інтернет-модуль"/>
+		<imod__long VALUE="Интернет-модуль (интеграция с карьерными сайтами)" lang-en:VALUE="Integration with job sites" lang-ua:VALUE="Інтернет-модуль (інтеграція з кар'єрними сайтами)"/>
+		<basic_imod_package VALUE="Базовый пакет (один сайт)" lang-en:VALUE="Basic package (single job site)" lang-ua:VALUE="Базовий пакет (один сайт)"/>
+		<rr_recruit_interface VALUE="Интерфейс руководителя" lang-en:VALUE="Hiring manager access" lang-ua:VALUE="Інтерфейс керівника"/>
+		<call_center VALUE="Колл-центр" lang-en:VALUE="Call center" lang-ua:VALUE="Кол-центр"/>
+		<pd_processing VALUE="Обработка персональных данных" lang-en:VALUE="Processing personal data" lang-ua:VALUE="Обробка персональних даних"/>
+		<vacancy_information_source VALUE="Источник информации" lang-en:VALUE="Referral source" lang-ua:VALUE="Джерело інформації"/>
+		<rejected_by_recruiter VALUE="Отклонен рекрутером" lang-en:VALUE="Rejected by recruiter" lang-ua:VALUE="Відхилений рекрутером"/>
+		<rejected_by_recruiter__n VALUE="Отклонено рекрутером" lang-en:VALUE="Rejected by Recruiter" lang-ua:VALUE="Відхилено рекрутером"/>
+		<rejected_by_rr VALUE="Отклонен заказчиком" lang-en:VALUE="Rejected by Hiring Manager" lang-ua:VALUE="Відхилений замовником"/>
+		<rejected_by_rr__n VALUE="Отклонено заказчиком" lang-en:VALUE="Rejected by Hiring Manager" lang-ua:VALUE="Відхилено замовником"/>
+		<invited_to_interview  VALUE="Приглашен на интервью" lang-en:VALUE="Invited to interview" lang-ua:VALUE="Запрошений на інтерв'ю"/>
+		<interview_scheduled VALUE="Интервью запланировано" lang-en:VALUE="Interview scheduled" lang-ua:VALUE="Інтерв'ю заплановано"/>
+		<interview_completed VALUE="Интервью состоялось" lang-en:VALUE="Interview completed" lang-ua:VALUE="Інтерв'ю відбулося"/>
+		<interview_succeeded VALUE="Одобрен после интервью" lang-en:VALUE="Passed Interview" lang-ua:VALUE="Схвалено після інтерв'ю"/>
+		<interview_reserve VALUE="Резерв после интервью" lang-en:VALUE="Reserve after Interview" lang-ua:VALUE="Резерв після інтерв'ю"/>
+		<submitted_to_rr VALUE="Предложен заказчику" lang-en:VALUE="Submitted to Hiring Manager" lang-ua:VALUE="Запропоновано замовнику"/>
+		<submitted_to_rr__n VALUE="Предложено заказчику" lang-en:VALUE="Submitted to Hiring Manager" lang-ua:VALUE="Запропоновано замовнику"/>
+		<rr_resume_review VALUE="Резюме у заказчика" lang-en:VALUE="Hiring Manager Review" lang-ua:VALUE="Резюме у замовника"/>
+		<rr_resume_review_reserve VALUE="Резюме в резерве у заказчика" lang-en:VALUE="Reserve after Hiring Manager Review" lang-ua:VALUE="Резюме в резерві у замовника"/>
+		<invited_to_rr_interview  VALUE="Приглашен на интервью с заказчиком" lang-en:VALUE="Invited to Interview with Hiring Manager" lang-ua:VALUE="Запрошені на інтерв'ю з замовником"/>
+		<rr_interview_scheduled VALUE="Интервью с заказчиком запланировано" lang-en:VALUE="Interview with Hiring Manager Scheduled" lang-ua:VALUE="Інтерв'ю з замовником запл."/>
+		<rr_interview_completed VALUE="Интервью с заказчиком состоялось" lang-en:VALUE="Interview with Hiring Manager Completed" lang-ua:VALUE="Інтерв'ю з замовником відб."/>
+		<rr_interview_succeeded VALUE="Одобрен после интервью с заказчиком" lang-en:VALUE="Passed Interview" lang-ua:VALUE="Схвалено після інтерв'ю з замовником"/>
+		<rr_interview_reserve VALUE="Резерв после интервью с заказчиком" lang-en:VALUE="Reserve after Interview with Hiring Manager" lang-ua:VALUE="Резерв після інтерв'ю з замовником"/>
+		<job_offer VALUE="Оффер" lang-en:VALUE="Job Offer" lang-ua:VALUE="Оффер"/>
+		<job_offer_made VALUE="Сделан оффер" lang-en:VALUE="Job Offer Made" lang-ua:VALUE="Зроблено оффер"/>
+		<job_offer_accepted VALUE="Оффер принят" lang-en:VALUE="Job Offer Accepted" lang-ua:VALUE="Оффер прийнятий"/>
+		<hired VALUE="Принят на работу" lang-en:VALUE="Hired" lang-ua:VALUE="Прийнятий на роботу"/>
+		<hired__n VALUE="Принято на работу" lang-en:VALUE="Hired" lang-ua:VALUE="Прийнято на роботу"/>
+		<currently_selected__candidates VALUE="Рассматриваются" lang-en:VALUE="Currently Selected" lang-ua:VALUE="Розглядаються"/>
+		<suspended__vacancy VALUE="Заморожена" lang-en:VALUE="On Hold" lang-en:VALUE="Заморожена"/>
+		<active_vacancy_count VALUE="Вакансий в работе" lang-en:VALUE="Active vacancies" lang-ua:VALUE="Вакансій в роботі"/>
+		<cur_workload VALUE="Текущая загрузка" lang-en:VALUE="Current workload" lang-ua:VALUE="Поточна завантаження"/>
+		<vacancies_at_period_start VALUE="Вакансий на начало периода" lang-en:VALUE="Vacancies at the beginning of the time interval" lang-ua:VALUE="Вакансій на початок періоду"/>
+		<vacancies_at_period_end VALUE="Вакансий на конец периода" lang-en:VALUE="Vacancies at the end of the time interval" lang-ua:VALUE="Вакансій на кінець періоду"/>
+		<created_during_period VALUE="Возникло за отчетный период" lang-en:VALUE="Created during the time interval" lang-ua:VALUE="Виникло за звітний період"/>
+		<dismissal_on_probation VALUE="Отток на испытательном сроке" lang-en:VALUE="New Employee Turnover" lang-ua:VALUE="Відтік на випробувальному терміні"/>
+		<candidate_reject_reason VALUE="Причина отклонения кандидата" lang-en:VALUE="Reason for candidate rejection" lang-ua:VALUE="Причина відхилення кандидата"/>
+		<candidate_reject_reasons VALUE="Причины отклонения кандидатов" lang-en:VALUE="Reasons for candidate rejection" lang-ua:VALUE="Причини відхилення кандидатів"/>
+		<candidate_withdrawal_reasons VALUE="Причины самоотказа кандидатов" lang-en:VALUE="Reasons for candidate withdrawal" lang-ua:VALUE="Причини самовідмова кандидатів"/>
+		<candidate_blacklist_reason VALUE="Причина внесения в черный список" lang-en:VALUE="Reason for candidate blacklisting" lang-ua:VALUE="Причина внесення в чорний список"/>
+		<candidate_blacklist_reasons VALUE="Причины внесения в черный список" lang-en:VALUE="Reasons for candidate blacklisting" lang-ua:VALUE="Причини внесення в чорний список"/>
+		<recruitment_process VALUE="Процесс подбора" lang-en:VALUE="Recruitment Process" lang-ua:VALUE="Процес підбору"/>
+		<agencies VALUE="Агентства" lang-en:VALUE="Agencies" lang-en:VALUE="Агентства"/>
+		<recruit_funnel VALUE="Воронка подбора" lang-en:VALUE="Hiring funnel" lang-ua:VALUE="Воронка підбору"/>
+		<client__rr VALUE="Заказчик" lang-en:VALUE="Client" lang-ua:VALUE="Замовник"/>
+		<messages_checked VALUE="Просмотрено писем" lang-en:VALUE="Checked messages" lang-ua:VALUE="Переглянуто листів"/>
+		<files_checked VALUE="Просмотрено файлов" lang-en:VALUE="Checked files" lang-ua:VALUE="Переглянуто файлів"/>
+		<of_them_resumes_loaded VALUE="Из них загружено резюме" lang-en:VALUE="Loaded resumes" lang-ua:VALUE="З них завантажено резюме"/>
+		<confidential_vacancy VALUE="Конфиденциальная вакансия" lang-en:VALUE="Confidential vacancy" lang-ua:VALUE="Конфіденційна вакансія"/>
+		<for_each_additional_vacancy_instance VALUE="На каждую дополнительную детализацию" lang-en:VALUE="For each additional atomized vacancy" lang-ua:VALUE="На кожну додаткову деталізацію"/>
+		<security_check VALUE="Проверка СБ" lang-en:VALUE="Background Check" lang-ua:VALUE="Перевірка СБ"/>
+		<set_for_loaded_candidates VALUE="Устанавливать для загруженных кандидатов" lang-en:VALUE="Set for loaded candidates" lang-ua:VALUE="Встановлювати для завантажених кандидатів"/>
+		<job_requirements VALUE="Требования к кандидату" lang-en:VALUE="Job Requirements" lang-ua:VALUE="Вимоги до кандидата"/>
+		<resume_search_template VALUE="Шаблон поиска резюме" lang-en:VALUE="CV Search Template" lang-ua:VALUE="Фільтр пошуку резюме на сайтах"/>
+		<resume_search_templates VALUE="Шаблоны поиска резюме" lang-en:VALUE="CV Search Templates" lang-ua:VALUE="Шаблони пошуку резюме"/>
+		<of_my_divisions VALUE="По моим подразделениям" lang-en:VALUE="For My Target Divisions" lang-ua:VALUE="За моїми підрозділам"/>
+		<automated_search VALUE="Роботизированный поиск" lang-en:VALUE="Automated Search" lang-ua:VALUE="Роботизований пошук"/>
+		<resume_search_activity VALUE="Поисковая активность" lang-en:VALUE="CV Search Activity" lang-ua:VALUE="Пошукова активність"/>
+		<resume_search_activities VALUE="Поисковые активности" lang-en:VALUE="CV Search Activities" lang-ua:VALUE="Пошукові активності"/>
+		<web_resume_instance VALUE="Резюме с сайта" lang-en:VALUE="CV from the Web" lang-ua:VALUE="Резюме з сайту"/>
+		<web_resume_instances VALUE="Резюме с сайтов" lang-en:VALUE="CVs from the Web" lang-ua:VALUE="Резюме з сайтів"/>
+		<web_candidate VALUE="Кандидат с сайта" lang-en:VALUE="Candidate from the Web" lang-ua:VALUE="Кандидат з сайту"/>
+		<web_candidates VALUE="Кандидаты с сайтов" lang-en:VALUE="Candidates from the Web" lang-ua:VALUE="Кандидати з сайтів"/>
+		<calling_bot VALUE="Телефонный бот" lang-en:VALUE="Calling Bot" lang-ua:VALUE="Телефонний бот"/>
+		<calling_bot_task VALUE="Задание для бота" lang-en:VALUE="Bot Task" lang-ua:VALUE="Завдання для бота"/>
+		<calling_bot_tasks VALUE="Задания для бота" lang-en:VALUE="Bot Tasks" lang-ua:VALUE="Завдання для бота"/>
+		<updated VALUE="Обновлено" lang-en:VALUE="Updated" lang-ua:VALUE="Оновлене"/>
+		<external_vacancy VALUE="Вакансия во внешней системе" lang-en:VALUE="Vacancy in the external system" lang-ua:VALUE="Вакансія у зовнішній системі"/>
+		<external_vacancies VALUE="Вакансии во внешних системах" lang-en:VALUE="Vacancies in external systems" lang-ua:VALUE="Вакансії в зовнішніх системах"/>
+		<eos VALUE="E-Staff Online 2" lang-en:VALUE="E-Staff Online 2" lang-ua:VALUE="E-Staff Online 2"/>
+		<pd_consent_request VALUE="Запрос согласия на обработку персональных данных" lang-en:VALUE="Requesting consent for processing personal data" lang-ua:VALUE="Запит згоди на обробку персональних даних"/>
+		<qform_request VALUE="Запрос анкеты" lang-en:VALUE="Requesting additional form" lang-ua:VALUE="Запит анкети"/>
+		<by_sources VALUE="По источникам поступления" lang-en:VALUE="By source" lang-ua:VALUE="За джерелами надходження"/>
+		<wts VALUE="E-Staff Online" lang-en:VALUE="E-Staff Online" lang-ua:VALUE="E-Staff Online"/>
+	</titles>
+	<sections>
+		<candidate_events VALUE="События по кандидатам" lang-en:VALUE="Candidate Events" lang-ua:VALUE="Події по кандидатам"/>
+		<global_settings_policy VALUE="Политика использования" lang-en:VALUE="Usage policy" lang-ua:VALUE="Політика використання"/>
+		<global_settings_staff VALUE="Штатная структура" lang-en:VALUE="Organization structure" lang-ua:VALUE="Штатна структура"/>
+		<global_settings_recruit VALUE="Работа с вакансиями" lang-en:VALUE="Vacancies" lang-ua:VALUE="Робота з вакансіями"/>
+		<global_settings_candidates VALUE="Работа с кандидатами" lang-en:VALUE="Candidates" lang-ua:VALUE="Робота з кандидатами"/>
+		<global_settings_resume_parsing VALUE="Распознавание резюме" lang-en:VALUE="Resume Parsing" lang-ua:VALUE="Розпізнавання резюме"/>
+		<global_settings_staff_connector VALUE="Внешняя система кадрового учета" lang-en:VALUE="External staffing system" lang-ua:VALUE="Зовнішня система кадрового обліку"/>
+		<mailbox_scanner VALUE="Email-переписка" lang-en:VALUE="Email Conversations" lang-ua:VALUE="Email-листування"/>
+		<candidates_with_state VALUE="Кандидаты по статусу" lang-en:VALUE="Candidates by State" lang-ua:VALUE="Кандидати за статусом"/>
+		<all_vacancies VALUE="Все вакансии" lang-en:VALUE="All vacancies" lang-ua:VALUE="Всі вакансії"/>
+		<my_vacancies VALUE="Мои вакансии" lang-en:VALUE="My vacancies" lang-ua:VALUE="Мої вакансії"/>
+		<recruit_metrics_sets VALUE="Нормативы подбора" lang-en:VALUE="Recruiting metrics" lang-ua:VALUE="Нормативи підбору"/>
+		<candidates_of_vacancy VALUE="Кандидаты по вакансии" lang-en:VALUE="Candidates by Vacancy" lang-ua:VALUE="Кандидати по вакансії"/>
+		<current_candidates VALUE="Кандидаты в работе" lang-en:VALUE="Current Candidates" lang-ua:VALUE="Кандидати в роботі"/>
+	</sections>
+	<actions>
+		<import_cv VALUE="Импорт резюме" lang-en:VALUE="Import Resume" lang-ua:VALUE="Імпорт резюме"/>
+		<new_vacancy VALUE="Новая вакансия?" lang-en:VALUE="New Vacancy" lang-ua:VALUE="Нова вакансія"/>
+		<new_position VALUE="Новая штатная должность" lang-en:VALUE="New Position" lang-ua:VALUE="Нова штатна посада"/>
+		<new_requests VALUE="Новые заявки" lang-en:VALUE="New Requests" lang-ua:VALUE="Нові заявки"/>
+		<new_candidate VALUE="Новый кандидат" lang-en:VALUE="New Candidate" lang-ua:VALUE="Новий кандидат"/>
+		<select_for_vacancy VALUE="Отобрать на вакансию" lang-en:VALUE="Select for Vacancy" lang-ua:VALUE="Відібрати на вакансію"/>
+		<search_resume VALUE="Поиск резюме" lang-en:VALUE="Search resumes" lang-ua:VALUE="Пошук резюме"/>
+		<put_in_database_and_select_for_vacancy VALUE="Поместить в базу и отобрать на вакансию" lang-en:VALUE="Save in database and attach to vacancy" lang-ua:VALUE="Помістити в базу і відібрати на вакансію"/>
+		<put_in_database_for_another_vacancy VALUE="Поместить в базу на другую вакансию" lang-en:VALUE="Save in database to different vacancy" lang-ua:VALUE="Помістити в базу на іншу вакансію"/>
+		<put_in_database_for_current_vacancy VALUE="Поместить в базу на текущую вакансию" lang-en:VALUE="Save in database to current vacancy" lang-ua:VALUE="Помістити в базу на поточну вакансію"/>
+		<put_in_database_for_user VALUE="Поместить в базу для рекрутера" lang-en:VALUE="Save in database for user" lang-ua:VALUE="Помістити в базу для рекрутера"/>
+		<select_current_vacancy VALUE="Выбрать текущую вакансию" lang-en:VALUE="Select current vacancy" lang-ua:VALUE="Вибрати поточну вакансію"/>
+		<show_contact_info VALUE="Показать контакты" lang-en:VALUE="Show contacts" lang-ua:VALUE="Показати контакти"/>
+		<create_new_candidate VALUE="Создать нового кандидата" lang-en:VALUE="Create new candidate" lang-ua:VALUE="Створити нового кандидата"/>
+		<add_instances VALUE="Добавить требуемое количество человек" lang-en:VALUE="Add number of required persons" lang-ua:VALUE="Додати необхідну кількість людей"/>
+		<open_vacancy_card VALUE="Открыть карточку вакансии" lang-en:VALUE="Open vacancy card" lang-ua:VALUE="Відкрити картку вакансії"/>
+		<detach_from_vacancy VALUE="Открепить от вакансии" lang-en:VALUE="Detach from vacancy" lang-ua:VALUE="Відкріпити від вакансії"/>
+		<assign_recruiter VALUE="Назначить рекрутера" lang-en:VALUE="Assign to" lang-ua:VALUE="Призначити рекрутера"/>
+		<schedule_interview VALUE="Запланировать интервью" lang-en:VALUE="Schedule an Interview" lang-ua:VALUE="Запланувати інтерв'ю"/>
+		<schedule_phone_interview VALUE="Запланировать телефонное интервью" lang-en:VALUE="Schedule a Phone Interview" lang-ua:VALUE="Запланувати телефонне інтерв'ю"/>
+		<open_candidate VALUE="Открыть карточку кандидата" lang-en:VALUE="Open Candidate" lang-ua:VALUE="Відкрити картку кандидата"/>
+		<print_profile_for_client VALUE="Печать профиля для клиента" lang-en:VALUE="Print Profile for Client" lang-ua:VALUE="Друк профілю для клієнта"/>
+		<print_profile_for_recruiter VALUE="Печать профиля для рекрутера" lang-en:VALUE="Print Profile for Recruiter" lang-ua:VALUE="Друк профілю для рекрутера"/>
+		<change_recruiter VALUE="Сменить рекрутера" lang-en:VALUE="Change Recruiter" lang-ua:VALUE="Змінити рекрутера"/>
+		<load_vacancies VALUE="Загрузить вакансии" lang-en:VALUE="Load Vacancies" lang-ua:VALUE="Завантажити вакансії"/>
+	</actions>
+	<messages>
+		<converting_old_data VALUE="Конвертация данных из предыдущей версии E-Staff 3.x..." lang-en:VALUE="Loading data form previous version of E-Staff 3.x..." lang-ua:VALUE="Конвертація даних з попередньої версії E-Staff 3.x..."/>
+		<converting_old_data_4x VALUE="Конвертация данных предыдущей версии E-Staff 4.x..." lang-en:VALUE="Loading data form previous version of E-Staff 4.x..." lang-ua:VALUE="Конвертація даних попередньої версії E-Staff 4.x..."/>
+		<candidate_pserson_fullname_mismatch VALUE="ФИО кандидата и выбранного физического лица не совпадают. Продолжить?" lang-en:VALUE="Candidate and selected person have different names. Continue?" lang-ua:VALUE="ПІБ кандидата і вибраної фізичної особи не збігаються. Продовжити?"/>
+		<changes_vacancy_xxx_state_to_xxx VALUE="Изменить статус вакансии '%s' на '%s'?" lang-en:VALUE="Change the state of vacancy '%s' to '%s'?" lang-ua:VALUE="Змінити статус вакансії '%s' на '%s'?"/>
+		<changes_vacancy_instance_xxx_state_to_xxx VALUE="Изменить статус детализированной вакансии '%s' на '%s'?" lang-en:VALUE="Change the state of atomized vacancy '%s' to '%s'?" lang-ua:VALUE="Змінити статус деталізованої вакансії '%s' на '%s'?"/>
+		<set_failed_candidates_state_xxx VALUE="Вакансия была переведена в статус неактивной. Перевести рассматриваемых на нее не прошедших кандидатов в статус '%s'?'" lang-en:VALUE="The vacancy has become inactive. Change selected candidates' state to '%s'?" lang-ua:VALUE="Вакансія була переведена в статус неактивної. Перевести розглянутих на неї кандидатів, які не пройшли, у статус '%s'?"/>
+		<send_failed_candidates_message_xxx VALUE="Отправить кандидатам, не прошедшим на вакансию, сообщение '%s'?'" lang-en:VALUE="Send '%s' e-mail messages to failed candidates?" lang-ua:VALUE="Відправити кандидатам, що не пройшли на вакансію, повідомлення '%s'?'"/>
+		<detach_candidates_from_vacancy VALUE="Выбранные кандидаты будут откреплены от вакансии.&#10;Продолжить?'" lang-en:VALUE="This will detach selected candidates from the vacancy.&#10;Continue" lang-ua:VALUE="Обрані кандидати будуть відкріплений від вакансії.&#10;Продовжити?'"/>
+		<set_vacancy_state_to_xxx VALUE="Вакансия будет переведена в статус '%s'. Продолжить?" lang-en:VALUE="This will change vacancy state to '%s'. Continue?" lang-ua:VALUE="Вакансія буде переведена в статус '%s'. Продовжити?"/>
+		<set_candidates_state_to_xxx VALUE="Кандидату будет присвоен статус '%s'. Продолжить?" lang-en:VALUE="This will change candidate's state to '%s'. Continue?" lang-ua:VALUE="Кандидату буде присвоєно статус '%s'. Продовжити?"/>
+		<inet_module_validated VALUE="Обновление успешно завершено" lang-en:VALUE="Internet package successfully validated" lang-ua:VALUE="Оновлення успішно завершено"/>
+		<processing_messages_in_mailbox_xxx VALUE="Загрузка писем из ящика '%s'" lang-en:VALUE="Processing messages in mailbox '%s'" lang-ua:VALUE="Завантаження листів з скриньки '%s'"/>
+		<processing_files_in_raw_storage_xxx VALUE="Обработка файлов из источника '%s'" lang-en:VALUE="Processing files in '%s'" lang-ua:VALUE="Обробка файлів з джерела '%s'"/>
+		<event_will_be_deleted VALUE="Запись будет удалена.&#10;Продолжить?" lang-en:VALUE="Event will be deleted.&#10;Continue?" lang-ua:VALUE="Запис буде видалено.&#10;Продовжити?"/>
+		<opening_mailbox VALUE="Открытие ящика" lang-en:VALUE="Opening mailbox" lang-ua:VALUE="Відкриття скриньки"/>
+		<processing_messages VALUE="Проверка писем" lang-en:VALUE="Processing messages" lang-ua:VALUE="Перевірка листів"/>
+		<past_date_selected VALUE="Вы выбрали дату и время в прошлом. Продолжить?" lang-en:VALUE="Selected date is in the past. Continue?" lang-ua:VALUE="Ви вибрали дату і час в минулому. Продовжити?"/>
+		<send_vacancy_change_user_notif VALUE="Уведомить нового пользователя о назначении ему вакансии?" lang-en:VALUE="Notify new user on new vacancy?" lang-ua:VALUE="Повідомити нового користувача про призначення йому вакансії?"/>
+		<send_vacancy_change_state_notif VALUE="Уведомить владельца о смене статуса вакансии?" lang-en:VALUE="Notify user on changed vacancy state?" lang-ua:VALUE="Повідомити власника про зміну статусу вакансії?"/>
+		<send_vacancy_instance_change_state_notif VALUE="Уведомить владельца о смене статуса детализированной вакансии?" lang-en:VALUE="Notify user on changed atomized vacancy state?" lang-ua:VALUE="Повідомити власника про зміну статусу деталізованої вакансії?"/>
+		<send_message_xxx VALUE="Отправить сообщение '%s'?" lang-en:VALUE="Send message '%s'?" lang-ua:VALUE="Надіслати повідомлення '%s'?"/>
+		<send_candidate_message_xxx VALUE="Отправить кандидату сообщение '%s'?" lang-en:VALUE="Send message '%s' to the candidate?" lang-ua:VALUE="Відправити кандидату повідомлення '%s'?"/>
+		<send_user_message_xxx VALUE="Отправить пользователю сообщение '%s'?" lang-en:VALUE="Send message '%s' to the user?" lang-ua:VALUE="Відправити користувачеві повідомлення '%s'?"/>
+		<send_contact_person_message_xxx VALUE="Отправить контактным лицам сообщение '%s'?" lang-en:VALUE="Send message '%s' to contact persons?" lang-ua:VALUE="Відправити контактним особам повідомлення '%s'?"/>
+		<send_participants_message_xxx VALUE="Отправить участникам сообщение '%s'?" lang-en:VALUE="Send message '%s' to participants?" lang-ua:VALUE="Відправити учасникам повідомлення '%s'?"/>
+		<duplicates_not_found VALUE="Дубликаты не найдены" lang-en:VALUE="Duplicates have not been found" lang-ua:VALUE="Дублікати не знайдені"/>
+		<not_availbale_for_confidential_vacancy VALUE="Недоступно для конфиденциальной вакансии" lang-en:VALUE="Not available for confidential vacancy" lang-ua:VALUE="Недоступно для конфіденційної вакансії"/>
+		<event_date_has_not_occured_yet VALUE="Дата мероприятия еще не наступила.&#10;Продолжить?" lang-en:VALUE="Event has not occurred yet.&#10;Continue?" lang-ua:VALUE="Дата заходу ще не наступила.&#10;Продовжити?"/>
+		<candidate_already_registered_in_xxx VALUE="Кандидат уже зарегистрирован в %s. Продолжить?" lang-en:VALUE="The candidate has been already registered in %s. Continue?" lang-ua:VALUE="Кандидат вже зареєстрований в %s. Продовжити?"/>
+	</messages>
+	<questions>
+		<change_recruiter_for_vacancy_instances VALUE="Сменить рекрутера у всех активных детализированных вакансий?" lang-en:VALUE="Change recruiter for each active atomized vacancy?" lang-ua:VALUE="Змінити рекрутера у всіх активних деталізованих вакансій?"/>
+	</questions>
+	<warnings>
+		<change_candidates_state VALUE="Выделенным кандидатам в личное дело будет добавлена запись, отражающая новый статус. Продолжить?" lang-en:VALUE="This will add new state record to selected candidates. Continue?" lang-ua:VALUE="Виділеним кандидатам в особистій справі буде додано запис, що відображає новий статус. Продовжити?"/>
+		<vacancy_has_stored_instances_mismatch VALUE="Обнаружены детализированные вакансии, отсутствующие в карточки основной вакансии" lang-en:VALUE="Some of the atomized vacancies are absent in the main vacancy" lang-ua:VALUE="Виявлено деталізовані вакансії, відсутні в картки основний вакансії"/>
+	</warnings>
+	<errors>
+		<candidate_fullname_not_specified VALUE="Не указаны ФИО кандидата" lang-en:VALUE="Candidate's name has not been specified" lang-ua:VALUE="Не вказано ПІБ кандидата"/>
+		<candidate_position_not_specified VALUE="Не указана штатная должность" lang-en:VALUE="Candidate's position has not been specified" lang-ua:VALUE="Не вказано штатну посаду"/>
+		<recruiter_not_specified VALUE="Не выбран рекрутер" lang-en:VALUE="Recruiter has not been specified" lang-ua:VALUE="Не встановлено рекрутер"/>
+		<dir_not_found VALUE="Директория не найдена" lang-en:VALUE="Directory is not found" lang-ua:VALUE="Директорію не знайдено"/>
+		<src_dir_not_specified VALUE="Не указан исходная директория" lang-en:VALUE="Source directory is not specified" lang-ua:VALUE="Не вказано вихідну директорію"/>
+		<multi_spots_prohibited VALUE="Ваша политика использования не допускает параллельное рассмотрение кандидата более чем на одну вакансию" lang-en:VALUE="Your policy does not allow selecting a candidate for more than one position simultaneously" lang-ua:VALUE="Ваша політика використання не допускає паралельний розгляд кандидата більш ніж на одну вакансію"/>
+		<spots_prohibited_for_recruit_type_xxx VALUE="Ваша политика использования для направления '%s' не допускает предварительный отбор кандидата на конкретную вакансию" lang-en:VALUE="Your policy for '%s' does not allow selecting a candidate for specific vacancy" lang-ua:VALUE="Ваша політика використання для направлення '%s' не допускає попередній відбір кандидата на конкретну вакансію"/>
+		<spot_not_selected VALUE="Не выбрана вакансия" lang-en:VALUE="Vacancy is not selected" lang-ua:VALUE="Не вибрана вакансія"/>
+		<cannot_link_candidate_to_candidate VALUE="Кандидат не может быть привязан к другому кандидату" lang-en:VALUE="Candidate cannot be linked to another candidate" lang-ua:VALUE="Кандидат не може бути прив'язаний до іншого кандидата"/>
+		<person_already_linked_to_candidate VALUE="Физическое лицо уже привязано к другому кандидату" lang-en:VALUE="Person already linked to another candidate" lang-ua:VALUE="Фізична особа вже прив'язане до іншого кандидата"/>
+		<candidate_not_selected_for_vacancy VALUE="Кандидат не отобран ни на одну из вакансий" lang-en:VALUE="Candidate has not been selected for a vacancy" lang-ua:VALUE="Кандидат не відібраний ні на одну з вакансій"/>
+		<candidate_xxx_not_selected_for_vacancy VALUE="Кандидат %s не отобран на вакансию" lang-en:VALUE="Candidate %s has not been selected for a vacancy" lang-ua:VALUE="Кандидат %s не відібраний на вакансію"/>
+		<candidate_xxx_selected_for_different_vacancy VALUE="Кандидат %s отобран на другую вакансию" lang-en:VALUE="Candidate %s has been selected for different vacancy" lang-ua:VALUE="Кандидат %s відібраний на іншу вакансію"/>
+		<candidate_already_selected_for_this_vacancy VALUE="Кандидат уже рассматривается на данную вакансию" lang-en:VALUE="Candidate has been already selected for this vacancy" lang-ua:VALUE="Кандидат вже розглядається на дану вакансію"/>
+		<candidate_xxx_already_selected_for_this_vacancy VALUE="Кандидат %s уже рассматривается на данную вакансию" lang-en:VALUE="Candidate %s has been already selected for this vacancy" lang-ua:VALUE="Кандидат %s вже розглядається на дану вакансію"/>
+		<candidate_not_selected_for_this_vacancy VALUE="Кандидат не отобран на данную вакансию" lang-en:VALUE="Candidate has not been selected for this vacancy" lang-ua:VALUE="Кандидат не відібраний на дану вакансію"/>
+		<cannot_set_empty_state VALUE="Данный статус не может быть присвоен" lang-en:VALUE="Cannot set this state" lang-ua:VALUE="Даний статус не може бути присвоєний"/>
+		<vacancy_may_be_closed_by_hire_only VALUE="Вакансия может быть закрыта только при приеме кандидата на работу" lang-en:VALUE="Vacancy may be closed through the hiring of a candidate" lang-ua:VALUE="Вакансія може бути закрита тільки при прийомі кандидата на роботу"/>
+		<staff_connector_service_url_not_specified VALUE="Взаимодействие с внешней службой не настроено. Необходимо указать url обработчика в разделе Администрирование->Общие настройки->Внешняя система кадрового учета." lang-en:VALUE="External staff system interface has not been set up" lang-ua:VALUE="Взаємодія з зовнішньою службою не налаштована. Необхідно вказати url обробника в розділі Адміністрування-> Загальні налаштування-> Зовнішня система кадрового обліку."/>
+		<duplicate_mass_vacancy_found VALUE="Вакансия по данной специальности и заказчику уже существует" lang-en:VALUE="Vacancy for this profession already exists" lang-ua:VALUE="Вакансія по даноій спеціальності і замовнику вже існує"/>
+		<dup_set_xxx_single_sel VALUE="Для группы дубликатов '%s' выделен только один кандидат" lang-en:VALUE="For duplicate set '%s' only single candidate has been selected" lang-ua:VALUE="Для групи дублікатів '%s' виділений тільки один кандидат"/>
+		<dup_set_xxx_no_primary_sel VALUE="Для группы дубликатов '%s' не выделен первичный кандидат" lang-en:VALUE="For duplicate set '%s' primary candidate has not been selected" lang-ua:VALUE="Для групи дублікатів '%s' не виділений первинний кандидат"/>
+		<positions_disabled VALUE="Учет штатных должностей отключен в глобальных настройках системы" lang-en:VALUE="Positions are disabled in global settings" lang-ua:VALUE="Облік штатних посад вимкнено в глобальних налаштуваннях системи"/>
+		<candidate_with_email_xxx_not_found VALUE="Кандидат с адресом xxx не найден в базе" lang-en:VALUE="Candidate with email xxx is not found in database" lang-ua:VALUE="Кандидат з адресою xxx не знайдене в базі"/>
+		<candidate_selection_prohibited VALUE="Кандидат не может быть отобран на вакансию в данном статусе" lang-en:VALUE="Candidate cannot be selected for a vacancy with specified status" lang-ua:VALUE="Кандидат не може бути відібраний на вакансію в даному статусі"/>
+		<recruit_metrics_sets_voc_empty VALUE="Справочник 'Нормативы подбора' пуст" lang-en:VALUE="'Recruiting Metrics' list is empty" lang-ua:VALUE="Довідник 'Нормативи підбору' порожній"/>
+		<no_matching_recruit_metrics_sets_for_vacancy VALUE="Не найдено ни одного набора нормативов, подходящих для данной вакансии" lang-en:VALUE="No matching metrics have been found for this vacancy" lang-ua:VALUE="Не знайдено жодного набору нормативів, придатних для даної вакансії"/>
+		<multiple_matching_recruit_metrics_sets_for_vacancy VALUE="Найдено более одного набора нормативов, подходящих для данной вакансии" lang-en:VALUE="More than one matching sets of metrics have been found for this vacancy" lang-ua:VALUE="Знайдено більш одного набору нормативів, придатних для даної вакансії"/>
+		<provider_aleady_exists VALUE="Провайдер уже добавлен" lang-en:VALUE="Provider aleady exists" lang-ua:VALUE="Провайдер вже доданий"/>
+	</errors>
+</rcr_ui_text>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM CODE-LIB="1" TITLE="##UiText.objects.user##" IMAGE-URL-EXPR="image_url()">
+
+<user PRIMARY-DISP-NAME="GetPrimaryDispName()">
+	<id TYPE="integer"/>
+
+	<login TYPE="string" TITLE="##UiText.fields.login##" lang-en:TITLE="Login"/>
+	<password TYPE="string" TITLE="##UiText.fields.password##" lang-en:TITLE="Password"/>
+	<password_hash TYPE="string" FT-IGNORE="1"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Разрешен доступ в систему" lang-en:TITLE="Allow logging in" lang-ua:TITLE="Дозволений доступ в систему"/>
+	<need_approval TYPE="bool" NULL-FALSE="1" TITLE="Требуется подтверждение" lang-en:TITLE="Approval is required" lang-ua:TITLE="Потрібно підтвердження"/>
+
+	<last_password_change_date TYPE="date" TITLE="Дата последней смены пароля" lang-en:TITLE="Last password change date"/>
+	<last_is_active_change_date TYPE="date" TITLE="Дата блокировки/разблокировки" lang-en:TITLE="Last activation/deactivation date"/>
+	
+	<person_id TYPE="integer" FOREIGN-ARRAY="persons" TITLE="##UiText.objects.employee##"/>
+	<INHERIT TYPE="person_name_core"/>
+	<fullname TYPE="person_fullname" INDEXED="1"/>
+
+	<main_group_id TYPE="integer" FOREIGN-ARRAY="groups" TITLE="##UiText.fields.main_group##"/>
+
+	<base_divisions DOC-ONLY="1">
+		<base_division MULTIPLE="1" PRIMARY-KEY="division_id">
+			<division_id TYPE="integer" FOREIGN-ARRAY="divisions" TITLE="##UiText.fields.root_division##"/>
+		</base_division>
+	</base_divisions>
+
+	<disp_name TYPE="string" TITLE="Отображаемое имя" EXPR="login" lang-en:TITLE="Displayed name" lang-ua:TITLE="Показуване ім'я"/>
+
+
+	<access_role_id TYPE="string" FOREIGN-ARRAY="access_roles" TITLE="##UiText.titles.access_role##" DEFAULT="basic"/>
+	
+	<send_email_notif TYPE="bool" NULL-FALSE="1" TITLE="Дублировать внутренние уведомления программы на E-Mail" lang-en:TITLE="Send copies of internal program notifications by E-Mail" lang-ua:TITLE="Дублювати внутрішні повідомлення програми на E-Mail"/>
+
+	<INHERIT TYPE="card_comment_base"/>
+	<INHERIT TYPE="card_attachments"/>
+	<INHERIT TYPE="card_info_base"/>
+
+	<image_url PROPERTY="1" DEPENDS="need_approval"/>
+
+	<view TEMP="1" DOC-ONLY="1">
+		<prev_data>
+			<is_active TYPE="bool" NOT-NULL="1"/>
+			<password TYPE="string"/>
+		</prev_data>
+	</view>
+</user>
+
+
+
+</SPXML-FORM>

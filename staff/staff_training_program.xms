@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="130zr" HEIGHT="90zr" SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1" WINDOW-ICON-URL-EXPR="Ps.ImageUrl">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+	<GROUP>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.participation_event_type_id" AUTO-LABEL="1" WIDTH="45zr"/>
+	</GROUP>
+	<DELIM/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="16px"/>
+		</COLUMNS>
+
+		<LABEL TITLE="Элементы программы:" lang-en:TITLE="Parts:" lang-ua:TITLE="Елементи програми:"/>
+
+		<IMAGE URL="//base_pict/plus.ico" WIDTH="16px" HEIGHT="16px" TIP-TEXT="##UiText.actions.add##" ACTION="
+				part = Ps.parts.AddChild();
+				part.id = UniqueID();
+				Ps.Doc.SetChanged( true );
+				Screen.Update();
+				//Screen.ExposeItemBySource( part.name );
+		" PASSIVE="1"/>
+	</TABLE>
+	<BR/>
+
+	<LOOP EXPR="Ps.parts" VAR="_part">
+		<BR/>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="6zr"/>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="16px"/>
+			</COLUMNS>
+
+			<LABEL TITLE-EXPR="( _part.ChildIndex + 1 ) + '.'" WIDTH="6zr"/>
+			<EDIT SOURCE="_part.name" AUTO-LABEL="1" LABEL-SIDE="left"/>
+
+			<IMAGE URL="//base_pict/more_actions.ico">
+				<MENU>
+					<MENU-ENTRY TITLE="Добавить перед" ACTION="
+							part = Ps.parts.InsertChild( _part.ChildIndex );
+							part.id = UniqueID();
+							Ps.Doc.SetChanged( true );
+							Screen.Update();
+							//Screen.ExposeItemBySource( part.name );
+					" PASSIVE="1" lang-en:TITLE="Insert Before" lang-ua:TITLE="Додати перед"/>
+
+					<MENU-ENTRY SEPARATOR="1"/>
+				
+					<MENU-ENTRY TITLE="##UiText.actions.move_up##" ACTION="
+							_part.SetChildIndex( _part.ChildIndex - 1 );
+							Ps.Doc.SetChanged( true );
+					" ENABLE-EXPR="_part.ChildIndex != 0"/>
+
+					<MENU-ENTRY TITLE="##UiText.actions.move_down##" ACTION="
+							_part.SetChildIndex( _part.ChildIndex + 1 );
+							Ps.Doc.SetChanged( true );
+					" ENABLE-EXPR="_part.ChildIndex + 1 &lt; Ps.parts.ChildNum"/>
+
+					<MENU-ENTRY SEPARATOR="1"/>
+
+					<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+							_part.Delete();
+							Ps.Doc.SetChanged( true );
+					"/>
+				</MENU>
+			</IMAGE>
+		</TABLE>
+		<BR/>
+
+		<GROUP>
+			<CHECK SOURCE="_part.is_group" AUTO-LABEL="1"/>
+			<CHECK SOURCE="_part.is_online" AUTO-LABEL="1"/>
+			<CHECK SOURCE="_part.is_final_test" AUTO-LABEL="1"/>
+			<ITEM TYPE="mh_period" SOURCE="_part.duration" AUTO-LABEL="1"/>
+		</GROUP>
+		<DELIM/>
+	</LOOP>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+
+
+

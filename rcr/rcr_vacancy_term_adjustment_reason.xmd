@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml">
+
+<vacancy_term_adjustment_reason>
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<text_color TYPE="string"/>
+	<bk_color TYPE="string"/>
+
+	<default_period TYPE="period" TITLE="Величина по умолчанию" lang-en:TITLE="Default length" lang-ua:TITLE="Величина за замовчуванням"/>
+	<use_for_final_candidate TYPE="bool" NOT-NULL="1" TITLE="Применимо к определенному финальному кандидату" lang-en:TITLE="Applicable to a final candidate" lang-ua:TITLE="Застосовується до певного фінального кандидату"/>
+
+	<require_comment TYPE="bool" NULL-FALSE="1" TITLE="##UiText.titles.require_comment##"/>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</vacancy_term_adjustment_reason>
+
+
+</SPXML-FORM>

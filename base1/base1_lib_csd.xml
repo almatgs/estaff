@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<lib_csd>
+	<has_csd_fields TYPE="bool" NULL-FALSE="1"/>
+</lib_csd>
+
+</SPXML-INLINE-FORM>

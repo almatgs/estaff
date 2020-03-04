@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem">
+
+
+<PANEL HEIGHT="100%" SUNKEN="1">
+	<LIST LOOP-EXPR="ArraySelect( card_object_types, 'use_csd' )">
+		<ROW OPEN-ACTION="
+				docUrl = lib_csd.get_object_csd_form_url( ListElem.id );
+				if ( ( screen = FindOptScreenByDocUrl( docUrl ) ) != undefined )
+				{
+					ObtainDocScreen( docUrl );
+					return;
+				}
+
+				try
+				{
+					LoadUrlData( docUrl );
+					isNew = false;
+				}
+				catch ( e )
+				{
+					isNew = true;
+				}
+
+				if ( isNew )
+				{
+					doc = OpenDocFromStr( '<SPXML-COMBO-FORM><Ps/></SPXML-COMBO-FORM>' );
+					doc.Url = docUrl;
+				}
+				else
+				{
+					doc = OpenDoc( docUrl );
+				}
+
+				screen = CreateDocScreen( doc, 'base1_csd.xms' );
+				screen.Doc.TopElem.editor_ref.Object.object_type_id = ListElem.id;
+				screen.Doc.TopElem.editor_ref.Object.title = ListElem.name + ' - ' + UiText.sections.custom_fields;
+				screen.Update();
+		" DELETE-ACTION="" IMAGE-URL="//base_pict/settings.ico">
+			<COL WIDTH="100%" COL-TITLE="##UiText.fields.name##" TITLE-EXPR="ListElem.name" lang-en:COL-TITLE="Name"/>
+		</ROW>
+	</LIST>
+</PANEL>
+
+
+</SPXML-SCREEN>

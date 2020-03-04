@@ -1,0 +1,42 @@
+<SPXML-FORM CODE-LIB="1" TITLE="##UiText.objects.vacancy_instance##" IMAGE-URL="//base_pict/vacancy_instance.ico" IMAGE-URL-EXPR="image_url()">
+
+
+<vacancy_instance>
+	<id TYPE="integer"/>
+
+	<name TYPE="string" INDEXED="1" TITLE="##UiText.fields.name##"/>
+	<vacancy_id TYPE="integer" INDEXED="1" FOREIGN-ARRAY="vacancies" TITLE="##UiText.objects.vacancy##"/>
+
+	<code TYPE="string" TITLE="##UiText.fields.code##" EXP-MAX-LEN="6"/>
+
+	<division_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="divisions" INDEXED="1" TITLE="##UiText.objects.division##"/>
+	<org_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="orgs" INDEXED="1" TITLE="##UiText.objects.client##"/>
+	<recruit_type_id TYPE="string" FOREIGN-ARRAY="recruit_types" TITLE="##UiText.objects.recruit_type##" EXP-MAX-LEN="11" base1:allow-hide="1"/>
+
+	<INHERIT TYPE="vacancy_instance_base"/>
+
+	<days_in_state PROPERTY="1" TYPE="integer" TITLE="##UiText.fields.days_in_status##"/>
+
+	<INHERIT TYPE="recruit_user_group_base"/>
+	<INHERIT TYPE="object_access_base"/>
+
+	<ft_secondary_text TYPE="string" DOC-ONLY="1" SECONDARY="1"/>
+
+	<image_url PROPERTY="1" DEPENDS="vacancy_id"/>
+
+	<OnCheckReadAccess PROPERTY="1" DEPENDS="user_id,group_id,division_id,use_exclusive_access,exclusive_access,recruit_type_id"/>
+
+
+	<vacancy TYPE="variant" STRICT="1" DOC-ONLY="1" TEMP="1"/>
+</vacancy_instance>
+
+
+
+
+</SPXML-FORM>
+
+
+
+
+
+	

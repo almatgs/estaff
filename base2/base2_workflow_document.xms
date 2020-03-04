@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.date" MAXIMIZED="1">
+
+
+<USE FORM="//imod/imod_general.xms"/>
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="40zr" STD-MARGINS="0">
+	<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="1" HEIGHT="39zr">
+	</TREE>
+	<SPLIT FIXED="1"/>
+
+	<PANEL SUNKEN="1" STD-MARGINS="1" HEIGHT-EXPR="lib_base.card_left_prop_panel_height" BK-COLOR="sys-bk-ctrl">
+	</PANEL>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.objects.workflow_document##" SUNKEN="1" EXPANDED="1" IMAGE-URL-EXPR="Ps.ImageUrl">
+
+
+<PAGE TITLE="##UiText.sections.general##" SUNKEN="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/common.ico">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="10zr"/>
+			<COL WIDTH="22zr"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+		
+		<EDIT SOURCE="Ps.code" AUTO-LABEL="1"/>
+		<ITEM TYPE="date_time_selector" SOURCE="Ps.date" AUTO-LABEL="1"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.type_id" AUTO-LABEL="1"/>
+	</TABLE>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+		
+		<EDIT SOURCE="Ps.data_desc" AUTO-LABEL="1" READ-ONLY="1"/>
+	</TABLE>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="40zr"/>
+		</COLUMNS>
+		
+		<ITEM TYPE="object_selector" SOURCE="Ps.orig_person_id" AUTO-LABEL="1"/>
+	</TABLE>
+	<DELIM/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="30zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="elem_selector" SOURCE="Ps.state_id" AUTO-LABEL="1"/>
+	</TABLE>
+	<DELIM/>
+
+	<EDIT SOURCE="Ps.comment" MULTILINE="1" HEIGHT="20zr" AUTO-LABEL="1" />
+</PAGE>
+
+
+
+<IF EXPR="Ps.type_id.ForeignElem.data_screen_form_url.HasValue">
+
+<PAGE TITLE-EXPR="Ps.data.Title" IMAGE-URL="//base_pict/aux_info.ico" EXPANDED="1" SOURCE="Ps.specific_data">
+	<SUBST FORM-EXPR="Ps.Doc.TopElem.type_id.ForeignElem.data_screen_form_url"/>
+</PAGE>
+
+</IF>
+
+
+</PAGE>
+
+
+
+</SELECTOR>
+
+
+
+</LINE>
+
+
+</SPXML-SCREEN>
+

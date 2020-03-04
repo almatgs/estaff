@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SPXML-SCREEN>
+
+
+<UNIT NAME="ui_template_editor_toolbar_entries" SAMPLE="1">
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY TITLE="##UiText.actions.add##" IMAGE-URL="//base_pict/plus.ico">
+		<MENU>
+			<LOOP EXPR="ui_common.field_ext_types" VAR="fieldExtType">
+				<MENU-ENTRY TITLE-EXPR="fieldExtType.name" ACTION="
+						_editor.HandleAddField( fieldExtType.id );
+				" PASSIVE="1"/>
+			</LOOP>
+
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<LOOP EXPR="ui_common.template_aux_item_types" VAR="auxItemType">
+				<MENU-ENTRY TITLE-EXPR="auxItemType.name" ACTION="
+						_editor.HandleAddAuxItem( auxItemType.id );
+				" PASSIVE="1"/>
+			</LOOP>
+		</MENU>
+	</TOOLBAR-ENTRY>
+</UNIT>
+
+
+
+<UNIT NAME="ui_template_editor_list_menu_entries" SAMPLE="1">
+	<INHERIT TYPE="list_menu_entries"/>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+			
+	<MENU-ENTRY TITLE="##UiText.actions.move_up##" ACTION="
+			curElem = List.SelRow.Env.ListElem;
+			if ( curElem.ChildIndex == 0 )
+				return;
+
+			curElem.SetChildIndex( curElem.ChildIndex - 1 );
+			curElem.Doc.SetChanged( true );
+	" ENABLE-EXPR="List.HasSingleSel"/>
+
+	<MENU-ENTRY TITLE="##UiText.actions.move_down##" ACTION="
+			curElem = List.SelRow.Env.ListElem;
+			if ( curElem.ChildIndex == curElem.Parent.ChildNum - 1 )
+				return;
+
+			curElem.SetChildIndex( curElem.ChildIndex + 1 );
+			curElem.Doc.SetChanged( true );
+	" ENABLE-EXPR="List.HasSingleSel"/>
+
+	<IF EXPR="false">
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="Переместить на уровень выше" ACTION="
+				curElem = List.SelRow.Env.ListElem;
+				if ( curElem.ChildIndex == 0 )
+					return;
+
+				newElem = curElem.Clone();
+				curElem.Parent.Parent.AddChildElem( newElem );
+
+				curElem.Delete()
+
+				curElem.Doc.SetChanged( true );
+		" ENABLE-EXPR="List.HasSingleSel" lang-en:TITLE="Move to upper level" lang-ua:TITLE="Перемістити на рівень вище"/>
+	</IF>
+</UNIT>
+
+
+
+<UNIT NAME="ui_template_editor_base" SAMPLE="1">
+<LINE>
+<PANEL SUNKEN="1" WIDTH="50%" HEIGHT="100%">
+	<IF EXPR="System.ClientMajorVersion >= 2">
+		<LIST LOOP-EXPR="_editor.base_elem" HIER="1" SUNKEN="0">
+			<ROW OPEN-ACTION="" DELETE-ACTION="
+					if ( ListElem.Parent.Name == 'SPXML-COMBO-FORM' )
+						return;
+				
+					ListElem.Delete();
+					Ps.Doc.SetChanged( true );
+			" SET-SEL-ACTION="_editor.SetCurElem( ListElem )" IMAGE-URL-EXPR="_editor.GetElemImageUrl( ListElem )">
+				<COL WIDTH="100%" COL-TITLE="##UiText.fields.field##" TITLE-EXPR="_editor.GetElemDispName( ListElem )"/>
+				<COL WIDTH="25zr" COL-TITLE="##UiText.titles.type##" TITLE-EXPR="_editor.GetElemDispType( ListElem )" ALIGN="center"/>
+				<COL WIDTH="25zr" COL-TITLE="##UiText.fields.id##" TITLE-EXPR="_editor.GetElemDispID( ListElem )"/>
+
+				<LOOP-HIER-SUBST EXPR="ArraySelect( ListElem, 'This.Name != \'UI:OPTIONS\'' )"/>
+			</ROW>
+
+			<MENU RIGHT-CLICK="1">
+				<INHERIT TYPE="ui_template_editor_list_menu_entries"/>
+			</MENU>
+		</LIST>
+	</IF>
+	<ELSE>
+		<LIST HIER="1" SUNKEN="0">
+			<COLUMNS>
+				<COL WIDTH="100%" TITLE="##UiText.fields.field##"/>
+				<COL WIDTH="25zr" TITLE="##UiText.titles.type##"/>
+				<COL WIDTH="25zr" TITLE="##UiText.fields.id##"/>
+			</COLUMNS>
+
+			<LOOP EXPR="XmlHier( _editor.base_elem )" VAR="ListElem" HIER="1" USE-KEY-SEL__="1">
+				<IF EXPR="ListElem.Name != 'UI:OPTIONS' &amp;&amp; ListElem.Name != 'UI:OPTION' &amp;&amp; ListElem.Name != 'UI:SELECTION-ORDER' &amp;&amp; ListElem.Name != 'UI:ORDER-ITEM'">
+					<ROW HIER-LEVEL-EXPR="ListElem__hier_level" HAS-HIER-CHILDREN-EXPR="ListElem__has_hier_children &amp;&amp; ListElem.GetOptAttr( 'TYPE' ) != 'select'" OPEN-ACTION="" DELETE-ACTION="
+							if ( ListElem.Parent.Name == 'SPXML-COMBO-FORM' )
+								return;
+				
+							ListElem.Delete();
+							Ps.Doc.SetChanged( true );
+					" SET-SEL-ACTION="_editor.SetCurElem( ListElem )" IMAGE-URL-EXPR="_editor.GetElemImageUrl( ListElem )">
+						<COL WIDTH="100%" COL-TITLE="##UiText.fields.field##" TITLE-EXPR="_editor.GetElemDispName( ListElem )"/>
+						<COL WIDTH="25zr" COL-TITLE="##UiText.titles.type##" TITLE-EXPR="_editor.GetElemDispType( ListElem )" ALIGN="center"/>
+						<COL WIDTH="25zr" COL-TITLE="##UiText.fields.id##" TITLE-EXPR="_editor.GetElemDispID( ListElem )"/>
+					</ROW>
+				</IF>
+			</LOOP>
+
+			<MENU RIGHT-CLICK="1">
+				<INHERIT TYPE="ui_template_editor_list_menu_entries"/>
+			</MENU>
+		</LIST>
+	</ELSE>
+</PANEL>
+
+<SPLIT FIXED__="1"/>
+
+<PANEL SUNKEN="1" HEIGHT="100%" SOURCE="_editor.cur_elem" VERT-SCROLL="1">
+	<IF EXPR="Ps != undefined">
+		<IF EXPR="! _editor.cur_elem_extra.is_aux">
+			<LABEL TITLE="##UiText.fields.field##" BOLD="1" ALIGN="center"/>
+			<BR/>
+			
+			<GROUP>
+				<COMBO SOURCE="_editor.cur_elem_extra.field_ext_type_id" SET-VALUE-ACTION="
+						_editor.SetFieldExtType( Ps, NewValue );
+				" LABEL-TITLE="##UiText.fields.elem_type##:" WIDTH="35zr">
+					<LOOP EXPR="ui_common.field_ext_types" VAR="ListElem">
+						<COMBO-ENTRY TITLE-EXPR="ListElem.name" VALUE-EXPR="ListElem.id"/>
+					</LOOP>
+				</COMBO>
+
+				<EDIT SOURCE="Ps.Name" SET-VALUE-ACTION="
+						_editor.HandleChangeFieldName( Ps, NewValue );
+				" LABEL-TITLE="##UiText.fields.id##:" WIDTH="35zr"/>
+				
+				<SEPARATOR/>
+
+				<ITEM TYPE="elem_str_attr_edit" attr-name="TITLE" LABEL-TITLE="##UiText.fields.name##:"/> 
+			</GROUP>
+
+			<ITEM TYPE="elem_str_attr_multiline_edit" attr-name="TITLE-AUX-DESCRIPTION" LABEL-TITLE="##UiText.fields.comment##:"/> 
+			<ITEM TYPE="elem_str_attr_multiline_edit" attr-name="TAIL-DESCRIPTION" LABEL-TITLE="##UiText.fields.comment## 2:"/> 
+
+			<GROUP>
+				<ITEM TYPE="elem_bool_attr_check_box" attr-name="HIDE-TITLE" TITLE="Не показывать наименование" lang-en:TITLE="Do Not Show Title" lang-ua:TITLE="Не показувати найменування"/>
+				<ITEM TYPE="elem_bool_attr_check_box" attr-name="HIDDEN" TITLE="Скрытый элемент" lang-en:TITLE="Hidden Element" lang-ua:TITLE="Прихований елемент"/>
+				<ITEM TYPE="elem_bool_attr_check_box" attr-name="OPTIONAL" TITLE="Необязательный элемент" lang-en:TITLE="Optional" lang-ua:TITLE="Необов'язковий елемент"/>
+			</GROUP>
+			<DELIM/>
+
+			<LINE MULTILINE="1">
+				<CHECK SOURCE="Ps.GetOptAttr( 'ARRAY' ) == '1'" SET-VALUE-ACTION="
+						if ( NewValue )
+							Ps.ObtainAttr( 'ARRAY', '1' );
+						else
+							Ps.DeleteOptAttr( 'ARRAY' );
+							
+						Ps.Doc.SetChanged( true );
+				" TITLE="##UiText.titles.multiple_choice##"/>
+
+				<IF EXPR="_editor.cur_elem_extra.field_ext_type_id == 'select'">
+					<CHECK SOURCE="Ps.GetOptAttr( 'LEAF-NODES-ONLY' ) == '1'" SET-VALUE-ACTION="
+							if ( NewValue )
+								Ps.ObtainAttr( 'LEAF-NODES-ONLY', '1' );
+							else
+								Ps.DeleteOptAttr( 'LEAF-NODES-ONLY' );
+							
+							Ps.Doc.SetChanged( true );
+					" TITLE="##UiText.titles.select_leaf_nodes_only##"/>
+
+					<ITEM TYPE="elem_bool_attr_check_box" attr-name="SHOW-ENTRY-IDS" TITLE="Показывать идентификаторы" lang-en:TITLE="Show items IDs" lang-ua:TITLE="Показувати ідентифікатори"/> 
+					<ITEM TYPE="elem_bool_attr_check_box" attr-name="USE-NAME-AS-KEY" TITLE="Использовать наименование вместо идентификатора" lang-en:TITLE="Use Name as ID" lang-ua:TITLE="Використовувати найменування замість ідентифікатора"/> 
+					<ITEM TYPE="elem_bool_attr_check_box" attr-name="ALLOW-OTHER-VALUE" TITLE="Разрешить ввести иное значение" lang-en:TITLE="Allow Values Not From The List" lang-ua:TITLE="Дозволити ввести інше значення" ENABLE-EXPR="Ps.GetOptAttr( 'USE-NAME-AS-KEY' ) == '1'"/> 
+				</IF>
+			</LINE>
+
+			<IF EXPR="_editor.cur_elem_extra.field_ext_type_id == 'string'">
+				<BR/>
+				<GROUP>
+					<ITEM TYPE="elem_str_attr_edit" attr-name="MAX-LEN" WIDTH="6zr" LABEL-TITLE="##UiText.titles.max_len##"/> 
+				</GROUP>
+			</IF>
+
+			<IF EXPR="Ps.GetOptAttr( 'ARRAY' ) == '1' &amp;&amp; _editor.cur_elem_extra.field_ext_type_id == 'select'">
+				<GROUP>
+					<CHECK SOURCE="Ps.GetOptAttr( 'PRESERVE-ORDER' ) == '1'" SET-VALUE-ACTION="
+							if ( NewValue )
+								Ps.ObtainAttr( 'PRESERVE-ORDER', '1' );
+							else
+								Ps.DeleteOptAttr( 'PRESERVE-ORDER' );
+							
+							Ps.Doc.SetChanged( true );
+					" TITLE="##UiText.titles.selection_order_is_important##"/>
+
+					<EDIT SOURCE="Ps.GetOptAttr( 'MAX-LENGTH', '' )" SET-VALUE-ACTION="
+							if ( NewValue != 0 )
+								Ps.ObtainAttr( 'MAX-LENGTH', Int( NewValue ) );
+							else
+								Ps.DeleteOptAttr( 'MAX-LENGTH' );
+							
+							Ps.Doc.SetChanged( true );
+					" LABEL-TITLE="##UiText.titles.choice_num_limit##:" WIDTH="5zr"/>
+				</GROUP>
+			</IF>
+			<DELIM/>
+
+			<IF EXPR="_editor.cur_elem_extra.field_ext_type_id == 'select'">
+				<IF EXPR="Ps.GetOptAttr( 'ARRAY' ) == '1' &amp;&amp; Ps.GetOptAttr( 'PRESERVE-ORDER' ) == '1' &amp;&amp; Ps.GetOptAttr( 'MAX-LENGTH' ) != undefined">
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="4zr"/>
+							<COL WIDTH="100%"/>
+							<COL WIDTH="12zr"/>
+						</COLUMNS>
+
+						<LABEL/>
+						<LABEL TITLE="Названия мест в последовательности выбора:" lang-en:TITLE="Names of indexes in the choice sequence:" lang-en:TITLE="Назви місць в послідовності вибору:" />
+						<LABEL TITLE="##UiText.titles.text_color##:"/>
+
+						<LOOP EXPR="PlainSeq( ( maxLength = OptInt( Ps.GetOptAttr( 'MAX-LENGTH' ) ) ) != undefined ? maxLength : 0 )" VAR="index">
+							<LABEL TITLE-EXPR="( index + 1 ) + '.'"/>
+
+							<EDIT SOURCE="
+									arrayElem = Ps.OptChild( 'UI:SELECTION-ORDER' );
+									if ( arrayElem == undefined )
+										return '';
+
+									if ( index >= arrayElem.ChildNum )
+										return '';
+										
+									elem = arrayElem[index];
+									return elem.GetOptAttr( 'TITLE', '' );
+							" SET-VALUE-ACTION="
+									arrayElem = xml_utils.ObtainElemDynamicChild( Ps, 'UI:SELECTION-ORDER' );
+									if ( index >= arrayElem.ChildNum )
+									{
+										for ( j = arrayElem.ChildNum; j &lt;= index; j++ )
+											elem = arrayElem.AddDynamicChild( 'UI:ORDER-ITEM' );
+									}
+									else
+									{
+										elem = arrayElem[index];
+									}
+
+									elem.ObtainAttr( 'TITLE', NewValue );
+									Ps.Doc.SetChanged( true );
+							"/>
+
+							<EDIT SOURCE="
+									arrayElem = Ps.OptChild( 'UI:SELECTION-ORDER' );
+									if ( arrayElem == undefined )
+										return '';
+
+									if ( index >= arrayElem.ChildNum )
+										return '';
+										
+									elem = arrayElem[index];
+									return elem.GetOptAttr( 'TEXT-COLOR', '' );
+							" SET-VALUE-ACTION="
+									arrayElem = xml_utils.ObtainElemDynamicChild( Ps, 'UI:SELECTION-ORDER' );
+									if ( index >= arrayElem.ChildNum )
+									{
+										for ( j = arrayElem.ChildNum; j &lt;= index; j++ )
+											elem = arrayElem.AddDynamicChild( 'UI:ORDER-ITEM' );
+									}
+									else
+									{
+										elem = arrayElem[index];
+									}
+
+									elem.ObtainAttr( 'TEXT-COLOR', NewValue );
+									Ps.Doc.SetChanged( true );
+							"/>
+						</LOOP>
+					</TABLE>
+					<DELIM/>
+				</IF>
+
+				<LINE>
+					<LABEL TITLE="Источник выбора:" lang-en:TITLE="Source:" lang-en:TITLE="Джерело вибору:" />
+					<RADIO-BUTTON TITLE="##UiText.titles.object_list##" SWITCH-VALUE="catalog" WIDTH="auto" SOURCE="_editor.cur_elem_extra.field_foreign_array_type" SET-VALUE-ACTION="_editor.cur_elem_extra.field_foreign_array_type = 'catalog'"/>
+					<RADIO-BUTTON TITLE="##UiText.objects.voc##" SWITCH-VALUE="voc" WIDTH="auto" SOURCE="_editor.cur_elem_extra.field_foreign_array_type" SET-VALUE-ACTION="_editor.cur_elem_extra.field_foreign_array_type = 'voc'"/>
+					<RADIO-BUTTON TITLE="##UiText.titles.inline_list##" SWITCH-VALUE="inline_array" WIDTH="auto" SOURCE="_editor.cur_elem_extra.field_foreign_array_type" SET-VALUE-ACTION="_editor.cur_elem_extra.field_foreign_array_type = 'inline_array'"/>
+				</LINE>
+				<BR/>
+
+				<LINE>
+					<IF EXPR="_editor.cur_elem_extra.field_foreign_array_type == 'catalog'">
+						<COMBO SOURCE="lib_base.catalog_name_to_opt_object_name( Ps.OptAttrValue( 'FOREIGN-ARRAY', '' ) )" FOREIGN-ARRAY="card_object_types" ELEM="ListElem.name" SET-VALUE-ACTION="
+								Ps.ObtainAttr( 'FOREIGN-ARRAY', lib_base.object_name_to_catalog_name( NewValue ) );
+								Ps.ObtainAttr( 'TYPE', 'integer' );
+								Ps.Doc.SetChanged( true );
+						" LABEL-TITLE="##UiText.titles.object_reference##:"/>
+					</IF>
+
+					<IF EXPR="_editor.cur_elem_extra.field_foreign_array_type == 'voc'">
+						<COMBO SOURCE="Ps.OptAttrValue( 'FOREIGN-ARRAY', '' )" FOREIGN-ARRAY="vocs" ELEM="ListElem.name" SET-VALUE-ACTION="
+								Ps.ObtainAttr( 'FOREIGN-ARRAY', NewValue );
+							
+								if ( NewValue != '' && NewValue != null )
+									Ps.ObtainAttr( 'TYPE', lib_voc.get_opt_voc_info( NewValue ).key_type );
+							
+								Ps.Doc.SetChanged( true );
+						" LABEL-TITLE="Ссылка на справочник:" lang-en:LABEL-TITLE="Reference list selector:" lang-ua:LABEL-TITLE="Посилання на довідник:"/>
+					</IF>
+				</LINE>
+
+				<IF EXPR="_editor.cur_elem_extra.field_foreign_array_type == 'inline_array'">
+					<GROUP>
+						<LABEL TITLE="##UiText.titles.inline_list##:"/>
+
+						<IMAGE URL="//base_pict/plus.ico" ACTION="
+								if ( ( optionsElem = Ps.OptChild( 'UI:OPTIONS' ) ) == undefined )
+									optionsElem = Ps.AddDynamicChild( 'UI:OPTIONS' );
+								
+								optionsElem.AddDynamicChild( 'UI:OPTION' );
+						"/>
+					</GROUP>
+					<BR/>
+
+					<PANEL VERT-SCROLL="1" HEIGHT="100%">
+						<LOOP EXPR="( optionsElem = Ps.OptChild( 'UI:OPTIONS' ) ) != undefined ? optionsElem : []" VAR="option">
+							<GROUP>
+								<EDIT WIDTH="-20zr" SOURCE="option.GetOptAttr( 'TITLE', '' )" SET-VALUE-ACTION="
+										option.ObtainAttr( 'TITLE', NewValue );
+										Ps.Doc.SetChanged( true );
+								"/>
+
+								<EDIT LABEL-TITLE="ID:" SOURCE="option.GetOptAttr( 'VALUE', '' )" SET-VALUE-ACTION="
+										option.ObtainAttr( 'VALUE', NewValue );
+										Ps.Doc.SetChanged( true );
+								"/>
+							</GROUP>
+						</LOOP>
+					</PANEL>
+				</IF>
+			</IF>
+		</IF>
+		<ELSE>
+			<LABEL TITLE="##UiText.titles.aux_elem##" BOLD="1" ALIGN="center"/>
+			<BR/>
+			
+			<GROUP>
+				<COMBO SOURCE="_editor.cur_elem_extra.aux_item_type_id" SET-VALUE-ACTION="
+						_editor.SetAuxElemType( Ps, NewValue );
+				" LABEL-TITLE="##UiText.fields.elem_type##:" WIDTH="35zr">
+					<LOOP EXPR="ui_common.template_aux_item_types" VAR="ListElem">
+						<COMBO-ENTRY TITLE-EXPR="ListElem.name" VALUE-EXPR="ListElem.id"/>
+					</LOOP>
+				</COMBO>
+				<SEPARATOR/>
+			</GROUP>
+			<BR/>
+
+			<IF EXPR="_editor.cur_elem_extra.aux_item_type_id == 'LABEL'">
+				<EDIT SOURCE="Ps.OptAttrValue( 'TITLE' )" SET-VALUE-ACTION="
+						Ps.ObtainAttr( 'TITLE', NewValue );
+						Ps.Doc.SetChanged( true );
+				" MULTILINE="1" LABEL-TITLE="##UiText.titles.text##:" HEIGHT="-2zr"/>
+			</IF>
+		</ELSE>
+
+		<ITEM TYPE="elem_str_attr_edit" attr-name="SHOW-CONDITION" LABEL-TITLE="##UiText.titles.exist_req_expr##:"/>
+
+		<LINE>
+			<ITEM TYPE="elem_bool_attr_check_box" attr-name="BIND-TO-PREV" TITLE="Прикрепить к предыдущему элементу" lang-en:TITLE="Bind to previous element" lang-ua:TITLE="Прикріпити до попереднього елемента"/>
+			<ITEM TYPE="elem_bool_attr_check_box" attr-name="BIND-TO-PREV-SELECTOR-OPTION" TITLE="Прикрепить к предыдущему значению в списке" lang-en:TITLE="Bind to previous selector option" lang-ua:TITLE="Прикріпити до попереднього значення в списку"/>
+		</LINE>
+	</IF>
+</PANEL>
+</LINE>
+</UNIT>
+
+
+
+
+</SPXML-SCREEN>
+
+

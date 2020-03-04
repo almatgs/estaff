@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<object_coding>
+	<next_index TYPE="integer" NOT-NULL="1" DEFAULT="1"/>
+</object_coding>
+
+
+
+
+
+</SPXML-FORM>

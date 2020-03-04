@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+<SPXML-INLINE-FORM WEB-SERVICE-PATH="/services/LdsService">
+
+<lib_lds_service>
+	<METHOD NAME="OpenSession" EXPR="">
+		<PARAM NAME="InstallationID" TYPE="string" OPTIONAL="1" DEFAULT=""/>
+
+		<RESULT NAME="SessionID" TYPE="integer"/>
+		<RESULT NAME="ServerSn" TYPE="string" OPTIONAL="1" DEFAULT=""/>
+		<RESULT NAME="ServerActivationCode" TYPE="string" OPTIONAL="1" DEFAULT=""/>
+		<RESULT NAME="ProhibitSavePassword" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<RESULT NAME="UserObjectUrl" TYPE="string" OPTIONAL="1" DEFAULT=""/>
+		<RESULT NAME="IsServerAdmin" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<RESULT NAME="ServerAppID" TYPE="string" OPTIONAL="1" DEFAULT=""/>
+		<RESULT NAME="ServerAppVersion" TYPE="string" OPTIONAL="1" DEFAULT=""/>
+		<RESULT NAME="ServerBuildDate" TYPE="date" OPTIONAL="1"/>
+		<RESULT NAME="ServerConfig" TYPE="string"/>
+	</METHOD>
+
+	<METHOD NAME="CloseSession" EXPR="">
+		<PARAM NAME="SessionID" TYPE="integer"/>
+	</METHOD>
+
+	<METHOD NAME="GetCatalogsStat" EXPR="">
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+
+		<RESULT NAME="Catalogs" ANY-CHILDREN="1" STREAM-ACCESS="1">
+		</RESULT>
+	</METHOD>
+
+	<METHOD NAME="GetModObjects" EXPR="">
+		<PARAM NAME="MinModDate" TYPE="date" OPTIONAL="1"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+		<PARAM NAME="Compress" TYPE="bool" OPTIONAL="1"/>
+
+		<RESULT NAME="Data" ANY-CHILDREN="1" STREAM-ACCESS="1"/>
+	</METHOD>
+
+	<METHOD NAME="GetModDeletedObjects" EXPR="">
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+		<PARAM NAME="MinModDate" TYPE="date" OPTIONAL="1"/>
+		<PARAM NAME="Compress" TYPE="bool" OPTIONAL="1"/>
+
+		<RESULT NAME="Data" ANY-CHILDREN="1" STREAM-ACCESS="1"/>
+	</METHOD>
+
+	<METHOD NAME="LoadUrl" EXPR="">
+		<PARAM NAME="Url" TYPE="string"/>
+		<PARAM NAME="UseBinaryResponse" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<PARAM NAME="UseMultipartResponse" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<PARAM NAME="TryLock" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+		<PARAM NAME="Compress" TYPE="bool" OPTIONAL="1"/>
+
+		<RESULT NAME="LockFailed" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<RESULT NAME="OtherLockerLogin" TYPE="string" OPTIONAL="1" DEFAULT=""/>
+		<RESULT NAME="Data" TYPE="binary" STREAM-ACCESS="1"/>
+	</METHOD>
+
+	<METHOD NAME="PutUrl" EXPR="">
+		<PARAM NAME="Url" TYPE="string"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+		<PARAM NAME="Data" TYPE="binary" STREAM-ACCESS="1"/>
+	</METHOD>
+
+	<METHOD NAME="DeleteUrl" EXPR="">
+		<PARAM NAME="Url" TYPE="string"/>
+		<PARAM NAME="StrictDelete" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+	</METHOD>
+
+	<METHOD NAME="UnlockUrl" EXPR="">
+		<PARAM NAME="Url" TYPE="string"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+	</METHOD>
+
+	<METHOD NAME="ReadDirectory" EXPR="">
+		<PARAM NAME="Url" TYPE="string"/>
+		<PARAM NAME="ReadFilesOnly" OPTIONAL="1" NULL-FALSE="1"/>
+		<PARAM NAME="ReadDirectoriesOnly" OPTIONAL="1" NULL-FALSE="1"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+
+		<RESULT NAME="Items" ANY-CHILDREN="1" STREAM-ACCESS="1">
+		</RESULT>
+	</METHOD>
+
+
+	<METHOD NAME="CreateDoc" EXPR="">
+		<PARAM NAME="ObjectTypeID" TYPE="string"/>
+		<PARAM NAME="AssignID" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+
+		<RESULT NAME="Data" ANY-CHILDREN="1" STREAM-ACCESS="1"/>
+	</METHOD>
+
+	<METHOD NAME="LoadDoc" EXPR="">
+		<PARAM NAME="Url" TYPE="string"/>
+		<PARAM NAME="UseBinaryResponse" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<PARAM NAME="UseMultipartResponse" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<PARAM NAME="TryLock" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+		<PARAM NAME="Compress" TYPE="bool" OPTIONAL="1"/>
+
+		<RESULT NAME="LockFailed" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<RESULT NAME="OtherLockerLogin" TYPE="string" OPTIONAL="1" DEFAULT=""/>
+		<RESULT NAME="AccessReadOnly" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<RESULT NAME="Data" ANY-CHILDREN="1" STREAM-ACCESS="1"/>
+	</METHOD>
+
+	<METHOD NAME="PutDoc" EXPR="">
+		<PARAM NAME="Url" TYPE="string"/>
+		<PARAM NAME="WriteDocInfo" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<PARAM NAME="SkipActions" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<PARAM NAME="NeverSaved" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+		<PARAM NAME="Data" ANY-CHILDREN="1" STREAM-ACCESS="1"/>
+	</METHOD>
+
+	<METHOD NAME="DeleteDoc" EXPR="">
+		<PARAM NAME="Url" TYPE="string"/>
+		<PARAM NAME="StrictDelete" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+	</METHOD>
+
+	<METHOD NAME="LoadLargeField" EXPR="">
+		<PARAM NAME="DocUrl" TYPE="string"/>
+		<PARAM NAME="FieldID" TYPE="integer"/>
+		<PARAM NAME="ContentType" TYPE="string" OPTIONAL="1"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+		<PARAM NAME="Compress" TYPE="bool" OPTIONAL="1"/>
+		<PARAM NAME="Size" TYPE="integer" OPTIONAL="1"/>
+		<PARAM NAME="UseMultipartResponse" TYPE="bool" OPTIONAL="1"/>
+
+		<RESULT NAME="Data" TYPE="binary" STREAM-ACCESS="1"/>
+	</METHOD>
+
+	<METHOD NAME="PutLargeField" EXPR="">
+		<PARAM NAME="DocUrl" TYPE="string"/>
+		<PARAM NAME="FieldID" TYPE="integer"/>
+		<PARAM NAME="FieldPathname" TYPE="string" OPTIONAL="1"/>
+		<PARAM NAME="ContentType" TYPE="string" OPTIONAL="1"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+		<PARAM NAME="Data" TYPE="binary" STREAM-ACCESS="1"/>
+
+		<RESULT NAME="NewFieldID" TYPE="integer" OPTIONAL="1"/>
+	</METHOD>
+
+	<METHOD NAME="DeleteLargeField" EXPR="">
+		<PARAM NAME="DocUrl" TYPE="string"/>
+		<PARAM NAME="FieldID" TYPE="integer"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+	</METHOD>
+
+	<METHOD NAME="GetNewObjectID" EXPR="">
+		<PARAM NAME="DbName" TYPE="string"/>
+		<PARAM NAME="ObjectType" TYPE="string" OPTIONAL="1"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+
+		<RESULT NAME="ObjectID" TYPE="integer"/>
+	</METHOD>
+
+
+	<METHOD NAME="XQuery" EXPR="">
+		<PARAM NAME="Query" TYPE="string"/>
+		<PARAM NAME="StartPos" TYPE="integer" OPTIONAL="1"/>
+		<PARAM NAME="MaxCount" TYPE="integer" OPTIONAL="1"/>
+		<PARAM NAME="ExpectToReadAll" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<PARAM NAME="KeepCursor" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<PARAM NAME="CursorID" TYPE="integer" OPTIONAL="1"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+
+		<RESULT NAME="Data" ANY-CHILDREN="1" STREAM-ACCESS="1"/>
+		<RESULT NAME="TotalCount" TYPE="integer" OPTIONAL="1"/>
+		<RESULT NAME="EstimatedTotalCount" TYPE="integer" OPTIONAL="1"/>
+		<RESULT NAME="CursorID" TYPE="integer" OPTIONAL="1"/>
+		<RESULT NAME="EOF" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+	</METHOD>
+
+	<METHOD NAME="ReleaseCursor" EXPR="">
+		<PARAM NAME="CursorID" TYPE="integer" OPTIONAL="1"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+	</METHOD>
+
+	<METHOD NAME="RunMethod" EXPR="">
+		<PARAM NAME="LibName" TYPE="string"/>
+		<PARAM NAME="MethodName" TYPE="string"/>
+		<PARAM NAME="RunAsync" TYPE="bool"  OPTIONAL="1" NULL-FALSE="1"/>
+		<PARAM NAME="ErrorLogName" TYPE="string" OPTIONAL="1"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+		<PARAM NAME="ArgData" ANY-CHILDREN="1" STREAM-ACCESS="1"/>
+
+		<RESULT NAME="ResultData" ANY-CHILDREN="1" STREAM-ACCESS="1"/>
+	</METHOD>
+
+	<METHOD NAME="Eval" EXPR="">
+		<PARAM NAME="Code" TYPE="string"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+
+		<RESULT NAME="ResultStr" TYPE="string" OPTIONAL="1"/>
+		<RESULT NAME="ResultDataType" TYPE="string" OPTIONAL="1"/>
+	</METHOD>
+
+	<METHOD NAME="Idle" EXPR="">
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+	</METHOD>
+</lib_lds_service>
+
+</SPXML-INLINE-FORM>

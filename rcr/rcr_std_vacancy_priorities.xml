@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems_int.xmd" xmlns:lang-en="http://www.datex-soft.com/ns/lang-en" xmlns:lang-ua="http://www.datex-soft.com/ns/lang-ua">
+	<std_voc_elem>
+		<id>1</id>
+		<name VALUE="высокий" lang-en:VALUE="high" lang-en:VALUE="високий"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>2</id>
+		<name VALUE="обычный" lang-en:VALUE="normal" lang-en:VALUE="звичайний"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>3</id>
+		<name VALUE="низкий" lang-en:VALUE="low" lang-en:VALUE="низький"/>
+	</std_voc_elem>
+</std_voc_elems>
+

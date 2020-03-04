@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="130zr" HEIGHT="90zr" SOURCE="TopElem.Name == 'event_type' ? TopElem.occurrences.Child( TopElem.view.active_occurrence_id : TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<USE FORM="base2_general_state.xms"/>
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="40zr" STD-MARGINS="0">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="0">
+		</TREE>
+	</PANEL>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.titles.candidate_state##" SUNKEN="1" EXPANDED="1" IMAGE-URL="//base_pict/generic_item.ico">
+
+
+<PAGE TITLE="##UiText.sections.general##" SUNKEN="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/common.ico">
+	<INHERIT TYPE="voc_elem_edit"/>
+	<INHERIT TYPE="state_attr_base"/>
+</PAGE>
+
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+
+</LINE>
+
+
+
+
+</SPXML-SCREEN>
+

@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="170zr" HEIGHT="100zr" SOURCE="TopElem" TITLE-EXPR="Ps.PrimaryDispName" BEFORE-INIT-ACTION="
+		Ps.view.prev_data.AssignElem( Ps );
+" BEFORE-SAVE-ACTION="
+		Ps.handle_before_ui_save();
+" SAVE-ACTION="
+		Ps.on_ui_save();
+" RESIZE="1">
+
+
+<INHERIT TYPE="card_menu_start"/>
+
+<MENU TITLE="##UiText.sections.service##" GLOBAL="1">
+	<MENU-ENTRY TITLE="Выгрузить во внешний календарь" lang-en:TITLE="Export to External Calendar" ACTION="
+			lib_ext_calendar.put_entry_to_ext_calendar( Ps, {forcePut:true} );
+	" ENABLE-EXPR="lib_ext_calendar.is_ext_calendar_enabled" lang-ua:TITLE="Вивантажити в зовнішній календар"/>
+
+	<IF EXPR="AppModuleUsed( 'module_rgs' ) &amp;&amp; Ps.type_id == 'rr_poll_adapt'">
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="Отправить напоминание участнику" lang-en:TITLE="Send reminding message" ACTION="
+			lib_candidate.RunCandidateStateCoreActions( Ps.candidate_id.ForeignElem, Ps, Ps.occurrence, 1 );
+	" ENABLE-EXPR="Ps.occurrence_id == ''" PASSIVE="1" lang-ua:TITLE="Відправити нагадування учаснику"/>
+	</IF>
+
+	<IF EXPR="lib_office_access.is_office_access_enabled">
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="##UiText.actions.submit_entry_pass_request##" ACTION="
+				lib_office_access.HandleSubmitEntryPassRequestForCalendarEntry( Ps );
+		" ENABLE-EXPR="Ps.candidate_id.HasValue"/>
+	</IF>
+
+	<IF EXPR="Ps.type_id == 'video_interview_poll'">
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="Скопировать ссылку для кандидата" lang-en:TITLE="Copy link for candidate to Clipboard" ACTION="
+				SetClipboard( Ps.participant_web_url );
+		" PASSIVE="1" lang-ua:TITLE="Копіювати посилання для кандидата"/>
+	</IF>
+
+	<IF EXPR="Ps.type.use_participants &amp;&amp; Ps.use_participants_event_result">
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU TITLE="##UiText.fields.participants##">
+			<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( object_actions ), '! object_type_id.HasValue || object_type_id == Ps.Doc.TopElem.Name &amp;&amp; show_in_main_menu' )" VAR="_action">
+				<MENU-ENTRY TITLE-EXPR="_action.name" ACTION="lib_event.RunEventParticipantsObjectAction( Ps, _action.id )" PASSIVE="1"/>
+			</LOOP>
+
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE="##UiText.titles.all_actions##..." ACTION="
+					actionID = lib_voc.select_voc_elem( object_actions );
+					lib_event.RunEventParticipantsObjectAction( Ps, actionID );
+			" PASSIVE="1"/>
+		</MENU>
+	</IF>
+
+	<IF EXPR="Ps.type.use_participants &amp;&amp; Ps.type.use_training_group">
+		<MENU-ENTRY TITLE="Заполнить список участников из учебной группы" lang-en:TITLE="Load participants from training group" lang-ua:TITLE="Заповнити список учасників з навчальної групи" ACTION="
+				lib_event.LoadEventParticipantsFromTrainingGroup( Ps );
+		" ENABLE-EXPR="Ps.training_group_id.HasValue"/>
+	</IF>
+</MENU>
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="card_toolbar_start_entries"/>
+
+	<IF EXPR="true" NAME="DefaultToolbarAnchor">
+	</IF>
+
+	<IF EXPR="Ps.type.is_calendar_entry">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+		<TOOLBAR-ENTRY IMAGE-URL-EXPR="lib_ext_calendar.is_ext_calendar_enabled ? lib_ext_calendar.calendar_app_image_url : '//base_pict/outlook.ico'" TIP-TEXT-EXPR="lib_ext_calendar.is_ext_calendar_enabled ? StrReplace( UiText.actions.edit_event_in_xxx, '%s', lib_ext_calendar.calendar_app_name ) : UiText.actions.edit_event_in_ext_calendar" ACTION="
+				lib_ext_calendar.start_ext_calendar_entry_editor( Ps, Screen );
+		" ENABLE-EXPR="lib_ext_calendar.is_ext_calendar_enabled" PASSIVE="1"/>
+	</IF>
+
+	<IF EXPR="Ps.type.use_participants">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/excel.ico" CMD="ShowInOfficeCalc" TIP-TEXT-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name"/>
+	</IF>
+
+	<INHERIT TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="38zr" STD-MARGINS="0">
+	<TREE HEIGHT="50%" SUNKEN="1" SWITCH-TYPE="selector" TARGET="main_selector">
+	</TREE>
+	<SPLIT FIXED="1"/>
+
+	<PANEL NAME="ZoneLeft" HEIGHT-EXPR="'-' + lib_base.GetCardInfoHeightMeasure( TopElem )" SUNKEN="1" BK-COLOR="255,255,255" STD-MARGINS="1">
+		<PANEL HEIGHT="-11zr">
+		</PANEL>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="13zrc"/>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+			<IF EXPR="Ps.type_id == 'comment'">
+				<ITEM TYPE="object_preview" SOURCE="Ps.author_id"/>
+			</IF>
+			<ELSE>
+				<LABEL HSPAN="2" TITLE=" "/>
+			</ELSE>
+
+			<ITEM TYPE="object_preview" SOURCE="Ps.user_id"/>
+			<ITEM TYPE="object_preview" SOURCE="Ps.group_id"/>
+		</TABLE>
+	</PANEL>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE-EXPR="( name = GetForeignElem( card_object_types, Ps.Name ).name ) != '' ? name : DefaultDb.GetObjectForm( Ps.Name ).Title" EXPANDED="1" SUNKEN="1" IMAGE-URL-EXPR="Ps.ImageUrl">
+
+
+<PAGE NAME="PageCommon" TITLE="##UiText.sections.general##" IMAGE-URL="//base_pict/common.ico" SUNKEN="1" VERT-SCROLL="1" lang-en:TITLE="General">
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="77zr"/>
+		<COL WIDTH="100%"/>
+	</COLUMNS>
+
+	<PANEL>
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="27zr"/>
+				<COL WIDTH="22zr"/>
+				<COL WIDTH="23zr"/>
+
+				<COL WIDTH="5zr"/>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+			<IF EXPR="lib_user.active_user_access.prohibit_add_past_events &amp;&amp; ! Ps.type.is_calendar_entry &amp;&amp; ! Ps.Doc.NeverSaved">
+				<ITEM TYPE="date_time_read_only" SOURCE="Ps.date" AUTO-LABEL="1"/>
+			</IF>
+			<ELSE>
+				<ITEM TYPE="date_time_selector" SOURCE="Ps.date" AUTO-LABEL="1" UPDATE-ACTION="Ps.update_local_date_by_date(); Ps.update_end_date_by_duration();"/>
+			</ELSE>
+
+			<IF EXPR="Ps.type.use_end_date">
+				<ITEM TYPE="smhd_period" SOURCE="Ps.duration" AUTO-LABEL="1" UPDATE-ACTION="Ps.update_end_date_by_duration()"/>
+				<ITEM TYPE="date_time_selector" SOURCE="Ps.end_date" AUTO-LABEL="1" UPDATE-ACTION="Ps.update_duration_by_end_date()"/>
+			</IF>
+			<ELSE>
+				<LABEL HSPAN="2"/>
+			</ELSE>
+		</TABLE>
+
+		<IF EXPR="Ps.time_zone.HasValue &amp;&amp; Ps.time_zone != GetLocalTimeZone()">
+			<LABEL TITLE-EXPR="
+					if ( Ps.ChildExists( 'local_date' ) &amp;&amp; Ps.local_date.HasValue )
+						str = StrDate( Ps.local_date, {ShowSeconds:false} );
+					else
+						str = StrDate( DateToTimeZoneDate( Ps.date, Ps.time_zone ), {ShowSeconds:false} );
+		
+					str += ' (' + ( Ps.time_zone >= 0 ? '+' : '' ) + StrSignedInt( Ps.time_zone, 2 ) + ':00)';
+					
+					return StrReplace( str, ' ', '  ' );
+			" TEXT-COLOR="100,100,100"/>
+		</IF>
+	</PANEL>
+
+	<LINE MULTILINE="1">
+		<IF EXPR="Ps.type.use_occurrences" IGNORE-ERRORS="1">
+			<LOOP EXPR="Ps.type.get_sorted_occurrences()" VAR="_occurence">
+				<CHECK TITLE-EXPR="_occurence.get_name()" SOURCE="Ps.occurrence_id == _occurence.id" SET-VALUE-ACTION="
+						if ( NewValue )
+						{
+							newOccurence = _occurence;
+						}
+						else
+						{
+							newOccurence = Ps.type.get_opt_occurrence( Ps.type.get_rollback_occurrence_id() );
+							if ( newOccurence == undefined )
+								return;
+						}
+
+						lib_event.CheckOccurrencePermission( Ps.type, newOccurence );
+
+						Ps.occurrence_id = newOccurence.id;
+						Ps.Doc.SetChanged( true );
+				" WIDTH="auto"/>
+			</LOOP>
+		</IF>
+	</LINE>
+</TABLE>
+
+
+<IF EXPR="Ps.type.use_location || Ps.type.use_room || Ps.type.register_participants">
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<IF EXPR="Ps.type.use_location">
+				<COL WIDTH="100%"/>
+			</IF>
+
+			<IF EXPR="Ps.type.use_room">
+				<COL WIDTH="40zr"/>
+				<COL WIDTH="20zr"/>
+			</IF>
+
+			<IF EXPR="Ps.type.register_participants">
+				<COL WIDTH="14zr"/>
+			</IF>
+		</COLUMNS>
+
+		<IF EXPR="Ps.type.use_location">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.location_id" AUTO-LABEL="1"/>
+		</IF>
+
+		<IF EXPR="Ps.type.use_room">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.office_id" AUTO-LABEL="1"/>
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.room_id" AUTO-LABEL="1" UPDATE-ACTION="
+					if ( Ps.room_id.ForeignElem.max_participants_num.HasValue )
+						Ps.max_participants_num = Ps.room_id.ForeignElem.max_participants_num;
+			"/>
+		</IF>
+
+		<IF EXPR="Ps.type.register_participants">
+			<EDIT SOURCE="Ps.max_participants_num" AUTO-LABEL="1"/>
+		</IF>
+	</TABLE>
+</IF>
+
+
+<IF EXPR="Ps.type.use_road_time">
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="20zr"/>
+			<COL WIDTH="26zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="mh_period" SOURCE="Ps.road_time" AUTO-LABEL="1"/>
+		<ITEM TYPE="mh_period" SOURCE="Ps.return_road_time" AUTO-LABEL="1"/>
+	</TABLE>
+</IF>
+
+
+<IF EXPR="Ps.Name == 'event'">
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+</IF>
+
+<BR/>
+
+
+<IF EXPR="Ps.type_id.ForeignElem.use_org || Ps.person_id.HasValue">
+	<TABLE>
+		<COLUMNS>
+			<IF EXPR="Ps.type_id.ForeignElem.use_org">
+				<COL WIDTH="100%"/>
+			</IF>
+			<IF EXPR="Ps.person_id.HasValue">
+				<COL WIDTH="42zr"/>
+			</IF>
+		</COLUMNS>
+
+		<IF EXPR="Ps.type_id.ForeignElem.use_org">
+			<ITEM TYPE="object_selector" SOURCE="Ps.org_id" AUTO-LABEL="1"/>
+		</IF>
+
+		<IF EXPR="Ps.person_id.HasValue">
+			<ITEM TYPE="object_selector" SOURCE="Ps.person_id" AUTO-LABEL="1"/>
+		</IF>
+	</TABLE>
+</IF>
+
+
+<IF EXPR="Ps.ChildExists( 'vacancy_id' ) &amp;&amp; ( Ps.type.use_vacancy || Ps.type.target_object_type_id.ByValueExists( 'candidate' ) )">
+	<ITEM TYPE="object_selector" SOURCE="Ps.vacancy_id" AUTO-LABEL="1"/>
+
+	<IF EXPR="Ps.vacancy_org_id.HasValue &amp;&amp; ! ( Ps.type_id.ForeignElem.use_org &amp;&amp; Ps.vacancy_org_id == Ps.org_id )">
+		<ITEM TYPE="object_selector" SOURCE="Ps.vacancy_org_id" AUTO-LABEL="1" READ-ONLY="1"/>
+	</IF>
+</IF>
+
+<IF EXPR="Ps.ChildExists( 'position_type_id' ) &amp;&amp; Ps.type.use_position_type">
+	<ITEM TYPE="object_selector" SOURCE="Ps.position_type_id" AUTO-LABEL="1"/>
+</IF>
+
+<IF EXPR="Ps.ChildExists( 'candidate_id' ) &amp;&amp; Ps.type_id.ForeignElem.target_object_type_id.ByValueExists( 'candidate' )">
+	<LINE>
+		<ITEM TYPE="object_selector" SOURCE="Ps.candidate_id" AUTO-LABEL="1" WIDTH="50zr"/>
+		<LABEL/>
+		<IF EXPR="Ps.type.use_contact_type">
+			<PANEL SOURCE="Ps.multi_contact_type_id" AUTO-LABEL="1">
+				<BR HEIGHT="3px"/>
+				<ITEM TYPE="voc_elem_selector_flags"/>
+			</PANEL>
+		</IF>
+		<IF EXPR="Ps.type.use_training_group &amp;&amp; ! Ps.type.use_training_program">
+			<ITEM TYPE="object_selector" SOURCE="Ps.training_group_id" AUTO-LABEL="1" WIDTH="30zr"/>
+		</IF>
+		<IF EXPR="lib_event.IsRejectOccurrence( Ps.type, Ps.occurrence_id )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.candidate_reject_reason_id" AUTO-LABEL="1" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.candidate_reject_reason_id, 20, 40 )"/>
+		</IF>
+		<IF EXPR="lib_event.IsWithdrawalOccurrence( Ps.type, Ps.occurrence_id )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.candidate_withdrawal_reason_id" AUTO-LABEL="1" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.candidate_withdrawal_reason_id, 20, 40 )"/>
+		</IF>
+		<IF EXPR="Ps.type_id == 'blacklist' &amp;&amp; ArrayCount( lib_voc.get_sorted_voc( candidate_blacklist_reasons ) ) != 0">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.candidate_blacklist_reason_id" AUTO-LABEL="1" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.candidate_blacklist_reason_id, 20, 40 )" MAX-WIDTH="100%"/>
+		</IF>
+	</LINE>
+</IF>
+
+<IF EXPR="Ps.ChildExists( 'deal_id' ) &amp;&amp; Ps.type_id.ForeignElem.target_object_type_id.ByValueExists( 'deal' )">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="60%"/>
+			<COL WIDTH="40%"/>
+		</COLUMNS>
+
+		<ITEM TYPE="object_selector" SOURCE="Ps.deal_id" AUTO-LABEL="1"/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.paper_document_id" AUTO-LABEL="1"/>
+	</TABLE>
+</IF>
+
+<IF EXPR="Ps.type.is_group_event_reg || Ps.type.is_group_event_result">
+	<ITEM TYPE="object_selector" SOURCE="Ps.group_event_id" AUTO-LABEL="1" view-filter-expr="({type_id:Ps.type.group_event_type_id})" WIDTH="60%"/>
+</IF>
+
+<IF EXPR="Ps.type.use_training_program">
+	<BR HEIGHT="2px"/>
+	<LINE>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.training_program_id" AUTO-LABEL="1" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.training_program_id, 20, 40 )"/>
+		<ITEM TYPE="elem_selector" SOURCE="Ps.training_program_part_id" AUTO-LABEL="1" WIDTH="-20zr"/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.training_group_id" AUTO-LABEL="1"/>
+	</LINE>
+</IF>
+
+
+<IF EXPR="Ps.type.use_participants">
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="16px"/>
+		</COLUMNS>
+
+		<LABEL TITLE="##UiText.fields.participants##:"/>
+
+		<IF EXPR="! Ps.type.use_training_program">
+			<IMAGE URL="//base_pict/select.ico" TIP-TEXT="##UiText.actions.select_person##" ACTION="
+					Ps.select_participant();
+					Ps.Doc.SetChanged( true );
+			"/>
+		</IF>
+	</TABLE>
+
+	<IF EXPR="Ps.use_participants_event_result">
+		<WITH VAR="_result_event_type" EXPR="
+				Ps.InitParticipantsResults();
+				return Ps.participation_result_event_type;
+		">
+			<GRID NAME="ParticipantsGrid" SUNKEN="1" HEIGHT="-28zr">
+				<COLUMNS>
+					<COL WIDTH="100%"/>
+					<COL WIDTH="20zr"/>
+
+					<LOOP EXPR="_result_event_type.occurrences" VAR="_participation_occurrence">
+						<COL WIDTH="14zr"/>
+					</LOOP>
+
+					<COL WIDTH="5zr"/>
+				</COLUMNS>
+			
+				<ROW HEADER="1">
+					<LABEL TITLE="##UiText.fields.fullname##"/>
+					<LABEL TITLE="##UiText.fields.phone##"/>
+
+					<LOOP EXPR="_result_event_type.occurrences" VAR="_participation_occurrence">
+						<LABEL TITLE-EXPR="_participation_occurrence.get_name()" ALIGN="center"/>
+					</LOOP>
+
+					<LABEL TIP-TEXT="##UiText.fields.result##"/>
+				</ROW>
+
+				<LOOP EXPR="Ps.participants" VAR="_participant">
+					<ROW OPEN-ACTION="ObtainDocScreen( _participant.person.PrimaryObjectUrl )" DELETE-ACTION="_participant.Delete(); Ps.Doc.SetChanged( true );">
+						<LINK TITLE-EXPR="_participant.person != undefined ? _participant.person.fullname : '[' + UiText.titles.object_deleted + ']'" FLAT="1" TEXT-COLOR="black" ACTION="ObtainDocScreen( _participant.person.PrimaryObjectUrl )"/>
+						<LABEL TITLE-EXPR="_participant.person != undefined ? lib_phone_details.FormatPhone( _participant.person.mobile_phone ) : '[' + UiText.titles.object_deleted + ']'" FLAT="1"/>
+
+						<LOOP EXPR="_result_event_type.occurrences" VAR="_participation_occurrence">
+							<CHECK SOURCE="_participant.result_occurrence_id == _participation_occurrence.id" SET-VALUE-ACTION="
+									if ( ! NewValue )
+										return;
+
+									if ( _participant.result_occurrence_id == _participation_occurrence.id )
+										return;
+
+									Ps.SetParticipantResultOccurrence( _participant, _participation_occurrence.id );
+							" ALIGN="center"/>
+						</LOOP>
+
+						<LINK TITLE="..." FLAT="1" BOLD__="1" ALIGN="center" ACTION="Ps.SelectParticipantResultOccurrence( _participant )"/>
+					</ROW>
+				</LOOP>
+			</GRID>
+			<BR HEIGHT="2px"/>
+
+			<LINE>
+				<LOOP EXPR="_result_event_type.occurrences" VAR="_participation_occurrence">
+					<WITH VAR="_count" EXPR="ArraySelectByKey( Ps.participants, _participation_occurrence.id, 'result_occurrence_id' ).length">
+						<LABEL TITLE-EXPR="_participation_occurrence.get_name() + ':'"/>
+						<LABEL TITLE-EXPR="StrIntZero( _count )"/>
+
+						<IF EXPR="_count != 0 &amp;&amp; _participation_occurrence.typical_next_states.ChildNum != 0">
+							<LABEL/>
+							<BUTTON IMAGE-URL="//base_pict/dots.ico" WIDTH="24px">
+								<MENU>
+									<LOOP EXPR="_participation_occurrence.typical_next_states" VAR="_typical_next_state">
+										<MENU-ENTRY TITLE-EXPR="_typical_next_state.event_type_id.ForeignDispName" ACTION="
+												Ps.HandleSetParticipantTypicalNextState( _participation_occurrence, _typical_next_state );
+										"/>
+									</LOOP>
+								</MENU>
+							</BUTTON>
+						</IF>
+
+						<PANEL WIDTH="6zr"/>
+					</WITH>
+				</LOOP>
+			</LINE>
+			<DELIM/>
+		</WITH>
+	</IF>
+	<ELSE>
+		<IF EXPR="Ps.type.use_training_program">
+			<WITH VAR="_result_event_type" EXPR="
+					Ps.InitParticipantsResults();
+					return Ps.participation_result_event_type;
+			">
+				<GRID SUNKEN="1" HEIGHT="-20zr" SOLID-ROWS="1">
+					<COLUMNS>
+						<COL WIDTH="100%"/>
+						<COL WIDTH="20zr"/>
+						<COL WIDTH="14zr"/>
+					</COLUMNS>
+			
+					<ROW HEADER="1">
+						<LABEL TITLE="##UiText.fields.fullname##"/>
+						<LABEL TITLE="##UiText.fields.phone##"/>
+						<LABEL TITLE="##UiText.titles.attended##" ALIGN="center"/>
+					</ROW>
+
+					<LOOP EXPR="Ps.participants" VAR="_participant">
+						<ROW OPEN-ACTION="ObtainDocScreen( _participant.person.PrimaryObjectUrl )">
+							<LABEL TITLE-EXPR="_participant.person != undefined ? _participant.person.fullname : '[' + UiText.titles.object_deleted + ']'" FLAT="1"/>
+							<LABEL TITLE-EXPR="_participant.person != undefined ? lib_phone_details.FormatPhone( _participant.person.mobile_phone ) : '[' + UiText.titles.object_deleted + ']'" FLAT="1"/>
+
+							<CHECK SOURCE="_participant.result_occurrence_id == 'completed'" ALIGN="center" FLAT="1" SET-VALUE-ACTION="
+										if ( NewValue )
+											_participant.result_occurrence_id = 'completed';
+										else
+											_participant.result_occurrence_id = '';
+
+										Ps.Doc.SetChanged( true );
+								"/>
+						</ROW>
+					</LOOP>
+				</GRID>
+			</WITH>
+		</IF>
+		<ELSE>
+			<LIST SUNKEN="1" LOOP-CATALOG="persons" XQUERY-QUAL-EXPR="
+					return 'MatchSome( $elem/id, ( ' + ArrayMerge( Ps.participants, 'person_id', ',' ) + ' ) )';
+			" HEIGHT="40%" MIN-HEIGHT="10zr">
+				<ROW DELETE-ACTION="Ps.participants.DeleteChildByKey( ListElem.id ); Ps.Doc.SetChanged( true );" IMAGE-URL-EXPR="ListElem.ImageUrl">
+					<WITH VAR="_participant" EXPR="Ps.participants.GetChildByKey( ListElem.id )" IGNORE-ERRORS="1">
+						<COL WIDTH="40%" COL-TITLE="##UiText.fields.fullname##" TITLE-EXPR="ListElem.fullname"/>
+						<COL WIDTH="40%" COL-TITLE="##UiText.fields.position##" TITLE-EXPR="ListElem.position_name" lang-en:COL-TITLE="Position"/>
+						<COL WIDTH="20%" COL-TITLE="##UiText.fields.phone##" TITLE-EXPR="ListElem.disp_phone"/>
+						<COL WIDTH="18zr" COL-TITLE="##UiText.fields.state##" TITLE-EXPR="_participant.status_id.ForeignDispName" ALIGN="center" TEXT-COLOR-EXPR__="_participant.status_id.ForeignElem.text_color"/>
+
+						<IF EXPR="Ps.type.use_participants_order">
+							<COL WIDTH="5zr" COL-TITLE="#" TITLE-EXPR="_participant.ChildIndex + 1" ALIGN="center" DEFAULT-SORT="1" ORDER="Ps.participants.GetChildByKey( id ).ChildIndex" LOCAL-SORT="1"/>
+						</IF>
+					</WITH>
+				</ROW>
+
+				<MENU RIGHT-CLICK="1">
+					<INHERIT TYPE="list_menu_entries"/>
+					<MENU-ENTRY SEPARATOR="1"/>
+
+					<LOOP EXPR="cn_common.participant_statuses" VAR="ListElem">
+						<MENU-ENTRY TITLE-EXPR="ListElem.name" ACTION="
+								person = List.SelRow.Env.ListElem;
+								participant = Ps.participants.GetChildByKey( person.id );
+
+								participant.status_id = ListElem.id;
+								Ps.Doc.SetChanged( true );
+						" CHECKED-EXPR="
+								if ( ! List.HasSel )
+									return false;
+
+								person = List.SelRow.Env.ListElem;
+								participant = Ps.participants.GetChildByKey( person.id );
+
+								return ( participant.status_id == ListElem.id );
+						"/>
+					</LOOP>
+
+					<IF EXPR="Ps.type.use_participants_order">
+						<MENU-ENTRY SEPARATOR="1"/>
+				
+						<MENU-ENTRY TITLE="##UiText.actions.move_up##" ACTION="
+								curElem = Ps.participants.GetChildByKey( List.SelRow.Env.ListElem.id );
+								if ( curElem.ChildIndex == 0 )
+									return;
+
+								curElem.SetChildIndex( curElem.ChildIndex - 1 );
+								curElem.Doc.SetChanged( true );
+						" ENABLE-EXPR="List.HasSingleSel"/>
+
+						<MENU-ENTRY TITLE="##UiText.actions.move_down##" ACTION="
+								curElem = Ps.participants.GetChildByKey( List.SelRow.Env.ListElem.id );
+								if ( curElem.ChildIndex == curElem.Parent.ChildNum - 1 )
+									return;
+
+								curElem.SetChildIndex( curElem.ChildIndex + 1 );
+								curElem.Doc.SetChanged( true );
+						" ENABLE-EXPR="List.HasSingleSel"/>
+					</IF>
+				</MENU>
+			</LIST>
+		</ELSE>
+	</ELSE>
+	<BR/>
+	
+	<IF EXPR="Ps.ChildExists( 'is_delegate' )">
+		<CHECK SOURCE="Ps.is_delegate" AUTO-LABEL="1"/>
+	</IF>
+	<BR/>
+</IF>
+
+
+
+<IF EXPR="Ps.Name == 'rr_poll'">
+	<PANEL NAME="PollCsdAnchor">
+	</PANEL>
+</IF>
+
+
+<IF EXPR="Ps.type_id == 'online_interview'">
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="21zr"/>
+			<COL WIDTH="button"/>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="20zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.activation_code" READ-ONLY="1" AUTO-LABEL="1"/>
+
+		<BUTTON IMAGE-URL="//base_pict/actions.ico" LABEL-TITLE=" ">
+			<MENU>
+				<MENU-ENTRY TITLE="##UiText.actions.activate##" ACTION="
+						testingSystem = ArrayOptFind( testing_systems, 'is_wt' );
+						if ( testingSystem == undefined )
+							throw UserError( 'No testing system has been set up' );
+
+						lib = OpenCodeLib( '//staff/staff_util_testing_v2.js' );
+
+						lib.activate_online_interview( testingSystem, Ps, Ps.candidate_id.ForeignElem );
+
+						Ps.Doc.SetChanged( true );
+				"/>
+
+				<MENU-ENTRY SEPARATOR="1"/>
+
+				<MENU-ENTRY TITLE="Открыть Web-ссылку для участника" HREF-EXPR="Ps.participant_web_url" TARGET="_web" ENABLE-EXPR="Ps.participant_web_url.HasValue" lang-en:TITLE="Open Web link" lang-ua:TITLE="Відкрити Web-посилання для учасника"/>
+				<MENU-ENTRY TITLE="##UiText.actions.copy_web_link##" ACTION="SetClipboard( Ps.participant_web_url )" ENABLE-EXPR="Ps.participant_web_url.HasValue"/>
+			</MENU>
+		</BUTTON>
+
+		<LABEL/>
+		
+		<IF EXPR="Ps.web_url.HasValue">
+			<LINK TITLE-EXPR="Ps.web_url.Title" HREF-EXPR="Ps.web_url" TARGET="_web" LABEL-TITLE=" "/>
+		</IF>
+	</TABLE>
+	<DELIM/>
+</IF>
+
+
+<IF EXPR="Ps.ChildExists( 'poll_result' )">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="50zr"/>
+			<COL WIDTH="14zr"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.poll_result.spec_id" AUTO-LABEL="1"/>
+		<EDIT SOURCE="Ps.average_score" AUTO-LABEL="1"/>
+
+		<IF EXPR="AppModuleUsed( 'module_rgs' ) && Ps.type_id == 'rr_poll_co'">
+			<CHECK SOURCE="Ps.is_active" TITLE="##UiText.titles.in_progress##"/>
+		</IF>
+	</TABLE>
+
+	<BR/>
+
+	<IF EXPR="Ps.poll_result.spec_id.HasValue">
+		<LABEL TITLE="Результаты опроса:" lang-en:TITLE="Assessment result:" lang-ua:TITLE="Результати опитування:"/>
+		<BR/>
+
+		<IF EXPR="Ps.poll_result.spec_id == 'rgs_poll_6'">
+			<LINE>
+				<LABEL TITLE="Итоговый рейтинг кандидата:"/>
+				<EDIT SOURCE="
+						questionAnswer = Ps.poll_result.question_answers.GetOptChildByKey( 'q_rating' );
+						if ( questionAnswer == undefined )
+							return '';
+
+						return questionAnswer.score;
+				" READ-ONLY="1" WIDTH="10zr"/>
+			</LINE>
+			<BR/>
+
+
+			<ITEM TYPE="comb_poll_result"/>
+		</IF>
+		<ELSE>
+			<ITEM TYPE="poll_result" SOURCE="Ps.poll_result"/>
+		</ELSE>
+	</IF>
+
+	<EDIT SOURCE="Ps.comment" MULTILINE="1" AUTO-LABEL="1" HEIGHT="20zr" VERT-SCROLL="1" PASSIVE="1"/>
+</IF>
+<ELSE>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="30zr"/>
+		</COLUMNS>
+
+		<LABEL TITLE="##UiText.fields.comment##:"/>
+
+		<IF EXPR="lib_event.use_shared_comment_flag">
+			<CHECK SOURCE="Ps.is_shared_comment" AUTO-LABEL="1" ALIGN="right"/>
+		</IF>
+	</TABLE>
+
+	<EDIT SOURCE="Ps.comment" MULTILINE="1" HEIGHT="-2zr" VERT-SCROLL="1" PASSIVE="1"/>
+</ELSE>
+
+<PANEL NAME="DefaultInheritAnchor">
+</PANEL>
+
+</PAGE>
+
+
+
+<PAGE TITLE="##UiText.sections.add_info##" IMAGE-URL="//base_pict/aux_info.ico" SUNKEN="1" VERT-SCROLL="1">
+
+<IF EXPR="Ps.type.is_calendar_entry">
+	<GROUP>
+		<ITEM TYPE="time_zone_edit" SOURCE="Ps.time_zone" AUTO-LABEL="1"/>
+	</GROUP>
+	<DELIM/>
+
+	<LABEL TITLE="Идентификаторы во внешнем календаре:" lang-en:TITLE="ID in external calendar:" lang-ua:TITLE="Ідентифікатори в зовнішньому календарі:"/>
+	<BR/>
+
+	<GROUP>
+		<EDIT SOURCE="Ps.outlook_eid" LABEL-TITLE="Microsoft Outlook:" WIDTH="55zr"/>
+		<SEPARATOR/>
+		<EDIT SOURCE="Ps.lotus_eid" LABEL-TITLE="Lotus Notes:" WIDTH="55zr"/>
+		<SEPARATOR/>
+		<EDIT SOURCE="Ps.google_eid" LABEL-TITLE="Google:" WIDTH="55zr"/>
+	</GROUP>
+	<DELIM/>
+</IF>
+
+<IF EXPR="lib_office_access.is_office_access_enabled &amp;&amp; Ps.ChildExists( 'entry_pass_request_eid' )">
+	<GROUP>
+		<EDIT SOURCE="Ps.entry_pass_request_eid" AUTO-LABEL="1" WIDTH="30zr"/>
+	</GROUP>
+	<DELIM/>
+</IF>
+
+
+<GROUP>
+	<ITEM TYPE="date_time_selector" SOURCE="Ps.reminder_date" LABEL-TITLE="##UiText.titles.reminder##:" WIDTH="24zr"/>
+	<CHECK TITLE="##UiText.titles.at_this_exact_time##" SOURCE="Ps.is_exact_time_reminder" ENABLE="Ps.reminder_date.HasValue"/>
+</GROUP>
+<DELIM/>
+
+</PAGE>
+
+
+
+
+
+<IF EXPR="Ps.type.is_approval" IGNORE-ERRORS="0">
+
+<PAGE TITLE="Утверждение участниками" lang-en:TITLE="Approval by participants" SUNKEN="1" STD-MARGINS="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/plus.ico" EXPANDED="1" lang-ua:TITLE="Затвердження учасниками">
+	<LOOP EXPR="Ps.approval_entries" VAR="ListElem">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="42zr"/>
+				<COL WIDTH="21zr"/>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="22px"/>
+			</COLUMNS>
+
+			<ITEM TYPE="object_selector" SOURCE="ListElem.person_id"/>
+			<ITEM TYPE="date_time_selector" SOURCE="ListElem.date"/>
+
+			<CHECK SOURCE="ListElem.is_approved" AUTO-LABEL="1"/>
+
+			<BUTTON IMAGE-URL="//base_pict/actions.ico">
+				<MENU>
+					<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+							ListElem.Delete();
+							Ps.Doc.SetChanged( true );
+					"/>
+				</MENU>
+			</BUTTON>
+		</TABLE>
+	</LOOP>
+	<DELIM/>
+
+	<LOOP EXPR="ArraySelect( Ps.participants, 'Ps.approval_entries.GetOptChildByKey( person_id ) == undefined' )" VAR="ListElem">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="36zr"/>
+				<COL WIDTH="8zr"/>
+				<COL WIDTH="8zr"/>
+			</COLUMNS>
+
+			<LABEL TITLE-EXPR="ListElem.person_id.ForeignElem.fullname"/>
+
+			<CHECK SOURCE="false" TITLE="##UiText.titles.yes##" SET-VALUE-ACTION="
+					approvalEntry = Ps.approval_entries.ObtainChildByKey( ListElem.person_id );
+					approvalEntry.date = CurDate;
+					approvalEntry.is_approved = true;
+
+					Ps.Doc.SetChanged( true );
+			"/>
+
+			<CHECK SOURCE="false" TITLE="##UiText.titles.no##" SET-VALUE-ACTION="
+					approvalEntry = Ps.approval_entries.ObtainChildByKey( ListElem.person_id );
+					approvalEntry.date = CurDate;
+					approvalEntry.is_approved = false;
+
+					Ps.Doc.SetChanged( true );
+			"/>
+		</TABLE>
+	</LOOP>
+</PAGE>
+
+</IF>
+
+
+<IF EXPR="Ps.ChildExists( 'participant_poll_results' )" IGNORE-ERRORS="0">
+	<PAGE TITLE="Ответы участников" IMAGE-URL="//base_pict/folder.ico" EXPANDED="1" SUNKEN="1" lang-en:TITLE="Participants' answers" lang-ua:TITLE="Відповіді учасників">
+		<LOOP EXPR="Ps.participant_poll_results" VAR="ListElem">
+			<PAGE TITLE-EXPR="ListElem.person_id.ForeignDispName" IMAGE-URL="//base_pict/generic_item.ico" SUNKEN="1" VERT-SCROLL="1" SOURCE="ListElem">
+				<LABEL TITLE-EXPR="StrReplace( UiText.titles.participant_xxx_poll_result, '%s', Ps.person_id.ForeignDispName ) + ':'"/>
+				<BR/>
+
+				<CHECK TITLE="Заполнено" lang-en:TITLE="Completed" SOURCE="Ps.completion_id == 1" SET-VALUE-ACTION="
+						if ( NewValue )
+							Ps.completion_id = 1;
+						else
+							Ps.completion_id.Clear();
+
+						Ps.Doc.SetChanged( true );
+				" lang-ua:TITLE="Заповнено"/>
+				<BR/>
+
+				<ITEM TYPE="poll_result"/>
+			</PAGE>
+		</LOOP>
+	</PAGE>
+</IF>
+
+
+<ITEM TYPE="card_attachments"/>
+
+
+</PAGE>
+
+</SELECTOR>
+
+</LINE>
+
+
+
+
+<IF EXPR="Ps.ChildExists( 'participant_poll_results' )" IGNORE-ERRORS="0">
+	<COMMAND-HANDLER CMD="Print" ACTION="
+			if ( AppModuleUsed( 'module_rgs' ) )
+			{
+				reportStr = EvalCodePageUrl( '//module_rgs/rgs_rr_poll.xmp', 'strict-errors=1' );
+
+				tempFile = ObtainSessionTempFile( '.xls' );
+				PutUrlData( tempFile, ReportToHtml( reportStr ) );
+
+				ShellExecute( 'open', tempFile );
+				return;
+			}
+
+			reportStr = EvalCodePageUrl( '//rcr/rcr_rr_poll.xmp', 'strict-errors=1' );
+			lib_base.print_report( reportStr );
+	" PASSIVE="1"/>
+</IF>
+
+
+<COMMAND-HANDLER CMD="ShowInOfficeCalc" ACTION="
+		lib_base.check_desktop_client();
+		lib_office.show_screen_in_calc( Screen );
+" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+
+
+
+<COMMAND-HANDLER CMD="Help" HREF-EXPR="lib_base.build_help_article_url( 'intro.htm' )" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+
+</SPXML-SCREEN>
+

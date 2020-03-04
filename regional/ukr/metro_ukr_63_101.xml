@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metro_map xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<location_name VALUE="Харьков" lang-ua:VALUE="Харків"/>
+	<lines>
+		<line>
+			<id>22</id>
+			<name VALUE="Алексеевская" lang-ua:VALUE="Олексіївська"/>
+		</line>
+		<line>
+			<id>23</id>
+			<name VALUE="Салтовская" lang-ua:VALUE="Салтівська"/>/>
+		</line>
+		<line>
+			<id>24</id>
+			<name VALUE="Холодногорско-Заводская" lang-ua:VALUE="Холодногірсько-Заводська"/>
+		</line>
+	</lines>
+	<stations>
+		<station>
+			<id>374</id>
+			<name VALUE="23 Августа" lang-en:VALUE="23 Avgusta" lang-ua:VALUE="23 Серпня"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>375</id>
+			<name VALUE="Академика Барабашова" lang-en:VALUE="Akademika Barabashova" lang-ua:VALUE="Академіка Барабашова"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>376</id>
+			<name VALUE="Академика Павлова" lang-en:VALUE="Akademika Pavlova" lang-ua:VALUE="Академіка Павлова"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>531</id>
+			<name VALUE="Алексеевская" lang-en:VALUE="Alekseevskaya" lang-ua:VALUE="Олексіївська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>377</id>
+			<name VALUE="Архитектора Бекетова" lang-en:VALUE="Arhitektora Beketova" lang-ua:VALUE="Архітектора Бекетова"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>378</id>
+			<name VALUE="Ботанический сад" lang-en:VALUE="Botanicheskij sad" lang-ua:VALUE="Ботанічний сад"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>379</id>
+			<name VALUE="Героев труда" lang-en:VALUE="Geroev truda" lang-ua:VALUE="Героїв праці"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>380</id>
+			<name VALUE="Госпром" lang-en:VALUE="Gosprom" lang-ua:VALUE="Держпром"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>381</id>
+			<name VALUE="Завод имени Малышева" lang-en:VALUE="Zavod imeni Malysheva" lang-ua:VALUE="Завод імені Малишева"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>382</id>
+			<name VALUE="Имени А. С. Масельского" lang-en:VALUE="Imeni A. S. Maselskogo" lang-ua:VALUE="Імені А. С. Масельського"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>383</id>
+			<name VALUE="Исторический музей" lang-en:VALUE="Istoricheskij muzej" lang-ua:VALUE="Історичний музей"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>384</id>
+			<name VALUE="Каштановая" lang-en:VALUE="Kashtanovaya" lang-ua:VALUE="Каштанова"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>385</id>
+			<name VALUE="Киевская" lang-en:VALUE="Kievskaya" lang-ua:VALUE="Київська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>386</id>
+			<name VALUE="Маршала Жукова" lang-en:VALUE="Marshala Zhukova" lang-ua:VALUE="Маршала Жукова"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>387</id>
+			<name VALUE="Метростроителей имени Ващенко" lang-en:VALUE="Metrostroitelej imeni Vaschenko" lang-ua:VALUE="Метробудівників імені Ващенка"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>388</id>
+			<name VALUE="Московский проспект" lang-en:VALUE="Moskovskij prospekt" lang-ua:VALUE="Московський проспект"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>389</id>
+			<name VALUE="Научная" lang-en:VALUE="Nauchnaya" lang-ua:VALUE="Наукова"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>390</id>
+			<name VALUE="Новожаново" lang-en:VALUE="Novozhanovo" lang-ua:VALUE="Новожаново"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>391</id>
+			<name VALUE="Площадь Восстания" lang-en:VALUE="Ploschad Vosstaniya" lang-ua:VALUE="Площа Повстання"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>392</id>
+			<name VALUE="Пролетарская" lang-en:VALUE="Proletarskaya" lang-ua:VALUE="Пролетарська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>393</id>
+			<name VALUE="Проспект Гагарина" lang-en:VALUE="Prospekt Gagarina" lang-ua:VALUE="Проспект Гагаріна"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>394</id>
+			<name VALUE="Пушкинская" lang-en:VALUE="Pushkinskaya" lang-ua:VALUE="Пушкінська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>395</id>
+			<name VALUE="Советская" lang-en:VALUE="Sovetskaya" lang-ua:VALUE="Радянська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>396</id>
+			<name VALUE="Советской армии" lang-en:VALUE="Sovetskoj armii" lang-ua:VALUE="Радянської армії"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>397</id>
+			<name VALUE="Спортивная" lang-en:VALUE="Sportivnaya" lang-ua:VALUE="Спортивна"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>398</id>
+			<name VALUE="Студенческая" lang-en:VALUE="Studencheskaya" lang-ua:VALUE="Студентська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>399</id>
+			<name VALUE="Тракторный завод" lang-en:VALUE="Traktornyj zavod" lang-ua:VALUE="Тракторний завод"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>400</id>
+			<name VALUE="Университет" lang-en:VALUE="Universitet" lang-ua:VALUE="Університет"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>401</id>
+			<name VALUE="Холодная гора" lang-en:VALUE="Holodnaya gora" lang-ua:VALUE="Холодна гора"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>402</id>
+			<name VALUE="Центральный рынок" lang-en:VALUE="Centralnyj rynok" lang-ua:VALUE="Центральний ринок"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>403</id>
+			<name VALUE="Южный вокзал" lang-en:VALUE="Yuzhnyj vokzal" lang-ua:VALUE="Південний вокзал"/>
+			<line_id>0</line_id>
+		</station>
+	</stations>
+</metro_map>

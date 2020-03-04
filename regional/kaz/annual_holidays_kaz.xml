@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_annual_holiday_maps SPXML-FORM="//cn/cn_std_annual_holiday_maps.xmd" LANG="ru">
+	<std_annual_holiday_map>
+		<country_id>KAZ</country_id>
+		<year>2015</year>
+		<holidays>
+			<holiday>101</holiday>
+			<holiday>102</holiday>
+			<holiday>107</holiday>
+			<holiday>309</holiday>
+			<holiday>323</holiday>
+			<holiday>324</holiday>
+			<holiday>325</holiday>
+			<holiday>501</holiday>
+			<holiday>507</holiday>
+			<holiday>511</holiday>
+			<holiday>706</holiday>
+			<holiday>831</holiday>
+			<holiday>924</holiday>
+			<holiday>1201</holiday>
+			<holiday>1216</holiday>
+			<holiday>1217</holiday>
+		</holidays>
+	</std_annual_holiday_map>
+</std_annual_holiday_maps>

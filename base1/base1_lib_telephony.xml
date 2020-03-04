@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<lib_telephony>
+	<activeEntries TYPE="variant" STRICT="1"/>
+
+	<active_calls OBSOLETE="1">
+		<active_call MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<uid TYPE="string"/>
+			<is_incoming TYPE="bool" NOT-NULL="1"/>
+			<phone TYPE="string"/>
+			<start_ticks TYPE="integer"/>
+
+			<is_connected TYPE="bool" NOT-NULL="1"/>
+			<conn_start_ticks TYPE="integer"/>
+			<is_ended TYPE="bool" NOT-NULL="1"/>
+
+			<baseObject TYPE="variant" STRICT="1"/>
+		</active_call>
+	</active_calls>
+
+	<last_outgoing_call_info>
+		<phone TYPE="string"/>
+		<start_ticks TYPE="integer"/>
+
+		<baseObject TYPE="variant" STRICT="1"/>
+	</last_outgoing_call_info>
+
+	<task TYPE="variant" STRICT="1"/>
+	<check_notif_timeout TYPE="integer"/>
+</lib_telephony>
+
+
+</SPXML-INLINE-FORM>

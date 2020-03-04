@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<spxml_module>
+	<ui_texts>
+		<ui_text>
+			<url>rcr_ui_text.xml</url>
+		</ui_text>
+	</ui_texts>
+
+	<sample_forms>
+		<sample_form>
+			<url>rcr_general.xmd</url>
+		</sample_form>
+	</sample_forms>
+
+	<sample_screen_forms>
+		<sample_screen_form>
+			<url>rcr_general.xms</url>
+		</sample_screen_form>
+	</sample_screen_forms>
+
+
+	<shared_docs>
+		<shared_doc>
+			<url>rcr_common.xml</url>
+		</shared_doc>
+		<shared_doc>
+			<url>rcr_config.xml</url>
+		</shared_doc>
+
+		<shared_doc>
+			<url>rcr_lib_vacancy.js</url>
+		</shared_doc>
+		<shared_doc>
+			<url>rcr_lib_resume.js</url>
+		</shared_doc>
+		<shared_doc>
+			<url>rcr_lib_recruit.js</url>
+		</shared_doc>
+		<shared_doc>
+			<url>rcr_lib_recruit_hm.js</url>
+		</shared_doc>
+		<shared_doc>
+			<url>rcr_lib_recruit_hm_core.js</url>
+			<server_only>1</server_only>
+		</shared_doc>
+		<shared_doc>
+			<url>rcr_lib_candidate.js</url>
+		</shared_doc>
+		<shared_doc>
+			<url>rcr_lib_candidate_dup.xml</url>
+		</shared_doc>
+		<shared_doc>
+			<url>rcr_lib_storage_load.xml</url>
+		</shared_doc>
+		<shared_doc>
+			<url>rcr_lib_staff_connector.xml</url>
+		</shared_doc>
+		<shared_doc>
+			<url>rcr_lib_factory_options.js</url>
+		</shared_doc>
+		<shared_doc>
+			<url>rcr_lib_auth.js</url>
+			<exist_req_expr>! UseLds</exist_req_expr>
+		</shared_doc>
+		<shared_doc>
+			<url>rcr_lib_access.js</url>
+			<exist_req_expr>! UseLds</exist_req_expr>
+		</shared_doc>
+		<shared_doc>
+			<url>rcr_lib_recruit_provider.js</url>
+		</shared_doc>
+
+		<shared_doc>
+			<url>rcr_wsrv_vacancy.xml</url>
+			<server_only>1</server_only>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</shared_doc>
+		<shared_doc>
+			<url>rcr_wsrv_candidate.xml</url>
+			<server_only>1</server_only>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</shared_doc>
+
+		<shared_doc>
+			<url>x-local://data/static/global_settings.xml</url>
+			<form_url>rcr_global_settings.xmd</form_url>
+		</shared_doc>
+
+		<shared_doc>
+			<url>x-local://data_local/local_settings.xml</url>
+			<form_url>rcr_local_settings.xmd</form_url>
+		</shared_doc>
+	</shared_docs>
+
+
+	<object_types>
+		<object_type>
+			<form_url>rcr_vacancy.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>rcr_vacancy_instance.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>rcr_candidate.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>rcr_parsed_message.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>rcr_budget.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>rcr_rr_poll.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>rcr_vacancy_request.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>rcr_external_vacancy.xmd</form_url>
+		</object_type>
+
+		<object_type>
+			<form_url>//base1/base1_trash_object.xmd</form_url>
+			<db_name>trash</db_name>
+		</object_type>
+	</object_types>
+
+	<code_source_files>
+		<code_source_file>
+			<url>candidate_client_lib.bs</url>
+			<client_only>1</client_only>
+		</code_source_file>
+		<code_source_file>
+			<url>candidate_server_lib.bs</url>
+			<server_only>1</server_only>
+		</code_source_file>
+		<code_source_file>
+			<url>raw_storage_server_lib.bs</url>
+			<server_only>1</server_only>
+		</code_source_file>
+	</code_source_files>
+
+	<start_url>rcr_main.xml</start_url>
+</spxml_module>
+
+
+

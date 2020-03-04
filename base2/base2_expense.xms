@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="UiText.objects.expense" WINDOW-ICON-URL-EXPR="Ps.image_url" MAXIMIZED="1">
+
+
+<ITEM TYPE="card_menu_start"/>
+
+<ITEM TYPE="card_toolbar"/>
+
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="39zr" STD-MARGINS="0">
+	<PANEL HEIGHT="-23zr" SUNKEN="1">
+		<TREE SUNKEN="0" SWITCH-TYPE="selector" TARGET="main_selector">
+		</TREE>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+
+	<PANEL SUNKEN="1" STD-MARGINS="1" HEIGHT-EXPR="lib_base.card_left_prop_panel_height" BK-COLOR="sys-bk-ctrl">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="45%"/>
+				<COL WIDTH="55%"/>
+			</COLUMNS>
+
+			<ITEM TYPE="object_preview" SOURCE="Ps.user_id"/>
+		</TABLE>
+	</PANEL>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.objects.recruiting_expense##" SUNKEN="1" EXPANDED="1" IMAGE-URL-EXPR="Ps.image_url">
+
+
+
+<PAGE TITLE="##UiText.sections.general##" IMAGE-URL="//base_pict/common.ico" lang-en:TITLE="General">
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<ITEM TYPE="object_selector" SOURCE="Ps.org_id" AUTO-LABEL="1"/>
+	</TABLE>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="25zr"/>
+			<COL WIDTH="30zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.type_id" AUTO-LABEL="1"/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.agreement_id" AUTO-LABEL="1" view-filter-expr="Ps.org_id.HasValue ? {org_id:Ps.org_id}:undefined"/>
+	</TABLE>
+	<BR/>
+
+	<LABEL TITLE="Период оказания услуги (с,по):" lang-en:TITLE="Service term (from, to):" lang-ua:TITLE="Період надання послуги (з, до):"/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="14zr"/>
+			<COL WIDTH="14zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="date_selector" SOURCE="Ps.delivery.date"/>
+		<ITEM TYPE="date_selector" SOURCE="Ps.delivery.end_date"/>
+	</TABLE>
+	<DELIM/>
+
+	<IF EXPR="global_settings.use_divisions">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+			<ITEM TYPE="object_selector" SOURCE="Ps.division_id" AUTO-LABEL="1"/>
+		</TABLE>
+	</IF>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<ITEM TYPE="object_selector" SOURCE="Ps.vacancy_id" AUTO-LABEL="1" UPDATE-ACTION="
+				if ( ! Ps.vacancy_id.HasValue )
+					return;
+
+				vacancy = Ps.vacancy_id.ForeignElem;
+
+				if ( ! Ps.division_id.HasValue )
+					Ps.division_id = vacancy.division_id;
+
+				if ( vacancy.final_candidate_id.HasValue )
+				{
+					Ps.candidate_id = vacancy.final_candidate_id;
+					source = Ps.candidate_id.ForeignElem.source_id.OptForeignElem;
+					if ( source != undefined && source.org_id.HasValue && ! Ps.org_id.HasValue )
+						Ps.org_id = source.org_id;
+				}
+		"/>
+	</TABLE>
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="45zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="object_selector" SOURCE="Ps.candidate_id" AUTO-LABEL="1"/>
+	</TABLE>
+	<DELIM/>
+
+	<GROUP>
+		<EDIT SOURCE="Ps.amount" AUTO-LABEL="1" WIDTH="12zr"/>
+		<EDIT SOURCE="Ps.nvat_amount" AUTO-LABEL="1" WIDTH="12zr"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.currency_id" AUTO-LABEL="1" WIDTH="15zr"/>
+
+		<SEPARATOR/>
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.payment_state_id" AUTO-LABEL="1" UPDATE-ACTION="
+				if ( Ps.payment_state_id == 'paid' &amp;&amp; ! Ps.payment_date.HasValue )
+					Ps.payment_date = DateNewTime( CurDate );
+		" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.payment_state_id, 20, 40 )"/>
+		
+		<ITEM TYPE="date_selector" SOURCE="Ps.payment_date" AUTO-LABEL="1"/>
+
+		<EDIT SOURCE="Ps.payment_code" AUTO-LABEL="1" WIDTH="10zr"/>
+	</GROUP>
+	<DELIM/>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+
+	<EDIT SOURCE="Ps.comment" MULTILINE="1" HEIGHT="auto" AUTO-LABEL="1"/>
+</PANEL>
+
+</PAGE>
+
+
+
+<ITEM TYPE="card_attachments"/>
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+</LINE>
+
+
+
+<COMMAND-HANDLER CMD="Help" HREF-EXPR="lib_base.build_help_article_url( 'intro.htm' )" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+
+</SPXML-SCREEN>

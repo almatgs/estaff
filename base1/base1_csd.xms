@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="Ps.editor_ref.Object.title" BEFORE-INIT-ACTION="
+		editorRef = Ps.AddDynamicChild( 'editor_ref', 'variant' );
+		editorRef.FormElem.IsTemp = true;
+
+		editorRef.Value = OpenNewDoc( 'base1_csd_editor.xmd' ).TopElem;
+		editorRef.Object.root_elem_ref = Ps[0];
+" BEFORE-SAVE-ACTION="
+" SAVE-ACTION="
+		if ( UseLds )
+			Screen.MsgBox( UiText.messages.changes_require_server_restart, UiText.messages.info_msg_title, 'info' );
+		else
+			Screen.MsgBox( UiText.messages.changes_require_app_restart, UiText.messages.info_msg_title, 'info' );
+
+		UpdateScreens( '*', '*csd*' );
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+
+<UNIT NAME="csd_list_menu_entries" SAMPLE="1">
+	<INHERIT TYPE="list_menu_entries"/>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+			
+	<MENU-ENTRY TITLE="##UiText.actions.move_up##" ACTION="
+			curElem = List.SelRow.Env.ListElem;
+			if ( curElem.ChildIndex == 0 )
+				return;
+
+			curElem.SetChildIndex( curElem.ChildIndex - 1 );
+			curElem.Doc.SetChanged( true );
+	" ENABLE-EXPR="List.HasSingleSel"/>
+
+	<MENU-ENTRY TITLE="##UiText.actions.move_down##" ACTION="
+			curElem = List.SelRow.Env.ListElem;
+			if ( curElem.ChildIndex == curElem.Parent.ChildNum - 1 )
+				return;
+
+			curElem.SetChildIndex( curElem.ChildIndex + 1 );
+			curElem.Doc.SetChanged( true );
+	" ENABLE-EXPR="List.HasSingleSel"/>
+
+	<IF EXPR="false">
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="Переместить на уровень выше" ACTION="
+				curElem = List.SelRow.Env.ListElem;
+				if ( curElem.ChildIndex == 0 )
+					return;
+
+				newElem = curElem.Clone();
+				curElem.Parent.Parent.AddChildElem( newElem );
+
+				curElem.Delete()
+
+				curElem.Doc.SetChanged( true );
+		" ENABLE-EXPR="List.HasSingleSel" lang-en:TITLE="Move to upper level" lang-ua:TITLE="Перемістити на рівень вище"/>
+	</IF>
+</UNIT>
+
+
+
+<WITH VAR="_editor" EXPR="Ps.editor_ref.Object" IGNORE-ERRORS="0">
+
+
+
+
+<INHERIT TYPE="min_menus"/>
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="base_toolbar_start_entries"/>
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY TITLE="Новый элемент данных" IMAGE-URL="//base_pict/csd_elem.ico" ACTION="
+			elemName = _editor.generate_elem_name();
+
+			elem = Ps[0].AddDynamicChild( elemName );
+			elem.ObtainAttr( 'TYPE', 'string' );
+			Ps.Doc.SetChanged( true );
+			
+			_editor.set_cur_elem( elem );
+	" lang-en:TITLE="New data field" lang-ua:TITLE="Новий елемент даних"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY TITLE="Новый управляющий элемент" IMAGE-URL="//base_pict/csd_page.ico" ACTION="
+			elemName = _editor.generate_elem_name();
+
+			elem = Ps[0].AddDynamicChild( 'LINE' );
+			Ps.Doc.SetChanged( true );
+			
+			_editor.set_cur_elem( elem );
+	" lang-en:TITLE="New controlling element" lang-ua:TITLE="Новий керуючий елемент"/>
+
+	<INHERIT TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+
+<PANEL SUNKEN="1" HEIGHT="-50zr">
+	<IF EXPR="System.ClientMajorVersion >= 2">
+		<LIST LOOP-EXPR="Ps[0]" HIER="1">
+			<ROW OPEN-ACTION="" DELETE-ACTION="
+					if ( ListElem.Parent.Name == 'SPXML-COMBO-FORM' )
+						return;
+				
+					ListElem.Delete();
+					Ps.Doc.SetChanged( true );
+			" SET-SEL-ACTION="_editor.set_cur_elem_async( ListElem )" IMAGE-URL-EXPR="_editor.get_elem_image_url( ListElem )">
+				<COL WIDTH="40zr" COL-TITLE="##UiText.fields.field##" TITLE-EXPR="_editor.get_elem_disp_name( ListElem )" lang-en:COL-TITLE="Field"/>
+
+				<COL WIDTH="100%" COL-TITLE="##UiText.fields.field##" TITLE-EXPR="ListElem.OptAttrValue( 'TITLE', '' )" lang-en:COL-TITLE="Field"/>
+
+				<COL WIDTH="30zr" COL-TITLE="##UiText.fields.location__place##" TITLE-EXPR="val = ListElem.OptAttrValue( 'ZONE', '' ), ( val != '' ? GetForeignElem( base1_config.csd_anchors, val ).name : '' )" lang-en:COL-TITLE="Field"/>
+			
+				<LOOP-HIER-SUBST EXPR="ListElem"/>
+			</ROW>
+
+			<MENU RIGHT-CLICK="1">
+				<INHERIT TYPE="csd_list_menu_entries"/>
+			</MENU>
+		</LIST>
+	</IF>
+	<ELSE>
+		<LIST LOOP-EXPR="XmlHier( Ps[0] )" HIER="1">
+			<ROW OPEN-ACTION="" DELETE-ACTION="
+					if ( ListElem.Parent.Name == 'SPXML-COMBO-FORM' )
+						return;
+				
+					ListElem.Delete();
+					Ps.Doc.SetChanged( true );
+			" SET-SEL-ACTION="_editor.set_cur_elem_async( ListElem )" IMAGE-URL-EXPR="_editor.get_elem_image_url( ListElem )">
+				<COL WIDTH="40zr" COL-TITLE="##UiText.fields.field##" TITLE-EXPR="_editor.get_elem_disp_name( ListElem )" lang-en:COL-TITLE="Field"/>
+
+				<COL WIDTH="100%" COL-TITLE="##UiText.fields.field##" TITLE-EXPR="ListElem.OptAttrValue( 'TITLE', '' )" lang-en:COL-TITLE="Field"/>
+
+				<COL WIDTH="30zr" COL-TITLE="##UiText.fields.location__place##" TITLE-EXPR="val = ListElem.OptAttrValue( 'ZONE', '' ), ( val != '' ? GetForeignElem( base1_config.csd_anchors, val ).name : '' )" lang-en:COL-TITLE="Field"/>
+			</ROW>
+
+			<MENU RIGHT-CLICK="1">
+				<INHERIT TYPE="csd_list_menu_entries"/>
+			</MENU>
+		</LIST>
+	</ELSE>
+</PANEL>
+
+<SPLIT FIXED="1"/>
+
+<PANEL SUNKEN="1" HEIGHT="100%" SOURCE="_editor.cur_elem_ref.Object">
+	<IF EXPR="_editor.cur_elem_ref.HasValue &amp;&amp; Ps.Parent.Name != 'SPXML-COMBO-FORM'">
+		<LINE>
+			<LABEL TITLE="##UiText.titles.elem__or__field##:"/>
+			<RADIO-BUTTON TITLE="##UiText.titles.data##" SOURCE="_editor.cur_elem_is_aux" SWITCH-VALUE="false" WIDTH="auto"/>
+			<RADIO-BUTTON TITLE="Управляющий элемент" SOURCE="_editor.cur_elem_is_aux" SWITCH-VALUE="true" WIDTH="auto" lang-en:TITLE="Controlling element" lang-ua:TITLE="Керуючий елемент"/>
+		</LINE>
+		<BR/>
+
+		<IF EXPR="_editor.cur_elem_is_aux">
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="30zr"/>
+					<COL WIDTH="100%"/>
+				</COLUMNS>
+
+				<COMBO SOURCE="Ps.Name" SET-VALUE-ACTION="
+						_editor.set_elem_tag_name( Ps, NewValue );
+						Ps.Doc.SetChanged( true );
+				" LABEL-TITLE="Тип управляющего элемента" lang-en:LABEL-TITLE="Controlling element type" lang-ua:LABEL-TITLE="Тип керуючого елемента">
+					<COMBO-ENTRY TITLE="Надпись" VALUE="LABEL" lang-en:TITLE="Label" lang-ua:TITLE="Напис"/>
+					<COMBO-ENTRY TITLE="Начало строки" VALUE="LINE" lang-en:TITLE="Line start" lang-ua:TITLE="Початок рядка"/>
+					<COMBO-ENTRY TITLE="Конец строки" VALUE="LINE-END" lang-en:TITLE="Line end" lang-ua:TITLE="Кінець рядка"/>
+					<COMBO-ENTRY TITLE="Начало раздела" VALUE="PAGE" lang-en:TITLE="Page start" lang-ua:TITLE="Початок розділу"/>
+					<COMBO-ENTRY TITLE="Конец раздела" VALUE="PAGE-END" lang-en:TITLE="Page end" lang-ua:TITLE="Кінець розділу"/>
+				</COMBO>
+
+				<IF EXPR="Ps.Name == 'LABEL' || Ps.Name == 'PAGE'">
+					<EDIT SOURCE="Ps.OptAttrValue( 'TITLE', '' )" SET-VALUE-ACTION="
+							Ps.ObtainAttr( 'TITLE', NewValue );
+							Ps.Doc.SetChanged( true );
+					" LABEL-TITLE="##UiText.fields.name##" lang-en:LABEL-TITLE="Name"/>
+				</IF>
+			</TABLE>
+		</IF>
+		<ELSE>
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="30zr"/>
+					<COL WIDTH="30zr"/>
+					<COL WIDTH="100%"/>
+				</COLUMNS>
+
+				<EDIT SOURCE="Ps.Name" SET-VALUE-ACTION="
+						_editor.set_elem_name( Ps, NewValue );
+						Ps.Doc.SetChanged( true );
+				" WIDTH="30zr" LABEL-TITLE="##UiText.fields.id##" lang-en:LABEL-TITLE="ID"/>
+
+				<COMBO SOURCE="Ps.OptAttrValue( 'TYPE', '' )" SET-VALUE-ACTION="
+						Ps.ObtainAttr( 'TYPE', NewValue );
+						Ps.Doc.SetChanged( true );
+				" WIDTH="30zr" LABEL-TITLE="##UiText.fields.data_type##">
+					<INHERIT TYPE="data_type_combo_entries"/>
+				</COMBO>
+
+				<EDIT SOURCE="Ps.OptAttrValue( 'TITLE', '' )" SET-VALUE-ACTION="
+						Ps.ObtainAttr( 'TITLE', NewValue );
+						Ps.Doc.SetChanged( true );
+				" LABEL-TITLE="##UiText.fields.name##" lang-en:LABEL-TITLE="Name"/>
+			</TABLE>
+			<BR/>
+
+			<IF EXPR="Ps.OptAttrValue( 'TYPE', '' ) == 'string'">
+				<LINE>
+					<CHECK SOURCE="Ps.OptAttrValue( 'MULTILINE', '' ) == '1'" SET-VALUE-ACTION="
+							Ps.SetOptAttrValue( 'MULTILINE', ( NewValue ? '1' : '' ), '' );
+							Ps.Doc.SetChanged( true );
+					" TITLE="Многострочное поле" lang-en:TITLE="Multiline" lang-ua:TITLE="Багаторядкове поле"/>
+
+					<CHECK SOURCE="Ps.OptAttrValue( 'SUBTYPE', '' ) == 'url'" SET-VALUE-ACTION="
+							Ps.SetOptAttrValue( 'SUBTYPE', ( NewValue ? 'url' : '' ), '' );
+							Ps.Doc.SetChanged( true );
+					" TITLE="##UiText.fields.link##"/>
+				</LINE>
+			</IF>
+
+			<IF EXPR="Ps.OptAttrValue( 'TYPE', '' ) == 'string' || Ps.OptAttrValue( 'TYPE', '' ) == 'integer'">
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="40zr"/>
+						<COL WIDTH="35zr"/>
+						<COL WIDTH="35zr"/>
+					</COLUMNS>
+
+					<COMBO SOURCE="Ps.OptAttrValue( 'FOREIGN-ARRAY', '' )" FOREIGN-ARRAY="vocs" ELEM="ListElem.name" SET-VALUE-ACTION="
+							Ps.ObtainAttr( 'FOREIGN-ARRAY', NewValue );
+							
+							if ( NewValue != '' && NewValue != null )
+								Ps.ObtainAttr( 'TYPE', lib_voc.get_opt_voc_info( NewValue ).key_type );
+							
+							Ps.Doc.SetChanged( true );
+					" LABEL-TITLE="Ссылка на справочник:" lang-en:LABEL-TITLE="Reference list selector:" lang-ua:LABEL-TITLE="Посилання на довідник:"/>
+
+					<COMBO SOURCE="lib_base.catalog_name_to_opt_object_name( Ps.OptAttrValue( 'FOREIGN-ARRAY', '' ) )" FOREIGN-ARRAY="card_object_types" ELEM="ListElem.name" SET-VALUE-ACTION="
+							Ps.ObtainAttr( 'FOREIGN-ARRAY', lib_base.object_name_to_catalog_name( NewValue ) );
+							Ps.ObtainAttr( 'TYPE', 'integer' );
+							Ps.Doc.SetChanged( true );
+					" LABEL-TITLE="##UiText.titles.object_reference##:"/>
+
+					<IF EXPR="Ps.OptAttrValue( 'FOREIGN-ARRAY', '' ) != ''">
+						<PANEL>
+							<PANEL HEIGHT="3zrc">
+							</PANEL>
+
+							<CHECK SOURCE="Ps.OptAttrValue( 'MULTIPLE', '' ) == '1'" SET-VALUE-ACTION="
+									Ps.SetOptAttrValue( 'MULTIPLE', ( NewValue ? '1' : '' ), '' );
+									Ps.Doc.SetChanged( true );
+							" TITLE="##UiText.titles.multiple_choice##"/>
+						</PANEL>
+					</IF>
+				</TABLE>
+				<BR/>
+			</IF>
+
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="30zr"/>
+					<COL WIDTH="30zr"/>
+					<COL WIDTH="2zr"/>
+					<COL WIDTH="50zr"/>
+				</COLUMNS>
+
+				<ITEM TYPE="width_edit" SOURCE="Ps.OptAttrValue( 'WIDTH', '' )" SET-VALUE-ACTION="
+						Ps.SetOptAttrValue( 'WIDTH', NewValue );
+						Ps.Doc.SetChanged( true );
+				" LABEL-TITLE="##UiText.fields.width##:"/>
+
+				<IF EXPR="Ps.OptAttrValue( 'TYPE', '' ) == 'string' && Ps.OptAttrValue( 'MULTILINE', '' ) == '1'">
+					<ITEM TYPE="width_edit" SOURCE="Ps.OptAttrValue( 'HEIGHT', '' )" SET-VALUE-ACTION="
+							Ps.SetOptAttrValue( 'HEIGHT', NewValue );
+							Ps.Doc.SetChanged( true );
+					" LABEL-TITLE="##UiText.fields.height##:"/>
+				</IF>
+				<ELSE>
+					<LABEL/>
+				</ELSE>
+
+				<LABEL/>
+
+				<!--
+				<COMBO SOURCE="Ps.OptAttrValue( 'ZONE', '' )" SET-VALUE-ACTION="
+						Ps.SetOptAttrValue( 'ZONE', NewValue );
+						Ps.Doc.SetChanged( true );
+				" LABEL-TITLE="##UiText.fields.location__place##:">
+					<LOOP EXPR="ArraySelect( base1_config.csd_anchors, '! This.target_object_type_id.HasValue || This.target_object_type_id.ByValueExists( _editor.object_type_id )' )" VAR="ListElem">
+						<COMBO-ENTRY TITLE-EXPR="ListElem.name" VALUE-EXPR="ListElem.id"/>
+					</LOOP>
+				</COMBO>
+				-->
+			</TABLE>
+		</ELSE>
+	</IF>
+</PANEL>
+
+</WITH>
+
+
+</SPXML-SCREEN>
+

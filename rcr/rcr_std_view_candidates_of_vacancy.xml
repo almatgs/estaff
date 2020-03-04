@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>candidates_of_vacancy</id>
+	<name VALUE="##UiText.sections.candidates_of_vacancy##"/>
+	<parent_id>candidates</parent_id>
+
+	<drop_all_dyn_filters>1</drop_all_dyn_filters>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>spots.spot.vacancy_id</id>
+			<is_auto>1</is_auto>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>spots.spot.is_not_rejected</id>
+			<data_type>bool</data_type>
+			<title VALUE="Не показывать отклоненных" lang-en:VALUE="Hide rejected" lang-ua:VALUE="Не показувати відхилених"/>
+			<xquery_qual_expr>
+				if ( ChildExists( 'spots__spot__vacancy_id' ) )
+					vacancyID = spots__spot__vacancy_id;
+				else
+					vacancyID = active_vacancy_id;
+
+				return ( vacancyID.HasValue &amp;&amp; filterElem.Value ? '$elem/is_not_rejected_for_vacancy( ' + vacancyID + ' ) = true()' : '' );
+			</xquery_qual_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+	</dyn_filters>
+
+	<drop_all_fields>0</drop_all_fields>
+
+	<fields>
+		<field>
+			<id>state_date</id>
+			<title_expr>( spot = spots.GetOptChildByKey( filter.ChildExists( 'spots__spot__vacancy_id' ) ? filter.spots__spot__vacancy_id : filter.active_vacancy_id ), StrDate( ( spot != undefined ? spot.state_date : state_date ), false ) )</title_expr>
+			<col_title VALUE="##UiText.fields.date##"/>
+			<order>spots.GetChildByKey( filter.ChildExists( 'spots__spot__vacancy_id' ) ? filter.spots__spot__vacancy_id : filter.active_vacancy_id ).state_date</order>
+			<order_dir>-</order_dir>
+			<use_local_sort>1</use_local_sort>
+		</field>
+		<field>
+			<id>fullname</id>
+		</field>
+		<field>
+			<id>spots.spot.state_id</id>
+			<elem_expr>( spot = spots.GetOptChildByKey( filter.ChildExists( 'spots__spot__vacancy_id' ) ? filter.spots__spot__vacancy_id : filter.active_vacancy_id ), ( spot != undefined ? spot.state_id : state_id ) )</elem_expr>
+			<bk_color_expr>spots.GetChildByKey( filter.ChildExists( 'spots__spot__vacancy_id' ) ? filter.spots__spot__vacancy_id : filter.active_vacancy_id ).get_state_bk_color()</bk_color_expr>
+			<order>spots.GetChildByKey( filter.ChildExists( 'spots__spot__vacancy_id' ) ? filter.spots__spot__vacancy_id : filter.active_vacancy_id ).state_id.ForeignElem.order_index</order>
+			<use_local_sort>1</use_local_sort>
+			<width>24zr</width>
+		</field>
+		<field__>
+			<id>source_id</id>
+			<col_title VALUE="##UiText.fields.source##"/>
+			<text_color>90,120,0</text_color>
+		</field__>
+		<field>
+			<id>last_job_org_name</id>
+			<text_color>90,0,120</text_color>
+			<width>50%</width>
+		</field>
+		<field>
+			<id>last_comment</id>
+			<width>50%</width>
+		</field>
+		<field>
+			<id>user_id</id>
+			<view_filter_expr>{is_active:true}</view_filter_expr>
+		</field>
+	</fields>
+
+	<context_menu_sample>
+		<form_url>x-app://rcr/rcr_fields_view_candidates_of_vacancy.xms</form_url>
+		<name>context_menu_entries</name>
+	</context_menu_sample>
+</std_view>

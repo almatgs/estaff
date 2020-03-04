@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<local_settings>
+	<INHERIT TYPE="base2_local_settings"/>
+	<INHERIT TYPE="cn_local_settings"/>
+	<INHERIT TYPE="staff_local_settings"/>
+
+	<show_up_events TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<candidate_main_page>
+		<show_events TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+		<show_resume TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	</candidate_main_page>
+
+	<view_candidates_of_vacancy>
+		<show_target_states TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	</view_candidates_of_vacancy>
+	
+	<db_export>
+		<last_date TYPE="date"/>
+		<doc_type TYPE="string"/>
+		<dest_base_dir TYPE="string" DEFAULT="C:\"/>
+	</db_export>
+
+	<plugins>
+		<firefox_plugin_proposed TYPE="bool" NOT-NULL="1"/>
+		<thunderbird_plugin_proposed TYPE="bool" NOT-NULL="1"/>
+		<chrome_plugin_proposed TYPE="bool" NOT-NULL="1"/>
+	</plugins>
+
+	<browser_plugins>
+		<load_with_imod TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+		<load_with_imod_proposed TYPE="bool" NOT-NULL="1"/>
+
+		<explorer_plugin_proposed TYPE="bool" NOT-NULL="1"/>
+	</browser_plugins>
+
+	<mail_plugins>
+		<open_single_candidate TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+		<outlook_plugin_proposed TYPE="bool" NOT-NULL="1"/>
+		<thunderbird_plugin_proposed TYPE="bool" NOT-NULL="1"/>
+	</mail_plugins>
+
+	<disable_imod TYPE="bool" NOT-NULL="1"/>
+	<use_imod PROPERTY="1" EXPR="rcr_config.use_imod && ! disable_imod"/>
+</local_settings>
+
+
+
+</SPXML-FORM>

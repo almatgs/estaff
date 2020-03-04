@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM STORAGE-TYPE="single-xml" OWN-ID-SPACE="1" HIER="__IS_HIER__" IMAGE-URL="//base_pict/generic_item.ico" IMAGE-URL-EXPR="! ChildExists( 'is_active' ) || is_active ? '//base_pict/generic_item.ico' : '//base_pict/generic_item_inactive.ico'">
+
+
+<__OBJECT_NAME__>
+	<id TYPE="__VOC_KEY_TYPE__"/>
+	__PARENT_ID_SPEC__
+	<name TYPE="string"/>
+	__FULL_NAME_SPEC__
+
+	<order_index TYPE="integer"/>
+	<is_folder TYPE="bool" NOT-NULL="1"/>
+
+	<text_color TYPE="string"/>
+	<bk_color TYPE="string"/>
+	<image_url TYPE="string"/>
+
+	<keywords>
+		<keyword TYPE="string" MULTIPLE="1"/>
+	</keywords>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+
+
+	<ext_name PROPERTY="1" EXPR="
+			str = '';
+			elem = id.Parent;
+
+			while ( true )
+			{
+				if ( str != '' )
+					str = ' -> ' + str;
+				
+				str = elem.name + str;
+
+				try
+				{
+					elem = elem.Parent.Parent;
+					elem.name;
+				}
+				catch ( e )
+				{
+					break;
+				}
+			}
+
+			return str;
+	"/>
+</__OBJECT_NAME__>
+
+
+
+</SPXML-FORM>

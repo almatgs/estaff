@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+
+<view_up_calendar_entries>
+	<cur_date TYPE="date"/>	
+	<cur_xquery_str TYPE="string"/>	
+	<found_events TYPE="variant"/>
+</view_up_calendar_entries>
+
+
+
+</SPXML-INLINE-FORM>

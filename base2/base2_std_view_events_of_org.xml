@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>events_of_org</id>
+	<parent_id>events</parent_id>
+	<name VALUE="##UiText.sections.events##"/>
+
+	<drop_all_dyn_filters>1</drop_all_dyn_filters>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>org_id</id>
+			<is_auto>1</is_auto>
+		</dyn_filter>
+	</dyn_filters>
+</std_view>
+

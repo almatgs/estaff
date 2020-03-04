@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="140zr" HEIGHT="100zr" TITLE-EXPR="UiText.titles.message + ': ' + Ps.message.subject" RESIZE="1">
+
+
+<MENU TITLE="##UiText.titles.file##" GLOBAL="1">
+	<MENU-ENTRY TITLE="##UiText.actions.send##" ACTION="Ps.handle_send()" PASSIVE="1"/>
+</MENU>
+
+<INHERIT TYPE="card_edit_menu"/>
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/email.ico" TITLE="##UiText.actions.send##" ACTION="
+			Ps.handle_send();
+	" PASSIVE="1"/>
+
+	<INHERIT TYPE="edit_toolbar_entries"/>
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/attachment.ico" TIP-TEXT="##UiText.actions.attach_file##..." ACTION="
+			Ps.handle_attach_file();
+	"/>
+
+	<INHERIT TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+<PANEL STD-MARGINS="1">
+
+
+<GROUP>
+	<EDIT SOURCE="
+			if ( Ps.message.sender.name.HasValue )
+				return Ps.message.sender.name + ' &lt;' + Ps.message.sender.address + '>';
+			else
+				return Ps.message.sender.address;
+	" LABEL-TITLE="##UiText.fields.from__sender##:" READ-ONLY="1"/>
+
+	<SEPARATOR/>
+
+	<EDIT SOURCE="ArrayMerge( Ps.message.recipients, 'address', '; ' )" SET-VALUE-ACTION="
+			array = String( NewValue ).split( ';' );
+
+			Ps.message.recipients.Clear();
+
+			for ( str in array )
+				Ps.message.recipients.AddChild().address = Trim( str );
+	" LABEL-TITLE="##UiText.fields.to__recipient##:"/>
+
+	<SEPARATOR/>
+
+	<EDIT SOURCE="Ps.message.subject" LABEL-TITLE="##UiText.fields.subject##:"/>
+</GROUP>
+<BR/>
+
+<IF EXPR="Ps.message.html_body.HasValue">
+	<PANEL HEIGHT="-16zr" SUNKEN="1" STD-MARGINS="0">
+		<HYPER SOURCE="Ps.message.html_body" EDITABLE="1"/>
+	</PANEL>
+</IF>
+<ELSE>
+	<EDIT SOURCE="Ps.message.body" MULTILINE="1" HEIGHT="-16zr"/>
+</ELSE>
+
+
+<LABEL TITLE="##UiText.titles.attachments##:"/>
+
+<LIST LOOP-EXPR="Ps.message.attachments" SUNKEN="1" HEIGHT="-1zr">
+	<ROW OPEN-ACTION="Ps.handle_open_attachment( ListElem )" DELETE-ACTION="Ps.handle_delete_attachment( ListElem )" IMAGE-URL-EXPR="'x-sys-image://shell-icon/' + UrlPathSuffix( ListElem.name )">
+		<COL WIDTH="100%" COL-TITLE="##UiText.fields.name##" TITLE-EXPR="ListElem.name"/>
+	</ROW>
+</LIST>
+
+</PANEL>
+
+
+</SPXML-SCREEN>
+

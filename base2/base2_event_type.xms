@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-INIT-ACTION="
+		if ( Ps.is_std )
+			Ps.view.stdElem = CallServerMethod( 'lib_voc', 'GetRegisteredStdElem', ['event_types', Ps.id] );
+" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+		
+		for ( objectTypeID in Ps.target_object_type_id )
+		{
+			if ( objectTypeID == 'candidate' )
+				lib_event.update_object_states_by_event_types( objectTypeID );
+		}
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<USE FORM="base2_general_state.xms"/>
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="45zr" STD-MARGINS="0">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="0">
+		</TREE>
+	</PANEL>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.fields.event_type##" SUNKEN="1" EXPANDED="1" IMAGE-URL="//base_pict/generic_item.ico">
+
+
+<PAGE TITLE="##UiText.sections.general##" SUNKEN="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/common.ico" lang-en:TITLE="General">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="32zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.target_object_type_id" AUTO-LABEL="1"/>
+	</TABLE>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.is_state" AUTO-LABEL="1"/>
+
+	<LINE>
+		<CHECK SOURCE="Ps.is_calendar_entry" AUTO-LABEL="1"/>
+
+		<IF EXPR="Ps.is_calendar_entry">
+			<CHECK SOURCE="Ps.is_delegate" AUTO-LABEL="1"/>
+		</IF>
+	</LINE>
+	<DELIM/>
+
+	<LINE>
+		<RADIO-BUTTON TITLE="Единовременное событие" SOURCE="Ps.use_end_date" SWITCH-VALUE="false" lang-en:TITLE="One-time event" WIDTH="auto" lang-ua:TITLE="Тимчасова подія"/>
+		<RADIO-BUTTON TITLE="Временной интервал" SOURCE="Ps.use_end_date" SWITCH-VALUE="true" lang-en:TITLE="Time range" WIDTH="auto" lang-ua:TITLE="Часовий інтервал"/>
+	
+		<IF EXPR="Ps.use_end_date">
+			<LABEL TITLE="                    "/>
+			<CHECK SOURCE="Ps.has_long_duration" AUTO-LABEL="1"/>
+		</IF>
+	</LINE>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<ITEM TYPE="period" SOURCE="Ps.default_duration" AUTO-LABEL="1"/>
+	</TABLE>
+	<DELIM/>
+
+	<IF EXPR="Ps.is_calendar_entry">
+		<GROUP>
+			<CHECK SOURCE="Ps.use_road_time" AUTO-LABEL="1" ENABLE-EXPR="Ps.is_calendar_entry"/>
+			<ITEM TYPE="mh_period" SOURCE="Ps.default_road_time" AUTO-LABEL="1" ENABLE-EXPR="Ps.is_calendar_entry &amp;&amp; Ps.use_road_time" WIDTH="25zr"/>
+
+			<IF EXPR="lib_app2.AppFeatureEnabled( 'mass_recruit' )">
+				<CHECK SOURCE="Ps.use_location" AUTO-LABEL="1"/>
+			</IF>
+		
+			<CHECK SOURCE="Ps.use_room" AUTO-LABEL="1"/>
+		</GROUP>
+		<DELIM/>
+	</IF>
+
+	<LINE>
+		<CHECK SOURCE="Ps.use_org" AUTO-LABEL="1"/>
+		<CHECK SOURCE="Ps.use_vacancy" AUTO-LABEL="1"/>
+
+		<IF EXPR="lib_app2.AppFeatureEnabled( 'mass_recruit' )">
+			<CHECK SOURCE="Ps.use_position_type" AUTO-LABEL="1"/>
+		</IF>
+	</LINE>
+	<BR/>
+	<LINE>
+		<CHECK SOURCE="Ps.use_participants" AUTO-LABEL="1"/>
+		
+		<IF EXPR="Ps.use_participants">
+			<CHECK SOURCE="Ps.register_participants" AUTO-LABEL="1"/>
+			<CHECK SOURCE="Ps.use_participants_auto_load" AUTO-LABEL="1"/>
+		</IF>
+	</LINE>
+
+	<IF EXPR="Ps.use_participants && Ps.use_participants_auto_load">
+		<BR/>
+
+		<LABEL TITLE="Загружать в качестве участников:" lang-en:TITLE="Load as participants:" lang-ua:TITLE="Завантажувати в якості учасників:"/>
+
+		<LINE>
+			<RADIO-BUTTON TITLE="Всех контактных лиц по вакансии" SOURCE="Ps.participants_auto_load.restrict_vacancy_rr_persons" SWITCH-VALUE="false" lang-en:TITLE="All vacancy contact persons" WIDTH="auto" lang-ua:TITLE="Всіх контактних осіб по вакансії"/>
+			<RADIO-BUTTON TITLE="Контактных лиц по вакансии, участвующих в событиях данного типа" SOURCE="Ps.participants_auto_load.restrict_vacancy_rr_persons" SWITCH-VALUE="true" lang-en:TITLE="Vacancy contact persons, selected for this type of events" WIDTH="auto" lang-ua:TITLE="Контактних осіб по вакансії, що беруть участь у подіях даного типу"/>
+		</LINE>
+		<BR/>
+		<LINE>
+			<CHECK SOURCE="Ps.participants_auto_load.restrict_own_persons" AUTO-LABEL="1"/>
+			<CHECK SOURCE="Ps.participants_auto_load.use_vacancy_orig_rr_person" AUTO-LABEL="1"/>
+		</LINE>
+		<LINE>
+			<CHECK SOURCE="Ps.participants_auto_load.use_persons_with_struct_role" AUTO-LABEL="1"/>
+			<IF EXPR="Ps.participants_auto_load.use_persons_with_struct_role">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.participants_auto_load.person_struct_role_type_id"/>
+			</IF>
+		</LINE>
+	</IF>
+
+	<LINE>
+		<CHECK SOURCE="Ps.use_training_program" AUTO-LABEL="1"/>
+		<CHECK SOURCE="Ps.use_training_group" AUTO-LABEL="1"/>
+		<CHECK SOURCE="Ps.use_contact_type" AUTO-LABEL="1"/>
+	</LINE>
+	<DELIM/>
+
+	<LINE>
+		<CHECK SOURCE="Ps.is_group_event_reg" AUTO-LABEL="1" ENABLE-EXPR="! Ps.use_participants"/>
+
+		<IF EXPR="lib_app2.AppFeatureEnabled( 'mass_recruit' )">
+			<CHECK SOURCE="Ps.is_group_event_result" AUTO-LABEL="1" ENABLE-EXPR="! Ps.use_participants"/>
+		</IF>
+	</LINE>
+
+	<IF EXPR="Ps.is_group_event_reg || Ps.is_group_event_result">
+		<BR/>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="50zr"/>
+			</COLUMNS>
+
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.group_event_type_id" AUTO-LABEL="1"/>
+		</TABLE>
+	</IF>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.use_object_view_column" AUTO-LABEL="1"/>
+	<CHECK SOURCE="Ps.show_target_object_on_open" AUTO-LABEL="1"/>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.show_creation_date" AUTO-LABEL="1"/>
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="50zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.creation_date_title" AUTO-LABEL="1" ENABLE-EXPR="Ps.show_creation_date" EMPTY-TEXT-EXPR="Ps.get_creation_date_title()" TEXT-COLOR-EXPR="Ps.creation_date_title.HasValue ? '' : '100,100,100'"/>
+	</TABLE>
+	<DELIM/>
+
+	<LINE>
+		<RADIO-BUTTON TITLE="Событие создается пользователем вручную" SOURCE="Ps.is_automatic" SWITCH-VALUE="false" lang-en:TITLE="Event is created manually" WIDTH="auto" lang-ua:TITLE="Подія створюється користувачем вручну"/>
+		<RADIO-BUTTON TITLE="Событие создается программой при определенных действиях" SOURCE="Ps.is_automatic" SWITCH-VALUE="true" lang-en:TITLE="Event is registered automatically" WIDTH="auto" lang-ua:TITLE="Подія створюється програмою при певних діях"/>
+	</LINE>
+	<LINE>
+		<RADIO-BUTTON TITLE="Признак завершения отмечается пользователем вручную" SOURCE="Ps.is_automatic_occurrence" SWITCH-VALUE="false" lang-en:TITLE="Completion status is set manually" WIDTH="auto" lang-ua:TITLE="Ознака завершення відзначається користувачем вручну"/>
+		<RADIO-BUTTON TITLE="Признак завершения определяется программой автоматически" SOURCE="Ps.is_automatic_occurrence" SWITCH-VALUE="true" lang-en:TITLE="Completion status is set automatically" WIDTH="auto" lang-ua:TITLE="Ознака завершення визначається програмою автоматично"/>
+	</LINE>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.create_end_reach_notification" AUTO-LABEL="1" ENABLE-EXPR="Ps.has_long_duration"/>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.is_approval" AUTO-LABEL="1" UPDATE-ACTION="
+			if ( Ps.is_approval )
+				Ps.use_participants = true;
+	"/>
+
+	<CHECK SOURCE="Ps.is_poll" AUTO-LABEL="1" UPDATE-ACTION="
+			if ( Ps.is_approval )
+				Ps.use_participants = true;
+	"/>
+
+	<IF EXPR="Ps.is_poll">
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.poll_spec_id" AUTO-LABEL="1" WIDTH="60zr"/>
+	</IF>
+
+	<IF EXPR="Ps.is_poll && AppModuleUsed( 'module_rgs' )">
+		<CHECK SOURCE="Ps.use_participants_order" AUTO-LABEL="1"/>
+	</IF>
+
+	<DELIM/>
+
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="35zr"/>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="36zr"/>
+		</COLUMNS>
+
+		<LABEL TITLE="Признаки завершения:" lang-en:TITLE="Completion states:" lang-ua:TITLE="Ознаки завершення:"/>
+		<LABEL/>
+		<BUTTON IMAGE-URL="//base_pict/plus.ico" TITLE="Добавить признак завершения" lang-en:TITLE="Add completion state" lang-ua:TITLE="Додати ознака завершення:">
+			<MENU>
+				<LOOP EXPR="base2_common.event_occurrences" VAR="ListElem">
+					<MENU-ENTRY TITLE-EXPR="ListElem.name" ENABLE-EXPR="! Ps.has_occurrence( ListElem.id )" ACTION="Ps.HandleAddOccurrence( ListElem.id )"/>
+				</LOOP>
+
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="##StrTitleCase( UiText.titles.custom )##" ACTION="Ps.HandleAddCustomOccurrence()" PASSIVE="1"/>
+			</MENU>
+		</BUTTON>
+	</TABLE>
+
+	<LIST LOOP-EXPR="Ps.occurrences" SUNKEN="1" HEIGHT="28zr">
+		<ROW OPEN-ACTION="
+					Screen.ExposeItemBySource( ListElem.is_active );
+		" DELETE-ACTION="" IMAGE-URL-EXPR="ListElem.is_active ? '//base_pict/generic_item.ico' : '//base_pict/generic_item_inactive.ico'">
+			<COL WIDTH="33zr" COL-TITLE="##UiText.fields.std_name##" TITLE-EXPR="ListElem.is_std ? ListElem.std_name : '---'" TEXT-COLOR-EXPR="ListElem.is_active ? '' : '100,100,100'"/>
+			<COL WIDTH="35zr" COL-TITLE="##UiText.fields.custom_name##" TITLE-EXPR="ListElem.name"/>
+			<COL WIDTH="100%" COL-TITLE="##UiText.titles.state_name##" TITLE-EXPR="ListElem.state_name" TEXT-COLOR-EXPR="ListElem.get_text_color()" BK-COLOR-EXPR="ListElem.get_bk_color()"/>
+			<COL WIDTH="21zr" COL-TITLE="##UiText.fields.id_of_voc_elem##" TITLE-EXPR="ListElem.id"/>
+			<COL WIDTH="19zr" COL-TITLE="##UiText.fields.elem_type##" TITLE-EXPR="ListElem.is_std ? UiText.titles.standard : UiText.titles.custom" ALIGN="center"/>
+		</ROW>
+	</LIST>
+</PAGE>
+
+
+
+
+
+<PAGE TITLE="##UiText.sections.add_info##" IMAGE-URL="//base_pict/aux_info.ico" SUNKEN="1" VERT-SCROLL="1">
+	<CHECK SOURCE="Ps.use_separate_button" AUTO-LABEL="1"/>
+
+	<IF EXPR="Ps.use_separate_button">
+		<BR/>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="45zr"/>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+			<EDIT SOURCE="Ps.separate_button_title" AUTO-LABEL="1" EMPTY-TEXT-EXPR="Ps.name" TEXT-COLOR-EXPR="Ps.separate_button_title.HasValue ? '' : '100,100,100'"/>/>
+		</TABLE>
+	</IF>
+	<BR/>
+	<CHECK SOURCE="Ps.use_for_inet_search_result" AUTO-LABEL="1"/>
+	<CHECK SOURCE="Ps.build_view" AUTO-LABEL="1"/>
+	<DELIM/>
+	
+	<GROUP>
+		<ITEM TYPE="object_selector" SOURCE="Ps.target_group_id" LABEL-TITLE="##UiText.titles.valid_only_for_group##:" WIDTH="50zr"/>
+
+		<IF EXPR="lib_app2.AppFeatureEnabled( 'mass_recruit' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.target_recruit_type_id" AUTO-LABEL="1"/>
+		</IF>
+	</GROUP>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.use_ext_calendar" AUTO-LABEL="1"/>
+
+	<IF EXPR="Ps.use_ext_calendar">
+		<LINE>
+			<CHECK SOURCE="Ps.create_with_calendar" AUTO-LABEL="1"/>
+			<CHECK SOURCE="Ps.create_with_room_auto_selection" AUTO-LABEL="1"/>
+		</LINE>
+		<CHECK SOURCE="Ps.create_with_ext_calendar" AUTO-LABEL="1"/>
+		<BR/>
+
+		<LINE>
+			<LABEL TITLE="Шаблон для формирования карточки мероприятия во внешнем календаре:" lang-en:TITLE="External calendar appointment template:" lang-ua:TITLE="Шаблон для формування картки заходів в зовнішньому календарі:"/>
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.ext_calendar_template_id" ENABLE-EXPR="Ps.use_ext_calendar || Ps.prefer_ext_calendar_planner"/>
+		</LINE>
+	</IF>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.use_auto_create" AUTO-LABEL="1"/>
+
+	<IF EXPR="Ps.use_auto_create">
+		<BR/>
+		<LABEL TITLE="##UiText.titles.condition##:"/>
+		<BR/>
+		<GROUP>
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.auto_create.condition.candidate_state_id" AUTO-LABEL="1" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.auto_create.condition.candidate_state_id, 20, 45 )"/>
+			<!--<ITEM NAME="tri_state_selector" SOURCE="Ps.is_on_probation" AUTO-LABEL="1"/>-->
+
+			<SEPARATOR/>
+
+			<ITEM TYPE="period" SOURCE="Ps.auto_create.condition.offset" AUTO-LABEL="1" WIDTH="25zr"/>
+
+			<COMBO SOURCE="Ps.auto_create.condition.is_negative_offset" WIDTH="25zr">
+				<COMBO-ENTRY VALUE-EXPR="true" TITLE="до базовой даты" lang-en:TITLE="Before Base Date" lang-ua:TITLE="до базової дати"/>
+				<COMBO-ENTRY VALUE-EXPR="false" TITLE="после базовой даты" lang-en:TITLE="After Base Date" lang-ua:TITLE="після базової дати"/>
+			</COMBO>
+
+			<COMBO SOURCE="Ps.auto_create.condition.offset_base" AUTO-LABEL="1" WIDTH="45zr">
+				<COMBO-ENTRY VALUE="state_date" TITLE="##UiText.fields.state_date##"/>
+				<COMBO-ENTRY VALUE="est_empl_start_date" TITLE="##UiText.fields.empl_start_date##"/>
+				<COMBO-ENTRY VALUE="probation_end_date" TITLE="##UiText.fields.probation_end_date##"/>
+			</COMBO>
+		</GROUP>
+		<BR/>
+		<BR/>
+
+		<GROUP>
+			<ITEM TYPE="elem_selector" SOURCE="Ps.auto_create.occurrence_id" foreign-disp-name="get_name()" WIDTH="30zr" AUTO-LABEL="1"/>
+			<CHECK SOURCE="Ps.auto_create.create_reminder" AUTO-LABEL="1"/>
+		</GROUP>
+	</IF>
+	<DELIM/>
+</PAGE>
+
+
+
+
+
+<IF EXPR="Ps.use_occurrences" IGNORE-ERRORS="0">
+	<PAGE TITLE="##UiText.titles.states##" SUNKEN="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/folder.ico" EXPANDED="1">
+		<LOOP EXPR="Ps.occurrences" VAR="_occurrence" IGNORE-ERRORS="0">
+			<PAGE TITLE-EXPR="_occurrence.get_name" SOURCE="_occurrence" EXPANDED="1" SUNKEN="1" VERT-SCROLL="1" IMAGE-URL-EXPR="_occurrence.is_active ? '//base_pict/generic_item.ico' : '//base_pict/generic_item_inactive.ico'">
+				<INHERIT TYPE="occurrence_base"/>
+			</PAGE>
+		</LOOP>
+	</PAGE>
+</IF>
+<ELSE>
+	<PAGE TITLE="##UiText.fields.state##" SOURCE="Ps.main_occurrence" EXPANDED="1" SUNKEN="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/generic_item.ico" EXPANDED="1">
+		<INHERIT TYPE="occurrence_base"/>
+	</PAGE>
+</ELSE>
+
+
+</PAGE>
+
+
+
+</SELECTOR>
+
+
+
+</LINE>
+
+
+</SPXML-SCREEN>
+

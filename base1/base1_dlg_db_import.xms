@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN TITLE="##UiText.titles.import_database##" WIDTH="90zr" HEIGHT="44zr" SOURCE="TopElem">
+
+<LABEL TITLE="Данная функция импорта базы предназначена для единовременного импорта внешней базы из папки. Для настройки регулярного импорта данных из внешних источников используйте раздел Администрирование->Справочники->Сценарии импорта." lang-en:TITLE="This import function is intended for one-time import of an external database stored in a folder. For continuous data import from external sources use Administration->Reference Lists->Import Scenarios." lang-ua:TITLE="Дана функції імпорту бази призначена для одноразового імпорту зовнішньої бази з каталогу. Для налаштування регулярного імпорту даних із зовнішніх джерел використовуйте розділ Адміністрування-> Довідники-> Сценарії імпорту."/>
+<DELIM/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+	</COLUMNS>
+
+	<ITEM TYPE="dir_path_selector" SOURCE="Ps.src_dir_path" LABEL-TITLE="Папка для импорта:" lang-en:LABEL-TITLE="Source folder:" lang-ua:LABEL-TITLE="Директорія для імпорту:"/>
+</TABLE>
+<BR/>
+<BR/>
+
+<CHECK SOURCE="Ps.import_static_data" TITLE="Импортировать общие настройки" lang-en:TITLE="Import global settings" lang-ua:TITLE="Імпортувати загальні налаштування"/>
+<CHECK SOURCE="Ps.import_csd" TITLE="Импортировать настройки дополнительных полей" lang-en:TITLE="Import custom fields settings" lang-ua:TITLE="Імпортувати налаштування додаткових полів"/>
+<BR/>
+
+<CHECK SOURCE="Ps.start_from_prev" ENABLE-EXPR="Ps.may_start_from_prev" TITLE="Продолжить с прерванного места" lang-en:TITLE="Resume from previous state" lang-ua:TITLE="Продовжити з перерваного місця"/>
+
+<INHERIT TYPE="dlg_footer"/>
+
+
+</SPXML-SCREEN>

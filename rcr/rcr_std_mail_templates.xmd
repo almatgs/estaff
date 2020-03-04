@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_mail_templates>
+	<std_mail_template MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT FORM="//base1/base1_mail_template.xmd" TYPE="mail_template"/>
+	</std_mail_template>
+</std_mail_templates>
+
+
+
+</SPXML-FORM>

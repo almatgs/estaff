@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml">
+
+<recruit_provider>
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+
+	<std_provider_id TYPE="string" FOREIGN-ARRAY="rcr_common.std_recruit_providers" TITLE="##UiText.titles.std_provider##"/>
+
+	<server_address TYPE="string" TITLE="##UiText.titles.server_address##"/>
+	<login TYPE="string" TITLE="##UiText.fields.login##"/>
+	<password_ed TYPE="string" TITLE="##UiText.fields.password##"/>
+	<access_token TYPE="string" LARGE="1" FT-IGNORE="1"/>
+	<refresh_token TYPE="string" LARGE="1" FT-IGNORE="1"/>
+
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</recruit_provider>
+
+
+
+</SPXML-FORM>

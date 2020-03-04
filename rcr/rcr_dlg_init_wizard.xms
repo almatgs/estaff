@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Мастер начальной конфигурации E-Staff" WIDTH="84zr" HEIGHT="60zr" WINDOW-ICON-URL="//base_pict/estaff.ico" STD-MARGINS="0" lang-en:TITLE="E-Staff initial setup wizard" lang-ua:TITLE="Майстер початкової конфігурації E-Staff">
+
+
+<PANEL HEIGHT="-10zr">
+	<PANEL HEIGHT="2zr">
+	</PANEL>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="3zr"/>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="3zr"/>
+		</COLUMNS>
+
+		<LABEL/>
+
+		<PANEL STD-MARGINS="1">
+			<IF EXPR="Ps.cur_stage.id == 'init'">
+				<BR/>
+				<BR/>
+
+				<LABEL TITLE="##UiText.sections.global_settings_policy##:"/>
+				<BR/>
+				<BR/>
+
+				<LINE>
+					<LABEL TITLE="  "/>
+					<RADIO-BUTTON SOURCE="global_settings.is_agency" TITLE="##UiText.titles.hr_department##" SWITCH-VALUE="false" WIDTH="auto" lang-en:TITLE="HR department"/> 
+				</LINE>
+				<BR/>
+				<LINE>
+					<LABEL TITLE="  "/>
+					<RADIO-BUTTON SOURCE="global_settings.is_agency" TITLE="##UiText.titles.recruiting_agency##" SWITCH-VALUE="true" WIDTH="auto"/> 
+				</LINE>
+			</IF>
+
+
+			<IF EXPR="Ps.cur_stage.id == 'struct'">
+				<BR/>
+				<BR/>
+
+				<LABEL TITLE="##UiText.sections.global_settings_policy##:" lang-en:TITLE="Policy:"/>
+				<BR/>
+				<BR/>
+
+				<CHECK SOURCE="global_settings.use_divisions" AUTO-LABEL="1" WIDTH="auto"/>
+				<CHECK SOURCE="global_settings.use_positions" AUTO-LABEL="1" WIDTH="auto"/>
+				<CHECK SOURCE="global_settings.require_employee_positions" AUTO-LABEL="1" WIDTH="auto"/>
+			</IF>
+
+
+			<IF EXPR="Ps.cur_stage.id == 'country'">
+				<BR/>
+				<BR/>
+
+				<LABEL TITLE="##UiText.sections.global_settings_region##:"/>
+				<BR/>
+				<BR/>
+
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="35zr"/>
+						<COL WIDTH="18zr"/>
+					</COLUMNS>
+
+					<ITEM TYPE="voc_elem_selector" SOURCE="global_settings.country_id" AUTO-LABEL="1"/>
+					<ITEM TYPE="voc_elem_selector" SOURCE="global_settings.default_currency_id" AUTO-LABEL="1" foreign-disp-name="full_name"/>
+				</TABLE>
+			</IF>
+
+			<IF EXPR="Ps.cur_stage.id == 'country__'">
+				<BR/>
+				<BR/>
+
+				<LABEL TITLE="##UiText.sections.global_settings_region##:"/>
+				<BR/>
+				<BR/>
+
+				<TABLE>
+					<COLUMNS>
+						<IF EXPR="! base1_config.is_int_version">
+							<COL WIDTH="35zr"/>
+						</IF>
+
+						<COL WIDTH="18zr"/>
+					</COLUMNS>
+
+					<IF EXPR="! base1_config.is_int_version">
+						<ITEM TYPE="voc_elem_selector" SOURCE="global_settings.default_location_id" AUTO-LABEL="1"/>
+					</IF>
+
+					<ITEM TYPE="voc_elem_selector" SOURCE="global_settings.default_currency_id" AUTO-LABEL="1"/>
+				</TABLE>
+			</IF>
+		</PANEL>
+
+		<LABEL/>
+
+	</TABLE>
+</PANEL>
+
+
+<PANEL STD-MARGINS="1">
+	<DELIM/>
+
+	<PANEL HEIGHT="2px">
+	</PANEL>
+
+	<TABLE STD-MARGINS="0">
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="13zr"/>
+			<COL WIDTH="13zr"/>
+			<COL WIDTH="2zr"/>
+			<COL WIDTH="13zr"/>
+			<COL WIDTH="2zr"/>
+		</COLUMNS>
+
+		<LABEL/>
+
+		<IF EXPR="Ps.cur_stage_index != 0">
+			<BUTTON TITLE="##UiText.actions.btn_back##" ACTION="
+					Ps.cur_stage_index--;
+			" ENABLE-EXPR="Ps.cur_stage.id != 'progress'" lang-en:TITLE="&lt; Back"/>
+		</IF>
+		<ELSE>
+			<LABEL/>
+		</ELSE>
+
+		<IF EXPR="true || Ps.cur_stage_index + 1 &lt; Ps.stages.ChildNum">
+			<BUTTON TITLE="##UiText.actions.btn_next##" HANDLE-CMD="Ok" ACTION="
+					Ps.set_next_stage();
+			" lang-en:TITLE="Next >"/>
+		</IF>
+		<ELSE>
+			<BUTTON TITLE="##UiText.actions.btn_finish##" CMD="Ok" lang-en:TITLE="Finish"/>
+		</ELSE>
+
+		<LABEL/>
+
+		<BUTTON TITLE="##UiText.actions.cancel##" CMD="Cancel" lang-en:TITLE="Cancel"/>
+
+		<LABEL/>
+	</TABLE>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+

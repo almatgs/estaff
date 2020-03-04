@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+<USE FORM="//base2/base2_general_state.xms"/>
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="40zr" STD-MARGINS="0">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="0">
+		</TREE>
+	</PANEL>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.titles.candidate_state##" SUNKEN="1" EXPANDED="1" IMAGE-URL="//base_pict/generic_item.ico">
+
+
+<PAGE TITLE="##UiText.sections.general##" SUNKEN="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/common.ico" EXPANDED="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<CHECK TITLE="##UiText.titles.marks_inactive##" SOURCE="Ps.deactivate_object"/>
+	<CHECK SOURCE="Ps.set_object_tentative" AUTO-LABEL="1"/>
+	<CHECK TITLE="##UiText.titles.mark_vacancy_closed##" SOURCE="Ps.close_object"/>
+
+	<IF EXPR="AppModuleUsed( 'module_rgs' )">
+		<CHECK SOURCE="Ps.allow_candidate_selection" AUTO-LABEL="1"/>
+	</IF>
+
+	<CHECK SOURCE="Ps.prohibit_unfinished_candidates" AUTO-LABEL="1" WIDTH="auto"/>
+
+	<IF EXPR="Ps.deactivate_object">
+		<BR/>
+		<LABEL TITLE="Присваивать не прошедшим на вакансию кандидатам следующий статус:" lang-en:TITLE="Assign failed candidates the following state:" lang-ua:TITLE="Привласнювати кандидатам, які не пройшли на вакансію, наступний статус:"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.failed_candidate_state_id" WIDTH="50zr"/>
+
+		<CHECK SOURCE="Ps.confirm_failed_candidate_state" AUTO-LABEL="1"/>
+
+		<BR/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.failed_candidate_notif_template_id" AUTO-LABEL="1"/>
+		
+		<CHECK SOURCE="Ps.confirm_failed_candidate_notif" AUTO-LABEL="1"/>
+	</IF>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.show_init_warning" AUTO-LABEL="1"/>
+	<CHECK SOURCE="Ps.show_init_dlg" AUTO-LABEL="1"/>
+	<CHECK SOURCE="Ps.require_comment" AUTO-LABEL="1"/>
+	<BR/>
+
+	<GROUP>
+		<LABEL TITLE-EXPR="Ps.min_comment_len.Title + ':'"/>
+		<EDIT SOURCE="Ps.min_comment_len" WIDTH="6zr" ENABLE-EXPR="Ps.require_comment"/>
+	</GROUP>
+	<DELIM/>
+
+	<GROUP>
+		<ITEM TYPE="object_selector" SOURCE="Ps.target_group_id" LABEL-TITLE="##UiText.titles.valid_only_for_group##:"/>
+	</GROUP>
+	<DELIM/>
+
+	<INHERIT TYPE="state_core_actions_base"/>
+</PAGE>
+
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+
+</LINE>
+
+
+
+</SPXML-SCREEN>

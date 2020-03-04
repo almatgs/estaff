@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<workflow_document_types SPXML-FORM="x-app://base2/base2_workflow_document_types.xmd"><workflow_document_type><id>vacancy_request</id><name>Заявка на вакансию</name><is_active>1</is_active><is_std>1</is_std><order_index>0</order_index></workflow_document_type></workflow_document_types>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" BEFORE-INIT-ACTION="
+		Ps.init_target_events();
+		//Ps.restore_prev_spots();
+" INIT-ACTION="
+		if ( StrBegins( Ps.preview.selector, 'document_' ) )
+		{
+			attcIndex = Int( String( Ps.preview.selector ).slice( 9 ) );
+			//alert(attcIndex);
+			if ( attcIndex >= Ps.attachments.ChildNum && Ps.attachments.ChildNum != 0 )
+			{
+				attcIndex = Ps.attachments.ChildNum - 1;
+				Ps.preview.selector = 'document_' + attcIndex;
+			}
+		}
+">
+
+
+<USE FORM="rcr_candidate_1.xms"/>
+<USE FORM="rcr_candidate_2.xms"/>
+<USE FORM="rcr_candidate_3.xms"/>
+
+
+<TOOLBAR RIGHT-LABELS="1">
+	<TOOLBAR-ENTRY TITLE="##UiText.sections.general##" IMAGE-URL="//base_pict/common.ico" CHECKED-EXPR="Ps.preview.selector == 'common'" ACTION="Ps.preview.selector = 'common'" lang-en:TITLE="General"/>
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY TITLE="##UiText.sections.add_info##" IMAGE-URL="//base_pict/skill.ico" CHECKED-EXPR="Ps.preview.selector == 'skills'" ACTION="Ps.preview.selector = 'skills'"/>
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY TITLE="##UiText.fields.personal_records##" IMAGE-URL="//base_pict/event.ico" CHECKED-EXPR="Ps.preview.selector == 'events'" ACTION="Ps.preview.selector = 'events'" lang-en:TITLE="Records"/>
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<LOOP EXPR="Ps.sorted_attachments" VAR="_document">
+		<TOOLBAR-ENTRY TITLE-EXPR="_document.type_id.ForeignElem.name" IMAGE-URL="//base_pict/text_attachment.ico" CHECKED-EXPR="Ps.preview.selector == 'document_' + _document.ChildIndex" ACTION="Ps.preview.selector = 'document_' + _document.ChildIndex"/>
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+	</LOOP>
+</TOOLBAR>
+
+
+
+<IF EXPR="Ps.preview.selector == 'common'">
+
+<PANEL SUNKEN="1">
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="10zr"/>
+			<COL WIDTH="60zr"/>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="11zr"/>
+			<COL WIDTH="11zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.code" AUTO-LABEL="1"/>
+		<ITEM TYPE="person_name"/>
+
+		<LABEL/>
+
+		<ITEM TYPE="elem_selector" SOURCE="Ps.gender_id" AUTO-LABEL="1"/>
+
+		<EDIT SOURCE="Ps.birth_date" AUTO-LABEL="1"/>
+	</TABLE>
+
+	<PANEL HEIGHT="5px">
+	</PANEL>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="20%"/>
+
+			<COL WIDTH="14%"/>
+			<COL WIDTH="14%"/>
+			<COL WIDTH="12%"/>
+
+			<COL WIDTH="21%"/>
+			<COL WIDTH="19%"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.address" AUTO-LABEL="1"/>
+		<EDIT SOURCE="Ps.mobile_phone" AUTO-LABEL="1" LABEL-IMAGE-URL="//base_pict/phone_mobile.ico"/>
+		<EDIT SOURCE="Ps.home_phone" AUTO-LABEL="1" LABEL-IMAGE-URL="//base_pict/phone.ico"/>
+		<EDIT SOURCE="Ps.work_phone" AUTO-LABEL="1" LABEL-IMAGE-URL="//base_pict/phone_work.ico"/>
+
+		<ITEM TYPE="email_edit" destType="candidate" templateAction="
+				mailMessage = lib_mail.build_mail_message( _template, Ps, Ps.Parent, Ps.Parent.build_mail_env_object( Ps.Parent.main_vacancy_id ) );
+				lib_mail.show_mail_message( mailMessage );
+
+				if ( _template.register_event )
+				{
+					doc = ObtainUiDoc( Ps.Doc.Url );
+					doc.TopElem.register_mail_message_event( _template, TopElem.main_vacancy_id );
+					UpdateUiDoc( doc );
+				}
+		" SOURCE="Ps.email" TITLE="E-Mail:"/>
+
+		<ITEM TYPE="email_edit" destType="candidate" templateAction="
+				mailMessage = lib_mail.build_mail_message( _template, Ps, Ps.Parent, Ps.Parent.build_mail_env_object( Ps.Parent.main_vacancy_id ) );
+				lib_mail.show_mail_message( mailMessage );
+
+				TopElem.register_mail_message_event( _template, TopElem.main_vacancy_id );
+		" SOURCE="Ps.email2" TITLE="E-Mail 2:"/>
+	</TABLE>
+
+
+	<PANEL HEIGHT="3px">
+	</PANEL>
+
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="25%"/>
+			<COL WIDTH="75%"/>
+			<COL WIDTH="8zr"/>
+			<COL WIDTH="12zr"/>
+		</COLUMNS>
+
+		<LABEL TITLE="##UiText.fields.location##:"/>
+		<LABEL TITLE="##UiText.fields.profession##:"/>
+
+		<LABEL TITLE="##UiText.fields.exp_years__short##:" TIP-TEXT="##UiText.fields.exp_years__short##:"/>
+		<LABEL TITLE="##UiText.fields.salary_level##:"/>
+
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.location_id"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.profession_id"/>
+
+		<EDIT SOURCE="Ps.exp_years" TIP-TEXT="##UiText.fields.work_experience_in_years##" lang-en:TIP-TEXT="Work experience, years"/>
+		<EDIT SOURCE="Ps.salary"/>
+
+	</TABLE>
+
+
+	<PANEL HEIGHT="1px">
+	</PANEL>
+
+</PANEL>
+
+
+
+
+<IF EXPR="local_settings.candidate_main_page.show_events && ArrayCount( Ps.get_ui_events_array() ) != 0">
+	<PANEL SUNKEN="1" HEIGHT="100%">
+		<ITEM TYPE="candidate_events"/>
+	</PANEL>
+</IF>
+
+<IF EXPR="local_settings.candidate_main_page.show_resume">
+	<IF EXPR="Ps.opt_default_attachment != undefined">
+		<LOOP EXPR="array = new Array; array[0] = Ps.state_id + ArrayCount( Ps.get_events_array() ) + Ps.view_spot_index; return array" VAR="ListElem">
+			<ITEM TYPE="card_attachment_content" SOURCE="Ps.opt_default_attachment"/>
+		</LOOP>
+	</IF>
+	<ELSE>
+		<PANEL SUNKEN="1" HEIGHT="100%" BK-COLOR="white">
+			<PANEL HEIGHT="40%">
+			</PANEL>
+
+			<LABEL TITLE="##UiText.titles.no_resume##" ALIGN="center" TEXT-COLOR="128,0,0"/>
+		</PANEL>
+	</ELSE>
+</IF>
+
+
+</IF>
+
+
+
+
+<IF EXPR="Ps.preview.selector == 'skills'">
+
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="31zr"/>
+		<COL WIDTH="8zr"/>
+		<COL WIDTH="20zr"/>
+		<COL WIDTH="26zr"/>
+	</COLUMNS>
+
+	<ITEM TYPE="elem_selector" SOURCE="Ps.marital_status_id" ELEM="candidate.gender_id == 0 ? ListElem.name_male : ( candidate.gender_id == 1 ? ListElem.name_female : ListElem.name )" AUTO-LABEL="1"/>
+	<EDIT SOURCE="Ps.children_num" AUTO-LABEL="1"/>
+	<LABEL/>
+	<ITEM TYPE="elem_selector" SOURCE="Ps.educ_type_id" ELEM="ListElem.name" AUTO-LABEL="1"/>
+</TABLE>
+<DELIM/>
+
+
+
+
+</PANEL>
+
+</IF>
+
+
+
+
+
+
+<IF EXPR="Ps.preview.selector == 'events'">
+	<PANEL SUNKEN="1" HEIGHT="100%">
+		<ITEM TYPE="candidate_events"/>
+	</PANEL>
+</IF>
+
+
+
+
+<IF EXPR="StrBegins( Ps.preview.selector, 'document_' )">
+	<HYPER EDITABLE="1" HEIGHT="100%" SOURCE="
+			if ( Ps.sorted_attachments.length == 0 )
+				return '';
+
+			return Ps.sorted_attachments[ Int( String( Ps.preview.selector ).slice( 9 ) )].text;
+	"/>
+</IF>
+
+
+
+
+</SPXML-SCREEN>
+
+
+

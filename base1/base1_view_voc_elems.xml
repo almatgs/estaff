@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+
+<view_voc_elems>
+	<INHERIT TYPE="view_voc_elems_base"/>
+</view_voc_elems>
+
+</SPXML-INLINE-FORM>

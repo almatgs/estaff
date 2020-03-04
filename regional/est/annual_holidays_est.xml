@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<std_annual_holiday_maps SPXML-FORM="//cn/cn_std_annual_holiday_maps.xmd" LANG="ru">
+	<std_annual_holiday_map>
+		<country_id>EST</country_id>
+		<year>2017</year>
+		<holidays>
+			<holiday>101</holiday>
+			<holiday>224</holiday>
+			<holiday>414</holiday>
+			<holiday>416</holiday>
+			<holiday>501</holiday>
+			<holiday>604</holiday>
+			<holiday>623</holiday>
+			<holiday>624</holiday>
+			<holiday>820</holiday>
+			<holiday>1224</holiday>
+			<holiday>1225</holiday>
+			<holiday>1226</holiday>
+		</holidays>
+	</std_annual_holiday_map>
+</std_annual_holiday_maps>

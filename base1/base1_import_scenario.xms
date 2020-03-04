@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1">
+
+
+<INHERIT TYPE="card_menus"/>
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="base_toolbar_start_entries"/>
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/generic_item.ico" TITLE="Добавить импортируемый объект" lang-en:TITLE="Add target object" ACTION="
+			objectTypeID = lib_voc.select_voc_elem( card_object_types );
+
+			targetObject = Ps.target_objects.AddChild();
+			targetObject.object_type_id = objectTypeID;
+			Screen.Update();
+	" PASSIVE="1" lang-ua:TITLE="Додати імпортований об'єкт"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/generic_item.ico" TITLE="Добавить поле" lang-en:TITLE="Add field" ACTION="
+			field = Ps.fields.AddChild();
+			Screen.Update();
+			Screen.ExposeItemBySource( field.id );
+	" PASSIVE="1" lang-ua:TITLE="Додати поле"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/start.ico" TITLE="Запустить импорт вручную" ACTION="
+			lib_import.run_import_scenario( Ps );
+	" PASSIVE="1" lang-en:TITLE="Run Import Manually" lang-ua:TITLE="Запустити імпорт вручну"/>
+
+	<INHERIT TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="40zr" STD-MARGINS="0">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="0">
+		</TREE>
+	</PANEL>
+</PANEL>
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="Сценарий импорта" SUNKEN="1" EXPANDED="1" IMAGE-URL="//base_pict/stat.ico" lang-en:TITLE="Import Scenario" lang-ua:TITLE="Сценарій імпорту">
+
+
+<PAGE TITLE="##UiText.sections.general##" SUNKEN="1" IMAGE-URL="//base_pict/common.ico">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+
+	<LINE>
+		<RADIO-BUTTON SOURCE="Ps.use_native_format" SWITCH-VALUE="true" WIDTH="auto" TITLE="Импорт данных во внутреннем формате" lang-en:TITLE="Import from native format" lang-ua:TITLE="Імпорт даних у внутрішньому форматі"/>
+		<RADIO-BUTTON SOURCE="Ps.use_native_format" SWITCH-VALUE="false" WIDTH="auto" TITLE="Импорт данных из других программ" lang-en:TITLE="Import from other application" lang-ua:TITLE="Імпорт даних з інших програм"/>
+	</LINE>
+	<BR/>
+
+	<IF EXPR="! Ps.use_native_format">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="15zr"/>
+				<COL WIDTH="24zr"/>
+			</COLUMNS>
+
+			<COMBO SOURCE="Ps.source_type" LABEL-TITLE="##UiText.fields.source_type##:">
+				<COMBO-ENTRY VALUE="file" TITLE="файл" lang-en:TITLE="file" lang-ua:TITLE="файл"/>
+			</COMBO>
+
+			<IF EXPR="Ps.source_type == 'file'">
+				<COMBO SOURCE="Ps.file_format" LABEL-TITLE="Формат исходного файла:" lang-en:LABEL-TITLE="Source file format:" lang-ua:LABEL-TITLE="Формат вихідного файлу:">
+					<COMBO-ENTRY VALUE="xml" TITLE="XML"/>
+					<COMBO-ENTRY VALUE="csv" TITLE="CSV"/>
+					<COMBO-ENTRY VALUE="excel" TITLE="Microsoft Excel"/>
+				</COMBO>
+			</IF>
+		</TABLE>
+		<DELIM/>
+
+		<LINE>
+			<RADIO-BUTTON SOURCE="Ps.scan_dir" SWITCH-VALUE="false" WIDTH="auto" TITLE="Импорт из одного файла" lang-en:TITLE="Import from single file" lang-ua:TITLE="Імпорт з одного файлу"/>
+			<RADIO-BUTTON SOURCE="Ps.scan_dir" SWITCH-VALUE="true" WIDTH="auto" TITLE="Импорт из папки с файлами" lang-en:TITLE="Import from file in a folder" lang-ua:TITLE="Імпорт файлів з каталогу"/>
+		</LINE>
+		<BR/>
+	</IF>
+
+
+	<IF EXPR="Ps.scan_dir || Ps.use_native_format">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="1zr"/>
+				<COL WIDTH="20zr"/>
+			</COLUMNS>
+
+			<ITEM TYPE="dir_path_selector" SOURCE="Ps.src_dir_path" LABEL-TITLE="Исходная папка для импорта:" lang-en:LABEL-TITLE="Source folder:" lang-ua:LABEL-TITLE="Вихідний каталог для імпорту:"/>
+
+			<LABEL/>
+
+			<EDIT SOURCE="Ps.file_name_mask" LABEL-TITLE="##UiText.titles.file_name##:"/>
+		</TABLE>
+	</IF>
+	<ELSE>
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="16zr"/>
+			</COLUMNS>
+
+			<ITEM TYPE="file_path_selector" SOURCE="Ps.src_file_path" LABEL-TITLE="Исходный файл для импорта:" lang-en:LABEL-TITLE="Source file path:" UPDATE-ACTION="
+					fileName = FileName( Ps.src_file_path );
+
+					if ( StrEnds( fileName, '.csv', true ) )
+						Ps.file_format = 'csv';
+					else if ( StrEnds( fileName, '.xls', true ) || StrEnds( fileName, '.xlsx', true ) )
+						Ps.file_format = 'excel';
+					else if ( StrEnds( fileName, '.xml', true ) )
+						Ps.file_format = 'xml';
+			" lang-ua:LABEL-TITLE="Вихідний файл для імпорту:"/>
+		</TABLE>
+	</ELSE>
+
+	<IF EXPR="! Ps.use_native_format">
+		<IF EXPR="Ps.file_format != 'xml'">
+			<BR/>
+			<CHECK SOURCE="Ps.use_header_row" TITLE="Первая строка файла содержит названия полей" lang-en:TITLE="First row contains field names" lang-ua:TITLE="Перший рядок файлу містить назви полів"/>
+		</IF>
+
+		<BR/>
+
+		<BUTTON IMAGE-URL="//base_pict/manager_work.ico" WIDTH="26zr" ACTION="
+				lib_import.load_fields_from_src_file( Ps, Ps.src_file_path );
+				Ps.Doc.SetChanged( true );
+		" TITLE="Загрузить список полей" lang-en:TITLE="Load fields" ENABLE-EXPR="Ps.src_file_path.HasValue" lang-ua:TITLE="Завантажити список полів"/>
+	</IF>
+
+
+	<IF EXPR="Ps.use_native_format">
+		<BR/>
+		<CHECK SOURCE="Ps.new_only" TITLE="Загружать только новые объекты" lang-en:TITLE="Load new objects only" lang-ua:TITLE="Завантажувати тільки нові об'єкти"/>
+	</IF>
+	<DELIM/>
+	<BR/>
+
+	<INHERIT TYPE="scenario_agents"/>
+</PAGE>
+
+
+
+
+
+<PAGE IMAGE-URL="//base_pict/folder.ico" EXPANDED="1" TITLE="Импортируемые объекты" lang-en:TITLE="Target Objects" lang-ua:TITLE="Імпортовані об'єкти">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<LIST>
+			<COLUMNS>
+				<COL WIDTH="50zr" TITLE="##UiText.fields.object_type##"/>
+			</COLUMNS>
+
+			<LOOP EXPR="Ps.target_objects" VAR="ListElem">
+				<ROW OPEN-ACTION="Screen.ExposeItemBySource( ListElem.object_type_id )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );" IMAGE-URL="//base_pict/generic_item.ico">
+					<COL TITLE-EXPR="ListElem.object_type_id.ForeignDispName"/>
+				</ROW>
+
+				<PAGE TITLE-EXPR="ListElem.object_type_id.ForeignDispName" IMAGE-URL="//base_pict/generic_item.ico" SOURCE="ListElem" SUNKEN="1" VERT-SCROLL="1">
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="35zr"/>
+						</COLUMNS>
+
+						<ITEM TYPE="voc_elem_selector" SOURCE="Ps.object_type_id" LABEL-TITLE="##UiText.fields.object_type##:"/>
+					</TABLE>
+					<DELIM/>
+
+				</PAGE>
+			</LOOP>
+		</LIST>
+	</PANEL>
+</PAGE>
+
+
+
+
+
+<PAGE IMAGE-URL="//base_pict/folder.ico" EXPANDED="1" TITLE="Поля" lang-en:TITLE="Fields" lang-ua:TITLE="Поля">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<LIST>
+			<COLUMNS>
+				<COL WIDTH="50zr" TITLE="##UiText.titles.db_field##"/>
+				<COL WIDTH="100%" TITLE="##UiText.fields.source_field##"/>
+			</COLUMNS>
+
+			<LOOP EXPR="Ps.fields" VAR="ListElem">
+				<ROW OPEN-ACTION="Screen.ExposeItemBySource( ListElem.id )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );" IMAGE-URL="//base_pict/generic_item.ico">
+					<COL TITLE-EXPR="ListElem.id"/>
+					<COL TITLE-EXPR="ListElem.ext_value_expr"/>
+				</ROW>
+
+				<PAGE TITLE-EXPR="( ListElem.object_type_id.HasValue ? ListElem.object_type_id + '.' : '' ) + ListElem.id + '  <-  ' + ListElem.ext_value_expr" IMAGE-URL="//base_pict/generic_item.ico" SOURCE="ListElem" SUNKEN="1" VERT-SCROLL="1">
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="20zr"/>
+							<COL WIDTH="35zr"/>
+						</COLUMNS>
+
+						<EDIT SOURCE="Ps.id" LABEL-TITLE="##UiText.titles.db_field##:"/>
+						
+						<IF EXPR="Ps.Doc.TopElem.target_objects.ChildNum >= 2">
+							<ITEM TYPE="voc_elem_selector" SOURCE="Ps.object_type_id" LABEL-TITLE="##UiText.fields.object_type##:"/>
+						</IF>
+					</TABLE>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="50zr"/>
+						</COLUMNS>
+
+						<LABEL TITLE="##UiText.fields.source_field##:"/>
+						<EDIT SOURCE="Ps.ext_value_expr"/>
+					</TABLE>
+					<DELIM/>
+
+				</PAGE>
+			</LOOP>
+		</LIST>
+	</PANEL>
+</PAGE>
+
+
+
+
+</PAGE>
+
+</SELECTOR>
+
+</LINE>
+
+
+
+</SPXML-SCREEN>
+

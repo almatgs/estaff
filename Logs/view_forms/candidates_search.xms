@@ -1,0 +1,189 @@
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Поиск кандидатов" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/list.ico">
+	<PANEL SUNKEN="1" STD-MARGINS="1" BK-COLOR-EXPR="SysColors.PanelLightBackground">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="38zr"/>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="20zr"/>
+				<COL WIDTH="14zr"/>
+				<COL WIDTH="11zr"/>
+				<COL WIDTH="30zr"/>
+			</COLUMNS>
+			<ITEM TYPE="ft_filter" SOURCE="Ps.filter"/>
+			<PANEL/>
+			<PANEL>
+				<LABEL TITLE="ФИО:"/>
+				<EDIT ACTION="Screen.Update()" SOURCE="Ps.filter.fullname" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Возраст:"/>
+				<TABLE SPACING="short">
+					<COLUMNS>
+						<COL WIDTH="50%"/>
+						<COL WIDTH="50%"/>
+					</COLUMNS>
+					<EDIT ACTION="Screen.Update()" SOURCE="Ps.filter.min_age" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+					<EDIT ACTION="Screen.Update()" SOURCE="Ps.filter.max_age" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+				</TABLE>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Пол:"/>
+				<ITEM TYPE="elem_selector" usage="filter" SOURCE="Ps.filter.gender_id" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Регион:"/>
+				<ITEM TYPE="voc_elem_selector" usage="filter" SOURCE="Ps.filter.location_id" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+			</PANEL>
+		</TABLE>
+		<PANEL HEIGHT="2px"/>
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="28zr"/>
+				<COL WIDTH="18zr"/>
+				<COL WIDTH="22zr"/>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="21zr"/>
+			</COLUMNS>
+			<PANEL>
+				<LABEL TITLE="Дата создания:"/>
+				<TABLE SPACING="short">
+					<COLUMNS>
+						<COL WIDTH="50%"/>
+						<COL WIDTH="50%"/>
+					</COLUMNS>
+					<ITEM TYPE="date_selector" SOURCE="Ps.filter.min_creation_date" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+					<ITEM TYPE="date_selector" SOURCE="Ps.filter.max_creation_date" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+				</TABLE>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Способ занесения:"/>
+				<ITEM TYPE="voc_elem_selector" usage="filter" SOURCE="Ps.filter.entrance_type_id" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Источник поступления:"/>
+				<ITEM TYPE="voc_elem_selector" usage="filter" SOURCE="Ps.filter.source_id" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Статус:"/>
+				<ITEM TYPE="voc_elem_selector" usage="filter" SOURCE="Ps.filter.state_id" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Рекрутер:"/>
+				<ITEM TYPE="object_selector" view-filter-expr="with ( Ps ) { return filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}; }" usage="filter" SOURCE="Ps.filter.user_id" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );lib_view.store_filter_elem( 'candidates_search', Source );"/>
+			</PANEL>
+		</TABLE>
+		<PANEL HEIGHT="2px"/>
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="14zr"/>
+				<COL WIDTH="30zr"/>
+				<COL WIDTH="18zr"/>
+				<COL WIDTH="22zr"/>
+			</COLUMNS>
+			<PANEL>
+				<LABEL TITLE="Специальность:"/>
+				<ITEM TYPE="voc_elem_selector" usage="filter" SOURCE="Ps.filter.idata_profession_id" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Уровень з/п:"/>
+				<TABLE SPACING="short">
+					<COLUMNS>
+						<COL WIDTH="50%"/>
+						<COL WIDTH="50%"/>
+					</COLUMNS>
+					<EDIT ACTION="Screen.Update()" SOURCE="Ps.filter.min_uni_salary" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+					<EDIT ACTION="Screen.Update()" SOURCE="Ps.filter.max_uni_salary" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+				</TABLE>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Вид навыка:"/>
+				<ITEM TYPE="voc_elem_selector" usage="filter" SOURCE="Ps.filter.skills__skill__type_id" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Уровень владения:"/>
+				<ITEM TYPE="elem_selector" usage="filter" SOURCE="Ps.filter.skills__skill__level_id" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Баллы:"/>
+				<TABLE SPACING="short">
+					<COLUMNS>
+						<COL WIDTH="50%"/>
+						<COL WIDTH="50%"/>
+					</COLUMNS>
+					<EDIT ACTION="Screen.Update()" SOURCE="Ps.filter.min_score" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+					<EDIT ACTION="Screen.Update()" SOURCE="Ps.filter.max_score" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+				</TABLE>
+			</PANEL>
+		</TABLE>
+		<PANEL HEIGHT="2px"/>
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="30zr"/>
+				<COL WIDTH="33zr"/>
+				<COL WIDTH="28zr"/>
+			</COLUMNS>
+			<PANEL>
+				<PANEL HEIGHT="3zr"/>
+				<CHECK TITLE="Есть события за период" SOURCE="Ps.filter.has_events" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Тип события:"/>
+				<ITEM TYPE="voc_elem_selector" usage="filter" SOURCE="Ps.filter.type_id" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );" ENABLE-EXPR="Ps.filter.has_events"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Дата:"/>
+				<TABLE SPACING="short">
+					<COLUMNS>
+						<COL WIDTH="50%"/>
+						<COL WIDTH="50%"/>
+					</COLUMNS>
+					<ITEM TYPE="date_selector" SOURCE="Ps.filter.min_date" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );" ENABLE-EXPR="Ps.filter.has_events"/>
+					<ITEM TYPE="date_selector" SOURCE="Ps.filter.max_date" PASSIVE="1" UPDATE-ACTION="Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );" ENABLE-EXPR="Ps.filter.has_events"/>
+				</TABLE>
+			</PANEL>
+		</TABLE>
+		<PANEL HEIGHT="2px"/>
+		<TABLE>
+			<COLUMNS/>
+		</TABLE>
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="Очистить форму" ACTION="lib_view.clear_filters( 'candidates_search', Ps ); lib_view.clear_stored_filters( 'candidates_search' ); lib_view.adjust_filters( 'candidates_search', Ps );Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) )" PASSIVE="1"/>
+		</MENU>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+	<PANEL BK-COLOR-EXPR="" HEIGHT-EXPR="lib_view.use_preview( 'candidates_search' ) ? '40%' : '100%'">
+		<LIST NAME="MainList" USE-KEY-SEL="1" SUNKEN="1" LOOP-CATALOG="candidates" FT-FILTER="Ps.filter" XQUERY-QUAL-EXPR="lib_view.build_xquery_qual( 'candidates_search', Ps )" XQUERY-FIELDS-EXPR="['id','is_derived','is_own_person','is_candidate','is_tentative','is_active','image_url','state_date','fullname','state_id','age','main_vacancy_id','main_vacancy_division_id','uni_salary','last_job_org_name','user_id']" AFTER-BUILD-ASYNC-ACTION="if ( StrContains( Screen.FrameName, 'Sub' ) ) return; size = ArrayOptSize( MainArray ); if ( size == undefined ) { StatusMsg( '' ); return; }; StatusMsg( UiText.titles.items_in_list + ': ' + StrInt( size, 0, true ) + ( lib_view.is_some_filter_applied( 'candidates_search', Ps ) ? '  (с учетом фильтра)' : '' ) )">
+			<ROW IMAGE-URL-EXPR="ListElem.ImageUrl" SET-SEL-ACTION="if ( ! lib_view.use_preview( 'candidates_search' ) ) Cancel();item = Screen.FindOptItem( 'FrameObjectPreview' );doc = DefaultDb.OpenObjectDoc( 'candidate', ListElem.id );item.InnerScreen.EditMode = false;&#10;item.InnerScreen.SetDoc( doc, 'x-app://rcr/rcr_candidate.xms' );Cancel();">
+				<COL COL-TITLE="Дата" WIDTH="14zr" TITLE-EXPR="StrDate( ListElem.state_date, false )" ORDER="state_date" ORDER-DIR="-"/>
+				<COL COL-TITLE="ФИО" WIDTH="36zr" TITLE-EXPR="ListElem.fullname" ORDER="fullname"/>
+				<COL COL-TITLE="Статус" WIDTH="26zr" TITLE-EXPR="ListElem.state_id.ForeignDispName" ORDER="state_id.ForeignDispName" ALIGN="center" TEXT-COLOR-EXPR="ListElem.state_id.ForeignElem.text_color" BK-COLOR-EXPR="ListElem.state_id.ForeignElem.bk_color"/>
+				<COL COL-TITLE="Возраст" WIDTH="12zr" TITLE-EXPR="StrIntZero( ListElem.age )" ORDER="age" ALIGN="right"/>
+				<COL COL-TITLE="Вакансия" WIDTH="40%" TITLE-EXPR="ListElem.main_vacancy_id.ForeignDispName" ORDER="main_vacancy_id.ForeignDispName" ALIGN="left"/>
+				<COL COL-TITLE="Структурное подразделение" WIDTH="30%" TITLE-EXPR="ListElem.main_vacancy_division_id.ForeignDispName" ORDER="main_vacancy_division_id.ForeignDispName" ALIGN="left"/>
+				<COL COL-TITLE="Уровень з/п" WIDTH="12zr" TITLE-EXPR="StrIntZero( ListElem.uni_salary )" ORDER="uni_salary" ALIGN="right"/>
+				<COL COL-TITLE="Последнее место работы" WIDTH="30%" TITLE-EXPR="ListElem.last_job_org_name" ORDER="last_job_org_name" TEXT-COLOR="90,0,120"/>
+				<COL COL-TITLE="Рекрутер" WIDTH="15zr" TITLE-EXPR="ListElem.user_id.ForeignDispName" ORDER="user_id.ForeignDispName" ALIGN="center"/>
+			</ROW>
+			<MENU RIGHT-CLICK="1">
+				<MENU-ENTRY TITLE="Открыть" CMD="OpenSel"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Удалить" CMD="Clear"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name" ACTION="lib_view.ShowScreenInExcel( Screen, List )" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Режим предварительного просмотра" ACTION="lib_view.set_use_preview( 'candidates_search', ! lib_view.use_preview( 'candidates_search' ) )"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Отобрать на вакансию..." ACTION="lib_base.run_list_object_action( List, 'add_candidate_spot', 'add_candidate_spot' )" ENABLE-EXPR="lib_app2.AppFeatureEnabled( 'classic_recruit' )"/>
+				<MENU-ENTRY TITLE="Изменить статус..." ACTION="lib_base.run_list_object_action( List, 'add_candidate_event', 'add_candidate_event' )"/>
+				<MENU-ENTRY TITLE="Отправить контактным лицам по вакансии..." ACTION="lib_base.run_list_object_action( List, 'send_candidate_to_rr_person', 'send_candidate_to_rr_person' )"/>
+				<MENU-ENTRY TITLE="Отправить произвольным контактным лицам..." ACTION="lib_base.run_list_object_action( List, 'send_candidate_to_arbitrary_person', 'send_candidate_to_arbitrary_person' )"/>
+				<MENU-ENTRY TITLE="Найти дубликаты" ACTION="lib_base.run_list_object_action( List, 'find_candidate_dup_candidates', 'find_candidate_dup_candidates' )"/>
+			</MENU>
+		</LIST>
+	</PANEL>
+	<SPLIT/>
+	<FRAME NAME="FrameObjectPreview" HREF="x-app://base1/base1_blank.xms"/>
+	<INHERIT TYPE="view_commands"/>
+	<INHERIT TYPE="view_commands_2"/>
+</SPXML-SCREEN>

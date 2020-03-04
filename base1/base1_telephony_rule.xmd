@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml">
+
+<telephony_rule>
+	<id TYPE="string"/>
+	<name TYPE="string" EXPR="lib_base.GetPhoneFieldDispValue( phone )"/>
+
+	<telephony_provider_id TYPE="string" FOREIGN-ARRAY="telephony_providers" TITLE="##UiText.titles.provider##"/>
+	<phone TYPE="string" TITLE="##UiText.titles.phone_number##"/>
+
+	<target_divisions>
+		<division_id TYPE="integer" MULTIPLE="1" FOREIGN-ARRAY="divisions" TITLE="##UiText.fields.root_division##"/>
+	</target_divisions>
+
+	<target_groups>
+		<group_id TYPE="integer" MULTIPLE="1" FOREIGN-ARRAY="groups" TITLE="##UiText.objects.group##"/>
+	</target_groups>
+
+	<target_users>
+		<user_id TYPE="integer" MULTIPLE="1" FOREIGN-ARRAY="users" TITLE="##UiText.objects.user##"/>
+	</target_users>
+
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</telephony_rule>
+
+
+
+</SPXML-FORM>

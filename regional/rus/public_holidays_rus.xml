@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<public_holiday_map SPXML-FORM="//cn/cn_public_holiday_map.xmd" LANG="ru">
+	<id>rus_01</id>
+	<country_id>RUS</country_id>
+	<items>
+		<item>
+			<name VALUE="Новогодние каникулы" lang-en:VALUE="New Year Holidays"/>
+			<month>1</month>
+			<day>1</day>
+		</item>
+		<item>
+			<name VALUE="Новогодние каникулы" lang-en:VALUE="New Year Holidays"/>
+			<month>1</month>
+			<day>2</day>
+		</item>
+		<item>
+			<name VALUE="Новогодние каникулы" lang-en:VALUE="New Year Holidays"/>
+			<month>1</month>
+			<day>3</day>
+		</item>
+		<item>
+			<name VALUE="Новогодние каникулы" lang-en:VALUE="New Year Holidays"/>
+			<month>1</month>
+			<day>4</day>
+		</item>
+		<item>
+			<name VALUE="Новогодние каникулы" lang-en:VALUE="New Year Holidays"/>
+			<month>1</month>
+			<day>5</day>
+		</item>
+		<item>
+			<name VALUE="Рождество Христово" lang-en:VALUE="Christmas"/>
+			<month>1</month>
+			<day>7</day>
+		</item>
+		<item>
+			<name VALUE="День защитника Отечества" lang-en:VALUE="Army Day"/>
+			<month>2</month>
+			<day>23</day>
+		</item>
+		<item>
+			<name VALUE="Международный женский день" lang-en:VALUE="Women's Day"/>
+			<month>3</month>
+			<day>8</day>
+		</item>
+		<item>
+			<name VALUE="Праздник Весны и Труда" lang-en:VALUE="May 1"/>
+			<month>5</month>
+			<day>1</day>
+		</item>
+		<item>
+			<name VALUE="День Победы" lang-en:VALUE="May 9"/>
+			<month>5</month>
+			<day>9</day>
+		</item>
+		<item>
+			<name VALUE="День России" lang-en:VALUE="June 12"/>
+			<month>6</month>
+			<day>12</day>
+		</item>
+		<item>
+			<name VALUE="День народного единства" lang-en:VALUE="November 4"/>
+			<month>11</month>
+			<day>4</day>
+		</item>
+	</items>
+</public_holiday_map>

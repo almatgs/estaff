@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_skill_types SPXML-FORM="staff_std_skill_types.xmd">
+	<std_skill_type>
+		<id>language</id>
+		<name VALUE="##UiText.fields.foreign_language##"/>
+
+		<is_folder>1</is_folder>
+		<use_levels>1</use_levels>
+
+		<levels>
+			<level>
+				<id>1</id>
+				<name VALUE="начальный" lang-en:VALUE="basic" lang-ua:VALUE="початковий"/>
+			</level>
+			<level>
+				<id>2</id>
+				<name VALUE="средний" lang-en:VALUE="intermediate" lang-ua:VALUE="середній"/>
+			</level>
+			<level>
+				<id>3</id>
+				<name VALUE="уверенный" lang-en:VALUE="good" lang-ua:VALUE="впевненний"/>
+			</level>
+			<level>
+				<id>4</id>
+				<name VALUE="свободный" lang-en:VALUE="fluent" lang-ua:VALUE="вільний"/>
+			</level>
+		</levels>
+
+		<std_skill_types>
+			<std_skill_type>
+				<id>english</id>
+				<name VALUE="английский" lang-en:VALUE="English" lang-ua:VALUE="англійська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>arabian</id>
+				<name VALUE="арабский" lang-en:VALUE="Arabian" lang-ua:VALUE="арабська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>belarusian</id>
+				<name VALUE="белорусский" lang-en:VALUE="Belarusian" lang-ua:VALUE="білоруська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>hungarian</id>
+				<name VALUE="венгерский" lang-en:VALUE="Hungarian" lang-ua:VALUE="угорська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>dutch</id>
+				<name VALUE="голландский" lang-en:VALUE="Dutch" lang-ua:VALUE="голландська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>greek</id>
+				<name VALUE="греческий" lang-en:VALUE="Greek" lang-ua:VALUE="грецька"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>danish</id>
+				<name VALUE="датский" lang-en:VALUE="Danish" lang-ua:VALUE="датська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>hebrew</id>
+				<name VALUE="иврит" lang-en:VALUE="Hebrew" lang-ua:VALUE="іврит"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>spanish</id>
+				<name VALUE="испанский" lang-en:VALUE="Spanish" lang-ua:VALUE="іспанська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>italian</id>
+				<name VALUE="итальянский" lang-en:VALUE="Italian" lang-ua:VALUE="італійська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>chinese</id>
+				<name VALUE="китайский" lang-en:VALUE="Chinese" lang-ua:VALUE="китайська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>korean</id>
+				<name VALUE="корейский" lang-en:VALUE="Korean" lang-ua:VALUE="корейська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>latin</id>
+				<name VALUE="латынь" lang-en:VALUE="Latin" lang-ua:VALUE="латинь"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>german</id>
+				<name VALUE="немецкий" lang-en:VALUE="German" lang-ua:VALUE="німецька"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>polish</id>
+				<name VALUE="польский" lang-en:VALUE="Polish" lang-ua:VALUE="польська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>portuguese</id>
+				<name VALUE="португальский" lang-en:VALUE="Portuguese" lang-ua:VALUE="португальська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>romanian</id>
+				<name VALUE="румынский" lang-en:VALUE="Romanian" lang-ua:VALUE="румунська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>turkish</id>
+				<name VALUE="турецкий" lang-en:VALUE="Turkish" lang-ua:VALUE="турецька"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>ukrainian</id>
+				<name VALUE="украинский" lang-en:VALUE="Ukrainian" lang-ua:VALUE="українська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>farsi</id>
+				<name VALUE="фарси" lang-en:VALUE="Persian" lang-ua:VALUE="фарсі"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>finnish</id>
+				<name VALUE="финский" lang-en:VALUE="Finnish" lang-ua:VALUE="фінська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>french</id>
+				<name VALUE="французский" lang-en:VALUE="French" lang-ua:VALUE="французька"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>czech</id>
+				<name VALUE="чешский" lang-en:VALUE="Czech" lang-ua:VALUE="чеська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>swedish</id>
+				<name VALUE="шведский" lang-en:VALUE="Swedish" lang-ua:VALUE="шведська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>japanese</id>
+				<name VALUE="японский" lang-en:VALUE="Japanese" lang-ua:VALUE="японська"/>
+			</std_skill_type>
+			<std_skill_type>
+				<id>other</id>
+				<name VALUE="-- ##UiText.titles.other## --"/>
+			</std_skill_type>
+		</std_skill_types>
+	</std_skill_type>
+</std_skill_types>
+

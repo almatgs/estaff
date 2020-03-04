@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>candidates_of_vacancy_2</id>
+	<name VALUE="##UiText.sections.candidates_of_vacancy## - 2"/>
+	<parent_id>candidates</parent_id>
+
+	<drop_all_dyn_filters>1</drop_all_dyn_filters>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>age</id>
+			<use_range>1</use_range>
+		</dyn_filter>
+		<dyn_filter>
+			<id>gender_id</id>
+		</dyn_filter>
+	</dyn_filters>
+
+	<drop_all_fields>0</drop_all_fields>
+
+	<fields>
+		<field>
+			<id>state_date</id>
+			<col_title VALUE="##UiText.fields.date##"/>
+			<use_time>0</use_time>
+			<order_dir>-</order_dir>
+		</field>
+		<field>
+			<id>fullname</id>
+		</field>
+		<field>
+			<id>state_id</id>
+			<order>state_id.ForeignElem.order_index</order>
+			<bk_color_expr>get_state_bk_color()</bk_color_expr>
+			<width>24zr</width>
+		</field>
+		<field>
+			<id>last_job_org_name</id>
+			<text_color>90,0,120</text_color>
+			<width>50%</width>
+		</field>
+		<field>
+			<id>last_comment</id>
+			<width>50%</width>
+		</field>
+		<field>
+			<id>user_id</id>
+		</field>
+	</fields>
+
+	<context_menu_sample>
+		<form_url>x-app://rcr/rcr_fields_view_candidates_of_vacancy.xms</form_url>
+		<name>context_menu_entries</name>
+	</context_menu_sample>
+</std_view>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="List.candidates.hm.my.todo" BaseTemplate="List.candidates.hm.my" Title="##UiText.titles.candidates## - To Do" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<UI:Filter Field="state_id" Multiple="1" Fixed="1" ValueExpr="lib_recruit_hm.GetRrPersonToDoCandidateStateIDs()"/>
+
+</UiTemplate>

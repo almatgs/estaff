@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>candidates_search</id>
+	<name VALUE="##UiText.titles.candidates_search##"/>
+	<catalog_name>candidates</catalog_name>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>fullname</id>
+			<width>20zr</width>
+			<use_ft>1</use_ft>
+		</dyn_filter>
+		<dyn_filter>
+			<id>age</id>
+			<use_range>1</use_range>
+		</dyn_filter>
+		<dyn_filter>
+			<id>gender_id</id>
+		</dyn_filter>
+		<dyn_filter>
+			<id>location_id</id>
+			<width>30zr</width>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>creation_date</id>
+			<use_range>1</use_range>
+			<use_new_line>1</use_new_line>
+		</dyn_filter>
+		<dyn_filter>
+			<id>entrance_type_id</id>
+			<width>18zr</width>
+		</dyn_filter>
+		<dyn_filter>
+			<id>source_id</id>
+			<width>22zr</width>
+		</dyn_filter>
+		<dyn_filter>
+			<id>state_id</id>
+			<width>100%</width>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}</view_filter_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>idata_profession_id</id>
+			<width>100%</width>
+			<use_new_line>1</use_new_line>
+		</dyn_filter>
+		<dyn_filter>
+			<id>uni_salary</id>
+			<use_range>1</use_range>
+		</dyn_filter>
+		<dyn_filter>
+			<id>skills.skill.type_id</id>
+			<xquery_qual_expr>
+				base1_config.use_sql_storage ?
+				( 'PathExists( $elem/skills, \'skill\[type_id="' + skills__skill__type_id + '"]' + ( skills__skill__level_id.HasValue ? '[level_id>=' + skills__skill__level_id + ']' : '' ) + '\' )' )
+				: ( base1_config.use_ft_v2 ?
+				( 'doc-contains( $elem/id, \'\', \'skill.' + skills__skill__type_id + ' >= ' + ( skills__skill__level_id.HasValue ? StrInt( skills__skill__level_id, 4 ) : '0000' ) + '\', \'candidate\' )' )
+				:
+				( 'doc-contains( $elem/id, \'\', \'[skill.' + skills__skill__type_id + '>=' + ( skills__skill__level_id.HasValue ? StrInt( skills__skill__level_id, 4 ) : '' ) + ']\', \'candidate\' )' )
+				)
+			</xquery_qual_expr>
+		</dyn_filter>
+		<dyn_filter>
+			<id>skills.skill.level_id</id>
+			<foreign_array_expr>skills__skill__type_id.ForeignElem.implicit_levels</foreign_array_expr>
+			<xquery_qual_expr>''</xquery_qual_expr>
+			<width>18zr</width>
+		</dyn_filter>
+		<dyn_filter>
+			<id>score</id>
+			<use_range>1</use_range>
+		</dyn_filter>
+
+
+		<dyn_filter>
+			<id>has_events</id>
+			<title VALUE="Есть события за период" lang-en:VALUE="Has events in interval" lang-ua:VALUE="Є події за період"/>
+			<is_join_switcher>1</is_join_switcher>
+			<join_catalog_name>events</join_catalog_name>
+			<join_key>candidate_id</join_key>
+			<use_new_line>1</use_new_line>
+		</dyn_filter>
+		<dyn_filter>
+			<join_catalog_name>events</join_catalog_name>
+			<id>type_id</id>
+			<title VALUE="##UiText.fields.event_type##"/>
+		</dyn_filter>
+		<dyn_filter>
+			<join_catalog_name>events</join_catalog_name>
+			<id>date</id>
+			<title VALUE="##UiText.fields.date##"/>
+			<use_range>1</use_range>
+		</dyn_filter>
+	</dyn_filters>
+
+
+	<fields>
+		<field>
+			<id>state_date</id>
+			<use_time>0</use_time>
+			<col_title VALUE="##UiText.fields.date##"/>
+		</field>
+		<field>
+			<id>fullname</id>
+		</field>
+		<field>
+			<id>state_id</id>
+		</field>
+		<field>
+			<id>age</id>
+		</field>
+		<field>
+			<id>main_vacancy_id</id>
+			<width>40%</width>
+		</field>
+		<field>
+			<id>main_vacancy_org_id</id>
+			<exist_req_expr>global_settings.is_agency</exist_req_expr>
+			<width>30%</width>
+		</field>
+		<field>
+			<id>main_vacancy_division_id</id>
+			<exist_req_expr>! global_settings.is_agency</exist_req_expr>
+			<width>30%</width>
+		</field>
+		<field>
+			<id>uni_salary</id>
+		</field>
+		<field>
+			<id>last_job_org_name</id>
+			<text_color>90,0,120</text_color>
+			<width>30%</width>
+		</field>
+		<field>
+			<id>user_id</id>
+		</field>
+	</fields>
+
+	<use_manual_update>1</use_manual_update>
+	<allow_preview>1</allow_preview>
+</std_view>
+

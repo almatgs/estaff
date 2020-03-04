@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="dlg_find" TITLE="Поиск внутри карточки" WIDTH="60zr" HEIGHT="16zr" INIT-ACTION="
+		Screen.FindItem( 'EditSearch' ).SetFocus( true );
+" lang-en:TITLE="Search inside card" lang-ua:TITLE="Пошук всередині картки">
+
+<PANEL HEIGHT="-6zr">
+	<LINE>
+		<LABEL TITLE="Строка поиска:" lang-en:TITLE="Search string:" lang-ua:TITLE="Рядок пошуку:"/>
+		<EDIT NAME="EditSearch" SOURCE="Ps.search_str" ACTION="Screen.RunCommand( 'Ok' )"/>
+	</LINE>
+</PANEL>
+
+<BR/>
+<PANEL HEIGHT="2px">
+</PANEL>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+	<BUTTON TITLE="OK" CMD="1"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2" lang-en:TITLE="Cancel"/>
+</TABLE>
+
+
+
+</SPXML-SCREEN>

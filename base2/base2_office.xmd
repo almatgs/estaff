@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" IMAGE-URL="//base_pict/generic_item.ico">
+
+<office>
+	<id TYPE="integer"/>
+	<name TYPE="string"/>
+	<text_color TYPE="string"/>
+	<bk_color TYPE="string"/>
+
+	<location_id TYPE="string" FOREIGN-ARRAY="locations" IDATA="1" TITLE="##UiText.fields.location##"/>
+	<root_division_id TYPE="integer" FOREIGN-ARRAY="divisions" TITLE="##UiText.fields.root_division##"/>
+
+	<INHERIT TYPE="card_attachments"/>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</office>
+
+
+</SPXML-FORM>

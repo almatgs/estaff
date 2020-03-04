@@ -1,0 +1,63 @@
+destDir = '##DEST_DIR##';
+
+if ( StrContains( destDir, '##' ) )
+	destDir = 'C:\\Program Files\\EStaff';
+
+appFilePath = FilePath( destDir, 'SpXml.exe' );
+startTicks = GetCurTicks();
+
+while ( FileIsBusy( appFilePath ) )
+{
+	if ( GetCurTicks() - startTicks >= 10 * 1000 )
+		throw UserError( 'Unable to close E-Staff' );
+
+	Sleep( 200 );
+}
+
+
+libFilePath = FilePath( destDir, 'datex_gate.dll' );
+
+if ( FilePathExists( libFilePath ) && FileIsBusy( libFilePath ) )
+{
+	oldLibFilePath = FilePath( destDir, 'date_gate_OLD.dll' );
+
+	if ( FilePathExists( oldLibFilePath ) )
+		DeleteFile( oldLibFilePath );
+
+	MoveFile( libFilePath, oldLibFilePath );
+}
+
+
+libFilePath = FilePath( destDir, 'datex_gate_x64.dll' );
+
+if ( FilePathExists( libFilePath ) && FileIsBusy( libFilePath ) )
+{
+	oldLibFilePath = FilePath( destDir, 'date_gate_x64_OLD.dll' );
+
+	if ( FilePathExists( oldLibFilePath ) )
+		DeleteFile( oldLibFilePath );
+
+	MoveFile( libFilePath, oldLibFilePath );
+}
+
+
+libFilePath = FilePath( destDir, 'dtx_native_host.exe' );
+
+if ( FilePathExists( libFilePath ) && FileIsBusy( libFilePath ) )
+{
+	oldLibFilePath = FilePath( destDir, 'dtx_native_host_OLD.exe' );
+
+	if ( FilePathExists( oldLibFilePath ) )
+		DeleteFile( oldLibFilePath );
+
+	MoveFile( libFilePath, oldLibFilePath );
+}
+
+
+ZipExtract( FilePath( AppDirectoryPath(), 'client-setup.zip' ), destDir );
+
+ShellExecute( 'open', appFilePath );
+Cancel();
+
+
+

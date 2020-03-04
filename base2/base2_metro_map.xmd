@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<metro_map>	
+	<lines>
+		<line MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+			<color TYPE="string"/>
+		</line>
+	</lines>
+
+	<stations>
+		<station MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+			<line_id TYPE="integer" MULTIPLE="1"/>
+			<gps1 TYPE="real"/>
+			<gps2 TYPE="real"/>
+		</station>
+	</stations>
+</metro_map>
+
+
+
+</SPXML-FORM>

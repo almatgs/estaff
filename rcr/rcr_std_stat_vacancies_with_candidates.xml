@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>vacancies_with_candidates</id>
+	<name VALUE="Вакансии + кандидаты" lang-en:VALUE="Vacancies &amp; Candidates" lang-ua:VALUE="Вакансії + кандидати"/>
+	<section_id>recruit</section_id>
+
+	<is_v2>1</is_v2>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>vacancy_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.objects.vacancy##"/>
+			<foreign_array>vacancies</foreign_array>
+			<width>70zr</width>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.fields.recruiter##"/>
+			<foreign_array>users</foreign_array>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}</view_filter_expr>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.objects.group##"/>
+			<foreign_array>groups</foreign_array>
+			<is_multiple>1</is_multiple>
+		</dyn_filter>
+	</dyn_filters>
+
+	<groups>
+		<group>
+			<id>vacancy_id</id>
+			<foreign_array>vacancies</foreign_array>
+		</group>
+		<group>
+			<id>candidate_id</id>
+			<foreign_array>candidates</foreign_array>
+			<disp_name_field_id>name</disp_name_field_id>
+		</group>
+	</groups>
+
+	<fields>
+		<field>
+			<id>name</id>
+			<col_title VALUE="##UiText.fields.fullname##"/>
+			<width>35zr</width>
+		</field>
+
+		<field>
+			<id>spot_start_date</id>
+			<col_title VALUE="##UiText.titles.selected_for_vacancy##"/>
+			<data_type>date</data_type>
+		</field>
+
+		<field>
+			<id>state_id</id>
+			<col_title VALUE="##UiText.fields.cur_state##"/>
+			<source_id>candidates</source_id>
+			<foreign_array>candidate_states</foreign_array>
+			<width>30zr</width>
+			<align>center</align>
+		</field>
+
+		<field>
+			<id>state_date</id>
+			<col_title VALUE="##UiText.fields.date##"/>
+			<data_type>date</data_type>
+		</field>
+
+		<field>
+			<id>event_xxx_date</id>
+			<data_type>date</data_type>
+		</field>
+
+		<field>
+			<id>last_comment</id>
+			<col_title VALUE="##UiText.fields.last_comment##"/>
+			<width>100%</width>
+		</field>
+	</fields>
+
+	<show_total>1</show_total>
+	<show_chart>0</show_chart>
+	<use_group_bk_colors>1</use_group_bk_colors>
+
+	<settings_screen_form_url>x-app://rcr/rcr_std_stat_vacancies_with_candidates_settings.xms</settings_screen_form_url>
+
+	<code_lib_url>x-app://rcr/rcr_std_stat_vacancies_with_candidates.js</code_lib_url>
+</std_stat>
+

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" IMAGE-URL="//base_pict/generic_item.ico">
+
+<room>
+	<id TYPE="integer"/>
+	<name TYPE="string"/>
+	<text_color TYPE="string"/>
+	<bk_color TYPE="string"/>
+
+	<office_id TYPE="integer" FOREIGN-ARRAY="offices" TITLE="##UiText.objects.office##"/>
+	<location_id TYPE="string" FOREIGN-ARRAY="locations" IDATA="1" TITLE="##UiText.fields.location##"/>
+	<max_participants_num TYPE="integer" TITLE="Макс. кол-во участников" lang-en:TITLE="Max. participants" lang-ua:TITLE="Макс. кількість учасників"/>
+
+	<outlook_name TYPE="string" INDEXED="1" TITLE="##UiText.fields.outlook_name##"/>
+	<lotus_name TYPE="string" INDEXED="1" TITLE="##UiText.fields.lotus_name##"/>
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</room>
+
+
+</SPXML-FORM>

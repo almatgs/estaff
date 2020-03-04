@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.messages.mass_mail##" WINDOW-ICON-URL-EXPR="Ps.is_active ? '//base_pict/mailing.ico' : '//base_pict/mailing_inactive.ico'" MAXIMIZED="1">
+
+
+<ITEM TYPE="card_menu_start"/>
+
+<MENU TITLE="##UiText.sections.service##" GLOBAL="1">
+	<IF EXPR="PathIsDirectory( FilePath( AppDirectoryPath(), 'module_datex' ) )" IGNORE-ERRORS="0">
+		<MENU-ENTRY TITLE="Load recipients..." ACTION="
+				EvalCodeUrl( '//module_datex/datex_mailing_load.js', 'LoadRecipients()' );
+		"/>
+
+		<MENU-ENTRY TITLE="Load dialers..." ACTION="
+				EvalCodeUrl( '//module_datex/datex_mailing_load.js', 'LoadDealerRecipients()' );
+		"/>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+	</IF>
+
+	<MENU-ENTRY TITLE="Добавить получателей..." lang-en:TITLE="Add Recipients..." ACTION="
+			Ps.handle_add_recipients();
+	" lang-ua:TITLE="Додати одержувачів..."/>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<MENU-ENTRY TITLE="##UiText.actions.send##" ACTION="
+			Ps.send_messages();
+	"/>
+</MENU>
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="card_toolbar_start_entries"/>
+	<INHERIT TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="32zr" STD-MARGINS="0">
+	<PANEL HEIGHT="39zr" SUNKEN="1">
+		<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="0">
+		</TREE>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+	
+	<PANEL SUNKEN="1" STD-MARGINS="1" HEIGHT-EXPR="lib_base.card_left_prop_panel_height" BK-COLOR="sys-bk-ctrl">
+		<PANEL NAME="AnchorLeftProperties">
+		</PANEL>
+
+		<PANEL HEIGHT="-7zr">
+		</PANEL>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="13zr"/>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+			<ITEM TYPE="object_preview" SOURCE="Ps.user_id"/>
+			<ITEM TYPE="object_preview" SOURCE="Ps.group_id"/>
+		</TABLE>
+	</PANEL>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.messages.mass_mail##" SUNKEN="1" EXPANDED="1" IMAGE-URL-EXPR="Ps.is_active ? '//base_pict/mailing.ico' : '//base_pict/mailing_inactive.ico'">
+
+
+
+<PAGE TITLE="##UiText.sections.general##" IMAGE-URL="//base_pict/common.ico" STD-MARGINS="1" SUNKEN="1" lang-en:TITLE="General">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="10zr"/>
+			<COL WIDTH="22zr"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<LABEL TITLE="##UiText.fields.code##:" lang-en:TITLE="#:"/>
+		<LABEL TITLE="##UiText.fields.date##:" lang-en:TITLE="Date:"/>
+		<LABEL TITLE="##UiText.fields.name##:" lang-en:TITLE="Name:"/>
+
+		<EDIT SOURCE="Ps.code" WIDTH="13zr"/>
+		<ITEM TYPE="date_time_selector" SOURCE="Ps.date"/>
+		<EDIT SOURCE="Ps.name"/>
+	</TABLE>
+	<DELIM/>
+
+	<LABEL TITLE="##UiText.fields.subject##:"/>
+	<EDIT SOURCE="Ps.template.subject"/>
+	<BR/>
+
+	<LABEL TITLE="##UiText.titles.text##:"/>
+	<EDIT SOURCE="Ps.template.text" MULTILINE="1" HEIGHT="-10zr"/>
+
+	<LINE>
+		<BUTTON TITLE="##UiText.actions.send_test_message##" IMAGE-URL="//base_pict/email.ico" WIDTH="34zr" ACTION="
+				Ps.send_test_messages();
+		" LABEL-TITLE=" "/>
+
+		<EDIT SOURCE="Ps.test_email" WIDTH="30zr" LABEL-TITLE="##UiText.titles.test_email##:"/>
+	</LINE>
+</PAGE>
+
+
+
+<PAGE TITLE-EXPR="UiText.fields.recipients + '  (' + StrIntZero( Ps.recipients.ChildNum ) + ')'" IMAGE-URL="//base_pict/email_message.ico" STD-MARGINS="0">
+	<LIST SUNKEN="1" LOOP-EXPR="Ps.recipients" HEIGHT="100%">
+		<ROW IMAGE-URL-EXPR="ListElem.person_id.ForeignElem.ImageUrl" OPEN-ACTION="ObtainDocScreen( ListElem.person_id.ForeignObjectUrl )" DELETE-ACTION="Ps.recipients.DeleteChildByKey( ListElem.person_id ); Ps.Doc.SetChanged( true );">
+			<COL WIDTH="40%" COL-TITLE="##UiText.fields.fullname##" TITLE-EXPR="ListElem.person_id.ForeignElem.fullname"/>
+			<COL WIDTH="40%" COL-TITLE="##UiText.objects.org##" TITLE-EXPR="ListElem.person_id.ForeignElem.org_id.ForeignDispName" DEFAULT-SORT="1"/>
+			<COL WIDTH="20%" COL-TITLE="E-mail" TITLE-EXPR="ListElem.person_id.ForeignElem.email"/>
+			
+			<COL WIDTH="5zr" COL-TITLE="+" TITLE-EXPR="ListElem.completion_id == 1 ? '+' : ''" TIP-TEXT="##UiText.titles.sent##" ALIGN="center" BK-COLOR-EXPR="ListElem.completion_id == 1 ? '192,192,192' : ''"/>
+		</ROW>
+
+		<MENU RIGHT-CLICK="1">
+			<INHERIT TYPE="list_menu_entries"/>
+
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE="Пометить как отправленные" lang-en:TITLE="Mark as Sent" ACTION="
+					for ( row in List.SelRows )
+						row.Env.ListElem.completion_id = 1;
+
+					Ps.Doc.SetChanged( true );
+			" lang-ua:TITLE="Помітити як відправлені"/>
+
+			<MENU-ENTRY TITLE="Пометить как неотправленные" lang-en:TITLE="Mark as Not Sent" ACTION="
+					for ( row in List.SelRows )
+						row.Env.ListElem.completion_id.Clear();
+
+					Ps.Doc.SetChanged( true );
+			" lang-ua:TITLE="Помітити як невідправлені"/>
+		</MENU>
+	</LIST>
+	<DELIM/>
+</PAGE>
+
+
+
+
+
+
+
+<ITEM TYPE="card_attachments"/>
+
+
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+</LINE>
+
+
+</SPXML-SCREEN>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<app_info>
+	<application_module TYPE="string"/>
+
+	<default_db_name TYPE="string"/>
+
+	<shared_db TYPE="string" MULTIPLE="1"/>
+	<start_url TYPE="string"/>
+
+	<config_entries>
+		<config_entry MULTIPLE="1">
+			<name TYPE="string"/>
+			<value TYPE="string"/>
+		</config_entry>
+	</config_entries>
+
+	<object_types>
+		<object_type MULTIPLE="1">
+			<id TYPE="string"/>
+			<form_url TYPE="string"/>
+		</object_type>
+	</object_types>
+
+	<catalogs>
+		<catalog MULTIPLE="1">
+			<id TYPE="string"/>
+			<form_url TYPE="string"/>
+			<object_type_id TYPE="string"/>
+		</catalog>
+	</catalogs>
+
+	<shared_docs>
+		<shared_doc MULTIPLE="1">
+			<id TYPE="string"/>
+			<url TYPE="string"/>
+		</shared_doc>
+	</shared_docs>
+
+	<auto_docs>
+		<auto_doc MULTIPLE="1">
+			<url TYPE="string"/>
+			<form_url TYPE="string"/>
+		</auto_doc>
+	</auto_docs>
+
+	<shared_sample_forms>
+		<shared_sample_form MULTIPLE="1">
+			<url TYPE="string"/>
+
+			<samples>
+				<sample MULTIPLE="1">
+					<name TYPE="string"/>
+				</sample>
+			</samples>
+		</shared_sample_form>
+	</shared_sample_forms>
+
+	<shared_sample_screen_forms>
+		<shared_sample_screen_form MULTIPLE="1">
+			<url TYPE="string"/>
+
+			<samples>
+				<sample MULTIPLE="1">
+					<name TYPE="string"/>
+				</sample>
+			</samples>
+		</shared_sample_screen_form>
+	</shared_sample_screen_forms>
+
+	<ui_lang_id TYPE="string"/>
+</app_info>
+
+
+
+</SPXML-FORM>

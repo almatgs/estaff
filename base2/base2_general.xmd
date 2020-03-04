@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<org_ref SAMPLE="1">
+	<org_id TYPE="integer" FOREIGN-ARRAY="orgs" TITLE="##UiText.objects.org##" lang-en:TITLE="Organization"/>
+</org_ref>
+
+
+
+<user_ref SAMPLE="1">
+	<user_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="users" TITLE="##UiText.objects.user##" EXP-MAX-LEN="13" COL-ALIGN="center"/>
+	<group_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="groups" TITLE="##UiText.objects.group##" EXP-MAX-LEN="12" COL-ALIGN="center"/>
+</user_ref>
+
+
+<time_zone_base SAMPLE="1">
+	<time_zone TYPE="real" PRECISION="0" EXPR="
+			if ( time_zone.HasValue )
+				return;
+
+			if ( ! LdsIsClient )
+				return;
+
+			if ( user_id.HasValue &amp;&amp; LdsCurUserID != user_id )
+				return;
+
+			return GetLocalTimeZone();
+	" EXPR-SHOW-ERRORS="1" TITLE="##UiText.titles.time_zone##" base1:allow-hide="1" base1:hide-by-default="1"/>
+</time_zone_base>
+
+
+
+<org_type_base SAMPLE="1">
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<order_index TYPE="integer"/>
+
+	<text_color TYPE="string"/>
+	<bk_color TYPE="string"/>
+
+	<is_competitor TYPE="bool" NULL-FALSE="1" TITLE="##UiText.titles.competitor##"/>
+	<is_recruiting_agency TYPE="bool" NULL-FALSE="1" TITLE="##UiText.titles.recruiting_agency##"/>
+</org_type_base>
+
+
+
+<object_access_base SAMPLE="1">
+	<use_exclusive_access TYPE="bool" NULL-FALSE="1" TITLE="Ограниченный доступ" lang-en:TITLE="Exclusive access" lang-ua:TITLE="Обмежений доступ"/>
+	
+	<exclusive_access>
+		<user_id TYPE="integer" MULTIPLE="1" DOC-ID="1" FOREIGN-ARRAY="users"/>
+	</exclusive_access>
+
+
+	<check_exclusive_read_access PROPERTY="1" PARAM="curUser" EXPR="
+			if ( curUser.access_role_id.ForeignElem.allow_view_exclusive_objects )
+				return;
+
+			if ( ! use_exclusive_access )
+				return;
+
+			if ( user_id == curUser.id )
+				return;
+
+			if ( exclusive_access.user_id.ByValueExists( curUser.id ) )
+				return;
+
+			Cancel();
+	"/>
+</object_access_base>
+
+
+
+<document_signer_base SAMPLE="1">
+	<INHERIT TYPE="person_name_base"/>
+	<mod2_name TYPE="person_name_base" TITLE="ФИО в родительном падеже" lang-en:TITLE="Fullname (mod.)" lang-ua:TITLE="ПІБ в родовому відмінку"/>
+
+	<position_name TYPE="string" TITLE="##UiText.fields.position##" lang-en:TITLE="Position"/>
+	<mod2_position_name TYPE="string" TITLE="Должность в родительном падеже" lang-en:TITLE="Position mod." lang-ua:TITLE="Посада в родовому відмінку"/>
+
+	<auth_doc>
+		<mod2_name TYPE="string"/>
+		<date TYPE="date"/>
+	</auth_doc>
+
+	<t1 TYPE="bool" TEMP="1" EXPR__="lib_person_names.guess_person_mod2_name( lastname.Parent, mod2_name )" EXPR-SHOW-ERRORS="1"/>
+</document_signer_base>
+
+
+
+<legal_org SAMPLE="1">
+	<full_name TYPE="string" TITLE="##UiText.fields.full_official_name##"/>
+	<legal_address TYPE="string"/>
+	<inn TYPE="string"/>
+	<kpp TYPE="string"/>
+
+	<bank_account>
+		<bank>
+			<name TYPE="string"/>
+			<bic TYPE="string"/>
+		</bank>
+
+		<has_custom_recipient TYPE="bool" NOT-NULL="1"/>
+		<custom_recipient_desc TYPE="string" EXPR="custom_recipient_desc == ''&& has_custom_recipient ? std_recipient_desc : custom_recipient_desc"/>
+
+		<std_recipient_desc PROPERTY="1" EXPR="UiText.fields.tax_id + ' ' + Parent.inn + '/' + Parent.kpp + ' ' + Parent.full_name"/>
+		<recipient_desc PROPERTY="1" EXPR="has_custom_recipient ? custom_recipient_desc : std_recipient_desc"/>
+
+		<no TYPE="string"/>
+		<cno TYPE="string"/>
+	</bank_account>
+
+	<ceo>
+		<INHERIT TYPE="person_name_base"/>
+		<position_name TYPE="string" DEFAULT="Генеральный директор" FOREIGN-ARRAY="dw_common.position_types"/>
+		<mod_name TYPE="person_name_base"/>
+	</ceo>
+
+	<chief_accountant>
+		<INHERIT TYPE="person_name_base"/>
+		<mod_name TYPE="person_name_base"/>
+	</chief_accountant>
+</legal_org>
+
+
+
+<country_base SAMPLE="1">
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<currency_id TYPE="string" FOREIGN-ARRAY="currencies" MAX-LEN="3"/>
+</country_base>
+
+
+
+<metro_station_base SAMPLE="1">
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<text_color TYPE="string"/>
+	<bk_color TYPE="string"/>
+
+	<location_id TYPE="string" FOREIGN-ARRAY="locations" TITLE="##UiText.fields.location##"/>
+	<line_id TYPE="integer" MULTIPLE="1"/>
+	<gps1 TYPE="real"/>
+	<gps2 TYPE="real"/>
+</metro_station_base>
+
+
+
+<state_core_actions_base SAMPLE="1">
+	<core_actions>
+		<core_action MULTIPLE="1">
+			<type_id TYPE="string" FOREIGN-ARRAY="base2_common.state_action_types" TITLE="Тип действия" lang-en:TITLE="Action type" lang-ua:TITLE="Тип дії"/>
+			<exist_req_expr TYPE="string" SUBTYPE="code" TITLE="##UiText.titles.exist_req_expr##"/>
+			<phase_id TYPE="integer" NOT-NULL="1"/>
+
+			<mail_template_id TYPE="mail_template_id" TITLE="##UiText.titles.mail_template##"/>
+			<sms_template_id TYPE="string" FOREIGN-ARRAY="sms_templates" TITLE="##UiText.titles.sms_template##"/>
+			
+			<use_multiple_templates TYPE="bool" NULL-FALSE="1" TITLE="Выбирать из нескольких шаблонов" lang-en:TITLE="Select template from a list" lang-ua:TITLE="Вибирати з декількох шаблонів"/>
+			<templates>
+				<template MULTIPLE="1">
+					<mail_template_id TYPE="mail_template_id" TITLE="##UiText.titles.mail_template##"/>
+					<sms_template_id TYPE="string" FOREIGN-ARRAY="sms_templates" TITLE="##UiText.titles.sms_template##"/>
+				</template>
+			</templates>
+
+			<recruit_provider_id TYPE="string" FOREIGN-ARRAY="recruit_providers" TITLE="##UiText.titles.provider##"/>
+			<aux_document_types>
+				<aux_document_type_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="recruit_provider_id.ForeignElem.aux_document_types"/>
+			</aux_document_types>
+
+			<ask_to_do TYPE="bool" NULL-FALSE="1" TITLE="Спрашивать подтверждение пользователя" lang-en:TITLE="Ask user" lang-ua:TITLE="Питати підтвердження користувача"/>
+			<send_to_participants TYPE="bool" NULL-FALSE="1" TITLE="Отправлять участникам" lang-en:TITLE="Send to participants" lang-ua:TITLE="Відправляти учасникам"/>
+			<send_to_vacancy_user TYPE="bool" NULL-FALSE="1" TITLE="Отправлять пользователю - владельцу вакансии" lang-en:TITLE="Send to vacancy owner" lang-ua:TITLE="Відправляти користувачеві - власнику вакансії"/>
+			<send_to_orig_rr_person TYPE="bool" NULL-FALSE="1" TITLE="Отправлять инициатору вакансии" lang-en:TITLE="Send to vacancy originator" lang-ua:TITLE="Відправляти ініціатору вакансії"/>
+			<send_to_rr_persons TYPE="bool" NULL-FALSE="1" TITLE="Отправлять контактным лицам" lang-en:TITLE="Send to contact persons" lang-ua:TITLE="Відправляти контактним особам"/>
+			<use_mass_mail TYPE="bool" NULL-FALSE="1" TITLE="Отправлять через механизм массовой рассылки (без показа в почтовой программе пользователя)" lang-en:TITLE="Send as mass mail" lang-ua:TITLE="Відправляти через механізм масової розсилки (без показу в поштовій програмі користувача)"/>
+
+			<code TYPE="string" SUBTYPE="code" TITLE="Выполняемый код" lang-en:TITLE="Script" lang-ua:TITLE="Виконуваний код"/>
+		</core_action>
+	</core_actions>
+</state_core_actions_base>
+
+
+
+<state_core_attr_base SAMPLE="1">
+	<deactivate_object TYPE="bool" NOT-NULL="1" TITLE="##UiText.fields.deactivate_object##"/>
+
+	<show_init_warning TYPE="bool" NULL-FALSE="1" TITLE="Запрашивать подтверждение пользователя" lang-en:TITLE="Ask user's confirmation" lang-ua:TITLE="Запитувати підтвердження користувача"/>
+	<show_init_dlg TYPE="bool" NULL-FALSE="1" TITLE="Показывать диалоговое окно для ввода комментария" lang-en:TITLE="Show dialog window for a comment" lang-ua:TITLE="Показувати діалогове вікно для введення коментаря"/>
+
+	<require_comment TYPE="bool" NULL-FALSE="1" TITLE="##UiText.titles.require_comment##"/>
+	<min_comment_len TYPE="integer" TITLE="Минимальная длина комментария" lang-en:TITLE="Minimal comment length" lang-ua:TITLE="Мінімальна довжина коментаря"/>
+	<default_comment TYPE="string" MULTILINE="1" TITLE="Начальный шаблон комментария" lang-en:TITLE="Initial comment template" lang-ua:TITLE="Початковий шаблон коментаря"/>
+
+	<require_reject_reason TYPE="bool" NULL-FALSE="1" TITLE="Указание причины отклонения обязательно" lang-en:TITLE="Rejection reason is required" lang-ua:TITLE="Вказівка причини відхилення обов'язково"/>
+	<require_withdrawal_reason TYPE="bool" NULL-FALSE="1" TITLE="Указание причины самоотказа обязательно" lang-en:TITLE="Withdrawal reason is required" lang-ua:TITLE="Вказівка причини самовідмова обов'язково"/>
+</state_core_attr_base>
+
+
+
+<state_attr_base SAMPLE="1">
+	<is_user_duty TYPE="bool" NOT-NULL="1" TITLE="Статус подразумевает необходимость принятия решения пользователем" lang-en:TITLE="Marks object as &quot;To Do&quot; task" lang-ua:TITLE="Необхідність прийняття рішення користувачем"/>
+	<build_state_view TYPE="bool" NULL-FALSE="1" TITLE="Создать отдельный раздел программы для объектов с данным статусом" lang-en:TITLE="Create separate program section for objects with this state" lang-ua:TITLE="Створити окремий розділ програми для об'єктів з даними статусом"/>
+	<create_with_open TYPE="bool" NULL-FALSE="1" TITLE="При переводе в данный статус открывать карточку события для ввода дополнительной информации" lang-en:TITLE="Open event card to specify additional information" lang-ua:TITLE="При вступі в даний статус відкривати картку події для введення додаткової інформації"/>
+
+	<INHERIT TYPE="state_core_attr_base"/>
+
+	<max_duration TYPE="term" TITLE="##UiText.fields.max_state_term##"/>
+	<create_max_duration_notification TYPE="bool" NULL-FALSE="1" TITLE="Создавать уведомление для пользователя о достижении предельного срока" lang-en:TITLE="Create maximal state time notification" lang-ua:TITLE="Створювати повідомлення для користувача про досягнення граничного терміну"/>
+	<max_duration_notification_dest_user_id TYPE="integer" FOREIGN-ARRAY="users" TITLE="Фиксированный получатель уведомления о достижении предельного срока" lang-en:TITLE="Maximal state time notification fixed recipient" lang-ua:TITLE="Фіксований одержувач повідомлення про досягнення граничного терміну"/>
+
+	<max_duration_reach_result>
+		<occurrence_id TYPE="string" TITLE="Признак завершения" lang-en:TITLE="Event Result" lang-ua:TITLE="Ознака завершення"/>
+	</max_duration_reach_result>
+
+	<INHERIT TYPE="state_core_actions_base"/>
+
+	<require_vacancy TYPE="bool" NULL-FALSE="1" TITLE="Требует привязки кандидата к вакансии" lang-en:TITLE="Require selecting candidate for a vacancy" lang-ua:TITLE="Вимагає прив'язки кандидата до вакансії"/>
+	<require_position TYPE="bool" NULL-FALSE="1" TITLE="Требует привязки кандидата к штатной должности (для массовых вакансий)" lang-en:TITLE="Require selecting candidate for a position (for mass vacancies)" lang-ua:TITLE="Вимагає прив'язки кандидата до штатної посади (для масових вакансій)"/>
+	<make_candidate_final TYPE="bool" NULL-FALSE="1" TITLE="Определяет кандидата в качестве финального по вакансии" lang-en:TITLE="Makes candidate final for a vacancy" lang-ua:TITLE="Визначає кандидата в якості фінального по вакансії"/>
+	<remove_candidate_from_final TYPE="bool" NULL-FALSE="1" TITLE="Прекращает рассмотрение кандидата в качестве финального" lang-en:TITLE="Stop considering candidate being final" lang-ua:TITLE="Припиняє розгляд кандидата на пост фінального"/>
+	<require_empl_start_date TYPE="bool" NULL-FALSE="1" TITLE="Требует установки даты выхода на работу" lang-en:TITLE="Start date of employment must be specified" lang-ua:TITLE="Вимагає установки дати виходу на роботу"/>
+
+	<change_vacancy_state TYPE="bool" NULL-FALSE="1" TITLE="Изменяет статус вакансии" lang-en:TITLE="Modifies vacancy state" lang-ua:TITLE="Змінює статус вакансії"/>
+	<next_vacancy_state_id TYPE="string" FOREIGN-ARRAY="vacancy_states" TITLE="Новый статус вакансии" lang-en:TITLE="New vacancy state" lang-ua:TITLE="Новий статус вакансії"/>
+
+	<create_notification TYPE="bool" NULL-FALSE="1" TITLE="Создавать уведомление для пользователя о переходе в данный статус" lang-en:TITLE="Create notification" lang-ua:TITLE="Створювати повідомлення для користувача про перехід в даний статус"/>
+
+	<use_auto_next_state TYPE="bool" NULL-FALSE="1" TITLE="При наступлении автоматически переводит объект в следующий статус" lang-en:TITLE="Automatically move object to the next state" lang-ua:TITLE="При настанні автоматично переводить об'єкт в наступний статус"/>
+	<next_state_id TYPE="string" FOREIGN-ARRAY="event_types" TITLE="Следующий статус" lang-en:TITLE="Next state" lang-ua:TITLE="Наступний статус"/>
+
+	<typical_next_states TITLE="Типичные следующие статусы" lang-en:TITLE="Next typical state" lang-ua:TITLE="Типові наступні статуси">
+		<typical_next_state MULTIPLE="1">
+			<event_type_id TYPE="string" FOREIGN-ARRAY="event_types"/>
+			<event_occurrence_id TYPE="string"/>
+			<action_name TYPE="string"/>
+		</typical_next_state>
+	</typical_next_states>
+
+	<use_decide_later TYPE="bool" NULL-FALSE="1"/>
+
+
+	<show_object_on_portal TYPE="bool" NULL-FALSE="1" TITLE="Показывать кандидата с данным статусом руководителю на портале" lang-en:TITLE="Show candidate with this state on corporate portal" lang-ua:TITLE="Показувати кандидата з даними статусом керівникові на порталі"/>
+	<is_rr_duty_portal_state TYPE="bool" NULL-FALSE="1" TITLE="Разрешить руководителю устанавливать признак завершения на портале" lang-en:TITLE="Allow contact person to set completion state" lang-ua:TITLE="Дозволити керівникові встановлювати ознаку завершення на порталі"/>
+	<show_to_rr TYPE="bool" NULL-FALSE="1" TITLE="Показывать событие руководителю на портале" lang-en:TITLE="Show event to contact person on corporate portal" lang-ua:TITLE="Показувати подію керівникові на порталі"/>
+	<is_participant_duty_state TYPE="bool" NULL-FALSE="1" TITLE="Разрешить участнику устанавливать признак завершения" lang-en:TITLE="Allow participant to set completion state" lang-ua:TITLE="Дозволити учаснику встановлювати ознаку завершення"/>
+
+	<restrict_by_access_role TYPE="bool" NULL-FALSE="1" TITLE="Разрешить установку статуса только пользователям с определенным уровнем доступа" lang-en:TITLE="This status may be set only by a user of certain access levels" lang-ua:TITLE="Дозволити установку статусу тільки користувачам з певним рівнем доступу"/>
+	<allowed_multi_access_role_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="access_roles"/>
+
+
+	<allow_state_reminder PROPERTY="1" EXPR="is_user_duty || id == 'call_later' || id == 'suspended'"/>
+</state_attr_base>
+
+
+
+<object_state_base SAMPLE="1">
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<short_name TYPE="string"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<order_index TYPE="integer"/>
+
+	<text_color TYPE="string"/>
+	<bk_color TYPE="string"/>
+	<image_url TYPE="string"/>
+
+	<is_standalone TYPE="bool" NULL-FALSE="1" TITLE="Не отражается записью в личном деле" lang-en:TITLE="Does not match any record" lang-ua:TITLE="Не відображається записом в особовій справі"/>
+	<event_type_id TYPE="string" FOREIGN-ARRAY="event_types" TITLE="Базовое событие" lang-en:TITLE="Base event types" lang-ua:TITLE="Базове подія"/>
+	<event_occurrence_id TYPE="string" FOREIGN-ARRAY="base2_common.event_occurrences" TITLE="Признак завершения" lang-en:TITLE="Completion" lang-ua:TITLE="Ознака завершення"/>
+
+	<INHERIT TYPE="state_attr_base"/>
+
+	<get_short_name PROPERTY="1" EXPR="
+			if ( short_name.HasValue )
+				return short_name;
+			else
+				return name;
+	"/>
+
+	<get_image_url PROPERTY="1" EXPR="
+			if ( image_url.HasValue )
+				return image_url;
+			else
+				return '//base_pict/event.ico';
+	"/>
+
+	<get_rollback_state PROPERTY="1" EXPR="
+			statesVoc = DefaultDb.GetOptCatalog( lib_base.object_name_to_catalog_name( Name ) );
+			
+			rollbackOccurrenceID = '';
+
+			rollbackState = ArrayOptFind( statesVoc, 'event_type_id == ' + CodeLiteral( event_type_id ) + ' && event_occurrence_id == ' + CodeLiteral( rollbackOccurrenceID ) );
+			return rollbackState;
+	"/>
+</object_state_base>
+
+
+
+<task_state_base SAMPLE="1">
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<text_color TYPE="string"/>
+	<bk_color TYPE="string"/>
+
+	<deactivate_object TYPE="bool" NOT-NULL="1"/>
+</task_state_base>
+
+
+
+<task_record_base SAMPLE="1">
+	<date TYPE="date" TITLE="##UiText.fields.date##"/>
+	<type_id TYPE="string" FOREIGN-ARRAY="rcr_common.vacancy_record_types" TITLE="##UiText.titles.record_type##"/>
+	<state_id TYPE="string" FOREIGN-ARRAY="task_states" TITLE="##UiText.fields.state##"/>
+	<comment TYPE="string" LARGE="1" TITLE="##UiText.fields.card_comment##"/>
+</task_record_base>
+
+
+
+<task_type_base SAMPLE="1">
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<text_color TYPE="string"/>
+	<bk_color TYPE="string"/>
+	<image_url TYPE="string" NOT-NULL="1" DEFAULT="//base_pict/task.ico"/>
+</task_type_base>
+
+
+
+<access_role_base SAMPLE="1">
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+
+	<allow_all TYPE="bool" NULL-FALSE="1"/>
+	<read_only TYPE="bool" NULL-FALSE="1"/>
+
+	<allow_change_trash TYPE="bool" NULL-FALSE="1"/>
+	<allow_change_global_settings TYPE="bool" NULL-FALSE="1"/>
+	<allow_change_users TYPE="bool" NULL-FALSE="1"/>
+	<allow_view_rev_deals TYPE="bool" NULL-FALSE="1"/>
+	<allow_view_exclusive_objects TYPE="bool" NULL-FALSE="1" TITLE="Разрешен просмотр объектов с ограниченным доступом" lang-en:TITLE="Allow viewing exclusive access objects" lang-ua:TITLE="Дозволений перегляд об'єктів з обмеженим доступом"/>
+
+	<prohibit_delete_all TYPE="bool" NULL-FALSE="1" TITLE="Запрещено удаление любых объектов" lang-en:TITLE="Prohibit deleting any object" lang-ua:TITLE="Заборонено видалення будь-яких об'єктів"/>
+	<prohibit_change_object_user TYPE="bool" NULL-FALSE="1" TITLE="Запрещена смена пользователя в любой карточке" lang-en:TITLE="Prohibit changing user for any object"/>
+	<prohibit_change_object_group TYPE="bool" NULL-FALSE="1" TITLE="Запрещена смена группы в любой карточке" lang-en:TITLE="Prohibit changing group for any object"/>
+	<prohibit_list_copy TYPE="bool" NULL-FALSE="1" TITLE="Запрещено копирование и экспорт списков на экране" lang-en:TITLE="Prohibit mass copy and export of lists" lang-ua:TITLE="Заборонено копіювання та експорт списків на екрані"/>
+	<prohibit_change_orgs TYPE="bool" NULL-FALSE="1"/>
+	<prohibit_view_other_group_orgs TYPE="bool" NULL-FALSE="1"/>
+	<prohibit_view_other_group_positions TYPE="bool" NULL-FALSE="1"/>
+	<prohibit_view_other_user_events TYPE="bool" NOT-NULL="1"/>
+	<prohibit_view_other_group_events TYPE="bool" NOT-NULL="1"/>
+	<prohibit_change_other_group_events TYPE="bool" NOT-NULL="1" TITLE="Запрещено редактирование событий других групп" lang-en:TITLE="Prohibit editing events of other groups" lang-ua:TITLE="Заборонити редагування календарів інших груп"/>
+	<prohibit_add_past_events TYPE="bool" NOT-NULL="1" TITLE="Запрещено добавлять события задним числом" lang-en:TITLE="Prohibit adding events manually" lang-ua:TITLE="Заборонено додавати події заднім числом"/>
+
+	<prohibit_view_agreements TYPE="bool" NULL-FALSE="1" TITLE="Запрещен просмотр договоров" lang-en:TITLE="Prohibit viewing agreements" lang-ua:TITLE="Заборонено перегляд договорів"/>
+	<prohibit_view_expenses TYPE="bool" NULL-FALSE="1" TITLE="Запрещен просмотр затрат на подбор" lang-en:TITLE="Prohibit viewing expenses" lang-ua:TITLE="Заборонено перегляд витрат на підбір"/>
+
+	<prohibit_view_other_group_training_groups TYPE="bool" NULL-FALSE="1" TITLE="Запрещен просмотр учебных групп других групп пользователей" lang-en:TITLE="Prohibit viewing training groups of other user's group" lang-ua:TITLE="Заборонено перегляд навчальних груп інших груп користувачів"/>
+
+	<t1 TYPE="bool" EXPR="
+			if ( allow_all )
+			{
+				read_only = false;
+
+				for ( elem in allow_all.Parent )
+				{
+					if ( StrBegins( elem.Name, 'allow_' ) )
+						elem.Value = true;
+					else if ( StrBegins( elem.Name, 'prohibit_' ) )
+						elem.Value = false;
+					else if ( StrBegins( elem.Name, 'restrict_' ) )
+						elem.Value = false;
+				}
+			}
+	" EXPR-SHOW-ERRORS="1"/>
+</access_role_base>
+
+
+
+<base2_global_settings SAMPLE="1">
+	<INHERIT TYPE="base1_global_settings"/>
+
+	<user_primary_disp_name TYPE="string" NOT-NULL="1" DEFAULT="login"/>
+
+	<country_id TYPE="string" FOREIGN-ARRAY="countries" TITLE="##UiText.fields.country##" EXPR-INIT="lib_location.guess_default_country_id()" EXPR-SHOW-ERRORS="0"/>
+
+	<use_own_orgs TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Вести учет собственных организаций" lang-en:TITLE="Store own companies" lang-ua:TITLE="Вести облік власних організацій"/>
+	<use_customers TYPE="bool" NOT-NULL="1" TITLE="Вести учет клиентов" lang-en:TITLE="Store clients" lang-ua:TITLE="Вести облік клієнтів"/>	
+	<use_sec_customers TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Вести учет клиентов партнеров" lang-en:TITLE="Use partner's clients" lang-ua:TITLE="Вести облік клієнтів партнерів"/>	
+	<use_suppliers TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Вести учет поставщиков" lang-en:TITLE="Store suppliers" lang-ua:TITLE="Вести облік постачальників"/>	
+	<use_resellers TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Вести учет реселлеров" lang-en:TITLE="Store resellers" lang-ua:TITLE="Вести облік реселерів"/>	
+	<use_org_events TYPE="bool" NOT-NULL="1" TITLE="Показывать события по организации" lang-en:TITLE="Show company events" lang-ua:TITLE="Показувати події по організації"/>	
+	<use_org_init_users TYPE="bool" NOT-NULL="1" TITLE="Учитывать сотрудника, впервые привлекшего клиента" lang-en:TITLE="Store client finder" lang-ua:TITLE="Враховувати співробітника, який вперше привів кліента"/>
+
+	<use_own_persons TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Вести учет сотрудников" lang-en:TITLE="Store own employees" lang-ua:TITLE="Вести облік співробітників"/>
+	<use_person_roles TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Разделять контактные лица по ролям" lang-en:TITLE="Assign roles to a person" lang-ua:TITLE="Розділяти контактні особи за ролями"/>	
+
+	<use_agreements TYPE="bool" NOT-NULL="1" TITLE="Вести учет договоров с контрагентами" lang-en:TITLE="Store agreements" lang-ua:TITLE="Вести облік договорів з контрагентами"/>
+	<use_expenses TYPE="bool" NOT-NULL="1" TITLE="Вести учет затрат" lang-en:TITLE="Store expenses" lang-ua:TITLE="Вести облік витрат"/>
+	<use_budgets TYPE="bool" NOT-NULL="1" TITLE="Вести квартальные бюджеты" lang-en:TITLE="Use budgets" lang-ua:TITLE="Вести квартальні бюджети"/>
+
+	<use_divisions TYPE="bool" NOT-NULL="1" TITLE="Вести учет подразделений" lang-en:TITLE="Use divisions" lang-ua:TITLE="Вести облік підрозділів"/>
+	<use_division_short_name_as_primary TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Использовать сокращенное наименование подразделения, если оно указано, при показе полной цепочки подразделений" lang-en:TITLE="Use division short name if any, to show in full division path" lang-ua:TITLE="Використовувати скорочене найменування підрозділу, якщо воно вказане, при показі повного ланцюжка підрозділів"/>
+	<use_positions TYPE="bool" NOT-NULL="1" TITLE="Вести учет штатных должностей" lang-en:TITLE="Use positions" lang-ua:TITLE="Вести облік штатних посад"/>
+	<require_employee_positions TYPE="bool" NOT-NULL="1" TITLE="Требовать обязательной привязки сотрудника к штатной должности" lang-en:TITLE="Require binding each employee to a position" lang-ua:TITLE="Вимагати обов'язкової прив'язки співробітника до штатної посади"/>
+</base2_global_settings>
+
+
+
+<base2_local_settings SAMPLE="1">
+	<INHERIT TYPE="base1_local_settings"/>
+
+	<default_own_org_id TYPE="integer" FOREIGN-ARRAY="orgs"/>
+	
+	<use_reminder TYPE="bool" PROPERTY="1" EXPR="reminder.use_calendar_entries || reminder.use_reminder_events"/>
+	<reminder>
+		<use_calendar_entries TYPE="bool" NOT-NULL="1"/>
+		<calendar_entry_minute_offset TYPE="integer" NOT-NULL="1" DEFAULT="0"/>
+		<calendar_entry_extra_minute_offset TYPE="integer"/>
+
+		<use_reminder_events TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+		<reminder_event_minute_offset TYPE="integer" NOT-NULL="1" DEFAULT="0"/>
+		<reminder_event_extra_minute_offset TYPE="integer"/>
+
+		<use_date_only_reminder_events TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+		<date_only_reminder_minute_interval TYPE="integer" DEFAULT="180"/>
+	</reminder>
+</base2_local_settings>
+
+
+</SPXML-FORM>

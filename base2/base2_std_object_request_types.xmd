@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_object_request_types>
+	<std_object_request_type MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT FORM="base2_object_request_type.xmd" TYPE="object_request_type"/>
+	</std_object_request_type>
+</std_object_request_types>
+
+
+</SPXML-FORM>
+

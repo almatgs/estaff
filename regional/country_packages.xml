@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<country_packages SPXML-FORM="//base2/base2_country_packages.xmd">
+	<country_package>
+		<country_id>BLR</country_id>
+		<has_locations>1</has_locations>
+		<has_public_holiday_map>1</has_public_holiday_map>
+	</country_package>
+	<country_package>
+		<country_id>KAZ</country_id>
+		<has_locations>1</has_locations>
+		<has_public_holiday_map>1</has_public_holiday_map>
+		<has_annual_holiday_map>1</has_annual_holiday_map>
+	</country_package>
+	<country_package>
+		<country_id>RUS</country_id>
+		<has_locations>1</has_locations>
+		<has_public_holiday_map>1</has_public_holiday_map>
+		<has_annual_holiday_map>1</has_annual_holiday_map>
+	</country_package>
+	<country_package>
+		<country_id>UKR</country_id>
+		<has_locations>1</has_locations>
+		<has_public_holiday_map>1</has_public_holiday_map>
+		<has_annual_holiday_map>1</has_annual_holiday_map>
+	</country_package>
+	<country_package>
+		<country_id>MDA</country_id>
+		<has_locations>1</has_locations>
+	</country_package>
+	<country_package>
+		<country_id>EST</country_id>
+		<has_locations>1</has_locations>
+		<has_public_holiday_map>1</has_public_holiday_map>
+		<has_annual_holiday_map>1</has_annual_holiday_map>
+	</country_package>
+</country_packages>

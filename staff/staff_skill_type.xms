@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="120zr" HEIGHT="85zr" SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+
+		if ( AppModuleUsed( 'module_adecco' ) )
+			lib_adecco.BuildCombSkills();
+" RESIZE="1" WINDOW-ICON-URL-EXPR="Ps.ImageUrl">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<CHECK SOURCE="Ps.is_folder" TITLE="Группа навыков" lang-en:TITLE="Skills group" lang-ua:TITLE="Група навиків"/>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.use_levels" TITLE="##UiText.fields.levels##"/>
+	<CHECK SOURCE="Ps.use_parent_levels" TITLE="Использовать уровни головной группы" ENABLE-EXPR="Ps.parent_id.HasValue" lang-en:TITLE="Use levels of parent group" lang-ua:TITLE="Використовувати рівні головної групи"/>
+
+	<IF EXPR="Ps.use_levels && ! Ps.use_parent_levels">
+		<BR/>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="16px"/>
+			</COLUMNS>
+
+			<LABEL TITLE="##UiText.fields.levels##:"/>
+
+			<IMAGE URL="//base_pict/plus.ico" WIDTH="16px" HEIGHT="16px" TIP-TEXT="Добавить уровень" ACTION="
+					level = Ps.levels.AddChild();
+					level.id = Ps.get_unique_level_id();
+
+					Ps.Doc.SetChanged( true );
+
+			" lang-en:TIP-TEXT="Add level" lang-ua:TIP-TEXT="Додати рівень"/>
+		</TABLE>
+
+		<GRID SOLID-ROWS="1">
+			<COLUMNS>
+				<COL WIDTH="10zr"/>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+			<ROW HEADER="1">
+				<LABEL TITLE="##UiText.fields.level##" ALIGN="center"/>
+				<LABEL TITLE="##UiText.fields.name##" ALIGN="center" lang-en:TITLE="Name"/>
+			</ROW>
+
+			<LOOP EXPR="Ps.levels" VAR="_level">
+				<ROW DELETE-TARGET="_level">
+					<EDIT SOURCE="_level.id" SET-VALUE-ACTION="
+							for ( elem in Ps.levels )
+							{
+								if ( elem !== _level &amp;&amp; elem.id == Int( NewValue ) )
+									throw UserError( UiText.errors.skill_level_already_exists );
+							}
+							
+							_level.id = NewValue;
+							_level.Doc.SetChanged();
+					" ALIGN="right"/>
+
+					<EDIT SOURCE="_level.name"/>
+				</ROW>
+			</LOOP>
+
+
+			<MENU>
+				<MENU-ENTRY TITLE="##UiText.actions.add##" ACTION="
+						if ( Grid.HasSel )
+						{
+							curItem = Grid.SelRow.Env._level;
+							subType = Ps.levels.InsertChild( curItem.ChildIndex );
+						}
+						else
+						{
+							subType = Ps.levels.AddChild();
+						}
+
+						subType.id = Ps.get_unique_level_id();
+
+						Ps.Doc.SetChanged( true );
+				" lang-en:TITLE="Add"/>
+
+				<MENU-ENTRY SEPARATOR="1"/>
+				
+				<MENU-ENTRY TITLE="##UiText.actions.move_up##" ACTION="
+						curItem = Grid.SelRow.Env._level;
+						if ( curItem.ChildIndex == 0 )
+							return;
+
+						curItem.SetChildIndex( curItem.ChildIndex - 1 );
+						curItem.Doc.SetChanged( true );
+				" ENABLE-EXPR="Grid.HasSingleSel"/>
+
+				<MENU-ENTRY TITLE="##UiText.actions.move_down##" ACTION="
+						curItem = Grid.SelRow.Env._level;
+						if ( curItem.ChildIndex == curItem.Parent.ChildNum - 1 )
+							return;
+
+						curItem.SetChildIndex( curItem.ChildIndex + 1 );
+						curItem.Doc.SetChanged( true );
+				" ENABLE-EXPR="Grid.HasSingleSel"/>
+			</MENU>
+		</GRID>
+	</IF>
+	<DELIM/>
+</PANEL>
+
+
+
+</SPXML-SCREEN>

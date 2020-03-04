@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<subdivisions>
+	<subdivision MULTIPLE="1" PRIMARY-KEY="eid">
+		<eid TYPE="string"/>
+		<code TYPE="string"/>
+		<disp_name TYPE="string"/>
+		<name TYPE="string"/>
+	</subdivision>
+</subdivisions>
+
+
+</SPXML-FORM>
+
+
+

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="Object.event" ObjectType="event" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<Page ID="Common" Layout="table1">
+	<UI:Item Field="date"/>
+	<UI:Item Field="type_id"/>
+	<UI:Item Field="author_id"/>
+	<UI:Item Field="user_id"/>
+
+	<UI:Break/>
+	<UI:Item Field="candidate_id"/>
+	<UI:Item Field="vacancy_id"/>
+
+	<UI:Break/>
+
+	<UI:Item Field="comment"/>
+</Page>
+
+</UiTemplate>
+

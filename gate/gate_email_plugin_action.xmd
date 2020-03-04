@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<email_plugin_action>
+	<action_id TYPE="string"/>
+	<email_app_id TYPE="string"/>
+
+	<items>
+		<item MULTIPLE="1">
+			<item_type_id TYPE="string"/>
+
+			<id TYPE="string"/>
+			<date TYPE="date"/>
+
+			<sender>
+				<address TYPE="string"/>
+				<name TYPE="string"/>
+			</sender>
+
+			<recipients>
+				<recipient MULTIPLE="1">
+					<address TYPE="string"/>
+					<name TYPE="string"/>
+				</recipient>
+			</recipients>
+
+			<subject TYPE="string"/>
+			<body TYPE="string" MULTILINE="1"/>
+			<html_body TYPE="string" SUBTYPE="html"/>
+
+			<attachments>
+				<attachment MULTIPLE="1">
+					<file_name TYPE="string"/>
+					<data TYPE="binary"/>
+				</attachment>
+			</attachments>
+
+			<mime_body TYPE="string" MULTILINE="1"/>
+		</item>
+	</items>
+</email_plugin_action>
+
+
+
+</SPXML-FORM>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem.record" WIDTH="110zr" HEIGHT="50zr" TITLE="##UiText.titles.record##">
+
+<PANEL HEIGHT-EXPR="lib_base.dlg_body_height">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="14zr"/>
+			<COL WIDTH="25zr"/>
+			<COL WIDTH="20zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="date_selector" SOURCE="Ps.date" AUTO-LABEL="1"/>
+		<ITEM TYPE="elem_selector" SOURCE="Ps.type_id" AUTO-LABEL="1"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.state_id" AUTO-LABEL="1"/>
+	</TABLE>
+	<BR/>
+
+
+	<EDIT SOURCE="Ps.comment" MULTILINE="1" SHORT="1" HEIGHT="100%" VERT-SCROLL="1" AUTO-LABEL="1"/>
+</PANEL>
+
+
+<ITEM TYPE="dlg_footer_start"/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+	<LABEL/>
+	<BUTTON TITLE="OK" CMD="1"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2" lang-en:TITLE="Cancel"/>
+</TABLE>
+
+</SPXML-SCREEN>

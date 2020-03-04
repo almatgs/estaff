@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="86zr" HEIGHT="34zr" SOURCE="TopElem" TITLE="##UiText.sections.settings_office_app##" RESIZE="1" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<LABEL TITLE="Используемое офисное приложение:" lang-en:TITLE="Default office application:" lang-ua:TITLE="Офісний додаток:"/>
+	<COMBO SOURCE="Ps.active_office_app_id" WIDTH="30zr">
+		<COMBO-ENTRY TITLE="MS Office" VALUE="mso"/>
+		<COMBO-ENTRY TITLE="OpenOffice.org" VALUE="oo"/>
+	</COMBO>
+
+	<BR/>
+
+	<CHECK SOURCE="Ps.use_office_editor_visible_mode" TITLE="Запускать редактор офисного приложения в видимом режиме (для целей отладки)" lang-en:TITLE="Start office editor in visible mode (debug only)" lang-ua:TITLE="Запускати редактор офісної програми у видимому режимі (для цілей налагодження)"/>
+</PANEL>
+
+
+</SPXML-SCREEN>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="130zr" HEIGHT="70zr" TITLE="##UiText.titles.event_participation##" OK-ACTION="
+		//Ps.Finish();
+" STD-MARGINS="1">
+
+<PANEL HEIGHT="-5zrc" VERT-SCROLL="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH-EXPR="( ArrayOptMax( ArrayExtract( Ps.target_parts, 'CalcTextScreenWidth( part_id.ForeignDispName )' ) ) + 10 ) + 'px'" MIN-WIDTH="30zr" MAX-WIDTH="100%"/>
+			<COL WIDTH="22zr"/>
+			<COL WIDTH="22zr"/>
+		</COLUMNS>
+
+		<LOOP EXPR="Ps.target_parts" VAR="targetPart">
+			<LABEL TITLE-EXPR="( targetPart.part_id.ForeignElem.ChildIndex + 1 ) + '. ' + targetPart.part_id.ForeignElem.name"/>
+			<CHECK SOURCE="targetPart.attended" TITLE="##UiText.titles.attended##" ENABLE-EXPR="! targetPart.not_required"/>
+			<CHECK SOURCE="targetPart.not_required" TITLE="##UiText.titles.not_required##"/>
+		</LOOP>
+	</TABLE>
+</PANEL>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<BUTTON TITLE="OK" CMD="1"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2"/>
+</TABLE>
+
+
+</SPXML-SCREEN>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<ui_text xmlns:lang-en="http://www.datex-soft.com/ns/lang-en" xmlns:lang-pl="http://www.datex-soft.com/ns/lang-pl">
+	<fields>
+		<lds_address VALUE="Адрес внутреннего сервера" lang-en:VALUE="Internal server address" lang-ua:VALUE="Адреса внутрішнього сервера"/>
+		<lds_xxx_address VALUE="Адрес сервера %s" lang-en:VALUE="%s server address" lang-ua:VALUE="Адреса сервера %s"/>
+		<user_name VALUE="Имя пользователя" lang-en:VALUE="User name" lang-ua:VALUE="Ім'я користувача"/>
+		<password VALUE="Пароль" lang-en:VALUE="Password" lang-ua:VALUE="Пароль"/>
+		<server VALUE="Сервер" lang-en:VALUE="Server" lang-ua:VALUE="Сервер"/>
+	</fields>
+	<titles>
+		<attention VALUE="Внимание" lang-en:VALUE="Attention" lang-ua:VALUE="Увага"/>
+		<warning VALUE="Внимание" lang-en:VALUE="Warning" lang-ua:VALUE="Увага"/>
+		<error VALUE="Ошибка" lang-en:VALUE="Error" lang-ua:VALUE="Помилка"/>
+		<lds VALUE="Внутренний сервер" lang-en:VALUE="Internal server" lang-ua:VALUE="Внутрішній сервер"/>
+		<user_auth VALUE="Идентификация пользователя" lang-en:VALUE="User authentication" lang-ua:VALUE="Ідентифікація користувача"/>
+		<http_auth VALUE="Идентификация пользователя на сайте" lang-en:VALUE="Site authentication" lang-ua:VALUE="Ідентифікація користувача на сайті"/>
+		<proxy_auth VALUE="Идентификация пользователя на прокси-сервере" lang-en:VALUE="Proxy authentication" lang-ua:VALUE="Ідентифікація користувача на проксі-сервері"/>
+		<lds_auth VALUE="Идентификация пользователя&#10;на внутреннем сервере" lang-en:VALUE="User authentication&#10;on application server" lang-ua:VALUE="Ідентифікація користувача &#10; на внутрішньому сервері"/>
+		<lds_xxx_auth VALUE="Идентификация пользователя&#10;на сервере %s" lang-en:VALUE="User authentication&#10;on %s server" lang-ua:VALUE="Ідентифікація користувача &#10; на сервері %s"/>
+		<copying_files VALUE="Копирование файлов" lang-en:VALUE="Copying files" lang-ua:VALUE="Копіювання файлів"/>
+		<save_password VALUE="Сохранять пароль" lang-en:VALUE="Save Password" lang-ua:VALUE="Зберегти пароль"/>
+		<setup VALUE="Установка" lang-en:VALUE="Setup" lang-ua:VALUE="Встановлення"/>
+		<main_section VALUE="Главный раздел" lang-en:VALUE="Main" lang-ua:VALUE="Головний розділ"/>
+		<today VALUE="Сегодня" lang-en:VALUE="Today" lang-ua:VALUE="Сьогодні"/>
+		<yes VALUE="Да" lang-en:VALUE="Yes" lang-ua:VALUE="Так"/>
+		<no VALUE="Нет" lang-en:VALUE="No" lang-ua:VALUE="Ні"/>
+		<menu VALUE="Меню" lang-en:VALUE="Menu" lang-ua:VALUE="Меню"/>
+	</titles>
+	<actions>
+		<cancel VALUE="Отмена" lang-en:VALUE="Cancel" lang-ua:VALUE="Скасувати"/>
+		<btn_back VALUE="&lt; Назад" lang-en:VALUE="&lt; Back" lang-pl:VALUE="&lt; Powrуt" lang-ua:VALUE="&lt; Назад"/>
+		<btn_finish VALUE="Готово" lang-en:VALUE="Finish" lang-pl:VALUE="Zakonczone" lang-ua:VALUE="Готово"/>
+		<btn_next VALUE="Далее >" lang-en:VALUE="Next >" lang-pl:VALUE="Dalej >" lang-ua:VALUE="Далі >"/>
+		<browse VALUE="Просмотр" lang-en:VALUE="Browse" lang-ua:VALUE="Вигляд"/>
+		<open VALUE="Открыть" lang-en:VALUE="Open" lang-ua:VALUE="Відкрити"/>
+		<del VALUE="Удалить" lang-en:VALUE="Delete" lang-ua:VALUE="Видалити"/>
+		<close VALUE="Закрыть" lang-en:VALUE="Close" lang-ua:VALUE="Закрити"/>
+	</actions>
+	<messages>
+		<operation_completed_successfully VALUE="Операция завершена успешно" lang-en:VALUE="Operation completed successfully" lang-ua:VALUE="Операція завершена успішно"/>
+		<warning_msg_title VALUE="Внимание" lang-en:VALUE="Warning" lang-ua:VALUE="Увага"/>
+		<operation_will_be_cancelled VALUE="Операция будет прервана. Продолжить?" lang-en:VALUE="This will cancel current task. Continue?" lang-ua:VALUE="Операція буде перервана. Продовжити?"/>
+		<welcome_to_xxx_setup VALUE="Добро пожаловать в установочную программу&#10;%s" lang-en:VALUE="Welcome to the %s&#10;setup wizard" lang-ua:VALUE="Ласкаво просимо до інсталяції програми&#10;%s"/>
+		<this_will_install_xxx VALUE="На Ваш компьютер будет установлена программа&#10;%s" lang-en:VALUE="This will install %s on your computer" lang-ua:VALUE="На Ваш комп'ютер буде встановлено програму&#10;%s"/>
+		<this_will_uninstall_xxx VALUE="Программа %s будет удалена с Вашего компьютера. Продолжить?" lang-en:VALUE="This will remove %s from your computer. Continue?" lang-ua:VALUE="Програма %s буде видалена з Вашого комп'ютера. Продовжити?"/>
+		<xxx_was_uninstalled VALUE="Программа %s удалена с Вашего компьютера." lang-en:VALUE="%s has been removed from your computer." lang-ua:VALUE="Програма %s видалена з Вашого комп'ютера."/>
+		<select_setup_folder_for_xxx VALUE="Укажите директорию, в которую будет установлена программа&#10;%s" lang-en:VALUE="Select setup folder for %s" lang-ua:VALUE="Вкажіть директорію, в яку буде встановлена програма&#10;%s"/>
+		<launch_xxx_program VALUE="Запустить программу '%s'" lang-en:VALUE="Launch %s" lang-ua:VALUE="Запустити програму '%s'"/>
+		<proxy_auth_required VALUE="Внимание! Ваш прокси-сервер требует авторизации пользователя." lang-en:VALUE="Your proxy server requires authentication" lang-ua:VALUE="Увага! Ваш проксі-сервер вимагає авторизації користувача."/>
+		<open_xxx_rows VALUE="Вы действительно хотите открыть %s записей?" lang-en:VALUE="Are you sure you want to open %s records?" lang-ua:VALUE="Ви дійсно хочете відкрити %s записів?"/>
+		<row_will_be_deleted VALUE="Выделенная запись будет удалена. Продолжить?" lang-en:VALUE="Are you sure you want to delete selected record?" lang-ua:VALUE="Виділений запис буде видалений. Продовжити?"/>
+		<rows_will_be_deleted VALUE="Выделенные записи будут удалены. Продолжить?" lang-en:VALUE="Are you sure you want to delete selected records?" lang-ua:VALUE="Виділені записи будуть видалені. Продовжити?"/>
+		<rebuilding_catalogs VALUE="Перестройка файлов каталога..." lang-en:VALUE="Rebuilding catalogs..." lang-ua:VALUE="Перебудова файлів каталогу..."/>
+		<restoring_ft VALUE="Восстановление полнотекстового индекса..." lang-en:VALUE="Restoring fulltext index..." lang-ua:VALUE="Відновлення повнотекстового індексу..."/>
+		<changes_require_app_restart VALUE="Изменения вступят в силу после перезапуска программы" lang-en:VALUE="You changes will take effect after you restart the program" lang-ua:VALUE="Зміни вступлять в силу після перезавантаження програми"/>
+		<changes_require_server_restart VALUE="Изменения вступят в силу после перезапуска сервера и самой программы" lang-en:VALUE="You changes will take effect after you restart your application server and the program" lang-ua:VALUE="Зміни вступлять в силу після перезавантаженняу сервера і самої програми"/>
+		<url_locked_by_user_xxx VALUE="Внимание! Документ в настоящий момент открыт пользователем %s" lang-en:VALUE="The document is currently opened by user %s" lang-ua:VALUE="Увага! Документ зараз відкритий користувачем %s"/>
+		<url_locked_by_another_user VALUE="Внимание! Документ в настоящий момент открыт другим пользователем" lang-en:VALUE="The document is currently opened by another user" lang-ua:VALUE="Увага! Документ зараз відкритий іншим користувачем"/>
+		<url_locked_comment VALUE="Вы можете просматривать содержимое документа, но сможете сохранить документ только в виде копии" lang-en:VALUE="You will not be able to save the document" lang-ua:VALUE="Ви можете переглядати вміст документа, але зможете зберегти документ тільки у вигляді копії"/>
+	</messages>
+	<questions>
+		<save_changes VALUE="Сохранить изменения?" lang-en:VALUE="Save changes?" lang-ua:VALUE="Зберегти зміни?"/>
+		<save_changes_in_document_xxx VALUE="Сохранить изменения в документе '%s'?" lang-en:VALUE="Save changes in document '%s'?" lang-ua:VALUE="Зберегти зміни в документі '%s'?"/>
+	</questions>
+	<errors>
+		<killed VALUE="Операция отменена пользователем" lang-en:VALUE="Action cancelled" lang-ua:VALUE="Операція скасована користувачем"/>
+		<generic VALUE="Неизвестная ошибка" lang-en:VALUE="Unknown error" lang-ua:VALUE="Невідома помилка"/>
+		<no_such_item VALUE="Элемент не найден" lang-en:VALUE="Item not found" lang-ua:VALUE="Елемент не знайдений"/>
+		<no_such_file VALUE="Файл не найден" lang-en:VALUE="File not found" lang-ua:VALUE="Файл не знайдений"/>
+		<file_already_exists VALUE="Файл уже существует" lang-en:VALUE="File already exists" lang-ua:VALUE="Файл вже існує"/>
+		<dir_already_exists VALUE="Директория уже существует" lang-en:VALUE="Directory already exists" lang-ua:VALUE="Директорія вже існує"/>
+		<file_already_opened VALUE="Файл уже открыт в другой программе" lang-en:VALUE="File already opened" lang-ua:VALUE="Файл вже відкрито в іншій програмі"/>
+		<permission_denied VALUE="Отсутствуют права доступа" lang-en:VALUE="Access is denied" lang-ua:VALUE="Відсутні права доступу"/>
+		<disk_full VALUE="Не хватает свободного места на диске" lang-en:VALUE="Disk full" lang-ua:VALUE="Бракує вільного місця на диску"/>
+		<invalid_date VALUE="Недопустимая дата" lang-en:VALUE="Invalid date" lang-ua:VALUE="Неприпустима дата"/>
+		<invalid_year VALUE="Недопустимый год" lang-en:VALUE="Invalid year" lang-ua:VALUE="Неприпустимий рік"/>
+		<invalid_format VALUE="Неверный формат" lang-en:VALUE="Invalid format" lang-ua:VALUE="Невірний формат"/>
+		<invalid_date_format VALUE="Неверный формат даты. Дата должна быть указана в виде 'дд.мм.гг', например '25.11.98'" lang-en:VALUE="Invalid date format" lang-ua:VALUE="Невірний формат дати. Дата має бути зазначена у вигляді 'дд.мм.гг', наприклад '25.11.98 '"/>
+		<invalid_query_syntax VALUE="Недопустимый формат запроса" lang-en:VALUE="Invalid query syntax" lang-ua:VALUE="Неприпустимий формат запиту"/>
+		<invalid_char_in_name VALUE="Недопустимый символ в имени" lang-en:VALUE="Invalid character" lang-ua:VALUE="Неприпустимий символ в імені"/>
+		<negative_value_prohibited VALUE="Значение не может быть отрицательным" lang-en:VALUE="Negative value is not allowed" lang-ua:VALUE="Значення не може бути від`ємним"/>
+		<zero_value_prohibited VALUE="Значение не может быть нулевым" lang-en:VALUE="Zero value is not allowed" lang-ua:VALUE="Значення не може бути нульовим"/>
+		<alphanum_value_required VALUE="Допускается использовать только буквы латинского алфавита и цифры" lang-en:VALUE="Only Latin letters and digits are allowed" lang-ua:VALUE="Допускається використовувати тільки букви латинського алфавіту і цифри"/>
+		<unsupported_auth_method VALUE="Сервер не допускает методов авторизации пользователя, поддерживаемых программой. Используйте способ соединения через Microsoft Internet Explorer" lang-en:VALUE="Site authentication methods are not supported. Use connection through Internet Explorer" lang-ua:VALUE="Сервер не допускає методів авторизації користувача, підтримуваних програмою. Використовуйте спосіб з'єднання через Microsoft Internet Explorer"/>
+		<unsupported_proxy_auth_method VALUE="Ваш прокси-сервер не допускает методов авторизации пользователя, поддерживаемых программой. Используйте способ соединения через Microsoft Internet Explorer" lang-en:VALUE="Your proxy server authentication methods are not supported. Use connection through Internet Explorer" lang-ua:VALUE="Ваш проксі-сервер не допускає методів авторизації користувача, підтримуваних програмою. Використовуйте спосіб з'єднання через Microsoft Internet Explorer"/>
+		<invalid_login VALUE="Неверное имя пользователя или пароль" lang-en:VALUE="Invalid username or password" lang-ua:VALUE="Невірне ім'я користувача або пароль"/>
+		<invalid_sn VALUE="Недопустимый серийный номер" lang-en:VALUE="Invalid serial number" lang-ua:VALUE="Неприпустимий серійний номер"/>
+		<invalid_sn_for_this_usage VALUE="Недопустимый серийный номер для данной конфигурации" lang-en:VALUE="Invalid serial number for this configuration of the product" lang-ua:VALUE="Неприпустимий серійний номер для даної конфігурації"/>
+		<invalid_sn_for_this_version VALUE="Недопустимый серийный номер для данной версии продукта" lang-en:VALUE="Invalid serial number for this version of the product" lang-ua:VALUE="Неприпустимий серійний номер для даної версії продукту"/>
+		<invalid_activation_code VALUE="Недопустимый код активации" lang-en:VALUE="Invalid activation code" lang-ua:VALUE="Неприпустимий код активації"/>
+		<deactivation_required VALUE="Ваша копия программы была активирована на данном компьютере. Для удаления программы необходимо предварительно деактивировать Вашу копию." lang-en:VALUE="The program had been activated on this computer. You have to deactivate the program before removing it." lang-ua:VALUE="Ваша копія програми була активована на даному комп'ютері. Для видалення програми необхідно попередньо деактивувати Вашу копію."/>
+		<directory_xxx_does_not_exist VALUE="Директория %s не существует" lang-en:VALUE="Directory %s does not exist" lang-ua:VALUE="Директорія %s не існує"/>
+		<unable_to_copy_file_to_xxx VALUE="Невозможно скопировать файл в %s" lang-en:VALUE="Unable to copy file to %s" lang-ua:VALUE="Неможливо скопіювати файл в %s"/>
+		<host_xxx_not_found VALUE="Сервер %s не найден" lang-en:VALUE="Host %s is not found" lang-ua:VALUE="Сервер %s не знайдено"/>
+		<unable_to_connect_to_host_xxx VALUE="Невозможно установить соединение с сервером %s" lang-en:VALUE="Connection to remote host %s failed" lang-ua:VALUE="Неможливо встановити з'єднання з сервером %s"/>
+		<doc_xxx_damaged_at_line_xxx VALUE="Неверный формат документа %s (документ поврежден). Возможна потеря части данных. Ошибка в строке %s" lang-en:VALUE="Invalid format of document %s (document is damaged). Some data may be lost. Error in line %s" lang-ua:VALUE="Невірний формат документу %s (документ пошкоджено). Можлива втрата частини даних. Помилка в рядку %s"/>
+		<unable_to_open_object_xxx VALUE="Объект %s не может быть открыт" lang-en:VALUE="Object %s cannot be opened" lang-ua:VALUE="Об'єкт %s не може бути відкритий"/>
+		<unable_to_start_msword VALUE="Невозможно запустить Microsoft Word. Проверьте, что Microsoft Word установлен корректно, и присутствуют все права для запуска Microsoft Word из других приложений." lang-en:VALUE="Unable to start Microsoft Word. Make sure that Microsoft Word is installed correctly and you have permissions to automate Microsoft Word from other programs." lang-ua:VALUE="Неможливо запустити Microsoft Word. Перевірте, що Microsoft Word встановлений коректно, і присутні всі права для запуску Microsoft Word з інших додатків."/>
+		<unable_to_start_excel VALUE="Невозможно запустить Microsoft Excel. Проверьте, что Microsoft Excel установлен корректно, и присутствуют все права для запуска Microsoft Excel из других приложений." lang-en:VALUE="Unable to start Microsoft Excel. Make sure that Microsoft Excel is installed correctly and you have permissions to automate Microsoft Excel from other programs." lang-ua:VALUE="Неможливо запустити Microsoft Excel. Перевірте, що Microsoft Excel встановлений коректно, і присутні всі права для запуску Microsoft Excel з інших додатків."/>
+		<daemon_not_installed VALUE="Сервер не установлен" lang-en:VALUE="Server is not installed" lang-ua:VALUE="Сервер не встановлений"/>
+		<unable_to_open_scm VALUE="Невозможно открыть диспетчер служб" lang-en:VALUE="Unable to open Service Control Manager" lang-ua:VALUE="Неможливо відкрити диспетчер служб"/>
+		<string_not_found VALUE="Строка не найдена" lang-en:VALUE="String not found" lang-ua:VALUE="Рядок не знайдений"/>
+		<mapi2_init_failed VALUE="Ошибка инициализации почтового интерфейса 'Extended MAPI'.&#10;Если Вы используете Microsoft Outlook, убедитесь что он выбран в качестве почтового клиента по умолчанию (Internet Explorer, меню 'Сервис' -> 'Свойства обозревателя' -> 'Программы'). Если Вы используете другую почтовую программу, измените метод доступа к почтовому ящику (меню 'Сервис' -> 'Настройки пользователя' -> 'Импорт из почтовых ящиков')." lang-en:VALUE="Error initializing Extended MAPI." lang-ua:VALUE="Помилка ініціалізації поштового інтерфейсу 'Extended MAPI'.&#10;Якщо Ви використовуєте Microsoft Outlook, переконайтеся що він обраний як поштовий клієнта за замовчуванням (Internet Explorer, меню 'Сервіс' -> 'Властивості оглядача' -> 'Програми'). Якщо Ви використовуєте іншу поштову програму, змініть метод доступу до поштової скриньки (меню 'Сервіс' -> 'Налаштування користувача' -> 'Імпорт з поштових скриньок')."/>
+		<mapi_store_xxx_not_found VALUE="Почтовая база '%s' не найдена" lang-en:VALUE="Mail store '%s' is not found" lang-ua:VALUE="Поштова база '%s' не знайдена"/>
+		<mail_folder_xxx_not_found VALUE="Ящик '%s' не найден" lang-en:VALUE="Mail folder '%s' is not found" lang-ua:VALUE="Скринька '%s' не знайдена"/>
+		<too_many_client_machines VALUE="Превышено ограничение на количество рабочих мест" lang-en:VALUE="Maximal number of client machines has been reached" lang-ua:VALUE="Перевищено обмеження на кількість робочих місць"/>
+		<max_object_num_xxx_reached VALUE="Максимально допустимое количество объектов в базе: %s" lang-en:VALUE="Maximal number of objects in database: %s" lang-ua:VALUE="Максимально допустима кількість об'єктів в базі: %s"/>
+		<unable_to_open_sql_db VALUE="Ошибка подключения к базе SQL" lang-en:VALUE="Unable to connect to SQL database" lang-ua:VALUE="Помилка підключення до бази SQL"/>
+		<url_locked VALUE="Карточка объекта открыта другим пользователем" lang-en:VALUE="Object card is opened by another user" lang-ua:VALUE="Картка об'єкта відкрита іншим користувачем"/>
+	</errors>
+	<method_status>
+		<operation VALUE="Операция" lang-en:VALUE="Task" lang-ua:VALUE="Операція"/>
+		<operation_result VALUE="Результат операции" lang-en:VALUE="Task result" lang-ua:VALUE="Результат операції"/>
+		<from VALUE="из" lang-en:VALUE="from" lang-ua:VALUE="з"/>
+	</method_status>
+	<months>
+		<jan VALUE="Январь" lang-en:VALUE="January" lang-ua:VALUE="Січень"/>
+		<feb VALUE="Февраль" lang-en:VALUE="February" lang-ua:VALUE="Лютий"/>
+		<mar VALUE="Март" lang-en:VALUE="March" lang-ua:VALUE="Березень"/>
+		<apr VALUE="Апрель" lang-en:VALUE="April" lang-ua:VALUE="Квітень"/>
+		<may VALUE="Май" lang-en:VALUE="May" lang-ua:VALUE="Травень"/>
+		<jun VALUE="Июнь" lang-en:VALUE="June" lang-ua:VALUE="Червень"/>
+		<jul VALUE="Июль" lang-en:VALUE="July" lang-ua:VALUE="Липень"/>
+		<aug VALUE="Август" lang-en:VALUE="August" lang-ua:VALUE="Серпень"/>
+		<sep VALUE="Сентябрь" lang-en:VALUE="September" lang-ua:VALUE="Вересень"/>
+		<oct VALUE="Октябрь" lang-en:VALUE="October" lang-ua:VALUE="Жовтень"/>
+		<nov VALUE="Ноябрь" lang-en:VALUE="November" lang-ua:VALUE="Листопад"/>
+		<dec VALUE="Декабрь" lang-en:VALUE="December" lang-ua:VALUE="Грудень"/>
+	</months>
+	<week_days__short>
+		<sun VALUE="Вс" lang-en:VALUE="Sun" lang-ua:VALUE="Нд"/>
+		<mon VALUE="Пн" lang-en:VALUE="Mon" lang-ua:VALUE="Пн"/>
+		<tue VALUE="Вт" lang-en:VALUE="Tue" lang-ua:VALUE="Вт"/>
+		<wed VALUE="Ср" lang-en:VALUE="Wed" lang-ua:VALUE="Ср"/>
+		<thu VALUE="Чт" lang-en:VALUE="Thu" lang-ua:VALUE="Чт"/>
+		<fri VALUE="Пт" lang-en:VALUE="Fri" lang-ua:VALUE="Пт"/>
+		<sat VALUE="Сб" lang-en:VALUE="Sat" lang-ua:VALUE="Сб"/>
+	</week_days__short>
+</ui_text>

@@ -1,0 +1,61 @@
+namespace LibProgressBar {
+
+
+function OnBuildProgressBar( progressBar )
+{
+	progressBar.AuxData.range = progressBar.EvalAttr( 'RANGE-EXPR' );
+	if ( progressBar.AuxData.range == null )
+		progressBar.AuxData.range = undefined;
+
+	if ( progressBar.AuxData.range == undefined )
+	{
+		if ( progressBar.AuxData.altOffsetPercent == undefined )
+			progressBar.AuxData.altOffsetPercent = 0;
+		else
+			progressBar.AuxData.altOffsetPercent += ( GetCurTicks() - progressBar.AuxData.lastBuildTicks ) * AppUi.metrics.progressBarAltInnerPanelSpeed;
+
+		LogEvent( '', progressBar.AuxData.altOffsetPercent );
+
+		if ( progressBar.AuxData.altOffsetPercent > 100 - AppUi.metrics.progressBarAltInnerPanelWidthPercent )
+			progressBar.AuxData.altOffsetPercent = 0;
+
+		progressBar.AuxData.lastBuildTicks = GetCurTicks();
+	}
+}
+
+
+function GetProgressBarInnerPanelOffsetMeasure( progressBar )
+{
+	if ( progressBar.AuxData.range != undefined )
+		return 0;
+
+	return ( progressBar.AuxData.altOffsetPercent  * progressBar.SizeX ) / 100;
+}
+
+
+function GetProgressBarInnerPanelWidthMeasure( progressBar )
+{
+	if ( progressBar.AuxData.range != undefined )
+	{
+		range = progressBar.AuxData.range;
+
+		sourceVal = progressBar.Source;
+		LogEvent( '', sourceVal );
+		if ( sourceVal < 0 )
+			sourceVal = 0;
+
+		if ( sourceVal > range )
+			sourceVal = range;
+
+		return ( sourceVal * 100 ) / range + '%';
+	}
+	else
+	{
+		return ( AppUi.metrics.progressBarAltInnerPanelWidthPercent * progressBar.SizeX ) / 100;
+	}
+}
+
+
+
+
+}

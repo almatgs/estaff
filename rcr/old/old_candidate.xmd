@@ -1,0 +1,522 @@
+<SPXML-FORM>
+
+<USE FORM="old_general.xmd"/>
+
+
+<candidate>
+	<code TYPE="string"/>
+
+	<lastname TYPE="string"/>
+	<firstname TYPE="string" UPDATE-ACTION="
+		if ( gender_id == null )
+			update_gender();
+	"/>
+	<middlename TYPE="string" UPDATE-ACTION="
+		if ( gender_id == null )
+			update_gender();
+	"/>
+
+	<fullname PROPERTY="1" EXPR="Trim( UnifySpaces( au_config.is_int_version ? lastname + ', ' + firstname : lastname + ' ' + firstname + ' ' + middlename ) )"/>
+	<shortname PROPERTY="1" EXPR="PersonShortName( lastname, firstname, middlename )"/>
+
+
+	<gender_id TYPE="integer" FOREIGN-ARRAY="au_common.person_genders"/>
+	<birth_date TYPE="date">
+		<year_only TYPE="bool" NOT-NULL="1"/>
+	</birth_date>
+
+	<location_id TYPE="string" FOREIGN-ARRAY="locations.items" IDATA="1"/>
+	<address TYPE="string"/>
+
+	<phone TYPE="string"/>
+	<work_phone TYPE="string"/>
+	<mobile_phone TYPE="string"/>
+
+	<INHERIT TYPE="bs_emails"/>
+	
+
+	<disp_phone PROPERTY="1" EXPR="
+			dispPhone = phone;
+
+			if ( mobile_phone != '' || work_phone != '' )
+				dispPhone = dispPhone + ' (д)';
+
+			if ( mobile_phone != '' )
+			{
+				if ( dispPhone != '' )
+					dispPhone = dispPhone + ',  ';
+
+				dispPhone = dispPhone + mobile_phone + ' (м)';
+			}
+
+			if ( work_phone != '' )
+			{
+				if ( dispPhone != '' )
+					dispPhone = dispPhone + ',  ';
+
+				dispPhone = dispPhone + work_phone + ' (р)';
+			}
+
+			return dispPhone;
+	"/>
+
+	<source_id TYPE="string" FOREIGN-ARRAY="cand_sources.items" IDATA="1"/>
+	<profession_id TYPE="integer" FOREIGN-ARRAY="professions.items" MULTIPLE="1" IDATA="1"/>
+	<desired_profession_id TYPE="integer" FOREIGN-ARRAY="professions.items" MULTIPLE="1" IDATA="1"/>
+	<exp_years TYPE="real"/>
+
+	<salary TYPE="integer"/>
+	<salary_currency_id TYPE="string" FOREIGN-ARRAY="currencies.items"/>
+	<uni_salary PROPERTY="1" EXPR="salary_currency_id != '' ? rc_tools.convert_amount( salary, salary_currency_id, rc_global_settings.default_currency_id ) : salary"/>
+
+	<position_level_id TYPE="string" FOREIGN-ARRAY="position_levels.items"/>
+
+	<grade_id TYPE="integer" FOREIGN-ARRAY="rc_common.grades" EXPR-INIT="
+			if ( spots.ChildNum == 0 )
+				return null;
+
+			return ArraySort( ArraySelect( spots, 'grade_id != null' ), 'start_date', '-' )[0].grade_id;
+	"/>
+
+
+	<marital_status_id TYPE="integer" FOREIGN-ARRAY="rc_common.marital_statuses"/>
+	<children_num TYPE="integer"/>
+
+	<educ_type_id TYPE="integer" FOREIGN-ARRAY="rc_common.educ_types"/>
+
+
+
+	<inet_uid TYPE="string" IGNORE-SPELLING="1"/>
+
+	<records>
+		<record MULTIPLE="1">
+			<id TYPE="integer" EXPR-INIT="Random( 8589934591, 36028797018963967 )"/>
+			<eid TYPE="string"/>
+
+			<date TYPE="date" EXPR-INIT="Date()"/>
+			<end_date TYPE="date"/>
+			<type_id TYPE="string" FOREIGN-ARRAY="record_types.items"/>
+
+			<creation_date TYPE="date"/>
+			<use_end_date PROPERTY="1" EXPR="type_id.ForeignElem.use_end_date"/>
+
+			<completion_id TYPE="integer" EXPR="
+					completion_id == null && type_id.ForeignElem.use_completion && type_id.ForeignElem.use_auto_completion && date <= CurDate ? 1 : completion_id
+			"/>
+
+			<room_id TYPE="integer" FOREIGN-ARRAY="rooms.items"/>
+
+			<position_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="positions"/>
+
+			<attendees>
+				<attendee MULTIPLE="1">
+					<ext_name TYPE="string"/>
+					<type_id TYPE="integer" FOREIGN-ARRAY="bs_common.attendee_types"/>
+					<resp_state_id TYPE="integer" FOREIGN-ARRAY="bs_common.attendee_resp_states"/>
+				</attendee>
+			</attendees>
+
+			<comment TYPE="string" MULTILINE="1"/>
+
+			<user_id TYPE="integer" FOREIGN-ARRAY="users">
+				<sd SECONDARY="1">
+					<disp_name TYPE="string"/>
+					<group_id TYPE="integer" DOC-ID="1" FOREGN-ARRAY="user_groups"/>
+				</sd>
+			</user_id>
+
+			<user_disp_name TYPE="string" OBSOLETE="1"/>
+
+
+			<learning>
+				<course_id TYPE="string" FOREIGN-ARRAY="courses.items"/>
+
+				<eid TYPE="string"/>
+				<code TYPE="string"/>
+				<url TYPE="string"/>
+
+				<state_id TYPE="integer" FOREIGN-ARRAY="rc_common.learning_states"/>
+				<score TYPE="integer"/>
+			</learning>
+
+			<assessment_test>
+				<assessment_id TYPE="string" FOREIGN-ARRAY="assessments.items"/>
+				<assessment_name TYPE="string"/>
+
+				<eid TYPE="string"/>
+				<code TYPE="string"/>
+				<url TYPE="string"/>
+
+				<state_desc TYPE="string"/>
+				<result_html TYPE="string"/>
+			</assessment_test>
+
+
+			<csd DYN-CHILDREN="1"/>
+
+
+
+			<edit_mode TYPE="bool" TEMP="1" NOT-NULL="1"/>
+			<show_position TYPE="bool" TEMP="1"/>
+
+
+			<cp_date PROPERTY="1" EXPR="date"/>
+
+			<enter_edit_mode PROPERTY="1" EXPR="
+					curRecord = date.Parent;
+
+					for ( r in Doc.TopElem.records )
+					{
+						if ( r === curRecord )
+							continue;
+
+						r.stop_edit_mode();
+					}
+
+					curRecord.edit_mode = true;
+			"/>
+
+			<stop_edit_mode PROPERTY="1" EXPR="
+					if ( ! edit_mode )
+						return;
+
+					curRecord = date.Parent;
+					Doc.TopElem.check_record( curRecord );
+
+					curRecord.edit_mode = false;
+			"/>
+		</record>
+	</records>
+
+	<last_record PROPERTY="1" EXPR="
+			ArrayMax( records, 'date' )
+	"/>
+
+	<last_state_record PROPERTY="1" EXPR="
+			ArrayMax( ArraySelect( records, 'type_id.ForeignElem.is_sig' ), 'date' )
+	"/>
+
+	<last_comment_record PROPERTY="1" EXPR="
+			ArrayMax( ArraySelect( records, 'comment != \'\'' ), 'date' )
+	"/>
+
+	<find_planned_record PROPERTY="1" PARAM="recordTypeID" PARAM="positionID" EXPR="
+			array = ArraySelect( records, 'type_id == ' + CodeLiteral( recordTypeID ) + ' && date > Date( \'' + CurDate + '\' )' );
+			
+			switch ( ArrayCount( array ) )
+			{
+				case 0:
+					throw UserError( 'Запланированные события отсутствуют' );
+
+				case 1:
+					return ArrayFirstElem( array );
+
+				default:
+					if ( positionID != null && ( record = ArrayOptFindByKey( array, positionID, 'position_id' ) ) != undefined )
+						return record;
+					else
+						return ArrayFirstElem( array );
+			}
+	"/>
+
+	<state_id PROPERTY="1" EXPR="
+			try
+			{
+				return last_state_record.type_id;
+			}
+			catch ( e )
+			{
+				return 'new';
+			}
+	"/>
+
+	<state_date PROPERTY="1" EXPR="
+			try
+			{
+				return last_state_record.date;
+			}
+			catch ( e )
+			{
+				return ( doc_info.creation.date != null ? doc_info.creation.date : CurDate );
+			}
+	"/>
+
+	<state_end_date PROPERTY="1" EXPR="
+			try
+			{
+				return last_state_record.end_date;
+			}
+			catch ( e )
+			{
+				return null;
+			}
+	"/>
+
+	<state_completion_id PROPERTY="1" EXPR="
+			try
+			{
+				return last_state_record.completion_id;
+			}
+			catch ( e )
+			{
+				return null;
+			}
+	"/>
+
+
+	<spots IGNORE-SPELLING="1">
+		<spot MULTIPLE="1" PRIMARY-KEY="position_id">
+			<position_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="active_positions">
+				<sd SECONDARY="1">
+					<name TYPE="string"/>
+				</sd>
+			</position_id>
+
+			<org_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="orgs" EXPR-INIT="position_id.ForeignElem.org_id">
+				<sd SECONDARY="1">
+					<disp_name TYPE="string"/>
+				</sd>
+			</org_id>
+
+			<start_date TYPE="date" EXPR-INIT="Date()"/>
+			<grade_id TYPE="integer" FOREIGN-ARRAY="rc_common.grades"/>
+
+
+			<last_record PROPERTY="1" EXPR="
+					ArrayMax( ArraySelect( Doc.TopElem.records, 'position_id == ' + position_id ), 'date' )
+			"/>
+
+			<last_state_record PROPERTY="1" EXPR="
+					return ArrayMax( ArraySelect( Doc.TopElem.records, 'type_id.ForeignElem.is_sig && position_id == ' + position_id ), 'date' )
+			"/>
+
+			<last_comment_record PROPERTY="1" EXPR="
+					ArrayMax( ArraySelect( Doc.TopElem.records, 'comment != \'\' && position_id == ' + position_id ), 'date' )
+			"/>
+
+			<get_last_record PROPERTY="1" PARAM="_record_type" EXPR="
+					ArrayMax( ArraySelect( Doc.TopElem.records, '( type_id == \'' + _record_type + '\' ) && position_id == ' + position_id ), 'date' )
+			"/>
+
+			<state_id PROPERTY="1" EXPR="
+					try
+					{
+						return last_state_record.type_id;
+					}
+					catch ( e )
+					{
+						return 'new';
+					}
+			"/>
+
+			<state_date PROPERTY="1" EXPR="
+					try
+					{
+						return last_state_record.date;
+					}
+					catch ( e )
+					{
+						return Doc.TopElem.doc_info.creation.date;
+					}
+			"/>
+
+			<state_end_date PROPERTY="1" EXPR="
+					try
+					{
+						return last_state_record.end_date;
+					}
+					catch ( e )
+					{
+						return null;
+					}
+			"/>
+
+			<state_completion_id PROPERTY="1" EXPR="
+					try
+					{
+						return last_state_record.completion_id;
+					}
+					catch ( e )
+					{
+						return null;
+					}
+			"/>
+
+			<is_rejected PROPERTY="1" EXPR="
+					try
+					{
+						return StrContains( last_state_record.type_id, 'reject' );
+					}
+					catch ( e )
+					{
+						return false;
+					}
+			"/>
+		</spot>
+	</spots>
+
+
+	<view_spot_index TYPE="integer" TEMP="1"/>
+
+
+	<main_spot PROPERTY="1" EXPR="
+			return ArrayFirstElem( ArraySort( spots, 'is_rejected', '+', 'state_date', '-' ) );
+			
+	"/>
+
+
+	<default_position_id PROPERTY="1" EXPR="
+			try
+			{
+				return ArrayMax( ArraySelect( spots, '! is_rejected' ), 'state_date' ).position_id;
+			}
+			catch ( e )
+			{
+				return null;
+			}
+	"/>
+
+
+	<is_active PROPERTY="1" EXPR="
+			if ( spots.ChildNum != 0 )
+				return true;
+
+			if ( GetForeignElem( record_types.items, state_id ).stop_active )
+				return false;
+
+			if ( DateToRawSeconds( CurDate ) - DateToRawSeconds( state_date ) >= rc_global_settings.candidate_auto_deactivate.days_num * 86400 )
+				return false;
+
+			return true;
+	"/>
+
+
+	<skills>
+		<skill MULTIPLE="1">
+			<skill_type_id TYPE="string" FOREIGN-ARRAY="skill_types.items"/>
+			<skill_sub_type_id TYPE="string" FOREIGN-ARRAY="skill_type_id.ForeignElem.items"/>
+
+			<level_id TYPE="integer" FOREIGN-ARRAY="skill_type_id.ForeignElem.levels"/>
+			<comment TYPE="string"/>
+			<date TYPE="date" TIME="0" EXPR-INIT="Date()"/>
+		</skill>
+	</skills>
+
+
+	<prev_jobs>
+		<prev_job MULTIPLE="1">
+			<start_date TYPE="date" TIME="0"/>
+			<end_date TYPE="date" TIME="0"/>
+
+			<use_org_id TYPE="bool" TEMP="1" EXPR-INIT="org_id != null && rc_global_settings.is_agency == true"/>
+
+			<org_id TYPE="integer" FOREIGN-ARRAY="orgs">
+				<sd SECONDARY="1">
+					<disp_name TYPE="string"/>
+				</sd>
+			</org_id>
+
+			<org_name TYPE="string"/>
+
+			<position_name TYPE="string"/>
+			<salary TYPE="integer"/>
+			<bonus_percent TYPE="integer"/>
+
+			<comment_duty TYPE="string"/>
+			<comment_result TYPE="string"/>
+		</prev_job>
+	</prev_jobs>
+
+
+	<last_prev_job PROPERTY="1" EXPR="ArrayMax( prev_jobs, 'start_date' )"/>
+
+
+	<prev_educations>
+		<prev_education MULTIPLE="1">
+			<start_date TYPE="date" TIME="0"/>
+			<end_date TYPE="date" TIME="0"/>
+
+			<org_name TYPE="string"/>
+			<speciality_name TYPE="string"/>
+
+			<is_secondary TYPE="bool" NULL-FALSE="1"/>
+		</prev_education>
+	</prev_educations>
+
+
+	<prev_projects>
+		<prev_project MULTIPLE="1">
+			<name TYPE="string"/>
+			
+			<start_date TYPE="date" TIME="0"/>
+			<end_date TYPE="date" TIME="0"/>
+
+			<use_org_id TYPE="bool" TEMP="1" EXPR-INIT="org_id != null && rc_global_settings.is_agency == true"/>
+
+			<org_id TYPE="integer" FOREIGN-ARRAY="orgs">
+				<sd SECONDARY="1">
+					<disp_name TYPE="string"/>
+				</sd>
+			</org_id>
+
+			<org_name TYPE="string"/>
+
+			<position_name TYPE="string"/>
+			<participation_percent TYPE="integer"/>
+
+			<comment_duty TYPE="string"/>
+			<comment_result TYPE="string"/>
+
+			<is_successful TYPE="bool"/>
+		</prev_project>
+	</prev_projects>
+
+
+	<csd DYN-CHILDREN="1">
+	</csd>
+
+	<INHERIT TYPE="au_card_attachments">
+
+
+
+
+
+
+
+	<is_heap PROPERTY="1" EXPR="StrContains( Screen.Doc.Url, '//data_heap/' )"/>
+
+
+	<default_document PROPERTY="1" EXPR="
+			attc = ArrayOptFindByKey( sorted_attachments, 'resume', 'type_id' );
+			if ( attc != undefined )
+				return attc;
+			
+			return ArrayFirstElem( sorted_attachments );
+	"/>
+
+
+	<active_document PROPERTY="1" EXPR="
+			try
+			{
+				return Screen.FindItem( 'CardAttachmentEdit' ).Source.Parent;
+			}
+			catch ( e )
+			{
+				//alert( e );
+			}
+
+			return default_document;
+	"/>
+
+
+	<INHERIT TYPE="bs_user_ref"/>
+	<is_exclusive TYPE="bool" NOT-NULL="1"/>
+
+	<doc_info TYPE="au_doc_info"/>
+
+
+</candidate>
+
+
+
+</SPXML-FORM>

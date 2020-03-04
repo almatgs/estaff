@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<lotus_local_settings>
+	<lotus_dir TYPE="string" TITLE="Установочная директория Lotus Notes" lang-en:TITLE="Lotus Notes setup folder" lang-ua:TITLE="Установча директорія Lotus Notes"/>
+
+	<use_auto_login TYPE="bool" NOT-NULL="1"/>
+
+	<id_file_path TYPE="string"/>
+	<password_ed TYPE="string"/>
+
+
+	<OnInit PROPERTY="1" EXPR="
+			if ( LdsIsClient )
+			{
+				if ( ! lotus_dir.HasValue )
+					lotus_dir = lib_lotus.get_lotus_dir();
+			}
+	
+	"/>
+</lotus_local_settings>
+
+
+</SPXML-FORM>

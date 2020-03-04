@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems_int.xmd" LANG="ru">
+	<std_voc_elem>
+		<id>1</id>
+		<name>Финансы</name>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>2</id>
+		<name>Производство</name>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>3</id>
+		<name>Торговля</name>
+	</std_voc_elem>
+</std_voc_elems>
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_card_attachment_types SPXML-FORM="//base1/base1_std_card_attachment_types.xmd">
+	<std_card_attachment_type>
+		<id>vacancy_desc</id>
+		<name VALUE="##UiText.vacancy_fields.internal_desc##"/>
+
+		<target_object_type_id>vacancy</target_object_type_id>
+		<auto_create_new>1</auto_create_new>
+	</std_card_attachment_type>
+
+	<std_card_attachment_type>
+		<id>resume</id>
+		<name VALUE="##UiText.titles.resume##"/>
+
+		<target_object_type_id>candidate</target_object_type_id>
+	</std_card_attachment_type>
+
+	<std_card_attachment_type>
+		<id>photo</id>
+		<name VALUE="Фотография" lang-en:VALUE="Photo" lang-ua:VALUE="Фотографія"/>
+
+		<target_object_type_id>candidate</target_object_type_id>
+		<init_content_type>application/binary</init_content_type>
+	</std_card_attachment_type>
+
+	<std_card_attachment_type>
+		<id>letter</id>
+		<name VALUE="##UiText.titles.message_text##"/>
+
+		<target_object_type_id>candidate</target_object_type_id>
+	</std_card_attachment_type>
+
+	<std_card_attachment_type>
+		<id>add_comment</id>
+		<name VALUE="Доп. комментарий" lang-en:VALUE="Add. comment" lang-ua:VALUE="Дод. коментар"/>
+	</std_card_attachment_type>
+
+	<std_card_attachment_type>
+		<id>cover_letter</id>
+		<name VALUE="Сопроводительное письмо" lang-en:VALUE="Cover Letter" lang-ua:VALUE="Супровідний лист"/>
+		<target_object_type_id>candidate</target_object_type_id>
+	</std_card_attachment_type>
+
+	<std_card_attachment_type>
+		<id>candidate_form</id>
+		<name VALUE="Анкета кандидата" lang-en:VALUE="Application form" lang-ua:VALUE="Анкета кандидата"/>
+		<target_object_type_id>candidate</target_object_type_id>
+	</std_card_attachment_type>
+</std_card_attachment_types>
+
+
+
+

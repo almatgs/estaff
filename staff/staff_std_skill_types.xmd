@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<std_skill_types RECURSIVE-ARRAY="1">
+	<std_skill_type MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT TYPE="skill_type_base"/>
+	</std_skill_type>
+</std_skill_types>
+
+
+</SPXML-FORM>

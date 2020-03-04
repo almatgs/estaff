@@ -1,0 +1,64 @@
+<%
+Request.RespWriteMode = 'single';
+Request.RespContentType = 'text/html; charset=utf-8';
+
+reqArg = UrlQuery( Request.Url );
+lib_mcaller.CheckMobileUiAuth( Request, reqArg );
+
+phone = reqArg.GetOptProperty( 'phone', '' );
+if ( phone == '' )
+	throw UserError( 'Argument is required: phone' );
+
+fullname = reqArg.GetOptProperty( 'fullname', '' );
+lastCallTime = reqArg.GetOptProperty( 'last_call_time' );
+
+parser = lib_cproc.create_content_parser();
+personInfo = new Object;
+parser.load_person_name( fullname, personInfo );
+
+dupPersonsArray = XQuery( 'for $elem in persons where $elem/mobile_phone = ' + XQueryLiteral( phone ) + ' order by $elem/fullname return $elem/Fields( "is_candidate", "is_own_person", "fullname" )' );
+
+lib_mcaller.ExportPageHeader( Request.RespStream, UiText.titles.add_contact )
+%>
+<p><%=EncodeCharset( UiText.titles.add_contact, 'utf-8' )%></p>
+<p><b><%=lib_phone_details.FormatPhone( phone )%></b></p>
+
+<%if ( ArrayCount( dupPersonsArray ) != 0 ) {%>
+	<p class="Warning"><%=EncodeCharset( UiText.messages.possible_duplicates_found, 'utf-8' )%></p>
+	<ul>
+	<%for ( person in dupPersonsArray ) {%>
+		<li><%=EncodeCharset( person.fullname, 'utf-8' )%></li>
+	<%}%>
+	</ul>
+	<br/>
+<%}%>
+
+<form method="post" action="add_contact_do.htm?<%=Request.UrlParam%>">
+	<input type="hidden" name="phone" value="<%=phone%>"/>
+
+	<p><%=EncodeCharset( UiText.fields.lastname, 'utf-8' )%>:<br/>
+		<input name="lastname" class="Edit" value="<%=personInfo.lastname%>"/>
+	</p>
+	<p><%=EncodeCharset( UiText.fields.firstname, 'utf-8' )%>:<br/>
+		<input name="firstname" class="Edit" value="<%=personInfo.firstname%>"/>
+	</p>
+	<%if ( ! base1_config.is_int_version ) {%>
+	<p><%=EncodeCharset( UiText.fields.middlename, 'utf-8' )%>:<br/>
+		<input name="middlename" class="Edit" value="<%=personInfo.middlename%>"/>
+	</p>
+	<%}%>
+
+	<p>
+		<input id="contactTypeCandidate" name="contact_type" type="radio" value="candidate" checked="checked"/><label for="contactTypeCandidate"><%=EncodeCharset( UiText.objects.candidate, 'utf-8' )%></label>
+		<input id="contactTypePerson" name="contact_type" type="radio" value="contact_person"/><label for="contactTypePerson"><%=EncodeCharset( UiText.objects.contact_person, 'utf-8' )%></label>
+	</p>
+
+	<br/>
+
+	<input type="submit" value="<%=EncodeCharset( UiText.actions.add, 'utf-8' )%>"/>
+</form>
+
+
+<%
+lib_mcaller.ExportPageFooter( Request.RespStream )
+%>

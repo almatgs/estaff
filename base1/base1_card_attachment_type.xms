@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<WITH VAR="_voc_info" EXPR="lib_voc.get_voc_info_by_id( 'card_attachment_types' )">
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="40zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.target_object_type_id" LABEL-TITLE="##UiText.fields.target_object_type##:"/>
+	</TABLE>
+	
+	<BR/>
+
+	<CHECK SOURCE="Ps.auto_create_new" TITLE="Добавлять автоматически при создании новой карточки" lang-en:TITLE="Automatically add for a new card" lang-ua:TITLE="Додавати автоматично при створенні нової картки"/>
+	<DELIM/>
+
+	<LINE>
+		<CHECK SOURCE="Ps.show_date_in_tree" AUTO-LABEL="1"/>
+		<CHECK SOURCE="Ps.show_diff_date_in_tree" AUTO-LABEL="1"/>
+	</LINE>
+	<CHECK SOURCE="Ps.mark_older_as_inactive" AUTO-LABEL="1"/>
+	<DELIM/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="28zr"/>
+		</COLUMNS>
+
+		<LABEL TITLE="##UiText.fields.attachment_type##:" ALIGN="left"/>
+
+		<COMBO SOURCE="Ps.init_content_type" READ-ONLY-EXPR="! _voc_info.std_field_editable( Ps, 'init_content_type' )">
+			<COMBO-ENTRY TITLE="##UiText.titles.text##" VALUE="text/plain"/>
+			<COMBO-ENTRY TITLE="Форматированный текст" VALUE="text/html" lang-en:TITLE="Formatted text" lang-ua:TITLE="Форматований текст"/>
+			<COMBO-ENTRY TITLE="##UiText.titles.file##" VALUE="application/binary"/>
+		</COMBO>
+	</TABLE>
+	<BR/>
+
+	<IF EXPR="Ps.init_content_type == 'text/html'">
+		<CHECK SOURCE="Ps.use_msword_template" TITLE="Шаблон MS Word для печати и отправки по e-mail" lang-en:TITLE="MS Word template (for printing and sending emails)" lang-ua:TITLE="Шаблон MS Word для друку і відправки по e-mail"/>
+
+		<IF EXPR="Ps.use_msword_template">
+			<BR/>
+			<LINE>
+				<LABEL TITLE="     "/>
+
+				<IF EXPR="Ps.msword_template.data.HasValue">
+					<IMAGE URL-EXPR="'x-sys-image://shell-icon/.doc'" WIDTH="16px" HEIGHT="16px" ACTION="">
+						<MENU LEFT-MENU="1">
+							<MENU-ENTRY TITLE="##UiText.actions.attach_file##..." ACTION="
+									fileUrl = Screen.AskFileOpen( '', lib_office.msword_file_suffix_pattern );
+
+									Ps.msword_template.data.LoadFromFile( fileUrl );
+									Ps.msword_template.file_name = UrlFileName( fileUrl );
+
+									Ps.Doc.SetChanged( true );
+							"/>
+						</MENU>
+					</IMAGE>
+
+					<LABEL TITLE-EXPR="Ps.msword_template.file_name"/>
+				</IF>
+				<ELSE>
+					<IMAGE URL="//base_pict/blank_border.ico" WIDTH="16px" HEIGHT="16px" ACTION="">
+						<MENU LEFT-MENU="1">
+							<MENU-ENTRY TITLE="##UiText.actions.attach_file##..." ACTION="
+									fileUrl = Screen.AskFileOpen( '', lib_office.msword_file_suffix_pattern );
+
+									Ps.msword_template.data.LoadFromFile( fileUrl );
+									Ps.msword_template.file_name = UrlFileName( fileUrl );
+
+									Ps.Doc.SetChanged( true );
+							"/>
+						</MENU>
+					</IMAGE>
+
+					<LABEL TITLE="&lt;файл не загружен>" lang-en:TITLE="&lt;file not attached>" lang-ua:TITLE="&lt;файл не завантажений>"/>
+				</ELSE>
+			</LINE>
+			<DELIM/>
+		</IF>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="15zr"/>
+			</COLUMNS>
+
+			<CHECK SOURCE="Ps.use_default_text" TITLE="Начальный шаблон" lang-en:TITLE="Default template" lang-ua:TITLE="Початковий шаблон"/>
+
+			<IF EXPR="Ps.use_default_text">
+				<BUTTON TITLE="##UiText.titles.import##" IMAGE-URL="//base_pict/word_doc.ico" STD-MARGINS="0" ACTION="
+									fileUrl = Screen.AskFileOpen( '', lib_office.msword_file_suffix_pattern );
+						Ps.default_text = LoadWordHtml( fileUrl );
+						Ps.Doc.SetChanged( true );
+				" lang-en:TITLE="Import"/>
+			</IF>
+		</TABLE>
+	</IF>
+
+	<IF EXPR="! StrBegins( Ps.init_content_type, 'text/' )">
+		<CHECK SOURCE="Ps.allow_multiple_files" AUTO-LABEL="1"/>
+	</IF>
+</PANEL>
+
+<SPLIT FIXED="1"/>
+
+<IF EXPR="Ps.init_content_type == 'text/html' && Ps.use_default_text">
+	<HYPER EDITABLE="1" SOURCE="Ps.default_text"/>
+</IF>
+<ELSE>
+	<PANEL HEIGHT="100%" SUNKEN="1"/>
+</ELSE>
+
+
+</WITH>
+
+</SPXML-SCREEN>
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<professions>
+	<items RECURSIVE-ARRAY="1">
+		<item MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+			<text_color TYPE="string"/>
+			<bk_color TYPE="string"/>
+			<is_std TYPE="bool" NOT-NULL="1"/>
+		</item>
+	</items>
+</professions>
+
+
+</SPXML-FORM>

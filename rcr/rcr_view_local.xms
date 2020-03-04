@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN TITLE="##UiText.sections.personal_settings##" RESIZE="1" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+
+<MENU TITLE="##UiText.titles.file##" GLOBAL="1">
+	<MENU-ENTRY TITLE="##UiText.actions.print##&#09;Ctrl+P" CMD="Print"/>
+</MENU>
+
+<INHERIT TYPE="edit_menu"/>
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/print.ico" CMD="Print" TIP-TEXT="##UiText.actions.print##" lang-en:TIP-TEXT="Print"/>
+	<INHERIT TYPE="edit_toolbar_entries"/>
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/help.ico" CMD="Help" TIP-TEXT="##UiText.sections.help##"/>
+</TOOLBAR>
+
+
+<STATUS-BAR>
+	<STATUS-BAR-ENTRY WIDTH="100%"/>
+	<STATUS-BAR-ENTRY WIDTH="20zr"/>
+</STATUS-BAR>
+
+
+<LINE STD-MARGINS="0">
+
+<TREE SWITCH-TYPE="frame" TARGET="FrameLocalMain" SUNKEN="1" WIDTH="40zr">
+	<TREE-ENTRY TITLE="##UiText.sections.personal_settings##" EXPANDED="1" IMAGE-URL="//base_pict/folder.ico">
+		<TREE-ENTRY TITLE="##UiText.sections.general_settings##" HREF="rcr_view_local_settings_common.xml" IMAGE-URL="//base_pict/settings.ico"/>
+	</TREE-ENTRY>
+
+	<IF EXPR="rcr_config.use_imod">
+		<IF EXPR="local_settings.use_imod">
+			<TREE-ENTRY TITLE="Интернет-модуль" EXPANDED="1" IMAGE-URL="//base_pict/folder.ico" lang-en:TITLE="Internet module" lang-ua:TITLE="Інтернет-модуль">
+				<TREE-ENTRY TITLE="##UiText.sections.user_accounts##" HREF="//imod/imod_view_settings_sites.xml" IMAGE-URL="//base_pict/settings.ico"/>
+			</TREE-ENTRY>
+		</IF>
+		<ELSE>
+			<TREE-ENTRY TITLE="Интернет-модуль (отключен)" EXPANDED="1" IMAGE-URL="//base_pict/folder.ico" lang-en:TITLE="Internet module (disabled)" lang-ua:TITLE="Інтернет-модуль (відключений)">
+			</TREE-ENTRY>
+		</ELSE>
+	</IF>
+</TREE>
+
+<SPLIT FIXED="1"/>
+
+<FRAME NAME="FrameLocalMain" HREF="rcr_view_local_settings_common.xml"/>
+
+</LINE>
+
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+

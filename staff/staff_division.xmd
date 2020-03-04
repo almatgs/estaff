@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM HIER="1" CODE-LIB="1" TITLE="##UiText.objects.division##" IMAGE-URL-EXPR="image_url()">
+
+<division PRIMARY-DISP-NAME="global_settings.use_division_short_name_as_primary &amp;&amp; short_name.HasValue ? short_name : name" EXTERNAL-DISP-NAME="lib_base.BuildRecordExternalDispName( this )">
+	<id TYPE="integer"/>
+	<parent_id TYPE="integer" FOREIGN-ARRAY="divisions" TITLE="##UiText.fields.parent_division##"/>
+
+	<name TYPE="string" INDEXED="1" TITLE="##UiText.fields.name##"/>
+	<short_name TYPE="string" TITLE="##UiText.fields.short_name##" base1:allow-hide="1"/>
+	<full_name TYPE="string" INDEXED="1" TITLE="##UiText.fields.full_official_name##" base1:allow-hide="1" base1:hide-by-default="1"/>
+	<code TYPE="string" TITLE="##UiText.fields.code##" EXP-MAX-LEN="8" lang-en:TITLE="#"/>
+	<eid TYPE="string" INDEXED="1" FT-IGNORE="1"/>
+
+	<org_id TYPE="integer" FOREIGN-ARRAY="orgs" TITLE="##UiText.objects.org##"/>
+	<is_org TYPE="bool" NULL-FALSE="1"/>
+
+	<type_id TYPE="string" FOREIGN-ARRAY="division_types" TITLE="##UiText.titles.category##" base1:allow-hide="1"/>
+	<location_id TYPE="string" FOREIGN-ARRAY="locations" TITLE="##UiText.fields.location##" base1:allow-hide="1"/>
+	<brand_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="brands" TITLE="##UiText.fields.brand##" EXP-MAX-LEN="15" COL-ALIGN="center" base1:allow-hide="1"/>
+
+	<start_date TYPE="date" TIME="0" TITLE="##UiText.fields.position_start_date##"/>
+	<end_date TYPE="date" TIME="0" TITLE="##UiText.fields.position_end_date##" lang-en:TITLE="Closed"/>
+
+	<INHERIT TYPE="card_comment_base"/>
+
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true" EXPR="check_active()" TITLE="##UiText.fields.position_is_active##"/>
+	<check_active PROPERTY="1" TYPE="bool" EXPR="! end_date.HasValue || end_date > CurDate" DEPENDS="end_date"/>
+
+	<positions_num TYPE="integer" SECONDARY="1" TITLE="Количество штатных должностей" COL-TITLE="ШД" EXP-MAX-LEN="4" lang-en:TITLE="Number of positions" lang-en:COL-TITLE="Positions" lang-ua:TITLE="Кількість штатних посад" lang-ua:COL-TITLE="ШП"/>
+	<filled_positions_num TYPE="integer" SECONDARY="1" TITLE="Количество занятых штатных должностей" COL-TITLE="ЗШД" EXP-MAX-LEN="5" lang-en:COL-TITLE="Filled" lang-en:TITLE="Number of filled positions" lang-ua:TITLE="Кількість зайнятих штатних посад" lang-ua:COL-TITLE="ЗШП"/>
+	<free_positions_num TYPE="integer" SECONDARY="1" TITLE="Количество незанятых штатных должностей" COL-TITLE="НШД" EXP-MAX-LEN="5" lang-en:TITLE="Number of vacant positions" lang-en:COL-TITLE="Vacant" lang-ua:TITLE="Кількість незайнятих штатних посад" lang-ua:COL-TITLE="НШП"/>
+	<partially_filled_positions_num TYPE="integer" SECONDARY="1" TITLE="Количество частично занятых штатных должностей" COL-TITLE="ЧЗШД" EXP-MAX-LEN="6" lang-en:TITLE="Number of partially filled positions" lang-en:COL-TITLE="PFP" lang-ua:TITLE="Кількість частково зайнятих штатних посад" lang-ua:COL-TITLE="ЧЗШП"/>
+
+	<INHERIT TYPE="card_attachments"/>
+	<INHERIT TYPE="user_ref"/>
+	<INHERIT TYPE="card_info_base"/>
+
+	<image_url PROPERTY="1" DEPENDS="is_org"/>
+
+
+	<view TEMP="1" DOC-ONLY="1">
+		<filter>
+			<INHERIT TYPE="ft_filter"/>
+		</filter>
+	</view>
+</division>
+
+
+
+</SPXML-FORM>

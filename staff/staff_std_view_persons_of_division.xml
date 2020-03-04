@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>persons_of_division</id>
+	<name VALUE="Сотрудники по подразделению" lang-en:VALUE="Employees of division" lang-ua:VALUE="Співробітники по підрозділу"/>
+	<parent_id>persons</parent_id>
+
+	<drop_all_dyn_filters>1</drop_all_dyn_filters>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>division_id</id>
+			<is_auto>1</is_auto>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>fullname</id>
+		</field>
+		<field>
+			<id>is_division_head</id>
+			<order>is_division_head</order>
+			<order_dir>-</order_dir>
+			<order1>fullname</order1>
+			<is_default_sort>1</is_default_sort>
+		</field>
+		<field>
+			<id>position_name</id>
+		</field>
+		<field>
+			<id>disp_phone</id>
+		</field>
+	</fields>
+</std_view>

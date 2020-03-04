@@ -1,0 +1,817 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<std_currencies SPXML-FORM="base1_std_currencies.xmd" LANG="en">
+
+<std_currency>
+	<id>AED</id>
+	<name>AED</name>
+	<full_name VALUE="United Arab Emirates Dirham"/>
+</std_currency>
+<std_currency>
+	<id>AFN</id>
+	<name>AFN</name>
+	<full_name VALUE="Afghanistan Afghani"/>
+</std_currency>
+<std_currency>
+	<id>ALL</id>
+	<name>ALL</name>
+	<full_name VALUE="Albania Lek"/>
+</std_currency>
+<std_currency>
+	<id>AMD</id>
+	<name>AMD</name>
+	<full_name VALUE="Armenia Dram"/>
+</std_currency>
+<std_currency>
+	<id>ANG</id>
+	<name>ANG</name>
+	<full_name VALUE="Netherlands Antilles Guilder"/>
+</std_currency>
+<std_currency>
+	<id>AOA</id>
+	<name>AOA</name>
+	<full_name VALUE="Angola Kwanza"/>
+</std_currency>
+<std_currency>
+	<id>ARS</id>
+	<name>ARS</name>
+	<full_name VALUE="Argentina Peso"/>
+</std_currency>
+<std_currency>
+	<id>AUD</id>
+	<name>AUD</name>
+	<full_name VALUE="Australia Dollar"/>
+</std_currency>
+<std_currency>
+	<id>AWG</id>
+	<name>AWG</name>
+	<full_name VALUE="Aruba Guilder"/>
+</std_currency>
+<std_currency>
+	<id>AZN</id>
+	<name>AZN</name>
+	<full_name VALUE="Azerbaijan New Manat"/>
+</std_currency>
+<std_currency>
+	<id>BAM</id>
+	<name>BAM</name>
+	<full_name VALUE="Bosnia and Herzegovina Convertible Marka"/>
+</std_currency>
+<std_currency>
+	<id>BBD</id>
+	<name>BBD</name>
+	<full_name VALUE="Barbados Dollar"/>
+</std_currency>
+<std_currency>
+	<id>BDT</id>
+	<name>BDT</name>
+	<full_name VALUE="Bangladesh Taka"/>
+</std_currency>
+<std_currency>
+	<id>BGN</id>
+	<name>BGN</name>
+	<full_name VALUE="Bulgaria Lev"/>
+</std_currency>
+<std_currency>
+	<id>BHD</id>
+	<name>BHD</name>
+	<full_name VALUE="Bahrain Dinar"/>
+</std_currency>
+<std_currency>
+	<id>BIF</id>
+	<name>BIF</name>
+	<full_name VALUE="Burundi Franc"/>
+</std_currency>
+<std_currency>
+	<id>BMD</id>
+	<name>BMD</name>
+	<full_name VALUE="Bermuda Dollar"/>
+</std_currency>
+<std_currency>
+	<id>BND</id>
+	<name>BND</name>
+	<full_name VALUE="Brunei Darussalam Dollar"/>
+</std_currency>
+<std_currency>
+	<id>BOB</id>
+	<name>BOB</name>
+	<full_name VALUE="Bolivia Boliviano"/>
+</std_currency>
+<std_currency>
+	<id>BRL</id>
+	<name>BRL</name>
+	<full_name VALUE="Brazil Real"/>
+</std_currency>
+<std_currency>
+	<id>BSD</id>
+	<name>BSD</name>
+	<full_name VALUE="Bahamas Dollar"/>
+</std_currency>
+<std_currency>
+	<id>BTN</id>
+	<name>BTN</name>
+	<full_name VALUE="Bhutan Ngultrum"/>
+</std_currency>
+<std_currency>
+	<id>BWP</id>
+	<name>BWP</name>
+	<full_name VALUE="Botswana Pula"/>
+</std_currency>
+<std_currency>
+	<id>BYR</id>
+	<name>BYR</name>
+	<full_name VALUE="Belarus Ruble"/>
+</std_currency>
+<std_currency>
+	<id>BZD</id>
+	<name>BZD</name>
+	<full_name VALUE="Belize Dollar"/>
+</std_currency>
+<std_currency>
+	<id>CAD</id>
+	<name>CAD</name>
+	<full_name VALUE="Canada Dollar"/>
+</std_currency>
+<std_currency>
+	<id>CDF</id>
+	<name>CDF</name>
+	<full_name VALUE="Congo/Kinshasa Franc"/>
+</std_currency>
+<std_currency>
+	<id>CHF</id>
+	<name>CHF</name>
+	<full_name VALUE="Switzerland Franc"/>
+</std_currency>
+<std_currency>
+	<id>CLP</id>
+	<name>CLP</name>
+	<full_name VALUE="Chile Peso"/>
+</std_currency>
+<std_currency>
+	<id>CNY</id>
+	<name>CNY</name>
+	<full_name VALUE="China Yuan Renminbi"/>
+</std_currency>
+<std_currency>
+	<id>COP</id>
+	<name>COP</name>
+	<full_name VALUE="Colombia Peso"/>
+</std_currency>
+<std_currency>
+	<id>CRC</id>
+	<name>CRC</name>
+	<full_name VALUE="Costa Rica Colon"/>
+</std_currency>
+<std_currency>
+	<id>CUC</id>
+	<name>CUC</name>
+	<full_name VALUE="Cuba Convertible Peso"/>
+</std_currency>
+<std_currency>
+	<id>CUP</id>
+	<name>CUP</name>
+	<full_name VALUE="Cuba Peso"/>
+</std_currency>
+<std_currency>
+	<id>CVE</id>
+	<name>CVE</name>
+	<full_name VALUE="Cape Verde Escudo"/>
+</std_currency>
+<std_currency>
+	<id>CZK</id>
+	<name>CZK</name>
+	<full_name VALUE="Czech Republic Koruna"/>
+</std_currency>
+<std_currency>
+	<id>DJF</id>
+	<name>DJF</name>
+	<full_name VALUE="Djibouti Franc"/>
+</std_currency>
+<std_currency>
+	<id>DKK</id>
+	<name>DKK</name>
+	<full_name VALUE="Denmark Krone"/>
+</std_currency>
+<std_currency>
+	<id>DOP</id>
+	<name>DOP</name>
+	<full_name VALUE="Dominican Republic Peso"/>
+</std_currency>
+<std_currency>
+	<id>DZD</id>
+	<name>DZD</name>
+	<full_name VALUE="Algeria Dinar"/>
+</std_currency>
+<std_currency>
+	<id>EGP</id>
+	<name>EGP</name>
+	<full_name VALUE="Egypt Pound"/>
+</std_currency>
+<std_currency>
+	<id>ERN</id>
+	<name>ERN</name>
+	<full_name VALUE="Eritrea Nakfa"/>
+</std_currency>
+<std_currency>
+	<id>ETB</id>
+	<name>ETB</name>
+	<full_name VALUE="Ethiopia Birr"/>
+</std_currency>
+<std_currency>
+	<id>EUR</id>
+	<name>EUR</name>
+	<full_name VALUE="Euro"/>
+</std_currency>
+<std_currency>
+	<id>FJD</id>
+	<name>FJD</name>
+	<full_name VALUE="Fiji Dollar"/>
+</std_currency>
+<std_currency>
+	<id>FKP</id>
+	<name>FKP</name>
+	<full_name VALUE="Falkland Islands (Malvinas) Pound"/>
+</std_currency>
+<std_currency>
+	<id>GBP</id>
+	<name>GBP</name>
+	<full_name VALUE="United Kingdom Pound"/>
+</std_currency>
+<std_currency>
+	<id>GEL</id>
+	<name>GEL</name>
+	<full_name VALUE="Georgia Lari"/>
+</std_currency>
+<std_currency>
+	<id>GGP</id>
+	<name>GGP</name>
+	<full_name VALUE="Guernsey Pound"/>
+</std_currency>
+<std_currency>
+	<id>GHS</id>
+	<name>GHS</name>
+	<full_name VALUE="Ghana Cedi"/>
+</std_currency>
+<std_currency>
+	<id>GIP</id>
+	<name>GIP</name>
+	<full_name VALUE="Gibraltar Pound"/>
+</std_currency>
+<std_currency>
+	<id>GMD</id>
+	<name>GMD</name>
+	<full_name VALUE="Gambia Dalasi"/>
+</std_currency>
+<std_currency>
+	<id>GNF</id>
+	<name>GNF</name>
+	<full_name VALUE="Guinea Franc"/>
+</std_currency>
+<std_currency>
+	<id>GTQ</id>
+	<name>GTQ</name>
+	<full_name VALUE="Guatemala Quetzal"/>
+</std_currency>
+<std_currency>
+	<id>GYD</id>
+	<name>GYD</name>
+	<full_name VALUE="Guyana Dollar"/>
+</std_currency>
+<std_currency>
+	<id>HKD</id>
+	<name>HKD</name>
+	<full_name VALUE="Hong Kong Dollar"/>
+</std_currency>
+<std_currency>
+	<id>HNL</id>
+	<name>HNL</name>
+	<full_name VALUE="Honduras Lempira"/>
+</std_currency>
+<std_currency>
+	<id>HRK</id>
+	<name>HRK</name>
+	<full_name VALUE="Croatia Kuna"/>
+</std_currency>
+<std_currency>
+	<id>HTG</id>
+	<name>HTG</name>
+	<full_name VALUE="Haiti Gourde"/>
+</std_currency>
+<std_currency>
+	<id>HUF</id>
+	<name>HUF</name>
+	<full_name VALUE="Hungary Forint"/>
+</std_currency>
+<std_currency>
+	<id>IDR</id>
+	<name>IDR</name>
+	<full_name VALUE="Indonesia Rupiah"/>
+</std_currency>
+<std_currency>
+	<id>ILS</id>
+	<name>ILS</name>
+	<full_name VALUE="Israel Shekel"/>
+</std_currency>
+<std_currency>
+	<id>IMP</id>
+	<name>IMP</name>
+	<full_name VALUE="Isle of Man Pound"/>
+</std_currency>
+<std_currency>
+	<id>INR</id>
+	<name>INR</name>
+	<full_name VALUE="India Rupee"/>
+</std_currency>
+<std_currency>
+	<id>IQD</id>
+	<name>IQD</name>
+	<full_name VALUE="Iraq Dinar"/>
+</std_currency>
+<std_currency>
+	<id>IRR</id>
+	<name>IRR</name>
+	<full_name VALUE="Iran Rial"/>
+</std_currency>
+<std_currency>
+	<id>ISK</id>
+	<name>ISK</name>
+	<full_name VALUE="Iceland Krona"/>
+</std_currency>
+<std_currency>
+	<id>JEP</id>
+	<name>JEP</name>
+	<full_name VALUE="Jersey Pound"/>
+</std_currency>
+<std_currency>
+	<id>JMD</id>
+	<name>JMD</name>
+	<full_name VALUE="Jamaica Dollar"/>
+</std_currency>
+<std_currency>
+	<id>JOD</id>
+	<name>JOD</name>
+	<full_name VALUE="Jordan Dinar"/>
+</std_currency>
+<std_currency>
+	<id>JPY</id>
+	<name>JPY</name>
+	<full_name VALUE="Japan Yen"/>
+</std_currency>
+<std_currency>
+	<id>KES</id>
+	<name>KES</name>
+	<full_name VALUE="Kenya Shilling"/>
+</std_currency>
+<std_currency>
+	<id>KGS</id>
+	<name>KGS</name>
+	<full_name VALUE="Kyrgyzstan Som"/>
+</std_currency>
+<std_currency>
+	<id>KHR</id>
+	<name>KHR</name>
+	<full_name VALUE="Cambodia Riel"/>
+</std_currency>
+<std_currency>
+	<id>KMF</id>
+	<name>KMF</name>
+	<full_name VALUE="Comoros Franc"/>
+</std_currency>
+<std_currency>
+	<id>KPW</id>
+	<name>KPW</name>
+	<full_name VALUE="Korea (North) Won"/>
+</std_currency>
+<std_currency>
+	<id>KRW</id>
+	<name>KRW</name>
+	<full_name VALUE="Korea (South) Won"/>
+</std_currency>
+<std_currency>
+	<id>KWD</id>
+	<name>KWD</name>
+	<full_name VALUE="Kuwait Dinar"/>
+</std_currency>
+<std_currency>
+	<id>KYD</id>
+	<name>KYD</name>
+	<full_name VALUE="Cayman Islands Dollar"/>
+</std_currency>
+<std_currency>
+	<id>KZT</id>
+	<name>KZT</name>
+	<full_name VALUE="Kazakhstan Tenge"/>
+</std_currency>
+<std_currency>
+	<id>LAK</id>
+	<name>LAK</name>
+	<full_name VALUE="Laos Kip"/>
+</std_currency>
+<std_currency>
+	<id>LBP</id>
+	<name>LBP</name>
+	<full_name VALUE="Lebanon Pound"/>
+</std_currency>
+<std_currency>
+	<id>LKR</id>
+	<name>LKR</name>
+	<full_name VALUE="Sri Lanka Rupee"/>
+</std_currency>
+<std_currency>
+	<id>LRD</id>
+	<name>LRD</name>
+	<full_name VALUE="Liberia Dollar"/>
+</std_currency>
+<std_currency>
+	<id>LSL</id>
+	<name>LSL</name>
+	<full_name VALUE="Lesotho Loti"/>
+</std_currency>
+<std_currency>
+	<id>LTL</id>
+	<name>LTL</name>
+	<full_name VALUE="Lithuania Litas"/>
+</std_currency>
+<std_currency>
+	<id>LYD</id>
+	<name>LYD</name>
+	<full_name VALUE="Libya Dinar"/>
+</std_currency>
+<std_currency>
+	<id>MAD</id>
+	<name>MAD</name>
+	<full_name VALUE="Morocco Dirham"/>
+</std_currency>
+<std_currency>
+	<id>MDL</id>
+	<name>MDL</name>
+	<full_name VALUE="Moldova Leu"/>
+</std_currency>
+<std_currency>
+	<id>MGA</id>
+	<name>MGA</name>
+	<full_name VALUE="Madagascar Ariary"/>
+</std_currency>
+<std_currency>
+	<id>MKD</id>
+	<name>MKD</name>
+	<full_name VALUE="Macedonia Denar"/>
+</std_currency>
+<std_currency>
+	<id>MMK</id>
+	<name>MMK</name>
+	<full_name VALUE="Myanmar (Burma) Kyat"/>
+</std_currency>
+<std_currency>
+	<id>MNT</id>
+	<name>MNT</name>
+	<full_name VALUE="Mongolia Tughrik"/>
+</std_currency>
+<std_currency>
+	<id>MOP</id>
+	<name>MOP</name>
+	<full_name VALUE="Macau Pataca"/>
+</std_currency>
+<std_currency>
+	<id>MRO</id>
+	<name>MRO</name>
+	<full_name VALUE="Mauritania Ouguiya"/>
+</std_currency>
+<std_currency>
+	<id>MUR</id>
+	<name>MUR</name>
+	<full_name VALUE="Mauritius Rupee"/>
+</std_currency>
+<std_currency>
+	<id>MVR</id>
+	<name>MVR</name>
+	<full_name VALUE="Maldives (Maldive Islands) Rufiyaa"/>
+</std_currency>
+<std_currency>
+	<id>MWK</id>
+	<name>MWK</name>
+	<full_name VALUE="Malawi Kwacha"/>
+</std_currency>
+<std_currency>
+	<id>MXN</id>
+	<name>MXN</name>
+	<full_name VALUE="Mexico Peso"/>
+</std_currency>
+<std_currency>
+	<id>MYR</id>
+	<name>MYR</name>
+	<full_name VALUE="Malaysia Ringgit"/>
+</std_currency>
+<std_currency>
+	<id>MZN</id>
+	<name>MZN</name>
+	<full_name VALUE="Mozambique Metical"/>
+</std_currency>
+<std_currency>
+	<id>NAD</id>
+	<name>NAD</name>
+	<full_name VALUE="Namibia Dollar"/>
+</std_currency>
+<std_currency>
+	<id>NGN</id>
+	<name>NGN</name>
+	<full_name VALUE="Nigeria Naira"/>
+</std_currency>
+<std_currency>
+	<id>NIO</id>
+	<name>NIO</name>
+	<full_name VALUE="Nicaragua Cordoba"/>
+</std_currency>
+<std_currency>
+	<id>NOK</id>
+	<name>NOK</name>
+	<full_name VALUE="Norway Krone"/>
+</std_currency>
+<std_currency>
+	<id>NPR</id>
+	<name>NPR</name>
+	<full_name VALUE="Nepal Rupee"/>
+</std_currency>
+<std_currency>
+	<id>NZD</id>
+	<name>NZD</name>
+	<full_name VALUE="New Zealand Dollar"/>
+</std_currency>
+<std_currency>
+	<id>OMR</id>
+	<name>OMR</name>
+	<full_name VALUE="Oman Rial"/>
+</std_currency>
+<std_currency>
+	<id>PAB</id>
+	<name>PAB</name>
+	<full_name VALUE="Panama Balboa"/>
+</std_currency>
+<std_currency>
+	<id>PEN</id>
+	<name>PEN</name>
+	<full_name VALUE="Peru Nuevo Sol"/>
+</std_currency>
+<std_currency>
+	<id>PGK</id>
+	<name>PGK</name>
+	<full_name VALUE="Papua New Guinea Kina"/>
+</std_currency>
+<std_currency>
+	<id>PHP</id>
+	<name>PHP</name>
+	<full_name VALUE="Philippines Peso"/>
+</std_currency>
+<std_currency>
+	<id>PKR</id>
+	<name>PKR</name>
+	<full_name VALUE="Pakistan Rupee"/>
+</std_currency>
+<std_currency>
+	<id>PLN</id>
+	<name>PLN</name>
+	<full_name VALUE="Poland Zloty"/>
+</std_currency>
+<std_currency>
+	<id>PYG</id>
+	<name>PYG</name>
+	<full_name VALUE="Paraguay Guarani"/>
+</std_currency>
+<std_currency>
+	<id>QAR</id>
+	<name>QAR</name>
+	<full_name VALUE="Qatar Riyal"/>
+</std_currency>
+<std_currency>
+	<id>RON</id>
+	<name>RON</name>
+	<full_name VALUE="Romania New Leu"/>
+</std_currency>
+<std_currency>
+	<id>RSD</id>
+	<name>RSD</name>
+	<full_name VALUE="Serbia Dinar"/>
+</std_currency>
+<std_currency>
+	<id>RUB</id>
+	<name>RUB</name>
+	<full_name VALUE="Russia Ruble"/>
+</std_currency>
+<std_currency>
+	<id>RWF</id>
+	<name>RWF</name>
+	<full_name VALUE="Rwanda Franc"/>
+</std_currency>
+<std_currency>
+	<id>SAR</id>
+	<name>SAR</name>
+	<full_name VALUE="Saudi Arabia Riyal"/>
+</std_currency>
+<std_currency>
+	<id>SBD</id>
+	<name>SBD</name>
+	<full_name VALUE="Solomon Islands Dollar"/>
+</std_currency>
+<std_currency>
+	<id>SCR</id>
+	<name>SCR</name>
+	<full_name VALUE="Seychelles Rupee"/>
+</std_currency>
+<std_currency>
+	<id>SDG</id>
+	<name>SDG</name>
+	<full_name VALUE="Sudan Pound"/>
+</std_currency>
+<std_currency>
+	<id>SEK</id>
+	<name>SEK</name>
+	<full_name VALUE="Sweden Krona"/>
+</std_currency>
+<std_currency>
+	<id>SGD</id>
+	<name>SGD</name>
+	<full_name VALUE="Singapore Dollar"/>
+</std_currency>
+<std_currency>
+	<id>SHP</id>
+	<name>SHP</name>
+	<full_name VALUE="Saint Helena Pound"/>
+</std_currency>
+<std_currency>
+	<id>SLL</id>
+	<name>SLL</name>
+	<full_name VALUE="Sierra Leone Leone"/>
+</std_currency>
+<std_currency>
+	<id>SOS</id>
+	<name>SOS</name>
+	<full_name VALUE="Somalia Shilling"/>
+</std_currency>
+<std_currency>
+	<id>SPL</id>
+	<name>SPL</name>
+	<full_name VALUE="Seborga Luigino"/>
+</std_currency>
+<std_currency>
+	<id>SRD</id>
+	<name>SRD</name>
+	<full_name VALUE="Surinamese Dollar"/>
+</std_currency>
+<std_currency>
+	<id>STD</id>
+	<name>STD</name>
+	<full_name VALUE="São Tomé and Príncipe Dobra"/>
+</std_currency>
+<std_currency>
+	<id>SVC</id>
+	<name>SVC</name>
+	<full_name VALUE="El Salvador Colon"/>
+</std_currency>
+<std_currency>
+	<id>SYP</id>
+	<name>SYP</name>
+	<full_name VALUE="Syria Pound"/>
+</std_currency>
+<std_currency>
+	<id>SZL</id>
+	<name>SZL</name>
+	<full_name VALUE="Swaziland Lilangeni"/>
+</std_currency>
+<std_currency>
+	<id>THB</id>
+	<name>THB</name>
+	<full_name VALUE="Thailand Baht"/>
+</std_currency>
+<std_currency>
+	<id>TJS</id>
+	<name>TJS</name>
+	<full_name VALUE="Tajikistan Somoni"/>
+</std_currency>
+<std_currency>
+	<id>TMT</id>
+	<name>TMT</name>
+	<full_name VALUE="Turkmenistan Manat"/>
+</std_currency>
+<std_currency>
+	<id>TND</id>
+	<name>TND</name>
+	<full_name VALUE="Tunisia Dinar"/>
+</std_currency>
+<std_currency>
+	<id>TOP</id>
+	<name>TOP</name>
+	<full_name VALUE="Tonga Pa'anga"/>
+</std_currency>
+<std_currency>
+	<id>TRY</id>
+	<name>TRY</name>
+	<full_name VALUE="Turkey Lira"/>
+</std_currency>
+<std_currency>
+	<id>TTD</id>
+	<name>TTD</name>
+	<full_name VALUE="Trinidad and Tobago Dollar"/>
+</std_currency>
+<std_currency>
+	<id>TVD</id>
+	<name>TVD</name>
+	<full_name VALUE="Tuvalu Dollar"/>
+</std_currency>
+<std_currency>
+	<id>TWD</id>
+	<name>TWD</name>
+	<full_name VALUE="Taiwan New Dollar"/>
+</std_currency>
+<std_currency>
+	<id>TZS</id>
+	<name>TZS</name>
+	<full_name VALUE="Tanzania Shilling"/>
+</std_currency>
+<std_currency>
+	<id>UAH</id>
+	<name>UAH</name>
+	<full_name VALUE="Ukraine Hryvnia"/>
+</std_currency>
+<std_currency>
+	<id>UGX</id>
+	<name>UGX</name>
+	<full_name VALUE="Uganda Shilling"/>
+</std_currency>
+<std_currency>
+	<id>USD</id>
+	<name>USD</name>
+	<full_name VALUE="United States Dollar"/>
+</std_currency>
+<std_currency>
+	<id>UYU</id>
+	<name>UYU</name>
+	<full_name VALUE="Uruguay Peso"/>
+</std_currency>
+<std_currency>
+	<id>UZS</id>
+	<name>UZS</name>
+	<full_name VALUE="Uzbekistan Som"/>
+</std_currency>
+<std_currency>
+	<id>VEF</id>
+	<name>VEF</name>
+	<full_name VALUE="Venezuela Bolivar"/>
+</std_currency>
+<std_currency>
+	<id>VND</id>
+	<name>VND</name>
+	<full_name VALUE="Viet Nam Dong"/>
+</std_currency>
+<std_currency>
+	<id>VUV</id>
+	<name>VUV</name>
+	<full_name VALUE="Vanuatu Vatu"/>
+</std_currency>
+<std_currency>
+	<id>WST</id>
+	<name>WST</name>
+	<full_name VALUE="Samoa Tala"/>
+</std_currency>
+<std_currency>
+	<id>XAF</id>
+	<name>XAF</name>
+	<full_name VALUE="Communauté Financière Africaine (BEAC) CFA Franc BEAC"/>
+</std_currency>
+<std_currency>
+	<id>XCD</id>
+	<name>XCD</name>
+	<full_name VALUE="East Caribbean Dollar"/>
+</std_currency>
+<std_currency>
+	<id>XOF</id>
+	<name>XOF</name>
+	<full_name VALUE="Communauté Financière Africaine (BCEAO) Franc"/>
+</std_currency>
+<std_currency>
+	<id>XPF</id>
+	<name>XPF</name>
+	<full_name VALUE="Comptoirs Français du Pacifique (CFP) Franc"/>
+</std_currency>
+<std_currency>
+	<id>YER</id>
+	<name>YER</name>
+	<full_name VALUE="Yemen Rial"/>
+</std_currency>
+<std_currency>
+	<id>ZAR</id>
+	<name>ZAR</name>
+	<full_name VALUE="South Africa Rand"/>
+</std_currency>
+<std_currency>
+	<id>ZMW</id>
+	<name>ZMW</name>
+	<full_name VALUE="Zambia Kwacha"/>
+</std_currency>
+<std_currency>
+	<id>ZWD</id>
+	<name>ZWD</name>
+	<full_name VALUE="Zimbabwe Dollar"/>
+</std_currency>
+
+
+</std_currencies>

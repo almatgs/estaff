@@ -1,0 +1,146 @@
+<SPXML-SCREEN TITLE="##UiText.sections.help##" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/help.ico">
+	<LINE>
+		<TREE SWITCH-TYPE="frame" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1" WIDTH="custom" IMAGE-LIST="//base_pict/tree1.ico;//base_pict/tree1.ico;//base_pict/tree2.ico" SUNKEN="1">
+			<TREE-ENTRY TITLE="Вступ" HREF="x-app://rcr/help/intro.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+				<TREE-ENTRY TITLE="Функціональні можливості програмного продукту" HREF="x-app://rcr/help/4AB390737FAB0204.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Локальна та мережева версії" HREF="x-app://rcr/help/4AB390737FAB0237.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Вимоги до апаратно-програмного забезпечення" HREF="x-app://rcr/help/4AB390737FAB0205.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Інсталяція програми" HREF="x-app://rcr/help/setup.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+				<TREE-ENTRY TITLE="Інсталяція локальної версії" HREF="x-app://rcr/help/4AB390737FAB0206.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Інсталяція мережевої версії" HREF="x-app://rcr/help/4AB390737FAB020A.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Початок роботи" HREF="x-app://rcr/help/start.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+			<TREE-ENTRY TITLE="Загальні принципи роботи з розділами програми" HREF="x-app://rcr/help/view_general.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+			<TREE-ENTRY TITLE="Загальні принципи роботи з картками" HREF="x-app://rcr/help/card_genenral.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+			<TREE-ENTRY TITLE="Пошук за ключовими словами" HREF="x-app://rcr/help/ft_search.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+			<TREE-ENTRY TITLE="Робота із контрагентами (клієнтами)" HREF="x-app://rcr/help/4AB390737FAB022F.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+				<TREE-ENTRY TITLE="Додавання контрагента (клієнта)" HREF="x-app://rcr/help/4AB390737FAB0230.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Картка організації" HREF="x-app://rcr/help/org_card.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Облік витрат на підбір персоналу" HREF="x-app://rcr/help/4AB390737FAB0262.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+					<TREE-ENTRY TITLE="Картка договору" HREF="x-app://rcr/help/4AB390737FAB0263.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Картка витрат" HREF="x-app://rcr/help/4AB390737FAB0264.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Картка квартального бюджету" HREF="x-app://rcr/help/4AB390737FAB0265.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				</TREE-ENTRY>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Робота із штатною структурою" HREF="x-app://rcr/help/4AB390737FAB0234.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+				<TREE-ENTRY TITLE="Картка структурного підрозділу" HREF="x-app://rcr/help/4AB390737FAB0239.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Картка співробітника (контактної особи)" HREF="x-app://rcr/help/4AB390737FAB023A.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Картка штатної посади" HREF="x-app://rcr/help/4AB390737FAB023D.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Робота з вакансіями" HREF="x-app://rcr/help/4AB390737FAB020E.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+				<TREE-ENTRY TITLE="Додавання вакансії" HREF="x-app://rcr/help/4AB390737FAB0233.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Картка вакансії" HREF="x-app://rcr/help/vacancy_card.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Публікація вакансія в мережі Інтернет" HREF="x-app://rcr/help/vacancy_publish.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Перегляд інформації про розміщені в Інтернет вакансії" HREF="x-app://rcr/help/view_publications.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Робота з кандидатами" HREF="x-app://rcr/help/4AB390737FAB0211.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+				<TREE-ENTRY TITLE="Занесення кандидатів до бази" HREF="x-app://rcr/help/4AB390737FAB0212.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+					<TREE-ENTRY TITLE="Додавання кандидата власноруч" HREF="x-app://rcr/help/4AB390737FAB0213.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Вставка резюме з буферу" HREF="x-app://rcr/help/4AB390737FAB0214.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Імпорт резюме з документів Microsoft Word або OpenOffice" HREF="x-app://rcr/help/4AB390737FAB0215.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Імпорт резюме з документів Adobe Reader" HREF="x-app://rcr/help/4AB390737FAB0246.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Імпорт резюме з використанням кнопки в Internet Explorer, Mozilla Firefox або Google Chrome" HREF="x-app://rcr/help/4AB390737FAB0235.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Імпорт резюме з використанням кнопки в в Microsoft Outlook або Mozilla Thunderbird" HREF="x-app://rcr/help/4AB390737FAB0236.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Пакетний імпорт резюме з почтових ящиків" HREF="x-app://rcr/help/candidate_mail_import.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Пакетний імпорт резюме з документів Microsoft Word, OpenOffice або Adobe Reader" HREF="x-app://rcr/help/candidate_batch_import.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Картка кандидата" HREF="x-app://rcr/help/candidate_card.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Робота з внесеними до бази кандидатами" HREF="x-app://rcr/help/candidate_work.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+					<TREE-ENTRY TITLE="Формування плану роботи по кандидатам" HREF="x-app://rcr/help/4AB390737FAB0266.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Відбір кандидата на вакансію" HREF="x-app://rcr/help/4AB390737FAB021A.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Дії над кандидатами" HREF="x-app://rcr/help/4AB390737FAB021B.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Планування нового інтерв’ю" HREF="x-app://rcr/help/4AB390737FAB021C.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Планування групового інтерв’ю" HREF="x-app://rcr/help/4AB390737FAB024E.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Пошук кандидатів" HREF="x-app://rcr/help/4AB390737FAB0268.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Пошук дублікатів кандидатів" HREF="x-app://rcr/help/4AB390737FAB026E.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				</TREE-ENTRY>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Використання Інтернет-модуля програми" HREF="x-app://rcr/help/imod.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+				<TREE-ENTRY TITLE="Пошук резюме в Інтернет" HREF="x-app://rcr/help/inet_search.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Збір відгуків з сайтів" HREF="x-app://rcr/help/4AB390737FAB0241.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Відправлення одиничних листів" HREF="x-app://rcr/help/mail_sending.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+			<TREE-ENTRY TITLE="Масова розсилка листів" HREF="x-app://rcr/help/4AB390737FAB024F.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+			<TREE-ENTRY TITLE="Календар" HREF="x-app://rcr/help/4AB390737FAB0248.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+				<TREE-ENTRY TITLE="Нагадування та відображення подій у календарі" HREF="x-app://rcr/help/4AB390737FAB0259.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Інтегрування із зовнішнім календарем" HREF="x-app://rcr/help/4AB390737FAB0247.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+					<TREE-ENTRY TITLE="Інтегрування з календарем Microsoft Outlook" HREF="x-app://rcr/help/4AB390737FAB024B.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Інтегрування з календарем Lotus Notes" HREF="x-app://rcr/help/4AB390737FAB024C.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Інтеграція з календарем Google" HREF="x-app://rcr/help/4AB390737FAB024D.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Облік зайнятості кімнат (бронювання переговорних) у зовнішньому календарі" HREF="x-app://rcr/help/4AB390737FAB026C.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				</TREE-ENTRY>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Статистика" HREF="x-app://rcr/help/4AB390737FAB0250.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+			<TREE-ENTRY TITLE="Інтеграція з корпоративним порталом" HREF="x-app://rcr/help/4AB390737FAB0220.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+			<TREE-ENTRY TITLE="Інтеграція з системою тестування" HREF="x-app://rcr/help/4AB390737FAB0221.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+			<TREE-ENTRY TITLE="Інтеграція із зовнішньою системою кадрового обліку (обмін файлами)" HREF="x-app://rcr/help/4AB390737FAB0257.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+				<TREE-ENTRY TITLE="Видалення дублікатів після завантаження даних із зовнішньої системи" HREF="x-app://rcr/help/4AB390737FAB0258.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Адміністрування та загальні налаштування" HREF="x-app://rcr/help/4AB390737FAB0222.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+				<TREE-ENTRY TITLE="Політика використання" HREF="x-app://rcr/help/4AB390737FAB0223.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Робота з вакансіями" HREF="x-app://rcr/help/4AB390737FAB023E.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Автоматичне відправлення пошти" HREF="x-app://rcr/help/4AB390737FAB0272.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Доступ" HREF="x-app://rcr/help/4AB390737FAB027B.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+					<TREE-ENTRY TITLE="Користувачі" HREF="x-app://rcr/help/4AB390737FAB027C.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Групи" HREF="x-app://rcr/help/4AB390737FAB027D.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Нумерація" HREF="x-app://rcr/help/settings_coding.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Додаткові поля" HREF="x-app://rcr/help/4AB390737FAB0225.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Довідники" HREF="x-app://rcr/help/4AB390737FAB0224.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+					<TREE-ENTRY TITLE="Загальні" HREF="x-app://rcr/help/4AB390737FAB025E.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+						<TREE-ENTRY TITLE="Додатки до карток" HREF="x-app://rcr/help/4AB390737FAB025C.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+						<TREE-ENTRY TITLE="Шаблони листів" HREF="x-app://rcr/help/settings_mail_templates.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+						<TREE-ENTRY TITLE="Шаблони SMS" HREF="x-app://rcr/help/4AB390737FAB0279.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+						<TREE-ENTRY TITLE="Регіони" HREF="x-app://rcr/help/4AB390737FAB0242.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+						<TREE-ENTRY TITLE="Рівні доступу" HREF="x-app://rcr/help/4AB390737FAB022C.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+						<TREE-ENTRY TITLE="Станції метро" HREF="x-app://rcr/help/4AB390737FAB0243.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+						<TREE-ENTRY TITLE="Типи подій" HREF="x-app://rcr/help/event_types.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+						<TREE-ENTRY TITLE="Спеціальності" HREF="x-app://rcr/help/4AB390737FAB025D.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+						<TREE-ENTRY TITLE="Навички" HREF="x-app://rcr/help/4AB390737FAB025A.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					</TREE-ENTRY>
+					<TREE-ENTRY TITLE="Вакансії" HREF="x-app://rcr/help/4AB390737FAB026F.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+						<TREE-ENTRY TITLE="Підстави для появи вакансії" HREF="x-app://rcr/help/4AB390737FAB0270.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+						<TREE-ENTRY TITLE="Категорії підбору" HREF="x-app://rcr/help/4AB390737FAB0271.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+						<TREE-ENTRY TITLE="Шаблони вакансії" HREF="x-app://rcr/help/4AB390737FAB0275.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					</TREE-ENTRY>
+					<TREE-ENTRY TITLE="Кандидати" HREF="x-app://rcr/help/4AB390737FAB025F.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+						<TREE-ENTRY TITLE="Джерела імпорту резюме" HREF="x-app://rcr/help/raw_storages.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+						<TREE-ENTRY TITLE="Джерела кандидатів" HREF="x-app://rcr/help/4AB390737FAB0277.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					</TREE-ENTRY>
+					<TREE-ENTRY TITLE="Інше" HREF="x-app://rcr/help/4AB390737FAB0260.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+						<TREE-ENTRY TITLE="SMS-шлюзи" HREF="x-app://rcr/help/4AB390737FAB027A.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+						<TREE-ENTRY TITLE="Сценарії імпорту" HREF="x-app://rcr/help/4AB390737FAB0261.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+						<TREE-ENTRY TITLE="Сценарії експорту" HREF="x-app://rcr/help/4AB390737FAB026B.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+						<TREE-ENTRY TITLE="Власні довідники" HREF="x-app://rcr/help/4AB390737FAB026D.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+						<TREE-ENTRY TITLE="Набори тестів" HREF="x-app://rcr/help/4AB390737FAB0276.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					</TREE-ENTRY>
+				</TREE-ENTRY>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Персональні налаштування" HREF="x-app://rcr/help/local_settings.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+				<TREE-ENTRY TITLE="Підпис" HREF="x-app://rcr/help/4AB390737FAB0240.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Доступ до мережі Інтернет" HREF="x-app://rcr/help/4AB390737FAB0269.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Відправка пошти" HREF="x-app://rcr/help/settings_mail_send.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Робота в мережевій версії" HREF="x-app://rcr/help/4AB390737FAB022A.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+			<TREE-ENTRY TITLE="Адміністрування системи (для IT-спеціалістів)" HREF="x-app://rcr/help/4AB390737FAB0249.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+				<TREE-ENTRY TITLE="Налаштування NTLM-авторизації" HREF="x-app://rcr/help/4AB390737FAB024A.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				<TREE-ENTRY TITLE="Обслуговування та супровід системи" HREF="x-app://rcr/help/4AB390737FAB026A.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+					<TREE-ENTRY TITLE="Створення резервних копій" HREF="x-app://rcr/help/4AB390737FAB022D.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Перенесення програми на інший комп’ютер" HREF="x-app://rcr/help/4AB390737FAB0251.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+					<TREE-ENTRY TITLE="Перенесення робочого місця мережевої версії E-Staff на інший комп’ютер" HREF="x-app://rcr/help/4AB390737FAB0252.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Перенесення серверної частини E-Staff на інший комп’ютер" HREF="x-app://rcr/help/4AB390737FAB0253.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Каталоги та індекси" HREF="x-app://rcr/help/4AB390737FAB0254.htm" EXPANDED="1" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3">
+					<TREE-ENTRY TITLE="Перебудова файлів каталогу" HREF="x-app://rcr/help/4AB390737FAB0255.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+					<TREE-ENTRY TITLE="Перебудова індексних файлів" HREF="x-app://rcr/help/4AB390737FAB0256.htm" IMAGE-INDEX="2" EXP-IMAGE-INDEX="3"/>
+				</TREE-ENTRY>
+			</TREE-ENTRY>
+		</TREE>
+		<SPLIT WIDTH="2px"/>
+		<PANEL HEIGHT="100%">
+			<FRAME NAME="FrameHelp" HREF-EXPR="lib_base.build_help_article_url( 'intro.htm' )"/>
+		</PANEL>
+	</LINE>
+</SPXML-SCREEN>

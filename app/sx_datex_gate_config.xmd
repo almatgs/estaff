@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<datex_gate_config>
+	<id TYPE="string"/>
+	<master_app_id TYPE="string"/>
+	<master_app_name TYPE="string"/>
+
+	<email_plugin_config_url TYPE="string"/>
+
+	<explorer_plugin>
+		<clsid TYPE="string"/>
+	</explorer_plugin>
+
+	<outlook_plugin>
+		<clsid TYPE="string"/>
+		<handler_lib_url TYPE="string"/>
+
+		<actions>
+			<action MULTIPLE="1">
+				<id TYPE="string"/>
+				<name TYPE="string"/>
+				<image_url TYPE="string"/>
+			</action>
+		</actions>
+	</outlook_plugin>
+
+	<code_objects>
+		<code_object MULTIPLE="1">
+			<id TYPE="string"/>
+			<clsid TYPE="string"/>
+			<code_lib_url TYPE="string"/>
+		</code_object>
+	</code_objects>
+</datex_gate_config>
+
+
+
+</SPXML-FORM>

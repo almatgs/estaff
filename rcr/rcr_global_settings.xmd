@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM CODE-LIB="1">
+
+<global_settings>
+	<INHERIT TYPE="base2_global_settings"/>
+	<INHERIT TYPE="staff_global_settings"/>
+
+	<is_inited TYPE="bool" NULL-FALSE="1"/>
+	
+	<is_agency TYPE="bool" NOT-NULL="1"/>
+
+	<use_client_orgs TYPE="bool" NOT-NULL="1" EXPR="is_agency"/>
+	<use_other_orgs TYPE="bool" NOT-NULL="1" TITLE="Вести учет контрагентов" lang-en:TITLE="Store external companies" lang-ua:TITLE="Вести облік контрагентів"/>
+	<use_division_orgs TYPE="bool" NOT-NULL="1" TITLE="Привязывать подразделения к организациям" lang-en:TITLE="Bind division to a company" lang-ua:TITLE="Прив'язувати підрозділу до організаціям"/>
+
+	<use_contact_lists TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Использовать списки контактов" lang-en:TITLE="Use contact lists" lang-ua:TITLE="Використовувати списки контактів"/>
+
+	<use_rr_person_flag TYPE="bool" NOT-NULL="1" TITLE="Использовать опцию 'Оценивающий руководитель' для каждого сотрудника" lang-en:TITLE="Use 'Candidate assessor' flag for each employee" lang-ua:TITLE="Використовувати опцію 'Оцінюючий керівник' для кожного співробітника"/>
+	<require_rr_person_flag TYPE="bool" NULL-FALSE="1" TITLE="Считать руководителя подразделения оценивающим руководителем только при включенной опции 'Оценивающий руководитель'" lang-en:TITLE="Require 'Candidate assessor' flag for the head of division" lang-ua:TITLE="Вважати керівника підрозділу оцінюючим керівником тільки при включеній опції 'Оцінюючий керівник'"/>
+
+	<allow_bind_candidates_to_position TYPE="bool" NOT-NULL="1" TITLE="Разрешить привязку кандидата к штатной должности без заведения карточки сотрудника" lang-en:TITLE="Allow binding candidates to positions" lang-ua:TITLE="Дозволити прив'язку кандидата до штатної посади без заведення картки співробітника"/>
+		
+	<use_candidate_employee_auto_bind TYPE="bool" NOT-NULL="1" TITLE="Автоматически привязывать принятых на работу кандидатов к сотрудникам" lang-en:TITLE="Automatically link hired candidates with employees" lang-ua:TITLE="Автоматично прив'язувати прийнятих на роботу кандидатів до співробітників"/>
+	<candidate_employee_auto_bind>
+		<req_candidate_state_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="candidate_states" TITLE="##UiText.titles.candidate_state##"/>
+		<hire_date_margin TYPE="integer" NOT-NULL="1" DEFAULT="7" TITLE="Погрешность даты приема (дни)" lang-en:TITLE="Hire date margin (days)" lang-ua:TITLE="Похибка дати прийому (дні)"/>
+		<hire_state_id TYPE="string" FOREIGN-ARRAY="candidate_states" TITLE="Статус кандидата, обозначающий прием на работу" lang-en:TITLE="Hire-related candidate status" lang-ua:TITLE="Статус кандидата, що позначає прийом на роботу"/>
+		<set_probation_fail_state TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="В случае увольнения сотрудника во время испытательного срока менять статус кандидата на 'Испытательный срок не пройден'" lang-en:TITLE="For employees dismissed during probation, change corresponding candidate's state to 'Probation - not passed'" lang-ua:TITLE="У разі звільнення працівника під час випробувального терміну міняти статус кандидата на 'Випробувальний термін не пройдений'"/>
+		<set_dismissal_state TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="В случае увольнения сотрудника после испытательного срока менять статус кандидата на 'Уволен'" lang-en:TITLE="For employees dismissed after probation, change corresponding candidate's state to 'Dismissed'" lang-ua:TITLE="У разі звільнення працівника після випробувального терміну міняти статус кандидата на 'Звільнено'"/>
+	</candidate_employee_auto_bind>
+	
+	<use_vacancy_orgs TYPE="bool" NOT-NULL="1" EXPR="is_agency ? true : use_vacancy_orgs" TITLE="Привязывать вакансии к организациям" lang-en:TITLE="Bind vacancy to a company" lang-ua:TITLE="Прив'язувати вакансії до організаціям"/>
+	<require_vacancy_positions TYPE="bool" NOT-NULL="1" EXPR="is_agency || ! use_positions ? false : require_vacancy_positions" TITLE="Требовать привязки вакансии к штатной должности" lang-en:TITLE="Require binding each vacancy to a position" lang-ua:TITLE="Вимагати прив'язки вакансії до штатної посади"/>
+	<force_vacancy_position_names TYPE="bool" NOT-NULL="1" EXPR="is_agency || ! use_positions ? false : force_vacancy_position_names" TITLE="В случае привязки вакансии к штатной должности принудительно устанавливать наименование вакансии равным наименованию штатной должности" lang-en:TITLE="When binding a vacancy to a position require vacancy name to match position name" lang-ua:TITLE="У разі прив'язки вакансії до штатної посади примусово встановлювати найменування вакансії рівним найменуванню штатної посади"/>
+
+	<auto_load_vacancy_rr_persons_by_org TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="При создании вакансии автоматически загружать список контактных лиц из карточки клиента" lang-en:TITLE="Automatically fill in contact persons for a new vacancy" lang-ua:TITLE="При створенні вакансії автоматично завантажувати список контактних осіб з картки клієнта"/>
+
+	<use_sample_vacancies TYPE="bool" NOT-NULL="1"/>
+
+	
+	<use_mp_vacancies TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Разрешать подбор нескольких человек по одной вакансии" lang-en:TITLE="Allow multi-person vacancies" lang-ua:TITLE="Дозволяти добір кількох людей по одній вакансії"/>
+	<use_fractional_mp_vacancies TYPE="bool" NOT-NULL="1" TITLE="Учитывать дробные ставки для вакансий на несколько человек" lang-en:TITLE="Allow fractional rates for multi-person vacancies" lang-ua:TITLE="Враховувати дробові ставки для вакансій на кілька людей"/>
+	<use_mass_vacancies TYPE="bool" NOT-NULL="1" DEFAULT="false" TITLE="Разрешать массовые вакансии (поток)" lang-en:TITLE="Allow mass vacancies" lang-ua:TITLE="Дозволяти масові вакансії (потокові)"/>
+
+	<update_mp_vacancy_start_date TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Считать датой открытия вакансии на несколько человек дату открытия первой открытой детализированной вакансии" lang-en:TITLE="Set start date of mass vacancy to start date of first active atomized vacancy" lang-ua:TITLE="Вважати датою відкриття вакансії на кілька людей дату відкриття першої відкритої деталізованої вакансії"/>
+	<prohibit_duplicate_mass_vacancies TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Запрещать создание нескольких вакансий по одной специальности массового подбора у одного заказчика" lang-en:TITLE="Prohibit duplicate mass vacancies" lang-ua:TITLE="Забороняти створення декількох вакансій за однією спеціальністю масового підбору у одного замовника"/>
+	<require_vacancy_templates TYPE="bool" NOT-NULL="1" TITLE="Требовать обязательной привязки вакансии к шаблону публикации в случае его наличия для выбранной специальности" lang-en:TITLE="Require vacancy template if any for selected profession" lang-ua:TITLE="Вимагати обов'язкової прив'язки вакансії до шаблону публікації в разі його наявності для обраної спеціальності"/>
+
+	<allow_multi_spots TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Разрешать рассматривать кандидата одновременно на несколько вакансий" lang-en:TITLE="Allow selecting a candidate for multiple vacancies" lang-ua:TITLE="Дозволяти розглядати кандидата одночасно на кілька вакансій"/>
+
+	<vacancy_default_max_work_period TYPE="term"/>
+
+	<use_vacancy_work_wdays TYPE="bool" NOT-NULL="1"/>
+	<hide_vacancy_work_start_date TYPE="bool" NOT-NULL="1" TITLE="Считать дату открытия вакансии датой начала поиска" lang-en:TITLE="Treat opening date of a vacancy as start date of recruiting process" lang-ua:TITLE="Вважати дату відкриття вакансії датою початку пошуку"/>
+
+	<target_vacancy_terms>
+		<job_offer>
+			<is_enabled TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+		</job_offer>
+		<job_offer_acceptance>
+			<is_enabled TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+		</job_offer_acceptance>
+		<vacancy_close>
+			<is_enabled TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+		</vacancy_close>
+	</target_vacancy_terms>
+
+
+	<use_vacancy_work_end_final_candidate_state TYPE="bool" NOT-NULL="1" OBSOLETE="1"/>
+	<vacancy_work_end_final_candidate_state TYPE="string" FOREIGN-ARRAY="candidate_states"/>
+
+	<use_vacancy_recruit_plans TYPE="bool" NOT-NULL="1" DEFAULT="false" TITLE="Использовать расчетные планы подбора по вакансии" lang-en:TITLE="Use vacancy recruitment plans" lang-ua:TITLE="Використовувати розрахункові плани підбору по вакансії"/>
+	<use_vacancy_term_adjustments TYPE="bool" NOT-NULL="1" DEFAULT="false" TITLE="Разрешать корректировки срока закрытия вакансии" lang-en:TITLE="Allow vacancy term adjustments" lang-ua:TITLE="Вирішувати коригування терміну закриття вакансії"/>
+	<manually_apply_vacancy_term_adjustments TYPE="bool" NOT-NULL="1"/>
+	<mp_vacancy_term_multiplier TYPE="real" TITLE="Коэффициент увеличения срока подбора для вакансии на несколько человек" lang-en:TITLE="Multi-person vacancy term multiplier" lang-ua:TITLE="Коефіцієнт збільшення терміну підбору для вакансії на кілька людей"/>
+
+	<use_vacancy_dual_users TYPE="bool" NOT-NULL="1" TITLE="Учитывать двух ответственных сотрудников по каждой вакансии" lang-en:TITLE="Store two users for each position" lang-ua:TITLE="Враховувати двох відповідальних співробітників по кожній вакансії"/>
+	<use_vacancy_job_desc_for_inet TYPE="bool" NOT-NULL="1" DEFAULT="false"/>
+
+	<use_vacancy_change_state_notif TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Уведомлять рекрутера о смене статуса его вакансии другим пользователем" lang-en:TITLE="Notify user on changed vacancy state" lang-ua:TITLE="Повідомляти рекрутера про зміну статусу його вакансії іншим користувачем"/>
+	<confirm_vacancy_change_state_notif TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Спрашивать подтверждение уведомления о смене статуса вакансии" lang-en:TITLE="Confirm notification on changed vacancy state" lang-ua:TITLE="Питати підтвердження повідомлення про зміну статусу вакансії"/>
+
+	<update_vacancy_group_by_user TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="При смене рекрутера в карточке вакансии автоматически изменять группу" lang-en:TITLE="Update vacancy group on user change" lang-ua:TITLE="При зміні рекрутера в картці вакансії автоматично змінювати групу"/>
+
+	<probation_period TYPE="period" TITLE="Продолжительность испытательного срока" lang-en:TITLE="Length of probationary period" lang-ua:TITLE="Тривалість випробувального терміну"/>
+	<use_candidate_probation_period TYPE="bool" NOT-NULL="1" TITLE="Разрешить устанавливать продолжительность испытательного срока индивидуально" lang-en:TITLE="Probationary period may be changed for individual hire" lang-ua:TITLE="Дозволити встановлювати тривалість випробувального терміну індивідуально"/>
+	
+	
+	<init_candidate_profession_from_vacancy TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="При отборе нового кандидата использовать специальность из вакансии" lang-en:TITLE="Use position profession for candidate selection" lang-ua:TITLE="При відборі нового кандидата використовувати спеціальність з вакансії"/>
+	<show_last_job_first TYPE="bool" NOT-NULL="1" TITLE="Отображать последнее место работы кандидата в основном разделе карточки" lang-en:TITLE="Display last job on the main page of candidate's card" lang-ua:TITLE="Відображати останнє місце роботи кандидата в основному розділі картки"/>
+
+	<use_candidate_select_event TYPE="bool" NOT-NULL="1" TITLE="При отборе кандидата на вакансию заносить в личное дело запись 'Отобран на вакансию'" lang-en:TITLE="When selecting candidate for a vacancy, create 'Selected for vacancy' record'" lang-ua:TITLE="При відборі кандидата на вакансію заносити в особову справу запис 'Відібрано на вакансію'"/>
+	<use_candidate_spot_source TYPE="bool" NOT-NULL="1" TITLE="Хранить свой способ занесения и источник для каждой вакансии, на которую отбирался кандидат" lang-en:TITLE="Store entrance type and source for each vacancy the candidate was selected for" lang-ua:TITLE="Зберігати свій спосіб занесення і джерело для кожної вакансії, на яку відбирався кандидат"/>
+	<use_candidate_card_update_event TYPE="bool" NOT-NULL="1" TITLE="При обновлении карточки кандидата, являющегося дубликатом, заносить в личное дело запись 'Данные обновлены'" lang-en:TITLE="When updating duplicate candidate, create 'Data updated' record'" lang-ua:TITLE="При оновленні картки кандидата, який є дублікатом, заносити в особову справу запис 'Дані оновлені'"/>
+	<use_candidate_spot_user_notif TYPE="bool" NOT-NULL="1" TITLE="При отборе кандидата на вакансию другого пользователя уведомлять владельца вакансии" lang-en:TITLE="When selecting candidate for another user's vacancy, notify vacancy owner" lang-ua:TITLE="При відборі кандидата на вакансію іншого користувача повідомляти власника вакансії"/>
+
+	<use_candidate_create_notif TYPE="bool" NOT-NULL="1" TITLE="Уведомлять кандидата при добавлении его в базу" lang-en:TITLE="Notify candidate on putting resume to the database" lang-ua:TITLE="Повідомляти кандидата при додаванні його в базу"/>
+	<candidate_create_notif_mail_template_id TYPE="mail_template_id"/>
+
+	<hide_section_recruit_current_progress TYPE="bool" NOT-NULL="1" TITLE="Скрыть раздел 'Текущий прогресс'" lang-en:TITLE="Hide 'Current progress' section" lang-ua:TITLE="Приховати розділ 'Кандидати: Передзвонити'"/>
+	<hide_section_candidates_duty TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Скрыть раздел 'Кандидаты: Принять решение'" lang-en:TITLE="Hide 'Candidates: To Do' section" lang-ua:TITLE="Приховати розділ 'Кандидати: Прийняти рішення'"/>
+	<hide_section_candidates_expired TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Скрыть раздел 'Кандидаты: Статус просрочен'" lang-en:TITLE="Hide 'Candidates: Expired' section" lang-ua:TITLE="Приховати розділ 'Кандидати: Статус прострочений'"/>
+	<hide_section_candidates_call_again TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Скрыть раздел 'Кандидаты: Перезвонить'" lang-en:TITLE="Hide 'Candidates: Call later' section" lang-ua:TITLE="Приховати розділ 'Кандидати: Передзвонити'"/>
+
+	<use_candidate_latest_event_cp_date TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<require_spot_selection TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="При создании события по кандидату, рассматриваемого на несколько вакансий, требовать предварительного выделения вакансии" lang-en:TITLE="When creating event for a candidate, selected for multiple vacancies, require vacancy selection" lang-ua:TITLE="При створенні події по кандидату, розглянутого на кілька вакансій, вимагати попереднього виділення вакансії"/>
+	<use_spot_for_vacancy_events_only TYPE="bool" NOT-NULL="1" TITLE="Привязывать к вакансии только те события, для которых это явно требуется" lang-en:TITLE="Do not bind event to a vacancy if it is not required by the event type settings" lang-ua:TITLE="Прив'язувати до вакансії тільки події, для яких це явно потрібно"/>
+
+	<use_candidate_unused_state TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Автоматически переводить занесенных в базу кандидатов, по которым не было никаких действий, в новый статус" lang-en:TITLE="Automatically change state for added candidates with no events" lang-ua:TITLE="Автоматично переводити занесених в базу кандидатів, по яких не було ніяких дій, в новий статус"/>
+	<unused_candidate_state_id TYPE="string" FOREIGN-ARRAY="candidate_states" NOT-NULL="1" DEFAULT="unused" TITLE="##UiText.fields.state##"/>
+	<unused_candidate_start_period TYPE="term" TITLE="Максимальный период отсутствия действий" lang-en:TITLE="Maximum time period of inactivity" lang-ua:TITLE="Максимальний період відсутності дій"/>
+
+	<t1 TYPE="bool" TEMP="1" EXPR="
+			if ( use_candidate_unused_state && unused_candidate_start_period.length == null )
+			{
+				unused_candidate_start_period.unit_id = 'm';
+				unused_candidate_start_period.length = 1;
+			}
+	" EXPR-SHOW-ERRORS="1"/>
+	
+	<use_calendar_filter_user TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="При выборе даты и времени события через календарь назначать событие пользователю, указанному в фильтре календаря" lang-en:TITLE="When selecting date and time with a calendar, assign event to a user selected in calendar filter" lang-ua:TITLE="При виборі дати і часу події через календар призначати подію користувачеві, вказаного в фільтрі календаря"/>
+	<use_candidate_user_for_calendar_filter TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="При выборе даты и времени события показывать календарь того пользователя, к которому относится кандидат" lang-en:TITLE="When selecting date and time show calendar of a user specified in a candidate's card" lang-ua:TITLE="При виборі дати і часу події показувати календар того користувача, до якого відноситься кандидат"/>
+	<use_candidate_user_for_event TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="При назначении события кандидату другого пользователя, относить событие к пользователю, указанному в карточке кандидата" lang-en:TITLE="When creating event for a candidate, assign event to a user specified in a candidate's card" lang-ua:TITLE="При призначенні події кандидату іншого користувача, відносити подію до користувача, вказаного в картці кандидата"/>
+	<update_candidate_user_on_new_event TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Переназначать карточку кандидата на пользователя, производившего последнее действие с кандидатом" lang-en:TITLE="Automatically assign candidate to a user who performs action on that candidate" lang-ua:TITLE="Перепризначувати картку кандидата на користувача, яка провадила останню дію з кандидатом" EXPR="use_candidate_user_for_event ? false : update_candidate_user_on_new_event"/>
+
+	<show_candidate_event_date_in_event_timezone TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Показывать местное время событий в личном деле" lang-en:TITLE="Show events in local time" lang-ua:TITLE="Показувати місцевий час подій в особовій справі"/>
+	<show_candidate_event_other_timezone TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Показывать часовой пояс у событий в личном деле" lang-en:TITLE="Show time zone offset" lang-ua:TITLE="Показувати часовий пояс у подій в особовій справі"/>
+	<init_candidate_timezone_from_location TYPE="bool" NOT-NULL="1" TITLE="Устанавливать часовой пояс кандидата исходя из региона" lang-en:TITLE="Set candidate initial time zone using location" lang-ua:TITLE="Встановлювати часовий пояс кандидата виходячи з регіону"/>
+	
+	<use_candidate_name_en TYPE="bool" NOT-NULL="1" TITLE="Хранить ФИО кандидата на английском языке" lang-en:TITLE="Store candidate name in English" lang-ua:TITLE="Зберігати ПІБ кандидата на англійській мові"/>
+	
+	<allow_candidates_as_contact_persons TYPE="bool" NOT-NULL="1" TITLE="Разрешить использование кандидата в качестве контактного лица" lang-en:TITLE="Allow using candidate as a contact person" lang-ua:TITLE="Дозволити використання кандидата як контактна особа"/>
+
+	<select_plugin_mail_message_attachments TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="При импорте кандидата из почтового сообщения с несколькими вложениями показывать список вложений для выбора" lang-en:TITLE="When importing a candidate from E-mail message with multiple attachments, allow manual selection of attachments to load" lang-ua:TITLE="При імпорті кандидата з поштового повідомлення з декількома вкладеннями показувати список вкладень для вибору"/>
+	
+	<candidates_of_vacancy_view_depth TYPE="integer" DEFAULT="90" TITLE="Глубина просмотра кандидатов в работе по вакансии" lang-en:TITLE="Current candidates lookup depth" lang-ua:TITLE="Глибина перегляду кандидатів у роботі по вакансії"/>
+
+	<candidate_rating_min_value TYPE="integer" NOT-NULL="1" DEFAULT="1"/>
+	<candidate_rating_max_value TYPE="integer" NOT-NULL="1" DEFAULT="5"/>
+	
+	<rparse>
+		<start_str TYPE="string"/>
+		<vacancy_mail_prefix TYPE="string"/>
+	</rparse>
+
+	<staff_connector>
+		<method_id TYPE="string" DEFAULT="service"/>
+
+		<service_host TYPE="string"/>
+		<service_url TYPE="string"/>
+		<auth>
+			<login TYPE="string"/>
+			<password_ed TYPE="string"/>
+		</auth>
+		
+		<src_dir_path TYPE="string"/>
+		<processed_dir_path TYPE="string"/>
+		<file_format TYPE="string" DEFAULT="xml"/>
+
+		<divisions_file_name_mask TYPE="string" DEFAULT="division*"/>
+		<positions_file_name_mask TYPE="string" DEFAULT="position*"/>
+		<persons_file_name_mask TYPE="string" DEFAULT="person*"/>
+		<vacancies_file_name_mask TYPE="string" DEFAULT="vacanc*"/>
+
+		<drop_single_root_division TYPE="bool" NOT-NULL="1"/>
+		<single_root_division_eid TYPE="string"/>
+
+		<delete_old_persons TYPE="bool" NOT-NULL="1"/>
+
+		<position_import>
+			<last_run_date TYPE="date"/>
+		</position_import>
+
+		<person_import>
+			<last_run_date TYPE="date"/>
+		</person_import>
+
+		<default_vacancy_user_id TYPE="integer" FOREIGN-ARRAY="users"/>
+		<default_vacancy_group_id TYPE="integer" FOREIGN-ARRAY="groups"/>
+		<default_vacancy_state_id TYPE="string" FOREIGN-ARRAY="vacancy_states" DEFAULT="vacancy_submitted" TITLE="Начальный статус загруженной вакансии" lang-en:TITLE="Initial vacancy state" lang-ua:TITLE="Початковий статус завантаженої вакансії"/>
+
+		<vacancy_import>
+			<send_create_notif TYPE="bool" NULL-FALSE="1"/>
+			<create_notif_template_id TYPE="mail_template_id"/>
+			<create_notif_email TYPE="string"/>
+
+			<last_run_date TYPE="date"/>
+		</vacancy_import>
+
+		<candidate_dismiss_check>	
+			<last_run_date TYPE="date"/>
+			<src_dir_path TYPE="string"/>
+			<processed_dir_path TYPE="string"/>
+			<use_default_dirs TYPE="bool" NULL-FALSE="1" DEFAULT="false"/>
+			<doulbe_fullname_processing TYPE="string"/>
+			<dismiss_date_min TYPE="date"/>
+			<dismiss_date_max TYPE="date"/>
+			<upload_all_dates TYPE="bool" NULL-FALSE="1" DEFAULT="true"/>
+			<if_state_date_more_dismiss_date TYPE="string"/>
+			<state_types>
+				<state_type MULTIPLE="1" PRIMARY-KEY="event_type_id">
+					<event_type_id TYPE="string" FOREIGN-ARRAY="event_types" INDEXED="1"/>
+				</state_type>
+			</state_types>
+			<first_upload_string TYPE="integer"/>
+			<last_upload_string TYPE="integer"/>
+			<upload_all_strings TYPE="bool" NULL-FALSE="1" DEFAULT="true"/>
+			<upload_probation_end_date TYPE="bool" NULL-FALSE="1" DEFAULT="false"/>
+			<default_notification_user_id TYPE="integer" FOREIGN-ARRAY="users"/>
+		</candidate_dismiss_check>		
+	</staff_connector>
+
+	<call_center>
+		<init_event_type_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="event_types" TITLE="Действие при создании нового кандидата" lang-en:TITLE="Action for a new candidate" lang-ua:TITLE="Дія при створенні нового кандидата"/>
+		<allow_save_new TYPE="bool" NULL-FALSE="1" TITLE="Разрешить добавление нового кандидата без выполнения действия" lang-en:TITLE="Allow saving a new candidate without running any action" lang-ua:TITLE="Дозволити додавання нового кандидата без виконання дії"/>
+	</call_center>
+
+	<hm_recruit>
+		<allow_direct_vacancies TYPE="bool" NOT-NULL="1" TITLE="Разрешить заказчику создавать вакансии напрямую, минуя заявки" lang-en:TITLE="Allow a hiring manager to create vacancies directly" lang-ua:TITLE="Дозволити замовнику створювати вакансії безпосередньо, минаючи заявки"/>
+		<disable_vacancy_requests TYPE="bool" NOT-NULL="1" TITLE="##UiText.titles.disabled##: ##UiText.objects.vacancy_request##"/>
+		<default_vacancy_request_workflow_type_id TYPE="string" TITLE="##UiText.titles.workflow_type## (##StrLowerCase(UiText.titles.default__a)##)" FOREIGN-ARRAY="workflow_types"/>
+
+		<vacancy_request_workflows>
+			<vacancy_request_workflow MULTIPLE="1" PRIMARY-KEY="workflow_type_id">
+				<workflow_type_id TYPE="string" TITLE="##UiText.titles.workflow_type##" FOREIGN-ARRAY="workflow_types"/>
+				<exist_req_expr TYPE="string" SUBTYPE="code" TITLE="##UiText.titles.exist_req_expr##"/>
+			</vacancy_request_workflow>
+		</vacancy_request_workflows>
+
+		<skip_nonexistent_workflow TYPE="bool" NOT-NULL="1" TITLE="Обрабатывать заявки, минуя документооборот, если подходящий тип документооборота не найден" lang-en:TITLE="Bypass workflow if none of the workflow types match" lang-ua:TITLE="Обробляти заявки, минаючи документообіг, якщо відповідний тип документообігу не найден"/>
+
+		<hide_divisions_section TYPE="bool" NOT-NULL="1" TITLE="##UiText.titles.disabled##: ##UiText.titles.divisions##"/>
+
+		<restrict_shown_candidates TYPE="bool" NOT-NULL="1" TITLE="Показывать заказчику только кандидатов с разрешенными статусами" lang-en:TITLE="Show candidates with allowed statuses only" lang-ua:TITLE="Показувати замовнику тільки кандидатів з дозволеними статусами"/>
+	</hm_recruit>
+
+	<pd_processing>
+		<auto_consent_request TYPE="bool" NOT-NULL="1" TITLE="Запрашивать согласие на обработку персональных данных в автоматическом режиме" lang-en:TITLE="Request consent to process personal data automatically" lang-ua:TITLE="Запитувати згоду на обробку персональних даних в автоматичному режимі"/>
+		<consent_request_method TYPE="string" NOT-NULL="1" DEFAULT="eos" TITLE="Метод сбора" lang-en:TITLE="Method of Collecting" lang-ua:TITLE="Метод збору"/>
+		<consent_request_mail_template_id TYPE="mail_template_id"/>
+
+		<own_page>
+			<html_body TYPE="string" SUBTYPE="html" TITLE="Текст согласия" lang-en:TITLE="Page Text" lang-ua:TITLE="Текст згоди"/>
+			<INHERIT TYPE="html_edit_context_base"/>
+		</own_page>
+	</pd_processing>
+
+	<mailbox_scanner>
+		<is_enabled TYPE="bool" NULL-FALSE="1" TITLE="Загружать переписку с кандидатами из почтовых ящиков" lang-en:TITLE="Load email conversations with candidates from mailboxes" lang-ua:TITLE="Завантажувати переписку з кандидатами з поштових скриньок"/>
+	</mailbox_scanner>
+	
+	<mcaller>
+		<allow_access TYPE="bool" NOT-NULL="1" TITLE="##UiText.titles.allow_access##"/>
+	</mcaller>
+
+	<conv_old_40_done TYPE="bool" NULL-FALSE="1"/>
+	<conv_old_41_done TYPE="bool" NULL-FALSE="1"/>
+</global_settings>
+
+
+</SPXML-FORM>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<metro_map xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<location_name>Екатеринбург</location_name>
+	<lines>
+		<line>
+			<id>26</id>
+			<name VALUE="Ветка метро"/>
+		</line>
+	</lines>
+	<stations>
+		<station>
+			<id>533</id>
+			<name VALUE="Ботаническая" lang-en:VALUE="Botanicheskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>298</id>
+			<name VALUE="Геологическая" lang-en:VALUE="Geologicheskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>299</id>
+			<name VALUE="Главный проспект" lang-en:VALUE="Glavnyj prospekt"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>300</id>
+			<name VALUE="Динамо" lang-en:VALUE="Dinamo"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>301</id>
+			<name VALUE="Машиностроителей" lang-en:VALUE="Mashinostroitelej"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>302</id>
+			<name VALUE="Площадь 1905 года" lang-en:VALUE="Ploschad 1905 goda"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>303</id>
+			<name VALUE="Проспект Космонавтов" lang-en:VALUE="Prospekt Kosmonavtov"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>304</id>
+			<name VALUE="Уралмаш" lang-en:VALUE="Uralmash"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>305</id>
+			<name VALUE="Уральская" lang-en:VALUE="Uralskaya"/>
+			<line_id>0</line_id>
+		</station>
+	</stations>
+</metro_map>

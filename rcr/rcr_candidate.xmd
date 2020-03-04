@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM BASE-OBJECT="person" BASE-OBJECT-AUTO-BUILD="0" TITLE="##UiText.objects.candidate##" CODE-LIB="1" IMAGE-URL="//base_pict/candidate.ico" IMAGE-URL-EXPR="image_url()" USE-LAST-SAVED-DATA="1" FT-ON-DEMAND="0">
+
+<candidate>
+	<code TYPE="string" TITLE="##UiText.fields.code##" base1:allow-hide="1" base1:default-section="common"/>	
+	<lastname_en TYPE="string" TITLE="Фамилия (англ.)" lang-en:TITLE="Lastname (eng.)" INDEXED="1" EXPR-INIT="lib_cproc.translit_str( lastname )" EXPR-SHOW-ERRORS="1" lang-ua:TITLE="Прізвище (англ.)"/>
+	<firstname_en TYPE="string" TITLE="Имя (англ.)" lang-en:TITLE="Firstname (eng.)" INDEXED="1" EXPR-INIT="lib_cproc.translit_str( firstname )" EXPR-SHOW-ERRORS="1" lang-ua:TITLE="Ім'я (англ.)"/>
+	<fullname_en TYPE="string" IGNORE-SPELLING="1" TITLE="##UiText.fields.fullname_en##" EXPR="Trim( UnifySpaces( lastname_en + ' ' + firstname_en ) )" EXP-MAX-LEN="34"/>
+
+	<gender_id TYPE="integer" FOREIGN-ARRAY="base1_common.person_genders" TITLE="##UiText.fields.gender##" EXP-MAX-LEN="3" base1:allow-hide="1" base1:default-section="common"/>
+
+	<age TYPE="integer" TITLE="##UiText.fields.age##" EXPR="lib_base.GetPersonAge( this )" base1:allow-hide="1"/>
+
+	<home_phone TYPE="phone" TITLE="##UiText.fields.alt_phone__s##" base1:allow-hide="1"/>
+	<work_phone TYPE="phone" TITLE="##UiText.fields.work_phone__s##" base1:allow-hide="1" base1:hide-by-default="1"/>
+
+	<address TYPE="string" TITLE="##UiText.fields.address__of_person##" base1:allow-hide="1" base1:default-section="common"/>
+
+	<citizenship_id TYPE="string" FOREIGN-ARRAY="countries" TITLE="##UiText.fields.citizenship##" base1:allow-hide="1" base1:default-section="add_info"/>
+	<location_id TYPE="string" FOREIGN-ARRAY="locations" IDATA="1" TITLE="##UiText.fields.location##" base1:allow-hide="1"/>
+	<metro_station_id TYPE="string" MULTIPLE="1" DOC-ID="1" FOREIGN-ARRAY="metro_stations" TITLE="##UiText.fields.metro_station##" base1:allow-hide="1" base1:hide-by-default="1"/>
+	<job_search_location_id TYPE="string" FOREIGN-ARRAY="locations" MULTIPLE="1" TITLE="Регион поиска работы" lang-en:TITLE="Job Search Location" base1:allow-hide="1" lang-ua:TITLE="Регіон пошуку роботи" INDEXED="1"/>
+	<language_id TYPE="string" FOREIGN-ARRAY="languages" TITLE="##UiText.titles.language##"/>
+
+	<org_id TYPE="integer" FOREIGN-ARRAY="orgs" INDEXED="1" TITLE="##UiText.fields.cur_org##" FT-FOREIGN-DISP-NAME="1" base1:allow-hide="1" base1:hide-by-default="1" base1:default-section="common"/>
+	<position_name TYPE="string" TITLE="##UiText.fields.cur_position##" base1:allow-hide="1" base1:hide-by-default="1" base1:default-section="common"/>
+
+	<educ_type_id TYPE="integer" FOREIGN-ARRAY="base2_common.educ_types" TITLE="##UiText.fields.education##" base1:allow-hide="1" base1:default-section="common"/>
+
+	<last_contact_date TYPE="date" TITLE="##UiText.fields.last_contact_date##"/>
+
+	<is_internal_candidate TYPE="bool" NULL-FALSE="1" TITLE="Внутренний кандидат" lang-en:TITLE="Internal candidate" lang-ua:TITLE="Внутрішній кандидат"/>
+	<person_id TYPE="integer" FOREIGN-ARRAY="persons" TITLE="Связка с карточкой физического лица" lang-en:TITLE="Person link" lang-ua:TITLE="Зв'язок з карткою фізичної особи"/>
+
+	<entrance_type_id TYPE="string" FOREIGN-ARRAY="candidate_entrance_types" TITLE="##UiText.fields.entrance_type##" base1:allow-hide="1"/>
+	<source_id TYPE="string" FOREIGN-ARRAY="candidate_sources" IDATA="1" TITLE="##UiText.fields.entrance_source##" EXP-MAX-LEN="9" base1:allow-hide="1"/>
+	<source_person_id TYPE="integer" FOREIGN-ARRAY="persons" TITLE="Лицо, порекомендовавшее кандидата" lang-en:TITLE="Referring Person" lang-ua:TITLE="Особа, порекомендувавша кандидата" base1:allow-hide="1"/>
+
+	<src_competitor_org_id TYPE="integer" FOREIGN-ARRAY="orgs" TITLE="Компания-донор" lang-en:TITLE="Source Competitor" lang-ua:TITLE="Компанія-донор" base1:allow-hide="1"/>
+
+	<desired_position_name TYPE="string" TITLE="##UiText.fields.desired_position_name##" base1:allow-hide="1"/>
+	<profession_id TYPE="integer" FOREIGN-ARRAY="professions" MULTIPLE="1" IDATA="1" TITLE="##UiText.fields.profession##" EXP-MAX-LEN="8" IDATA-INDEXED="1" base1:allow-hide="1"/>
+	<exp_years TYPE="real" TITLE="##UiText.fields.exp_years__short##" TIP-TEXT="##UiText.fields.exp_years__short##" base1:allow-hide="1"/>
+
+	<salary TYPE="integer" TITLE="##UiText.fields.salary_level##"/>
+	<salary_currency_id TYPE="string" FOREIGN-ARRAY="currencies"/>
+	<uni_salary TYPE="integer" TITLE="##UiText.fields.salary_level##" EXPR="salary_currency_id != '' ? lib_currency.convert_amount( salary, salary_currency_id, global_settings.default_currency_id ) : salary" EXPR-SHOW-ERRORS="1"/>
+
+	<work_type_id TYPE="integer" DEFAULT__="1" FOREIGN-ARRAY="work_types" TITLE="##UiText.fields.work_type##" base1:allow-hide="1" base1:default-section="common"/>
+	<employment_percent TYPE="integer" TITLE="##UiText.fields.employment_percent##" base1:allow-hide="1" base1:hide-by-default="1"/>
+
+	<score TYPE="real" PRECISION="1" TITLE="##UiText.fields.score__n##" EXP-MAX-LEN="3" base1:allow-hide="1" base1:hide-by-default="1"/>
+	<rating TYPE="integer" TITLE="##UiText.fields.rating##" EXP-MAX-LEN="3" base1:allow-hide="1"/>
+
+	<inet_uid TYPE="string" IGNORE-SPELLING="1" INDEXED="1" FT-IGNORE="1"/>
+	<external_storage_eid TYPE="integer"/>
+
+	<external_uids FT-IGNORE="1">
+		<external_uid MULTIPLE="1" PRIMARY-KEY="uid">
+			<uid TYPE="string" INDEXED="1" IGNORE-SPELLING="1"/>
+		</external_uid>
+	</external_uids>
+
+	<prev_jobs TITLE="##UiText.fields.prev_jobs##" DOC-ONLY="1">
+		<prev_job MULTIPLE="1">
+			<start_date TYPE="date" TIME="0"/>
+			<start_date_no_day TYPE="bool" NULL-FALSE="1"/>
+			<start_date_no_month TYPE="bool" NULL-FALSE="1"/>
+
+			<end_date TYPE="date" TIME="0"/>
+			<end_date_no_day TYPE="bool" NULL-FALSE="1"/>
+			<end_date_no_month TYPE="bool" NULL-FALSE="1"/>
+
+			<start_year PROPERTY="1" EXPR="start_date.HasValue ? Year( start_date ) : null"/>
+			<start_month PROPERTY="1" EXPR="start_date.HasValue &amp;&amp; ! start_date_no_month ? Month( start_date ) : null"/>
+			<end_year PROPERTY="1" EXPR="end_date.HasValue ? Year( end_date ) : null"/>
+			<end_month PROPERTY="1" EXPR="end_date.HasValue &amp;&amp; ! end_date_no_month ? Month( end_date ) : null"/>
+
+			<use_org_id TYPE="bool" TEMP="1" EXPR-INIT="org_id != null"/>
+
+			<INHERIT TYPE="org_ref"/>
+			<org_name TYPE="string" EXPR="org_id.HasValue ? org_id.ForeignDispName : org_name"/>
+			<org_location_name TYPE="string"/>
+			<org_industry_name TYPE="string"/>
+			<org_web TYPE="string"/>
+
+			<position_name TYPE="string"/>
+			<profession_id TYPE="integer" FOREIGN-ARRAY="professions" MULTIPLE="1"/>
+
+			<salary TYPE="integer"/>
+			<comment TYPE="string" MULTILINE="1"/>
+		</prev_job>
+	</prev_jobs>
+
+
+	<last_prev_job PROPERTY="1" EXPR="ArrayMax( prev_jobs, 'start_date' )"/>
+
+
+	<recruit_type_id TYPE="string" FOREIGN-ARRAY="recruit_types" TITLE="##UiText.objects.recruit_type##" EXP-MAX-LEN="11" base1:allow-hide="1" base1:default-section="add_info"/>
+
+	<spots TITLE="Рассматривается на вакансии" lang-en:TITLE="Selected for Vacancies" lang-ua:TITLE="Розглядається на вакансії">
+		<spot MULTIPLE="1" PRIMARY-KEY="vacancy_id">
+			<vacancy_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="vacancies" INDEXED="1"/>
+			
+			<start_date TYPE="date"/>
+			<end_date TYPE="date"/>
+
+			<state_id TYPE="string" SECONDARY="1" FOREIGN-ARRAY="candidate_states" TITLE="Статус по вакансии" lang-en:TITLE="Vacancy specific state" lang-ua:TITLE="Статус по вакансії"/>
+			<state_date TYPE="date" SECONDARY="1"/>
+			<state_end_date TYPE="date" SECONDARY="1"/>
+			<is_active TYPE="bool" SECONDARY="1" NULL-FALSE="1"/>
+
+			<last_comment TYPE="string" SECONDARY="1" TITLE="##UiText.fields.last_comment##" FT-IGNORE="1"/>
+
+			<entrance_type_id TYPE="string" FOREIGN-ARRAY="candidate_entrance_types" TITLE="##UiText.fields.entrance_type##" base1:allow-hide="1"/>
+			<source_id TYPE="string" FOREIGN-ARRAY="candidate_sources" TITLE="##UiText.fields.entrance_source##"/>
+
+			<is_not_rejected PROPERTY="1" EXPR="
+					//alert( state_id );
+					return ! StrContains( state_id, 'reject' );
+			"/>
+
+			<get_state_bk_color PROPERTY="1" EXPR="
+					return lib_event.build_dyn_state_bk_color( state_id.ForeignElem, state_date, state_end_date );
+			"/>
+		</spot>
+	</spots>
+
+	<agency_org_id TYPE="integer" FOREIGN-ARRAY="orgs" TITLE="Закреплен за агентством" lang-en:TITLE="Recruiting agency" lang-ua:TITLE="Закріплений за агентством" base1:allow-hide="1"/>
+	<agency_end_date TYPE="date" TIME="0" TITLE="Закреплен до" lang-en:TITLE="Agency ownership end date" lang-ua:TITLE="Закріплений до"/>
+
+	<position_type_id TYPE="integer" FOREIGN-ARRAY="position_types" TITLE="##UiText.objects.position_type##"/>
+	<desired_division_id TYPE="integer" MULTIPLE="1" FOREIGN-ARRAY="divisions" TITLE="Где готов работать" lang-en:TITLE="Target divisions" lang-ua:TITLE="Де готовий працювати"/>
+
+	<day_ratio TYPE="real" PRECISION="2" POSITIVE="1" TITLE="Ставка" lang-en:TITLE="Day ratio" lang-ua:TITLE="Ставка"/>
+	<est_empl_start_date TYPE="date" TIME="0" TITLE="##UiText.fields.empl_start_date##" base1:allow-hide="1" base1:default-section="common"/>
+	<probation_end_date TYPE="date" TIME="0" TITLE="##UiText.fields.probation_end_date##" base1:allow-hide="1" base1:default-section="common"/>
+
+	<pd_consent_received TYPE="bool" NULL-FALSE="1" TITLE="Получено согласие на обработку персональных данных" lang-en:TITLE="Received consent to the processing of personal data" lang-ua:TITLE="Отримано згоду на обробку персональних даних" base1:allow-hide="1"/>
+	<pd_consent_date TYPE="date" TITLE="Дата получения согласия" lang-en:TITLE="Date of consent" lang-ua:TITLE="Дата отримання згоди"/>
+	<pd_consent_request_date TYPE="date" TITLE="Дата запроса согласия" lang-en:TITLE="Date of request for consent" lang-ua:TITLE="Дата запиту згоди"/>
+	
+	<time_zone TYPE="real" PRECISION="0" EXPR="
+			if ( time_zone.HasValue )
+				return;
+
+			if ( global_settings.init_candidate_timezone_from_location )
+			{
+				return location_id.ForeignElem.time_zone;
+			}
+
+			if ( ! LdsIsClient )
+				return;
+
+			if ( user_id.HasValue &amp;&amp; LdsCurUserID != user_id )
+				return;
+
+			return GetLocalTimeZone();
+	" EXPR-SHOW-ERRORS="1" TITLE="##UiText.titles.time_zone##" base1:allow-hide="1" base1:hide-by-default="1"/>
+
+	<INHERIT TYPE="recruit_user_group_base"/>
+	<idata_group_id TYPE="integer" MULTIPLE="1" FOREIGN-ARRAY="groups" TITLE="##UiText.objects.group##" EXP-MAX-LEN="10"/>
+
+	<INHERIT TYPE="card_attachments"/>
+	<multi_attachment_type_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="card_attachment_types" TITLE="Наличие приложений" lang-en:TITLE="Types of attachments" lang-ua:TITLE="Наявність додатків"/>
+
+
+	<state_id TYPE="string" SECONDARY="1" ALL-ACCESS="1" FOREIGN-ARRAY="candidate_states" TITLE="##UiText.fields.state##" EXP-MAX-LEN="24" INDEXED="1"/>
+	<state_date TYPE="date" SECONDARY="1" ALL-ACCESS="1" TITLE="##UiText.fields.state_date##" INDEXED="1"/>
+	<state_end_date TYPE="date" SECONDARY="1" ALL-ACCESS="1"/>
+	<cp_date TYPE="date" SECONDARY="1" ALL-ACCESS="1" TITLE="Дата обновления" INDEXED="1" lang-en:TITLE="Update date" lang-ua:TITLE="Дата поновлення"/>
+	<is_active TYPE="bool" SECONDARY="1" ALL-ACCESS="1" NULL-FALSE="1" TITLE="Кандидат в работе" lang-en:TITLE="Current candidate" lang-ua:TITLE="Кандидат в роботі"/>
+	<max_state_date TYPE="date" SECONDARY="1" TITLE="Предельная дата нахождения в статусе" INDEXED="1" lang-en:TITLE="State time limit" lang-ua:TITLE="Гранична дата знаходження в статусі"/>
+	<is_user_duty TYPE="bool" NULL-FALSE="1" SECONDARY="1" TITLE="##UiText.fields.is_user_duty##" INDEXED="1"/>
+
+
+	<last_job_org_name TYPE="string" SECONDARY="1" TITLE="##UiText.fields.last_job_org##"/>
+	<last_job_position_name TYPE="string" SECONDARY="1" TITLE="##UiText.fields.last_position##"/>
+	<last_comment TYPE="string" SECONDARY="1" TITLE="##UiText.fields.last_comment##"/>
+
+	<phone_extension TYPE="integer" TITLE="##UiText.titles.phone_extension##" INDEXED="0"/>
+
+
+	<view TEMP="1" DOC-ONLY="1" FT-EXPR="Parent.get_ft_secondary_text()">
+		<is_new TYPE="bool" NULL-FALSE="1" TEMP="1"/>
+		<orig_raw_message_doc_url TYPE="string" TEMP="1"/>
+		<duplicates_checked TYPE="bool" NULL-FALSE="1" TEMP="1"/>
+		<continue_on_duplicate_merge TYPE="bool" NULL-FALSE="1" TEMP="1"/>
+		<last_action_comment TYPE="string" MULTILINE="1" TITLE="##UiText.fields.comment##" TEMP="1"/>
+
+		<left_panel_actions>
+			<target_event_types_ref TYPE="variant"/>
+			<target_event_types PROPERTY="1" EXPR="target_event_types_ref.OptObject"/>
+
+			<use_groups TYPE="bool" NULL-FALSE="1"/>
+
+			<target_groups>
+				<target_group MULTIPLE="1" PRIMARY-KEY="event_type_group_id">
+					<event_type_group_id TYPE="string" FOREIGN-ARRAY="candidate_event_type_groups"/>
+					<event_type_group_ref TYPE="variant"/>
+					<event_type_group PROPERTY="1" EXPR="event_type_group_ref.OptObject"/>
+
+					<is_expanded TYPE="bool" NULL-FALSE="1"/>
+				</target_group>
+			</target_groups>
+		</left_panel_actions>
+
+		<target_events_loaded TYPE="bool" NULL-FALSE="1" TEMP="1"/>
+
+		<target_events>
+			<target_event MULTIPLE="1" PRIMARY-KEY="event_id">
+				<event_id TYPE="integer" FOREIGN-ARRAY="events"/>
+				<event_ref TYPE="variant"/>
+				<event PROPERTY="1" EXPR="event_ref.OptObject"/>
+
+				<groupEvent TYPE="variant" STRICT="1"/>
+				<group_event_requires_completion TYPE="bool" NULL-FALSE="1"/>
+				<groupEventResultEventType TYPE="variant" STRICT="1"/>
+
+				<mod_event_doc_ref TYPE="variant"/>
+				<mod_event_doc PROPERTY="1" EXPR="mod_event_doc_ref.OptObject"/>
+				<mod_event PROPERTY="1" EXPR="mod_event_doc_ref.Object.TopElem"/>
+
+				<group_index TYPE="integer"/>
+
+				<has_sel TYPE="bool" NULL-FALSE="1"/>
+			</target_event>
+		</target_events>
+
+		<target_event_groups>
+			<target_event_group MULTIPLE="1">
+				<vacancy_id TYPE="integer" FOREIGN-ARRAY="vacancies"/>
+				<events_count TYPE="integer" NOT-NULL="1"/>
+			</target_event_group>
+		</target_event_groups>
+
+		<prev_data>
+			<fullname TYPE="string"/>
+			<email TYPE="string"/>
+			<email2 TYPE="string"/>
+		</prev_data>
+
+		<filter>
+			<INHERIT TYPE="ft_filter"/>
+			<candidate_id TYPE="integer" EXPR="Doc.DocID"/>
+		</filter>
+	</view>
+
+
+	<preview TEMP="1" DOC-ONLY="1">
+		<selector TYPE="string" TEMP="1" DEFAULT="common"/>
+	</preview>
+
+
+
+
+
+	<main_vacancy_id TYPE="integer" SECONDARY="1" FOREIGN-ARRAY="vacancies" TITLE="##UiText.objects.vacancy##"/>
+	<main_vacancy_org_id TYPE="integer" SECONDARY="1" FOREIGN-ARRAY="orgs" TITLE="##UiText.titles.client__rr##"/>
+	<main_vacancy_division_id TYPE="integer" SECONDARY="1" FOREIGN-ARRAY="divisions" TITLE="##UiText.objects.division##"/>
+
+
+	<hot_events SECONDARY="1">
+		<hot_event MULTIPLE="1">
+			<type_id TYPE="string" NOT-NULL="1" FOREIGN-ARRAY="event_types"/>
+			<vacancy_id TYPE="integer" FOREIGN-ARRAY="vacancies"/>
+			<date TYPE="date"/>
+			<end_date TYPE="date"/>
+			<occurrence_id TYPE="string" FOREIGN-ARRAY="base2_common.event_occurrences"/>
+
+			<get_text_color PROPERTY="1" EXPR="
+					return type_id.ForeignElem.text_color;
+			"/>
+
+			<get_bk_color PROPERTY="1" EXPR="
+					return lib_event.build_dyn_occurrence_bk_color( type_id.ForeignElem, occurrence_id, date, end_date );
+			"/>
+		</hot_event>
+	</hot_events>
+	
+	
+	
+	
+	<last_record PROPERTY="1" EXPR="
+			ArrayMax( records, 'date' )
+	"/>
+
+	<last_comment_record PROPERTY="1" EXPR="
+			ArrayMax( ArraySelect( records, 'comment != \'\'' ), 'date' )
+	"/>
+
+
+	<view_spot_index TYPE="integer" TEMP="1"/>
+
+
+
+
+
+
+
+
+
+	<get_state_bk_color PROPERTY="1" DEPENDS="state_id,state_date,state_end_date"/>
+	<state_duration_desc PROPERTY="1" DEPENDS="state_date"/>
+	<state_term_rest_desc PROPERTY="1" DEPENDS="max_state_date"/>
+
+
+	<opt_default_attachment PROPERTY="1" EXPR="
+			attc = ArrayOptFindByKey( sorted_attachments, 'resume', 'type_id' );
+			if ( attc != undefined )
+				return attc;
+			
+			return ArrayOptFirstElem( sorted_attachments );
+	"/>
+
+
+
+
+	<edit_record PROPERTY="1" PARAM="_screen" PARAM="_record" EXPR="
+			if ( ! _record.edit_mode )
+			{
+				_record.edit_mode = true;
+				Screen.Update();
+			}
+
+			Screen.ExposeItemBySource( _record.comment );
+	" PASSIVE="1"/>
+
+
+	<adjust_spot_date PROPERTY="1" PARAM="_base_record" PARAM="_prev_date" EXPR="
+			for ( record in records )
+			{
+				if ( record.type_id == 'select' && record.position_id == _base_record.position_id && record.date > _base_record.date )
+					return;
+			}
+
+			try
+			{
+				spots.GetChildByKey( _base_record.position_id ).start_date = _base_record.date;
+			}
+			catch ( e )
+			{
+			}
+	"/>
+
+
+
+
+
+
+	<handle_open_ext_event PROPERTY="1" PARAM="event" EXPR="
+			//Screen.Update();
+			edit_record( Screen, ArraySelect( records, 'type_id == \'' + event.type_id + '\' && date == Date( \'' + event.date + '\' )' )[0] );
+	"/>
+
+
+
+	<handle_ext_calendar_event_changed PROPERTY="1" PARAM="eventData" PARAM="isNew" EXPR="
+			if ( isNew )
+			{
+				newRecord = view.new_records.GetChildByKey( eventData.id );
+
+				record = records.AddChild();
+				record.AssignElem( newRecord );
+				newRecord.Delete();
+			}
+			else
+			{
+				record = records.GetOptChildByKey( eventData.id );
+				if ( record == undefined )
+					return;
+			}
+
+			record.AssignElem( eventData );
+
+			//if ( record.type_id.ForeignElem.use_end_date )
+				//record.end_date = recordEndDate;
+
+			Doc.SetChanged( true );
+			Screen.Update();
+	"/>
+
+
+	<ext_calendar_record_subject PROPERTY="1" PARAM="record" EXPR="
+			str = record.type_id.ForeignElem.name + ':  ' + fullname;
+			return str;
+	"/>
+
+	<image_url PROPERTY="1" DEPENDS="is_active"/>
+
+	<OnCheckReadAccess PROPERTY="1" DEPENDS="user_id,group_id,spots,state_id,recruit_type_id"/>
+</candidate>
+
+
+
+</SPXML-FORM>

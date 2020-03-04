@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<IF EXPR="! base1_config.is_int_version">
+		<GROUP>
+			<ITEM TYPE="elem_selector" SOURCE="Ps.std_video_interview_provider_id" AUTO-LABEL="1" WIDTH="40zr"/>
+		</GROUP>
+	</IF>
+	<DELIM/>
+
+	<IF EXPR="Ps.std_video_interview_provider_id.HasValue">
+		<GROUP>
+			<IF EXPR="Ps.std_video_interview_provider_id.ForeignElem.use_server_address">
+				<EDIT SOURCE="Ps.server_address" WIDTH="40zr" AUTO-LABEL="1"/>
+			</IF>
+
+			<IF EXPR="false">
+				<EDIT SOURCE="Ps.login" WIDTH="40zr" AUTO-LABEL="1"/>
+
+				<EDIT SOURCE="StrStdDecrypt( Ps.password_ed )" SET-VALUE-ACTION="
+						Ps.password_ed = StrStdEncrypt( NewValue );
+						Ps.Doc.SetChanged( true );
+				" LABEL-TITLE="##UiText.fields.password##:" WIDTH="20zr" PASSWORD="1"/>
+			</IF>
+
+			<IF EXPR="Ps.std_video_interview_provider_id.ForeignElem.use_access_token">
+				<SEPARATOR/>
+				<EDIT SOURCE="Ps.access_token" LABEL-TITLE="##UiText.fields.access_token##:" DELETE-ACTION="
+						Ps.access_token.Clear();
+						Ps.Doc.SetChanged( true );
+				"/>
+			</IF>
+		
+			<IF EXPR="Ps.std_video_interview_provider_id.ForeignElem.use_access_token_2">
+				<SEPARATOR/>
+				<EDIT SOURCE="Ps.refresh_token" LABEL-TITLE="##UiText.fields.access_token## 2:" DELETE-ACTION="
+						Ps.refresh_token.Clear();
+						Ps.Doc.SetChanged( true );
+				"/>
+			</IF>
+		
+			<IF EXPR="Ps.std_video_interview_provider_id.ForeignElem.use_line_prefix">
+				<SEPARATOR/>
+				<EDIT SOURCE="Ps.line_prefix" AUTO-LABEL="1" WIDTH="6zr"/>
+			</IF>
+		</GROUP>
+	</IF>
+	<ELSE>
+		<CODE-EDIT SOURCE="Ps.outgoing_call_code" MULTILINE="1" HEIGHT="45%" AUTO-LABEL="1"/>
+		<CODE-EDIT SOURCE="Ps.recording_retrieval_code" MULTILINE="1" HEIGHT="-20zr" AUTO-LABEL="1"/>
+	</ELSE>
+	<DELIM/>
+	<BR/>
+	<BR/>
+
+	<GROUP>
+		<BUTTON TITLE="##UiText.actions.make_test_call##" IMAGE-URL="//base_pict/phone_call_outgoing.ico" WIDTH="35zr" ACTION="
+				if ( Ps.test_phone == '' )
+					throw UserError( UiText.errors.test_phone_not_specified );
+
+				if ( Screen.Doc.IsChanged )
+					Screen.SaveDoc();
+
+				lib_video_interview.MakeCall( Ps.test_phone, undefined, {providerID:Ps.id,localExtension:Ps.test_local_phone_extension} );
+		"/>
+
+		<ITEM TYPE="phone_edit" SOURCE="Ps.test_phone" WIDTH="20zr" LABEL-TITLE="##UiText.titles.test_phone_number##:"/>
+		<EDIT SOURCE="Ps.test_local_phone_extension" WIDTH="10zr" LABEL-TITLE="##UiText.titles.phone_extension##:"/>
+	</GROUP>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+

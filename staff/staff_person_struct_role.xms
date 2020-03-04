@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="120zr" HEIGHT="70zr" SOURCE="TopElem" TITLE="Роль в орг. структуре" RESIZE="1" WINDOW-ICON-URL-EXPR="Ps.ImageUrl" lang-en:TITLE="Employee Role" lang-ua:TITLE="Роль в орг. структурі">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+<PANEL STD-MARGINS="1" SUNKEN="1" HEIGHT="100%">
+
+<GROUP>
+	<ITEM TYPE="object_selector" SOURCE="Ps.person_id" AUTO-LABEL="1" WIDTH="45zr"/>
+	<SEPARATOR/>
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.type_id" AUTO-LABEL="1" WIDTH="55zr"/>
+	<COMBO SOURCE="Ps.priority_id" AUTO-LABEL="1" WIDTH="8zr" KEEP-RIGHT="1">
+		<LOOP EXPR="[1,2]" VAR="ListElem">
+			<COMBO-ENTRY VALUE-EXPR="ListElem" TITLE-EXPR="ListElem"/>
+		</LOOP>
+	</COMBO>
+	<SEPARATOR/>
+	<ITEM TYPE="object_selector" SOURCE="Ps.division_id" AUTO-LABEL="1" WIDTH="100%"/>
+</GROUP>
+<DELIM/>
+
+<GROUP>
+	<EDIT SOURCE="Ps.eid" AUTO-LABEL="1"/>
+</GROUP>
+<DELIM/>
+
+</PANEL>
+
+
+</SPXML-SCREEN>
+
+
+

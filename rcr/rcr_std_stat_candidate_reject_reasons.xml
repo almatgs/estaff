@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>candidate_reject_reasons</id>
+	<name VALUE="##UiText.titles.candidate_reject_reasons##"/>
+	<section_id>recruit</section_id>
+
+	<is_v2>1</is_v2>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>date</id>
+			<data_type>date</data_type>
+			<title VALUE="##UiText.titles.time_period##"/>
+			<use_range>1</use_range>
+			<use_period_quick_selector>1</use_period_quick_selector>
+			<default_period>
+				<unit_id>m</unit_id>
+				<unit_specifier_id>cur</unit_specifier_id>
+			</default_period>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>recruit_type_id</id>
+			<source_id>vacancies</source_id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>staff_category_id</id>
+			<source_id>vacancies</source_id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>event_type_id</id>
+			<data_type>string</data_type>
+			<title VALUE="##UiText.fields.event_type##"/>
+			<foreign_array>event_types</foreign_array>
+			<is_multiple>1</is_multiple>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.fields.recruiter##"/>
+			<foreign_array>users</foreign_array>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue &amp;&amp; ArrayCount( filter.group_id.Instances ) == 1 ? {main_group_id:ArrayFirstElem( filter.group_id.Instances ),is_active:true}:{is_active:true}</view_filter_expr>
+			<use_new_line>1</use_new_line>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.objects.group##"/>
+			<foreign_array>groups</foreign_array>
+			<is_multiple>1</is_multiple>
+			<is_hier>1</is_hier>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>org_id</id>
+			<source_id>vacancies</source_id>
+			<width>40zr</width>
+			<exist_req_expr>global_settings.use_vacancy_orgs</exist_req_expr>
+		</dyn_filter>
+	</dyn_filters>
+
+	<groups>
+		<group>
+			<id>group_id</id>
+			<foreign_array>groups</foreign_array>
+		</group>
+		<group>
+			<id>user_id</id>
+			<foreign_array>users</foreign_array>
+		</group>
+		<group>
+			<id>vacancy_id</id>
+			<foreign_array>vacancies</foreign_array>
+		</group>
+	</groups>
+
+	<fields>
+		<field>
+			<id>name</id>
+			<col_title VALUE="##UiText.objects.vacancy##"/>
+			<width>50zr</width>
+		</field>
+
+		<field>
+			<id>reject_count</id>
+			<col_title VALUE="Отказы" lang-en:VALUE="Rejection" lang-ua:VALUE="Відмови"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>event</src_object_type_id>
+		</field>
+
+		<field>
+			<id>reject_with_reason_xxx_count</id>
+			<span_title VALUE="##UiText.titles.of_them##"/>
+			<auto_multiply_by_voc>candidate_reject_reasons</auto_multiply_by_voc>
+			<stat_func>count</stat_func>
+			<src_object_type_id>event</src_object_type_id>
+			<rotation>90</rotation>
+			<width>6zr</width>
+		</field>
+		<field>
+			<id>reject_with_reason_xxx_percent</id>
+			<span_title VALUE="##UiText.titles.of_them##, %"/>
+			<auto_multiply_by_voc>candidate_reject_reasons</auto_multiply_by_voc>
+			<is_percent>1</is_percent>
+			<numerator_field_id>reject_with_reason_xxx_count</numerator_field_id>
+			<denominator_field_id>reject_count</denominator_field_id>
+			<rotation>90</rotation>
+			<width>6zr</width>
+		</field>
+	</fields>
+
+	<show_total>1</show_total>
+	<show_chart>0</show_chart>
+
+	<use_group_bk_colors>1</use_group_bk_colors>
+
+	<code_lib_url>x-app://rcr/rcr_std_stat_candidate_reject_reasons.js</code_lib_url>
+</std_stat>
+

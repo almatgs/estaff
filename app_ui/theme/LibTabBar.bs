@@ -1,0 +1,89 @@
+namespace LibTabBar {
+
+
+function OnBuildTabBarView( tabBarView )
+{
+	tabBarView.AuxData.switchType = tabBarView.MasterItem.GetOptAttrValue( 'SWITCH-TYPE' );
+}
+
+
+function OnBuildTabBarViewCore( tabBarView, coreItem )
+{
+	tabBarView.AuxData.hasImages = false;
+	
+	BuildSubEntries( tabBarView, coreItem, tabBarView.MasterItem, 0 );
+}
+
+
+function BuildSubEntries( tabBarView, coreItem, baseEntry, hierLevel )
+{
+	if ( tabBarView.AuxData.switchType == 'source' )
+		sourceVal = tabBarView.MasterItem.Source;
+
+	for ( entry in baseEntry.Entries )
+	{
+		entryView = coreItem.ObtainChildItemByMasterItem( entry, 'TabBarEntryView' );
+		//entryView.MasterItem = entry;
+
+		imageUrl = entry.ImageUrl;
+		if ( imageUrl )
+		{
+			entryView.AuxData.imageUrl = entry.ImageUrl;
+			tabBarView.AuxData.hasImages = true;
+		}
+
+		if ( tabBarView.AuxData.switchType == 'source' )
+		{
+			if ( entryView.MasterItem.Value == sourceVal )
+			{
+				tabBarView.AuxData.curEntry == entry;
+				//entryView.AuxData.isCurrent = true;
+			}
+			else
+			{
+				//entryView.AuxData.isCurrent = false;
+			}
+		}
+
+		//entryView.AuxData.isCurrent = ( tabBarView.AuxData.curEntry === entry );
+		entryView.AuxData.isCurrent = ( tabBarView.MasterItem.CurrentEntry === entry );
+	}
+}
+
+
+function OnTabBarEntryClick( tabBarView, entryView )
+{
+	tabBarView.MasterItem.SetCurrentEntry( entryView.MasterItem );
+
+
+/*	tabBarView.AuxData.curEntry = entryView.MasterItem;
+	
+	if ( tabBarView.AuxData.switchType == 'source' )
+	{
+		tabBarView.MasterItem.SetSourceValue( entryView.MasterItem.Value );
+		tabBarView.Screen.Update();
+	}
+	else
+	{
+		tabBarView.Update();
+	}*/
+}
+
+
+function OnTabBarViewCurrentEntryChanged( tabBarView, entry )
+{
+	if ( tabBarView.AuxData.switchType == 'source' )
+	{
+		tabBarView.MasterItem.SetSourceValue( entry.Value );
+		tabBarView.Screen.Update();
+	}
+	else
+	{
+		tabBarView.Update();
+		tabBarView.MasterItem.RunSetCurrentEntryActions( entry );
+	}
+}
+
+
+
+}

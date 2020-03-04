@@ -1,0 +1,191 @@
+namespace AppUi {
+
+var gThemeData;
+var themeColors;
+var	themeImagesSpec;
+var metrics;
+var useCompatMode1 = true;
+
+
+function Init()
+{
+	if ( ! LdsIsClient )
+        return;
+	
+	gThemeData = OpenDoc( System.IsWebClient ? "//app_ui/theme/app_ui_theme_web.xml" : "//app_ui/theme/app_ui_theme.xml" ).TopElem;
+	themeColors = gThemeData.colors;
+
+	LoadThemeImages();
+
+	metrics = new Object;
+	metrics.textLineHeight = GetUiMetric( 'TextLineHeight' );
+	//DebugMsg( metrics.textLineHeight );
+
+	metrics.editHeight = AlignNumberToEvenDiff( Int( metrics.textLineHeight * 1.5 ), metrics.textLineHeight );
+	SetUiMetric( 'EditHeight', metrics.editHeight );
+	//DebugMsg( metrics.editHeight );
+	metrics.editHeightMeasure = metrics.editHeight + 'px';
+	metrics.editBorderRadius = 2;
+	SetUiMetric( 'EditBorderRadius', metrics.editBorderRadius );
+	metrics.editBorderRadiusMeasure = metrics.editBorderRadius + 'px'
+	metrics.editPaddingLeft = 4;
+	SetUiMetric( 'EditPaddingLeft', metrics.editPaddingLeft );
+	metrics.editPaddingLeftMeasure = metrics.editPaddingLeft + 'px';
+	metrics.editPaddingTop = 3;
+	SetUiMetric( 'EditPaddingTop', metrics.editPaddingTop );
+
+	metrics.buttonHeight = AlignNumberToEvenDiff( Max( Int( metrics.textLineHeight * 1.5 ), 24 ), metrics.textLineHeight );
+	SetUiMetric( 'ButtonHeight', metrics.buttonHeight );
+	metrics.buttonHeightMeasure = metrics.buttonHeight + 'px';
+
+	metrics.largeButtonHeight = AlignNumberToEvenDiff( Max( Int( metrics.textLineHeight * 1.6 ), 26 ), metrics.textLineHeight );
+	metrics.largeButtonHeightMeasure = metrics.largeButtonHeight + 'px';
+
+	metrics.scrollBarSliderWidthMeasure = '4epx';
+
+	metrics.dateStrWidth = CalcTextScreenWidth( '00.00.0000' );
+
+	metrics.dateSelectorWidth = metrics.dateStrWidth + 30;
+	metrics.dateSelectorWidthMeasure = metrics.dateSelectorWidth + 'px';
+
+	metrics.listColSpacing = 1;
+	SetUiMetric( 'ListColSpacing', metrics.listColSpacing );
+
+	//DebugMsg( metrics.dateSelectorWidth + ' ' + ActiveScreen.ZrSize * 14 );
+	if ( System.IsV1CompatibilityMode && metrics.dateSelectorWidth > ActiveScreen.ZrSize * 14 )
+	{
+		metrics.dropDownBoxPaddingLeftMeasure = '1epx';
+		metrics.dropDownBoxPaddingRightMeasure = '5epx';
+	}
+	else
+	{
+		metrics.dropDownBoxPaddingLeftMeasure = '1epx';
+		metrics.dropDownBoxPaddingRightMeasure = '6epx';
+	}
+	
+
+	metrics.treeHierIndent = 20;
+
+	metrics.listHeaderRowHeight = metrics.textLineHeight + 10;
+	SetUiMetric( 'ListHeaderRowHeight', metrics.listHeaderRowHeight );
+
+	metrics.progressBarAltInnerPanelWidthPercent = 50;
+	metrics.progressBarAltInnerPanelSpeed = 0.008;
+
+	metrics.dlgCancelButtonWidth = CalcTextScreenWidth( UiText.actions.cancel ) + ActiveScreen.ZrSize * 6;
+	metrics.dlgCancelButtonWidthMeasure = metrics.dlgCancelButtonWidth + "px";
+	metrics.dlgOkButtonWidthMeasure = metrics.dlgCancelButtonWidthMeasure;
+	metrics.dlgYesButtonWidthMeasure = metrics.dlgCancelButtonWidthMeasure;
+	metrics.dlgNoButtonWidthMeasure = metrics.dlgCancelButtonWidthMeasure;
+
+
+	metrics.menuAutoOpenDelay = 350;
+
+
+	RegisterStdSampleScreenForms();
+
+
+	RegisterCodeLibrary( '//app_ui/theme/LibScrollBar.bs');
+	RegisterCodeLibrary( '//app_ui/theme/LibAutoComplete.bs');
+	RegisterCodeLibrary( '//app_ui/theme/LibCalendarControl.bs');
+	RegisterCodeLibrary( '//app_ui/theme/LibTree.bs');
+	RegisterCodeLibrary( '//app_ui/theme/LibTabBar.bs');
+	RegisterCodeLibrary( '//app_ui/theme/LibProgressBar.bs');
+	RegisterCodeLibrary( '//app_ui/theme/LibMenu.bs');
+	RegisterCodeLibrary( '//app_ui/theme/LibWindow.bs');
+	
+	//item = new UiThemeControls.VertScrollBar;
+	//item.totalSize = 5;
+	//DebugMsg( item.totalSize );
+}
+
+
+function RegisterStdSampleScreenForms()
+{
+	RegisterSharedSampleScreenForm( "//app_ui/theme/Link.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/AutoComplete.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/Button.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/CheckBox.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/RadioButton.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/ComboBox.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/ComboPicker.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/CalendarControl.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/DatePicker.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/ProgressBar.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/Tree.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/TabBar.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/Toolbar.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/StatusBar.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/ScrollBar.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/List.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/Tip.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/Menu.xms" );
+	RegisterSharedSampleScreenForm( "//app_ui/theme/Window.xms" );
+
+}
+
+
+function LoadThemeImages()
+{
+	themeImagesSpec = ParseJson( LoadUrlData( "//app_ui/theme/app_ui_images.json" ) );
+	for ( i = 0; i < themeImagesSpec.images.length; i++ )
+	{
+		imageSpec = themeImagesSpec.images[i];
+		imageSpec.url = AbsoluteUrl( imageSpec.url, "x-app://app_ui/theme/" );
+	}
+
+	//DebugMsg( EncodeJson( themeImagesSpec, {PrettyFormat:true} ) );
+}
+
+
+function GetStateImageUrl( imageUrl, state, colorMapping )
+{
+	if ( UrlPathSuffix( imageUrl ) != ".svg" )
+		return imageUrl;
+
+	return ProcessSvgStateImage( imageUrl, state, colorMapping );
+}
+
+
+function GetImageSize( imageUrl )
+{
+	imageSpec = ArrayOptFindByKey( themeImagesSpec.images, AbsoluteUrl( imageUrl, "x-app://app_ui/theme/" ), "url" );
+	if ( imageSpec == undefined )
+		return {x:16,y:16};
+
+	return {x:imageSpec.width,y:imageSpec.height};
+}
+
+
+function AlignNumberToEvenDiff( number, baseNumber )
+{
+	if ( System.IsWebClient )
+		return number;
+
+	if ( ( number - baseNumber ) % 2 == 0 )
+		return number;
+	else
+		return number + 1;
+}
+
+
+function GetTopScreens()
+{
+	screensArray = ArraySelect( AllScreens, 'ParentScreen == undefined && ! IsDlg' );
+	return screensArray;
+}
+
+
+
+
+
+function AskFilesUpload( options )
+{
+	dlgDoc = OpenDoc( 'app_ui_dlg_files_upload.xml' );
+	
+	ActiveScreen.ModalDlgAsync( dlgDoc, options );
+}
+
+
+
+}

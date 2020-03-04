@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<ext_calendar_entry_editor>
+	<entry_ref TYPE="variant"/>
+	<entry_doc_ref TYPE="variant"/>
+
+	<is_new TYPE="bool" NOT-NULL="1"/>
+
+
+
+	<init PROPERTY="1" PARAM="entry" PARAM="screen" EXPR="
+			entry_ref = entry;
+			entry_doc_ref = entry.Doc;
+			is_new = screen.Doc.NeverSaved;
+
+			lib_ext_calendar.display_ext_calendar_entry( entry );
+	"/>
+
+
+	<Check PROPERTY="1" PARAM="screen" EXPR="
+			entry = entry_ref.Object;
+
+			isEdited = lib_ext_calendar.check_ext_calendar_entry_editor( entry );
+			if ( isEdited )
+				return true;
+
+			newEntry = lib_ext_calendar.get_ext_calendar_entry( entry );
+
+			if ( lib_ext_calendar.entry_equal_stored_entry( entry, newEntry ) )
+			{
+				if ( is_new )
+					EvalAsync( 'lib_calendar.handle_ext_calendar_entry_date_changed( entry )', 'entry', entry );
+
+				return false;
+			}
+
+			prevEntryDate = RValue( entry.date );
+
+			entry.AssignElem( newEntry );
+			if ( entry.date != prevEntryDate )
+				entry.update_local_date_by_date();
+
+			if ( screen === entry.OptScreen )
+			{
+				entry.Doc.SetChanged( true );
+				screen.Update();
+			}
+			else
+			{
+				//lib_ext_calendar.export_disabled = true;
+				entry.Doc.Save();
+				//lib_ext_calendar.export_disabled = false;
+				//entry.Doc.SetChanged( false );
+				entry.on_ui_save();
+			}
+
+			if ( entry.date != prevEntryDate )
+				EvalAsync( 'lib_calendar.handle_ext_calendar_entry_date_changed( entry )', 'entry', entry );
+
+			return false;
+	"/>
+
+
+	<OnClose PROPERTY="1" PARAM="screen" EXPR="
+	"/>
+</ext_calendar_entry_editor>
+
+
+
+</SPXML-FORM>

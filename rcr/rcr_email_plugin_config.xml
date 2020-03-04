@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<email_plugin_config xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<handler_method>lib_recruit.handle_email_plugin_action</handler_method>
+	<description VALUE="Позволяет переносить в базу E-Staff резюме кандидатов, присланных по E-mail" lang-en:VALUE="Enables fast copying of CVs from E-mail messages" lang-ua:VALUE="Дозволяє переносити в базу E-Staff резюме кандидатів, надісланих по E-mail"/>
+
+	<actions>
+		<action>
+			<id>LoadResume</id>
+			<name VALUE="Импорт резюме в E-Staff" lang-en:VALUE="Import CV to E-Staff" lang-ua:VALUE="Імпорт резюме в E-Staff"/>
+			<image_url>x-app://base_pict/estaff.ico</image_url>
+			<target_item_type>email_message</target_item_type>
+			<allow_multi_select>1</allow_multi_select>
+		</action>
+
+		<action>
+			<id>FindPerson</id>
+			<name VALUE="Найти в E-Staff" lang-en:VALUE="Find in E-Staff" lang-ua:VALUE="Знайти в E-Staff"/>
+			<image_url>x-app://base_pict/candidate.ico</image_url>
+			<allow_multi_select>0</allow_multi_select>
+		</action>
+
+		<action>
+			<id>AddCardAttachments</id>
+			<name VALUE="Добавить вложенные файлы" lang-en:VALUE="Add attached files" lang-ua:VALUE="Додати вкладені файли"/>
+			<image_url>x-app://base_pict/attachment.ico</image_url>
+			<allow_multi_select>0</allow_multi_select>
+		</action>
+	</actions>
+</email_plugin_config>

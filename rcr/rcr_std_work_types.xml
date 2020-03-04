@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems_int.xmd" xmlns:lang-en="http://www.datex-soft.com/ns/lang-en" xmlns:lang-ua="http://www.datex-soft.com/ns/lang-ua">
+	<std_voc_elem>
+		<id>1</id>
+		<name VALUE="полная занятость" lang-en:VALUE="full-time" lang-ua:VALUE="повна зайнятість"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>2</id>
+		<name VALUE="частичная занятость" lang-en:VALUE="part-time" lang-ua:VALUE="часткова зайнятість"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>3</id>
+		<name VALUE="временная работа" lang-en:VALUE="project" lang-ua:VALUE="тимчасова робота"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>5</id>
+		<name VALUE="стажировка" lang-en:VALUE="intern" lang-ua:VALUE="стажування"/>
+	</std_voc_elem>
+</std_voc_elems>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

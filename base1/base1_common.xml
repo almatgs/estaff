@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<base1_common SPXML-FORM="base1_common.xmd">
+
+
+<person_genders>
+	<person_gender>
+		<id>0</id>
+		<name VALUE="муж." lang-en:VALUE="m." lang-ua:VALUE="чол."/>
+	</person_gender>
+	<person_gender>
+		<id>1</id>
+		<name VALUE="жен." lang-en:VALUE="f." lang-ua:VALUE="жін."/>
+	</person_gender>
+</person_genders>
+
+
+
+
+<marital_statuses>
+	<marital_status>
+		<id>1</id>
+		<name VALUE="не женат/не замужем" lang-en:VALUE="single" lang-ua:VALUE="неодружений/незаміжня"/>
+		<name_male VALUE="не женат" lang-en:VALUE="single" lang-ua:VALUE="неодружений"/>
+		<name_female VALUE="не замужем" lang-en:VALUE="single" lang-ua:VALUE="незаміжня"/>
+	</marital_status>
+	<marital_status>
+		<id>2</id>
+		<name VALUE="женат/замужем" lang-en:VALUE="married" lang-ua:VALUE="одружений/заміжня"/>
+		<name_male VALUE="женат" lang-en:VALUE="married" lang-ua:VALUE="одружений"/>
+		<name_female VALUE="замужем" lang-en:VALUE="married" lang-ua:VALUE="заміжня"/>
+	</marital_status>
+	<marital_status>
+		<id>3</id>
+		<name VALUE="разведен(а)" lang-en:VALUE="divorced" lang-ua:VALUE="розлучений(а)"/>
+		<name_male VALUE="разведен" lang-en:VALUE="divorced" lang-ua:VALUE="розлучений"/>
+		<name_female VALUE="разведена" lang-en:VALUE="divorced" lang-ua:VALUE="розлучена"/>
+	</marital_status>
+	<marital_status>
+		<id>4</id>
+		<name VALUE="незарегистрированный брак" lang-en:VALUE="cohabitant" lang-ua:VALUE="незареєстрований шлюб"/>
+	</marital_status>
+</marital_statuses>
+
+
+
+
+<quarters>
+	<quarter>
+		<id>1</id>
+	</quarter>
+	<quarter>
+		<id>2</id>
+	</quarter>
+	<quarter>
+		<id>3</id>
+	</quarter>
+	<quarter>
+		<id>4</id>
+	</quarter>
+</quarters>
+
+
+<months>
+	<month>
+		<id>1</id>
+		<name VALUE="##UiText.months.jan##"/>
+		<short_name VALUE="Янв" lang-en:VALUE="Jan" lang-ua:VALUE="Січ"/>
+	</month>
+	<month>
+		<id>2</id>
+		<name VALUE="##UiText.months.feb##"/>
+		<short_name VALUE="Фев" lang-en:VALUE="Feb" lang-ua:VALUE="Лют"/>
+	</month>
+	<month>
+		<id>3</id>
+		<name VALUE="##UiText.months.mar##"/>
+		<short_name VALUE="Мар" lang-en:VALUE="Mar" lang-ua:VALUE="Бер"/>
+	</month>
+	<month>
+		<id>4</id>
+		<name VALUE="##UiText.months.apr##"/>
+		<short_name VALUE="Апр" lang-en:VALUE="Apr" lang-ua:VALUE="Кві"/>
+	</month>
+	<month>
+		<id>5</id>
+		<name VALUE="##UiText.months.may##"/>
+		<short_name VALUE="Май" lang-en:VALUE="May" lang-ua:VALUE="Тра"/>
+	</month>
+	<month>
+		<id>6</id>
+		<name VALUE="##UiText.months.jun##"/>
+		<short_name VALUE="Июн" lang-en:VALUE="Jun" lang-ua:VALUE="Чер"/>
+	</month>
+	<month>
+		<id>7</id>
+		<name VALUE="##UiText.months.jul##"/>
+		<short_name VALUE="Июл" lang-en:VALUE="Jul" lang-ua:VALUE="Лип"/>
+	</month>
+	<month>
+		<id>8</id>
+		<name VALUE="##UiText.months.aug##"/>
+		<short_name VALUE="Авг" lang-en:VALUE="Aug" lang-ua:VALUE="Сер"/>
+	</month>
+	<month>
+		<id>9</id>
+		<name VALUE="##UiText.months.sep##"/>
+		<short_name VALUE="Сен" lang-en:VALUE="Sep" lang-ua:VALUE="Вер"/>
+	</month>
+	<month>
+		<id>10</id>
+		<name VALUE="##UiText.months.oct##"/>
+		<short_name VALUE="Окт" lang-en:VALUE="Oct" lang-ua:VALUE="Жов"/>
+	</month>
+	<month>
+		<id>11</id>
+		<name VALUE="##UiText.months.nov##"/>
+		<short_name VALUE="Ноя" lang-en:VALUE="Nov" lang-ua:VALUE="Лис"/>
+	</month>
+	<month>
+		<id>12</id>
+		<name VALUE="##UiText.months.dec##"/>
+		<short_name VALUE="Дек" lang-en:VALUE="Dec" lang-ua:VALUE="Гру"/>
+	</month>
+</months>
+
+
+
+<week_days>
+	<week_day>
+		<id>1</id>
+		<name VALUE="Понедельник" lang-en:VALUE="Monday" lang-ua:VALUE="Понеділок"/>
+		<short_name VALUE="##UiText.week_days__short.mon##"/>
+	</week_day>
+	<week_day>
+		<id>2</id>
+		<name VALUE="Вторник" lang-en:VALUE="Tuesday" lang-ua:VALUE="Вівторок"/>
+		<short_name VALUE="##UiText.week_days__short.tue##"/>
+	</week_day>
+	<week_day>
+		<id>3</id>
+		<name VALUE="Среда" lang-en:VALUE="Wednesday" lang-ua:VALUE="Середа"/>
+		<short_name VALUE="##UiText.week_days__short.wed##"/>
+	</week_day>
+	<week_day>
+		<id>4</id>
+		<name VALUE="Четверг" lang-en:VALUE="Thursday" lang-ua:VALUE="Четвер"/>
+		<short_name VALUE="##UiText.week_days__short.thu##"/>
+	</week_day>
+	<week_day>
+		<id>5</id>
+		<name VALUE="Пятница" lang-en:VALUE="Friday" lang-ua:VALUE="П'ятниця"/>
+		<short_name VALUE="##UiText.week_days__short.fri##"/>
+	</week_day>
+	<week_day>
+		<id>6</id>
+		<name VALUE="Суббота" lang-en:VALUE="Saturday" lang-ua:VALUE="Субота"/>
+		<short_name VALUE="##UiText.week_days__short.sat##"/>
+	</week_day>
+	<week_day>
+		<id>0</id>
+		<name VALUE="Воскресенье" lang-en:VALUE="Sunday" lang-ua:VALUE="Неділя"/>
+		<short_name VALUE="##UiText.week_days__short.sun##"/>
+	</week_day>
+</week_days>
+
+
+
+<period_units>
+	<period_unit>
+		<id>second</id>
+		<name VALUE="секунда" lang-en:VALUE="second" lang-ua:VALUE="секунда"/>
+		<mod2_name VALUE="секунд|секунда|секунды" lang-en:VALUE="seconds|second|seconds" lang-ua:VALUE="секунд|секунда|секунди"/>
+	</period_unit>
+	<period_unit>
+		<id>minute</id>
+		<name VALUE="минута" lang-en:VALUE="minute" lang-ua:VALUE="хвилина"/>
+		<mod2_name VALUE="минут|минута|минуты" lang-en:VALUE="minutes|minute|minutes" lang-ua:VALUE="хвилин|хвилина|хвилини"/>
+	</period_unit>
+	<period_unit>
+		<id>hour</id>
+		<name VALUE="час" lang-en:VALUE="hour" lang-ua:VALUE="година"/>
+		<mod2_name VALUE="часов|час|часа" lang-en:VALUE="hours|hour|hours" lang-ua:VALUE="годин|година|години"/>
+	</period_unit>
+	<period_unit>
+		<id>d</id>
+		<name VALUE="##UiText.titles.day##"/>
+		<plural_name VALUE="##UiText.titles.days##"/>
+		<mod2_name VALUE="дней|день|дня" lang-en:VALUE="days|day|days" lang-ua:VALUE="днів|день|дні"/>
+	</period_unit>
+	<period_unit>
+		<id>wd</id>
+		<name VALUE="##UiText.titles.working_day##"/>
+		<plural_name VALUE="##UiText.titles.working_days##"/>
+		<mod2_name VALUE="рабочих дней|рабочий день|рабочих дня" lang-en:VALUE="working days|working day|working days" lang-ua:VALUE="робочих днів|робочий день|робочих дня"/>
+	</period_unit>
+	<period_unit>
+		<id>m</id>
+		<name VALUE="##UiText.titles.month##"/>
+		<mod2_name VALUE="##UiText.titles.months__mod##"/>
+	</period_unit>
+	<period_unit>
+		<id>y</id>
+		<name VALUE="##UiText.titles.year##"/>
+		<mod2_name VALUE="##UiText.titles.years__mod##"/>
+	</period_unit>
+</period_units>
+
+
+
+
+<filter_period_units>
+	<filter_period_unit>
+		<id>w</id>
+		<name VALUE="##UiText.titles.week##"/>
+	</filter_period_unit>
+	<filter_period_unit>
+		<id>m</id>
+		<name VALUE="##UiText.titles.month##"/>
+	</filter_period_unit>
+	<filter_period_unit>
+		<id>q</id>
+		<name VALUE="##UiText.titles.quarter##"/>
+	</filter_period_unit>
+	<filter_period_unit>
+		<id>y</id>
+		<name VALUE="##UiText.titles.year##"/>
+	</filter_period_unit>
+</filter_period_units>
+
+
+
+
+<filter_period_specifiers>
+	<filter_period_specifier>
+		<id>cur</id>
+		<name VALUE="текущий" lang-en:VALUE="current" lang-ua:VALUE="поточний"/>
+	</filter_period_specifier>
+	<filter_period_specifier>
+		<id>prev</id>
+		<name VALUE="предыдущий" lang-en:VALUE="previous" lang-ua:VALUE="попередній"/>
+	</filter_period_specifier>
+</filter_period_specifiers>
+
+
+
+<mailbox_access_methods>
+	<mailbox_access_method>
+		<id>mapi</id>
+		<name>Simple MAPI (Outlook Express, Windows Mail)</name>
+		
+		<has_server>false</has_server>
+		<has_stores>false</has_stores>
+		<has_folders>false</has_folders>
+		<has_force_download>true</has_force_download>
+		<has_read_flags>true</has_read_flags>
+	</mailbox_access_method>
+
+	<mailbox_access_method>
+		<id>mapi2</id>
+		<name>Extended MAPI (Microsoft Outlook)</name>
+		
+		<has_server>false</has_server>
+		<has_stores>true</has_stores>
+		<has_folders>true</has_folders>
+		<has_force_download>true</has_force_download>
+		<has_read_flags>true</has_read_flags>
+	</mailbox_access_method>
+
+	<mailbox_access_method__>
+		<id>outlook</id>
+		<name>Microsoft Outlook COM</name>
+		
+		<has_server>false</has_server>
+		<has_stores>true</has_stores>
+		<has_folders>true</has_folders>
+		<has_force_download>false</has_force_download>
+		<has_read_flags>true</has_read_flags>
+	</mailbox_access_method__>
+
+	<mailbox_access_method>
+		<id>pop</id>
+		<name>POP3</name>
+		
+		<has_server>true</has_server>
+		<has_stores>false</has_stores>
+		<has_folders>false</has_folders>
+		<has_force_download>false</has_force_download>
+		<has_read_flags>false</has_read_flags>
+	</mailbox_access_method>
+
+	<mailbox_access_method>
+		<id>imap</id>
+		<name>IMAP</name>
+		
+		<has_server>true</has_server>
+		<has_stores>false</has_stores>
+		<has_folders>true</has_folders>
+		<has_force_download>false</has_force_download>
+		<has_read_flags>true</has_read_flags>
+	</mailbox_access_method>
+</mailbox_access_methods>
+
+
+
+<cmp_predicates>
+	<cmp_predicate>
+		<id>equal</id>
+		<name>=</name>
+	</cmp_predicate>
+	<cmp_predicate>
+		<id>not_equal</id>
+		<name VALUE="не равно" lang-en:VALUE="not equal" lang-ua:VALUE="не дорівнює"/>
+	</cmp_predicate>
+	<cmp_predicate>
+		<id>greater</id>
+		<name>&gt;</name>
+	</cmp_predicate>
+	<cmp_predicate>
+		<id>greater_or_equal</id>
+		<name>&gt;=</name>
+	</cmp_predicate>
+	<cmp_predicate>
+		<id>less</id>
+		<name>&lt;</name>
+	</cmp_predicate>
+	<cmp_predicate>
+		<id>less_or_equal</id>
+		<name>&lt;=</name>
+	</cmp_predicate>
+</cmp_predicates>
+
+
+
+<fulltext_search_logics>
+	<fulltext_search_logic>
+		<id>all_words</id>
+		<name VALUE="Все слова" lang-en:VALUE="all the words" lang-ua:VALUE="Усі слова"/>
+	</fulltext_search_logic>
+	<fulltext_search_logic>
+		<id>any_word</id>
+		<name VALUE="Любое из слов" lang-en:VALUE="any of the words" lang-ua:VALUE="Будь-яке з слів"/>
+	</fulltext_search_logic>
+	<fulltext_search_logic>
+		<id>exact_phrase</id>
+		<name VALUE="Точная фраза" lang-en:VALUE="exact phrase" lang-ua:VALUE="Точний вислів"/>
+	</fulltext_search_logic>
+	<fulltext_search_logic>
+		<id>none_words</id>
+		<name VALUE="Не встречаются" lang-en:VALUE="no matches" lang-ua:VALUE="Не трапляються"/>
+	</fulltext_search_logic>
+</fulltext_search_logics>
+
+
+
+<office_apps>
+	<office_app>
+		<id>mso</id>
+		<name>Microsoft Office</name>
+
+		<editor_name>Microsoft Word</editor_name>
+		<editor_process_name>winword.exe</editor_process_name>
+
+		<calc_name>Microsoft Excel</calc_name>
+	</office_app>
+
+	<office_app>
+		<id>oo</id>
+		<name>OpenOffice.org</name>
+
+		<editor_name>OpenOffice Writer</editor_name>
+		<editor_process_name>swriter.exe</editor_process_name>
+
+		<calc_name>OpenOffice Calc</calc_name>
+	</office_app>
+</office_apps>
+
+
+<data_types>
+	<data_type>
+		<id>string</id>
+		<name VALUE="##UiText.titles.string##"/>
+	</data_type>
+	<data_type>
+		<id>integer</id>
+		<name VALUE="##UiText.titles.integer##"/>
+	</data_type>
+	<data_type>
+		<id>real</id>
+		<name VALUE="##UiText.titles.real_number##"/>
+	</data_type>
+	<data_type>
+		<id>bool</id>
+		<name VALUE="Флаг" lang-en:VALUE="Flag" lang-ua:VALUE="Флаг"/>
+	</data_type>
+	<data_type>
+		<id>date</id>
+		<name VALUE="##UiText.fields.date##"/>
+	</data_type>
+</data_types>
+
+
+
+<tri_states>
+	<tri_state>
+		<id>true</id>
+		<name VALUE="##UiText.titles.yes##"/>
+	</tri_state>
+	<tri_state>
+		<id>false</id>
+		<name VALUE="##UiText.titles.no##"/>
+	</tri_state>
+</tri_states>
+
+
+
+
+<sys_countries>
+	<sys_country>
+		<id>BLR</id>
+		<name_ru>Белоруссия</name_ru>
+		<name_en>Belarus</name_en>
+	</sys_country>
+	<sys_country>
+		<id>KAZ</id>
+		<name_ru>Казахстан</name_ru>
+		<name_en>Kazakhstan</name_en>
+	</sys_country>
+	<sys_country>
+		<id>RUS</id>
+		<name_ru>Россия</name_ru>
+		<name_en>Russia</name_en>
+	</sys_country>
+	<sys_country>
+		<id>UKR</id>
+		<name_ru>Украина</name_ru>
+		<name_en>Ukraine</name_en>
+		<name_native>Україна</name_native>
+	</sys_country>
+</sys_countries>
+
+
+<phone_call_directions>
+	<phone_call_direction>
+		<id>1</id>
+		<name VALUE="##UiText.titles.incoming__call##"/>
+	</phone_call_direction>
+	<phone_call_direction>
+		<id>2</id>
+		<name VALUE="##UiText.titles.outgoing__call##"/>
+	</phone_call_direction>
+	<phone_call_direction>
+		<id>0</id>
+		<name VALUE="##UiText.titles.internal##"/>
+	</phone_call_direction>
+</phone_call_directions>
+
+
+
+<phone_call_states>
+	<phone_call_state>
+		<id></id>
+	</phone_call_state>
+	<phone_call_state>
+		<id>appeared</id>
+		<name VALUE="Новый" lang-en:VALUE="Appeared" lang-ua:VALUE="Новий"/>
+		<bk_color>255,255,0</bk_color>
+	</phone_call_state>
+	<phone_call_state>
+		<id>queue</id>
+		<name VALUE="В очереди" lang-en:VALUE="Queue" lang-ua:VALUE="В черзі"/>
+		<bk_color>255,255,0</bk_color>
+	</phone_call_state>
+	<phone_call_state>
+		<id>dialing</id>
+		<name VALUE="Набор номера" lang-en:VALUE="Dialing" lang-ua:VALUE="Набір номера"/>
+		<bk_color>255,255,0</bk_color>
+	</phone_call_state>
+	<phone_call_state>
+		<id>waiting</id>
+		<name VALUE="Ожидает ответа" lang-en:VALUE="Ringing" lang-ua:VALUE="Чекає відповіді"/>
+		<bk_color>255,255,0</bk_color>
+	</phone_call_state>
+	<phone_call_state>
+		<id>connected</id>
+		<name VALUE="Разговор" lang-en:VALUE="Connected" lang-ua:VALUE="Розмова"/>
+		<bk_color>0,255,0</bk_color>
+	</phone_call_state>
+	<phone_call_state>
+		<id>onhold</id>
+		<name VALUE="On-Hold" lang-en:VALUE="On-Hold" lang-ua:VALUE="On-Hold"/>
+		<bk_color>0,255,0</bk_color>
+	</phone_call_state>
+	<phone_call_state>
+		<id>succeeded</id>
+		<name VALUE="Завершен" lang-en:VALUE="Finished" lang-ua:VALUE="Завершено"/>
+	</phone_call_state>
+	<phone_call_state>
+		<id>failed</id>
+		<name VALUE="Недозвон" lang-en:VALUE="Failed" lang-ua:VALUE="Недозвон"/>
+		<text_color>180,0,0</text_color>
+	</phone_call_state>
+</phone_call_states>
+
+
+
+<phone_call_failure_reasons>
+	<phone_call_failure_reason>
+		<id>busy</id>
+		<name VALUE="Занято" lang-en:VALUE="Busy" lang-ua:VALUE="Зайнято"/>
+	</phone_call_failure_reason>
+	<phone_call_failure_reason>
+		<id>cancel</id>
+		<name VALUE="##UiText.titles.cancelled__n##"/>
+	</phone_call_failure_reason>
+</phone_call_failure_reasons>
+
+
+
+<std_telephony_providers>
+	<std_telephony_provider>
+		<id>mango</id>
+		<name VALUE="Mango Office"/>
+		<use_access_token>1</use_access_token>
+		<use_access_token_2>1</use_access_token_2>
+	</std_telephony_provider>
+	<std_telephony_provider>
+		<id>govorit</id>
+		<name VALUE="Связь-Холдинг" lang-en:VALUE="Govorit" lang-ua:VALUE="Связь-Холдинг"/>
+		<use_access_token>1</use_access_token>
+		<use_access_token_2>0</use_access_token_2>
+		<use_line_prefix>1</use_line_prefix>
+	</std_telephony_provider>
+	<std_telephony_provider>
+		<id>infinity</id>
+		<name VALUE="Infinity Call Center"/>
+		<use_server_address>1</use_server_address>
+	</std_telephony_provider>
+	<std_telephony_provider>
+		<id>binotel</id>
+		<name VALUE="Binotel"/>
+		<use_access_token>1</use_access_token>
+		<use_access_token_2>1</use_access_token_2>
+	</std_telephony_provider>
+	<std_telephony_provider>
+		<id>uis</id>
+		<name VALUE="UIS"/>
+		<use_access_token>1</use_access_token>
+		<use_access_token_2>0</use_access_token_2>
+	</std_telephony_provider>
+</std_telephony_providers>
+
+
+
+<poll_question_types>
+	<poll_question_type>
+		<id>yes_no</id>
+		<name VALUE="##UiText.titles.yes##/##UiText.titles.no##"/>
+	</poll_question_type>
+	<poll_question_type>
+		<id>choice_single</id>
+		<name VALUE="Выбор, единственный ответ" lang-en:VALUE="Multiple Choice (Single Answer)" lang-ua:VALUE="Вибір, єдина відповідь"/>
+	</poll_question_type>
+	<poll_question_type>
+		<id>choice_multiple</id>
+		<name VALUE="Выбор, несколько ответов" lang-en:VALUE="Multiple Choice (Multiple Answers)" lang-ua:VALUE="Вибір, кілька відповідей"/>
+	</poll_question_type>
+	<poll_question_type>
+		<id>rating</id>
+		<name VALUE="##UiText.fields.rating##"/>
+	</poll_question_type>
+	<poll_question_type>
+		<id>string</id>
+		<name VALUE="##UiText.titles.string##"/>
+	</poll_question_type>
+	<poll_question_type>
+		<id>text</id>
+		<name VALUE="##UiText.titles.text##"/>
+	</poll_question_type>
+	<poll_question_type>
+		<id>dropdown</id>
+		<name VALUE="##UiText.titles.dropdown_list##"/>
+	</poll_question_type>
+	<poll_question_type>
+		<id>file</id>
+		<name VALUE="##UiText.titles.file##"/>
+	</poll_question_type>
+	<poll_question_type>
+		<id>video</id>
+		<name VALUE="##UiText.titles.video##"/>
+	</poll_question_type>
+	<poll_question_type>
+		<id>separator</id>
+		<name VALUE="##UiText.titles.separator##"/>
+	</poll_question_type>
+</poll_question_types>
+
+
+
+<chart_colors>
+	<chart_color>
+		<id>blue</id>
+		<bk_color>54,162,235</bk_color>
+	</chart_color>
+	<chart_color>
+		<id>red</id>
+		<bk_color>255,99,132</bk_color>
+	</chart_color>
+	<chart_color>
+		<id>yellow</id>
+		<bk_color>255,206,86</bk_color>
+	</chart_color>
+	<chart_color>
+		<id>green</id>
+		<bk_color>75,192,192</bk_color>
+	</chart_color>
+	<chart_color>
+		<id>purple</id>
+		<bk_color>153,102,255</bk_color>
+	</chart_color>
+	<chart_color>
+		<id>orange</id>
+		<bk_color>255,159,64</bk_color>
+	</chart_color>
+	<chart_color>
+		<id>gray</id>
+		<bk_color>160,160,160</bk_color>
+	</chart_color>
+</chart_colors>
+
+
+
+</base1_common>

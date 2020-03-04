@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM CODE-LIB="1">
+
+<fields_usage>	
+	<object_types>	
+		<object_type MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+
+			<fields>	
+				<field MULTIPLE="1" PRIMARY-KEY="id">
+					<id TYPE="string"/>
+					<use TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+					<sections>
+						<section_id TYPE="string" MULTIPLE="1"/>
+					</sections>
+					<is_required TYPE="bool"/>
+					<desc TYPE="string"/>
+				</field>
+			</fields>	
+		</object_type>
+	</object_types>	
+
+	<view TEMP="1">
+		<selector TYPE="string" TEMP="1" DEFAULT="use"/>
+	</view>
+</fields_usage>
+
+
+
+</SPXML-FORM>

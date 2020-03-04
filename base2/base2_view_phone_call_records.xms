@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.call_history##" INIT-ACTION="
+		Ps.Init();
+" FREQUENT-UPDATE="1" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/phone.ico">
+
+<ITEM FORM-DATA-EXPR="lib_view.build_card_view_screen_data( 'phone_call_records' )" SOURCE="Ps"/>
+
+
+</SPXML-SCREEN>

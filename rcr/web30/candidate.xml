@@ -1,0 +1,74 @@
+<%
+	Response.WriteMode = 'single';
+	Response.ContentType = 'text/xml';
+
+	if ( AppSnLimit != 0 && AppSnLimit < 100 )
+		throw UserError( 'License limit' );
+
+	srcDoc = OpenDoc( ObjectDocUrl( 'data', 'candidate', Int( Request.QueryString.eid ) ) );
+	respDoc = OpenNewDoc( 'x-app://rcr/portal30/candidate.xmd' );
+
+	targetVacancyID = Request.QueryString.GetOptProperty( 'vacancy_eid', null );
+	if ( targetVacancyID != null )
+		targetVacancyID = Int( targetVacancyID );
+
+	respDoc.TopElem.AssignElem( srcDoc.TopElem );
+	respDoc.TopElem.eid = srcDoc.DocID;
+
+	respDoc.TopElem.attachments.Clear();
+	
+	for ( srcAttachment in srcDoc.TopElem.attachments )
+	{
+		attachment = respDoc.TopElem.attachments.AddChild();
+		attachment.AssignElem( srcAttachment, true );
+
+		attachment.type_desc = srcAttachment.type_id.ForeignDispName;
+	}
+
+	respDoc.TopElem.records.Clear();
+	
+	for ( event in srcDoc.TopElem.get_sorted_events_array() )
+	{
+		if ( targetVacancyID != null && event.vacancy_id != targetVacancyID )
+			continue;
+
+		//DebugMsg( event.type.Xml );
+		if ( true )
+		{
+			if ( ! event.occurrence.show_to_rr )
+				continue;
+		}
+
+		record = respDoc.TopElem.records.AddChild();
+		record.AssignElem( event );
+		record.eid = event.id;
+		record.position_eid = event.vacancy_id;
+
+		srcPosition = event.vacancy_id.OptForeignElem;
+		if ( srcPosition != undefined )
+			record.position_data.AssignElem( srcPosition );
+
+		if ( event === srcDoc.TopElem.get_state_event() )
+			record.is_state = true;
+
+		if ( event.date != null )
+			record.type_desc = event.state_name;
+
+		if ( true )
+		{
+			//state = GetForeignElem( event_types, event.state_id );
+			state = event.occurrence;
+			if ( state.is_rr_duty_portal_state )
+				record.type_id = 'client_resume_review';
+		}
+		else
+		{
+			if ( record.type_id == 'rr_resume_review' )
+				record.type_id = 'client_resume_review';
+		}
+	}
+
+	Response.Write( '<?xml version="1.0" encoding="windows-1251"?>' );
+	//Response.Write( '<?xml-stylesheet type="text/xsl" href="candidate.xsl"?>' );
+	Response.Write( respDoc.TopElem.Xml );
+%>

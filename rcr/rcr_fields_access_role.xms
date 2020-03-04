@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+<LINE MULTILINE="1">
+	<CHECK SOURCE="Ps.prohibit_change_divisions" AUTO-LABEL="1"/>
+</LINE>
+<DELIM/>
+
+<LINE MULTILINE="1">
+	<CHECK SOURCE="Ps.prohibit_create_vacancies" AUTO-LABEL="1"/>
+	<CHECK SOURCE="Ps.assign_vacancies_to_users" AUTO-LABEL="1"/>
+</LINE>
+
+<LINE MULTILINE="1">
+	<CHECK SOURCE="Ps.prohibit_view_other_user_vacancies" AUTO-LABEL="1"/>
+	<CHECK SOURCE="Ps.prohibit_view_other_group_vacancies" TITLE="Запрещен просмотр вакансий других групп" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Prohibit viewing vacancies of other groups" lang-ua:TITLE="Заборонений перегляд вакансій інших груп"/>
+	<CHECK SOURCE="Ps.prohibit_change_other_user_vacancies" AUTO-LABEL="1"/>
+	<CHECK SOURCE="Ps.prohibit_view_other_division_vacancies" AUTO-LABEL="1"/>
+</LINE>
+
+<LINE MULTILINE="1">
+	<CHECK SOURCE="Ps.prohibit_change_vacancy_state" AUTO-LABEL="1"/>
+	<CHECK SOURCE="Ps.prohibit_change_vacancy_start_date" AUTO-LABEL="1" READ-ONLY-EXPR="Ps.allow_all"/>
+	<CHECK SOURCE="Ps.prohibit_change_vacancy_max_work_term" AUTO-LABEL="1" READ-ONLY-EXPR="Ps.allow_all"/>
+</LINE>
+
+<LINE MULTILINE="1">
+	<IF EXPR="global_settings.is_agency">
+		<CHECK SOURCE="Ps.prohibit_view_vacancy_revenue" TITLE="Запрещен просмотр выручки агентства по вакансии" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Prohibit viewing agency revenue of vacancies" lang-ua:TITLE="Заборонений перегляд виручки агентства по вакансії"/>
+		<CHECK SOURCE="Ps.restrict_vacancy_orgs_to_own" AUTO-LABEL="1" READ-ONLY-EXPR="Ps.allow_all"/>
+	</IF>
+</LINE>
+<BR/>
+<LINE>
+	<CHECK SOURCE="Ps.restrict_view_vacancies_with_recruit_type" AUTO-LABEL="1"/>
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.vacancy_recruit_type_id" LABEL-SIDE="left"/>
+</LINE>
+<DELIM/>
+
+<LINE MULTILINE="1">
+	<CHECK SOURCE="Ps.prohibit_view_other_user_candidates" TITLE="Запрещен просмотр кандидатов других пользователей" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Prohibit viewing candidates of other users" lang-ua:TITLE="Заборонений перегляд кандидатів інших користувачів"/>
+	<CHECK SOURCE="Ps.prohibit_view_other_group_candidates" TITLE="Запрещен просмотр кандидатов других групп" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Prohibit viewing candidates of other groups" lang-ua:TITLE="Заборонений перегляд кандидатів інших груп"/>
+	<CHECK SOURCE="Ps.prohibit_open_other_group_candidates" TITLE="Запрещен просмотр содержимого карточек кандидатов других групп" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Prohibit opening cards of candidates of other groups" lang-ua:TITLE="Заборонений перегляд вмісту карток кандидатів інших груп"/>
+</LINE>
+
+<LINE MULTILINE="1">
+	<CHECK SOURCE="Ps.prohibit_view_other_spot_candidates_with_state" AUTO-LABEL="1" MULTILINE="1"/>
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.other_spot_candidates_state_id"/>
+</LINE>
+
+<LINE MULTILINE="1">
+	<CHECK SOURCE="Ps.prohibit_change_other_user_candidates" TITLE="Запрещено редактирование кандидатов других пользователей" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Prohibit changing candidates of other users" lang-ua:TITLE="Заборонено редагування кандидатів інших користувачів"/>
+	<CHECK SOURCE="Ps.prohibit_change_other_user_active_candidates" TITLE="Запрещено редактирование кандидатов, находящихся в работе у других пользователей" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Prohibit changing current candidates of other users" lang-ua:TITLE="Заборонено редагування кандидатів, які знаходяться в роботі в інших користувачів"/>
+</LINE>
+<BR/>
+<BR/>
+
+<LINE MULTILINE="1">
+	<CHECK SOURCE="Ps.prohibit_view_other_group_candidates_attachments" AUTO-LABEL="1" READ-ONLY-EXPR="Ps.allow_all"/>
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.other_group_candidate_attachment_type_id"/>
+</LINE>
+<LINE MULTILINE="1">
+	<CHECK SOURCE="Ps.restrict_view_candidates_with_state" AUTO-LABEL="1"/>
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.candidate_state_id" LABEL-SIDE="left"/>
+</LINE>
+<BR/>
+
+<LINE MULTILINE="1">
+	<CHECK SOURCE="Ps.prohibit_view_other_division_candidates" MULTILINE="1" AUTO-LABEL="1"/>
+</LINE>
+<BR/>
+<LINE>
+	<CHECK SOURCE="Ps.restrict_view_candidates_with_recruit_type" AUTO-LABEL="1"/>
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.candidate_recruit_type_id" LABEL-SIDE="left"/>
+</LINE>
+<DELIM/>
+
+
+<LINE MULTILINE="1">
+	<CHECK SOURCE="Ps.prohibit_view_other_group_training_groups" AUTO-LABEL="1" READ-ONLY-EXPR="Ps.allow_all"/>
+</LINE>
+<DELIM/>
+
+</SPXML-SCREEN>

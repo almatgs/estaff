@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM TITLE="##UiText.titles.appointment_slot_set##" CODE-LIB="1" IMAGE-URL="//base_pict/generic_item.ico" IMAGE-URL-EXPR="image_url()">
+
+<appointment_slot_set PRIMARY-DISP-NAME="person_id.ForeignDispName">
+	<id TYPE="integer"/>
+	<person_id TYPE="integer" FOREIGN-ARRAY="persons" TITLE="##UiText.objects.employee##" INDEXED="1"/>
+	<is_disabled TYPE="bool" NOT-NULL="1" TITLE="##UiText.titles.disabled##"/>
+
+	<slot_dates DOC-ONLY="1" TITLE="Явно заданные интервалы" lang-en:TITLE="Explicit Slots" lang-ua:TITLE="Явно задані інтервали">
+		<slot_date MULTIPLE="1" PRIMARY-KEY="date">
+			<date TYPE="date" TIME="0"/>
+			<slots>
+				<slot MULTIPLE="1">
+					<comb_minute TYPE="integer" NOT-NULL="1"/>
+					<size TYPE="integer"/>
+				</slot>
+			</slots>
+		</slot_date>
+	</slot_dates>
+
+	<slot_rules DOC-ONLY="1">
+		<entries>
+			<entry MULTIPLE="1">
+				<week_days>
+					<week_day TYPE="integer" MULTIPLE="1"/>
+				</week_days>
+
+				<slots>
+					<slot MULTIPLE="1">
+						<comb_minute TYPE="integer" NOT-NULL="1"/>
+						<size TYPE="integer"/>
+					</slot>
+				</slots>
+			</entry>
+		</entries>
+	</slot_rules>
+
+	<division_id TYPE="integer" FOREIGN-ARRAY="divisions" TITLE="##UiText.objects.division##" EXPR="person_id.ForeignElem.division_id" EXPR-SHOW-ERRORS="1"/>
+	<slots_num TYPE="integer" TITLE="##UiText.fields.quantity__short##" EXPR="CalcSlotsNum()" EXPR-SHOW-ERRORS="1"/>
+
+	<image_url PROPERTY="1" DEPENDS="is_disabled"/>
+</appointment_slot_set>
+
+
+
+</SPXML-FORM>

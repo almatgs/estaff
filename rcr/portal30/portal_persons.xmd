@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<persons>
+	<person MULTIPLE="1" PRIMARY-KEY="eid">
+		<eid TYPE="string"/>
+		<code TYPE="string"/>
+		<lastname TYPE="string"/>
+		<firstname TYPE="string"/>
+		<middlename TYPE="string"/>
+
+		<birth_date TYPE="date" TIME="0"/>
+
+		<subdivision_eid TYPE="string"/>
+		<position_name TYPE="string"/>
+
+		<phone TYPE="string"/>
+		<fax TYPE="string"/>
+		<mobile_phone TYPE="string"/>
+		<email TYPE="string"/>
+		<email2 TYPE="string"/>
+	</person>
+</persons>
+
+
+</SPXML-FORM>
+
+
+

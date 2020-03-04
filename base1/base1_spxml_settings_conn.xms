@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="70zr" HEIGHT="55zr" SOURCE="TopElem" TITLE="Персональные настройки - Доступ в Интернет" RESIZE="1" WINDOW-ICON-URL="//base_pict/settings.ico" lang-en:TITLE="Personal settings - Internet Access" lang-ua:TITLE="Персональні налаштування - Доступ в Інтернет">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<LABEL TITLE="Способ соединения:" lang-en:TITLE="Connection interface:" lang-ua:TITLE="Спосіб з'єднання:"/>
+	<LINE STD_MARGINS="0">
+		<PANEL WIDTH="2zr">
+		</PANEL>
+		<PANEL>
+			<RADIO-BUTTON TITLE="##UiText.titles.direct##" SOURCE="Ps.use_wininet" SWITCH-VALUE="false"/>
+			<RADIO-BUTTON TITLE="Через Microsoft Internet Explorer" SOURCE="Ps.use_wininet" SWITCH-VALUE="true" lang-en:TITLE="Through Microsoft Internet Explorer" lang-ua:TITLE="через Microsoft Internet Explorer"/>
+		</PANEL>
+	</LINE>
+	<DELIM/>
+
+
+	<IF EXPR="! Ps.use_wininet">
+		<CHECK TITLE="Использовать прокси-сервер" SOURCE="Ps.use_proxy" lang-en:TITLE="Use proxy server" lang-ua:TITLE="Використовувати проксі-сервер"/>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="10zr"/>
+				<COL WIDTH="30zr"/>
+			</COLUMNS>
+
+			<LABEL TITLE="##UiText.fields.address##:" ALIGN="right" lang-en:TITLE="Address:"/>
+			<EDIT SOURCE="Ps.proxy.address" READ-ONLY-EXPR="! Ps.use_proxy"/>
+
+			<LABEL TITLE="##UiText.titles.port##:" ALIGN="right"/>
+			<EDIT SOURCE="Ps.proxy.port" WIDTH="7zr" READ-ONLY-EXPR="! Ps.use_proxy"/>
+		</TABLE>
+		<DELIM/>
+	</IF>
+
+	<LABEL TITLE="Авторизация для прокси-сервера:" lang-en:TITLE="Proxy Authorization:" lang-ua:TITLE="Авторизація для проксі-сервера:"/>
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="10zr"/>
+			<COL WIDTH="22zr"/>
+		</COLUMNS>
+
+		<LABEL TITLE="##UiText.fields.login##:" ALIGN="right" lang-en:TITLE="Login:"/>
+		<EDIT SOURCE="Ps.proxy_auth.login"/>
+
+		<LABEL TITLE="##UiText.fields.password##:" ALIGN="right" lang-en:TITLE="Password:"/>
+		<EDIT SOURCE="Ps.proxy_auth.password" PASSWORD="1"/>
+	</TABLE>
+
+
+</PANEL>
+
+
+</SPXML-SCREEN>

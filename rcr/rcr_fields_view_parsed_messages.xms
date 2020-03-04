@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<UNIT NAME="context_menu_entries" SAMPLE="1">
+	<MENU-ENTRY TITLE="##UiText.actions.put_in_database##" ACTION="
+			for ( record in ArrayExtract( Screen.FindItem( 'MainList' ).SelRows, 'Env.ListElem' ) )
+				lib_storage_load.store_parsed_message( record, null, null );
+	"/>
+
+	<MENU-ENTRY TITLE="##UiText.actions.put_in_database_and_select_for_vacancy##..." ACTION="
+			vacancyID = lib_recruit.select_active_vacancy();
+
+			for ( record in ArrayExtract( Screen.FindItem( 'MainList' ).SelRows, 'Env.ListElem' ) )
+				lib_storage_load.store_parsed_message( record, null, vacancyID );
+	"/>
+
+	<MENU-ENTRY TITLE="Поместить в базу и отобрать на предполагаемую вакансию" ACTION="
+			for ( record in ArrayExtract( Screen.FindItem( 'MainList' ).SelRows, 'Env.ListElem' ) )
+			{
+				if ( ! record.req_vacancy_id.HasValue )
+					continue;
+
+				lib_storage_load.store_parsed_message( record, null, record.req_vacancy_id );
+			}
+	" ENABLE-EXPR="
+			for ( record in ArrayExtract( Screen.FindItem( 'MainList' ).SelRows, 'Env.ListElem' ) )
+			{
+				if ( record.req_vacancy_id != null )
+					return true;
+			}
+
+			return false;
+	" lang-en:TITLE="Save in database and select for suggested position" lang-ua:TITLE="Помістити в базу і відібрати на ймовірну вакансію"/>
+
+	<MENU-ENTRY TITLE="Поместить в базу по специальности..." ACTION="
+			professionID = lib_voc.select_voc_elem( professions );
+
+			for ( record in ArrayExtract( Screen.FindItem( 'MainList' ).SelRows, 'Env.ListElem' ) )
+				lib_storage_load.store_parsed_message( record, professionID, null );
+	" lang-en:TITLE="Save in database and select profession..." lang-ua:TITLE="Помістити в базу за фахом..."/>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<MENU-ENTRY TITLE="##UiText.actions.put_in_database_and_open_card##" ACTION="
+			if ( System.IsWebClient )
+			{
+				respInfo = lib_storage_load.store_parsed_message( Screen.FindItem( 'MainList' ).SelRow.Env.ListElem, null, null );
+				ObtainDocScreen( ObjectDocUrl( 'data', 'candidate', respInfo.candidate_id ) );
+			}
+			else
+			{
+				candidateDoc = lib_storage_load.store_parsed_message( Screen.FindItem( 'MainList' ).SelRow.Env.ListElem, null, null );
+				CreateDocScreen( candidateDoc );
+			}
+	" ENABLE-EXPR="Screen.FindItem( 'MainList' ).HasSingleSel"/>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<MENU-ENTRY TITLE="##UiText.actions.Child( 'del' )##&#09;Del" CMD="Clear"/>
+
+				
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<MENU-ENTRY TITLE="Пометить как прочтенные..." ACTION="
+			for ( record in ArrayExtract( Screen.FindItem( 'MainList' ).SelRows, 'Env.ListElem' ) )
+				record.set_read_state( true, undefined );
+	" lang-en:TITLE="Mark as read..." lang-ua:TITLE="Помітити як прочитані..."/>
+
+	<MENU-ENTRY TITLE="Пометить как непрочтенные..." ACTION="
+			for ( record in ArrayExtract( Screen.FindItem( 'MainList' ).SelRows, 'Env.ListElem' ) )
+				record.set_read_state( false, undefined );
+	" lang-en:TITLE="Mark as unread..." lang-ua:TITLE="Помітити як непрочитані..."/>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<MENU-ENTRY TITLE="##UiText.actions.export_to_file##..." ACTION="
+			srcUrl = ObjectDocUrl( 'data', 'parsed_message', Screen.FindItem( 'MainList' ).SelRow.Env.ListElem.id );
+			srcDoc = OpenDoc( srcUrl );
+
+			newUrl = Screen.AskFileSave( StrHexInt( srcDoc.DocID ) + '.xml', UiText.titles.xml_documents + ' (*.xml)\t*.xml\t' + lib_base.all_files_suffix_pattern );
+			srcDoc.SaveToUrl( newUrl );
+	" ENABLE-EXPR="Screen.FindItem( 'MainList' ).HasSingleSel"/>
+</UNIT>
+
+
+
+
+</SPXML-SCREEN>

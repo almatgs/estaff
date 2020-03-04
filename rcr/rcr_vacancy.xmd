@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SPXML-FORM CODE-LIB="1" TITLE="##UiText.objects.vacancy##" IMAGE-URL="//base_pict/vacancy.ico" IMAGE-URL-EXPR="image_url()" xmlns:base1="http://www.datex-soft.com/ns/base1" xmlns:lang-en="http://www.datex-soft.com/ns/lang-en" xmlns:lang-ua="http://www.datex-soft.com/ns/lang-ua">
+
+<USE FORM="//imod/imod_general.xmd"/>
+
+
+<vacancy>
+	<id TYPE="integer"/>
+
+	<name TYPE="string" INDEXED="1" TITLE="##UiText.fields.name##" INDEX-INCLUDE-FIELDS__="1"/>
+	<position_id TYPE="integer" FOREIGN-ARRAY="positions" TITLE="##UiText.objects.position##"/>
+	<position_type_id TYPE="integer" FOREIGN-ARRAY="position_types" TITLE="##UiText.objects.position_type##"/>
+
+	<code TYPE="string" TITLE="##UiText.fields.code##" EXP-MAX-LEN="6"/>
+	<eid TYPE="string"/>
+
+	<division_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="divisions" INDEXED="1" TITLE="##UiText.objects.division##"/>
+	<org_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="orgs" INDEXED="1" TITLE="##UiText.objects.client##"/>
+
+
+	<start_date TYPE="date" TITLE="##UiText.titles.date_of_opening##"/>
+	<reason_id TYPE="string" FOREIGN-ARRAY="vacancy_reasons" TITLE="##UiText.fields.reason_of_vacancy##" base1:allow-hide="1" base1:default-section="common"/>
+	<req_empl_start_date TYPE="date" TIME="0" TITLE="##UiText.fields.req_empl_start_date__short##" base1:allow-hide="1" base1:default-section="common"/>
+
+	<recruit_type_id TYPE="string" FOREIGN-ARRAY="recruit_types" TITLE="##UiText.objects.recruit_type##" EXP-MAX-LEN="11" base1:allow-hide="1"/>
+	<staff_category_id TYPE="integer" FOREIGN-ARRAY="staff_categories" TITLE="##UiText.fields.staff_category##" EXP-MAX-LEN="10" base1:allow-hide="1"/>
+	<difficulty_level_id TYPE="integer" FOREIGN-ARRAY="vacancy_difficulty_levels" TITLE="##UiText.objects.difficulty_level##" base1:allow-hide="1"/>
+	<priority_id TYPE="integer" FOREIGN-ARRAY="vacancy_priorities" TITLE="##UiText.fields.priority##" EXP-MAX-LEN="1" base1:allow-hide="1"/>
+	<cost_center_id TYPE="string" TITLE="##UiText.fields.cost_center##" FOREIGN-ARRAY="cost_centers" base1:allow-hide="1"/>
+
+	<salary TYPE="integer" TITLE="##UiText.fields.salary##" base1:allow-hide="1" base1:hide-by-default="1"/>
+	<min_salary TYPE="integer" TITLE="##UiText.fields.min_salary##" base1:allow-hide="1"/>
+	<max_salary TYPE="integer" TITLE="##UiText.fields.max_salary##"/>
+	<salary_currency_id TYPE="string" FOREIGN-ARRAY="currencies"/>
+
+	<country_id TYPE="string" FOREIGN-ARRAY="countries" TITLE="##UiText.fields.country##" base1:allow-hide="1" base1:hide-by-default="1"/>
+	<location_id TYPE="string" DOC-ID="1" FOREIGN-ARRAY="locations" TITLE="##UiText.fields.location##" base1:allow-hide="1"/>
+	<metro_station_id TYPE="string" MULTIPLE="1" DOC-ID="1" FOREIGN-ARRAY="metro_stations" TITLE="##UiText.fields.metro_station##" base1:allow-hide="1" base1:hide-by-default="1"/>
+
+	<work_type_id TYPE="integer" DEFAULT="1" FOREIGN-ARRAY="work_types" TITLE="##UiText.fields.work_type##" base1:allow-hide="1"/>
+	<work_schedule_type_id TYPE="integer" DEFAULT__="1" FOREIGN-ARRAY="work_schedule_types" TITLE="##UiText.titles.work_schedule##" base1:allow-hide="1"/>
+
+	<profession_id TYPE="integer" FOREIGN-ARRAY="professions" IDATA="1" TITLE="##UiText.fields.profession##" base1:allow-hide="1"/>
+	
+	<recruit_metrics_set_id TYPE="integer" FOREIGN-ARRAY="recruit_metrics_sets" TITLE="##UiText.sections.recruit_metrics_sets##"/>
+	<orig_max_term_to_job_offer TYPE="term" DOC-ONLY="1"/>
+	<orig_max_term_to_job_offer_acceptance TYPE="term" DOC-ONLY="1"/>
+	<orig_max_term_to_vacancy_close TYPE="term" DOC-ONLY="1"/>
+
+	<INHERIT TYPE="vacancy_term_attr_base"/>
+
+	<state_id TYPE="string" FOREIGN-ARRAY="vacancy_states" TITLE="##UiText.fields.cur_state##" COL-TITLE="##UiText.fields.cur_state##" DEFAULT="vacancy_opened" EXP-MAX-LEN="11"/>
+	<state_date TYPE="date" TITLE="##UiText.fields.date##" COL-TITLE="##UiText.fields.date##" lang-en:TITLE="Date" lang-en:COL-TITLE="Date"/>
+	<days_in_state PROPERTY="1" TYPE="integer" TITLE="##UiText.fields.days_in_status##"/>
+	<wdays_in_state PROPERTY="1" TYPE="integer" TITLE="##UiText.fields.wdays_in_status##"/>
+
+	<recruit_phase_id TYPE="string" FOREIGN-ARRAY="vacancy_recruit_phases" TITLE="##UiText.fields.recruit_phase##" EXP-MAX-LEN="15"/>
+
+
+	<final_candidate_id TYPE="integer" FOREIGN-ARRAY="candidates" TITLE="##UiText.fields.final_candidate##"/>
+
+	<final_candidate_source_id TYPE="string" SECONDARY="1" FOREIGN-ARRAY="candidate_sources" SECONDARY="1" IDATA="1" TITLE="##UiText.fields.final_candidate_source_id##" EXP-MAX-LEN="9"/>
+	<final_candidate_state_id TYPE="string" SECONDARY="1" FOREIGN-ARRAY="candidate_states" SECONDARY="1" TITLE="##UiText.fields.final_candidate_state##" EXP-MAX-LEN="11"/>
+
+
+	<suspended_days_num TYPE="integer" TITLE="##UiText.vacancy_fields.suspended_days_num##" base1:allow-hide="1"/>
+	<suspended_wdays_num TYPE="integer" TITLE="##UiText.vacancy_fields.suspended_wdays_num##"/>
+	
+	<work_days_num TYPE="integer" TITLE="##UiText.vacancy_fields.work_days_num##" SECONDARY="1"/>
+	<work_wdays_num TYPE="integer" TITLE="##UiText.vacancy_fields.work_wdays_num##" SECONDARY="1"/>
+
+
+
+
+	<check_active PROPERTY="1" EXPR="
+			return ! state_id.ForeignElem.deactivate_object;
+	"/>
+
+
+	<cur_work_days_num PROPERTY="1" TYPE="integer" TITLE="##UiText.vacancy_fields.cur_work_days_num##" EXPR="lib_vacancy.GetVacancyCurWorkDaysNum( this )" DEPENDS="start_date,state_id,state_date,work_start_date,work_end_date,work_days_num,suspended_days_num"/>
+	<cur_work_wdays_num PROPERTY="1" TITLE="##UiText.vacancy_fields.cur_work_wdays_num##" EXPR="lib_vacancy.GetVacancyCurWorkWDaysNum( this )" DEPENDS="start_date,state_id,state_date,work_start_date,work_end_date,work_wdays_num,suspended_wdays_num"/>
+	<left_work_days_num PROPERTY="1" TITLE="##UiText.titles.days_left##" EXPR="lib_vacancy.GetVacancyLeftWorkDaysNum( this )" DEPENDS="req_close_date,state_id"/>
+	<cur_work_wdays_num_bk_color PROPERTY="1" EXPR="lib_vacancy.GetVacancyCurWorkDaysNumBkColor( this )"/>
+
+	<multi_final_candidate_id TYPE="integer" MULTIPLE="1" FOREIGN-ARRAY="candidates" TITLE="Все финальные кандидаты" lang-en:TITLE="All final candidates" lang-ua:TITLE="Всі фінальні кандидати"/>
+
+	<end_date TYPE="date" TITLE="Дата ограничения" EXPR="
+			if ( ! division_id.HasValue || ! position_id.HasValue )
+				return null;
+
+			date1 = division_id.ForeignElem.end_date;
+			date2 = position_id.ForeignElem.end_date;
+
+			if ( date1 != null &amp;&amp; date2 != null )
+				return Min( date1, date2 );
+
+			minDate = Max( date1, date2 );
+			if ( minDate == null )
+				return null;
+
+			return minDate;
+	" EXPR-SHOW-ERRORS="1" lang-en:TITLE="End date" lang-ua:TITLE="Дата обмеження"/>
+
+	<is_tentative TYPE="bool" NULL-FALSE="1" TITLE="Потенциальная вакансия" EXPR="state_id == 'vacancy_submitted' || state_id.ForeignElem.set_object_tentative" lang-en:TITLE="Tentative vacancy" EXPR-SHOW-ERRORS="1" lang-ua:TITLE="Потенційна вакансія"/>
+
+
+	<is_mp_vacancy TYPE="bool" NULL-FALSE="1" TITLE="Вакансия на несколько человек" lang-en:TITLE="Multi-person vacancy" lang-ua:TITLE="Вакансія на кілька людей"/>
+	<is_mass_vacancy TYPE="bool" NULL-FALSE="1" TITLE="Массовая вакансия (поток)" lang-en:TITLE="Mass vacancy" lang-ua:TITLE="Масова вакансія (потік)"/>
+
+	<req_quantity TYPE="integer" NOT-NULL="1" DEFAULT="1" TITLE="##UiText.vacancy_fields.req_quantity##"/>
+	<active_req_quantity TYPE="integer" NOT-NULL="1" TITLE="Кол-во открытых позиций" lang-en:TITLE="Vacant Position Count" lang-ua:TITLE="Кількість відкритих позицій"/>
+	<active_req_quantity_f TYPE="real" PRECISION="2" NOT-NULL="1" TITLE="Активных ставок" lang-en:TITLE="Active rates" lang-ua:TITLE="Активних ставок"/>
+
+	<processed_quantity TYPE="integer" OBSOLETE="1" NOT-NULL="1"/>
+
+
+	<is_sample_vacancy TYPE="bool" NULL-FALSE="1" TITLE="Вакансия является шаблонной" lang-en:TITLE="Is sample vacancy" lang-ua:TITLE="Вакансія є шаблонною"/>
+
+	<sample_vacancy_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="vacancies" TITLE="Базовая шаблонная вакансия" lang-en:TITLE="Base sample vacancy" lang-ua:TITLE="Базова шаблонна вакансія"/>
+
+	<is_extra_ad TYPE="bool" NULL-FALSE="1" TITLE="Дополнительная публикация к другой вакансии" lang-en:TITLE="Additional publication for other vacancy" lang-ua:TITLE="Додаткова публікація до іншої вакансії"/>
+	<base_vacancy_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="vacancies" TITLE="Исходная вакансия" lang-en:TITLE="Base vacancy" lang-ua:TITLE="Вихідна вакансія"/>
+
+	<is_confidential TYPE="bool" NULL-FALSE="1" TITLE="##UiText.titles.confidential_vacancy##"/>
+
+	<orig_rr_person_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="persons" TITLE="Инициатор" lang-en:TITLE="Hiring Manager" lang-ua:TITLE="Ініціатор"/>
+
+	<rr_persons TITLE="##UiText.fields.contact_persons##">
+		<rr_person MULTIPLE="1" PRIMARY-KEY="person_id">
+			<person_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="persons"/>
+		</rr_person>
+	</rr_persons>
+
+
+
+
+
+
+	<INHERIT TYPE="card_comment_base"/>
+
+	<template_id TYPE="integer" FOREIGN-ARRAY="vacancy_templates" TITLE="Шаблон для публикации" lang-en:TITLE="Ad template" lang-ua:TITLE="Шаблон для публікації"/>
+
+	<req_info>
+		<educ_type_id TYPE="integer" FOREIGN-ARRAY="base2_common.educ_types" TITLE="##UiText.fields.education##" lang-en:TITLE="Education"/>
+		<min_exp_years TYPE="integer" TITLE="##UiText.fields.work_experience##"/>
+
+		<min_age TYPE="integer" TITLE="##UiText.titles.min_age__s##"/>
+		<max_age TYPE="integer" TITLE="##UiText.titles.max_age__s##"/>
+		<gender_id TYPE="integer" FOREIGN-ARRAY="base1_common.person_genders" TITLE="##UiText.fields.gender##"/>
+	</req_info>
+
+	<use_ras TYPE="bool" NULL-FALSE="1" TITLE="Включить роботизированный поиск" lang-en:TITLE="Enable automated search" lang-ua:TITLE="Включити роботизований пошук"/>
+	<ras_info DOC-ONLY="1">
+		<resume_search_template_id TYPE="integer" FOREIGN-ARRAY="resume_search_templates" TITLE="##UiText.titles.resume_search_template##"/>
+		<use_vacancy_salary TYPE="bool" NULL-FALSE="1" TITLE="Использовать уровень зарплаты из вакансии" lang-en:TITLE="Use salary from the vacancy" lang-ua:TITLE="Використовувати рівень зарплати з вакансії"/>
+		<bot_appointment>
+			<use_orig_rr_person TYPE="bool" NULL-FALSE="1"/>
+			<use_rr_persons TYPE="bool" NULL-FALSE="1"/>
+		</bot_appointment>
+	</ras_info>
+	
+	<testing_sample_id TYPE="string" FOREIGN-ARRAY="testing_samples" TITLE="##UiText.objects.testing_sample##"/>
+	<video_interview_poll_spec_id TYPE="string" FOREIGN-ARRAY="poll_specs" TITLE="##UiText.fields.video_interview_poll_spec##"/>
+	<video_interview_external_vacancy_id TYPE="integer" FOREIGN-ARRAY="external_vacancies" TITLE="##UiText.titles.external_vacancy##"/>
+
+
+	<instances TITLE="Детализация" lang-en:TITLE="Atomized Data" DOC-ONLY="1" lang-ua:TITLE="Деталізація">
+		<instance MULTIPLE="1">
+			<id TYPE="integer"/>
+			<INHERIT TYPE="vacancy_instance_base"/>
+			<user_id TYPE="integer" FOREIGN-ARRAY="users" TITLE="##UiText.fields.recruiter##" EXPR-INIT="Doc.TopElem.user_id"/>
+		</instance>
+	</instances>
+
+
+
+
+
+	<term_adjustments DOC-ONLY="1" TITLE="##UiText.titles.term_adjustments##">
+		<term_adjustment MULTIPLE="1">
+			<date TYPE="date" TIME="0" TITLE="Дата корректировки" lang-en:TITLE="Date of adjustment" lang-ua:TITLE="Дата коригування"/>
+			<reason_id TYPE="string" FOREIGN-ARRAY="vacancy_term_adjustment_reasons" TITLE="Причина корректировки" lang-en:TITLE="Reason of adjustment" lang-ua:TITLE="Причина коригування"/>
+			<period TYPE="period" TITLE="Величина корректировки" lang-en:TITLE="Adjustment length" lang-ua:TITLE="Величина коригування"/>
+			<comment TYPE="string" MULTILINE="1" TITLE="##UiText.fields.comment##"/>
+
+			<add_wdays_num TYPE="integer" OBSOLETE="1"/>
+			<t0 TYPE="bool" TEMP="1" EXPR="
+					if ( ! period.length.HasValue &amp;&amp; add_wdays_num.HasValue )
+					{
+						period.length = add_wdays_num;
+						period.unit_id = 'wd';
+						add_wdays_num.Clear();
+					}
+			" EXPR-SHOW-ERRORS="1"/>
+		</term_adjustment>
+	</term_adjustments>
+
+	<term_adjustments_sum_day_num TYPE="integer" DOC-ONLY="1" TITLE="Суммарная корректировка срока закрытия (дни)" lang-en:TITLE="Sum working term adjustment (days)" lang-ua:TITLE="Сумарна коригування терміну закриття (дні)" EXPR="GetTermAdjustmentsSumDaysNum()"/>
+	<term_adjustments_sum_wday_num TYPE="integer" DOC-ONLY="1" TITLE="Суммарная корректировка срока закрытия (раб. дни)" lang-en:TITLE="Sum working term adjustment (working days)" lang-ua:TITLE="Сумарна коригування терміну закриття (роб. дні)" EXPR="GetTermAdjustmentsSumWDaysNum()"/>
+
+
+	<recruit_plan_id TYPE="string" FOREIGN-ARRAY="recruit_plans" TITLE="##UiText.objects.recruit_plan##"/>
+	<recruit_plan_deviation_wdays_num TYPE="integer" TITLE="##UiText.titles.deviation_from_plan## (##UiText.titles.wdays__short##)"/>
+	<recruit_plan_deviation_bk_color PROPERTY="1" EXPR="lib_vacancy.GetVacancyRecruitPlanDeviationBkColor( this )"/>
+
+	<plan DOC-ONLY="1">
+		<target_recruit_phases>
+			<target_recruit_phase MULTIPLE="1" PRIMARY-KEY="recruit_phase_id">
+				<recruit_phase_id TYPE="string" FOREIGN-ARRAY="vacancy_recruit_phases"/>
+
+				<wdays_num TYPE="integer"/>
+				<effort_hours TYPE="real" PRECISION="2"/>
+
+				<start_date TYPE="date"/>
+				<end_date TYPE="date"/>
+			</target_recruit_phase>
+		</target_recruit_phases>
+	</plan>
+
+
+	<recruit_phase_records DOC-ONLY="1">
+		<recruit_phase_record MULTIPLE="1">
+			<date TYPE="date" TITLE="##UiText.fields.date##"/>
+			<end_date TYPE="date" TITLE="##UiText.fields.end_date##"/>
+			<recruit_phase_id TYPE="string" FOREIGN-ARRAY="vacancy_recruit_phases" TITLE="##UiText.fields.recruit_phase##"/>
+			<candidate_id TYPE="integer" FOREIGN-ARRAY="candidates" TITLE="##UiText.objects.candidate##"/>
+		</recruit_phase_record>
+	</recruit_phase_records>
+
+
+
+
+
+
+	<records TITLE="##UiText.titles.change_history##" DOC-ONLY="1">
+		<record MULTIPLE="1">
+			<INHERIT TYPE="vacancy_record_base"/>
+		</record>
+	</records>
+
+
+	<source_agencies TITLE="Агентства, работающие над вакансией" lang-en:TITLE="Recruiting agencies" COL-TITLE="##UiText.titles.agencies##" lang-ua:TITLE="Агентства, що працюють над вакансією">
+		<source_agency MULTIPLE="1" PRIMARY-KEY="org_id">
+			<org_id TYPE="integer" FOREIGN-ARRAY="orgs" INDEXED="1"/>
+			<work_start_date TYPE="date" TIME="0" TITLE="Дата начала работы" lang-en:TITLE="Work start date" lang-ua:TITLE="Дата початку роботи"/>
+			<work_end_date TYPE="date" TITLE="Дата окончания работы" lang-en:TITLE="Work end date" lang-ua:TITLE="Дата закінчення роботи"/>
+			
+			<work_days_num PROPERTY="1" TYPE="integer" TITLE="##UiText.vacancy_fields.cur_work_days_num##" EXPR="
+					daysNum = lib_base.get_date_days_diff( ( Parent.Parent.work_end_date.HasValue ? Parent.Parent.work_end_date : CurDate ), work_start_date );
+
+					if ( Parent.Parent.suspended_days_num > 0 &amp;&amp; daysNum > Parent.Parent.suspended_days_num )
+						daysNum -= Parent.Parent.suspended_days_num;
+
+					return daysNum;
+			"/>
+		</source_agency>
+	</source_agencies>
+
+	
+
+	<base_deal_code TYPE="string" TITLE="##UiText.fields.deal_code##" lang-en:TITLE="Agreement No."/>
+	<revenue TYPE="integer" TITLE="Стоимость" CHECK-ACCESS-EXPR="! lib_user.active_user_access.prohibit_view_vacancy_revenue" lang-en:TITLE="Revenue" lang-ua:TITLE="Вартість"/>
+	<payment_date TYPE="date" TITLE="##UiText.fields.payment_date##" CHECK-ACCESS-EXPR="! lib_user.active_user_access.prohibit_view_vacancy_revenue"/>
+	<planned_manager_fee TYPE="integer" TITLE="Гонорар консультанта плановый" CHECK-ACCESS-EXPR="! lib_user.active_user_access.prohibit_view_vacancy_revenue" lang-en:TITLE="Planned Manager's fee" lang-ua:TITLE="Гонорар консультанта плановий"/>
+	<manager_fee TYPE="integer" TITLE="Гонорар консультанта" CHECK-ACCESS-EXPR="! lib_user.active_user_access.prohibit_view_vacancy_revenue" lang-en:TITLE="Manager's fee" lang-ua:TITLE="Гонорар консультанта" base1:allow-hide="1"/>
+
+
+	<publish_on_portal TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Публиковать на корпоративном сайте" lang-en:TITLE="Publish on corporate Web site" lang-ua:TITLE="Опублікувати на корпоративному сайті"/>
+	<inet_data TYPE="vacancy_inet_data" DOC-ONLY="1"/>
+
+	<INHERIT TYPE="vacancy_inet_secondary_data"/>
+	
+
+	<INHERIT TYPE="recruit_user_group_base"/>
+	<idata_group_id TYPE="integer" MULTIPLE="1" FOREIGN-ARRAY="groups" TITLE="##UiText.objects.group##" EXP-MAX-LEN="10"/>
+	<INHERIT TYPE="object_access_base"/>
+	<INHERIT TYPE="card_attachments"/>
+	<resp_user_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="users" TITLE="Отв. лицо" lang-en:TITLE="Resp. person" lang-ua:TITLE="Відп. особа"/>
+	<INHERIT TYPE="card_info_base"/>
+
+
+
+
+	<is_active TYPE="bool" NULL-FALSE="1" EXPR="
+			check_active();
+	" EXPR-SHOW-ERRORS="1" TITLE="Активная" lang-en:TITLE="Active" lang-ua:TITLE="Активна"/>
+
+	<image_url PROPERTY="1" DEPENDS="is_active,is_tentative"/>
+
+	<OnCheckReadAccess PROPERTY="1" DEPENDS="user_id,group_id,division_id,use_exclusive_access,exclusive_access,recruit_type_id"/>
+
+
+	<is_of_my_divisions PROPERTY="1" TYPE="bool" EXPR="false"/>
+
+
+
+	<rr_persons_desc TYPE="string" SECONDARY="1" TITLE="##UiText.fields.contact_persons##"/>
+	<rr_persons_phone_desc TYPE="string" SECONDARY="1" TITLE="Телефон контактного лица" lang-en:TITLE="Contact person's phone" lang-ua:TITLE="Телефон контактної особи"/>
+
+
+
+	<view TEMP="1" DOC-ONLY="1">
+		<send_create_notif TYPE="bool" NULL-FALSE="1"/>
+
+		<filter>
+			<INHERIT TYPE="ft_filter"/>
+			<active_vacancy_id TYPE="integer" EXPR="Doc.DocID"/>
+			<spots__spot__is_not_rejected TYPE="bool" NULL-FALSE="1" TEMP="1"/>
+			<type_id TYPE="string" FOREIGN-ARRAY="event_types"/>
+			<min_date TYPE="date"/>
+			<max_date TYPE="date"/>
+		</filter>
+
+		<prev_data>
+			<is_active TYPE="bool" EXPR-INIT="Doc.TopElem.is_active"/>
+			<state_id TYPE="string" FOREIGN-ARRAY="vacancy_states"/>
+			<user_id TYPE="integer" FOREIGN-ARRAY="user"/>
+		</prev_data>
+
+		<storedInstancesArray TYPE="variant" STRICT="1"/>
+		<absentStoredInstancesArray TYPE="variant" STRICT="1"/>
+
+		<viewCandidatesOfVacancyDoc TYPE="variant" STRICT="1"/>
+	</view>
+
+	<ft_secondary_text TYPE="string" DOC-ONLY="1" SECONDARY="1"/>
+</vacancy>
+
+
+
+
+</SPXML-FORM>
+
+
+
+
+
+	

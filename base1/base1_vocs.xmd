@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<vocs>	
+	<voc MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT TYPE="voc_info"/>
+		<is_std TYPE="bool" NOT-NULL="1"/>
+
+		<registeredStdElems TYPE="variant" STRICT="1"/>
+		<registered_std_elem_id TYPE="string" MULTIPLE="1"/>
+		<registered_std_elem_int_id TYPE="integer" MULTIPLE="1"/>
+
+		<selectorWidth TYPE="integer"/>
+	</voc>
+</vocs>
+
+
+
+</SPXML-FORM>

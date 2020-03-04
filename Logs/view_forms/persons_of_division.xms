@@ -1,0 +1,41 @@
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Сотрудники по подразделению" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/list.ico">
+	<PANEL SUNKEN="1" STD-MARGINS="1" BK-COLOR-EXPR="SysColors.PanelLightBackground">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="38zr"/>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+			<ITEM TYPE="ft_filter" SOURCE="Ps.filter"/>
+			<PANEL/>
+		</TABLE>
+		<PANEL HEIGHT="2px"/>
+		<TABLE>
+			<COLUMNS/>
+		</TABLE>
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="Очистить форму" ACTION="lib_view.clear_filters( 'persons_of_division', Ps ); lib_view.clear_stored_filters( 'persons_of_division' ); lib_view.adjust_filters( 'persons_of_division', Ps );Screen.Update()" PASSIVE="1"/>
+		</MENU>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+	<PANEL BK-COLOR-EXPR="" HEIGHT="100%">
+		<LIST NAME="MainList" USE-KEY-SEL="1" SUNKEN="1" LOOP-CATALOG="persons" FT-FILTER="Ps.filter" XQUERY-QUAL-EXPR="lib_view.build_xquery_qual( 'persons_of_division', Ps )" XQUERY-FIELDS-EXPR="['id','is_derived','is_own_person','is_candidate','is_active','is_tentative','image_url','fullname','is_division_head','position_name','disp_phone']" AFTER-BUILD-ASYNC-ACTION="if ( StrContains( Screen.FrameName, 'Sub' ) ) return; size = ArrayOptSize( MainArray ); if ( size == undefined ) { StatusMsg( '' ); return; }; StatusMsg( UiText.titles.items_in_list + ': ' + StrInt( size, 0, true ) + ( lib_view.is_some_filter_applied( 'persons_of_division', Ps ) ? '  (с учетом фильтра)' : '' ) )">
+			<ROW IMAGE-URL-EXPR="ListElem.ImageUrl">
+				<COL COL-TITLE="ФИО" WIDTH="38zr" TITLE-EXPR="ListElem.fullname" ORDER="fullname"/>
+				<COL COL-TITLE="Руководитель подразделения" WIDTH="33zr" TITLE-EXPR="ListElem.is_division_head ? '+' : ''" ORDER="is_division_head" ORDER-DIR="-" ORDER1="fullname" ALIGN="center" DEFAULT-SORT="1"/>
+				<COL COL-TITLE="Должность" WIDTH="100%" TITLE-EXPR="ListElem.position_name" ORDER="position_name"/>
+				<COL COL-TITLE="Телефоны" WIDTH="32zr" TITLE-EXPR="ListElem.disp_phone" ORDER="disp_phone"/>
+			</ROW>
+			<MENU RIGHT-CLICK="1">
+				<MENU-ENTRY TITLE="Открыть" CMD="OpenSel"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Удалить" CMD="Clear"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name" ACTION="lib_view.ShowScreenInExcel( Screen, List )" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Добавить в список контактов..." ACTION="lib_base.run_list_object_action( List, 'add_person_to_contact_list', 'add_person_to_contact_list' )" PASSIVE="1"/>
+			</MENU>
+		</LIST>
+	</PANEL>
+	<INHERIT TYPE="view_commands"/>
+	<INHERIT TYPE="view_commands_2"/>
+</SPXML-SCREEN>

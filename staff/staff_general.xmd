@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<skill_type_base SAMPLE="1">
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+
+	<is_folder TYPE="bool" NULL-FALSE="1"/>
+	<use_levels TYPE="bool" NULL-FALSE="1" EXPR="use_parent_levels ? true : use_levels"/>
+	<use_parent_levels TYPE="bool" NULL-FALSE="1"/>
+
+	<levels>
+		<level MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+		</level>
+	</levels>
+</skill_type_base>
+
+
+<staff_local_settings SAMPLE="1">
+	<target_testing_systems>
+		<target_testing_system MULTIPLE="1" PRIMARY-KEY="testing_system_id">
+			<testing_system_id TYPE="string" FOREIGN-ARRAY="testing_systems"/>
+
+			<login TYPE="string" TITLE="##UiText.fields.login##"/>
+			<password TYPE="string" TITLE="##UiText.fields.password##"/>
+		</target_testing_system>
+	</target_testing_systems>
+</staff_local_settings>
+
+
+<staff_global_settings SAMPLE="1">
+	<use_position_division_head_flag TYPE="bool" NULL-FALSE="1" DEFAULT="true" TITLE="Хранить флаг 'Руководитель подразделения' для штатной должности" lang-en:TITLE="Use 'Head of Division' flag for a position" lang-ua:TITLE="Зберігати флаг 'Керівник підрозділу' для штатної посади"/>
+
+	<use_position_types TYPE="bool" NOT-NULL="1" TITLE="Вести учет типовых должностей" lang-en:TITLE="Use standard positions" lang-ua:TITLE="Вести облік типових посад"/>
+	<require_position_types TYPE="bool" NOT-NULL="1" TITLE="Требовать привязки каждой штатной должности к типовой должности" lang-en:TITLE="Require binding each position to position type" lang-ua:TITLE="Вимагати прив'язки кожної штатної посади до типової посади"/>
+	<allow_multi_employee_positions TYPE="bool" NOT-NULL="1" TITLE="Разрешать нескольким сотрудникам занимать одну штатную должность" lang-en:TITLE="Allow multiple employees for a single position" lang-ua:TITLE="Дозволяти декільком співробітникам займати одну штатну посаду"/>
+
+	<old_divisions_check_done TYPE="bool" NOT-NULL="1"/>
+</staff_global_settings>
+
+
+</SPXML-FORM>

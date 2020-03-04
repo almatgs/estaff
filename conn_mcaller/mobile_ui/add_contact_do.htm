@@ -1,0 +1,45 @@
+<%
+Request.RespWriteMode = 'single';
+Request.RespContentType = 'text/html; charset=utf-8';
+
+reqArg = UrlQuery( Request.Url );
+user = lib_mcaller.CheckMobileUiAuth( Request, reqArg );
+
+phone = reqArg.GetOptProperty( 'phone', '' );
+if ( phone == '' )
+	throw UserError( 'Argument is required: phone' );
+
+lastname = DecodeCharset( Request.Form.lastname, 'utf-8' );
+firstname = DecodeCharset( Request.Form.firstname, 'utf-8' );
+middlename = DecodeCharset( Request.Form.middlename, 'utf-8' );
+contactType = Request.Form.contact_type;
+
+if ( firstname == '' )
+	throw UiError( EncodeCharset( UiText.errors.required_field_not_set + ': ' + UiText.fields.firstname, 'utf-8' ) );
+
+dupPersonsArray = XQuery( 'for $elem in persons where $elem/mobile_phone = ' + XQueryLiteral( phone ) + ' and $elem/lastname = ' + XQueryLiteral( lastname ) + ' and $elem/firstname = ' + XQueryLiteral( firstname ) + ' return $elem/Fields( "id" )' );
+if ( ArrayCount( dupPersonsArray ) != 0 )
+	throw UiError( EncodeCharset( 'The contact already exists', 'utf-8' ) );
+
+if ( contactType == 'candidate' )
+	personDoc = DefaultDb.OpenNewObjectDoc( 'candidate' );
+else
+	personDoc = DefaultDb.OpenNewObjectDoc( 'person' );
+
+person = personDoc.TopElem;
+person.lastname = lastname;
+person.firstname = firstname;
+person.middlename = middlename;
+person.mobile_phone = phone;
+person.user_id = user.id;
+
+personDoc.Save();
+
+lib_mcaller.ExportPageHeader( Request.RespStream, UiText.titles.add_contact )
+%>
+<p><%=EncodeCharset( UiText.messages.contact_added, 'utf-8' )%></p>
+
+
+<%
+lib_mcaller.ExportPageFooter( Request.RespStream )
+%>

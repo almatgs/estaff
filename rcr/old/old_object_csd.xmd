@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<object_csd>
+	<items RECURSIVE-ARRAY="1">
+		<item MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<type TYPE="string" FOREIGN-ARRAY="au_common.template_elem_types" DEFAULT="string"/>
+			<name TYPE="string"/>
+
+			<is_sample TYPE="bool" NOT-NULL="1"/>
+
+			<ext_type TYPE="string"/>
+			<instance_type TYPE="string" NOT-NULL="1" DEFAULT="fixed"/>
+
+			<is_multiline TYPE="bool" NOT-NULL="1"/>
+
+			<width_measure>
+				<type_id TYPE="string"/>
+				<value TYPE="integer"/>
+			</width_measure>
+
+			<width_str PROPERTY="1" EXPR="
+					if ( width_measure.type_id != '' && width_measure.value != null )
+						return width_measure.value + width_measure.type_id;
+					
+					switch ( type )
+					{
+						case 'date':
+							return '16zr';
+
+					}
+					
+					return '';
+
+			"/>
+
+			<has_values_list TYPE="bool" NOT-NULL="1"/>
+			<values_list>
+				<value TYPE="string" MULTIPLE="1"/>
+			</values_list>
+
+			<has_value_items TYPE="bool" NOT-NULL="1"/>
+			<value_items>
+				<value_item  MULTIPLE="1" PRIMARY-KEY="id">
+					<id TYPE="string"/>
+					<name TYPE="string"/>
+					<full_name TYPE="string" EXPR-INIT="name"/>
+				</value_item>
+			</value_items>
+
+			<use_ft TYPE="bool" NOT-NULL="1"/>
+			<use_in_catalogs TYPE="bool" NOT-NULL="1"/>
+			<show_in_lists TYPE="bool" NOT-NULL="1"/>
+
+
+			<base_def PROPERTY="1" EXPR="
+					curNode = id.Parent.Parent.Parent;
+
+					while ( true )
+					{
+						try
+						{
+							node = curNode.Parent.Parent;
+							if ( ! node.PropertyExists( 'base_def' ) )
+								break;
+
+							curNode = node;
+						}
+						catch ( e )
+						{
+							break;
+						}
+					}
+
+					return curNode;
+			"/>
+
+
+			<data_path PROPERTY="1" EXPR="
+					str = '';
+					curNode = id.Parent;
+
+					while ( true )
+					{
+						if ( curNode.type.ForeignElem.is_data )
+						{
+							if ( str != '' )
+								str = '.' + str;
+
+							str = curNode.id + str;
+						}
+
+						try
+						{
+							curNode = curNode.Parent.Parent;
+							curNode.type;
+						}
+						catch ( e )
+						{
+							break;
+						}
+					}
+
+					return str;
+			"/>
+
+
+			<find_sample PROPERTY="1" EXPR="
+					baseNodesArray = id.Parent.Parent;
+
+					while ( true )
+					{
+						for ( node in baseNodesArray )
+						{
+							if ( node.id == ext_type )
+								return node;
+						}
+
+						try
+						{
+							baseNodesArray = baseNodesArray.Parent.Parent;
+						}
+						catch ( e )
+						{
+							break;
+						}
+					}
+
+					return undefined;
+			"/>
+
+
+			<has_child_single_nodes PROPERTY="1" EXPR="
+					for ( node in items )
+					{
+						if ( node.instance_type == 'single' || node.has_child_single_nodes )
+							return true;
+					}
+
+					return false;
+			"/>
+		</item>
+	</items>
+</object_csd>
+
+
+
+</SPXML-FORM>

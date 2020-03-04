@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_linked_systems>
+	<std_linked_system MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT FORM="base1_linked_system.xmd" TYPE="linked_system"/>
+	</std_linked_system>
+</std_linked_systems>
+
+
+</SPXML-FORM>
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>parsed_messages_of_raw_folder_storage</id>
+	<name VALUE="Загруженные письма по источнику-папке" lang-en:VALUE="Imported messages by source folder" lang-ua:VALUE="Завантажені листи по джерелу-каталогу"/>
+	<parent_id>parsed_messages</parent_id>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>raw_storage_id</id>
+			<is_auto>1</is_auto>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>file_path</id>
+			<elem_expr>FileName( file_path )</elem_expr>
+			<order>FileName( file_path )</order>
+			<width>40%</width>
+		</field>
+		<field>
+			<id>parsed_info.fullname</id>
+		</field>
+		<field>
+			<id>has_dup_candidates</id>
+			<bk_color_expr>has_dup_candidates ? base1_common.std_colors.duplicate : ''</bk_color_expr>
+		</field>
+		<field>
+			<col_title VALUE="##UiText.fields.folder##"/>
+			<title_expr>ParentDirectory( file_path )</title_expr>
+			<order>file_path</order>
+			<width>60%</width>
+		</field>
+		<field>
+			<id>date</id>
+			<use_time>1</use_time>
+			<is_default_sort>1</is_default_sort>
+		</field>
+	</fields>
+
+
+	<action>
+		<title VALUE="##UiText.actions.load##"/>
+		<image_url>//base_pict/load.ico</image_url>
+		<code>lib_storage_load.process_raw_folder_storage( Int( UrlQuery( Ps.Doc.Url ).raw_storage_id ) )</code>
+	</action>
+</std_view>
+

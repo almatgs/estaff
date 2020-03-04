@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN TITLE="Выбор базы" WIDTH="60zr" HEIGHT="30zr" SOURCE="TopElem" lang-en:TITLE="Select database" lang-ua:TITLE="Вибір бази">
+
+<LOOP EXPR="Ps.db_items" VAR="ListElem">
+	<CHECK SOURCE="Ps.host_dir_name == ListElem.dir_name" SET-VALUE-ACTION="
+			Ps.host_dir_name = ListElem.dir_name
+	" TITLE-EXPR="ListElem.dir_name"/>
+</LOOP>
+
+<PANEL HEIGHT="3px">
+</PANEL>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+	<LABEL/>
+	<BUTTON TITLE="OK" CMD="1"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2" lang-en:TITLE="Cancel"/>
+</TABLE>
+
+
+</SPXML-SCREEN>

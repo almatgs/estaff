@@ -1,0 +1,515 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SPXML-SCREEN TITLE-EXPR="org.name + ' - ' + Ps.object_title" SOURCE="org" BEFORE-SAVE-ACTION="
+		fields_usage.check_object_required_fields( Ps );
+" MAXIMIZED="1">
+
+
+<INHERIT TYPE="card_menu_start"/>
+
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="card_toolbar_start_entries"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY TITLE="##UiText.actions.new_contact_person##" IMAGE-URL="//base_pict/contact_person.ico" CMD="NewOrgPerson" lang-en:TITLE="New contact person"/>
+
+	<IF EXPR="global_settings.use_agreements">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+		<TOOLBAR-ENTRY TIP-TEXT="##UiText.actions.new_agreement##" IMAGE-URL="//base_pict/agreement.ico" CMD="NewOrgAgreement"/>
+	</IF>
+
+	<IF EXPR="AppModuleUsed( 'rcr' )">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+		<TOOLBAR-ENTRY TIP-TEXT="##UiText.actions.new_vacancy##" IMAGE-URL="//base_pict/vacancy.ico" CMD="NewOrgVacancy"/>
+	</IF>
+
+	<IF EXPR="AppModuleUsed( 'crm' )">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+		<TOOLBAR-ENTRY TITLE="Новая сделка" IMAGE-URL="//crm/pict/deal.ico" CMD="NewOrgDeal" lang-en:TITLE="New deal" lang-ua:TITLE="Нова угода"/>
+	</IF>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY TIP-TEXT="##UiText.actions.add_event##" IMAGE-URL="//base_pict/event.ico" CMD="QQQ">
+		<MENU>
+			<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( event_types ), '! target_object_type_id.HasValue || target_object_type_id.ByValueExists( \'org\' )' )" VAR="_event_type">
+				<MENU-ENTRY TITLE-EXPR="_event_type.name" ACTION="
+						eventDoc = DefaultDb.OpenNewObjectDoc( _event_type.get_object_name() );
+						eventDoc.TopElem.type_id = _event_type.id;
+						eventDoc.TopElem.date = CurDate;
+						eventDoc.TopElem.org_id = Ps.id;
+						eventDoc.TopElem.init();
+
+						if ( _event_type.has_occurrence( 'scheduled' ) )
+							eventDoc.TopElem.occurrence_id = 'scheduled';
+
+						CreateDocScreen( eventDoc );
+				" PASSIVE="1"/>
+			</LOOP>
+		</MENU>
+	</TOOLBAR-ENTRY>
+
+	<INHERIT TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="38zr" STD-MARGINS="0">
+	<TREE HEIGHT="50%" SUNKEN="1" SWITCH-TYPE="selector" TARGET="main_selector">
+	</TREE>
+
+	<SPLIT FIXED="1"/>
+
+	<PANEL HEIGHT-EXPR="'-' + lib_base.GetCardInfoHeightMeasure( TopElem )" SUNKEN="1" BK-COLOR="255,255,255" STD-MARGINS="1">
+		<IF EXPR="! Ps.is_own_org">
+			<IF EXPR="global_settings.use_customers">
+				<CHECK SOURCE="Ps.is_customer" AUTO-LABEL="1"/>
+				
+				<IF EXPR="global_settings.use_sec_customers">
+					<CHECK SOURCE="Ps.is_sec_customer" AUTO-LABEL="1" CHECK-VALUE-ACTION="
+							if ( NewValue && ! Ps.is_sec_customer.HasValue )
+								Ps.partner_org_id = lib_base.select_object_from_view( 'orgs', ({is_reseller:true}) );
+					"/>
+				</IF>
+
+				<IF EXPR="global_settings.use_suppliers">
+					<CHECK SOURCE="Ps.is_supplier" AUTO-LABEL="1"/>
+				</IF>
+
+				<IF EXPR="global_settings.use_resellers">
+					<CHECK SOURCE="Ps.is_reseller" AUTO-LABEL="1"/>
+				</IF>
+				<BR/>
+				<BR/>
+			</IF>
+
+			<IF EXPR="global_settings.use_customers">
+				<CHECK SOURCE="Ps.is_tentative" AUTO-LABEL="1"/>
+				<CHECK SOURCE="Ps.is_lost" AUTO-LABEL="1"/>
+				<BR/>
+			</IF>
+
+			<CHECK SOURCE="Ps.is_competitor" AUTO-LABEL="1"/>
+
+			<IF EXPR="Ps.ChildExists( 'is_candidate_source' ) && ! global_settings.is_agency ">
+				<CHECK SOURCE="Ps.is_recruiting_agency" AUTO-LABEL="1"/>
+				<CHECK SOURCE="Ps.is_candidate_source" AUTO-LABEL="1"/>
+			</IF>
+
+			<BR/>
+			
+			<IF EXPR="Ps.is_sec_customer">
+				<ITEM TYPE="object_selector" SOURCE="Ps.partner_org_id" AUTO-LABEL="1"/>
+			</IF>
+			
+			<BR/>
+
+
+			<PANEL HEIGHT="-7zr">
+			</PANEL>
+
+			<IF EXPR="! Ps.is_own_org">
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="13zrc"/>
+						<COL WIDTH="100%"/>
+					</COLUMNS>
+
+
+					<ITEM TYPE="object_preview" SOURCE="Ps.user_id"/>
+
+					<IF EXPR="ArrayCount( groups ) != 0">
+						<ITEM TYPE="object_preview" SOURCE="Ps.group_id"/>
+					</IF>
+				</TABLE>
+			</IF>
+		</IF>
+		<ELSE>
+			<LABEL TITLE-EXPR="Ps.is_own_org.Title"/>
+		</ELSE>
+	</PANEL>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE-EXPR="Ps.object_title" EXPANDED="1" SUNKEN="1" IMAGE-URL-EXPR="Ps.ImageUrl">
+
+
+<PAGE TITLE="##UiText.sections.general##" IMAGE-URL="//base_pict/common.ico" SUNKEN="1" VERT-SCROLL="1" lang-en:TITLE="General">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="10zr"/>
+			<COL WIDTH="30%"/>
+			<COL WIDTH="60%"/>
+			<COL WIDTH="22zr"/>
+		</COLUMNS>
+		
+		<EDIT SOURCE="Ps.code" AUTO-LABEL="1"/>
+		<EDIT SOURCE="Ps.name" AUTO-LABEL="1" UPDATE-ACTION="Ps.handle_edit_name()"/>
+		<EDIT SOURCE="Ps.full_name" AUTO-LABEL="1" UPDATE-ACTION="Ps.handle_edit_full_name()"/>
+		<EDIT SOURCE="Ps.alt_name" AUTO-LABEL="1"/>
+	</TABLE>
+	<BR/>
+	
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+
+			<IF EXPR="fields_usage.use_object_field( 'org', 'country_id' )">
+				<COL WIDTH="26zr"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'org', 'location_id' )">
+				<COL WIDTH="35zr"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'org', 'metro_station_id' )">
+				<COL WIDTH="28zr"/>
+			</IF>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.address" AUTO-LABEL="1"/>
+
+		<IF EXPR="fields_usage.use_object_field( 'org', 'country_id' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.country_id" AUTO-LABEL="1" PASSIVE="1"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'org', 'location_id' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.location_id" AUTO-LABEL="1"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'org', 'metro_station_id' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.metro_station_id" AUTO-LABEL="1" view-filter-expr="Ps.location_id.HasValue ? ({location_id:Ps.location_id}) : undefined" ENABLE-EXPR="! Ps.location_id.HasValue || Ps.location_id.ForeignElem.has_metro"/>
+		</IF>
+	</TABLE>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="27%"/>
+			<COL WIDTH="23%"/>
+			<COL WIDTH="26%"/>
+			<COL WIDTH="24%"/>
+		</COLUMNS>
+
+		<ITEM TYPE="phone_edit" SOURCE="Ps.phone" AUTO-LABEL="1" LABEL-IMAGE-URL="//base_pict/phone.ico" PASSIVE="1"/>
+		<ITEM TYPE="phone_edit" SOURCE="Ps.fax" AUTO-LABEL="1" LABEL-IMAGE-URL="//base_pict/phone_work.ico" PASSIVE="1"/>
+
+		<ITEM TYPE="email_edit" destType="person" templateAction="
+				message = lib_base.build_mail_message( _template, Ps, Ps.Parent, undefined, Ps.Parent );
+				lib_base.show_mail_message( message );
+		" SOURCE="Ps.email" TITLE="E-Mail:"/>
+
+		<PANEL>
+			<LINE SPACING="short">
+				<IMAGE URL="//base_pict/web_link.ico" HREF-EXPR="Ps.web == '' || StrBegins( Ps.web, 'http://' ) ? Ps.web : 'http://' + Ps.web" TARGET="_web"/>
+				<LABEL TITLE="##UiText.fields.web_site##:"/>
+			</LINE>
+
+			<EDIT SOURCE="Ps.web"/>
+		</PANEL>
+	</TABLE>
+	<BR/>
+
+	<LABEL TITLE="##UiText.fields.contact_persons##:"/>
+	<ITEM FORM-DATA-EXPR="lib_view.build_card_view_list( 'persons_of_org' )" HEIGHT="20zr" TYPE="MainList"/>
+	<BR/>
+	
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="30zr"/>
+
+			<IF EXPR="! global_settings.use_customers &amp;&amp; ArrayCount( expense_types ) != 0">
+				<COL WIDTH="40zr"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'org', 'industry_id' )">
+				<COL WIDTH="60%"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'org', 'size_id' )">
+				<COL WIDTH="15zr"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'org', 'brand_id' )">
+				<COL WIDTH="23zr"/>
+			</IF>
+		</COLUMNS>
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.type_id" AUTO-LABEL="1" UPDATE-ACTION="
+				if ( Ps.ChildExists( 'is_recruiting_agency' ) && Ps.type_id.ForeignElem.is_recruiting_agency )
+					Ps.is_recruiting_agency = true;
+
+				if ( Ps.type_id.ForeignElem.is_competitor )
+					Ps.is_competitor = true;
+		"/>
+
+		<IF EXPR="! global_settings.use_customers &amp;&amp; ArrayCount( expense_types ) != 0">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.main_expense_type_id" AUTO-LABEL="1"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'org', 'industry_id' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.industry_id" AUTO-LABEL="1"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'org', 'size_id' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.size_id" AUTO-LABEL="1"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'org', 'brand_id' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.brand_id" AUTO-LABEL="1"/>
+		</IF>
+	</TABLE>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="24zr"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<ITEM TYPE="date_time_selector" SOURCE="Ps.last_contact_date" AUTO-LABEL="1"/>
+
+		<IF EXPR="Ps.ChildExists( 'vacancies_num' )">
+			<GROUP LABEL-TITLE=" ">
+				<LABEL/>
+				<EDIT SOURCE="StrIntZero( Ps.vacancies_num )" LABEL-TITLE="Всего вакансий:" lang-en:LABEL-TITLE="Total vacancies:" WIDTH="6zr" ALIGN="right" READ-ONLY="1" KEEP-RIGHT="1" lang-ua:LABEL-TITLE="Всього вакансій:"/>
+				<EDIT SOURCE="StrIntZero( Ps.active_vacancies_num )" LABEL-TITLE="##UiText.titles.active_vacancies__num##:" WIDTH="6zr" ALIGN="right" READ-ONLY="1" KEEP-RIGHT="1"/>
+			</GROUP>
+		</IF>
+	</TABLE>
+	<BR/>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+	
+	<EDIT SOURCE="Ps.comment" MULTILINE="1" HEIGHT="30%" VERT-SCROLL="1" AUTO-LABEL="1"/>
+	<BR/>
+	<BR/>
+
+	<IF EXPR="global_settings.use_org_events">
+		<LABEL TITLE="##UiText.sections.events##:"/>
+		<ITEM FORM-DATA-EXPR="lib_view.build_card_view_list( 'events_of_org' )" HEIGHT="100%" TYPE="MainList"/>
+	</IF>
+</PAGE>
+
+
+
+
+
+<PAGE TITLE="##UiText.sections.add_info##" SUNKEN="1" STD-MARGINS="1" IMAGE-URL="//base_pict/aux_info.ico" EXPANDED="1">
+	<IF EXPR="global_settings.use_own_orgs">
+		<CHECK SOURCE="Ps.is_own_org" AUTO-LABEL="1"/>
+		<DELIM/>
+	</IF>
+
+	<IF EXPR="AppModuleUsed( 'crm' ) && ! Ps.is_own_org">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="80%"/>
+			</COLUMNS>
+
+			<ITEM TYPE="object_selector" SOURCE="Ps.base_org_id" AUTO-LABEL="1"/>
+		</TABLE>
+		<DELIM/>
+	</IF>
+</PAGE>
+
+
+
+<IF EXPR="! base1_config.is_int_version">
+
+<PAGE TITLE="Реквизиты" IMAGE-URL="//base_pict/details.ico" HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" lang-en:TITLE="Account details" lang-ua:TITLE="Реквізити">
+	<EDIT SOURCE="Ps.legal_address" AUTO-LABEL="1"/>
+	<DELIM/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="15zr"/>
+			<COL WIDTH="15zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.inn" AUTO-LABEL="1"/>
+		<EDIT SOURCE="Ps.kpp" AUTO-LABEL="1"/>
+	</TABLE>
+	<DELIM/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="24zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.bank_account.no" AUTO-LABEL="1"/>
+	</TABLE>
+	<DELIM/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="15zr"/>
+			<COL WIDTH="24zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.bank_account.bank.name" AUTO-LABEL="1"/>
+		<EDIT SOURCE="Ps.bank_account.bank.bic" AUTO-LABEL="1"/>
+		<EDIT SOURCE="Ps.bank_account.cno" AUTO-LABEL="1"/>
+	</TABLE>
+	<BR/>
+
+	<LINE>
+		<LABEL TITLE="Наименование получателя платежа:" lang-en:TITLE="Payee name:" lang-ua:TITLE="Найменування одержувача платежу:"/>
+		<RADIO-BUTTON TITLE="стандартное" SOURCE="Ps.bank_account.has_custom_recipient" SWITCH-VALUE="false" WIDTH="auto" lang-en:TITLE="standard" lang-ua:TITLE="стандартне"/>
+		<RADIO-BUTTON TITLE="пользовательское" SOURCE="Ps.bank_account.has_custom_recipient" SWITCH-VALUE="true" WIDTH="auto" lang-en:TITLE="custom" lang-ua:TITLE="користувальницьке"/>
+	</LINE>
+	
+	<IF EXPR="Ps.bank_account.has_custom_recipient">
+		<EDIT SOURCE="Ps.bank_account.custom_recipient_desc" MULTILINE="1" HEIGHT="auto"/>
+	</IF>
+	<ELSE>
+		<EDIT SOURCE="Ps.bank_account.std_recipient_desc" MULTILINE="1" READ-ONLY="1" HEIGHT="auto"/>
+	</ELSE>
+	<DELIM/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="50zr"/>
+			<COL WIDTH="40zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="person_names_edit" SOURCE="Ps.ceo" AUTO-LABEL="1"/>
+		
+		<COMBO SOURCE="Ps.ceo.position_name" EDITABLE="1" AUTO-LABEL="1">
+			<COMBO-ENTRY VALUE="Директор"/>
+			<COMBO-ENTRY VALUE="Генеральный директор"/>
+			<COMBO-ENTRY VALUE="Президент"/>
+			<COMBO-ENTRY VALUE="Председатель правления"/>
+		</COMBO>
+	</TABLE>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="50zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="person_names_edit" SOURCE="Ps.chief_accountant" AUTO-LABEL="1"/>
+	</TABLE>
+</PAGE>
+
+</IF>
+
+
+<ITEM FORM-DATA-EXPR="lib_base.get_card_pages_form( 'org' )"/>
+
+
+
+<ITEM TYPE="card_attachments"/>
+
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+
+
+
+</LINE>
+
+
+
+
+
+	
+<COMMAND-HANDLER CMD="NewOrgPerson" ACTION="						
+		if ( Screen.Doc.NeverSaved )
+			Screen.SaveDoc();
+
+		personDoc = OpenNewDoc( 'base2_person.xmd' );
+		personDoc.BindToDb();
+
+		personDoc.TopElem.org_id = Screen.Doc.DocID;
+
+		CreateDocScreen( personDoc );
+" PASSIVE="1"/>
+
+
+
+<COMMAND-HANDLER CMD="NewOrgAgreement" ACTION="						
+		if ( Screen.Doc.NeverSaved )
+			Screen.SaveDoc();
+
+		agreementDoc = DefaultDb.OpenNewObjectDoc( 'agreement' );
+		agreementDoc.TopElem.org_id = Screen.Doc.DocID;
+
+		CreateDocScreen( agreementDoc );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="NewOrgVacancy" ACTION="						
+		if ( lib_user.active_user_access.prohibit_create_vacancies )
+			throw UiError( UiText.errors.permission_denied );
+
+		if ( Screen.Doc.NeverSaved )
+			Screen.SaveDoc();
+
+		vacancyDoc = DefaultDb.OpenNewObjectDoc( 'vacancy' );
+		vacancy = vacancyDoc.TopElem;
+
+		vacancy.org_id = Screen.Doc.DocID;
+		vacancy.handle_org_selected();
+		
+		CreateDocScreen( vacancyDoc );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="NewOrgDeal" ACTION="						
+		if ( Screen.Doc.NeverSaved )
+			Screen.SaveDoc();
+
+		dealDoc = DefaultDb.OpenNewObjectDoc( 'deal' );
+
+		dealDoc.TopElem.org_id = Screen.Doc.DocID;
+		
+		for ( srcPerson in XQuery( 'for $elem in persons where $elem/org_id = ' + XQueryLiteral( Screen.Doc.DocID ) + ' return $elem' ) )
+		{
+			contactPerson = dealDoc.TopElem.contact_persons.AddChild();
+			contactPerson.AssignElem( srcPerson );
+			contactPerson.person_id = srcPerson.id;
+		}
+
+		CreateDocScreen( dealDoc );
+"/>
+
+
+
+
+<COMMAND-HANDLER CMD="QQQ" ACTION="
+			CreateDocScreen( doc );
+"/>
+
+
+<COMMAND-HANDLER CMD="CheckSpelling" ACTION="
+		Screen.CheckSpelling();
+"/>
+
+
+
+<COMMAND-HANDLER CMD="Help" HREF-EXPR="lib_base.build_help_article_url( 'intro.htm' )" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+
+
+</SPXML-SCREEN>
+
+
+
+

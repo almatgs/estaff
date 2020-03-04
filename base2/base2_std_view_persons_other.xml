@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>persons_other</id>
+	<name VALUE="##UiText.fields.contact_persons##" lang-en:VALUE="Contacts"/>
+	<parent_id>persons</parent_id>
+
+	<static_filters>
+		<static_filter>
+			<id>is_own_person</id>
+			<value>false</value>
+		</static_filter>
+		<static_filter>
+			<id>is_candidate</id>
+			<value>false</value>
+		</static_filter>
+	</static_filters>
+</std_view>
+

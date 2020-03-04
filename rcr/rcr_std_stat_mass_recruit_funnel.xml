@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>mass_recruit_funnel</id>
+	<name VALUE="##UiText.titles.recruit_funnel##"/>
+	<section_id>mass_recruit</section_id>
+
+	<is_v2>1</is_v2>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>date</id>
+			<data_type>date</data_type>
+			<title VALUE="##UiText.titles.time_period##"/>
+			<use_range>1</use_range>
+			<use_period_quick_selector>1</use_period_quick_selector>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.fields.recruiter##"/>
+			<foreign_array>users</foreign_array>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue &amp;&amp; ArrayCount( filter.group_id.Instances ) == 1 ? {main_group_id:ArrayFirstElem( filter.group_id.Instances ),is_active:true}:{is_active:true}</view_filter_expr>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.objects.group##"/>
+			<foreign_array>groups</foreign_array>
+			<is_multiple>1</is_multiple>
+		</dyn_filter>
+	</dyn_filters>
+
+	<groups>
+		<group>
+			<id>location_id</id>
+			<foreign_array>locations</foreign_array>
+		</group>
+	</groups>
+
+	<fields>
+		<field>
+			<id>location_id</id>
+			<foreign_array>locations</foreign_array>
+			<col_title VALUE="##UiText.fields.location##"/>
+			<width>30zr</width>
+		</field>
+		<field>
+			<id>phone_interview_count</id>
+			<col_title VALUE="##UiText.titles.phone_interview##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>event</src_object_type_id>
+		</field>
+		<field>
+			<id>group_interview_reg_count</id>
+			<col_title VALUE="Записано на групповое интервью" lang-en:VALUE="Registered for group interview" lang-ua:VALUE="Записано на групове інтерв'ю"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>event</src_object_type_id>
+		</field>
+		<field>
+			<id>group_interview_result_attended_count</id>
+			<col_title VALUE="Пришло на групповое интервью" lang-en:VALUE="Attended group interview" lang-ua:VALUE="Прийшов на групове інтерв'ю"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>event</src_object_type_id>
+		</field>
+		<field>
+			<id>group_interview_result_attended_percent</id>
+			<col_title VALUE="Процент явки" lang-en:VALUE="% of attendance" lang-ua:VALUE="Відсоток явки"/>
+			<is_percent>1</is_percent>
+			<numerator_field_id>group_interview_result_attended_count</numerator_field_id>
+			<denominator_field_id>group_interview_reg_count</denominator_field_id>
+		</field>
+		<field>
+			<id>group_interview_result_succeeded_count</id>
+			<col_title VALUE="Групповое интервью - пройдено" lang-en:VALUE="Group Interview - passed" lang-ua:VALUE="Групове інтерв'ю - пройдено"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>event</src_object_type_id>
+		</field>
+		<field>
+			<id>hire_count</id>
+			<col_title VALUE="##UiText.titles.hired__n##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>event</src_object_type_id>
+		</field>
+		<field>
+			<id>dismiss_on_probation_count</id>
+			<col_title VALUE="##UiText.titles.dismissal_on_probation##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>event</src_object_type_id>
+		</field>
+		<field>
+			<id>dismiss_on_probation_percent</id>
+			<col_title VALUE="%"/>
+			<is_percent>1</is_percent>
+			<numerator_field_id>dismiss_on_probation_count</numerator_field_id>
+			<denominator_field_id>hire_count</denominator_field_id>
+		</field>
+	</fields>
+
+	<show_total>1</show_total>
+	<show_chart>1</show_chart>
+
+	<settings_screen_form_url>x-app://rcr/rcr_std_stat_mass_recruit_funnel_settings.xms</settings_screen_form_url>
+
+	<code_lib_url>x-app://rcr/rcr_std_stat_mass_recruit_funnel.js</code_lib_url>
+</std_stat>
+

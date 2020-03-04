@@ -1,0 +1,215 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1251"/>
+<title></title>
+<style>
+<!--
+*
+{
+	font-family: Calibri,Arial,sans-serif;
+	font-size: 16px;
+	__margin: 2px;
+}
+
+
+p, li
+{
+	__margin: 0px;
+}
+
+-->
+</style>
+</head>
+<body>
+<h1>Источники импорта резюме</h1>
+
+<DIV class="Section1">
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Справочник <STRONG>Источники 
+импорта резюме</STRONG> служит для настройки E-Staff Рекрутер для импорта резюме 
+из одного или нескольких почтовых ящиков, а также из папки на диске. Ввиду 
+многообразия почтовых программ и способов подключения к почтовым ящикам, для 
+осуществления правильной настройки E-Staff Рекрутер Вам может потребоваться 
+помощь Вашего системного администратора.<SPAN style="mso-spacerun: yes">&nbsp; 
+</SPAN>В отдельных случаях настройку может произвести только системный 
+администратор.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Поле <STRONG>Наименование</STRONG> 
+используется только для визуального различия между несколькими источниками и 
+может содержать произвольный текст.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Поле <B style="mso-bidi-font-weight: normal">Владелец источника</B> содержит 
+пользователя системы, которому принадлежит данный источник. Если владелец не 
+указан, источником могут пользоваться все пользователи системы.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Поле <B style="mso-bidi-font-weight: normal">Тип источника</B> позволяет установить тип 
+источника - почтовый ящик либо папку на диске.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Пункт <STRONG>Метод 
+доступа</STRONG> используется для выбора способа взаимодействия с почтовой 
+программой (почтовым ящиком).</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Метод доступа <STRONG>Simple 
+MAPI</STRONG> является стандартным методом, предложенным компаний Microsoft для 
+доступа к почтовым ящикам тех программ, которые поддерживают данный метод.<SPAN style="mso-spacerun: yes">&nbsp; </SPAN>В действительности, данный метод доступа 
+поддерживают только программы <STRONG>Outlook Express</STRONG> и 
+<STRONG>Microsoft Outlook</STRONG>, причем только для ящика, находящегося на 
+Вашем компьютере и используемого по умолчанию (<STRONG>Входящая почта</STRONG> 
+или <STRONG>Inbox</STRONG>).</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Метод доступа <STRONG>Extended 
+MAPI</STRONG> также является стандартным методом, предложенным компаний 
+Microsoft для доступа к почтовым ящикам различных программ, но поддерживается 
+только программой <STRONG>Microsoft Outlook</STRONG>. Данный метод позволяет 
+обрабатывать любой ящик и любую папку внутри Microsoft Outlook, вне зависимости 
+от типа ящика и типа Вашего почтового сервера.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Метод доступа <STRONG>POP3</STRONG> 
+позволяет программе напрямую (минуя Вашу почтовую программу) обращаться к Вашему 
+почтовому серверу и обрабатывать почтовый ящик. Не рекомендуется использовать 
+данный метод, если Вы планируете просматривать письма в ящике как при помощи 
+E-Staff Рекрутер, так и при помощи Вашей почтовой программы, поскольку в E-Staff 
+и Вашу почтовую программу будут загружены свои копии писем, и Вам придется 
+делать двойную работу по их разбору.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Метод доступа <STRONG>IMAP</STRONG> 
+также позволяет программе напрямую (минуя Вашу почтовую программу) обращаться к 
+Вашему почтовому серверу и обрабатывать почтовый ящик. Данный метод является 
+более совершенным, чем <STRONG>POP3</STRONG>, поскольку позволяет отмечать 
+письма, содержащие резюме как прочитанные непосредственно в Вашем почтовом ящике 
+на сервере. Таким образом, результат обработки ящика будет виден в Вашей 
+почтовой программе.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Ниже приведены основные 
+рекомендации по выбору метода доступа для ряда наиболее популярных почтовых 
+программ:</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm"><o:p>&nbsp;</o:p></P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm"><U>Если Вы используете 
+<STRONG>Outlook Express</STRONG>:<o:p></o:p></U></P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Если Ваша почта загружается в 
+локальный почтовый ящик на Вашем компьютере - <STRONG>Входящая почта</STRONG> 
+или <STRONG>Inbox</STRONG>, выберите метод <STRONG>Simple MAPI</STRONG>. В этом 
+случае для нормального функционирования Outlook Express должен быть выбран в 
+Windows как используемый по умолчанию. Для этого:</P>
+<P class="MsoListBullet" style="MARGIN: 8pt 0cm 4pt"><SPAN style="FONT-FAMILY: Symbol; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol">·</SPAN><SPAN style="FONT-SIZE: 7pt; mso-fareast-font-family: Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN>Запустите программу Internet Explorer и выберите команду <STRONG>Свойства 
+обозревателя...</STRONG> (<STRONG>Internet Options...</STRONG>) из меню 
+<STRONG>Сервис</STRONG> (<STRONG>Tools</STRONG>).</P>
+<P class="MsoListBullet" style="MARGIN: 8pt 0cm 4pt"><SPAN style="FONT-FAMILY: Symbol; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol">·</SPAN><SPAN style="FONT-SIZE: 7pt; mso-fareast-font-family: Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN>В открывшемся окне диалога выберите закладку <STRONG>Программы</STRONG> 
+(<STRONG>Programs</STRONG>).</P>
+<P class="MsoListBullet" style="MARGIN: 8pt 0cm 4pt"><SPAN style="FONT-FAMILY: Symbol; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol">·</SPAN><SPAN style="FONT-SIZE: 7pt; mso-fareast-font-family: Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN>В списке напротив<STRONG> электронной почты</STRONG> 
+(<STRONG>E-mail</STRONG>) выберите <STRONG>Outlook Express</STRONG> и нажмите 
+<STRONG>OK</STRONG>.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">При этом программа сможет 
+обрабатывать только письма, находящиеся непосредственно в этом ящике. 
+Дополнительные папки обрабатываться не будут.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Если почтовые ящики, которые Вы 
+читаете при помощи Outlook Express, расположены на отдельном сервере, выберите 
+метод доступа <STRONG>IMAP</STRONG>. Укажите <STRONG>Почтовый сервер</STRONG> 
+(имя или IP-адрес), на котором располагается почтовый ящик, а также 
+<STRONG>Логин</STRONG> и <STRONG>Пароль</STRONG> для доступа к ящику. Данные 
+параметры можно посмотреть в настройках Outlook Express (меню 
+<STRONG>Сервис</STRONG> (<STRONG>Tools</STRONG>), пункт <STRONG>Учетные 
+записи…</STRONG> (<STRONG>Accounts…</STRONG>).</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">По умолчанию при использовании IMAP 
+импорт осуществляется из папки <STRONG>Входящие 
+</STRONG>(<STRONG>Inbox</STRONG>). Если Вы хотите обрабатывать другую папку на 
+сервере, укажите имя папки в поле <STRONG>Папка</STRONG>.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm"><o:p>&nbsp;</o:p></P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm"><U>Если Вы используете 
+<STRONG>Microsoft Outlook</STRONG>:<o:p></o:p></U></P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Выберите метод <STRONG>Extended 
+MAPI</STRONG>. В этом случае для нормального функционирования Microsoft Outlook 
+должен быть выбран в Windows как используемый по умолчанию. Для этого:</P>
+<P class="MsoListBullet" style="MARGIN: 8pt 0cm 4pt"><SPAN style="FONT-FAMILY: Symbol; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol">·</SPAN><SPAN style="FONT-SIZE: 7pt; mso-fareast-font-family: Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN>Запустите программу Internet Explorer и выберите команду <STRONG>Свойства 
+обозревателя...</STRONG> (<STRONG>Internet Options...</STRONG>) из меню 
+<STRONG>Сервис</STRONG> (<STRONG>Tools</STRONG>).</P>
+<P class="MsoListBullet" style="MARGIN: 8pt 0cm 4pt"><SPAN style="FONT-FAMILY: Symbol; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol">·</SPAN><SPAN style="FONT-SIZE: 7pt; mso-fareast-font-family: Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN>В открывшемся окне диалога выберите закладку <STRONG>Программы</STRONG> 
+(<STRONG>Programs</STRONG>).</P>
+<P class="MsoListBullet" style="MARGIN: 8pt 0cm 4pt"><SPAN style="FONT-FAMILY: Symbol; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol">·</SPAN><SPAN style="FONT-SIZE: 7pt; mso-fareast-font-family: Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN>В списке напротив<STRONG> электронной почты</STRONG> 
+(<STRONG>E-mail</STRONG>) выберите <STRONG>Microsoft Outlook</STRONG> и нажмите 
+<STRONG>OK</STRONG>.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Если Ваш почтовый ящик 
+располагается в разделе <STRONG>Личные папки</STRONG> (<STRONG>Personal 
+Folders</STRONG>), оставьте поле <STRONG>Почтовая база (сервер)</STRONG> пустым. 
+В противном случае укажите в поле <STRONG>Почтовая база (сервер) </STRONG>имя 
+раздела в Microsoft Outlook (имя почтового сервера), в котором находится Ваш 
+ящик.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">По умолчанию при использовании 
+импорт осуществляется из папки <STRONG>Входящие 
+</STRONG>(<STRONG>Inbox</STRONG>). Если Вы хотите обрабатывать другую папку, 
+укажите имя папки в поле <STRONG>Папка</STRONG>. Если Вы хотите обрабатывать 
+также все папки, находящиеся внутри указанной Вами папки, отметьте флажок 
+<STRONG>Включая вложенные папки</STRONG>.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm"><o:p>&nbsp;</o:p></P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm"><U>Если Вы используете 
+<STRONG>Eudora</STRONG> или <STRONG>The Bat!</STRONG>:<o:p></o:p></U></P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Если Ваша почта загружается в 
+локальный почтовый ящик на Вашем компьютере (<STRONG>Входящая почта</STRONG> или 
+<STRONG>Inbox</STRONG>) через протокол POP3, попробуйте перейти на использование 
+протокола IMAP. По этому вопросу Вам потребуется проконсультироваться с Вашим 
+системным администратором. Если такой переход невозможен, то в поле 
+<STRONG>Метод доступа</STRONG> выберите <STRONG>POP3</STRONG>. Укажите в поле 
+<STRONG>Почтовый&nbsp;сервер </STRONG>имя или IP-адрес, на котором располагается 
+почтовый ящик, а также <STRONG>Логин</STRONG> и <STRONG>Пароль</STRONG> для 
+доступа к ящику. Данные параметры можно посмотреть в настройках Вашей почтовой 
+программы.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Если Ваш почтовый ящик расположен 
+на отдельном сервере, выберите метод доступа <STRONG>IMAP</STRONG>. Укажите в 
+поле <STRONG>Почтовый сервер</STRONG> имя или IP-адрес, на котором располагается 
+почтовый ящик, а также <STRONG>Логин</STRONG> и <STRONG>Пароль</STRONG> для 
+доступа к ящику. Данные параметры можно посмотреть в настройках Вашей почтовой 
+программы.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">По умолчанию при использовании IMAP 
+импорт осуществляется из папки <STRONG>Входящие 
+</STRONG>(<STRONG>Inbox</STRONG>). Если Вы хотите обрабатывать другую папку на 
+сервере, укажите имя папки в поле <STRONG>Папка</STRONG>.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm"><o:p>&nbsp;</o:p></P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm"><U>Если Вы используете 
+<STRONG>Lotus Notes</STRONG> или <STRONG>Novell 
+GroupWise</STRONG>:<o:p></o:p></U></P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Для доступа к ящикам в этом случае 
+на Вашем почтовом сервере должен быть включен протокол <STRONG>IMAP</STRONG>. По 
+данному вопросу Вам необходимо предварительно проконсультироваться с Вашим 
+системным администратором.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">В поле метод доступа выберите 
+<STRONG>IMAP</STRONG>. Укажите в поле <STRONG>Почтовый</STRONG> 
+<STRONG>сервер</STRONG> имя или IP-адрес, на котором располагается почтовый 
+ящик, а также <STRONG>Логин</STRONG> и <STRONG>Пароль</STRONG> для доступа к 
+ящику.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">По умолчанию при использовании IMAP 
+импорт осуществляется из папки <STRONG>Входящие 
+</STRONG>(<STRONG>Inbox</STRONG>). Если Вы хотите обрабатывать другую папку на 
+сервере, укажите имя папки в поле <STRONG>Папка</STRONG><SPAN class="name">.</SPAN></P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm"><o:p>&nbsp;</o:p></P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Карточка источника 
+импорта&nbsp;резюме также содержит ряд дополнительных параметров настройки, 
+часть из которых доступна только для определенных методов доступа:</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Флажок <STRONG>Использовать 
+SSL</STRONG> позволяет обрабатывать почтовые ящики POP3 и IMAP c использованием 
+протокола защищенных соединений&nbsp;SSL (Secure Sockets Layer), такие, 
+например, как Gmail.com.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Флажок <STRONG>Обновлять почтовый 
+ящик перед началом загрузки</STRONG> позволяет загружать вновь пришедшие письма 
+перед началом обработки почтового ящика.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Флажок <STRONG>Проверять только 
+непрочитанные письма</STRONG> позволяет программе проверять только письма, 
+помеченные как непрочитанные. Отключать данный флажок не рекомендуется, 
+поскольку это может привести к существенному замедлению работы за счет 
+распознавания одних и тех же писем каждый раз. В отдельных случаях, отключение 
+данного флажка может оказаться оправданным (например, когда загрузка проводится 
+первый раз, или если пользователь предпочитает сначала просматривать письма в 
+свой почтовой программе, фильтровать их, и только затем проводить их загрузку в 
+базу).</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Флажок <STRONG>Помечать все 
+проверенные письма как прочитанные</STRONG> позволяет помечать все письма, 
+просмотренные программой, как прочитанные вне зависимости от того обнаружено ли 
+в них резюме. Если данный флажок отмечен, после каждой загрузки все письма в 
+почтовом ящике будут отмечены как прочитанные.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Флажок <STRONG>Помечать как 
+прочитанные обработанные письма, содержащие резюме</STRONG> отмечен по 
+умолчанию. Он позволяет помечать прочитанными только те письма, в которых 
+программа обнаружила резюме и загрузила в базу. Рекомендуется отмечать данный 
+флажок, в случае если почтовый ящик используется не только для получения резюме 
+но и для деловой переписки сотрудника - пользователя программы.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Поле <B style="mso-bidi-font-weight: normal">Уровень проверки на резюме</B> позволяет 
+регулировать степень строгости проверки писем на факт содержания<SPAN style="mso-spacerun: yes">&nbsp; </SPAN>в них резюме.</P>
+<P class="MsoBodyText" style="MARGIN: 4pt 0cm">Набор полей <B style="mso-bidi-font-weight: normal">Устанавливать для загруженных 
+кандидатов</B> позволяет установить предопределенные значения некоторых полей 
+для резюме, загруженных из данного источника.</P></DIV></body>
+</html>

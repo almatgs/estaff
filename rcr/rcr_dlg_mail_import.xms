@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN TITLE="##UiText.titles.import_mail_message##" WIDTH="120zr" HEIGHT="60zr" SOURCE="TopElem">
+
+<PANEL HEIGHT-EXPR="lib_base.dlg_body_height" VERT-SCROLL="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="4zr"/>
+			<COL WIDTH="16px"/>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="50zr"/>
+		</COLUMNS>
+	
+		<LABEL/>
+		<LABEL HSPAN="2" TITLE="Фрагмент письма:" lang-en:TITLE="Message part:" lang-ua:TITLE="Фрагмент листа:"/>
+		<LABEL TITLE="Тип приложения к карточке:" lang-en:TITLE="Card attachment type:" lang-ua:TITLE="Тип додатка до картки:"/>
+
+		<BR HSPAN="4"/>
+
+
+		<LOOP EXPR="Ps.parsed_message.attachments" VAR="ListElem">
+			<CHECK SOURCE="ListElem.skip" INVERTED="1" ENABLE-EXPR="! Ps.use_multi_candidate || ! ListElem.is_message_text"/>
+
+			<IMAGE URL-EXPR="'x-sys-image://shell-icon/' + UrlPathSuffix( ListElem.orig_file_name )" WIDTH="16px" HEIGHT="16px"/>
+			<LABEL TITLE-EXPR="ListElem.is_message_text ? UiText.titles.message_text : ListElem.orig_file_name"/>
+			
+			<ITEM TYPE="voc_elem_selector" SOURCE="ListElem.type_id" view-filter-expr="({target_object_type_id:'candidate'})" ENABLE-EXPR="! Ps.use_multi_candidate || ! ListElem.is_message_text"/>
+		</LOOP>
+	</TABLE>
+</PANEL>
+
+<PANEL STD-MARGINS="1">
+	<PANEL HEIGHT="-5zrc">
+	</PANEL>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="14zr"/>
+			<COL WIDTH="14zr"/>
+		</COLUMNS>
+
+		<CHECK SOURCE="Ps.use_multi_candidate" TITLE="Одно вложение - один кандидат" lang-en:TITLE="1 attachment - 1 candidate" lang-ua:TITLE="Одне вкладення - один кандидат" ENABLE-EXPR="
+				return Ps.parsed_message.attachments.ChildNum > 2;
+		" UPDATE-ACTION="
+				if ( Ps.use_multi_candidate )
+				{
+					attachment = Ps.parsed_message.attachments.GetOptChildByKey( true, 'is_message_text' );
+					if ( attachment != undefined )
+						attachment.skip = true;
+				}
+
+				for ( attachment in Ps.parsed_message.attachments )
+				{
+					if ( ! attachment.skip &amp;&amp; ! attachment.type_id.HasValue )
+						attachment.type_id = 'resume';
+				}
+		"/>
+
+		<BUTTON TITLE="OK" CMD="1"/>
+		<BUTTON TITLE="##UiText.actions.cancel##" CMD="2"/>
+	</TABLE>
+</PANEL>
+
+</SPXML-SCREEN>

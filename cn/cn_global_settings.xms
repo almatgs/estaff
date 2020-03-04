@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="130zr" HEIGHT="50zr" TITLE="##UiText.sections.global_settings_calendar##" SAVE-ACTION="
+		UpdateScreens( '*', '*' );
+" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+
+<IF EXPR="AppModuleUsed( 'ras' )">
+	<GROUP>
+		<ITEM TYPE="elem_selector" SOURCE="Ps.ext_calendar_type_id" WIDTH="35zr" LABEL-TITLE="##UiText.titles.external_calendar_integration##:"/>
+	</GROUP>
+		
+	<IF EXPR="Ps.ext_calendar_type_id == 'google'">
+		<DELIM/>
+		<GROUP>
+			<ITEM TYPE="object_selector" SOURCE="Ps.ext_calendar.global_external_account_id" view-filter-expr="({type_id:Ps.ext_calendar_type_id})" AUTO-LABEL="1" WIDTH="35zr"/>
+			<BUTTON TITLE="+" TIP-TEXT="##UiText.actions.create__new##" ACTION="
+					accountDoc = DefaultDb.OpenNewObjectDoc( 'external_account' );
+					accountDoc.TopElem.type_id = Ps.ext_calendar_type_id;
+					accountDoc.Save();
+
+					Ps.ext_calendar.global_external_account_id = accountDoc.TopElem.id;
+					Ps.Doc.SetChanged( true );
+					CreateDocScreen( accountDoc );
+			" WIDTH="5zr"/>
+		</GROUP>
+	</IF>
+	<DELIM/>
+</IF>
+
+<LABEL TITLE="При интеграции с внешним календарем:" lang-en:TITLE="In case of integration with an external calendar:" lang-ua:TITLE="При інтеграції з зовнішнім календарем:"/>
+<BR/>
+
+<CHECK SOURCE="Ps.check_ext_calendar_room_busy_info" AUTO-LABEL="1"/>
+<DELIM/>
+
+
+<CHECK SOURCE="Ps.show_cancelled_events" AUTO-LABEL="1"/>
+<CHECK SOURCE="Ps.export_cancelled_events_to_ext_calendar" AUTO-LABEL="1"/>
+<DELIM/>
+
+</PANEL>
+
+
+<COMMAND-HANDLER CMD="Help" HREF="help/settings_policy.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+</SPXML-SCREEN>

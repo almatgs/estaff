@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SPXML-INLINE-FORM>
+
+<ui_builder_server_config>
+	<uiTemplates TYPE="variant" STRICT="1"/>
+
+	<ui_specs>
+		<ui_spec MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<sections TYPE="variant" STRICT="1"/>
+			<viewForms TYPE="variant" STRICT="1"/>
+			<uiModels TYPE="variant" STRICT="1"/>
+		</ui_spec>
+	</ui_specs>
+</ui_builder_server_config>
+
+
+</SPXML-INLINE-FORM>
+

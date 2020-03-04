@@ -1,0 +1,49 @@
+namespace LibAutoComplete {
+
+
+function OnAutoCompleteKeyDown( autoCompleteView, event )
+{
+	if ( event.Key == "Down" || event.Key == "ArrowDown" )
+	{
+		if ( autoCompleteView.AuxData.focusEntryIndex == undefined )
+			autoCompleteView.AuxData.focusEntryIndex = 0;
+		else if ( autoCompleteView.AuxData.focusEntryIndex < ArrayCount( autoCompleteView.AuxData.entries ) - 1 )
+			autoCompleteView.AuxData.focusEntryIndex++;
+
+		autoCompleteView.UpdateColors();
+	}
+	else if ( event.Key == "Up" || event.Key == "ArrowUp" )
+	{
+		if ( autoCompleteView.AuxData.focusEntryIndex == undefined )
+			return;
+		else if ( autoCompleteView.AuxData.focusEntryIndex > 0 )
+			autoCompleteView.AuxData.focusEntryIndex--;
+
+		autoCompleteView.UpdateColors();
+	}
+	else if ( event.Key == "Enter" )
+	{
+		if ( autoCompleteView.AuxData.focusEntryIndex == undefined || autoCompleteView.AuxData.focusEntryIndex >= ArrayCount( autoCompleteView.AuxData.entries ) )
+			return;
+
+		entryValue = autoCompleteView.AuxData.entries[autoCompleteView.AuxData.focusEntryIndex];
+		OnAutoCompleteEntryAction( autoCompleteView, entryValue );
+	}
+}
+
+
+function OnAutoCompleteEntryAction( autoCompleteView, entryValue )
+{
+	edit = autoCompleteView.MasterItem;
+	edit.SetText( entryValue );
+	edit.SetSourceValue( entryValue );
+		
+	if ( edit.IsPassive )
+		edit.Update();
+	else
+		edit.Screen.Update();
+}
+
+
+
+}

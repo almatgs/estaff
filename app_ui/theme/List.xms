@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+<PANEL NAME="ListHeaderView" INNER-ALIAS="headerView" SAMPLE="1" WIDTH="100%" BK-COLOR-EXPR="AppUi.themeColors.list_header">
+	<TABLE WIDTH__="100%">
+		<COLUMNS>
+			<LOOP EXPR="headerView.MasterItem.Columns" VAR="column">
+				<COL WIDTH-EXPR="column.SizeX + 'px'"/>
+			</LOOP>
+		</COLUMNS>
+
+		<LOOP EXPR="headerView.MasterItem.HeaderRows" VAR="row">
+			<TABLE-ROW WIDTH="100%" HEIGHT-EXPR__="AppUi.metrics.listHeaderRowHeight + 'px'">
+				<LOOP EXPR="row.Entries" VAR="cell">
+					<SUBST TYPE="ListHeaderCellView" HSPAN-EXPR="cell.HSpan" VSPAN-EXPR="cell.VSpan"/>
+					<SPLIT/>
+				</LOOP>
+			</TABLE-ROW>
+		</LOOP>
+	</TABLE>
+
+	<!--
+	<PANEL WIDTH="100%" HEIGHT="1px" BK-COLOR-EXPR="AppUi.themeColors.list_header_border_bottom">
+	</PANEL>
+	-->
+</PANEL>
+
+
+
+<PANEL NAME="ListHeaderCellView" INNER-ALIAS="cellView" SAMPLE="1" STATES="hover,pressed" STD-MARGINS="0" WIDTH="100%" HEIGHT__="100%" FULL-HEIGHT="1" BK-COLOR-EXPR="
+		switch ( cellView.State )
+		{
+			case 'normal':
+				if ( cell__Index == headerView.MasterItem.GetCurSortColumnIndex() )
+					return AppUi.themeColors.list_header_entry_current;
+				else
+					return '';
+
+			case 'hover':
+				return AppUi.themeColors.list_header_entry_hover;
+		}
+" ACTION="headerView.MasterItem.RunHeaderCellAction( cell__Index )" PASSIVE="1" TIP-TEXT-EXPR="( subItem = FindOptSubItem( 'CellLabel' ) ) != undefined &amp;&amp; subItem.IsContentClipped ? cell.Title : ''">
+	<IF EXPR="cell.Rotation == 0">
+		<PANEL PADDING="0.3em 0.5em 0.3em 0.5em">
+			<LINE MAX-WIDTH="100%">
+				<LABEL NAME="CellLabel" TITLE-EXPR="cell.Title" TEXT-ALIGN-EXPR="cell.Align" TEXT-COLOR-EXPR="
+						switch ( cellView.State )
+						{
+							case 'normal':
+								return AppUi.themeColors.gray_text;
+
+							case 'hover':
+								return AppUi.themeColors.primary;
+						}
+				" MULTILINE="0" MAX-WIDTH="100%" END-ELLIPSIS="1"/>
+
+				<IF EXPR="cell__Index == headerView.MasterItem.GetCurSortColumnIndex()">
+					<PANEL WIDTH="4epx">
+					</PANEL>
+					<IMAGE URL-EXPR="AppUi.GetStateImageUrl2( ( headerView.MasterItem.GetCurSortDir() == '+' ? '/theme/pict/column_sort_up.svg' : '/theme/pict/column_sort_down.svg' ), '', {} )" WIDTH-EXPR="AppUi.GetImageSize( '/theme/pict/column_sort_up.svg' ).x" HEIGHT-EXPR="AppUi.GetImageSize( '/theme/pict/column_sort_up.svg' ).y" ALIGN="right"/>
+				</IF>
+			</LINE>
+		</PANEL>
+	</IF>
+	<ELSE>
+		<PANEL PADDING="0.3em 0.2em 0.3em 0.2em" WIDTH="100%">
+			<LABEL TITLE-EXPR="cell.Title" TEXT-ALIGN="right" TEXT-COLOR-EXPR="
+					switch ( cellView.State )
+					{
+						case 'normal':
+							return AppUi.themeColors.gray_text;
+
+						case 'hover':
+							return AppUi.themeColors.primary;
+					}
+			" ROTATION-EXPR="cell.Rotation" HEIGHT_="100%" MINIMIZE-WIDTH="1" END-ELLIPSIS="1" ALIGN="center" TIP-DEFAULT="1" TIP-CLIPPED-TEXT="1"/>
+		</PANEL>
+	</ELSE>
+	<PANEL WIDTH="100%" HEIGHT="1px" BK-COLOR-EXPR="AppUi.themeColors.list_header_border_bottom" VERT-ALIGN="bottom">
+	</PANEL>
+</PANEL>
+
+
+<IMAGE NAME="ListLoadProgress" SAMPLE="1" URL="pict/progress_circle.gif"/>
+	
+	
+	
+<PANEL NAME="ListLoadProgress1" SAMPLE="1" WIDTH="100%" HEIGHT="3.5em" PADDING="0.8em" BK-COLOR-EXPR="'255,255,230'
+">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="50%"/>
+			<COL WIDTH="20px"/>
+			<COL WIDTH="50%"/>
+		</COLUMNS>
+		
+		<LABEL/>
+		<IMAGE URL="pict/progress_circle.gif" ALIGN="center"/>
+		<LABEL/>
+	</TABLE>
+</PANEL>
+
+
+
+<PANEL NAME="ListRowToggleMark" SAMPLE="1" INNER-ALIAS="toggleMark" PADDING__="0.8em" STATES="hover">
+	<IF EXPR="toggleMark.AuxData.isExpanded">
+		<ActionImage IMAGE-URL="pict/list_row_collapse.svg" WIDTH="100%" HEIGHT="100%" PADDING="0 1epx 0 3epx" ALIGN="center" OnMouseDown="toggleMark.MasterItem.SetExpanded( false )" PASSIVE="1"/>
+	</IF>
+	<ELSE>
+		<ActionImage IMAGE-URL="pict/list_row_expand.svg" WIDTH="100%" HEIGHT="100%" PADDING="0 1epx 0 3epx" ALIGN="center" OnMouseDown="toggleMark.MasterItem.SetExpanded( true )" PASSIVE="1"/>
+	</ELSE>
+</PANEL>
+
+
+<PANEL NAME="ListCellCheckBoxView" INNER-ALIAS="checkBoxView" SAMPLE="1" STD-MARGINS="0" STATES="hover,pressed" OnCreate="BaseSampleItem.AuxData.isChecked = false" ACTION="
+		BaseSampleItem.AuxData.isChecked = ! BaseSampleItem.AuxData.isChecked;
+		
+		if ( checkBoxView.MasterItem.GetOptAttrValue( 'INVERTED' ) == true )
+			MasterItem.SetSourceValue( ! BaseSampleItem.AuxData.isChecked );
+		else
+			MasterItem.SetSourceValue( BaseSampleItem.AuxData.isChecked );
+		
+		if ( MasterItem.IsPassive )
+			BaseSampleItem.Update();
+		else
+			Screen.Update();
+" PASSIVE="1">
+	<WITH VAR="dummy" EXPR="
+			newIsChecked = checkBoxView.MasterItem.Source;
+			if ( checkBoxView.MasterItem.GetOptAttrValue( 'INVERTED' ) == true )
+				newIsChecked = ! newIsChecked;
+
+			checkBoxView.AuxData.isChecked = newIsChecked;
+
+	"/>
+
+	<LINE>
+		<IMAGE URL-EXPR="
+			colorMapping = new Object;
+			colorMapping.hover = AppUi.gThemeData.colors.primary;
+			colorMapping.pressed = AppUi.gThemeData.colors.dark;
+
+			if ( BaseSampleItem.AuxData.isChecked )
+				return AppUi.GetStateImageUrl2( '/theme/pict/check.svg', BaseSampleItem.State, colorMapping );
+			else
+				return AppUi.GetStateImageUrl2( '/theme/pict/uncheck.svg', BaseSampleItem.State, colorMapping );
+		"/>
+	</LINE>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+
+

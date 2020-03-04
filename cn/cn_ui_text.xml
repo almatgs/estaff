@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cn_ui_text xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<objects>
+		<calendar_entry VALUE="Календарное событие" lang-en:VALUE="Calendar Entry" lang-ua:VALUE="Календарна подія"/>
+	</objects>
+	<fields>
+		<calendar_entry_type VALUE="Тип записи в календаре" lang-en:VALUE="Calendar Entry" lang-ua:VALUE="Тип запису в календарі"/>
+	</fields>
+	<titles>
+		<appointment_slots VALUE="Интервалы для встреч" lang-en:VALUE="Appointment Slots" lang-ua:VALUE="Інтервали для зустрічей"/>
+		<appointment_slot_set VALUE="Набор интервалов для встреч" lang-en:VALUE="Set of Appointment Slots" lang-ua:VALUE="Набір інтервалів для зустрічей"/>
+		<appointment_slot_sets VALUE="Наборы интервалов для встреч" lang-en:VALUE="Sets of Appointment Slots" lang-ua:VALUE="Набори інтервалів для зустрічей"/>
+		<external_calendar_integration VALUE="Интеграция с внешним календарем" lang-en:VALUE="External calendar" lang-ua:VALUE="Інтеграція із зовнішнім календарем"/>
+		<load_from_external_calendar VALUE="Загрузка из внешнего календаря" lang-en:VALUE="Import from external calendar" lang-ua:VALUE="Завантаження з зовнішнього календаря"/>
+	</titles>
+	<sections>
+		<global_settings_calendar VALUE="Календарь" lang-en:VALUE="Calendar" lang-ua:VALUE="Календар"/>
+	</sections>
+	<actions>
+		<check_slots VALUE="Проверить интервалы" lang-en:VALUE="Check Slots" lang-ua:VALUE="Перевірити інтервали"/>
+	</actions>
+	<messages>
+		<should_delete_corr_entry_in_ext_calendar_xxx VALUE="Удалить соответствующую запись в календаре %s?" lang-en:VALUE="Delete corresponding entry in %s calendar?" lang-ua:VALUE="Видалити відповідний запис у календарі %s?"/>
+	</messages>
+	<errors>
+		<time_not_selected VALUE="Время не выбрано" lang-en:VALUE="Time has not been selected" lang-ua:VALUE="Час не вибрано"/>
+		<ext_calendar_not_specified VALUE="Интеграция программы с внешним календарем не настроена" lang-en:VALUE="No external calendar specified" lang-ua:VALUE="Інтеграція програми з зовнішнім календарем не налаштована"/>
+		<calendar_entry_by_ext_calendar_eid_not_found VALUE="Соответствующая запись во встроенном календаре программы не найдена" lang-en:VALUE="Corresponding entry is not fount in built-in calendar" lang-ua:VALUE="Відповідний запис у вбудованому календарі програми не знайдено"/>
+		<no_free_room_for_selected_time VALUE="На выбранное время нет свободных комнат" lang-en:VALUE="There are no free rooms for selected time" lang-ua:VALUE="На обраний час немає вільних кімнат"/>
+	</errors>
+</cn_ui_text>

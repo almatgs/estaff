@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task_priorities SPXML-FORM="x-app://base1/base2_task_priorities.xmd"><task_priority><id>1</id><name>1</name><order_index>0</order_index><is_folder>0</is_folder><is_std>1</is_std></task_priority><task_priority><id>2</id><name>2</name><order_index>1</order_index><is_folder>0</is_folder><is_std>1</is_std></task_priority><task_priority><id>3</id><name>3</name><order_index>2</order_index><is_folder>0</is_folder><is_std>1</is_std></task_priority></task_priorities>

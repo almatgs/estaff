@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM TITLE="##UiText.titles.quarterly_budget##" IMAGE-URL="//base_pict/budget.ico">
+
+
+<budget PRIMARY-DISP-NAME="year + '-' + quarter">
+	<id TYPE="integer"/>	
+
+	<year TYPE="integer" TITLE="##UiText.titles.year##"/>
+	<quarter TYPE="integer" TITLE="Квартал" lang-en:TITLE="Quarter" lang-ua:TITLE="Квартал"/>
+
+	<yq_date TYPE="date" EXPR="lib_base.build_yq_date( year, quarter )"/>
+
+	<amount TYPE="real" TITLE="Плановая сумма" lang-en:TITLE="Estimated amount" lang-ua:TITLE="Планова сума"/>
+	<currency_id TYPE="string" TITLE="##UiText.fields.currency##" FOREIGN-ARRAY="currencies" DEFAULT="RUR"/>
+
+	<comment TYPE="string" TITLE="##UiText.fields.comment##"/>
+
+
+	<INHERIT TYPE="card_attachments"/>
+	<INHERIT TYPE="card_info_base"/>
+
+
+	<image_url PROPERTY="1" EXPR="'//base_pict/generic_item.ico'"/>
+</budget>
+
+
+
+</SPXML-FORM>

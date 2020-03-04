@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM CODE-LIB="1" OWN-ID-SPACE="1" STORAGE-TYPE="single-xml">
+
+<recruit_metrics_set_fields_base SAMPLE="1">
+	<max_term_to_job_offer TYPE="term" TITLE="##UiText.fields.max_term_to_job_offer##"/>
+	<max_term_to_job_offer_acceptance TYPE="term" TITLE="##UiText.fields.max_term_to_job_offer_acceptance##"/>
+	<max_term_to_vacancy_close TYPE="term" TITLE="##UiText.fields.max_term_to_vacancy_close##"/>
+</recruit_metrics_set_fields_base>
+
+
+
+<recruit_metrics_set TITLE="##UiText.objects.recruit_plan##">
+	<id TYPE="integer"/>
+	<name TYPE="string"/>
+
+	<target_user_id TYPE="integer" MULTIPLE="1" FOREIGN-ARRAY="users" TITLE="##UiText.objects.user##"/>
+	<target_group_id TYPE="integer" MULTIPLE="1" FOREIGN-ARRAY="groups" TITLE="##UiText.titles.target_group##"/>
+	<target_access_role_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="access_roles" TITLE="##UiText.titles.access_role##"/>
+	<target_recruit_type_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="recruit_types" TITLE="##UiText.titles.recruit_types##"/>
+
+	<INHERIT TYPE="recruit_metrics_set_fields_base"/>
+
+	<max_cur_workload TYPE="real" PRECISION="1" TITLE="Максимальная текущая загрузка рекрутера" lang-en:TITLE="The maximum load of a recruiter at any one time" lang-ua:TITLE="Максимальна поточне завантаження рекрутера"/>
+	<max_monthly_workload TYPE="real" PRECISION="1" TITLE="Максимальная загрузка рекрутера в месяц" lang-en:TITLE="The maximum monthly load of a recruiter" lang-ua:TITLE="Максимальне завантаження рекрутера в місяць"/>
+	<req_monthly_closed_vacancies_num TYPE="real" PRECISION="1" TITLE="Нормативное количество закрытых вакансий в месяц" lang-en:TITLE="Closed vacancies per month" lang-ua:TITLE="Нормативна кількість закритих вакансій на місяць"/>
+
+	<target_staff_categories>
+		<target_staff_category MULTIPLE="1" PRIMARY-KEY="staff_category_id">
+			<staff_category_id TYPE="integer" FOREIGN-ARRAY="staff_categories"/>
+
+			<INHERIT TYPE="recruit_metrics_set_fields_base"/>
+
+			<req_tts_wdays_num TYPE="integer" TITLE="Нормативный срок закрытия вакансии (рабочие дни)" lang-en:TITLE="Required time to start (working days)" lang-ua:TITLE="Нормативний термін закриття вакансії (робочі дні)"/>
+			<req_ttf_wdays_num TYPE="integer" TITLE="Нормативный срок работы над вакансией (рабочие дни)" lang-en:TITLE="Required time to fill (working days)" lang-ua:TITLE="Нормативний термін роботи над вакансією (робочі дні)"/>
+			
+			<workload_multiplier TYPE="real" TITLE="Коэффициент текущей трудоемкости" lang-en:TITLE="Current Workload Multiplier" lang-ua:TITLE="Коефіцієнт поточної трудомісткості"/>
+			<closing_workload_multiplier TYPE="real" TITLE="Коэффициент трудоемкости закрытия" lang-en:TITLE="Closing Workload Multiplier" lang-ua:TITLE="Коефіцієнт трудомісткості закриття"/>
+		</target_staff_category>
+	</target_staff_categories>
+
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</recruit_metrics_set>
+
+
+</SPXML-FORM>

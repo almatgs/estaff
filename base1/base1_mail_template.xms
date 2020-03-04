@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-INIT-ACTION="
+		Ps.html_edit_context.hide_editor = true;
+		Ps.html_edit_context.selector = 'source';
+" BEFORE-SAVE-ACTION="
+		lib_hedit.OnBeforeSaveObjectCard( Ps, Screen );
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<UNIT NAME="static_attc_menus" SAMPLE="1">
+	<MENU RIGHT-CLICK="1">
+		<MENU-ENTRY TITLE="##UiText.actions.open##" ACTION="
+				tempFile = ObtainSessionTempFile( UrlPathSuffix( _attc.name ) );
+				_attc.data.SaveToFile( tempFile );
+				ShellExecute( 'open', tempFile )
+		" PASSIVE="1"/>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="_attc.Delete(); Ps.Doc.SetChanged( true );"/>
+	</MENU>
+</UNIT>
+
+
+
+
+
+<INHERIT TYPE="card_menus"/>
+
+<MENU TITLE="##UiText.sections.service##" GLOBAL="1">
+	<MENU-ENTRY TITLE="Загрузить HTML из файла..." lang-en:TITLE="Import HTML from file..." ACTION="
+			Ps.HandleImportHtmlTextFromFile();
+	" ENABLE-EXPR="Ps.use_html_text" lang-ua:TITLE="Завантажити HTML з файлу..."/>
+</MENU>
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="base_toolbar_start_entries"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY TITLE="##UiText.actions.insert_auto_field##" IMAGE-URL="//base_pict/select.ico" WIDTH="34zr">
+		<MENU>
+			<LOOP EXPR="base1_config.std_mail_template_entries" VAR="ListElem">
+				<IF EXPR="ListElem.is_separator">
+					<MENU-ENTRY SEPARATOR="1"/>
+				</IF>
+				<ELSE>
+					<MENU-ENTRY TITLE-EXPR="ListElem.name" ACTION="
+							Ps.InsertAutoField( ListElem );
+					" PASSIVE="1"/>
+				</ELSE>
+			</LOOP>
+		</MENU>
+	</TOOLBAR-ENTRY>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/help.ico" CMD="Help" TIP-TEXT="##UiText.sections.help##"/>
+</TOOLBAR>
+
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="40zr" STD-MARGINS="0">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="0">
+		</TREE>
+	</PANEL>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.titles.mail_template##" SUNKEN="1" EXPANDED="1" IMAGE-URL="//base_pict/generic_item.ico">
+
+
+<PAGE TITLE="##UiText.sections.general##" SUNKEN="1" IMAGE-URL="//base_pict/common.ico" lang-en:TITLE="General">
+
+
+
+<PANEL STD-MARGINS="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="34zr"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<COMBO SOURCE="Ps.dest_type" READ-ONLY-EXPR="! Ps.voc_info.std_field_editable( Ps, 'dest_type' )" LABEL-TITLE="##UiText.fields.recipient_type##:">
+			<COMBO-ENTRY TITLE="##UiText.objects.contact_person##" VALUE="person"/>
+			<COMBO-ENTRY TITLE="##UiText.objects.candidate##" VALUE="candidate"/>
+			<COMBO-ENTRY TITLE="##UiText.objects.user##" VALUE="user"/>
+			<COMBO-ENTRY TITLE="Фиксированный E-mail" VALUE="fixed_email" lang-en:TITLE="Fixed E-mail" lang-ua:TITLE="Фіксований E-mail"/>
+			<COMBO-ENTRY TITLE="Запись во внешнем календаре" VALUE="ext_calendar" lang-en:TITLE="External calendar entry" lang-ua:TITLE="Запис в зовнішньому календарі"/>
+		</COMBO>
+
+		<PANEL>
+			<PANEL HEIGHT="3zrc">
+			</PANEL>
+			<CHECK SOURCE="Ps.is_notif" TITLE="##UiText.fields.template_is_notif##" WIDTH="auto" ALIGN="right"/>
+		</PANEL>
+	</TABLE>
+	<DELIM/>
+
+	<IF EXPR="Ps.dest_type == 'fixed_email'">
+		<EDIT SOURCE="Ps.email" AUTO-LABEL="1" WIDTH="50zr"/>
+		<BR/>
+	</IF>
+
+	<LABEL TITLE="##UiText.fields.subject##:"/>
+	<EDIT NAME="Subject" SOURCE="Ps.subject"/>
+	<BR/>
+
+	<GROUP>
+		<LABEL TITLE="##UiText.titles.message_text##:"/>
+		<RADIO-BUTTON SOURCE="Ps.use_html_text" TITLE="##UiText.titles.plain_text##" SWITCH-VALUE="false" WIDTH="auto" UPDATE-ACTION="Ps.SyncTexts()"/>
+		<RADIO-BUTTON SOURCE="Ps.use_html_text" TITLE="HTML" SWITCH-VALUE="true" WIDTH="auto" UPDATE-ACTION="Ps.SyncTexts()"/>
+	</GROUP>
+	<BR/>
+</PANEL>
+
+
+<PANEL>
+
+<IF EXPR="Ps.use_html_text">
+	<PANEL SUNKEN="1" HEIGHT="100%">	
+		<IF EXPR="Ps.html_edit_context.selector == 'edit'">
+			<TOOLBAR RIGHT-LABELS="1" TOP-DIVIDER="0">
+				<INHERIT TYPE="hedit_toolbar_entries"/>
+			</TOOLBAR>
+		</IF>
+		<ITEM TYPE="html_ext_edit" SOURCE="Ps.html_text" HEIGHT="100%" preview="1" full-html="1" hide-editor="1"/>
+	</PANEL>
+</IF>
+<ELSE>
+	<PANEL SUNKEN="1" STD-MARGINS="0" HEIGHT="100%">	
+		<EDIT NAME="Text" SOURCE="Ps.text" MULTILINE="1" SHORT="1" HEIGHT="100%" SUNKEN="0"/>
+	</PANEL>
+</ELSE>
+
+</PANEL>
+
+
+</PAGE>
+
+
+
+
+<PAGE TITLE-EXPR="UiText.titles.attachments + ( Ps.attachments.ChildNum != 0 || Ps.card_attachments.ChildNum != 0 ? ' (+)' : '' )" IMAGE-URL="//base_pict/attachment.ico">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="30zr"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<LABEL TITLE="Статические вложенные файлы:" lang-en:TITLE="Static attachments:" lang-ua:TITLE="Статично вкладені файли:"/>
+
+		<IMAGE URL="//base_pict/plus.ico" WIDTH="16px" HEIGHT="16px" TIP-TEXT="##UiText.actions.add##" ACTION="
+				fileList = Screen.AskFilesOpen( '', lib_base.all_files_suffix_pattern );
+
+				for ( file in fileList )
+				{
+					newAttc = Ps.attachments.AddChild();
+					newAttc.data.LoadFromFile( file );
+					newAttc.name = UrlFileName( file );
+				}
+				
+				Ps.Doc.SetChanged( true );
+		"/>
+	</TABLE>
+
+	<LOOP EXPR="Ps.attachments" VAR="_attc">
+		<PANEL HEIGHT="2px">
+		</PANEL>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="1zr"/>
+				<COL WIDTH="4zr"/>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+			<LABEL/>
+
+			<IMAGE URL-EXPR="'x-sys-image://shell-icon/' + UrlPathSuffix( _attc.name )" WIDTH="16px" HEIGHT="16px" ACTION="
+					tempFile = ObtainSessionTempFile( UrlPathSuffix( _attc.name ) );
+					_attc.data.SaveToFile( tempFile );
+					ShellExecute( 'open', tempFile )
+			" PASSIVE="1">
+				<INHERIT TYPE="static_attc_menus"/>
+			</IMAGE>
+
+			<LINK TITLE-EXPR="_attc.name" ACTION="
+					tempFile = ObtainSessionTempFile( UrlPathSuffix( _attc.name ) );
+					_attc.data.SaveToFile( tempFile );
+					ShellExecute( 'open', tempFile )
+			" PASSIVE="1">
+				<INHERIT TYPE="static_attc_menus"/>
+			</LINK>
+
+		</TABLE>
+	</LOOP>
+	<DELIM/>
+
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="30zr"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<LABEL TITLE="Вложенные файлы из карточки:" lang-en:TITLE="Card attachments:" lang-ua:TITLE="Вкладені файли з картки:"/>
+
+		<IMAGE URL="//base_pict/plus.ico" WIDTH="16px" HEIGHT="16px" TIP-TEXT="##UiText.actions.add##" ACTION="
+				newAttc = Ps.card_attachments.AddChild();
+				Ps.Doc.SetChanged( true );
+		"/>
+	</TABLE>
+
+	<LOOP EXPR="Ps.card_attachments" VAR="_card_attc">
+		<PANEL HEIGHT="8px">
+		</PANEL>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="40zr"/>
+				<COL WIDTH="30zr"/>
+				<COL WIDTH="20zr"/>
+				<COL WIDTH="1zr"/>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="16px"/>
+			</COLUMNS>
+
+			<LABEL TITLE="##UiText.titles.file_name##:"/>
+			<LABEL TITLE="##UiText.fields.attachment_type##:"/>
+			<LABEL TITLE="Исходный объект:" lang-en:TITLE="Source object:" lang-ua:TITLE="Вихідний об'єкт:"/>
+			<LABEL/>
+			<LABEL/>
+			<LABEL/>
+
+			<EDIT SOURCE="_card_attc.name" NAME="FileName"/>
+			<ITEM TYPE="voc_elem_selector" SOURCE="_card_attc.card_attachment_type_id"/>
+			<COMBO SOURCE="_card_attc.src_object_type_id" ELEM="ListElem.name" ENABLE-EXPR="_card_attc.card_attachment_type_id != ''"/>
+			<LABEL/>
+
+			<IMAGE URL="//base_pict/delete.ico" WIDTH="16px" HEIGHT="16px" TIP-TEXT="##UiText.actions.del##" ACTION="_card_attc.Delete(); Ps.Doc.SetChanged( true );"/>
+		</TABLE>
+
+		<CHECK SOURCE="_card_attc.is_optional" TITLE="Не прикреплять файл в случае его отсутствия внутри карточки" lang-en:TITLE="Ignore missed attachments" lang-ua:TITLE="Не прикріплювати файл в разі його відсутності всередині картки"/>
+	</LOOP>
+	<DELIM/>
+</PAGE>
+
+
+
+
+<PAGE TITLE="##UiText.sections.add_info##" SUNKEN="1" STD-MARGINS="1" IMAGE-URL="//base_pict/aux_info.ico" EXPANDED="1">
+	<LABEL TITLE="##UiText.titles.script__code##:"/>
+	<EDIT SOURCE="Ps.finish_action" HEIGHT="6zr" MULTILINE="1"/>
+	<DELIM/>
+
+
+	<CHECK SOURCE="Ps.register_event" TITLE="Регистрировать факт отправки письма в виде события" lang-en:TITLE="Register sending message as an event" lang-ua:TITLE="Реєструвати факт відправлення листа у вигляді події"/>
+
+	<IF EXPR="Ps.register_event">
+		<BR/>
+		<LINE>
+			<LABEL TITLE="##UiText.fields.event_type##:"/>
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.event_type_id" ELEM="ListElem.name" WIDTH="38zr"/>
+		</LINE>
+	</IF>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.is_group_starter" TITLE="##UiText.titles.new_group_in_menu##"/>
+	<DELIM/>
+
+	<GROUP>
+		<ITEM TYPE="object_selector" SOURCE="Ps.group_id" WIDTH="30zr" LABEL-TITLE="##UiText.titles.use_only_for_group##:"/>
+	</GROUP>
+</PAGE>
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+
+</LINE>
+
+
+
+</SPXML-SCREEN>
+

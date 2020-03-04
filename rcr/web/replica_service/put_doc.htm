@@ -1,0 +1,19 @@
+<%
+	Request.CheckLdsAuth();
+	Request.UseSoapFault = true;
+
+	url = Request.Query.url;
+	Request.CheckUrlReadAccess( url );
+
+	if ( UrlSchema( url ) != 'x-db-obj' && UrlSchema( url ) != 'x-local' )
+		throw 'Invalid url schema';
+
+	doc = OpenDocFromStr( Request.Body );
+	doc.Url = url;
+
+	doc.WriteDocInfo = false;
+	doc.RunActionOnSave = false;
+
+	doc.Save();
+%>
+

@@ -1,0 +1,269 @@
+"META:CLASS:ui_builder_client.template_editor";
+
+
+function HandleAddField( extTypeID, parentElem ? )
+{
+	if ( parentElem == undefined )
+		parentElem = this.base_elem;
+
+	elemName = this.BuildUniqueElemName( parentElem );
+	elem = this.base_elem.AddDynamicChild( elemName );
+	this.SetFieldExtType( elem, extTypeID );
+
+	parentElem.Doc.SetChanged( true );
+	this.SetCurElem( elem );
+}
+
+
+function HandleAddAuxItem( auxItemTypeID, parentElem ? )
+{
+	if ( parentElem == undefined )
+		parentElem = this.base_elem;
+
+	elemName = this.BuildUniqueElemName( parentElem );
+	elem = this.base_elem.AddDynamicChild( 'UI:' + auxItemTypeID );
+
+	parentElem.Doc.SetChanged( true );
+	this.SetCurElem( elem );
+}
+
+
+function BuildUniqueElemName( parentElem )
+{
+	for ( i = 1; ; i++ )
+	{
+		elemName = 'e_' + StrInt( i, 2 );
+		if ( ! parentElem.ChildExists( elemName ) )
+			return elemName;
+	}
+}
+
+
+function IsAuxElem( elem )
+{
+	return StrContains( elem.Name, ':' );
+}
+
+
+function GetElemDispName( elem )
+{
+	if ( elem === this.base_elem )
+		return elem.Title;
+
+	return elem.OptAttrValue( 'TITLE', '' );
+}
+
+
+function GetElemDispType( elem )
+{
+	if ( elem === this.base_elem )
+		return '';
+
+	if ( this.IsAuxElem( elem ) )
+	{
+		auxType = GetOptForeignElem( ui_common.template_aux_item_types, xml_utils.GetElemCoreName( elem ) );
+		if ( auxType == undefined )
+			return elem.Name;
+
+		return auxType.name;
+	}
+	else
+	{
+		extType = GetOptForeignElem( ui_common.field_ext_types, this.GetElemExtTypeID( elem ) );
+		if ( extType == undefined )
+			return elem.GetOptAttr( 'TYPE', '' );
+
+		return extType.name;
+	}
+}
+
+
+function GetElemDispID( elem )
+{
+	if ( elem === this.base_elem )
+		return '';
+
+	if ( this.IsAuxElem( elem ) )
+		return '';
+
+	return elem.Name;
+}
+
+
+function GetElemImageUrl( elem )
+{
+	if ( elem === this.base_elem )
+		return '//base_pict/folder.ico';
+
+	switch ( elem.Name )
+	{
+		case 'LABEL':
+			return '//base_pict/bullet_list.ico'
+
+		case 'LINE':
+		case 'LINE-END':
+			return '//base_pict/dots.ico';
+
+		case 'PAGE':
+		case 'PAGE-END':
+			return '//base_pict/csd_page.ico';
+	}
+
+	return '//base_pict/csd_elem.ico';
+}
+
+
+function SetCurElem( elem )
+{
+	if ( elem === this.base_elem )
+	{
+		this.cur_elem = undefined;
+	}
+	else
+	{
+		this.cur_elem = elem;
+		this.cur_elem_extra.is_aux = StrContains( elem.Name, ':' );
+		if ( this.cur_elem_extra.is_aux )
+		{
+			this.cur_elem_extra.field_ext_type_id = undefined;
+			this.cur_elem_extra.aux_item_type_id = xml_utils.GetElemCoreName( elem );
+		}
+		else
+		{
+			this.cur_elem_extra.field_ext_type_id = this.GetElemExtTypeID( elem );
+			this.cur_elem_extra.aux_item_type_id = undefined;
+			this.cur_elem_extra.field_foreign_array_type = this.GetElemForeignArrayType( elem );
+		}
+	}
+	
+	this.screen.Update();
+}
+
+
+function GetElemExtTypeID( elem )
+{
+	typeStr = elem.OptAttrValue( 'TYPE' );
+
+	switch ( typeStr )
+	{
+		case 'string':
+			if ( elem.OptAttrValue( 'MULTILINE' ) == '1' )
+				return 'text';
+			else
+				return 'string';
+				
+		default:
+			return typeStr;
+	}
+}
+
+
+function GetElemForeignArrayType( elem )
+{
+	if ( elem.GetOptAttr( 'TYPE' ) != 'select' )
+		return undefined;
+
+	foreigArrayExpStr = elem.GetOptAttr( 'FOREIGN-ARRAY' );
+	if ( foreigArrayExpStr != undefined )
+	{
+		if ( ( vocInfo = lib_voc.get_opt_voc_info( foreigArrayExpStr ) ) != undefined )
+			return 'voc';
+		else if ( ( catalog = DefaultDb.GetOptCatalog( foreigArrayExpStr ) ) != undefined )
+			return catalog;
+		else
+			return array;
+	}
+	else
+	{
+		if ( elem.OptChild( 'UI:OPTIONS' ) != undefined )
+			return 'inline_array';
+	}
+}
+
+
+function HandleChangeFieldName( elem, newName )
+{
+	this.CheckFieldName( newName );
+	if ( elem.Name == newName )
+		return;
+
+	if ( elem.Parent.ChildExists( newName ) )
+		throw UserError( StrReplace( UiText.errors.field_xxx_already_exists, '%s', newName ) );
+
+	elem.Name = newName;
+}
+
+
+function SetFieldExtType( elem, newExtTypeID )
+{
+	if ( newExtTypeID == 'struct' )
+	{
+		elem.DeleteOptAttr( 'TYPE' );
+	}
+	else
+	{
+		for ( subElem in elem )
+			subElem.Delete();
+
+		switch ( newExtTypeID )
+		{
+			case 'text':
+				typeStr = 'string';
+				break;
+
+			default:
+				typeStr = newExtTypeID;
+		}
+
+		elem.ObtainAttr( 'TYPE', typeStr );
+
+		if ( newExtTypeID == 'text' )
+			elem.ObtainAttr( 'MULTILINE', '1' );
+		else
+			elem.DeleteOptAttr( 'MULTILINE' );
+	}
+
+	this.SetCurElem( elem )
+}
+
+
+function SetAuxElemType( elem, newAuxTypeID )
+{
+	elem.Name = 'UI:' + newAuxTypeID;
+}
+
+
+function CheckFieldName( elemName )
+{
+	if ( elemName == '' )
+		throw UiError( UiText.errors.invalid_value );;
+
+	char = StrRangePos( elemName, 0, 1 );
+	if ( char >= 'a' && char <= 'z' )
+	{
+	}
+	else
+	{
+		throw UserError( UiText.errors.id_must_start_with_alpha_char );
+	}
+
+	for ( i = 0; i < StrLen( elemName ); i++ )
+	{
+		char = StrRangePos( elemName, i, i + 1 );
+
+		if ( ( char >= 'a' && char <= 'z' ) || ( char >= '0' && char <= '9' ) || char == '_' )
+		{
+		}
+		else
+		{
+			throw UserError( UiText.errors.invalid_id_char );
+		}
+	}
+
+	if ( StrEnds( elemName, '_' ) )
+		throw UserError( UiText.errors.id_cannot_end_with_underscore );
+
+	if ( StrContains( elemName, '__' ) )
+		throw UserError( UiText.errors.id_cannot_contain_double_underscore );
+}
+

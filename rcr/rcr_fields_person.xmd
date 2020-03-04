@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<person_base SAMPLE="1">
+	<is_rr_person TYPE="bool" NULL-FALSE="1" TITLE="Оценивающее лицо при подборе сотрудников" lang-en:TITLE="Candidates assessor" lang-ua:TITLE="Оцінювальна особа при підборі співробітників"/>
+	<candidate_id TYPE="integer" FOREIGN-ARRAY="candidates" TITLE="Связка с карточкой кандидата" lang-en:TITLE="Candidate link" lang-ua:TITLE="Зв'язок з карткою кандидата"/>
+
+	<is_rr_viewer TYPE="bool" NULL-FALSE="1" TITLE="Наблюдатель" lang-en:TITLE="Viewer" lang-ua:TITLE="Спостерігач"/>
+</person_base>
+
+
+</SPXML-FORM>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems.xmd">
+	<std_voc_elem>
+		<id>mass_recruit</id>
+		<name VALUE="##UiText.titles.mass_recruit##"/>
+	</std_voc_elem>
+</std_voc_elems>
+

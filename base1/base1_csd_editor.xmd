@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<csd_editor>
+	<object_type_id TYPE="string"/>
+	<title TYPE="string"/>
+	<root_elem_ref TYPE="variant"/>
+	<cur_elem_ref TYPE="variant"/>
+	<cur_elem_is_aux TYPE="bool" NULL-FALSE="1"/>
+
+
+	<set_cur_elem_async PROPERTY="1" PARAM="elem" EXPR="
+			EvalAsync( 'editor.set_cur_elem( elem );ActiveScreen.Update();', 'editor', this, 'elem', elem );
+			Cancel();
+	"/>
+
+	<set_cur_elem PROPERTY="1" PARAM="elem" EXPR="
+			cur_elem_ref = elem;
+			cur_elem_is_aux = is_aux_tag_name( elem.Name );
+	"/>
+
+
+	<get_elem_disp_name PROPERTY="1" PARAM="elem" EXPR="
+			if ( elem.Name == 'Ps' )
+				return UiText.sections.custom_fields;
+
+			return elem.Name;
+	"/>
+
+	<get_elem_image_url PROPERTY="1" PARAM="elem" EXPR="
+			if ( elem.Name == 'Ps' )
+				return '//base_pict/folder.ico';
+
+			switch ( elem.Name )
+			{
+				case 'LABEL':
+					return '//base_pict/bullet_list.ico'
+
+				case 'LINE':
+				case 'LINE-END':
+					return '//base_pict/dots.ico';
+
+				case 'PAGE':
+				case 'PAGE-END':
+					return '//base_pict/csd_page.ico';
+			}
+
+			return '//base_pict/csd_elem.ico';
+	"/>
+
+
+	<set_elem_tag_name PROPERTY="1" PARAM="elem" PARAM="tagName" EXPR="
+			elem.Name = tagName;
+	"/>
+
+
+	<set_elem_name PROPERTY="1" PARAM="elem" PARAM="elemName" EXPR="
+			check_elem_name( elemName );
+
+			if ( elem_name_exists( elemName ) )
+				throw UserError( StrReplace( UiText.errors.field_xxx_already_exists, '%s', elemName ) );
+
+			elem.Name = elemName;
+	"/>
+
+
+	<generate_elem_name PROPERTY="1" EXPR="
+			for ( i = 1; ; i++ )
+			{
+				elemName = 'cs_elem_' + StrInt( i, 2 );
+				if ( ! elem_name_exists( elemName ) )
+					break;
+			}
+
+			return elemName;
+	"/>
+
+
+	<elem_name_exists PROPERTY="1" PARAM="elemName" EXPR="
+			root_elem_ref.Object.ChildExists( elemName );
+	"/>
+
+
+	<check_elem_name PROPERTY="1" PARAM="elemName" EXPR="
+			if ( ! StrBegins( elemName, 'cs_' ) )
+				throw UserError( UiText.errors.field_id_must_start_with_cs );
+
+			char = StrRangePos( elemName, 0, 1 );
+			if ( char >= 'a' && char <= 'z' )
+			{
+			}
+			else
+			{
+				throw UserError( UiText.errors.id_must_start_with_alpha_char );
+			}
+
+			for ( i = 0; i < StrLen( elemName ); i++ )
+			{
+				char = StrRangePos( elemName, i, i + 1 );
+
+				if ( ( char >= 'a' && char <= 'z' ) || ( char >= '0' && char <= '9' ) || char == '_' )
+				{
+				}
+				else
+				{
+					throw UserError( UiText.errors.invalid_id_char );
+				}
+			}
+
+			if ( StrEnds( elemName, '_' ) )
+				throw UserError( UiText.errors.id_cannot_end_with_underscore );
+
+			if ( StrContains( elemName, '__' ) )
+				throw UserError( UiText.errors.id_cannot_contain_double_underscore );
+	"/>
+
+
+	<is_aux_tag_name PROPERTY="1" PARAM="tagName" EXPR="
+			switch ( tagName )
+			{
+				case 'LABEL':
+				case 'LINE':
+				case 'LINE-END':
+				case 'PAGE':
+				case 'PAGE-END':
+					return true;
+			}
+
+			return false;
+	"/>
+</csd_editor>
+
+
+
+</SPXML-FORM>

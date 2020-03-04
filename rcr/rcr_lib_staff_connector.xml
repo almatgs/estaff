@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<lib_staff_connector>
+	<METHOD NAME="load_divisions" PROGRESS="1" RUN-UI="1">
+	</METHOD>
+
+	<METHOD NAME="load_positions" PROGRESS="1" RUN-UI="1">
+	</METHOD>
+
+	<METHOD NAME="load_persons" PROGRESS="1" RUN-UI="1">
+	</METHOD>
+
+	<METHOD NAME="load_vacancies" PROGRESS="1" RUN-UI="1" SHOW-COMPLETION-MESSAGE="1">
+		<STATISTICS>
+			<total_count TYPE="integer" TITLE="Загружено вакансий" lang-en:TITLE="Loaded vacancies" lang-ua:TITLE="Завантажено вакансій"/>
+			<new_count TYPE="integer" TITLE="##UiText.titles.of_them_new##"/>
+		</STATISTICS>
+	</METHOD>
+</lib_staff_connector>
+
+
+</SPXML-INLINE-FORM>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>vacancies_tentative</id>
+	<parent_id>vacancies</parent_id>
+	<name VALUE="##UiText.actions.new_requests##" lang-en:VALUE="New requests"/>
+
+	<static_filters>
+		<static_filter>
+			<id>is_tentative</id>
+			<value>true</value>
+		</static_filter>
+	</static_filters>
+</std_view>
+

@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>phone_call_records</id>
+	<name VALUE="##UiText.titles.call_history##"/>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>direction</id>
+		</dyn_filter>
+		<dyn_filter>
+			<id>user_id</id>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>date</id>
+			<use_time>0</use_time>
+		</field>
+		<field>
+			<id>date</id>
+			<time_only>1</time_only>
+			<col_title VALUE="##UiText.titles.time##"/>
+		</field>
+		<field>
+			<id>direction</id>
+			<align>center</align>
+			<width>15zr</width>
+		</field>
+		<field>
+			<id>src_phone_desc</id>
+			<text_color_expr>lib_telephony.GetPhoneExtensioTextColor( src_phone_extension )</text_color_expr>
+			<align>center</align>
+			<width>20zr</width>
+		</field>
+		<field>
+			<id>dest_phone_desc</id>
+			<text_color_expr>lib_telephony.GetPhoneExtensioTextColor( dest_phone_extension )</text_color_expr>
+			<align>center</align>
+			<width>20zr</width>
+		</field>
+		<field>
+			<id>state_id</id>
+			<text_color_expr>state_id.ForeignElem.text_color</text_color_expr>
+			<bk_color_expr>state_id.ForeignElem.bk_color</bk_color_expr>
+			<align>center</align>
+			<width>20zr</width>
+		</field>
+		<field>
+			<id>failure_reason_id</id>
+			<text_color_expr>state_id.ForeignElem.text_color</text_color_expr>
+			<align>center</align>
+			<width>22zr</width>
+		</field>
+		<!--<field>
+			<id>end_date</id>
+			<time_only>1</time_only>
+			<col_title VALUE="Завершен" lang-en:VALUE="Finished" lang-ua:VALUE="Завершено"/>
+		</field>-->
+		<field>
+			<id>cur_talk_seconds</id>
+			<title_expr>lib_telephony.DurationDesc( cur_talk_seconds )</title_expr>
+			<align>center</align>
+			<width>20zr</width>
+		</field>
+		<field>
+			<id>cur_wait_seconds</id>
+			<title_expr>lib_telephony.DurationDesc( cur_wait_seconds )</title_expr>
+			<text_color>60,60,60</text_color>
+			<align>center</align>
+			<width>20zr</width>
+		</field>
+		<field>
+			<id>external_person_id</id>
+			<title_expr>external_person_id.ForeignDispName</title_expr>
+			<width>100%</width>
+		</field>
+		<field>
+			<id>user_id</id>
+			<width>20zr</width>
+		</field>
+	</fields>
+
+	<open_action>return;</open_action>
+	<use_preview_expr>true</use_preview_expr>
+	<list_with_preview_height>-14zr</list_with_preview_height>
+</std_view>
+

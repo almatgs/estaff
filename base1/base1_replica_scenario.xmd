@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<replica_scenario>
+	<id TYPE="string"/>
+	
+	<server_address TYPE="string"/>
+
+	<login TYPE="string"/>
+	<password_ed TYPE="string"/>
+</replica_scenario>
+
+
+</SPXML-FORM>

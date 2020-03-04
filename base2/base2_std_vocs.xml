@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_vocs SPXML-FORM="//base1/base1_std_vocs.xmd">
+	<std_voc>
+		<id>industries</id>
+		<name VALUE="Сферы деятельности" lang-en:VALUE="Industries" lang-ua:VALUE="Сфери діяльності"/>
+		<section_id>org</section_id>
+
+		<key_type>integer</key_type>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>org_sizes</id>
+		<name VALUE="Размеры компаний" lang-en:VALUE="Company sizes" lang-ua:VALUE="Розміри компаній"/>
+		<section_id>org</section_id>
+
+		<key_type>integer</key_type>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>org_types</id>
+		<name VALUE="Категории компаний" lang-en:VALUE="Company types" lang-ua:VALUE="Категорії компаній"/>
+		<section_id>org</section_id>
+
+		<object_form_url>//base2/base2_org_type.xmd</object_form_url>
+		<key_type>string</key_type>
+		<is_hier>0</is_hier>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>person_roles</id>
+		<name VALUE="Роли контактных лиц" lang-en:VALUE="Contact person roles" lang-ua:VALUE="Ролі контактних осіб"/>
+		<section_id>org</section_id>
+
+		<key_type>string</key_type>
+		<is_hier>0</is_hier>
+		<selector_type>map</selector_type>
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>countries</id>
+		<name VALUE="Страны" lang-en:VALUE="Countries" lang-ua:VALUE="Країни"/>
+		<section_id></section_id>
+
+		<key_type>string</key_type>
+		<selector_type>dlg</selector_type>
+
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>locations</id>
+		<name VALUE="##UiText.titles.locations##"/>
+		<section_id>common</section_id>
+
+		<object_form_url>//base2/base2_location.xmd</object_form_url>
+		<key_type>string</key_type>
+		<is_hier>1</is_hier>
+		<auto_order>name</auto_order>
+		<selector_type>dlg</selector_type>
+
+		<use_text_color>0</use_text_color>
+		<use_bk_color>0</use_bk_color>
+
+		<is_optional_std_elems>1</is_optional_std_elems>
+
+		<extra_actions>
+			<extra_action>
+				<name VALUE="##UiText.actions.load##..."/>
+				<code>lib_location.handle_load_std_locations()</code>
+			</extra_action>
+		</extra_actions>
+	</std_voc>
+
+	<std_voc>
+		<id>metro_stations</id>
+		<name VALUE="Станции метро" lang-en:VALUE="Metro Stations" lang-ua:VALUE="Станції метро"/>
+		<section_id>common</section_id>
+
+		<object_form_url>//base2/base2_metro_station.xmd</object_form_url>
+		<key_type>string</key_type>
+		<auto_order>name</auto_order>
+		<is_hier>0</is_hier>
+		<selector_type>dlg</selector_type>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+
+		<is_optional_std_elems>1</is_optional_std_elems>
+
+		<extra_columns>
+			<extra_column>
+				<id>location_id</id>
+			</extra_column>
+		</extra_columns>
+
+		<extra_actions>
+			<extra_action>
+				<name VALUE="##UiText.actions.load##..."/>
+				<code>lib_location.handle_load_std_metro_stations()</code>
+			</extra_action>
+		</extra_actions>
+	</std_voc>
+
+	<std_voc>
+		<id>offices</id>
+		<name VALUE="Офисы" lang-en:VALUE="Offices" lang-ua:VALUE="Офіси"/>
+		<section_id>common</section_id>
+
+		<object_form_url>//base2/base2_office.xmd</object_form_url>
+		<key_type>integer</key_type>
+		<is_hier>0</is_hier>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+
+		<extra_columns>
+			<extra_column>
+				<id>location_id</id>
+			</extra_column>
+		</extra_columns>
+	</std_voc>
+
+	<std_voc>
+		<id>rooms</id>
+		<name VALUE="Комнаты" lang-en:VALUE="Rooms" lang-ua:VALUE="Кімнати"/>
+		<section_id>common</section_id>
+
+		<object_form_url>//base2/base2_room.xmd</object_form_url>
+		<key_type>integer</key_type>
+		<is_hier>0</is_hier>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+
+		<extra_columns>
+			<extra_column>
+				<id>location_id</id>
+				<width>25zr</width>
+			</extra_column>
+			<extra_column>
+				<id>office_id</id>
+				<width>20zr</width>
+			</extra_column>
+		</extra_columns>
+	</std_voc>
+
+	<std_voc>
+		<id>brands</id>
+		<name VALUE="Бренды" lang-en:VALUE="Brands" lang-ua:VALUE="Бренди"/>
+		<section_id>common</section_id>
+
+		<key_type>string</key_type>
+		<is_hier>0</is_hier>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+	</std_voc>
+
+	<std_voc>
+		<id>event_types</id>
+		<name VALUE="##UiText.titles.event_types##"/>
+		<section_id>common</section_id>
+
+		<object_form_url>//base2/base2_event_type.xmd</object_form_url>
+		<key_type>string</key_type>
+		<is_hier>0</is_hier>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+
+		<extra_columns>
+			<extra_column>
+				<id>target_object_type_id</id>
+			</extra_column>
+		</extra_columns>
+	</std_voc>
+
+	<std_voc>
+		<id>auto_reminders</id>
+		<name VALUE="Виды напоминаний" lang-en:VALUE="Reminder types" lang-ua:VALUE="Види нагадувань"/>
+		<section_id></section_id>
+
+		<object_form_url>//base2/base2_auto_reminder.xmd</object_form_url>
+		<key_type>string</key_type>
+
+		<extra_columns>
+			<extra_column>
+				<id>multi_event_type_id</id>
+			</extra_column>
+		</extra_columns>
+	</std_voc>
+
+	<std_voc>
+		<id>custom_actions</id>
+		<name VALUE="##UiText.titles.custom_actions##"/>
+		<section_id></section_id>
+
+		<object_form_url>//base2/base2_custom_action.xmd</object_form_url>
+		<key_type>string</key_type>
+
+		<extra_columns>
+			<extra_column>
+				<id>target_object_type_id</id>
+			</extra_column>
+		</extra_columns>
+	</std_voc>
+
+	<std_voc>
+		<id>payment_states</id>
+		<name VALUE="Статусы платежа" lang-en:VALUE="Payment states" lang-ua:VALUE="Статуси платежу"/>
+
+		<key_type>string</key_type>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+	</std_voc>
+
+	<std_voc>
+		<id>task_states</id>
+		<name VALUE="Статусы задач" lang-en:VALUE="Task states" lang-ua:VALUE="Статуси задач"/>
+		<section_id>hidden</section_id>
+
+		<object_form_url>//base2/base2_task_state.xmd</object_form_url>
+		<key_type>string</key_type>
+		<is_hier>0</is_hier>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+
+		<edit_std_prohibit_fields>
+			<field>name</field>
+			<field>text_color</field>
+			<field>bk_color</field>
+		</edit_std_prohibit_fields>
+	</std_voc>
+
+	<std_voc>
+		<id>task_types</id>
+		<name VALUE="Типы задач" lang-en:VALUE="Task types" lang-ua:VALUE="Типи задач"/>
+		<section_id>hidden</section_id>
+
+		<key_type>string</key_type>
+		<is_hier>0</is_hier>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+	</std_voc>
+
+	<std_voc>
+		<id>task_priorities</id>
+		<name VALUE="Приоритеты задач" lang-en:VALUE="Task priority levels" lang-ua:VALUE="Пріоритети задач"/>
+		<section_id>common</section_id>
+
+		<key_type>integer</key_type>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>workflow_document_types</id>
+		<name VALUE="Типы электронного документа" lang-en:VALUE="Workflow document types" lang-ua:VALUE="Типи електронного документа"/>
+		<section_id></section_id>
+
+		<key_type>string</key_type>
+		<object_form_url>//base2/base2_workflow_document_type.xmd</object_form_url>
+	</std_voc>
+
+	<std_voc>
+		<id>workflow_types</id>
+		<name VALUE="##UiText.titles.workflow_types##"/>
+		<section_id>hidden</section_id>
+
+		<key_type>string</key_type>
+		<object_form_url>//base2/base2_workflow_type.xmd</object_form_url>
+	</std_voc>
+
+	<std_voc>
+		<id>workflow_document_states</id>
+		<name VALUE="Статусы электронного документа" lang-en:VALUE="Workflow document states" lang-ua:VALUE="Статуси електронного документа"/>
+		<section_id></section_id>
+
+		<key_type>string</key_type>
+		<object_form_url>//base2/base2_workflow_document_state.xmd</object_form_url>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+
+		<edit_std_prohibit_fields>
+			<field>name</field>
+		</edit_std_prohibit_fields>
+	</std_voc>
+
+	<std_voc>
+		<id>access_roles</id>
+		<name VALUE="Уровни доступа" lang-en:VALUE="Access levels" lang-ua:VALUE="Рівні доступу"/>
+		<section_id>common</section_id>
+
+		<object_form_url>//base2/base2_access_role.xmd</object_form_url>
+		<key_type>string</key_type>
+	</std_voc>
+
+	<std_voc>
+		<id>contact_types</id>
+		<name VALUE="##UiText.titles.contact_types##"/>
+		<section_id></section_id>
+		<key_type>string</key_type>
+	</std_voc>
+
+	<std_voc>
+		<id>office_access_systems</id>
+		<name VALUE="Системы заказа пропусков" lang-en:VALUE="Office access control systems" lang-ua:VALUE="Системи замовлення перепусток"/>
+		<section_id>integration</section_id>
+
+		<object_form_url>//base2/base2_office_access_system.xmd</object_form_url>
+		<key_type>string</key_type>
+	</std_voc>
+</std_vocs>
+

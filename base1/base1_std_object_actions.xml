@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_object_actions SPXML-FORM="//base1/base1_std_object_actions.xmd">
+	<std_object_action>
+		<id>mass_mail</id>
+		<name VALUE="##UiText.titles.mass_mailing##"/>
+
+		<lib_name>lib_mail</lib_name>
+		<mass_method_name>handle_send_mass_mail</mass_method_name>
+
+		<show_in_main_menu>1</show_in_main_menu>
+	</std_object_action>
+
+	<std_object_action>
+		<id>mass_sms</id>
+		<name VALUE="##UiText.titles.mass_sms##"/>
+
+		<lib_name>lib_sms</lib_name>
+		<mass_method_name>handle_send_mass_sms</mass_method_name>
+		<enable_expr>base1_config.use_sms</enable_expr>
+
+		<show_in_main_menu>1</show_in_main_menu>
+	</std_object_action>
+
+	<std_object_action>
+		<id>copy_emails</id>
+		<name VALUE="Копировать адреса E-mail" lang-en:VALUE="Copy E-mails" lang-ua:VALUE="Копіювати адреси E-mail"/>
+
+		<lib_name>lib_base</lib_name>
+		<mass_method_name>handle_copy_objects_emails</mass_method_name>
+
+		<show_in_main_menu>1</show_in_main_menu>
+	</std_object_action>
+
+	<std_object_action>
+		<id>resave</id>
+		<name VALUE="Пересохранить карточки" lang-en:VALUE="Resave Objects" lang-ua:VALUE="Перезберегти картки"/>
+
+		<lib_name>lib_base</lib_name>
+		<method_name>resave_object</method_name>
+
+		<show_in_main_menu>1</show_in_main_menu>
+	</std_object_action>
+
+	<std_object_action>
+		<id>set_field</id>
+		<name VALUE="Установить значение поля" lang-en:VALUE="Set Field Value" lang-ua:VALUE="Встановити значення поля"/>
+
+		<lib_name>lib_base</lib_name>
+		<mass_method_name>handle_set_objects_field</mass_method_name>
+
+		<show_in_main_menu>1</show_in_main_menu>
+	</std_object_action>
+
+	<std_object_action>
+		<id>launch_agent</id>
+		<name VALUE="Запустить фоновую задачу" lang-en:VALUE="Launch agent in background" lang-ua:VALUE="Запустити фонову задачу"/>
+		<object_type_id>agent</object_type_id>
+
+		<lib_name>lib_agent</lib_name>
+		<method_name>handle_launch_agent</method_name>
+
+		<show_in_context_menu>1</show_in_context_menu>
+	</std_object_action>
+
+	<std_object_action>
+		<id>run_agent_sync</id>
+		<name VALUE="Выполнить фоновую задачу на рабочем месте" lang-en:VALUE="Run agent on workstation" lang-ua:VALUE="Виконати фонову задачу на робочому місці"/>
+		<object_type_id>agent</object_type_id>
+
+		<lib_name>lib_agent</lib_name>
+		<method_name>handle_run_agent_sync</method_name>
+
+		<show_in_context_menu>1</show_in_context_menu>
+	</std_object_action>
+
+	<std_object_action>
+		<id>copy_id</id>
+		<name VALUE="Копировать ID объекта" lang-en:VALUE="Copy Object ID" lang-ua:VALUE="Копіювати ID об'єкта"/>
+
+		<lib_name>lib_base</lib_name>
+		<method_name>run_copy_object_id</method_name>
+
+		<show_in_context_menu>0</show_in_context_menu>
+	</std_object_action>
+
+	<std_object_action>
+		<id>copy_hex_id</id>
+		<name VALUE="Копировать ID объекта (Hex)" lang-en:VALUE="Copy Object ID (Hex)" lang-ua:VALUE="Копіювати ID об'єкта (Hex)"/>
+
+		<lib_name>lib_base</lib_name>
+		<method_name>run_copy_object_hex_id</method_name>
+
+		<show_in_context_menu>0</show_in_context_menu>
+	</std_object_action>
+
+	<std_object_action>
+		<id>copy_record_xml</id>
+		<name VALUE="Копировать запись (XML)" lang-en:VALUE="Copy Record as XML" lang-ua:VALUE="Копіювати запис (XML)"/>
+
+		<lib_name>lib_base</lib_name>
+		<method_name>run_copy_record_xml</method_name>
+
+		<show_in_context_menu>0</show_in_context_menu>
+	</std_object_action>
+
+	<std_object_action__>
+		<id>restore_object_by_catalog_record</id>
+		<name VALUE="Восстановить объект по записи в каталоге" lang-en:VALUE="Restore object by catalog record" lang-ua:VALUE="Відновити об'єкт по запису в каталозі"/>
+
+		<lib_name>lib_base</lib_name>
+		<method_name>run_restore_object_by_catalog_record</method_name>
+
+		<show_in_context_menu>0</show_in_context_menu>
+	</std_object_action__>
+</std_object_actions>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

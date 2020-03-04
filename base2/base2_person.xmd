@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM TITLE="##UiText.objects.person##" CODE-LIB="1" IMAGE-URL="//base_pict/contact_person.ico" IMAGE-URL-EXPR="image_url()" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+
+<person PRIMARY-DISP-NAME="fullname">
+	<id TYPE="integer"/>	
+	<code TYPE="string" TITLE="##UiText.fields.code##"/>	
+
+	<lastname TYPE="string" TITLE="##UiText.fields.lastname##" INDEXED="1" UI:MaxLen="20"/>
+	<firstname TYPE="string" TITLE="##UiText.fields.firstname##" INDEXED="1" UI:MaxLen="11" UI:PutWithField="lastname"/>
+	<middlename TYPE="string" TITLE="##UiText.fields.middlename##" UI:MaxLen="15" UI:PutWithField="firstname"/>
+
+	<shortname PROPERTY="1" EXPR="lib_person_details.BuildPersonShortName( lastname, firstname, middlename )" TITLE="##UiText.fields.shortname##"/>
+	<fullname TYPE="person_fullname" INDEXED="1"/>
+
+	<eid TYPE="string" INDEXED="1" FT-IGNORE="1"/>
+
+	<outlook_name TYPE="string" INDEXED="1" TITLE="##UiText.fields.outlook_name##"/>
+	<lotus_name TYPE="string" INDEXED="1" TITLE="##UiText.fields.lotus_name##"/>
+	<sys_login TYPE="string" INDEXED="1" TITLE="Имя в Windows" lang-en:TITLE="Name in Windows" lang-ua:TITLE="Ім'я в Windows"/>
+
+	<password_hash TYPE="string" FT-IGNORE="1"/>
+	<account_disabled TYPE="bool" NULL-FALSE="1" TITLE="Доступ в систему заблокирован" lang-en:TITLE="Account disabled" lang-ua:TITLE="Доступ в систему заблокований"/>
+	<access_role_id TYPE="string" FOREIGN-ARRAY="access_roles" TITLE="##UiText.titles.access_role##"/>
+
+	<phone_extension TYPE="integer" TITLE="##UiText.titles.phone_extension##" INDEXED="1"/>
+
+	<is_derived TYPE="bool" NULL-FALSE="1"/>
+
+	<is_pp TYPE="bool" NULL-FALSE="1" TITLE="Частное лицо" lang-en:TITLE="Private person" lang-ua:TITLE="Приватна особа"/>
+	<is_own_person TYPE="bool" NULL-FALSE="1" TITLE="Собственный сотрудник" INDEXED="1" lang-en:TITLE="Own Employee" lang-ua:TITLE="Власний співробітник"/>
+	<is_candidate TYPE="bool" NULL-FALSE="1" TITLE="##UiText.objects.candidate##" INDEXED="1"/>
+
+	<gender_id TYPE="integer" FOREIGN-ARRAY="base1_common.person_genders" TITLE="##UiText.fields.gender##" EXP-MAX-LEN="3"/>
+
+	<birth_date TYPE="date" TIME="0" TITLE="Дата рожд." COL-TITLE="##UiText.fields.birth_date_short##" lang-en:COL-TITLE="DoB" lang-en:TITLE="Birth Date" lang-ua:TITLE="Дата нар."/>
+	<birth_year TYPE="integer" TITLE="##UiText.fields.birth_year__short##" EXPR="birth_date.HasValue ? Year( birth_date ) : birth_year"/>
+	<birth_date_remind TYPE="bool" NULL-FALSE="1" TITLE="Напоминать о дате рождения" lang-en:TITLE="Remind of the birthday" lang-ua:TITLE="Нагадувати про дату народження"/>
+
+	<age TYPE="integer" TITLE="##UiText.fields.age##" EXPR="lib_base.GetPersonAge( this )"/>
+
+	<country_id TYPE="string" FOREIGN-ARRAY="countries" TITLE="##UiText.fields.country##" EXPR-INIT__="global_settings.country_id" base1:allow-hide="1" base1:default-section="add_info"/>
+	<location_id TYPE="string" FOREIGN-ARRAY="locations" IDATA="1" TITLE="##UiText.fields.location##" base1:allow-hide="1" base1:default-section="add_info"/>
+	<metro_station_id TYPE="string" MULTIPLE="1" DOC-ID="1" FOREIGN-ARRAY="metro_stations" TITLE="##UiText.fields.metro_station##" base1:hide-by-default="1"/>
+	<address TYPE="string" TITLE="##UiText.fields.address__of_person##"/>
+	<citizenship_id TYPE="string" FOREIGN-ARRAY="countries" TITLE="##UiText.fields.citizenship##" base1:allow-hide="1" base1:default-section="add_info"/>
+
+	<marital_status_id TYPE="integer" FOREIGN-ARRAY="base1_common.marital_statuses" TITLE="##UiText.fields.marital_status##" base1:allow-hide="1"/>
+	<children_num TYPE="integer" TITLE="##UiText.titles.children##" base1:allow-hide="1"/>
+
+	<educ_type_id TYPE="integer" FOREIGN-ARRAY="base2_common.educ_types" TITLE="##UiText.fields.education##"/>
+
+
+	<org_id TYPE="integer" FOREIGN-ARRAY="orgs" INDEXED="1" TITLE="##UiText.objects.org##" FT-FOREIGN-DISP-NAME="1"/>
+	<division_id TYPE="integer" FOREIGN-ARRAY="divisions" INDEXED="1" TITLE="##UiText.objects.division##" IDATA="1" FT-FOREIGN-DISP-NAME="1"/>
+	<position_id TYPE="integer" FOREIGN-ARRAY="positions" INDEXED="1" TITLE="##UiText.objects.position##"/>
+	<employment_percent TYPE="integer" TITLE="##UiText.fields.employment_percent##"/>
+
+	<is_division_head TYPE="bool" NULL-FALSE="1" TITLE="##UiText.fields.division_head##"/>
+
+	<org_person_priority TYPE="integer" TITLE="##UiText.fields.primary_contact##"/>
+	<position_name TYPE="string" TITLE="##UiText.fields.position##" lang-en:TITLE="Position"/>
+	<hire_date TYPE="date" TIME="0" TITLE="##UiText.fields.hire_date##"/>
+	<dismissal_date TYPE="date" TIME="0" TITLE="Дата увольнения" lang-en:TITLE="Dismissal Date" lang-ua:TITLE="Дата звільнення"/>
+	<employee_state_id TYPE="string" FOREIGN-ARRAY="employee_states" TITLE="Статус сотрудника" lang-en:TITLE="Employee status" lang-ua:TITLE="Статус співробітника"/>
+
+	<roles TITLE="Роли" lang-en:TITLE="Roles" lang-ua:TITLE="Ролі">
+		<desc PROPERTY="1" EXPR="lib_csd.get_attr_csd_desc( Parent.roles, person_roles )"/>
+		<order_index PROPERTY="1" EXPR="
+				for ( i = 0; i &lt; ChildNum; i++ )
+				{
+					if ( Child( i ) )
+						break;
+				}
+
+				return i;
+		"/>
+	</roles>
+
+	<multi_role_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="person_roles" TITLE="##UiText.fields.role##"/>
+
+	<is_hiring_manager TYPE="bool" NULL-FALSE="1" TITLE="##UiText.titles.hiring_manager##"/>
+
+	<participant_events>
+		<participant_event MULTIPLE="1" PRIMARY-KEY="event_type_id">
+			<event_type_id TYPE="string" FOREIGN-ARRAY="event_types" INDEXED="1"/>
+		</participant_event>
+	</participant_events>
+
+	<participant_event_group_id TYPE="integer" MULTIPLE="1" FOREIGN-ARRAY="groups" TITLE="Группа участия в событиях" lang-en:TITLE="Participation group" lang-ua:TITLE="Група участі в подіях"/>
+
+	<is_active TYPE="bool" NOT-NULL="1" EXPR="check_active()" EXPR-SHOW-ERROR="1"/>
+
+	<prev_jobs TITLE="##UiText.fields.prev_jobs##" DOC-ONLY="1">
+		<prev_job MULTIPLE="1">
+			<start_date TYPE="date" TIME="0"/>
+			<end_date TYPE="date" TIME="0"/>
+
+			<INHERIT TYPE="org_ref"/>
+			<position_name TYPE="string"/>
+		</prev_job>
+	</prev_jobs>
+
+	<prev_educations TITLE="##UiText.fields.education##" DOC-ONLY="1">
+		<prev_education MULTIPLE="1">
+			<start_date TYPE="date" TIME="0"/>
+			<end_date TYPE="date" TIME="0"/>
+			<end_year TYPE="integer" EXPR-INIT="end_date.HasValue ? Year( end_date ) : null" EXPR-SHOW-ERRORS="1"/>
+
+			<org_name TYPE="string"/>
+			<department_name TYPE="string"/>
+			<sub_department_name TYPE="string"/>
+			<speciality_name TYPE="string"/>
+
+			<is_secondary TYPE="bool" NULL-FALSE="1"/>
+			<comment TYPE="string" MULTILINE="1"/>
+		</prev_education>
+	</prev_educations>
+
+
+	<mobile_phone TYPE="phone" TITLE="##UiText.fields.mob_phone__s##" UI:MaxLen="20" INDEXED="1"/>
+	<home_phone TYPE="phone" TITLE="##UiText.fields.home_phone__s##"/>
+	<work_phone TYPE="phone" TITLE="##UiText.fields.work_phone__s##"/>
+	<fax TYPE="phone"/>
+
+	<email TYPE="string" IGNORE-SPELLING="1" FT-SOLID="1" TITLE="E-Mail" INDEXED="1" IGNORE-CASE="1" UI:MaxLen="30" FT-EXPR="lib_base.build_ft_email( Value )"/>
+	<email2 TYPE="string" IGNORE-SPELLING="1" FT-SOLID="1" TITLE="##UiText.fields.email2##" INDEXED="1" IGNORE-CASE="1" base1:allow-hide="1" FT-EXPR="lib_base.build_ft_email( Value )"/>
+
+	<skype TYPE="string" IGNORE-SPELLING="1" FT-SOLID="1" TITLE="Skype" INDEXED="1" base1:allow-hide="1"/>
+
+
+	<reg_address TYPE="string" TITLE="Адрес регистрации" lang-en:TITLE="Registration address" lang-ua:TITLE="Адреса реєстрації"/>
+
+	<passport TITLE="Паспорт" lang-en:TITLE="Passport" lang-ua:TITLE="Паспорт">
+		<ser TYPE="string" TITLE="Серия" lang-en:TITLE="Series" lang-ua:TITLE="Серія"/>
+		<no TYPE="string" TITLE="##UiText.fields.no_of_passport"/>
+		<issue_date TYPE="string" TITLE="Дата выдачи" lang-en:TITLE="Issue date" lang-ua:TITLE="Дата видачі"/>
+		<issue_org TYPE="string" TITLE="Кем выдан" lang-en:TITLE="Issuer" lang-ua:TITLE="Ким виданий"/>
+	</passport>
+
+
+	<INHERIT TYPE="card_comment_base"/>
+
+	<last_contact_date TYPE="date" TITLE="##UiText.fields.last_contact_date##" base1:allow-hide="1"/>
+	<contact_is_lost TYPE="bool" NULL-FALSE="1" TITLE="Связь утеряна" lang-en:TITLE="Contact is lost" lang-ua:TITLE="Зв'язок врачено"/>
+
+
+	<main_group_id TYPE="integer" FOREIGN-ARRAY="groups" TITLE="##UiText.fields.main_group##"/>
+
+
+
+
+	<state_event_id TYPE="integer"/>
+	<state_event_date TYPE="date" TIME="1"/>
+	<state_event_type_id TYPE="string" NOT-NULL="1" FOREIGN-ARRAY="event_types"/>
+
+	<desc_event_comment TYPE="string"/>
+
+
+	<is_tentative TYPE="bool" NULL-FALSE="1" SECONDARY="1"/>
+
+
+	<trace_birthday TYPE="bool" NULL-FALSE="1" TITLE="Показывать в списке дней рождения" INDEXED="1" EXPR="! is_candidate && birth_date.HasValue" lang-en:TITLE="Show in Birthdays section" lang-ua:TITLE="Показувати в списку днів народження"/>
+	<birthday_month_day TYPE="integer" INDEXED="1" EXPR="lib_base.MonthDayFromDate( birth_date )"/>
+
+
+	<external_registrations TITLE="Регистрации во внешних системах" lang-en:TITLE="External systems registrations" lang-ua:TITLE="Реєстрації в зовнішніх системах">
+		<external_registration MULTIPLE="1" PRIMARY-KEY="system_id">
+			<system_id TYPE="string" FT-IGNORE="1"/>
+			<eid TYPE="string" FT-IGNORE="1"/>
+
+			<login TYPE="string"/>
+			<password TYPE="string" FT-IGNORE="1"/>
+		</external_registration>
+	</external_registrations>
+	
+	
+	<disp_phone PROPERTY="1" TITLE="##UiText.fields.phones##" EXPR="
+			if ( is_candidate )
+			{
+				dispPhone = home_phone;
+
+				if ( home_phone != '' && ( mobile_phone != '' || work_phone != '' ) )
+					dispPhone = dispPhone + ' ' + UiText.titles.home_phone_prefix;
+
+				if ( mobile_phone != '' )
+				{
+					if ( dispPhone != '' )
+						dispPhone = dispPhone + ',  ';
+
+					dispPhone = dispPhone + mobile_phone + ' ' + UiText.titles.mobile_phone_prefix;
+				}
+
+				if ( work_phone != '' )
+				{
+					if ( dispPhone != '' )
+						dispPhone = dispPhone + ',  ';
+
+					dispPhone = dispPhone + work_phone + ' ' + UiText.titles.work_phone_prefix;
+				}
+			}
+			else
+			{
+				dispPhone = work_phone;
+
+				if ( mobile_phone != '' )
+				{
+					if ( dispPhone != '' )
+						dispPhone = dispPhone + ',  ';
+
+					dispPhone = dispPhone + mobile_phone + ' ' + UiText.titles.mobile_phone_prefix;
+				}
+			}
+
+			return dispPhone;
+	" DEPENDS="is_candidate,home_phone,work_phone,mobile_phone" EXP-MAX-LEN="30"/>
+
+
+	<birth_date_rest_days_num PROPERTY="1" TITLE="Дней до дня рождения" COL-ALIGN="center" EXP-MAX-LEN="3" EXPR="
+			curDate = DateNewTime( CurDate );
+			birthDate = Date( Year( curDate ), Month( birth_date ), Day( birth_date ) );
+
+			if ( Month( birthDate ) * 100 + Day( birthDate ) >= Month( curDate ) * 100 + Day( curDate ) )
+				return DateDiff( birthDate, curDate ) / 86400;
+
+			return DateDiff( Date( Year( curDate ) + 1, Month( birth_date ), Day( birth_date ) ), curDate ) / 86400;
+	" lang-en:TITLE="Days Until Birthday" lang-ua:TITLE="Днів до дня народження"/>
+
+
+	<INHERIT TYPE="card_attachments"/>
+	<INHERIT TYPE="user_ref"/>
+	<INHERIT TYPE="object_access_base"/>
+	<is_private TYPE="bool" NULL-FALSE="1"/>
+	<INHERIT TYPE="card_info_base"/>
+
+	<ft_secondary_text TYPE="string" DOC-ONLY="1" SECONDARY="1"/>
+
+	<view TEMP="1" DOC-ONLY="1">
+		<filter>
+			<INHERIT TYPE="ft_filter"/>
+			<person_id__ TYPE="integer" FOREIGN-ARRAY="persons"/>
+		</filter>
+	</view>
+
+	<prev_position_id TYPE="integer" DOC-ONLY="1" FOREIGN-ARRAY="positions" EXPR-INIT="position_id"/>
+
+	<OnCheckReadAccess PROPERTY="1" DEPENDS="user_id,group_id,is_own_person,org_id,is_candidate,use_exclusive_access,exclusive_access"/>
+</person>
+
+
+
+</SPXML-FORM>

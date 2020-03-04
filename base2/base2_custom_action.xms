@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<USE FORM="//base2/base2_general_state.xms"/>
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="45zr" STD-MARGINS="0">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="0">
+		</TREE>
+	</PANEL>
+</PANEL>
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.titles.custom_actions##" SUNKEN="1" EXPANDED="1" IMAGE-URL="//base_pict/generic_item.ico">
+
+
+<PAGE TITLE="##UiText.sections.general##" SUNKEN="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/common.ico" lang-en:TITLE="General">
+	<INHERIT TYPE="voc_elem_edit"/>
+	<BR/>
+
+	<GROUP>
+		<ITEM TYPE="elem_selector" SOURCE="Ps.trigger_event_id" AUTO-LABEL="1" WIDTH="45zr"/>
+	</GROUP>
+	<DELIM/>
+
+	<GROUP>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.target_object_type_id" AUTO-LABEL="1" WIDTH="35zr" READ-ONLY="1"/>
+	</GROUP>
+	<DELIM/>
+
+	<LABEL TITLE="##UiText.titles.condition##:"/>
+	<BR/>
+	<GROUP>
+		<IF EXPR="Ps.trigger_event_id == 'vacancy_state_changed'">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.condition.vacancy_state_id" AUTO-LABEL="1" WIDTH="35zr"/>
+		</IF>
+		<ELSE>
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.condition.candidate_state_id" AUTO-LABEL="1" WIDTH="50zr"/>
+			<ITEM TYPE="period" SOURCE="Ps.condition.state_duration" AUTO-LABEL="1"/>
+		</ELSE>
+	</GROUP>
+	<BR/>
+	<EDIT SOURCE="Ps.condition.expr" AUTO-LABEL="1"/>
+	<DELIM/>
+
+	<GROUP>
+		<ITEM TYPE="period" SOURCE="Ps.repeat_interval" AUTO-LABEL="1"/>
+	</GROUP>
+	<DELIM/>
+
+	<INHERIT TYPE="state_core_actions_base"/>
+</PAGE>
+
+
+</PAGE>
+
+
+
+</SELECTOR>
+
+
+
+</LINE>
+
+</SPXML-SCREEN>
+
+
+

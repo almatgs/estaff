@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_card_attachment_types SPXML-FORM="//base1/base1_std_card_attachment_types.xmd">
+	<std_card_attachment_type>
+		<id>location_desc</id>
+		<name VALUE="##UiText.fields.location_desc##"/>
+
+		<target_object_type_id>org</target_object_type_id>
+		<init_content_type>application/binary</init_content_type>
+	</std_card_attachment_type>
+</std_card_attachment_types>
+
+
+
+

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<view_reminder>
+	<isDateOnlyReminder TYPE="bool" NULL-FALSE="1"/>
+</view_reminder>
+
+
+</SPXML-INLINE-FORM>

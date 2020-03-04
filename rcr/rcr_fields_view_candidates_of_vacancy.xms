@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<UNIT NAME="context_menu_entries" SAMPLE="1">
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<MENU-ENTRY TITLE="##UiText.actions.detach_from_vacancy##" ACTION="
+			candidateIDsArray = ArraySelectDistinct( ArrayExtract( List.SelRows, 'Env.ListElem.id' ) );
+			lib_recruit.detach_candidates_from_vacancy( candidateIDsArray, Ps.curVacancyID );
+	"/>
+</UNIT>
+
+
+
+
+</SPXML-SCREEN>

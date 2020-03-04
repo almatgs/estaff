@@ -1,0 +1,110 @@
+<%Server.Execute( 'include/std_head.htm' )%>
+
+<h1>Интерфейс системы подбора</h1>
+
+<%
+if ( curPerson.is_division_head || AppModuleUsed( 'module_rgs' ) )
+{
+%>
+
+<h2>Мои заявки на подбор</h2>
+
+<%
+	if ( ArrayOptFindByKey( views, 'vacancies_web' ) != undefined )
+	{
+		//CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_view', Response, 'vacancies_web', 'is_tentative=1&orig_rr_person_id=' + curPerson.id, outerEnv );
+		CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_view', Response, 'vacancies_web', 'orig_rr_person_id=' + curPerson.id, outerEnv, 'state_id == \'vacancy_submitted\' || state_id == \'vacancy_approval\' || state_id == \'vacancy_not_approved\'' );
+	}
+	else
+	{
+		CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_view', Response, 'vacancies', 'is_tentative=1&orig_rr_person_id=' + curPerson.id, outerEnv );
+	}
+%>
+
+<%
+if ( AppModuleUsed( 'module_rgs' ) )
+	//Server.Execute( 'x-app://module_rgs/include/vacancy_submit_info.htm' );
+	Server.Execute( '../../module_rgs/include/vacancy_submit_info.htm' );
+%>
+<hr/>
+<p><a href="<%=outer_link( 'vacancy_edit.htm' )%>">Подать заявку на подбор сотрудника</a></p>
+
+<%
+	if ( AppModuleUsed( 'module_rgs' ) )
+	{
+		divisionsIDArray = ArrayExtract( AppConfig.GetProperties( 'alt-base-division-id' ), 'OptInt( This )' );
+		if ( ArrayOptFind( divisionsIDArray, 'This == undefined' ) != undefined )
+			throw UserError( 'Invalid alt-base-division-id value' );
+
+		baseDivisionID = lib_base.get_topmost_hier_id( divisions, curPerson.division_id );
+		//alert( StrHexInt( baseDivisionID ) );
+
+		if ( ArrayOptFind( divisionsIDArray, 'This == baseDivisionID' ) != undefined )
+			divisionsIDArray = ArraySelect( divisionsIDArray, 'This != baseDivisionID' );
+		else
+			divisionsIDArray = [];
+
+		for ( divisionID in divisionsIDArray )
+		{
+			division = GetForeignElem( divisions, divisionID );
+%>
+
+<p><a href="<%=outer_link( 'vacancy_edit.htm', {division_id:divisionID} )%>">Подать заявку по совместительству (<%=division.name%>)</a></p>
+
+<%
+		}
+	}
+%>
+
+<%
+}
+%>
+<hr/>
+
+<%if ( AppModuleUsed( 'module_rgs' ) && ( curPerson.cs_can_approve_vacancy == true || rgs_global_settings.va_persons.GetOptChildByKey( curPerson.id, 'person_id' ) != undefined ) ) {%>
+	<h2>Согласование заявок на подбор</h2>
+<%	CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_view', Response, 'vacancies_to_approve', {}, outerEnv, 'cs_approval_person_id == ' + curPerson.id );%>
+<%}%>
+
+
+
+
+
+<h2>Открытые вакансии</h2>
+
+<%
+	group = ArrayOptFind( groups, 'ArrayOptFind( lib_voc.voc_implicit_chain( curPerson.division_id ), \'This == root_division_id\' ) != undefined' );
+	
+	if ( AppModuleUsed( 'module_rgs' ) && group != undefined && rgs_global_settings.ext_vacancy_stat_groups.group_id.ByValueExists( group.id ) )
+		CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_view', Response, 'vacancies_web_ext', 'is_active=1&is_tentative=0&rr_persons.rr_person.person_id=' + curPerson.id, outerEnv );//, 'candidate_id=' + candidateID );
+	else if ( ArrayOptFindByKey( views, 'vacancies_web' ) != undefined )
+		CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_view', Response, 'vacancies_web', 'is_active=1&is_tentative=0&rr_persons.rr_person.person_id=' + curPerson.id, outerEnv );//, 'candidate_id=' + candidateID );
+	else
+		CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_view', Response, 'vacancies', 'is_active=1&is_tentative=0&rr_persons.rr_person.person_id=' + curPerson.id, outerEnv );//, 'candidate_id=' + candidateID );
+%>
+
+
+<h2>События</h2>
+
+<%
+	if ( ArrayOptFindByKey( views, 'events_web' ) != undefined )
+		CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_view', Response, 'events_web', 'participants.participant.person_id=' + curPerson.id, outerEnv );
+	else
+		CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_view', Response, 'events', 'participants.participant.person_id=' + curPerson.id, outerEnv );
+%>
+
+
+<%
+	if ( AppModuleUsed( 'module_rgs' ) && curPerson.participant_events.GetOptChildByKey( 'rr_poll_co' ) != undefined )
+	{
+%>
+
+<h2>Согласования в ЦО</h2>
+
+<%
+		CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_view', Response, 'rr_polls_co_web', '', outerEnv, 'resp_person_id == ' + curPerson.id + ' || participants.GetOptChildByKey( ' + curPerson.id + ' ) != undefined' );
+	}
+%>
+
+
+<%Server.Execute( 'include/std_tail.htm' )%>

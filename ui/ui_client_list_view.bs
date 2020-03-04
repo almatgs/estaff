@@ -1,0 +1,460 @@
+namespace ui_client {
+
+function InitListViewDestObject( destSpec )
+{
+	dest = BuildListViewDestObject( destSpec );
+	LoadListViewStoredFilters( dest );
+	return dest;
+}
+
+
+function BuildListViewDestObject( destSpec )
+{
+	dest = new ui_base.list_view_dest_object;
+	dest.spec = destSpec;
+
+	dest.filter = BuildListViewFilterBaseElem( destSpec );
+	
+	return dest;
+}
+
+
+function BuildListViewFilterBaseElem( destSpec )
+{
+	filterBaseElem = CreateDynamicElem( 'filter' )
+
+	if ( true )
+	{
+		filterElem = filterBaseElem.AddChild( 'used_fulltext', 'string' );
+	}
+
+	for ( filterSpec in destSpec.filters )
+	{
+		if ( filterSpec.use_range )
+		{
+			filterElem = filterBaseElem.AddChild( 'min_' + FilterIDToFilerElemName( filterSpec.field_id ), filterSpec.data_type );
+			filterElem.FormElem.IsTemp = true;
+
+			filterElem = filterBaseElem.AddChild( 'max_' + FilterIDToFilerElemName( filterSpec.field_id ), filterSpec.data_type );
+			filterElem.FormElem.IsTemp = true;
+		}
+		else if ( filterSpec.is_multiple )
+		{
+			filterFormElem = filterBaseElem.FormElem.AddChild( FilterIDToFilerElemName( filterSpec.field_id ), filterSpec.data_type );
+			filterFormElem.IsMultiple = true;
+
+			if ( filterSpec.foreign_array_expr != undefined )
+				filterFormElem.ForeignArrayExpr = filterSpec.foreign_array_expr;
+		}
+		else
+		{
+			filterElem = filterBaseElem.AddChild( FilterIDToFilerElemName( filterSpec.field_id ), filterSpec.data_type );
+			filterElem.FormElem.IsTemp = true;
+
+			if ( filterSpec.foreign_array_expr != undefined )
+				filterElem.FormElem.ForeignArrayExpr = filterSpec.foreign_array_expr;
+		}
+	}
+	
+	return filterBaseElem;
+}
+
+
+function LoadListViewStoredFilters( dest )
+{
+	srcObject = AppLocalStorage.LoadEntryValue( GetListViewStoredFiltersKey( dest ) );
+	if ( srcObject == undefined )
+		return;
+	//DebugMsg( EncodeJson( srcObject ) );
+
+	for ( srcElem in srcObject.filters )
+	{
+		filterSpec = ArrayOptFindByKey( dest.spec.filters, srcElem.field_id, 'field_id' );
+		if ( filterSpec == undefined )
+			continue;
+
+		if ( filterSpec.use_range )
+		{
+			dest.filter.Child( 'min_' + FilterIDToFilerElemName( filterSpec.field_id ) ).Value = srcElem.min_value;
+			dest.filter.Child( 'min_' + FilterIDToFilerElemName( filterSpec.field_id ) ).Value = srcElem.max_value;
+		}
+		else if ( filterSpec.is_multiple )
+		{
+			if ( ! IsArray( srcElem.value ) )
+				continue;
+
+			destElem = GetObjectProperty( dest.filter, FilterIDToFilerElemName( filterSpec.field_id ) );
+			for ( srcValue in srcElem.value )
+				destElem.ObtainByValue( srcValue );
+		}
+		else
+		{
+			dest.filter.Child( FilterIDToFilerElemName( filterSpec.field_id ) ).Value = srcElem.value;
+		}
+	}
+}
+
+
+function StoreListViewFilters( dest )
+{
+	destObject = new Object;
+	destObject.filters = new Array;
+
+	for ( filterSpec in dest.spec.filters )
+	{
+		if ( ! ListViewFilterHasValue( dest.filter, filterSpec ) )
+			continue;
+
+		destElem = new Object;
+		destElem.field_id = filterSpec.field_id;
+		
+		if ( filterSpec.use_range )
+		{
+			destElem.min_value = dest.filter.Child( 'min_' + FilterIDToFilerElemName( filterSpec.field_id ) ).Value;
+			destElem.max_value = dest.filter.Child( 'min_' + FilterIDToFilerElemName( filterSpec.field_id ) ).Value;
+		}
+		else if ( filterSpec.is_multiple )
+		{
+			destElem.value = new Array;
+
+			for ( instance in GetObjectProperty( dest.filter, FilterIDToFilerElemName( filterSpec.field_id ) ) )
+			{
+				destElem.value.push( instance.Value );
+			}
+		}
+		else
+		{
+			destElem.value = dest.filter.Child( FilterIDToFilerElemName( filterSpec.field_id ) ).Value;
+		}
+
+		destObject.filters.push( destElem );
+	}
+
+	AppLocalStorage.PutEntryValue( GetListViewStoredFiltersKey( dest ), destObject );
+}
+
+
+function GetListViewStoredFiltersKey( dest )
+{
+	return "type=ListViewStoredFilters&id=" + dest.spec.id;
+}
+
+
+function BuildListViewXqueryQual( list, dest )
+{
+	destSpec = dest.spec;
+	xqueryQual = '';
+
+	catalog = DefaultDb.GetOptCatalog( destSpec.catalog_name );
+	recordFormElem = catalog.Form.TopElem[0];
+
+	/*if ( dest.PropertyExists( 'static_xquery_qual' ) )
+	{
+		xqueryQual += dest.static_xquery_qual;
+	}*/
+
+	for ( filterSpec in destSpec.filters )
+	{
+		//filterSpec.SetStrictMode( false );// !!! Temp fix
+		
+		if ( filterSpec.show_condition != undefined )
+		{
+			match = eval( filterSpec.show_condition );
+			if ( ! match )
+				continue;
+		}
+
+		formElem = recordFormElem.EvalPath( filterSpec.field_id );
+
+		for ( filterElemName in GetFilterElemNames( filterSpec ) )
+		{
+			filterElem = GetObjectProperty( dest.filter, filterElemName );
+
+			if ( filterSpec.is_fixed )
+			{
+				envObject = new Object;
+				if ( destSpec.is_inner_list )
+				{
+					envObject[list.Screen.Doc.TopElem.Name] = list.Screen.Doc.TopElem;
+				}
+
+				with ( envObject )
+				{
+					value = eval( filterSpec.value_expr );
+				}
+
+				if ( filterElem.IsMultiElem )
+				{
+					filterElem.SetValues( value );
+				}
+				else
+				{
+					filterElem.Value = value;
+				}
+			}
+
+			if ( ! filterElem.HasValue )
+			{
+				if ( filterSpec.is_fixed && filterElem.IsMultiElem )
+					return ' and false()';
+
+				continue;
+			}
+
+			xqueryQual += ' and ';
+
+			coreName = '$elem/' + StrReplace( filterSpec.field_id, '.', '/' );
+
+			if ( filterSpec.with_all_descendants )
+			{
+				if ( filterElem.IsMultiElem )
+					idataKeys = ObtainFilterMultiIdataKeys( dest, filterSpec, filterElem.ForeignArray, filterElem );
+				else
+					idataKeys = ObtainFilterIdataKeys( dest, filterSpec, filterElem.ForeignArray, filterElem.Value );
+				xqueryQual += 'MatchSome( ' + coreName + ', (' + ArrayMerge( idataKeys, 'XQueryLiteral( This )', ','  ) + ') )';
+			}
+			else if ( filterElem.IsMultiElem )
+			{
+				xqueryQual += 'MatchSome( ' + coreName + ', ' + filterElem.XQueryLiteral + ' )';
+			}
+			else if ( formElem.IsMultipleRecChild( recordFormElem ) )
+			{
+				xqueryQual += 'MatchSome( ' + coreName + ', ' + filterElem.XQueryLiteral + ' )';
+			}
+			/*else if ( filterSpec.field_id == 'parent_id' && objectForm.IsHier )
+			{
+				xqueryQual += 'IsHierChild( ' + coreName + ', ' + filterElem.XQueryLiteral + ' )';
+			}*/
+			/*else if ( filterSpec.use_foreign_rec_child )
+			{
+				xqueryQual += 'CatalogIsHierRecChild( \'' + elem.ForeignArrayExpr + '\',' + filterElem.XQueryLiteral + ', ';
+				xqueryQual += coreName + ' )';
+			}*/
+			else
+			{
+				xqueryQual += coreName;
+				
+				if ( StrBegins( filterElemName, 'min_' ) )
+					xqueryQual += ' >= ';
+				else if ( StrBegins( filterElemName, 'max_' ) )
+					xqueryQual += ' <= ';
+				else
+					xqueryQual += ' = ';
+				
+				xqueryQual += filterElem.XQueryLiteral;
+			}
+		}
+	}
+
+	return xqueryQual;
+}
+
+
+function ObtainFilterIdataKeys( dest, filterSpec, catalog, baseKeyVal )
+{
+	if ( dest.idataKeysCache == undefined )
+	{
+		dest.idataKeysCache = new Object;
+		dest.idataKeysCache.SetStrictMode( false );
+	}
+
+	cacheKey = baseKeyVal;
+	if ( ( array = dest.idataKeysCache[cacheKey] ) != undefined )
+		return array;
+		
+	queryStr = 'for $elem in ' + catalog.Name;
+	queryStr += ' where IsHierChildOrSelf( $elem/id, ' + XQueryLiteral( baseKeyVal ) + ' )'
+	queryStr += ' order by $elem/Hier()';
+	queryStr += ' return $elem/Fields( \'id\' )';
+
+	array = XQuery( queryStr );
+	array = ArrayExtract( array, 'id' );
+
+	dest.idataKeysCache[cacheKey] = array;
+	return array;
+}
+
+
+function ObtainFilterMultiIdataKeys( dest, filterSpec, catalog, baseKeyValArray )
+{
+	array = new Array;
+
+	for ( baseKeyVal in baseKeyValArray )
+	{
+		array.AddArray( ObtainFilterIdataKeys( dest, filterSpec, catalog, baseKeyVal ) );
+	}
+
+	return ArraySelectDistinct( array );
+}
+
+
+function OnViewFiltersMouseDown( baseItem )
+{
+	dlgDoc = OpenDoc( 'ui_dlg_filters.xml' );
+	dlg = dlgDoc.TopElem;
+
+	dest = baseItem.Env._dest;
+	dest.editedFilter = BuildListViewFilterBaseElem( dest.spec );
+	dest.editedFilter.AssignElem( dest.filter );
+
+	dlg.list_view_spec = baseItem.Env._list_view_spec;
+	dlg.dest = dest;
+	dlg.filter = dest.editedFilter;
+
+	//relOrigin = baseItem.GetRelativeOrigin( ActiveScreen.RootItem );
+	globalOrgin = baseItem.GlobalOrigin;
+	
+	options = new Object;
+	options.GlobalOriginX = globalOrgin.X;
+	options.GlobalOriginY = globalOrgin.Y + baseItem.SizeY + 2;
+
+	ActiveScreen.ModalDlg( dlgDoc, options );
+
+	dest.filter.AssignElem( dlg.filter );
+	StoreListViewFilters( dest );
+
+	baseItem.Screen.Update();
+}
+
+
+function OnListViewClearFilters( dest, screen )
+{
+	dest.filter.Clear();
+	StoreListViewFilters( dest );
+
+	//clear_stored_filters( viewID );
+	//adjust_filters( viewID );
+
+	//if ( param.view.use_manual_update )
+		//action += 'Screen.UpdateExcpt( Screen.FindItem( \'MainList\' ) )';
+	//else
+		screen.Update();
+
+
+/*	param = build_view_param( viewID, UrlParam( source.Doc.Url ) );
+
+	excptElemNames = ArrayExpand( ArraySelect( param.view.dyn_filters, 'is_auto' ), 'get_dyn_filter_elem_names( This )' );
+
+	for ( elem in ArraySelectAll( source.filter ) )
+	{
+		if ( ArrayOptFind( excptElemNames, 'This == elem.Name' ) != undefined )
+			continue;
+
+		if ( elem.FormElem.Expr != '' )
+			continue;
+
+		if ( elem.IsMultiple )
+			elem.Delete();
+		else
+			elem.Clear();
+	}
+*/
+}
+
+
+function ListViewFilterHasValue( filterBaseElem, filterSpec )
+{
+	if ( filterSpec.use_range )
+	{
+		filterElem = filterBaseElem.Child( 'min_' + FilterIDToFilerElemName( filterSpec.field_id ) );
+		if ( filterElem.HasValue )
+			return true;
+
+		filterElem = filterBaseElem.Child( 'max_' + FilterIDToFilerElemName( filterSpec.field_id ) );
+		return filterElem.HasValue;
+	}
+	else if ( filterSpec.is_multiple )
+	{
+		filterElem = GetObjectProperty( filterBaseElem, FilterIDToFilerElemName( filterSpec.field_id ) );
+		return filterElem.HasValue;
+	}
+	else
+	{
+		filterElem = filterBaseElem.Child( FilterIDToFilerElemName( filterSpec.field_id ) );
+		
+		//if ( filterSpec.field_id == 'position_id' )
+			//DebugMsg( filterElem.Name + ' ' + filterElem.HasValue );
+		return filterElem.HasValue;
+	}
+}
+
+
+function ClearListViewFilterInstance( dest, filterBaseElem, filterSpec, filterElemInstance )
+{
+	if ( filterSpec.use_range )
+	{
+		filterElem = filterBaseElem.Child( 'min_' + FilterIDToFilerElemName( filterSpec.field_id ) );
+		filterElem.Clear();
+		filterElem = filterBaseElem.Child( 'max_' + FilterIDToFilerElemName( filterSpec.field_id ) );
+		filterElem.Clear();
+	}
+	else if ( filterElemInstance != undefined )
+	{
+		filterElemInstance.Delete();
+	}
+	else
+	{
+		filterElem = filterBaseElem.Child( FilterIDToFilerElemName( filterSpec.field_id ) );
+		filterElem.Clear();
+	}
+	
+	StoreListViewFilters( dest );
+}
+
+
+function FilterIDToFilerElemName( filterID )
+{
+	return StrReplace( filterID, '.', '__' );
+}
+
+
+function GetFilterElemNames( filterSpec )
+{
+	filterElemName = FilterIDToFilerElemName( filterSpec.field_id );
+
+	if ( filterSpec.use_range )
+		return ['min_' + filterElemName, 'max_' + filterElemName];
+	//else if ( filterSpec.use_range_min )
+		//return ['min_' + filterElemName];
+	else
+		return [filterElemName];
+}
+
+
+function OnListViewSetRowSel( view, list, record )
+{
+	screen = list.Screen;
+
+	if ( ! view.Doc.TopElem.preview_activated )
+	{
+		view.Doc.TopElem.preview_activated = true;
+		//screen.Update();
+	}
+
+	options = new Object;
+
+	frame = screen.FindItem( 'FrameObjectPreview' );
+	if ( ( pageEntry = frame.InnerScreen.CurrentPageEntry ) != undefined )
+		options.InitPageTitle = pageEntry.Title;
+
+	objectTypeID = record.Name;
+	screenFormUrl = PrepareObjectPreviewScreenFormUrl( objectTypeID );
+
+	doc = OpenDoc( record.ObjectUrl );
+	AdjustObjectDocForm( doc.TopElem );
+	//frame.InnerScreen.EditMode = false;
+
+	frame.InnerScreen.SetDoc( doc, screenFormUrl, options );
+	return false;
+}
+
+
+function OnListViewOpenRow( view, list, record )
+{
+	HandleOpenObjectCard( record.ObjectUrl );
+}
+
+
+
+
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="Object.division" ObjectType="division" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<Page ID="Common" Layout="table1">
+	<UI:Item Field="code"/>
+	<UI:Item Field="name"/>
+	<UI:Item Field="parent_id"/>
+
+	<UI:Break/>
+
+	<UI:ObjectList Template="List.employees">
+		<UI:Filter Field="division_id" Fixed="1" ValueExpr="division.id"/>
+		<UI:Delete Item="Column" Field="division_id"/>
+	</UI:ObjectList>
+</Page>
+
+<UI:ObjectList AllDescendants="1" Title="##UiText.fields.child_divisions##">
+</UI:ObjectList>
+
+</UiTemplate>
+

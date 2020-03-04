@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_candidate_sources SPXML-FORM="rcr_std_candidate_sources.xmd">
+	<std_candidate_source>
+		<id>site</id>
+		<name VALUE="##UiText.titles.site##"/>
+	</std_candidate_source>
+
+	<std_candidate_source>
+		<id>agency</id>
+		<name VALUE="##UiText.titles.recruiting_agency##"/>
+	</std_candidate_source>
+
+
+	<std_candidate_source>
+		<id>emp_ref</id>
+		<name VALUE="Внутренняя рекомендация" lang-en:VALUE="Employee referral" lang-ua:VALUE="Внутрішня рекомендація"/>
+	</std_candidate_source>
+
+
+	<std_candidate_source>
+		<id>ref</id>
+		<name VALUE="Внешняя рекомендация" lang-en:VALUE="External recommendation" lang-ua:VALUE="Зовнішня рекомендація"/>
+	</std_candidate_source>
+</std_candidate_sources>
+
+
+
+
+
+
+
+

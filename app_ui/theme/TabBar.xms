@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+<COMPLEX-ITEM NAME="TAB" SAMPLE="1" VIEW="TabBarView" OnBeforeBuild="
+		if ( GetAttrValue( 'SWITCH-TYPE' ) == 'selector' )
+			BuildPageLayoutFormEntries();
+" OnCurrentEntryChanged="
+		LibTabBar.OnTabBarViewCurrentEntryChanged( ViewItem, CurrentEntry );
+">
+	<ATTRIBUTE NAME="SWITCH-TYPE"/>
+</COMPLEX-ITEM>
+
+
+<COMPLEX-ITEM NAME="TAB-BAR" SAMPLE="1" VIEW="TabBarView">
+	<ATTRIBUTE NAME="SWITCH-TYPE"/>
+</COMPLEX-ITEM>
+
+
+<!--<COMPLEX-ITEM NAME="TAB-ENTRY" SAMPLE="1">
+</COMPLEX-ITEM>
+-->
+
+<PANEL NAME="TabBarView" SAMPLE="1" INNER-ALIAS="tabBarView" WIDTH="100%" HEIGHT="2.7em" BK-COLOR-EXPR="AppUi.gThemeData.colors.tab_bar_background" OnBeforeBuild="
+		LibTabBar.OnBuildTabBarView( tabBarView );
+">
+	<LINE>
+		<INSERT-ITEMS OnBeforeBuild="LibTabBar.OnBuildTabBarViewCore( tabBarView, Item )"/>
+	</LINE>
+</PANEL>
+
+
+<PANEL NAME="TabBarEntryView" SAMPLE="1" INNER-ALIAS="entryView" HEIGHT="100%" STATES="hover,pressed" STD-MARGINS="0" BK-COLOR-EXPR="
+		if ( entryView.AuxData.isCurrent )
+			return AppUi.gThemeData.colors.gray_hover;
+		else
+			return '';
+
+		switch ( State )
+		{
+			case 'hover':
+			case 'pressed':
+				return AppUi.gThemeData.colors.gray_hover;
+		}
+
+		return '';
+" ACTION="LibTabBar.OnTabBarEntryClick( tabBarView, entryView )" PASSIVE="1">
+	<PANEL PADDING="0.6em 18epx 0 18epx">
+		<LINE>
+			<IF EXPR="BaseSampleItem.AuxData.imageUrl != undefined">
+				<IMAGE URL-EXPR="BaseSampleItem.AuxData.imageUrl" ALLOW-EMPTY="1"/>
+				<PANEL WIDTH="0.5em">
+				</PANEL>
+			</IF>
+
+			<LABEL TITLE-EXPR="entryView.MasterItem.Title" TEXT-COLOR-EXPR="
+					switch ( BaseSampleItem.State )
+					{
+						case 'hover':
+						case 'pressed':
+							return AppUi.gThemeData.colors.blue_text;
+					}
+
+					if ( entryView.AuxData.isCurrent )
+						return AppUi.gThemeData.colors.blue_text;
+
+					return '';
+			"/>
+		</LINE>
+	</PANEL>
+
+	<PANEL FULL-WIDTH="1" HEIGHT="3epx" VERT-ALIGN="bottom" BK-COLOR-EXPR="
+			if ( entryView.AuxData.isCurrent )
+				return AppUi.gThemeData.colors.blue_text;
+
+			return '';
+	">
+	</PANEL>
+</PANEL>
+
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+
+

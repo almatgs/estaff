@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>dismissal_on_probation</id>
+	<name VALUE="##UiText.titles.dismissal_on_probation##"/>
+	<section_id>recruit</section_id>
+
+	<is_v2>1</is_v2>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>date</id>
+			<data_type>date</data_type>
+			<title VALUE="##UiText.fields.hire_date##"/>
+			<use_range>1</use_range>
+			<use_period_quick_selector>1</use_period_quick_selector>
+			<default_period>
+				<unit_id>q</unit_id>
+				<unit_specifier_id>prev</unit_specifier_id>
+			</default_period>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>recruit_type_id</id>
+			<source_id>vacancies</source_id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>staff_category_id</id>
+			<source_id>vacancies</source_id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.fields.recruiter##"/>
+			<foreign_array>users</foreign_array>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue &amp;&amp; ArrayCount( filter.group_id.Instances ) == 1 ? {main_group_id:ArrayFirstElem( filter.group_id.Instances ),is_active:true}:{is_active:true}</view_filter_expr>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.objects.group##"/>
+			<foreign_array>groups</foreign_array>
+			<is_multiple>1</is_multiple>
+		</dyn_filter>
+	</dyn_filters>
+
+	<groups>
+		<group>
+			<id>group_id</id>
+			<foreign_array>groups</foreign_array>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+		</group>
+		<group>
+			<id>user_id</id>
+			<foreign_array>users</foreign_array>
+		</group>
+	</groups>
+
+	<fields>
+		<field>
+			<id>user_id</id>
+			<col_title VALUE="##UiText.fields.recruiter##"/>
+			<width>40zr</width>
+		</field>
+		<field>
+			<id>hire_count</id>
+			<col_title VALUE="##UiText.titles.hired__n##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<chart_bk_color>green</chart_bk_color>
+		</field>
+		<field>
+			<id>dismiss_on_probation_count</id>
+			<col_title VALUE="##UiText.titles.dismissed__n##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<chart_bk_color>red</chart_bk_color>
+		</field>
+		<field>
+			<id>dismiss_on_probation_percent</id>
+			<col_title VALUE="%"/>
+			<is_percent>1</is_percent>
+			<numerator_field_id>dismiss_on_probation_count</numerator_field_id>
+			<denominator_field_id>hire_count</denominator_field_id>
+			<width>9zr</width>
+			<align>center</align>
+		</field>
+	</fields>
+
+	<show_total>1</show_total>
+	<show_chart>1</show_chart>
+	<use_group_bk_colors>1</use_group_bk_colors>
+
+	<code_lib_url>x-app://rcr/rcr_std_stat_dismissal_on_probation.js</code_lib_url>
+</std_stat>
+

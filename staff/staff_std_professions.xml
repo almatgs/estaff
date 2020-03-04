@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_professions SPXML-FORM="staff_std_professions.xmd" LANG="ru">
+
+
+<std_profession>
+	<id>214</id>
+	<name>Финансы</name>
+
+	<std_professions>
+		<std_profession>
+			<id>11</id>
+			<name>бухгалтер</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>12</id>
+			<name>главный бухгалтер</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>13</id>
+			<name>аудитор</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>14</id>
+			<name>операционист / кассир</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>220</id>
+			<name>банковский специалист</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>19</id>
+			<name>специалист бэк-офиса</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>18</id>
+			<name>специалист по налогообложению</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>17</id>
+			<name>сотрудник кредитного отдела</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>15</id>
+			<name>финансовый аналитик</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>21</id>
+			<name>финансовый директор</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>16</id>
+			<name>трейдер</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+
+<std_profession>
+	<id>204</id>
+	<name>Маркетинг</name>
+
+	<std_professions>
+		<std_profession>
+			<id>22</id>
+			<name>маркетолог</name>
+		</std_profession>
+		<std_profession>
+			<id>26</id>
+			<name>бренд-менеджер</name>
+		</std_profession>
+		<std_profession>
+			<id>230</id>
+			<name>менеджер по работе с клиентами</name>
+		</std_profession>
+		<std_profession>
+			<id>240</id>
+			<name>менеджер по развитию бизнеса</name>
+		</std_profession>
+		<std_profession>
+			<id>27</id>
+			<name>мерчендайзер</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>216</id>
+	<name>Реклама / PR</name>
+
+	<std_professions>
+		<std_profession>
+			<id>23</id>
+			<name>менеджер по рекламе</name>
+		</std_profession>
+		<std_profession>
+			<id>25</id>
+			<name>организатор выставок</name>
+		</std_profession>
+		<std_profession>
+			<id>238</id>
+			<name>промоутер</name>
+		</std_profession>
+		<std_profession>
+			<id>239</id>
+			<name>рекламный агент</name>
+		</std_profession>
+		<std_profession>
+			<id>24</id>
+			<name>специалист по PR</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>207</id>
+	<name>Продажа товаров и услуг / Торговля</name>
+
+	<std_professions>
+		<std_profession>
+			<id>115</id>
+			<name>продавец / кассир</name>
+		</std_profession>
+		<std_profession>
+			<id>113</id>
+			<name>специалист по закупкам</name>
+		</std_profession>
+		<std_profession>
+			<id>116</id>
+			<name>товаровед / консультант</name>
+		</std_profession>
+		<std_profession>
+			<id>136</id>
+			<name>менеджер по продажам</name>
+		</std_profession>
+		<std_profession>
+			<id>114</id>
+			<name>специалист в области внешней торговли</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>211</id>
+	<name>Транспорт / Перевозки / Склады</name>
+
+	<std_professions>
+		<std_profession>
+			<id>51</id>
+			<name>логистик</name>
+		</std_profession>
+		<std_profession>
+			<id>53</id>
+			<name>транспортный диспетчер / оператор</name>
+		</std_profession>
+		<std_profession>
+			<id>54</id>
+			<name>авиадиспетчер</name>
+		</std_profession>
+		<std_profession>
+			<id>56</id>
+			<name>водитель</name>
+		</std_profession>
+		<std_profession>
+			<id>55</id>
+			<name>работник склада</name>
+		</std_profession>
+		<std_profession>
+			<id>52</id>
+			<name>специалист по таможенному оформлению</name>
+		</std_profession>
+		<std_profession>
+			<id>118</id>
+			<name>экспедитор</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>208</id>
+	<name>Производство</name>
+
+	<std_professions>
+		<std_profession>
+			<id>40</id>
+			<name>инженер / конструктор / проектировщик</name>
+		</std_profession>
+		<std_profession>
+			<id>44</id>
+			<name>прораб / бригадир / мастер</name>
+		</std_profession>
+		<std_profession>
+			<id>47</id>
+			<name>рабочий</name>
+		</std_profession>
+		<std_profession>
+			<id>43</id>
+			<name>руководитель на производстве</name>
+		</std_profession>
+		<std_profession>
+			<id>46</id>
+			<name>специалист по контролю качества</name>
+		</std_profession>
+		<std_profession>
+			<id>42</id>
+			<name>технолог</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>217</id>
+	<name>Строительство и архитектура</name>
+
+	<std_professions>
+		<std_profession>
+			<id>41</id>
+			<name>архитектор</name>
+		</std_profession>
+		<std_profession>
+			<id>249</id>
+			<name>начальник участка</name>
+		</std_profession>
+		<std_profession>
+			<id>250</id>
+			<name>прораб</name>
+		</std_profession>
+		<std_profession>
+			<id>48</id>
+			<name>строитель</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>210</id>
+	<name>Недвижимость</name>
+
+	<std_professions>
+		<std_profession>
+			<id>60</id>
+			<name>агент по недвижимости / риэлтор</name>
+		</std_profession>
+		<std_profession>
+			<id>63</id>
+			<name>эксперт-оценщик</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>218</id>
+	<name>Страхование</name>
+
+	<std_professions>
+		<std_profession>
+			<id>62</id>
+			<name>страховой агент</name>
+		</std_profession>
+		<std_profession>
+			<id>224</id>
+			<name>эксперт-оценщик</name>
+		</std_profession>
+		<std_profession>
+			<id>61</id>
+			<name>специалист отдела страхования</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>203</id>
+	<name>Компьютеры / Информационные технологии</name>
+
+	<std_professions>
+		<std_profession>
+			<id>2</id>
+			<name>программист</name>
+		</std_profession>
+		<std_profession>
+			<id>6</id>
+			<name>системный аналитик</name>
+		</std_profession>
+		<std_profession>
+			<id>4</id>
+			<name>специалист по технической поддержке</name>
+		</std_profession>
+		<std_profession>
+			<id>3</id>
+			<name>системный администратор</name>
+		</std_profession>
+		<std_profession>
+			<id>7</id>
+			<name>специалист по компьютерной безопасности</name>
+		</std_profession>
+		<std_profession>
+			<id>5</id>
+			<name>компьютерный дизайнер</name>
+		</std_profession>
+		<std_profession>
+			<id>8</id>
+			<name>тестер ПО</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>221</id>
+	<name>Издательство / Полиграфия</name>
+
+	<std_professions>
+		<std_profession>
+			<id>85</id>
+			<name>верстальщик / наборщик</name>
+		</std_profession>
+		<std_profession>
+			<id>83</id>
+			<name>художник / дизайнер / оформитель</name>
+		</std_profession>
+		<std_profession>
+			<id>84</id>
+			<name>фотограф</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>209</id>
+	<name>СМИ / Шоу-бизнес</name>
+
+	<std_professions>
+		<std_profession>
+			<id>78</id>
+			<name>ведущий программ на радио</name>
+		</std_profession>
+		<std_profession>
+			<id>79</id>
+			<name>ведущий программ на ТВ</name>
+		</std_profession>
+		<std_profession>
+			<id>81</id>
+			<name>главный редактор</name>
+		</std_profession>
+		<std_profession>
+			<id>77</id>
+			<name>журналист</name>
+		</std_profession>
+		<std_profession>
+			<id>82</id>
+			<name>звукорежиссер</name>
+		</std_profession>
+		<std_profession>
+			<id>86</id>
+			<name>распространитель СМИ</name>
+		</std_profession>
+		<std_profession>
+			<id>80</id>
+			<name>редактор / корректор</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>212</id>
+	<name>Туризм</name>
+
+	<std_professions>	
+		<std_profession>
+			<id>66</id>
+			<name>туристический агент / консультант</name>
+		</std_profession>
+		<std_profession>
+			<id>68</id>
+			<name>организатор турпоездок</name>
+		</std_profession>
+		<std_profession>
+			<id>67</id>
+			<name>гид / экскурсовод</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>223</id>
+	<name>Гостиницы / Рестораны</name>
+
+	<std_professions>	
+		<std_profession>
+			<id>73</id>
+			<name>управляющий гостиницами</name>
+		</std_profession>
+		<std_profession>
+			<id>74</id>
+			<name>управляющий ресторанами / барами</name>
+		</std_profession>
+		<std_profession>
+			<id>71</id>
+			<name>повар</name>
+		</std_profession>
+		<std_profession>
+			<id>72</id>
+			<name>шеф-повар</name>
+		</std_profession>
+		<std_profession>
+			<id>69</id>
+			<name>официант / буфетчик / бармен</name>
+		</std_profession>
+		<std_profession>
+			<id>70</id>
+			<name>специалист по организации конференций, банкетов</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>213</id>
+	<name>Управление персоналом</name>
+
+	<std_professions>
+		<std_profession>
+			<id>30</id>
+			<name>менеджер по персоналу</name>
+		</std_profession>
+		<std_profession>
+			<id>33</id>
+			<name>сотрудник отдела кадров</name>
+		</std_profession>
+		<std_profession>
+			<id>34</id>
+			<name>рекрутер-консультант</name>
+		</std_profession>
+		<std_profession>
+			<id>31</id>
+			<name>менеджер по обучению и развитию персонала</name>
+		</std_profession>
+		<std_profession>
+			<id>35</id>
+			<name>ресерчер</name>
+		</std_profession>
+		<std_profession>
+			<id>36</id>
+			<name>тренер (HR)</name>
+		</std_profession>
+		<std_profession>
+			<id>32</id>
+			<name>психолог (тестирование / консультирование)</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>206</id>
+	<name>Образование / Воспитание</name>
+
+	<std_professions>
+		<std_profession>
+			<id>98</id>
+			<name>преподаватель</name>
+		</std_profession>
+		<std_profession>
+			<id>100</id>
+			<name>репетитор</name>
+		</std_profession>
+		<std_profession>
+			<id>99</id>
+			<name>тренер / инструктор</name>
+		</std_profession>
+		<std_profession>
+			<id>97</id>
+			<name>воспитатель</name>
+		</std_profession>
+		<std_profession>
+			<id>102</id>
+			<name>гувернер / гувернантка</name>
+		</std_profession>
+		<std_profession>
+			<id>101</id>
+			<name>няня</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>205</id>
+	<name>Медицина / Здравоохранение</name>
+
+	<std_professions>
+		<std_profession>
+			<id>89</id>
+			<name>врач</name>
+		</std_profession>
+		<std_profession>
+			<id>92</id>
+			<name>фельдшер</name>
+		</std_profession>
+		<std_profession>
+			<id>91</id>
+			<name>медсестра / санитар</name>
+		</std_profession>
+		<std_profession>
+			<id>90</id>
+			<name>медицинский лаборант</name>
+		</std_profession>
+		<std_profession>
+			<id>93</id>
+			<name>фармацевт / провизор</name>
+		</std_profession>
+		<std_profession>
+			<id>94</id>
+			<name>ветеринар</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>202</id>
+	<name>Вспомогательный персонал / Администрация</name>
+
+	<std_professions>
+		<std_profession>
+			<id>128</id>
+			<name>секретарь / личный помощник</name>
+		</std_profession>
+		<std_profession>
+			<id>129</id>
+			<name>рецепшионист</name>
+		</std_profession>
+		<std_profession>
+			<id>132</id>
+			<name>делопроизводитель</name>
+		</std_profession>
+		<std_profession>
+			<id>130</id>
+			<name>переводчик</name>
+		</std_profession>
+		<std_profession>
+			<id>131</id>
+			<name>управляющий офисом</name>
+		</std_profession>
+		<std_profession>
+			<id>133</id>
+			<name>сотрудник охраны / службы безопасности</name>
+		</std_profession>
+		<std_profession>
+			<id>57</id>
+			<name>курьер</name>
+		</std_profession>
+		<std_profession>
+			<id>134</id>
+			<name>уборщик помещений</name>
+		</std_profession>
+		<std_profession>
+			<id>135</id>
+			<name>вспомогательные специальности</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>201</id>
+	<name>Бытовые услуги</name>
+
+	<std_professions>
+		<std_profession>
+			<id>120</id>
+			<name>косметолог</name>
+		</std_profession>
+		<std_profession>
+			<id>121</id>
+			<name>массажист</name>
+		</std_profession>
+		<std_profession>
+			<id>119</id>
+			<name>парикмахер</name>
+		</std_profession>
+		<std_profession>
+			<id>123</id>
+			<name>садовник</name>
+		</std_profession>
+		<std_profession>
+			<id>125</id>
+			<name>специалист по обслуживанию зданий</name>
+		</std_profession>
+		<std_profession>
+			<id>124</id>
+			<name>дворник / уборщик</name>
+		</std_profession>
+		<std_profession>
+			<id>122</id>
+			<name>мастер по ремонту бытовой техники</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>215</id>
+	<name>Юриспруденция</name>
+
+	<std_professions>
+		<std_profession>
+			<id>109</id>
+			<name>юрисконсульт</name>
+		</std_profession>
+		<std_profession>
+			<id>110</id>
+			<name>юрист</name>
+		</std_profession>
+		<std_profession>
+			<id>105</id>
+			<name>адвокат</name>
+		</std_profession>
+		<std_profession>
+			<id>107</id>
+			<name>помощник адвоката</name>
+		</std_profession>
+		<std_profession>
+			<id>106</id>
+			<name>нотариус</name>
+		</std_profession>
+		<std_profession>
+			<id>108</id>
+			<name>помощник нотариуса</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>400</id>
+	<name>Общее руководство</name>
+
+	<std_professions>
+		<std_profession>
+			<id>411</id>
+			<name>генеральный директор</name>
+		</std_profession>
+		<std_profession>
+			<id>412</id>
+			<name>директор</name>
+		</std_profession>
+		<std_profession>
+			<id>413</id>
+			<name>заместитель директора</name>
+		</std_profession>
+		<std_profession>
+			<id>414</id>
+			<name>коммерческий директор</name>
+		</std_profession>
+		<std_profession>
+			<id>416</id>
+			<name>руководитель проекта</name>
+		</std_profession>
+		<std_profession>
+			<id>415</id>
+			<name>управляющий</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+</std_professions>
+

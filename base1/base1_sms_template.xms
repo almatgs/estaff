@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<UNIT NAME="static_attc_menus" SAMPLE="1">
+	<MENU RIGHT-CLICK="1">
+		<MENU-ENTRY TITLE="##UiText.actions.open##" ACTION="
+				tempFile = ObtainSessionTempFile( UrlPathSuffix( _attc.name ) );
+				_attc.data.SaveToFile( tempFile );
+				ShellExecute( 'open', tempFile )
+		" PASSIVE="1"/>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="_attc.Delete(); Ps.Doc.SetChanged( true );"/>
+	</MENU>
+</UNIT>
+
+
+
+
+
+<INHERIT TYPE="card_menus"/>
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="base_toolbar_start_entries"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY TITLE="##UiText.actions.insert_auto_field##" IMAGE-URL="//base_pict/select.ico" WIDTH="34zr">
+		<MENU>
+			<LOOP EXPR="base1_config.std_mail_template_entries" VAR="ListElem">
+				<IF EXPR="ListElem.is_separator">
+					<MENU-ENTRY SEPARATOR="1"/>
+				</IF>
+				<ELSE>
+					<MENU-ENTRY TITLE-EXPR="ListElem.name" ACTION="
+							edit = Screen.FocusItem;
+							if ( edit.Name != 'Subject' && edit.Name != 'Text' )
+								edit = Screen.FindItem( 'Text' );
+
+							edit.InsertText( '<%=' + ListElem.value + '%>' );
+							Ps.Doc.SetChanged( true );
+					" PASSIVE="1"/>
+				</ELSE>
+			</LOOP>
+		</MENU>
+	</TOOLBAR-ENTRY>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/help.ico" CMD="Help" TIP-TEXT="##UiText.sections.help##"/>
+</TOOLBAR>
+
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="32zr"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<COMBO SOURCE="Ps.dest_type" READ-ONLY-EXPR="! Ps.voc_info.std_field_editable( Ps, 'dest_type' )" LABEL-TITLE="##UiText.fields.recipient_type##:">
+			<COMBO-ENTRY TITLE="##UiText.objects.contact_person##" VALUE="person"/>
+			<COMBO-ENTRY TITLE="##UiText.objects.candidate##" VALUE="candidate"/>
+			<COMBO-ENTRY TITLE="##UiText.objects.user##" VALUE="user"/>
+			<COMBO-ENTRY TITLE="Фиксированный номер" VALUE="fixed_phone" lang-en:TITLE="Fixed phone number" lang-ua:TITLE="Фіксований номер"/>
+		</COMBO>
+
+		<PANEL>
+			<PANEL HEIGHT="3zrc">
+			</PANEL>
+			<CHECK SOURCE="Ps.is_notif" TITLE="##UiText.fields.template_is_notif##" WIDTH="auto" ALIGN="right"/>
+		</PANEL>
+	</TABLE>
+	<DELIM/>
+
+	<IF EXPR="Ps.dest_type == 'fixed_phone'">
+		<EDIT SOURCE="Ps.phone" AUTO-LABEL="1" WIDTH="50zr"/>
+		<BR/>
+	</IF>
+
+	<LABEL TITLE="##UiText.titles.text##:"/>
+	<EDIT NAME="Text" SOURCE="Ps.text" MULTILINE="1" SHORT="1" VERT-SCROLL="1" HEIGHT="20zr"/>
+
+	<DELIM/>
+
+
+	<CHECK SOURCE="Ps.register_event" TITLE="Регистрировать факт отправки в виде события" lang-en:TITLE="Register sending message as an event" lang-ua:TITLE="Реєструвати факт відправки у вигляді події"/>
+
+	<IF EXPR="Ps.register_event">
+		<BR/>
+		<LINE>
+			<LABEL TITLE="##UiText.fields.event_type##:"/>
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.event_type_id" ELEM="ListElem.name" WIDTH="38zr"/>
+		</LINE>
+	</IF>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.is_group_starter" TITLE="##UiText.titles.new_group_in_menu##"/>
+	<DELIM/>
+
+	<GROUP>
+		<ITEM TYPE="object_selector" SOURCE="Ps.group_id" WIDTH="30zr" LABEL-TITLE="##UiText.titles.use_only_for_group##:"/>
+	</GROUP>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+

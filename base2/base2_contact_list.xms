@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="Ps.name + ' - ' + UiText.objects.contact_list" WINDOW-ICON-URL-EXPR="Ps.image_url" MAXIMIZED="1">
+
+
+<ITEM TYPE="card_menu_start"/>
+
+<TOOLBAR NAME="card_toolbar" GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="base_toolbar_start_entries"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/select.ico" TITLE="Добавить контактные лица" lang-en:TITLE="Add contact persons" lang-ua:TITLE="Додати контактні особи" ACTION="
+			Ps.select_members();
+			Ps.Doc.SetChanged( true );
+	"/>
+
+	<INHERIT TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="32zr" STD-MARGINS="0">
+	<TREE HEIGHT="-50zr" SUNKEN="1" SWITCH-TYPE="selector" TARGET="main_selector">
+	</TREE>
+	
+	<SPLIT FIXED="1"/>
+
+	<PANEL SUNKEN="1" STD-MARGINS="1" WIDTH="100%" HEIGHT-EXPR="lib_base.card_left_prop_panel_height" BK-COLOR="sys-bk-ctrl">
+		<CHECK SOURCE="Ps.is_archived" AUTO-LABEL="1"/>
+
+		<PANEL HEIGHT="-7zr">
+		</PANEL>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="13zrc"/>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+
+			<ITEM TYPE="object_preview" SOURCE="Ps.user_id"/>
+				
+			<IF EXPR="ArrayCount( groups ) != 0">
+				<ITEM TYPE="object_preview" SOURCE="Ps.group_id"/>
+			</IF>
+		</TABLE>
+	</PANEL>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.objects.contact_list##" SUNKEN="1" EXPANDED="1" IMAGE-URL-EXPR="Ps.image_url()">
+
+
+<PAGE TITLE="##UiText.sections.general##" STD-MARGINS="1" SUNKEN="1" IMAGE-URL="//base_pict/common.ico">
+	<EDIT SOURCE="Ps.name" LABEL-TITLE="##UiText.fields.name##:"/>
+	<BR/>
+
+	<LABEL TITLE="##UiText.fields.contact_persons##:"/>
+
+	<LIST SUNKEN="1" LOOP-CATALOG="persons" XQUERY-QUAL-EXPR="
+			return 'MatchSome( $elem/id, ( ' + ArrayMerge( Ps.members, 'person_id', ',' ) + ' ) )';
+	" HEIGHT="-30zr">
+		<ROW DELETE-ACTION="Ps.members.DeleteChildByKey( ListElem.id ); Ps.Doc.SetChanged( true );" IMAGE-URL-EXPR="ListElem.ImageUrl">
+			<COL WIDTH="35zr" COL-TITLE="##UiText.fields.fullname##" TITLE-EXPR="ListElem.fullname"/>
+			<COL WIDTH="60%" COL-TITLE="##UiText.objects.org##" TITLE-EXPR="ListElem.org_id.ForeignDispName"/>
+			<COL WIDTH="40%" COL-TITLE="##UiText.fields.position##" TITLE-EXPR="ListElem.position_name"/>
+			<COL WIDTH="20zr" COL-TITLE="##UiText.fields.phone##" TITLE-EXPR="ListElem.disp_phone"/>
+		</ROW>
+		<MENU RIGHT-CLICK="1">
+			<INHERIT TYPE="list_menu_entries"/>
+			<MENU-ENTRY SEPARATOR="1"/>
+			<WITH VAR="_object_type_id" EXPR="'person'">
+				<INHERIT TYPE="list_object_actions_menu_entries"/>
+			</WITH>
+		</MENU>
+	</LIST>
+	<BR/>
+
+	<EDIT SOURCE="Ps.comment" MULTILINE="1" HEIGHT="-1zr" VERT-SCROLL="1" LABEL-TITLE="##UiText.fields.comment##:"/>
+</PAGE>
+
+</PAGE>
+
+</SELECTOR>
+
+
+</LINE>
+
+</SPXML-SCREEN>

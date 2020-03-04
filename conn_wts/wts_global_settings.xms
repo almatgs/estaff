@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="130zr" HEIGHT="60zr" TITLE="##UiText.titles.wts##" SAVE-ACTION="
+		UpdateScreens( '*', '*' );
+" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<GROUP>
+		<EDIT SOURCE="Ps.access_token" LABEL-TITLE="##UiText.fields.access_token##:" DELETE-ACTION="
+				Ps.access_token.Clear();
+				Ps.Doc.SetChanged( true );
+		"/>
+	</GROUP>
+</PANEL>
+
+
+</SPXML-SCREEN>

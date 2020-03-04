@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>external_accounts</id>
+	<name VALUE="##UiText.sections.external_accounts##"/>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>is_active</id>
+		</dyn_filter>
+		<dyn_filter>
+			<id>user_id</id>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>user_id</id>
+			<width>45zr</width>
+			<exist_req_expr>UseLds</exist_req_expr>
+		</field>
+		<field>
+			<id>type_id</id>
+			<width>20zr</width>
+			<align>center</align>
+		</field>
+		<field>
+			<id>imod_site_id</id>
+			<width>22zr</width>
+			<align>center</align>
+		</field>
+		<field>
+			<id>recruit_provider_id</id>
+			<width>22zr</width>
+			<align>center</align>
+		</field>
+		<field>
+			<id>login</id>
+		</field>
+		<field>
+			<id>user_id</id>
+		</field>
+	</fields>
+
+	<action>
+		<title VALUE="##UiText.actions.new_elem_of_voc##"/>
+		<image_url>//base_pict/user.ico</image_url>
+		<code>
+			doc = DefaultDb.OpenNewObjectDoc( 'external_account' );
+			doc.TopElem.user_id = LdsCurUserID;
+			doc.TopElem.person_id = doc.TopElem.user_id.ForeignElem.person_id;
+			CreateDocScreen( doc );
+		</code>
+	</action>
+</std_view>
+

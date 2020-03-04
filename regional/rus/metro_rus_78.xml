@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<metro_map xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<location_name>Санкт-Петербург</location_name>
+	<lines>
+		<line>
+			<id>13</id>
+			<name VALUE="Кировско-Выборгская"/>
+		</line>
+		<line>
+			<id>14</id>
+			<name VALUE="Московско-Петроградская"/>
+		</line>
+		<line>
+			<id>15</id>
+			<name VALUE="Невско-Василеостровская"/>
+		</line>
+		<line>
+			<id>16</id>
+			<name VALUE="Правобережная"/>
+		</line>
+		<line>
+			<id>18</id>
+			<name VALUE="Фрунзенско-Приморская" lang-en:VALUE="Frunzensko-Primorskaya"/>
+		</line>
+	</lines>
+	<stations>
+		<station>
+			<id>204</id>
+			<name VALUE="Автово" lang-en:VALUE="Avtovo"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>218</id>
+			<name VALUE="Академическая" lang-en:VALUE="Akademicheskaya"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>207</id>
+			<name VALUE="Балтийская" lang-en:VALUE="Baltijskaya"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>612</id>
+			<name VALUE="Беговая" lang-en:VALUE="Begovaya"/>
+			<line_id>15</line_id>
+		</station>
+		<station>
+			<id>543</id>
+			<name VALUE="Бухарестская" lang-en:VALUE="Buharestskaya"/>
+			<line_id>18</line_id>
+		</station>
+		<station>
+			<id>246</id>
+			<name VALUE="Василеостровская" lang-en:VALUE="Vasileostrovskaya"/>
+			<line_id>15</line_id>
+		</station>
+		<station>
+			<id>210</id>
+			<name VALUE="Владимирская" lang-en:VALUE="Vladimirskaya"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>516</id>
+			<name VALUE="Волковская" lang-en:VALUE="Volkovskaya"/>
+			<line_id>18</line_id>
+		</station>
+		<station>
+			<id>214</id>
+			<name VALUE="Выборгская" lang-en:VALUE="Vyborgskaya"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>231</id>
+			<name VALUE="Горьковская" lang-en:VALUE="Gorkovskaya"/>
+			<line_id>14</line_id>
+		</station>
+		<station>
+			<id>244</id>
+			<name VALUE="Гостиный Двор" lang-en:VALUE="Gostinyj Dvor"/>
+			<line_id>15</line_id>
+		</station>
+		<station>
+			<id>219</id>
+			<name VALUE="Гражданский Проспект" lang-en:VALUE="Grazhdanskiy Prospekt"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>220</id>
+			<name VALUE="Девяткино" lang-en:VALUE="Devyatkino"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>253</id>
+			<name VALUE="Достоевская" lang-en:VALUE="Dostoevskaya"/>
+			<line_id>16</line_id>
+		</station>
+		<station>
+			<id>260</id>
+			<name VALUE="Елизаровская" lang-en:VALUE="Elizarovskaya"/>
+			<line_id>15</line_id>
+		</station>
+		<station>
+			<id>517</id>
+			<name VALUE="Звенигородская" lang-en:VALUE="Zvenigorodskaya"/>
+			<line_id>18</line_id>
+		</station>
+		<station>
+			<id>222</id>
+			<name VALUE="Звёздная" lang-en:VALUE="Zvjozdnaya"/>
+			<line_id>14</line_id>
+		</station>
+		<station>
+			<id>205</id>
+			<name VALUE="Кировский завод" lang-en:VALUE="Kirovskij zavod"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>259</id>
+			<name VALUE="Комендантский проспект" lang-en:VALUE="Komendantskij prospekt"/>
+			<line_id>18</line_id>
+		</station>
+		<station>
+			<id>257</id>
+			<name VALUE="Крестовский остров" lang-en:VALUE="Krestovskij ostrov"/>
+			<line_id>18</line_id>
+		</station>
+		<station>
+			<id>221</id>
+			<name VALUE="Купчино" lang-en:VALUE="Kupchino"/>
+			<line_id>14</line_id>
+		</station>
+		<station>
+			<id>249</id>
+			<name VALUE="Ладожская" lang-en:VALUE="Ladozhskaya"/>
+			<line_id>16</line_id>
+		</station>
+		<station>
+			<id>203</id>
+			<name VALUE="Ленинский проспект" lang-en:VALUE="Leninskij prospekt"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>215</id>
+			<name VALUE="Лесная" lang-en:VALUE="Lesnaya"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>252</id>
+			<name VALUE="Лиговский проспект" lang-en:VALUE="Ligovskij prospekt"/>
+			<line_id>16</line_id>
+		</station>
+		<station>
+			<id>241</id>
+			<name VALUE="Ломоносовская" lang-en:VALUE="Lomonosovskaya"/>
+			<line_id>15</line_id>
+		</station>
+		<station>
+			<id>243</id>
+			<name VALUE="Маяковская" lang-en:VALUE="Mayakovskaya"/>
+			<line_id>15</line_id>
+		</station>
+		<station>
+			<id>544</id>
+			<name VALUE="Международная" lang-en:VALUE="Mezhdunarodnaya"/>
+			<line_id>18</line_id>
+		</station>
+		<station>
+			<id>223</id>
+			<name VALUE="Московская" lang-en:VALUE="Moskovskaya"/>
+			<line_id>14</line_id>
+		</station>
+		<station>
+			<id>226</id>
+			<name VALUE="Московские Ворота" lang-en:VALUE="Moskovskie Vorota"/>
+			<line_id>14</line_id>
+		</station>
+		<station>
+			<id>206</id>
+			<name VALUE="Нарвская" lang-en:VALUE="Narvskaya"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>230</id>
+			<name VALUE="Невский Проспект" lang-en:VALUE="Nevskij Prospekt"/>
+			<line_id>14</line_id>
+		</station>
+		<station>
+			<id>250</id>
+			<name VALUE="Новочеркасская" lang-en:VALUE="Novocherkasskaya"/>
+			<line_id>16</line_id>
+		</station>
+		<station>
+			<id>532</id>
+			<name VALUE="Обводный канал" lang-en:VALUE="Obvodny kanal"/>
+			<line_id>18</line_id>
+		</station>
+		<station>
+			<id>239</id>
+			<name VALUE="Обухово" lang-en:VALUE="Obuhovo"/>
+			<line_id>15</line_id>
+		</station>
+		<station>
+			<id>236</id>
+			<name VALUE="Озерки" lang-en:VALUE="Ozerki"/>
+			<line_id>14</line_id>
+		</station>
+		<station>
+			<id>224</id>
+			<name VALUE="Парк Победы" lang-en:VALUE="Park Pobedy"/>
+			<line_id>14</line_id>
+		</station>
+		<station>
+			<id>521</id>
+			<name VALUE="Парнас" lang-en:VALUE="Parnas"/>
+			<line_id>14</line_id>
+		</station>
+		<station>
+			<id>232</id>
+			<name VALUE="Петроградская" lang-en:VALUE="Petrogradskaya"/>
+			<line_id>14</line_id>
+		</station>
+		<station>
+			<id>234</id>
+			<name VALUE="Пионерская" lang-en:VALUE="Pionerskaya"/>
+			<line_id>14</line_id>
+		</station>
+		<station>
+			<id>242</id>
+			<name VALUE="Площадь Александра Невского I" lang-en:VALUE="Ploschad Aleksandra Nevskogo I"/>
+			<line_id>15</line_id>
+		</station>
+		<station>
+			<id>251</id>
+			<name VALUE="Площадь Александра Невского II" lang-en:VALUE="Ploschad Aleksandra Nevskogo II"/>
+			<line_id>16</line_id>
+		</station>
+		<station>
+			<id>211</id>
+			<name VALUE="Площадь Восстания" lang-en:VALUE="Ploschad Vosstaniya"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>213</id>
+			<name VALUE="Площадь Ленина" lang-en:VALUE="Ploschad Lenina"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>216</id>
+			<name VALUE="Площадь Мужества" lang-en:VALUE="Ploschad Muzhestva"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>217</id>
+			<name VALUE="Политехническая" lang-en:VALUE="Politehnicheskaya"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>245</id>
+			<name VALUE="Приморская" lang-en:VALUE="Primorskaya"/>
+			<line_id>15</line_id>
+		</station>
+		<station>
+			<id>240</id>
+			<name VALUE="Пролетарская" lang-en:VALUE="Proletarskaya"/>
+			<line_id>15</line_id>
+		</station>
+		<station>
+			<id>248</id>
+			<name VALUE="Проспект Большевиков" lang-en:VALUE="Prospekt Bolshevikov"/>
+			<line_id>16</line_id>
+		</station>
+		<station>
+			<id>202</id>
+			<name VALUE="Проспект Ветеранов" lang-en:VALUE="Prospekt Veteranov"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>237</id>
+			<name VALUE="Проспект Просвещения" lang-en:VALUE="Prospekt Prosvescheniya"/>
+			<line_id>14</line_id>
+		</station>
+		<station>
+			<id>209</id>
+			<name VALUE="Пушкинская" lang-en:VALUE="Pushkinskaya"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>238</id>
+			<name VALUE="Рыбацкое" lang-en:VALUE="Rybackoe"/>
+			<line_id>15</line_id>
+		</station>
+		<station>
+			<id>254</id>
+			<name VALUE="Садовая" lang-en:VALUE="Sadovaya"/>
+			<line_id>16</line_id>
+		</station>
+		<station>
+			<id>229</id>
+			<name VALUE="Сенная площадь" lang-en:VALUE="Sennaya ploschad"/>
+			<line_id>14</line_id>
+		</station>
+		<station>
+			<id>522</id>
+			<name VALUE="Спасская" lang-en:VALUE="Spasskaya"/>
+			<line_id>16</line_id>
+		</station>
+		<station>
+			<id>255</id>
+			<name VALUE="Спортивная" lang-en:VALUE="Sportivnaya"/>
+			<line_id>18</line_id>
+		</station>
+		<station>
+			<id>258</id>
+			<name VALUE="Старая Деревня" lang-en:VALUE="Staraya Derevnya"/>
+			<line_id>18</line_id>
+		</station>
+		<station>
+			<id>208</id>
+			<name VALUE="Технологический институт I" lang-en:VALUE="Tehnologicheskij institut I"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>228</id>
+			<name VALUE="Технологический институт II" lang-en:VALUE="Tehnologicheskij institut II"/>
+			<line_id>14</line_id>
+		</station>
+		<station>
+			<id>235</id>
+			<name VALUE="Удельная" lang-en:VALUE="Udelnaya"/>
+			<line_id>14</line_id>
+		</station>
+		<station>
+			<id>247</id>
+			<name VALUE="Улица Дыбенко" lang-en:VALUE="Ulica Dybenko"/>
+			<line_id>16</line_id>
+		</station>
+		<station>
+			<id>227</id>
+			<name VALUE="Фрунзенская" lang-en:VALUE="Frunzenskaya"/>
+			<line_id>14</line_id>
+		</station>
+		<station>
+			<id>212</id>
+			<name VALUE="Чернышевская" lang-en:VALUE="Chernyshevskaya"/>
+			<line_id>13</line_id>
+		</station>
+		<station>
+			<id>233</id>
+			<name VALUE="Чёрная Речка" lang-en:VALUE="Chjornaya Rechka"/>
+			<line_id>14</line_id>
+		</station>
+		<station>
+			<id>256</id>
+			<name VALUE="Чкаловская" lang-en:VALUE="Chkalovskaya"/>
+			<line_id>18</line_id>
+		</station>
+		<station>
+			<id>225</id>
+			<name VALUE="Электросила" lang-en:VALUE="Elektrosila"/>
+			<line_id>14</line_id>
+		</station>
+	</stations>
+</metro_map>

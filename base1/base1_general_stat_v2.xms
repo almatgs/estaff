@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<UNIT NAME="stat_items_v2_base" SAMPLE="1">
+
+<PANEL HEIGHT-EXPR="Ps.sub_selector.HasValue ? '70%' : '100%'" BK-COLOR-EXPR="" STD-MARGINS="0">
+<GRID HEIGHT="100%" ZERO="-" STD-MARGINS="0" SOLID-ROWS="1" FIXED-WORK-ROW-HEIGHT="1" PRINT-FORMAT-ATTR-EXPR="Ps.spec.print_format.build_tag_attr()">
+	<COLUMNS>
+		<LOOP EXPR="Ps.header_columns" VAR="_column_spec">
+			<COL WIDTH-EXPR="_column_spec.width"/>
+		</LOOP>
+	</COLUMNS>
+
+	<IF EXPR="Ps.top_columns.ChildNum != 0">
+		<ROW HEADER="1">
+			<LOOP EXPR="Ps.top_columns" VAR="_header_cell">
+				<LABEL HSPAN-EXPR="_header_cell.span" TITLE-EXPR="_header_cell.title" ALIGN="center" TIP-TEXT-EXPR="_header_cell.tip_text" TEXT-ROTATION-EXPR="_header_cell.use_vertical_text ? 90 : 0"/>
+			</LOOP>
+		</ROW>
+	</IF>
+
+	<ROW HEADER="1">
+		<LOOP EXPR="Ps.header_columns" VAR="_column_spec">
+			<LABEL TITLE-EXPR="_column_spec.title" ALIGN="center" TIP-TEXT-EXPR="_column_spec.tip_text" TEXT-ROTATION-EXPR="_column_spec.use_vertical_text ? 90 : 0"/>
+		</LOOP>
+	</ROW>
+
+	<LOOP EXPR="lib_stat_v2.GetDispItems( Ps )" VAR="_item">
+		<ROW OPEN-ACTION="lib_stat_v2.OpenItem( Ps, _item )" BOLD-EXPR="lib_stat_v2.IsItemBold( Ps, _item )">
+			<IF EXPR="_item.isDelim == true || _item.fullSpan">
+				<LABEL HSPAN-EXPR="Ps.header_columns.ChildNum" FLAT="1" TITLE-EXPR="_item.text != undefined ? _item.text : ''"/>
+			</IF>
+			<ELSE>
+				<LOOP EXPR="Ps.header_columns" VAR="_header_column">
+					<WITH VAR="_field_spec" EXPR="Ps.spec.fields[_header_column.ChildIndex]">
+						<WITH VAR="_field" EXPR="_item.fields[_field_spec.id]">
+							<IF EXPR="lib_stat_v2.IsItemCellClickable( Ps, _item, _field, _field_spec )">
+								<LINK TITLE-EXPR="
+										lib_stat_v2.GetItemCellIndentStr( Ps, _item, _field, _field_spec ) + lib_stat_v2.GetItemCellTitle( Ps, _item, _field, _field_spec )
+								" TIP-TEXT-EXPR="
+										lib_stat_v2.GetItemCellTipText( Ps, _item, _field )
+								" HSPAN-EXPR="
+										_field.horizSpan != undefined ? _field.horizSpan : 1
+								" FLAT="1" ALIGN-EXPR="_header_column.align" TEXT-COLOR="black" BK-COLOR-EXPR="
+										lib_stat_v2.GetItemCellBkColor( Ps, _item, _field, _field_spec )
+								" ACTION="
+										lib_stat_v2.OpenItemCellLink( Ps, _item, _field, _field_spec );
+								" PASSIVE="1"/>
+							</IF>
+							<ELSE>
+								<LABEL TITLE-EXPR="
+										lib_stat_v2.GetItemCellIndentStr( Ps, _item, _field, _field_spec ) + lib_stat_v2.GetItemCellTitle( Ps, _item, _field, _field_spec )
+								" TIP-TEXT-EXPR="
+										lib_stat_v2.GetItemCellTipText( Ps, _item, _field )
+								" HSPAN-EXPR="
+										_field != undefined &amp;&amp; _field.horizSpan != undefined ? _field.horizSpan : 1
+								" FLAT="1" ALIGN-EXPR="_header_column.align" TEXT-COLOR-EXPR="
+										lib_stat_v2.GetItemCellTextColor( Ps, _item, _field, _field_spec )
+								" BK-COLOR-EXPR="
+										lib_stat_v2.GetItemCellBkColor( Ps, _item, _field, _field_spec )
+								"/>
+							</ELSE>
+						</WITH>
+					</WITH>
+				</LOOP>
+			</ELSE>
+		</ROW>
+	</LOOP>
+
+	<IF EXPR="System.ClientMajorVersion == 1">
+		<ROW>
+			<LABEL HSPAN-EXPR="Ps.header_columns.ChildNum" FLAT="1"/>
+		</ROW>
+	</IF>
+
+	<IF EXPR="Ps.spec.show_object_actions">
+		<MENU RIGHT-CLICK="1">
+			<WITH VAR="_object_type_id" EXPR="'candidate'">
+				<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( object_actions ), 'object_type_id == _object_type_id &amp;&amp; show_in_context_menu' )" VAR="_action">
+					<MENU-ENTRY TITLE-EXPR="_action.name" ACTION="lib_base.run_stat_grid_object_action( Grid, _action.id )" PASSIVE="1" ENABLE-EXPR="! _action.enable_expr.HasValue || eval( _action.enable_expr )"/>
+				</LOOP>
+			</WITH>
+		</MENU>
+	</IF>
+</GRID>
+</PANEL>
+
+
+<IF EXPR="Ps.sub_selector.HasValue">
+
+<SPLIT/>
+
+<PANEL HEIGHT="100%">
+<BR HEIGHT="4px"/>
+
+<TAB SWITCH-TYPE="source" SOURCE="Ps.sub_selector">
+	<TAB-ENTRY VALUE="src_data" IMAGE-URL="//base_pict/details.ico" TITLE="##UiText.titles.details__of_stat##"/>
+
+	<IF EXPR="Ps.Doc.TopElem.spec.show_chart">
+		<TAB-ENTRY VALUE="chart" IMAGE-URL="//base_pict/stat.ico" TITLE="##UiText.titles.charts##"/>
+	</IF>
+</TAB>
+
+<PANEL HEIGHT="100%">
+	<IF EXPR="Ps.sub_selector == 'src_data'">
+		<PANEL SUNKEN="1" HEIGHT="100%">
+			<FRAME NAME="FrameStatSrcData"/>
+		</PANEL>
+	</IF>
+
+	<IF EXPR="Ps.sub_selector == 'chart'">
+		<IF EXPR="! Ps.spec.is_manual_chart_build">
+			<WITH VAR="_stat_data_entry" EXPR="lib_stat_v2.GetStatDataEntry( Ps )">
+				<PANEL SUNKEN="1" STD-MARGINS="1">
+					<LINE MULTILINE="1">
+						<LOOP EXPR="ArraySelect( Ps.spec.fields, 'stat_func.HasValue || data_type == \'integer\'' )" VAR="_field_spec">
+							<CHECK TITLE-EXPR="_field_spec.chart_title" SOURCE="_stat_data_entry.chart.target_fields.ChildByKeyExists( _field_spec.id )" SET-VALUE-ACTION="
+									if ( NewValue )
+										_stat_data_entry.chart.target_fields.ObtainChildByKey( _field_spec.id );
+									else if ( _stat_data_entry.chart.target_fields.ChildByKeyExists( _field_spec.id ) )
+										_stat_data_entry.chart.target_fields.DeleteChildByKey( _field_spec.id );
+
+									_stat_data_entry.Doc.SetChanged( true );
+									lib_stat_v2.BuildChart( Ps );
+									if ( ( hyper = Screen.FindOptItem( 'ChartHyper' ) ) != undefined )
+										hyper.Navigate( Ps.chart_data.page_url );
+						"/>
+						</LOOP>
+					</LINE>
+				</PANEL>
+			</WITH>
+		</IF>
+
+		<WITH VAR="_dummy" EXPR="lib_stat_v2.BuildChart( Ps );" IGNORE-ERRORS="0">
+		</WITH>
+
+		<PANEL SUNKEN="1" HEIGHT="100%">
+			<HYPER NAME="ChartHyper" URL-EXPR="Ps.chart_data.page_url"/>
+		</PANEL>
+	</IF>
+</PANEL>
+
+</PANEL>
+
+</IF>
+
+
+
+<COMMAND-HANDLER CMD="PreviewChartInBrowser" ACTION="
+		lib_stat_v2.HandlePreviewChartInBrowser( Ps );
+" PASSIVE="1"/>
+
+
+</UNIT>
+
+
+
+
+
+
+</SPXML-SCREEN>
+

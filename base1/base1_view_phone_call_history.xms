@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="120zr" HEIGHT="80zr" TITLE="##UiText.titles.call_history##" STD-MARGINS="1">
+
+<LIST LOOP-EXPR="Ps.entriesArray" SUNKEN="1">
+	<ROW IMAGE-URL="//base_pict/phone.ico" OPEN-ACTION="lib_telephony.ShowCallRecordAudio( ListElem.id )">
+		<COL WIDTH="20zr" COL-TITLE="##UiText.fields.date##" TITLE-EXPR="StrReplaceOne( StrDate( ListElem.date, true, false ), ' ', '  ' )"/>
+		<COL WIDTH="15zr" COL-TITLE="Кто звонил" TITLE-EXPR="ListElem.src_phone"/>
+		<COL WIDTH="15zr" COL-TITLE="Кому звонили" TITLE-EXPR="ListElem.dest_phone"/>
+		<COL WIDTH="15zr" COL-TITLE="##UiText.titles.duration##" TITLE-EXPR="ListElem.duration_seconds" ALIGN="center"/>
+	</ROW>
+</LIST>
+
+
+</SPXML-SCREEN>

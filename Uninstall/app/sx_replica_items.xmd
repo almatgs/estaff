@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<replica_items>
+	<replica_item MULTIPLE="1" PRIMARY-KEY="url_path">
+		<url_path TYPE="string"/>
+		<date TYPE="date"/>
+	</replica_item>
+</replica_items>
+
+
+</SPXML-FORM>
+
+
+

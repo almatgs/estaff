@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<dlg_vacancy_instance>
+	<instance>
+		<INHERIT TYPE="vacancy_instance_base"/>
+		<user_id TYPE="integer" FOREIGN-ARRAY="users" TITLE="##UiText.fields.recruiter##"/>
+	</instance>
+
+	<is_new TYPE="bool" NULL-FALSE="1"/>
+	<req_num_f TYPE="real" PRECISION="1"/>
+</dlg_vacancy_instance>
+
+
+</SPXML-INLINE-FORM>
+

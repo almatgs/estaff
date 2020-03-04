@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="165zr" HEIGHT="70zr" TITLE="##UiText.sections.global_settings_policy##" BEFORE-SAVE-ACTION="
+		if ( Ps.is_agency != FetchDoc( 'x-local://data/static/global_settings.xml' ).TopElem.is_agency )
+		{
+			Screen.MsgBox( UiText.messages.changes_require_app_restart, UiText.messages.info_msg_title, 'info' );
+			Ps.update_dep_values();
+		}
+
+" SAVE-ACTION="
+		UpdateScreens( '*', '*' );
+" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+
+<LINE>
+	<LABEL TITLE="Тип пользователя:" lang-en:TITLE="User:" lang-ua:TITLE="Тип користувача:"/>
+	<RADIO-BUTTON SOURCE="Ps.is_agency" TITLE="##UiText.titles.hr_department##" SWITCH-VALUE="false" WIDTH="auto" lang-en:TITLE="HR department"/> 
+	<RADIO-BUTTON SOURCE="Ps.is_agency" TITLE="##UiText.titles.recruiting_agency##" SWITCH-VALUE="true" WIDTH="auto"/> 
+</LINE>
+<DELIM/>
+
+<LINE>
+	<CHECK SOURCE="Ps.use_own_orgs" AUTO-LABEL="1" WIDTH="auto"/>
+	<CHECK SOURCE="Ps.use_other_orgs" AUTO-LABEL="1" WIDTH="auto"/>
+	<CHECK SOURCE="Ps.use_customers" AUTO-LABEL="1" WIDTH="auto"/>
+
+	<IF EXPR="false">
+		<CHECK SOURCE="Ps.use_sec_customers" AUTO-LABEL="1" WIDTH="auto"/>
+	</IF>
+
+	<CHECK SOURCE="Ps.use_suppliers" AUTO-LABEL="1" WIDTH="auto"/>
+
+	<IF EXPR="false">
+		<CHECK SOURCE="Ps.use_resellers" AUTO-LABEL="1" WIDTH="auto"/>
+	</IF>
+</LINE>
+
+<CHECK SOURCE="Ps.use_division_orgs" AUTO-LABEL="1" WIDTH="auto"/>
+<BR/>
+
+<CHECK SOURCE="Ps.use_contact_lists" AUTO-LABEL="1" WIDTH="auto"/>
+
+<CHECK SOURCE="Ps.use_org_events" AUTO-LABEL="1" WIDTH="auto"/>
+<CHECK SOURCE="Ps.use_org_init_users" AUTO-LABEL="1" WIDTH="auto"/>
+<DELIM/>
+
+<CHECK SOURCE="Ps.use_own_persons" AUTO-LABEL="1" WIDTH="auto"/>
+<CHECK SOURCE="Ps.use_person_roles" AUTO-LABEL="1" WIDTH="auto"/>
+
+<DELIM/>
+
+<GROUP>
+	<CHECK SOURCE="Ps.use_expenses" AUTO-LABEL="1" WIDTH="auto"/>
+	<CHECK SOURCE="Ps.use_agreements" AUTO-LABEL="1" WIDTH="auto"/>
+	<CHECK SOURCE="Ps.use_budgets" AUTO-LABEL="1" WIDTH="auto"/>
+</GROUP>
+<DELIM/>
+
+<GROUP>
+	<LABEL TITLE="Отображать в качестве имени пользователя:" lang-en:TITLE="Show user name as:" lang-ua:TITLE="Відображати в якості імені користувача:"/>
+	<COMBO SOURCE="Ps.user_primary_disp_name" WIDTH="25zr">
+		<COMBO-ENTRY VALUE="login" TITLE="##UiText.fields.login##"/>
+		<COMBO-ENTRY VALUE="fullname" TITLE="##UiText.fields.fullname##"/>
+		<COMBO-ENTRY VALUE="shortname" TITLE="##UiText.fields.shortname##"/>
+	</COMBO>
+</GROUP>
+
+
+
+</PANEL>
+
+
+<COMMAND-HANDLER CMD="Help" HREF="help/settings_policy.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+</SPXML-SCREEN>

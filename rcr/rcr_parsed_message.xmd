@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM TITLE="Загруженное резюме" lang-en:TITLE="Loaded resume" IMAGE-URL-EXPR="image_url()" lang-ua:TITLE="Завантажене резюме">
+
+<parsed_message>
+	<id TYPE="integer"/>
+	<date TYPE="date" INDEXED="1" TITLE="##UiText.fields.date##"/>
+	<raw_storage_id TYPE="integer" FOREIGN-ARRAY="raw_storages" INDEXED="1" TITLE="Источник импорта" lang-en:TITLE="Import source" lang-ua:TITLE="Джерело імпорту"/>
+
+	<sender>
+		<address TYPE="string" TITLE="##UiText.fields.sender##"/>
+		<name TYPE="string"/>
+
+		<disp_name PROPERTY="1" EXPR="
+				address + ( name.HasValue ? ' (' + name + ')' : '' )
+		" TITLE="##UiText.fields.sender##"/>
+	</sender>
+
+	<subject TYPE="string" TITLE="##UiText.fields.subject##"/>
+
+	<file_path TYPE="string" TITLE="##UiText.titles.file##" INDEXED="1" MAX-LEN="1024"/>
+
+	<parsed_info>
+		<INHERIT TYPE="parsed_candidate_base"/>
+	
+		<profession_id TYPE="integer" MULTIPLE="1" FOREIGN-ARRAY="professions" IDATA="1"/>
+	</parsed_info>
+
+	<attachments DOC-ONLY="1">
+		<attachment MULTIPLE="1">
+			<INHERIT TYPE="card_attachment"/>
+			<has_risk TYPE="bool" NULL-FALSE="1"/>
+
+			<resources_ref TYPE="variant" TEMP="1"/>
+
+			<parsed_info>
+				<INHERIT TYPE="parsed_candidate_base"/>
+				<resume_rating TYPE="integer"/>
+			</parsed_info>
+
+			
+			<orig_file_name TYPE="string"/>
+			<is_message_text TYPE="bool" NULL-FALSE="1"/>
+
+			<skip TYPE="bool" NULL-FALSE="1"/>
+			<dest_card_attachment_type_id TYPE="string" FOREIGN-ARRAY="card_attachment_types"/>
+		</attachment>
+	</attachments>
+
+	<body_parsed TYPE="bool" NOT-NULL="1"/>
+	<has_risk TYPE="bool" NULL-FALSE="1"/>
+
+	<req_vacancy_id TYPE="integer" FOREIGN-ARRAY="vacancies" TITLE="Предполагаемая вакансия" lang-en:TITLE="Desired vacancy" lang-ua:TITLE="Передбачувана вакансія"/>
+	<has_dup_candidates TYPE="bool" NOT-NULL="1" TITLE="Найдены дубликаты" COL-TITLE="Д" lang-en:COL-TITLE="D" lang-en:TITLE="Duplicates found" lang-ua:TITLE="Знайдено дублікати" lang-ua:COL-TITLE="Д"/>
+
+	<INHERIT TYPE="user_ref"/>
+
+	<is_read TYPE="bool" NULL-FALSE="1"/>
+
+	
+
+	<preview TEMP="1" DOC-ONLY="1">
+		<attachment_index TYPE="integer" NOT-NULL="1" TEMP="1"/>
+	</preview>
+
+
+	<image_url PROPERTY="1" EXPR="
+			if ( raw_storage_id.ForeignElem.type_id == 'mailbox' )
+				return ( is_read ? '//base_pict/email_message_seen.ico' : '//base_pict/email_message.ico' );
+			else
+				return 'x-sys-image://shell-icon/1' + UrlPathSuffix( file_path );
+	" DEPENDS="raw_storage_id,is_read,file_path"/>
+	
+	 
+	<set_read_state PROPERTY="1" PARAM="newReadState" PARAM="screen" EXPR="
+			if ( newReadState == is_read )
+				return;
+
+			try
+			{
+				doc = DefaultDb.OpenObjectDoc( 'parsed_message', id );
+			}
+			catch ( e )
+			{
+				return;
+			}
+
+			doc.TopElem.is_read = newReadState;
+			doc.Save();
+
+			if ( screen != undefined )
+				screen.Update();
+	"/>
+</parsed_message>
+
+
+</SPXML-FORM>

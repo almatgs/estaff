@@ -1,0 +1,93 @@
+<html>
+<meta http-equiv="content-type" content="text/html; charset=windows-1251"/>
+<body>
+<h1>Налаштування NTLM-авторизації</h1>
+
+
+
+
+<p>В тому випадку,
+якщо комп’тери робочих станцій користувачів E-Staff підключені до мережі, в склад якої входить
+контролер домену Active Directory, то системи E-Staff можливо налаштувати на роботу в режимі NTLM-авторизації.</p>
+
+<p>&nbsp;</p>
+
+<p>Для використання
+в системі E-Staff NTLM-авторизації необхідно виконати наступне:</p>
+
+<p><i>На комп’</i><i>ютері</i><i>, на якому встановлено сервер E-Staff</i></p>
+
+<p>&#61623;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+в корні директорії сервера
+E-Staff створити файл <b>xHttp1.ini</b> та додати до нього запис </p>
+
+<p><b>LDS-NTLM-AUTH: 1</b></p>
+
+<p>&#61623;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Запустіть &quot;<b>E-Staff Server</b>&quot; з
+меню <b>Пуск</b><b>-&gt;Програми</b><b> (Start-&gt;Programs)</b></p>
+
+<p>&#61623;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+В полі <b>Ім</b><b>’</b><b>я користувача </b>введіть
+ім’я технічного
+адміністратора системи у форматі <b>domain\user</b>, де
+<b>domain</b> та <b>user</b> – відповідно
+ім’я домену та ім’я користувача Active
+Directory, який робить дані
+налаштування, поле <b>Пароль</b> необхідно очистити.</p>
+
+<p>&#61623;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Перезапустіть  сервер E-Staff, натиснувши кнопку <b>Виключити сервер, </b>а потім – <b>Включити
+сервер.</b></p>
+
+<p><i>На будь-якому клієнтському місці</i></p>
+
+<p>&#61623;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+в корні директорії сервера
+E-Staff створити файл <b>SpXml2.ini</b>&nbsp; та додати до нього запис </p>
+
+<p><b>EXTERNAL-LDS: 1</b></p>
+
+<p>&#61623;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Запустіть &quot;<b>E-Staff Server</b>&quot; з
+меню <b>Пуск</b><b>-&gt;Програми</b><b> (Start-&gt;Programs)</b></p>
+
+<p>&#61623;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Введіть ім’я (в форматі <b>user</b>) та пароль технічного адміністратора. У якості пароля
+використайте пароль відповідного облікового запису Active Directory.</p>
+
+<p>&#61623;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+В розділі <b>Адміністрування</b><b>-&gt;</b><b>Доступ-&gt;</b><b>Користувачі</b> для кожного з користувачів замість поточного
+вкажіть ім’я Active Directory
+(тільки логін, причому якщо в ньому
+наявні великі літери – замініть їх маленькими), поле <b>Пароль</b> необхідно очистити.</p>
+
+<p>&#61623;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Закрийте програму, потім знову
+запустіть її. Програма повинна відкритися автоматично під фактичним
+користувачем, який працює на даному місці. Якщо цього не сталося, то необхідно
+замінити налаштування браузера Internet Explorer. У властивостях браузера на вкладці <b>Безпека</b>
+для зони, яка відповідає розташуванню клієнтського місця, натисніть на кнопку <b>Інший (</b><b>Custom</b><b> </b><b>level</b><b>).</b> У вікні налаштувань параметрів безпеки в розділі <b>Перевірка справжності користувача-&gt;Вхід </b>(<b>User</b><b> </b><b>Authentication</b><b>-&gt;</b><b>Logon</b>) встановіть перемикач в положення <b>Автоматичний
+вхід в мережу з поточним іменем користувача та паролем </b>(<b>Automatic</b><b> </b><b>logon</b><b> </b><b>with</b><b> </b><b>current</b><b> </b><b>user</b><b> </b><b>name</b><b> </b><b>and</b><b> </b><b>password</b>)<b>.</b></p>
+
+<p><i>На решти клієнтських місцях:</i></p>
+
+<p>&#61623;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+в корні директорії сервера
+E-Staff створити файл <b>SpXml2.ini</b>&nbsp; та додати до нього запис </p>
+
+<p><b>EXTERNAL-LDS: 1</b></p>
+
+<p>&#61623;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Запустіть &quot;<b>E-Staff Server</b>&quot; з
+меню <b>Пуск-&gt;Програми (Start-&gt;Programs). </b>Програма
+повинні відкритися автоматично під фактичним користувачем, який працює на
+даному місці. Якщо цього не відбулося – необхідно змінити налаштування браузера
+Internet Explorer таким самим чином, як це було описано вище.</p>
+
+<p>&nbsp;</p>
+
+
+
+</body>
+</html>

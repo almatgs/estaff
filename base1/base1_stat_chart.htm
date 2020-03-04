@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=<%=AppCharset%>"/>
+		<title>Chart</title>
+		<script src="<%=env.scriptUrl%>"></script>
+	</head>
+	<body>
+		<div style="width:70%">
+			<canvas id="canvas" height_="450" width_="600"></canvas>
+		</div>
+
+
+	<script>
+	var barChartData = <%=EncodeJson( env.chartData )%>;
+
+	window.onload = function(){
+		var ctx = document.getElementById("canvas").getContext("2d");
+		window.myBar = new Chart(ctx).Bar(barChartData, {
+			responsive : true,
+			multiTooltipTemplate: "<" + "%= datasetLabel %> - <" + "%= value %>"
+		});
+	}
+
+	</script>
+	</body>
+</html>

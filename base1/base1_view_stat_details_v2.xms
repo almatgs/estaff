@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.details__of_stat##" WINDOW-ICON-URL="//base_pict/stat.ico">
+
+<IF EXPR="Ps.object_type_id == 'event'">
+	<LIST LOOP-CATALOG-EXPR="lib_base.object_name_to_catalog_name( Ps.object_type_id )" XQUERY-QUAL-EXPR="
+			return 'MatchSome( $elem/id, ( ' + ArrayMerge( Ps.ids_array, 'XQueryLiteral( This )', ',' ) + ' ) )';
+	" XQUERY-FIELDS-EXPR="['id','is_derived','image_url','date','state_name','state_id','contacts_desc','vacancy_id','user_id']">
+		<ROW OPEN-ACTION="ObtainDocScreen( DefaultDb.GetRecordPrimaryObjectUrl( ListElem ) )" DELETE-ACTION="DeleteDoc( DefaultDb.GetRecordPrimaryObjectUrl( ListElem ) )" IMAGE-URL-EXPR="ListElem.ImageUrl">
+			<COL WIDTH="14zr" COL-TITLE="##UiText.fields.date##" TITLE-EXPR="StrDate( ListElem.date, false )"/>
+			<COL WIDTH="8zr" COL-TITLE="##UiText.titles.time##" TITLE-EXPR="StrTime( ListElem.date, false )" ALIGN="center"/>
+			<COL WIDTH="30zr" COL-TITLE="##UiText.titles.type##" TITLE-EXPR="ListElem.state_name" TEXT-COLOR-EXPR="ListElem.state_text_color" BK-COLOR-EXPR="ListElem.dyn_state_bk_color"/>
+			<COL WIDTH="50%" COL-TITLE="##UiText.fields.contacts##" TITLE-EXPR="ListElem.contacts_desc"/>
+			<COL WIDTH="50%" COL-TITLE="##UiText.objects.vacancy##" TITLE-EXPR="ListElem.vacancy_id.ForeignDispName"/>
+			<COL WIDTH="20zr" COL-TITLE="##UiText.objects.user##" TITLE-EXPR="ListElem.user_id.ForeignDispName"/>
+		</ROW>
+	</LIST>
+</IF>
+<IF EXPR="Ps.object_type_id == 'vacancy'">
+	<LIST LOOP-CATALOG-EXPR="lib_base.object_name_to_catalog_name( Ps.object_type_id )" XQUERY-QUAL-EXPR="
+			return 'MatchSome( $elem/id, ( ' + ArrayMerge( Ps.ids_array, 'XQueryLiteral( This )', ',' ) + ' ) )';
+	" XQUERY-FIELDS-EXPR="['id','image_url','name','start_date','org_id','division_id','state_id','user_id']">
+		<ROW OPEN-ACTION="ObtainDocScreen( DefaultDb.GetRecordPrimaryObjectUrl( ListElem ) )" DELETE-ACTION="" IMAGE-URL-EXPR="ListElem.ImageUrl">
+			<COL WIDTH="60%" COL-TITLE="##UiText.fields.name##" TITLE-EXPR="ListElem.PrimaryDispName"/>
+			<IF EXPR="global_settings.is_agency">
+				<COL WIDTH="40%" COL-TITLE="##UiText.objects.client##" TITLE-EXPR="ListElem.org_id.ForeignDispName"/>
+			</IF>
+			<ELSE>
+				<COL WIDTH="40%" COL-TITLE="##UiText.objects.division##" TITLE-EXPR="ListElem.division_id.ForeignDispName"/>
+			</ELSE>
+			<COL WIDTH="14zr" COL-TITLE="##UiText.titles.opened##" TITLE-EXPR="StrDate( ListElem.start_date, false )"/>
+			<COL WIDTH="20zr" COL-TITLE="##UiText.fields.state##" TITLE-EXPR="ListElem.state_id.ForeignDispName"/>
+			<COL WIDTH="20zr" COL-TITLE="##UiText.objects.user##" TITLE-EXPR="ListElem.user_id.ForeignDispName"/>
+		</ROW>
+	</LIST>
+</IF>
+<IF EXPR="Ps.object_type_id == 'vacancy_instance'">
+	<LIST LOOP-CATALOG-EXPR="lib_base.object_name_to_catalog_name( Ps.object_type_id )" XQUERY-QUAL-EXPR="
+			return 'MatchSome( $elem/id, ( ' + ArrayMerge( Ps.ids_array, 'XQueryLiteral( This )', ',' ) + ' ) )';
+	">
+		<ROW OPEN-ACTION="lib_recruit.open_vacancy_instance( ListElem )" DELETE-ACTION="" IMAGE-URL-EXPR="ListElem.ImageUrl">
+			<COL WIDTH="60%" COL-TITLE="##UiText.fields.name##" TITLE-EXPR="ListElem.PrimaryDispName"/>
+			<IF EXPR="global_settings.is_agency">
+				<COL WIDTH="40%" COL-TITLE="##UiText.objects.client##" TITLE-EXPR="ListElem.org_id.ForeignDispName"/>
+			</IF>
+			<ELSE>
+				<COL WIDTH="40%" COL-TITLE="##UiText.objects.division##" TITLE-EXPR="ListElem.division_id.ForeignDispName"/>
+			</ELSE>
+			<COL WIDTH="14zr" COL-TITLE="##UiText.titles.opened##" TITLE-EXPR="StrDate( ListElem.start_date, false )"/>
+			<COL WIDTH="20zr" COL-TITLE="##UiText.objects.user##" TITLE-EXPR="ListElem.user_id.ForeignDispName"/>
+		</ROW>
+	</LIST>
+</IF>
+<IF EXPR="Ps.object_type_id == 'candidate'">
+	<LIST LOOP-CATALOG-EXPR="lib_base.object_name_to_catalog_name( Ps.object_type_id )" XQUERY-QUAL-EXPR="
+			return 'MatchSome( $elem/id, ( ' + ArrayMerge( Ps.ids_array, 'XQueryLiteral( This )', ',' ) + ' ) )';
+	" XQUERY-FIELDS-EXPR="['id','image_url','fullname','main_vacancy_id','state_id','user_id']">
+		<ROW OPEN-ACTION="ObtainDocScreen( DefaultDb.GetRecordPrimaryObjectUrl( ListElem ) )" DELETE-ACTION="DeleteDoc( DefaultDb.GetRecordPrimaryObjectUrl( ListElem ) )" IMAGE-URL-EXPR="ListElem.ImageUrl">
+			<COL WIDTH="40zr" COL-TITLE="##UiText.objects.candidate##" TITLE-EXPR="ListElem.PrimaryDispName"/>
+			<COL WIDTH="100%" COL-TITLE="##UiText.objects.vacancy##" TITLE-EXPR="ListElem.main_vacancy_id.ForeignDispName"/>
+			<COL WIDTH="25zr" COL-TITLE="##UiText.fields.state##" TITLE-EXPR="ListElem.state_id.ForeignDispName" ALIGN="center" TEXT-COLOR-EXPR="ListElem.state_id.ForeignElem.text_color" BK-COLOR-EXPR="ListElem.state_id.ForeignElem.bk_color"/>
+			<COL WIDTH="20zr" COL-TITLE="##UiText.objects.user##" TITLE-EXPR="ListElem.user_id.ForeignDispName"/>
+		</ROW>
+	</LIST>
+</IF>
+<IF EXPR="Ps.object_type_id != 'event' &amp;&amp; Ps.object_type_id != 'vacancy' &amp;&amp; Ps.object_type_id != 'vacancy_instance' &amp;&amp; Ps.object_type_id != 'candidate'">
+	<LIST LOOP-CATALOG-EXPR="lib_base.object_name_to_catalog_name( Ps.object_type_id )" XQUERY-QUAL-EXPR="
+			return 'MatchSome( $elem/id, ( ' + ArrayMerge( Ps.ids_array, 'XQueryLiteral( This )', ',' ) + ' ) )';
+	">
+		<ROW OPEN-ACTION="ObtainDocScreen( DefaultDb.GetRecordPrimaryObjectUrl( ListElem ) )" DELETE-ACTION="DeleteDoc( DefaultDb.GetRecordPrimaryObjectUrl( ListElem ) )" IMAGE-URL-EXPR="ListElem.ImageUrl">
+			<COL WIDTH="100%" COL-TITLE="##UiText.fields.name##" TITLE-EXPR="ListElem.PrimaryDispName"/>
+		</ROW>
+	</LIST>
+</IF>
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+

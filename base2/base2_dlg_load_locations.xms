@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="130zr" HEIGHT="80zr" TITLE="##UiText.titles.load_locations##" BEFORE-INIT-ACTION="
+		if ( base1_config.is_int_version )
+			Ps.load_depth_id = 'district_main_cities';
+" INIT-ACTION="
+		list = Screen.FindItemByType( 'LIST' );
+		for ( row in list.Rows )
+			row.SetSel( true );
+
+		list.SetFocus();
+		Cancel();
+" OK-ACTION="
+		list = Screen.FindItemByType( 'LIST' );
+
+		for ( row in list.SelRows )
+		{
+			Ps.sel_location_id.ObtainByValue( row.Env.ListElem.id );
+		}
+
+		if ( ! base1_config.is_int_version && Ps.load_depth_id == 'district_main_cities' && ArrayCount( Ps.sel_location_id ) > 10 && ArrayCount( lib_location.get_country_std_locations( Ps.country_id ) ) > 200 )
+			lib_base.ask_warning_to_continue( Screen, UiText.messages.too_many_districts_to_load );
+">
+
+<PANEL HEIGHT-EXPR="lib_base.dlg_body_height">
+
+<LABEL TITLE="##UiText.titles.load_locations##:"/>
+<BR/>
+<BR/>
+
+<ITEM TYPE="elem_selector" SOURCE="Ps.country_id" foreign-elem-qual="lib_location.get_country_package_spec( id ).has_locations" LABEL-TITLE="##UiText.fields.country##:" LABEL-SIDE="left" WIDTH="30zr"/>
+<BR/>
+<BR/>
+
+
+<BR/>
+
+<IF EXPR="! base1_config.is_int_version">
+<LINE>
+	<LABEL TITLE="Глубина загрузки:" lang-en:TITLE="Load depth:" lang-ua:TITLE="Глибина завантаження:"/>
+
+	<RADIO-BUTTON TITLE="Областные центры (центры субъектов)" lang-en:TITLE="Region main cities" SOURCE="Ps.load_depth_id" SWITCH-VALUE="region_main_cities" WIDTH="auto" lang-ua:TITLE="Обласні центри (центри суб'єктів)"/>
+	<RADIO-BUTTON TITLE="Области (субъекты) + областные и районные центры" lang-en:TITLE="Regions + cities" SOURCE="Ps.load_depth_id" SWITCH-VALUE="district_main_cities" WIDTH="auto" lang-ua:TITLE="Області (суб'єкти) + обласні та районні центри"/>
+</LINE>
+<BR/>
+<BR/>
+</IF>
+
+<IF EXPR="Ps.load_depth_id == 'region_main_cities'">
+	<LIST SUNKEN="1" HEIGHT="100%" LOOP-EXPR="
+			stdLocations = lib_location.get_country_std_locations( Ps.country_id );
+			baseStdLocations = ArraySelect( stdLocations, '! parent_id.HasValue' );
+
+			array = ArraySelect( stdLocations, 'type_id == 10' );
+			array = ArraySelect( array, '! parent_id.HasValue || ( ( parent = ArrayOptFindByKey( baseStdLocations, parent_id, \'id\' ) ) != undefined && is_main_city )' );
+
+			array = ArraySort( array, 'name', '+' );
+			return array;
+	">
+		<ROW IMAGE-URL="//base_pict/generic_item.ico" OPEN-ACTION="Screen.RunCommand( 'Ok' )" DELETE-ACTION="">
+			<COL WIDTH="100%" COL-TITLE="##UiText.fields.name##" TITLE-EXPR="ListElem.name"/>
+		</ROW>
+	</LIST>
+</IF>
+
+<IF EXPR="Ps.load_depth_id == 'district_main_cities'">
+	<LIST SUNKEN="1" HEIGHT="100%" LOOP-EXPR="
+			stdLocations = lib_location.get_country_std_locations( Ps.country_id );
+			baseStdLocations = ArraySelect( stdLocations, '! parent_id.HasValue' );
+
+			array = ArraySelect( stdLocations, 'type_id != 10' );
+			array = ArraySelect( array, '! parent_id.HasValue' );
+
+			array = ArraySort( array, 'name', '+' );
+			return array;
+	">
+		<ROW IMAGE-URL="//base_pict/generic_item.ico" OPEN-ACTION="Screen.RunCommand( 'Ok' )" DELETE-ACTION="">
+			<COL WIDTH="100%" COL-TITLE="##UiText.fields.name##" TITLE-EXPR="ListElem.name"/>
+		</ROW>
+	</LIST>
+</IF>
+
+</PANEL>
+
+<ITEM TYPE="dlg_footer"/>
+
+
+</SPXML-SCREEN>

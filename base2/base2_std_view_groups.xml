@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>groups</id>
+	<name VALUE="##UiText.sections.groups##" lang-en:VALUE="Groups"/>
+
+	<fields>
+		<field>
+			<id>name</id>
+		</field>
+	</fields>
+
+	<action>
+		<title VALUE="Новая группа" lang-en:VALUE="New group" lang-ua:VALUE="Нова група"/>
+		<image_url>//base_pict/group.ico</image_url>
+		<code>
+				doc = DefaultDb.OpenNewObjectDoc( 'group' );
+				CreateDocScreen( doc );
+		</code>
+	</action>
+</std_view>
+

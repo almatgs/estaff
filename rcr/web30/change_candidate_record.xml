@@ -1,0 +1,33 @@
+<%
+	Response.WriteMode = 'single';
+	Response.ContentType = 'text/xml';
+
+	eventDoc = OpenDoc( ObjectDocUrl( 'data', 'event', Int( Request.Form.record_eid ) ) );
+
+	switch ( Request.Form.completion_id )
+	{
+		case '1':
+			eventDoc.TopElem.occurrence_id = 'succeeded';
+			break;
+
+		case '0':
+			eventDoc.TopElem.occurrence_id = 'failed';
+			break;
+	}
+	
+	if ( eventDoc.TopElem.occurrence_id.HasValue && eventDoc.TopElem.type_id.ForeignElem.use_end_date )
+		eventDoc.TopElem.end_date = CurDate;
+
+	eventDoc.TopElem.comment = Request.Form.comment;
+
+	eventDoc.Save();
+
+	respDoc = OpenDocFromStr( '<resp></resp>' );
+	elem = respDoc.TopElem.AddDynamicChild( 'result', 'string' );
+	respDoc.TopElem.result = 0;
+
+	Response.Write( '<?xml version="1.0" encoding="windows-1251"?>' );
+	Response.Write( respDoc.TopElem.Xml );
+
+	//Response.Redirect( Request.Form.redirect_url );
+%>

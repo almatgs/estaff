@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<state_attr_base SAMPLE="1">
+	<use_auto_next_state TYPE="bool" NULL-FALSE="1" TITLE="При наступлении автоматически переводит объект в следующий статус" lang-en:TITLE="Automatically move object to the next state"/>
+	<next_state_id TYPE="string" FOREIGN-ARRAY="eval( ( ChildExists( 'target_object_type_id' ) ? target_object_type_id : Parent.Parent.target_object_type_id ) + '_states' )" TITLE="Следующий статус" lang-en:TITLE="Next state"/>
+
+	<send_user_state_notif TYPE="bool" NULL-FALSE="1"/>
+	<user_state_notif_template_id TYPE="mail_template_id"/>
+
+	<build_state_view TYPE="bool" NULL-FALSE="1" TITLE="Создать отдельный раздел программы для объектов с данным статусом" lang-en:TITLE="Create separate program section for objects with this state"/>
+
+	<show_object_on_portal TYPE="bool" NULL-FALSE="1" TITLE="Показывать кандидата с данным статусом руководителю на портале" lang-en:TITLE="Show candidate with this state on corporate portal"/>
+	<is_rr_duty_portal_state TYPE="bool" NULL-FALSE="1" TITLE="Разрешить руководителю устанавливать признак завершения на портале" lang-en:TITLE="Allow contact person to set completion state"/>
+
+	<require_comment TYPE="bool" NULL-FALSE="1"/>
+	<min_comment_len TYPE="integer"/>
+</state_attr_base>
+
+
+<occurrence_base SAMPLE="1" OBSOLETE="1">
+	<is_enabled TYPE="bool" NULL-FALSE="1"/>
+	<is_state TYPE="bool" NOT-NULL="1" DEFAULT="true" EXPR="Parent.Parent.is_state ? is_state : false"/>
+	<deactivate_object TYPE="bool" NOT-NULL="1"/>
+	<is_user_duty_state TYPE="bool" NOT-NULL="1"/>
+	<state_name TYPE="string"/>
+	<text_color TYPE="string"/>
+	<bk_color TYPE="string"/>
+	<max_state_term TYPE="term"/>
+
+	<INHERIT TYPE="state_attr_base"/>
+</occurrence_base>
+
+
+
+<event_type_base SAMPLE="1" OBSOLETE="1">
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<text_color TYPE="string"/>
+	<bk_color TYPE="string"/>
+	<image_url TYPE="string" NOT-NULL="1" DEFAULT="//base_pict/event.ico"/>
+
+	<is_derived TYPE="bool" NULL-FALSE="1"/>
+
+	<target_object_type_id TYPE="string" FOREIGN-ARRAY="card_object_types"/>
+
+	<is_state TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<deactivate_object TYPE="bool" NOT-NULL="1"/>
+	<is_user_duty_state TYPE="bool" NOT-NULL="1" TITLE="Помещает объект в работу пользователю" lang-en:TITLE="Marks object as &quot;To Do&quot; task"/>
+
+	<use_end_date TYPE="bool" NOT-NULL="1"/>
+	<default_term TYPE="term"/>
+	<fixed_term_unit_id TYPE="string" FOREIGN-ARRAY="base1_common.period_units"/>
+
+	<use_road_time TYPE="bool" NOT-NULL="1"/>
+	<default_road_time TYPE="term"/>
+
+	<state_name TYPE="string"/>
+	<max_state_term TYPE="term" TITLE="##UiText.fields.max_state_term##"/>
+
+	<INHERIT TYPE="state_attr_base"/>
+
+	<show_to_rr TYPE="bool" NULL-FALSE="1" TITLE="Показывать событие руководителю на портале" lang-en:TITLE="Show event to contact person on corporate portal"/>
+
+	<occurrences>
+		<scheduled>
+			<INHERIT TYPE="occurrence_base"/>
+		</scheduled>
+
+		<cancelled>
+			<INHERIT TYPE="occurrence_base"/>
+		</cancelled>
+
+		<started TYPE="occurrence_base">
+			<name TYPE="string"/>
+		</started>
+
+		<succeeded TYPE="occurrence_base">
+			<name TYPE="string"/>
+		</succeeded>
+
+		<failed TYPE="occurrence_base">
+			<name TYPE="string"/>
+		</failed>
+	</occurrences>
+
+	<use_occurrences PROPERTY="1" EXPR="ArrayOptFind( occurrences, 'is_enabled' ) != undefined"/>
+
+	<use_auto_reach TYPE="bool" NULL-FALSE="1" EXPR="occurrences.scheduled.is_enabled ? is_auto_reach : false"/>
+	<use_auto_finish TYPE="bool" NULL-FALSE="1" EXPR="occurrences.started.is_enabled ? is_auto_reach : false"/>
+
+	<use_auto_create TYPE="bool" NULL-FALSE="1"/>
+	<auto_create>
+		<offset TYPE="term"/>
+		<base_state_id TYPE="string" FOREIGN-ARRAY="event_states"/>
+	</auto_create>
+
+	<use_participants TYPE="bool" NULL-FALSE="1"/>
+
+	<create_with_calendar TYPE="bool" NULL-FALSE="1"/>
+	<create_with_open TYPE="bool" NULL-FALSE="1"/>
+
+	<show_in_calendar TYPE="bool" NULL-FALSE="1"/>
+	<use_room TYPE="bool" NULL-FALSE="1"/>
+
+	<create_action_name TYPE="string"/>
+
+	<use_object_view_column TYPE="bool" NULL-FALSE="1"/>
+	<object_view_column_title TYPE="string"/>
+
+	<send_mail TYPE="bool" NULL-FALSE="1"/>
+	<mail_template_id TYPE="mail_template_id"/>
+
+	<use_sum_approval TYPE="bool" NULL-FALSE="1"/>
+
+	<use_poll TYPE="bool" NULL-FALSE="1"/>
+	<poll_spec_id TYPE="string" FOREIGN-ARRAY="poll_specs"/>
+
+	<use_ext_calendar TYPE="bool" NOT-NULL="1"/>
+	<prefer_ext_calendar_planner TYPE="bool" NOT-NULL="1"/>
+	<ext_calendar_template_id TYPE="mail_template_id"/>
+
+	<send_state_notif TYPE="bool" NULL-FALSE="1"/>
+	<state_notif_template_id TYPE="mail_template_id"/>
+</event_type_base>
+
+
+
+
+
+
+
+</SPXML-FORM>

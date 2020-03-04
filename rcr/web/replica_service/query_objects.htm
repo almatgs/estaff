@@ -1,0 +1,24 @@
+<%
+	Request.UseSoapFault = true;
+	query = Request.Form.query;
+	useFullDoc = ( Request.Form.use_full_doc == 'true' );
+
+	Request.CheckLdsAuth();
+
+	array = XQuery( query );
+	array = ArraySelect( array, '! This.ChildExists( \'is_derived\' ) || ! This.is_derived' );
+	array = ArraySelect( array, 'This.id.HasValue' );
+
+	if ( useFullDoc )
+	{
+		docsArray = ArrayExtract( array, 'OpenDoc( This.ObjectUrl ).TopElem' );
+		array = docsArray;
+	}
+
+	Response.WriteMode = 'single';
+	//Response.Write( '<Result>' );
+
+	Response.Write( ExportElemsToStr( array ) );
+
+	//Response.Write( '</Result>' );
+%>

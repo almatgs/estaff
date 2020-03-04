@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_poll_spec>
+	<INHERIT FORM="base1_poll_spec.xmd" TYPE="poll_spec"/>
+</std_poll_spec>
+
+
+</SPXML-FORM>
+

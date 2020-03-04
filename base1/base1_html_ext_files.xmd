@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<html_ext_files>
+	<html_ext_file MULTIPLE="1" PRIMARY-KEY="id">
+		<id TYPE="string"/>
+		<data TYPE="binary"/>
+	</html_ext_file>
+</html_ext_files>
+
+
+
+</SPXML-FORM>

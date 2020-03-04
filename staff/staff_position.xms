@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="Ps.name + ' - ' + UiText.objects.position" WIDTH="160zr" HEIGHT="97zr" BEFORE-INIT-ACTION="
+		if ( lib_base.object_change_prohibited( Ps ) )
+			Screen.EditMode = false;
+"  BEFORE-SAVE-ACTION="
+		fields_usage.check_object_required_fields( Ps );
+"RESIZE="1">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="card_toolbar"/>
+
+
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="38zr" STD-MARGINS="0">
+	<PANEL HEIGHT="25zr" SUNKEN="1">
+		<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="0">
+		</TREE>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+
+	<PANEL SUNKEN="1" STD-MARGINS="1" HEIGHT-EXPR="lib_base.card_left_prop_panel_height" BK-COLOR="sys-bk-ctrl">
+		<PANEL NAME="AnchorLeftProperties">
+		</PANEL>
+	</PANEL>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.objects.position##" IMAGE-URL-EXPR="Ps.ImageUrl">
+
+
+<PAGE TITLE="##UiText.sections.general##" IMAGE-URL="//base_pict/generic_item.ico" lang-en:TITLE="General">
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="10zr"/>
+
+			<IF EXPR="! global_settings.require_position_types">
+				<COL WIDTH="60%"/>
+			</IF>
+			<IF EXPR="global_settings.use_position_types">
+				<COL WIDTH="40%"/>
+			</IF>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.code" AUTO-LABEL="1"/>
+
+		<IF EXPR="! global_settings.require_position_types">
+			<EDIT SOURCE="Ps.name" AUTO-LABEL="1"/>
+		</IF>
+		<IF EXPR="global_settings.use_position_types">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.type_id" AUTO-LABEL="1"/>
+		</IF>
+	</TABLE>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<ITEM TYPE="object_selector" SOURCE="Ps.division_id" AUTO-LABEL="1"/>
+	</TABLE>
+
+	<IF EXPR="fields_usage.use_object_field( 'position', 'is_division_head' )">
+		<BR/>
+		<CHECK SOURCE="Ps.is_division_head" AUTO-LABEL="1"/>
+	</IF>
+	<DELIM/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="16zr"/>
+			<COL WIDTH="16zr"/>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="40zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.start_date" AUTO-LABEL="1"/>
+		<EDIT SOURCE="Ps.end_date" AUTO-LABEL="1"/>
+
+		<LABEL/>
+
+		<IF EXPR="! global_settings.allow_multi_employee_positions">
+			<ITEM TYPE="object_selector" SOURCE="Ps.employee_id" UPDATE-ACTION="
+					if ( ! Ps.employee_id.HasValue )
+						return;
+
+					//Ps.multi_employee_id.Clear();
+
+					personDoc = ObtainUiDoc( Ps.employee_id.ForeignPrimaryObjectUrl );
+					personDoc.TopElem.position_id = Ps.id;
+					UpdateUiDoc( personDoc );
+
+					emloyeesArray = XQuery( 'for $elem in persons where $elem/position_id = ' + Ps.id + ' return $elem' );
+					for ( employee in emloyeesArray )
+					{
+						if ( employee.id == Ps.employee_id )
+							continue;
+
+						personDoc = ObtainUiDoc( employee.PrimaryObjectUrl );
+						personDoc.TopElem.position_id.Clear();
+						UpdateUiDoc( personDoc );
+					}
+
+			" view-filter-expr="global_settings.allow_bind_candidates_to_position ? undefined : {is_own_person:true}" AUTO-LABEL="1"/>
+		</IF>
+	</TABLE>
+
+	<IF EXPR="global_settings.allow_multi_employee_positions">
+		<BR/>
+		<LABEL TITLE-EXPR="Ps.multi_employee_id.FormElem.Title + ':'"/>
+
+		<LIST SUNKEN="1" LOOP-CATALOG="persons" XQUERY-QUAL-EXPR="
+				return 'MatchSome( $elem/id, ( ' + ArrayMerge( Ps.multi_employee_id, 'This', ',' ) + ' ) )';
+		" HEIGHT="11zr">
+			<ROW DELETE-ACTION="" IMAGE-URL="//base_pict/own_person.ico">
+				<COL WIDTH="100%" COL-TITLE="##UiText.fields.fullname##" TITLE-EXPR="ListElem.fullname"/>
+				<COL WIDTH="15zr" COL-TITLE="##UiText.fields.employment_percent##" TITLE-EXPR="ListElem.employment_percent" ALIGN="center"/>
+			</ROW>
+		</LIST>
+	</IF>
+	<DELIM/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="14zr"/>
+			<COL WIDTH="20zr"/>
+			<COL WIDTH="23zr"/>
+			<COL WIDTH="23zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.salary" LABEL-TITLE-EXPR="lib_base.amount_title( UiText.fields.salary, 'position_salary', Ps.salary_currency_id ) + ':'" BK-COLOR-EXPR="lib_base.amount_bk_color( 'position_salary', Ps.salary_currency_id )"/>
+
+		<EDIT SOURCE="Ps.premium_percent" AUTO-LABEL="1"/>
+		<EDIT SOURCE="Ps.q_premium_percent" AUTO-LABEL="1"/>
+		<EDIT SOURCE="Ps.y_premium_percent" AUTO-LABEL="1"/>
+	</TABLE>
+
+	<IF EXPR="fields_usage.use_object_field( 'position', 'min_salary' ) || fields_usage.use_object_field( 'position', 'profession_id' )">
+		<BR/>
+
+		<TABLE>
+			<COLUMNS>
+				<IF EXPR="fields_usage.use_object_field( 'position', 'min_salary' )">
+					<COL WIDTH="22zr"/>
+
+					<IF EXPR="global_settings.use_multi_currencies.position_salary">
+						<COL WIDTH="10zr"/>
+					</IF>
+				</IF>
+
+				<IF EXPR="fields_usage.use_object_field( 'position', 'profession_id' )">
+					<COL WIDTH="100%"/>
+				</IF>
+			</COLUMNS>
+
+			<IF EXPR="fields_usage.use_object_field( 'position', 'min_salary' )">
+				<LABEL TITLE-EXPR="lib_base.amount_title( UiText.fields.salary_level + ' ' + UiText.titles.from_to_suffix, 'position_salary', Ps.salary_currency_id ) + ':'"/>
+
+				<IF EXPR="global_settings.use_multi_currencies.position_salary">
+					<LABEL/>
+				</IF>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'position', 'profession_id' )">
+				<LABEL TITLE="##UiText.fields.profession##:"/>
+			</IF>
+
+
+			<IF EXPR="fields_usage.use_object_field( 'position', 'min_salary' )">
+				<TABLE SPACING="short">
+					<COLUMNS>
+						<COL WIDTH="50%"/>
+						<COL WIDTH="50%"/>
+					</COLUMNS>
+
+					<EDIT SOURCE="Ps.min_salary" BK-COLOR-EXPR="lib_base.amount_bk_color( 'position_salary', Ps.salary_currency_id )"/>
+					<EDIT SOURCE="Ps.max_salary" BK-COLOR-EXPR="lib_base.amount_bk_color( 'position_salary', Ps.salary_currency_id )"/>
+				</TABLE>
+
+				<IF EXPR="global_settings.use_multi_currencies.position_salary">
+					<ITEM TYPE="voc_elem_selector" SOURCE="Ps.salary_currency_id"/>
+				</IF>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'position', 'profession_id' )">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.profession_id"/>
+			</IF>
+		</TABLE>
+	</IF>
+	<DELIM/>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+
+	<EDIT SOURCE="Ps.comment" MULTILINE="1" SHORT="1" HEIGHT="auto" AUTO-LABEL="1"/>
+</PANEL>
+
+</PAGE>
+
+
+
+
+<PAGE TITLE="##UiText.sections.add_info##" IMAGE-URL="//base_pict/aux_info.ico" SUNKEN="1" VERT-SCROLL="1">
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="35zr"/>
+	</COLUMNS>
+
+	<EDIT SOURCE="Ps.eid" LABEL-TITLE="##UiText.fields.eid##:"/>
+</TABLE>
+
+</PAGE>
+
+
+
+
+
+
+
+
+
+
+<ITEM TYPE="card_attachments"/>
+
+
+
+
+
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+
+</LINE>
+
+
+
+
+
+
+<COMMAND-HANDLER CMD="CheckSpelling" ACTION="
+		Screen.CheckSpelling();
+"/>
+
+
+<COMMAND-HANDLER CMD="Print" ACTION="
+		au_tools.print_card_attachment( Ps.active_attachment );
+" PASSIVE="1" ENABLE-EXPR="Ps.active_attachment !=  undefined &amp;&amp; Ps.active_attachment.is_text"/>
+
+
+<COMMAND-HANDLER CMD="Help" HREF="help/position_add.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+
+</SPXML-SCREEN>
+
+

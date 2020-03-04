@@ -1,0 +1,132 @@
+<SPXML-FORM>
+
+<USE FORM="old_general.xmd"/>
+
+
+<position_ad>
+	<position_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="positions">
+		<sd SECONDARY="1">
+			<name TYPE="string"/>
+
+			<org_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="orgs">
+				<sd SECONDARY="1">
+					<disp_name TYPE="string"/>
+				</sd>
+			</org_id>
+		</sd>
+	</position_id>
+
+	<profession_id TYPE="integer" FOREIGN-ARRAY="professions.items" IDATA="1"/>
+
+	<is_active TYPE="bool" DEFAULT="true"/>
+	<start_date TYPE="date"/>
+
+
+	<content DYN-CHILDREN="1">
+		<position_name TYPE="string"/>
+		<city TYPE="string" FOREIGN-ARRAY="AppVersion >= '4.0' ? locations : locations.items"/>
+		<work_type_id TYPE="integer" OBSOLETE="1" NOT-NULL="1" DEFAULT="1" FOREIGN-ARRAY="rw_common.work_types"/>
+		<min_salary TYPE="integer" POSITIVE="1"/>
+		<max_salary TYPE="integer" POSITIVE="1"/>
+		<salary_currency_id TYPE="string" DEFAULT="USD"/>
+		
+		<educ_type_id TYPE="integer" FOREIGN-ARRAY="rc_common.educ_types"/>
+		<min_exp_years TYPE="integer"/>
+		<min_age TYPE="integer" POSITIVE="1"/>
+		<max_age TYPE="integer" POSITIVE="1"/>
+
+		<use_comment TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+		<comment TYPE="string" MULTILINE="1"/>
+
+		<use_ext_comment TYPE="bool" NOT-NULL="1"/>
+		<comment_req TYPE="string" MULTILINE="1"/>
+		<comment_duty TYPE="string" MULTILINE="1"/>
+		<comment_cond TYPE="string" MULTILINE="1"/>
+
+		<t1 TYPE="bool" TEMP="1" EXPR_="
+				if ( ! use_comment && ! use_ext_comment )
+					use_ext_comment = true;
+		"/>
+
+		<contacts>
+			<fullname TYPE="string"/>
+			<phone TYPE="string"/>
+			<email TYPE="string"/>
+		</contacts>
+
+		<org_name TYPE="string"/>
+	</content>
+
+	<target_sites>
+		<target_site MULTIPLE="1" PRIMARY-KEY="site_id">
+			<site_id TYPE="string" FOREIGN-ARRAY="rw_settings.sites"/>
+			<is_enabled TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+			<last_publish_date TYPE="date"/>
+			<expire_date TYPE="date"/>
+			<ad_code TYPE="string"/>
+
+			<site_profession_id TYPE="integer"/>
+
+			
+			<completion_id TYPE="integer"/>
+			<result>
+				<desc TYPE="string"/>
+				<text_color TYPE="string" DEFAULT="192,0,0"/>
+				<error TYPE="string" TEMP="1"/>
+				<debug_html TYPE="string" TEMP="1"/>
+				<debug_url TYPE="string"/>
+			</result>
+		</target_site>
+	</target_sites>
+
+
+	<last_update_publish_date TYPE="date"/>
+
+
+	<view>
+	</view>
+
+	<export_to_last_ad PROPERTY="1" EXPR="
+			rw_settings.last_ad.AssignElem( Doc.TopElem.content );
+			rw_settings.Doc.Save();
+	"/>
+
+
+	<ad_disp_name PROPERTY="1" EXPR="content.position_name"/>
+
+	<never_published PROPERTY="1" EXPR="ArrayOptFind( target_sites, 'last_publish_date != null' ) == undefined"/>
+
+	<INHERIT TYPE="bs_user_ref"/>
+	<doc_info TYPE="au_doc_info"/>
+
+
+	<disp_name PROPERTY="1" EXPR="
+			if ( position_id != null )
+				return position_id.ForeignElem.name;
+			else
+				return ad_disp_name;
+	"/>
+
+
+	<profession_desc PROPERTY="1" EXPR="
+			try
+			{
+				return profession_id.ForeignElem.ext_name;
+			}
+			catch ( e )
+			{
+				return '';
+			}
+	"/>
+</position_ad>
+
+
+
+</SPXML-FORM>
+
+
+
+
+
+	

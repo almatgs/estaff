@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>candidates_from_call_center</id>
+	<name VALUE="Кандидаты колл-центра" lang-en:VALUE="Candidates from Call center" lang-ua:VALUE="Кандидати колл-центру"/>
+	<parent_id>candidates</parent_id>
+
+	<fields>
+		<field>
+			<id>state_date</id>
+			<use_time>0</use_time>
+			<col_title VALUE="##UiText.fields.date##"/>
+		</field>
+		<field>
+			<id>state_date</id>
+			<time_only>1</time_only>
+			<col_title VALUE="##UiText.titles.time##"/>
+		</field>
+		<field>
+			<id>fullname</id>
+		</field>
+		<field>
+			<id>state_id</id>
+			<bk_color_expr>get_state_bk_color()</bk_color_expr>
+		</field>
+		<field>
+			<id>location_id</id>
+			<width>22zr</width>
+		</field>
+		<field>
+			<id>position_type_id</id>
+			<width>30zr</width>
+		</field>
+		<field>
+			<id>desired_division_id</id>
+			<width>100%</width>
+		</field>
+		<field>
+			<id>user_id</id>
+		</field>
+	</fields>
+</std_view>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<USE FORM="old_general.xmd"/>
+
+
+<event_types>	
+	<items FAILED-ELEM="Parent.failed_item">
+		<item MULTIPLE="1" PRIMARY-KEY="id">
+				<id TYPE="string"/>
+				<name TYPE="string"/>
+
+				<use_end_date TYPE="bool" NOT-NULL="1"/>
+				<use_completion TYPE="bool" NOT-NULL="1"/>
+				<use_auto_completion TYPE="bool" NOT-NULL="1"/>
+				<use_start_completion TYPE="bool" NOT-NULL="1"/>
+				<show_dyn_state TYPE="bool" NOT-NULL="1"/>
+				<is_due TYPE="bool" NOT-NULL="1"/>
+
+				<use_auto_schedule TYPE="bool" NOT-NULL="1"/>
+				<auto_schedule_term TYPE="au_term"/>
+
+				<use_room TYPE="bool" NOT-NULL="1"/>
+				<show_in_calendar TYPE="bool" NOT-NULL="1"/>
+
+				<text_color TYPE="string"/>
+				<bk_color TYPE="string"/>
+				<image_url TYPE="string" NOT-NULL="1" DEFAULT="//au/pict/event.ico"/>
+
+				<default_term TYPE="au_term"/>
+
+				<is_sig TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+				<custom>
+					<completed>
+						<str TYPE="string"/>
+						<name TYPE="string"/>
+						<text_color TYPE="string"/>
+						<bk_color TYPE="string"/>
+					</completed>
+					<not_completed>
+						<str TYPE="string"/>
+						<name TYPE="string"/>
+						<text_color TYPE="string"/>
+						<bk_color TYPE="string"/>
+					</not_completed>
+				</custom>
+
+
+				<str_planned PROPERTY="1" EXPR="'запланировано'"/>
+				<str_reached PROPERTY="1" EXPR="'ожидается сейчас'"/>
+				<str_started PROPERTY="1" EXPR="'начато'"/>
+				<str_completed PROPERTY="1" EXPR="custom.completed.str != '' ? custom.completed.str : ( is_due ? 'выполнено' : 'состоялось' )"/>
+				<str_not_completed PROPERTY="1" EXPR="custom.not_completed.str != '' ? custom.not_completed.str : ( is_due ? 'не выполнено' : 'не состоялось' )"/>
+				<str_expired PROPERTY="1" EXPR="'просрочено'"/>
+			<prefer_ext_calendar_planner TYPE="bool" NOT-NULL="1"/>
+			<is_ext TYPE="bool" NOT-NULL="1"/>
+			<is_std TYPE="bool" NOT-NULL="1"/>
+		</item>
+	</items>
+</event_types>
+
+
+
+</SPXML-FORM>

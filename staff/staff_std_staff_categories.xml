@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems_int.xmd" LANG="ru">
+	<std_voc_elem>
+		<id>0</id>
+		<name>т.0</name>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>1</id>
+		<name>т.1</name>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>2</id>
+		<name>т.2</name>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>3</id>
+		<name>т.3</name>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>4</id>
+		<name>т.4</name>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>5</id>
+		<name>т.5</name>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>6</id>
+		<name>т.6</name>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>7</id>
+		<name>т.7</name>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>8</id>
+		<name>т.8</name>
+	</std_voc_elem>
+</std_voc_elems>
+
+
+
+

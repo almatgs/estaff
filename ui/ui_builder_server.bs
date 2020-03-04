@@ -1,0 +1,181 @@
+namespace ui_builder_server {
+
+
+var	templates = new Array;
+
+
+function OnWebRequestGetDataForm( Request, formUrl, Response )
+{
+	if ( ! StrBegins( formUrl, 'x-app://ui/' ) )
+		return false;
+
+	path = UrlPath( formUrl );
+
+	if ( ( obj = StrOptScan( path, '/section/%s.xml' ) ) != undefined )
+	{
+		templateID = obj[0];
+	}
+	else
+	{
+		return false;
+//throw 'No such form: ' + formUrl;
+	}
+
+	Response.WriteMode = 'single';
+	respObj = GetUiTemplateDataForm( templateID );
+
+	Response.AddHeader( "Cache-Control", "max-age=2,must-revalidate" );
+	//Response.CheckModified( modDate );
+	Response.ContentType = 'text/xml; charset=' + AppCharset;
+	
+	if ( StrEnds( path, '.xml' ) )
+		Request.RespStream.WriteStr( StrReplace( respObj.formData, 'SPXML-FORM', 'SPXML-INLINE-FORM' ) );
+	else
+		Request.RespStream.WriteStr( respObj.formData );
+	return true;
+}
+
+
+function OnWebRequestGetScreenForm( Request, formUrl, Response )
+{
+	if ( ! StrBegins( formUrl, 'x-app://ui/' ) )
+		return false;
+
+	path = UrlPath( formUrl );
+
+	if ( path == '/main.xms' )
+	{
+		templateID = 'Main';
+	}
+	else if ( ( obj = StrOptScan( path, '/section/%s.xms' ) ) != undefined )
+	{
+		templateID = obj[0];
+	}
+	else if ( ( obj = StrOptScan( path, '/object_preview/%s.xms' ) ) != undefined )
+	{
+		templateID = 'Object.' + obj[0];
+	}
+	else
+	{
+		//throw 'No such screen form: ' + formUrl;
+		return false;
+	}
+
+	Response.WriteMode = 'single';
+
+	respObj = GetUiTemplateScreenForm( templateID );
+
+	Response.AddHeader( "Cache-Control", "max-age=2,must-revalidate" );
+	//Response.CheckModified( modDate );
+	Response.ContentType = 'text/xml; charset=' + AppCharset;
+	Request.RespStream.WriteStr( respObj.screenFormData );
+	return true;
+}
+
+
+"META:ALLOW-CALL-FROM-CLIENT:1"
+function GetUiTemplateDataForm( templateID, options )
+{
+	template = ui_builder_server.GetUiTemplate( templateID );
+
+	if ( options == undefined )
+		options = new Object;
+
+	options.SetStrictMode( false );
+
+	respObj = new Object;
+
+	if ( template.cacheForms )
+	{
+		optionsKey = ui_builder_server.BuildOptionsKey( template, options );
+		
+		if ( template.dataFormCache[optionsKey] == undefined )
+			template.dataFormCache[optionsKey] = ui_builder_server.BuildUiTemplateDataForm( template, options );
+
+		respObj.formData = template.dataFormCache[optionsKey];
+	}
+	else
+	{
+		respObj.formData = ui_builder_server.BuildUiTemplateDataForm( template, options );
+	}
+
+	return respObj;
+}
+
+
+"META:ALLOW-CALL-FROM-CLIENT:1"
+function GetUiTemplateScreenForm( templateID, options )
+{
+	template = ui_builder_server.GetUiTemplate( templateID );
+
+	if ( options == undefined )
+		options = new Object;
+
+	options.SetStrictMode( false );
+	if ( options.editMode == undefined )
+		options.editMode = template.editMode;
+	//if ( options.editMode == undefined )
+		//options.editMode = false;
+
+	respObj = new Object;
+
+	if ( template.cacheForms )
+	{
+		optionsKey = ui_builder_server.BuildOptionsKey( template, options );
+		
+		if ( template.screenFormCache[optionsKey] == undefined )
+			template.screenFormCache[optionsKey] = ui_builder_server.BuildUiTemplateScreenForm( template, options );
+
+		respObj.screenFormData = template.screenFormCache[optionsKey];
+	}
+	else
+	{
+		respObj.screenFormData = ui_builder_server.BuildUiTemplateScreenForm( template, options );
+	}
+
+	return respObj;
+}
+
+
+"META:ALLOW-CALL-FROM-CLIENT:1"
+function GetUiTemplateForms( templateID, options ? )
+{
+	respObj = new Object;
+	respObj.formData = GetUiTemplateDataForm( templateID, options ).formData;
+	respObj.screenFormData = GetUiTemplateScreenForm( templateID, options ).screenFormData;
+	return respObj;
+}
+
+
+"META:ALLOW-CALL-FROM-CLIENT:1"
+function GetCardAuxUiDataForm( objectTypeID )
+{
+	templateID = 'Object.' + objectTypeID;
+	template = ui_builder_server.GetUiTemplate( templateID );
+
+	rootElem = CreateDynamicElem( 'SPXML-FORM' );
+	topElem = rootElem.AddChild( 'AuxUiData' );
+
+	if ( template.innerLists != undefined )
+	{
+		for ( innerList in template.innerLists )
+		{
+			elem = topElem.AddChild( ui_builder_server.TemplateIDToElemName( innerList.listTemplateID ) );
+			ui_builder_server_list.BuildListViewDataForm( template, {}, elem );
+		}
+	}
+
+	formData = rootElem.Xml;
+	PutUrlData( 'x-local://Logs/view_forms_1/AuxUiData_' + objectTypeID + '.xmd', formData );
+
+	respObj = new Object;
+	respObj.formData = formData;
+	return respObj;
+}
+
+
+
+
+
+
+}

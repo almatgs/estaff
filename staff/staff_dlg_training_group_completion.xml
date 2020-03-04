@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<dlg_training_group_completion>
+	<participants DOC-ONLY="1">
+		<participant MULTIPLE="1" PRIMARY-KEY="person_id">
+			<person_id TYPE="integer" FOREIGN-ARRAY="persons"/>
+			<completion_id TYPE="string"/>
+
+			<person TYPE="variant" STRICT="1" TEMP="1"/>
+		</participant>
+	</participants>
+</dlg_training_group_completion>
+
+
+</SPXML-INLINE-FORM>
+

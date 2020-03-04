@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="List.vacancy_requests" ObjectList="1" ObjectType="vacancy_request" Title="##UiText.titles.vacancy_requests##" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<UI:Column Field="date" ShowTime="1"/>
+<UI:Column Field="name"/>
+<UI:Column Field="orig_person_id"/>
+<UI:Column Field="state_id"/>
+<UI:Column Field="workflow_stage_id"/>
+<UI:Column Field="cur_resp_person_id"/>
+
+</UiTemplate>

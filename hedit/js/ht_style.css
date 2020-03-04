@@ -1,0 +1,19 @@
+*
+{
+	--font-family: Roboto, Verdana, Tahoma, sans-serif;
+	--font-size: 15px;
+	font-family: Calibri,Arial,sans-serif;
+	font-size: 10pt;
+}
+
+
+body
+{
+	--margin: 0px;
+}
+
+
+img
+{
+	max-width: 100%;
+}

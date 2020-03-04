@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<view_phone_call_records>
+	<filter>
+		<INHERIT FORM-DATA-EXPR="lib_view.build_view_filter_form_data( 'phone_call_records' )" TYPE="view_filter_base"/>
+	</filter>
+</view_phone_call_records>
+
+
+</SPXML-INLINE-FORM>

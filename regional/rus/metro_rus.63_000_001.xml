@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<metro_map xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<location_name>Самара</location_name>
+	<lines>
+		<line>
+			<id>31</id>
+			<name VALUE="Ветка метро"/>
+		</line>
+	</lines>
+	<stations>
+		<station>
+			<id>289</id>
+			<name VALUE="Безымянка" lang-en:VALUE="Bezymyanka"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>290</id>
+			<name VALUE="Гагаринская" lang-en:VALUE="Gagarinskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>291</id>
+			<name VALUE="Кировская" lang-en:VALUE="Kirovskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>292</id>
+			<name VALUE="Московская" lang-en:VALUE="Moskovskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>293</id>
+			<name VALUE="Победа" lang-en:VALUE="Pobeda"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>294</id>
+			<name VALUE="Российская" lang-en:VALUE="Rossijskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>295</id>
+			<name VALUE="Советская" lang-en:VALUE="Sovetskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>296</id>
+			<name VALUE="Спортивная" lang-en:VALUE="Sportivnaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>297</id>
+			<name VALUE="Юнгородок" lang-en:VALUE="Yungorodok"/>
+			<line_id>0</line_id>
+		</station>
+	</stations>
+</metro_map>

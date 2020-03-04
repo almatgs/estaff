@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_voc_elems RECURSIVE-ARRAY="1">
+	<std_voc_elem MULTIPLE="1" PRIMARY-KEY="id">
+		<id TYPE="string"/>
+		<name TYPE="string"/>
+		<text_color TYPE="string"/>			
+		<bk_color TYPE="string"/>			
+		<image_url TYPE="string"/>			
+	</std_voc_elem>
+</std_voc_elems>
+
+
+
+</SPXML-FORM>

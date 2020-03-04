@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_vacancy_states SPXML-FORM="rcr_std_vacancy_states.xmd">
+	<std_vacancy_state>
+		<id>vacancy_submitted</id>
+		<name VALUE="Новая заявка" lang-en:VALUE="Requisition Approved" lang-ua:VALUE="Нова заявка"/>
+		<set_object_tentative>1</set_object_tentative>
+	</std_vacancy_state>
+
+	<std_vacancy_state>
+		<id>vacancy_opened</id>
+		<name VALUE="##UiText.titles.in_progress__active##"/>
+		<is_open_date>1</is_open_date>
+	</std_vacancy_state>
+
+	<std_vacancy_state>
+		<id>vacancy_closed</id>
+		<name VALUE="##UiText.titles.closed_f##"/>
+		<text_color>0,128,0</text_color>
+		<close_object>1</close_object>
+		<deactivate_object>1</deactivate_object>
+		<failed_candidate_state_id>vacancy_close</failed_candidate_state_id>
+		<failed_candidate_notif_template_id>vacancy_close</failed_candidate_notif_template_id>
+	</std_vacancy_state>
+
+	<std_vacancy_state>
+		<id>vacancy_closed_by_rr</id>
+		<name VALUE="Закрыта заказчиком" lang-en:VALUE="Closed by Hiring Manager" lang-ua:VALUE="Закрита замовником"/>
+		<text_color>0,128,0</text_color>
+		<close_object>1</close_object>
+		<deactivate_object>1</deactivate_object>
+		<failed_candidate_state_id>vacancy_close</failed_candidate_state_id>
+		<failed_candidate_notif_template_id>vacancy_close</failed_candidate_notif_template_id>
+	</std_vacancy_state>
+
+	<std_vacancy_state>
+		<id>vacancy_suspended</id>
+		<name VALUE="##UiText.titles.suspended_f##"/>
+		<text_color>255,128,0</text_color>
+		<deactivate_object>1</deactivate_object>
+	</std_vacancy_state>
+
+	<std_vacancy_state>
+		<id>vacancy_reopened</id>
+		<name VALUE="##UiText.titles.renewed##"/>
+		<is_active>0</is_active>
+	</std_vacancy_state>
+
+	<std_vacancy_state>
+		<id>vacancy_cancelled</id>
+		<name VALUE="##UiText.titles.cancelled__f##"/>
+		<text_color>128,0,0</text_color>
+		<deactivate_object>1</deactivate_object>
+		<failed_candidate_state_id>vacancy_cancel</failed_candidate_state_id>
+	</std_vacancy_state>
+
+	<std_vacancy_state>
+		<id>vacancy_wating_for_free_recruiter</id>
+		<name VALUE="Сверх суммарной загрузки" lang-en:VALUE="Above Maximum workload" lang-ua:VALUE="Понад сумарною завантаження"/>
+		<set_object_tentative>1</set_object_tentative>
+	</std_vacancy_state>
+</std_vacancy_states>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

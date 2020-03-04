@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems.xmd">
+	<std_voc_elem>
+		<id>division_head</id>
+		<name VALUE="##UiText.fields.division_head##" lang-en:VALUE=""/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>deputy_division_head</id>
+		<name VALUE="Заместитель руководителя подразделения" lang-en:VALUE="Deputy Head of Division" lang-ua:VALUE="Заступник керівника підрозділу"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>hr</id>
+		<name VALUE="Менеджер по персоналу" lang-en:VALUE="HR Manager" lang-ua:VALUE="Менеджер з персоналу"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>recruit_admin</id>
+		<name VALUE="Администратор подбора" lang-en:VALUE="HR Admin" lang-ua:VALUE="Адміністратор підбору"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>security_officer</id>
+		<name VALUE="Сотрудник СБ" lang-en:VALUE="Security Officer" lang-ua:VALUE="Співробітник СБ"/>
+	</std_voc_elem>
+</std_voc_elems>
+
+
+

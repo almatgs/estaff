@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_access_roles>
+	<std_access_role MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT TYPE="access_role_base"/>
+	</std_access_role>
+</std_access_roles>
+
+
+</SPXML-FORM>

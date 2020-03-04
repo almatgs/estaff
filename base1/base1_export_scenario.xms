@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="130zr" HEIGHT="90zr" SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" RESIZE="1">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="60%"/>
+			<COL WIDTH="50%"/>
+		</COLUMNS>
+
+		<LABEL TITLE="Директория для выгрузки:" lang-en:TITLE="Destination folder:" lang-ua:TITLE="Директорія для вивантаження:"/>
+		<LABEL/>
+
+		<ITEM TYPE="dir_path_selector" SOURCE="Ps.dest_dir_path"/>
+		<LABEL/>
+	</TABLE>
+	<DELIM/>
+
+	<LABEL TITLE="Выгружаемые типы объектов:" lang-en:TITLE="Export object types:" lang-ua:TITLE="Вивантажувані типи об'єктів:"/>
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.filter.object_type_id" WIDTH="80%"/>
+	<BR/>
+
+	<LABEL TITLE="Начиная с даты:" lang-en:TITLE="Starting from date:" lang-ua:TITLE="Починаючи з дати:"/>
+	<DATE SOURCE="Ps.filter.min_date" TIME="1" ALLOW-NULL="1" WIDTH="24zr"/>
+	<DELIM/>
+
+	<INHERIT TYPE="scenario_agents"/>
+</PANEL>
+
+
+</SPXML-SCREEN>
+

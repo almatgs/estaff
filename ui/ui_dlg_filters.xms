@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" DROP-DOWN="1" CUSTOM-FRAME="1" BORDER-WIDTH="1" SHADOW="1">
+
+<PANEL STD-MARGINS="1" FULL-WIDTH="1">
+	<LINE FULL-WIDTH="1">
+		<PrimaryButton TITLE="##UiText.actions.apply##" CMD="Ok" NAME="Ok" HEIGHT-EXPR="AppUi.metrics.largeButtonHeightMeasure"/>
+
+		<PrimaryActionImage IMAGE-URL="//app_ui/theme/pict/close.svg" ALIGN="right" CMD="Cancel"/>
+	</LINE>
+</PANEL>
+
+<DELIM FULL-WIDTH="1"/>
+
+<PANEL STD-MARGINS="1" VERT-SCROLL="1" MAX-HEIGHT="100%">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="30zr"/>
+			<COL WIDTH="45zr"/>
+			<COL WIDTH="5zr"/>
+		</COLUMNS>
+
+		<LOOP EXPR="ArraySelect( Ps.list_view_spec.filters, '! is_fixed' )" VAR="filterSpec">
+			<TABLE-ROW>
+				<LABEL TITLE-EXPR="filterSpec.title + ':'" ALIGN="right" TEXT-COLOR-EXPR="AppUi.themeColors.gray_text"/>
+				
+				<IF EXPR="filterSpec.use_range">
+					<IF EXPR="filterSpec.data_type == 'date'">
+						<LINE>
+							<DATE SOURCE="Ps.filter.Child( 'min_' + ui_client.FilterIDToFilerElemName( filterSpec.field_id ) )"/>
+							<LABEL TITLE="-" TEXT-COLOR-EXPR="AppUi.themeColors.gray_text"/>
+							<DATE SOURCE="Ps.filter.Child( 'max_' + ui_client.FilterIDToFilerElemName( filterSpec.field_id ) )"/>
+						</LINE>
+					</IF>
+					<ELSE>
+						<LINE>
+							<EDIT SOURCE="Ps.filter.Child( 'min_' + ui_client.FilterIDToFilerElemName( filterSpec.field_id ) )" WIDTH="8zr" BORDER="1"/>
+							<LABEL TITLE="-" TEXT-COLOR-EXPR="AppUi.themeColors.gray_text"/>
+							<EDIT SOURCE="Ps.filter.Child( 'max_' + ui_client.FilterIDToFilerElemName( filterSpec.field_id ) )" WIDTH="8zr"/>
+						</LINE>
+					</ELSE>
+				</IF>
+				<ELSE>
+					<IF EXPR="filterSpec.selector_type == 'voc_elem_selector'">
+						<ITEM TYPE="voc_elem_selector" SOURCE="GetObjectProperty( Ps.filter, ui_client.FilterIDToFilerElemName( filterSpec.field_id ) )"/>
+					</IF>
+					<IF EXPR="filterSpec.selector_type == 'object_selector'">
+						<ITEM TYPE="object_selector" SOURCE="GetObjectProperty( Ps.filter, ui_client.FilterIDToFilerElemName( filterSpec.field_id ) )"/>
+					</IF>
+					<IF EXPR="filterSpec.selector_type == 'elem_selector'">
+						<ITEM TYPE="elem_selector" SOURCE="GetObjectProperty( Ps.filter, ui_client.FilterIDToFilerElemName( filterSpec.field_id ) )"/>
+					</IF>
+					<IF EXPR="filterSpec.selector_type == 'tri_state_selector'">
+						<ITEM TYPE="tri_state_selector" SOURCE="Ps.filter.Child( ui_client.FilterIDToFilerElemName( filterSpec.field_id ) )" WIDTH="10zr"/>
+					</IF>
+				</ELSE>
+
+				<IF EXPR="ui_client.ListViewFilterHasValue( Ps.filter, filterSpec )">
+					<ActionImage IMAGE-URL="//app_ui/theme/pict/wnd_close.svg" ACTION="
+							if ( filterSpec.use_range )
+							{
+								Ps.filter.Child( 'min_' + ui_client.FilterIDToFilerElemName( filterSpec.field_id ) ).Clear();
+								Ps.filter.Child( 'max_' + ui_client.FilterIDToFilerElemName( filterSpec.field_id ) ).Clear();
+							}
+							else if ( filterSpec.is_multiple )
+							{
+								GetObjectProperty( Ps.filter, ui_client.FilterIDToFilerElemName( filterSpec.field_id ) ).Clear();
+							}
+							else
+							{
+								Ps.filter.Child( ui_client.FilterIDToFilerElemName( filterSpec.field_id ) ).Clear();
+							}
+					"/>
+				</IF>
+			</TABLE-ROW>
+			<TABLE-ROW>
+				<BR/>
+			</TABLE-ROW>
+		</LOOP>
+	</TABLE>
+</PANEL>
+
+
+</SPXML-SCREEN>

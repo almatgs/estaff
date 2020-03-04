@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_msg_box>
+	<title TYPE="string"/>
+	<text TYPE="string" MULTILINE="1"/>
+	<type TYPE="string"/>
+	<usage TYPE="string"/>
+	<choice TYPE="string"/>
+</dlg_msg_box>
+
+</SPXML-INLINE-FORM>
+

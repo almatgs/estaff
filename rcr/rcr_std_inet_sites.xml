@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_inet_sites SPXML-FORM="rcr_std_inet_sites.xmd">
+	<items>
+		<item>
+			<id>job.ru</id>
+		</item>
+
+		<item>
+			<id>rabota.ru</id>
+		</item>
+
+		<item>
+			<id>headhunter.ru</id>
+
+			<keywords>
+				<keyword>hh.ru</keyword>
+			</keywords>
+
+			<ad_response_url_pattern>*vacancyResponse*</ad_response_url_pattern>
+		</item>
+
+		<item>
+			<id>rabota.mail.ru</id>
+		</item>
+
+		<item>
+			<id>zarplata.ru</id>
+		</item>
+
+		<item>
+			<id>superjob.ru</id>
+		</item>
+	</items>
+</std_inet_sites>
+
+
+
+
+
+
+
+

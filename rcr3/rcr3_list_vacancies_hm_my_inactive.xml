@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="List.vacancies.hm.my.inactive" BaseTemplate="List.vacancies.hm.my" Title="##UiText.sections.my_vacancies## - ##UiText.titles.archived##" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<UI:Filter Field="is_active" Fixed="1" ValueExpr="false"/>
+
+</UiTemplate>

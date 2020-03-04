@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<metro_map xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<location_name VALUE="Киев" lang-ua:VALUE="Київ"/>
+	<lines>
+		<line>
+			<id>21</id>
+			<name VALUE="Куренёвско-Красноармейская" lang-ua:VALUE="Куренівсько-Червоноармійська"/>
+		</line>
+		<line>
+			<id>19</id>
+			<name VALUE="Святошинско-Броварская" lang-ua:VALUE="Святошинсько-Броварська"/>
+		</line>
+		<line>
+			<id>20</id>
+			<name VALUE="Сырецко-Печерская" lang-ua:VALUE="Сирецько-Печерська"/>
+		</line>
+	</lines>
+	<stations>
+		<station>
+			<id>329</id>
+			<name VALUE="Академгородок" lang-en:VALUE="Akademgorodok" lang-ua:VALUE="Академмістечко"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>330</id>
+			<name VALUE="Арсенальная" lang-en:VALUE="Arsenalnaya" lang-ua:VALUE="Арсенальна"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>331</id>
+			<name VALUE="Берестейская" lang-en:VALUE="Berestejskaya" lang-ua:VALUE="Берестейська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>332</id>
+			<name VALUE="Бориспольская" lang-en:VALUE="Borispolskaya" lang-ua:VALUE="Бориспільська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>530</id>
+			<name VALUE="Васильковская" lang-en:VALUE="Vasilyevskaya" lang-ua:VALUE="Васильківська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>333</id>
+			<name VALUE="Вокзальная" lang-en:VALUE="Vokzalnaya" lang-ua:VALUE="Вокзальна"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>334</id>
+			<name VALUE="Выдубичи" lang-en:VALUE="Vydubichi" lang-ua:VALUE="Видубичі"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>335</id>
+			<name VALUE="Вырлица" lang-en:VALUE="Vyrlica" lang-ua:VALUE="Вирлиця"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>336</id>
+			<name VALUE="Героев Днепра" lang-en:VALUE="Geroev Dnepra" lang-ua:VALUE="Героїв Дніпра"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>337</id>
+			<name VALUE="Гидропарк" lang-en:VALUE="Gidropark" lang-ua:VALUE="Гідропарк"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>529</id>
+			<name VALUE="Голосеевская" lang-en:VALUE="Goloseevskaya" lang-ua:VALUE="Голосіївська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>338</id>
+			<name VALUE="Дарница" lang-en:VALUE="Darnica" lang-ua:VALUE="Голосіївська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>340</id>
+			<name VALUE="Дворец спорта" lang-en:VALUE="Dvorec sporta" lang-ua:VALUE="Палац спорту"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>339</id>
+			<name VALUE="Дворец Украина" lang-en:VALUE="Dvorec Ukraina" lang-ua:VALUE="Палац Україна"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>528</id>
+			<name VALUE="Демеевская" lang-en:VALUE="Demeevskaya" lang-ua:VALUE="Деміївська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>341</id>
+			<name VALUE="Днепр" lang-en:VALUE="Dnepr" lang-ua:VALUE="Дніпро"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>342</id>
+			<name VALUE="Дорогожичи" lang-en:VALUE="Dorogozhichi" lang-ua:VALUE="Дорогожичі"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>343</id>
+			<name VALUE="Дружбы Народов" lang-en:VALUE="Druzhby Narodov" lang-ua:VALUE="Дружби Народів"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>344</id>
+			<name VALUE="Житомирская" lang-en:VALUE="Zhitomirskaya" lang-ua:VALUE="Житомирська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>345</id>
+			<name VALUE="Золотые ворота" lang-en:VALUE="Zolotye vorota" lang-ua:VALUE="Золоті ворота"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>346</id>
+			<name VALUE="Кловская" lang-en:VALUE="Klovskaya" lang-ua:VALUE="Кловська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>347</id>
+			<name VALUE="Контрактовая площадь" lang-en:VALUE="Kontraktovaya ploschad" lang-ua:VALUE="Контрактова площа"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>515</id>
+			<name VALUE="Красный хутор" lang-en:VALUE="Krasniy Hutor" lang-ua:VALUE="Червоний хутір"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>348</id>
+			<name VALUE="Крещатик" lang-en:VALUE="Kreschatik" lang-ua:VALUE="Хрещатик"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>349</id>
+			<name VALUE="Левобережная" lang-en:VALUE="Levoberezhnaya" lang-ua:VALUE="Лівобережна"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>350</id>
+			<name VALUE="Лесная" lang-en:VALUE="Lesnaya" lang-ua:VALUE="Лісова"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>351</id>
+			<name VALUE="Лукьяновская" lang-en:VALUE="Lukyanovskaya" lang-ua:VALUE="Лук'янівська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>352</id>
+			<name VALUE="Лыбедская" lang-en:VALUE="Lybedskaya" lang-ua:VALUE="Либідська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>353</id>
+			<name VALUE="Майдан Незалежности" lang-en:VALUE="Majdan Nezalezhnosti" lang-ua:VALUE="Майдан Незалежності"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>354</id>
+			<name VALUE="Минская" lang-en:VALUE="Minskaya" lang-ua:VALUE="Мінська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>355</id>
+			<name VALUE="Нивки" lang-en:VALUE="Nivki" lang-ua:VALUE="Нивки"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>356</id>
+			<name VALUE="Оболонь" lang-en:VALUE="Obolon" lang-ua:VALUE="Оболонь"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>357</id>
+			<name VALUE="Осокорки" lang-en:VALUE="Osokorki" lang-ua:VALUE="Осокорки"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>358</id>
+			<name VALUE="Петровка" lang-en:VALUE="Petrovka" lang-ua:VALUE="Петрівка"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>359</id>
+			<name VALUE="Печерская" lang-en:VALUE="Pecherskaya" lang-ua:VALUE="Печерська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>360</id>
+			<name VALUE="Площадь Льва Толстого" lang-en:VALUE="Ploschad Lva Tolstogo" lang-ua:VALUE="Площа Льва Толстого"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>361</id>
+			<name VALUE="Позняки" lang-en:VALUE="Poznyaki" lang-ua:VALUE="Позняки"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>362</id>
+			<name VALUE="Политехнический институт" lang-en:VALUE="Politehnicheskij institut" lang-ua:VALUE="Політехнічний інститут"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>363</id>
+			<name VALUE="Почтовая площадь" lang-en:VALUE="Pochtovaya ploschad" lang-ua:VALUE="Поштова площа"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>364</id>
+			<name VALUE="Республиканский стадион" lang-en:VALUE="Respublikanskij stadion" lang-ua:VALUE="Республіканський стадіон"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>365</id>
+			<name VALUE="Святошин" lang-en:VALUE="Svyatoshin" lang-ua:VALUE="Святошин"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>366</id>
+			<name VALUE="Славутич" lang-en:VALUE="Slavutich" lang-ua:VALUE="Славутич"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>367</id>
+			<name VALUE="Сырец" lang-en:VALUE="Syrec" lang-ua:VALUE="Сирець"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>368</id>
+			<name VALUE="Тараса Шевченко" lang-en:VALUE="Tarasa Shevchenko" lang-ua:VALUE="Тараса Шевченка"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>369</id>
+			<name VALUE="Театральная" lang-en:VALUE="Teatralnaya" lang-ua:VALUE="Театральна"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>370</id>
+			<name VALUE="Университет" lang-en:VALUE="Universitet" lang-ua:VALUE="Університет"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>371</id>
+			<name VALUE="Харьковская" lang-en:VALUE="Harkovskaya" lang-ua:VALUE="Харківська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>372</id>
+			<name VALUE="Черниговская" lang-en:VALUE="Chernigovskaya" lang-ua:VALUE="Чернігівська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>373</id>
+			<name VALUE="Шулявская" lang-en:VALUE="Shulyavskaya" lang-ua:VALUE="Шулявська"/>
+			<line_id>0</line_id>
+		</station>
+				<station>
+			<id>374</id>
+			<name VALUE="Иподром" lang-en:VALUE="Ipodrom" lang-ua:VALUE="Іподром"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>375</id>
+			<name VALUE="Теремки" lang-en:VALUE="Teremky" lang-ua:VALUE="Теремки"/>
+			<line_id>0</line_id>
+		</station>
+	</stations>
+</metro_map>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<active_position>
+	<eid TYPE="integer"/>
+
+	<code TYPE="string"/>
+	<name TYPE="string"/>
+
+	<subdivision_eid TYPE="string"/>
+	<subdivision_data>
+		<disp_name TYPE="string"/>
+		<name TYPE="string"/>
+	</subdivision_data>
+
+	<person_eid TYPE="string"/>
+	<person_data>
+		<fullname TYPE="string"/>
+	</person_data>
+
+	<state_name TYPE="string"/>
+
+	<user_data>
+		<disp_name TYPE="string"/>
+	</user_data>
+
+	<comment TYPE="string"/>
+
+
+	<work_candidates>
+		<work_candidate MULTIPLE="1" PRIMARY-KEY="candidate_eid">
+			<candidate_eid TYPE="integer"/>
+			<fullname TYPE="string"/>
+
+			<state_id TYPE="string"/>
+			<state_desc TYPE="string"/>
+			<state_date TYPE="date"/>
+			<state_end_date TYPE="date"/>
+		</work_candidate>
+	</work_candidates>
+</active_position>
+
+
+</SPXML-FORM>
+
+
+

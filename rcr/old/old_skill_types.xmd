@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<skill_types>
+	<items>
+		<item MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+
+			<is_group_starter TYPE="bool" NOT-NULL="1"/>
+			<has_sub_types TYPE="bool" NOT-NULL="1"/>
+
+			<items>
+				<item MULTIPLE="1" PRIMARY-KEY="id">
+					<id TYPE="string"/>
+					<name TYPE="string"/>
+				</item>
+			</items>
+
+			<has_levels TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+			<levels>
+				<level MULTIPLE="1" PRIMARY-KEY="id">
+					<id TYPE="integer"/>
+					<name TYPE="string"/>
+				</level>
+			</levels>
+		</item>
+	</items>
+</skill_types>
+
+
+
+</SPXML-FORM>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Активация продукта" WIDTH="104zr" HEIGHT="45zr" lang-en:TITLE="Product activation" lang-ua:TITLE="Активація продукту">
+
+<LABEL TITLE="Необходимо активировать Вашу копию программного продукта для работы на данном компьютере." BOLD="1" lang-en:TITLE="You have to activate your copy of the product" lang-ua:TITLE="Необхідно активувати Вашу копію програмного продукту для роботи на даному комп'ютері."/>
+<BR/>
+
+<LABEL TITLE="Выберите предпочтительный для Вас способ активации:" lang-en:TITLE="Select activation method:" lang-ua:TITLE="Виберіть оптимальний для Вас спосіб активації:"/>
+<BR/>
+<BR/>
+
+
+<RADIO-BUTTON TITLE="Автоматическая активация через Интернет" SOURCE="Ps.use_manual" SWITCH-VALUE="false" lang-en:TITLE="Automatic Internet activation" lang-ua:TITLE="Автоматична активація через Інтернет"/>
+<BR/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="3zr"/>
+		<COL WIDTH="100%"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<PANEL>
+		<LABEL TITLE="Активация произойдет немедленно при наличии соединения с Интернет на данном компьютере." lang-en:TITLE="Activation occurs immediately while your computer is connected to Internet" lang-ua:TITLE="Активація виконається негайно, при наявності з'єднання з Інтернет на даному комп'ютері."/>
+	</PANEL>
+</TABLE>
+<BR/>
+<BR/>
+
+
+<RADIO-BUTTON TITLE="Активация в ручном режиме" SOURCE="Ps.use_manual" SWITCH-VALUE="true" lang-en:TITLE="Manual activation" lang-ua:TITLE="Активація в ручному режимі"/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="3zr"/>
+		<COL WIDTH="100%"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<PANEL>
+		<LABEL TITLE="Для активации в ручном режиме Вам необходимо обратиться в компанию, в которой Вы приобретали программный продукт, и сообщить серийный номер и код установки." lang-en:TITLE="You will have to contact your product seller, ask activation code, and enter it manually" lang-ua:TITLE="Для активації в ручному режимі Вам необхідно звернутися, з серійним номером і кодом установки, в компанію в якій Ви купували програмний продукт."/>
+		<LABEL TITLE="Нажмите OK для продолжения активации в ручном режиме." lang-en:TITLE="Click OK to activate manually." lang-ua:TITLE="Натисніть OK для продовження активації в ручному режимі."/>
+	</PANEL>
+</TABLE>
+
+<PANEL HEIGHT-EXPR="lib_base.dlg_body_height">
+</PANEL>
+
+
+<ITEM TYPE="dlg_footer_start"/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<BUTTON TITLE="OK" CMD="1"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2"/>
+</TABLE>
+
+</SPXML-SCREEN>

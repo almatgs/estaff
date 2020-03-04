@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+
+<dlg_voc_elem_select>
+	<voc_id TYPE="string" FOREIGN-ARRAY="vocs"/>
+	<view_filter_ref TYPE="variant"/>
+	<multi_select TYPE="bool" NOT-NULL="1"/>
+	
+	<elem_id TYPE="string"/>
+
+	<elems>
+		<elem MULTIPLE="1" PRIMARY-KEY="elem_id">
+			<elem_id TYPE="string"/>
+		</elem>
+	</elems>
+
+
+	<filter>
+		<INHERIT TYPE="ft_filter"/>
+	</filter>
+</dlg_voc_elem_select>
+
+
+</SPXML-INLINE-FORM>

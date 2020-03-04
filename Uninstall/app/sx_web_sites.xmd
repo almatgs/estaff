@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<SPXML-FORM>
+
+<agents>
+	<agent MULTIPLE="1" PRIMARY-KEY="id">
+		<id TYPE="string"/>
+
+		<root_dir TYPE="string"/>
+		<port TYPE="integer" DEFAULT="80"/>
+	</agent>
+</agents>
+
+</SPXML-FORM>

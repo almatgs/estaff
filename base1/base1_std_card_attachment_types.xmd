@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_card_attachment_types>
+	<std_card_attachment_type MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT FORM="base1_card_attachment_type.xmd" TYPE="card_attachment_type"/>
+	</std_card_attachment_type>
+</std_card_attachment_types>
+
+
+</SPXML-FORM>
+

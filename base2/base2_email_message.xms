@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="UiText.titles.message + ': ' + Ps.subject" RESIZE="1">
+
+
+<PANEL STD-MARGINS="1">
+
+
+<GROUP>
+	<EDIT SOURCE="
+			if ( Ps.sender_name.HasValue )
+				return Ps.sender_name + ' &lt;' + Ps.sender_address + '>';
+			else
+				Ps.sender.address;
+	" LABEL-TITLE="##UiText.fields.from__sender##:" READ-ONLY="1"/>
+
+	<SEPARATOR/>
+
+	<EDIT SOURCE="ArrayMerge( Ps.recipients, 'address', '; ' )" SET-VALUE-ACTION="
+			array = String( NewValue ).split( ';' );
+
+			Ps.recipients.Clear();
+
+			for ( str in array )
+				Ps.recipients.AddChild().address = Trim( str );
+	" LABEL-TITLE="##UiText.fields.to__recipient##:"/>
+
+	<SEPARATOR/>
+
+	<EDIT SOURCE="Ps.subject" LABEL-TITLE="##UiText.fields.subject##:"/>
+</GROUP>
+<BR/>
+
+<EDIT SOURCE="Ps.body" MULTILINE="1" HEIGHT="-1zr" DEFAULT-COLORS__="1"/>
+
+</PANEL>
+
+
+</SPXML-SCREEN>
+

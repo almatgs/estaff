@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="Ps.code + ' - ' + StrTitleCase( UiText.objects.training_group )" SAVE-ACTION="
+		Ps.on_ui_save();
+" MAXIMIZED="1">
+
+
+<INHERIT TYPE="card_menu_start"/>
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="card_toolbar_start_entries"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/excel.ico" CMD="ShowInOfficeCalc" TIP-TEXT-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name"/>
+
+	<INHERIT TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="38zr" STD-MARGINS="0">
+	<PANEL HEIGHT="28zr" SUNKEN="1">
+		<TREE SUNKEN="0" SWITCH-TYPE="selector" TARGET="main_selector">
+		</TREE>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+
+	<PANEL SUNKEN="1" STD-MARGINS="1" WIDTH="100%" HEIGHT-EXPR="lib_base.card_left_prop_panel_height" BK-COLOR="sys-bk-ctrl">
+		<PANEL NAME="AnchorLeftProperties">
+		</PANEL>
+
+		<PANEL HEIGHT="-10zrc">
+		</PANEL>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="11zrc"/>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+
+			<IF EXPR="ArrayCount( groups ) != 0">
+				<ITEM TYPE="object_preview" SOURCE="Ps.group_id"/>
+			</IF>
+		</TABLE>
+	</PANEL>
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.objects.training_group##" EXPANDED="1" SUNKEN="1" IMAGE-URL-EXPR="Ps.ImageUrl">
+
+
+<PAGE TITLE="##UiText.sections.general##" SUNKEN="1" TD-MARGINS="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/common.ico" lang-en:TITLE="General">
+	<GROUP>
+		<EDIT SOURCE="Ps.code" AUTO-LABEL="1" WIDTH="10zr"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.training_program_id" AUTO-LABEL="1" WIDTH-EXPR__="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.training_program_id, 24, 60 )"/>
+		<SEPARATOR/>
+		<ITEM TYPE="date_selector" SOURCE="Ps.start_date" AUTO-LABEL="1"/>
+		<ITEM TYPE="date_selector" SOURCE="Ps.end_date" AUTO-LABEL="1"/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.teacher_user_id" WIDTH="38zr" AUTO-LABEL="1"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.location_id" AUTO-LABEL="1"/>
+	</GROUP>
+	<DELIM/>
+
+	<WITH VAR="_dummy" EXPR="
+			Ps.SyncPartEntries();
+			Ps.InitParticipantsResults();
+	" IGNORE-ERRORS=""/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH-EXPR="( ArrayOptMax( ArrayExtract( Ps.part_entries, 'CalcTextScreenWidth( part_id.ForeignDispName )' ) ) + 10 ) + 'px'" MIN-WIDTH="30zr" MAX-WIDTH="100%"/>
+			<COL WIDTH="22zr"/>
+			<COL WIDTH="8zr"/>
+			<COL WIDTH="35zr"/>
+			<COL WIDTH="5zr"/>
+			<COL WIDTH="35zr"/>
+			<COL WIDTH="28zr"/>
+		</COLUMNS>
+	
+		<LABEL TITLE="##UiText.objects.training_program_part##"/>
+		<LABEL TITLE="##UiText.fields.date##"/>
+		<LABEL/>
+		<LABEL TITLE="##UiText.titles.teacher##"/>
+		<LABEL/>
+		<LABEL TITLE="Мероприятия в календаре" lang-en:TITLE="Calendar Events" lang-ua:TITLE="Заходи в календарі"/>
+		<BUTTON IMAGE-URL="//base_pict/ok.ico" TITLE="Поместить в календарь" lang-en:TITLE="Put in Calendar" lang-ua:TITLE="Помістити в календар" KEEP-RIGHT="1" ACTION="Ps.HandlePutPartEntriesInCalendar()" ENABLE-EXPR="! Ps.HasUnfilledPartEntries()"/>
+
+		<BR HSPAN="7" HEIGHT="2px"/>
+
+		<LOOP EXPR="Ps.part_entries" VAR="partEntry">
+			<LABEL TITLE-EXPR="partEntry.part_id.ForeignDispName" ALIGN="left"/>
+			<ITEM TYPE="date_time_selector" SOURCE="partEntry.date"/>
+			<IMAGE URL="//base_pict/calendar.ico" ACTION="Ps.HandleSelectPartEntryDate( partEntry )"/>
+			<ITEM TYPE="object_selector" SOURCE="partEntry.teacher_user_id"/>
+			
+			<LABEL/>
+
+			<IF EXPR="partEntry.calendar_entry_id.HasValue">
+				<LINE>
+					<IMAGE URL="//base_pict/calendar_entry.ico" ACTION="ObtainDocScreen( partEntry.calendar_entry_id.ForeignObjectUrl )" PASSIVE="1"/>
+					<LINK TITLE-EXPR="StrDate( partEntry.calendar_entry_id.ForeignElem.date, false )" UNDERLINE="0" ACTION="ObtainDocScreen( partEntry.calendar_entry_id.ForeignObjectUrl )" PASSIVE="1"/>
+				
+					<IF EXPR="Ps.PartEntryHasMismatch( partEntry )">
+						<LABEL/>
+						<IMAGE URL="//base_pict/warning.ico"/>
+					</IF>
+				</LINE>
+			</IF>
+			<ELSE>
+				<LABEL TITLE="Не запланировано" lang-en:TITLE="Not scheduled" lang-ua:TITLE="Не заплановано" TEXT-COLOR="100,100,100"/>
+			</ELSE>
+
+			<LABEL/>
+		</LOOP>
+	</TABLE>
+	<DELIM/>
+
+	<IF EXPR="Ps.HasUncompletedParticipants()">
+		<BUTTON IMAGE-URL="//base_pict/ok.ico" TITLE="Пометить как завершенное" lang-en:TITLE="Mark as Completed" lang-ua:TITLE="Помітити як завершене" KEEP-RIGHT="1" ACTION="Ps.HandleMarkAsCompleted()" WIDTH="35zr"/>
+		<DELIM/>
+	</IF>
+
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="16px"/>
+		</COLUMNS>
+
+		<LABEL TITLE="##UiText.fields.participants##:"/>
+
+		<IMAGE URL="//base_pict/select.ico" TIP-TEXT="##UiText.actions.select_person##" ACTION="Ps.HandleSelectParticipants()"/>
+	</TABLE>
+	<BR HEIGHT="2px"/>
+
+	<GRID SUNKEN="1" HEIGHT="-3px" MIN-HEIGHT="50zr" SOLID-ROWS="1">
+		<COLUMNS>
+			<COL WIDTH="100%" MIN-WIDTH="30zr"/>
+			<COL WIDTH="5zr"/>
+
+			<LOOP EXPR="Ps.training_program_id.ForeignElem.parts" VAR="_part">
+				<COL WIDTH="14zr"/>
+			</LOOP>
+		</COLUMNS>
+			
+		<ROW HEADER="1">
+			<LABEL TITLE="##UiText.fields.fullname##"/>
+			<LABEL/>
+			<LOOP EXPR="Ps.training_program_id.ForeignElem.parts" VAR="_part">
+				<LABEL TITLE-EXPR="_part.name" ALIGN="center"/>
+			</LOOP>
+		</ROW>
+
+		<LOOP EXPR="Ps.participants" VAR="_participant">
+			<ROW OPEN-ACTION="ObtainDocScreen( _participant.person.PrimaryObjectUrl )" DELETE-ACTION="Ps.HandleDeleteParticipant( _participant )">
+				<LABEL TITLE-EXPR="_participant.person != undefined ? _participant.person.fullname : '[' + UiText.titles.object_deleted + ']'" FLAT="1"/>
+				<LINK TITLE="•••" FLAT="1" ALIGN="center" TEXT-COLOR="black" ACTION="Ps.HandleAskParticipantOptions( _participant )"/>
+
+				<LOOP EXPR="Ps.training_program_id.ForeignElem.parts" VAR="_part">
+					<WITH VAR="targetPart" EXPR="_participant.target_parts.ObtainChildByKey( _part.id )" IGNORE-ERRORS="0">
+						<LABEL TITLE-EXPR="
+								if ( targetPart.not_required )
+									return UiText.titles.not_required;
+
+								if ( targetPart.attended )
+									return UiText.titles.attended;
+
+								return '';
+						" ALIGN="center" FLAT="1" BK-COLOR-EXPR="
+								if ( targetPart.not_required )
+									return '240,240,240';
+
+								return '';
+						"/>
+					</WITH>
+				</LOOP>
+			</ROW>
+		</LOOP>
+	</GRID>
+</PAGE>
+
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+
+
+
+</LINE>
+
+
+
+<COMMAND-HANDLER CMD="CheckSpelling" ACTION="
+		Screen.CheckSpelling();
+"/>
+
+
+
+<COMMAND-HANDLER CMD="ShowInOfficeCalc" ACTION="
+		lib_base.check_desktop_client();
+		lib_office.show_screen_in_calc( Screen );
+" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+
+
+<COMMAND-HANDLER CMD="Help" HREF-EXPR="lib_base.build_help_article_url( 'intro.htm' )" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+
+
+</SPXML-SCREEN>
+
+
+
+

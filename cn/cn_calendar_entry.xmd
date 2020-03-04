@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM BASE-OBJECT="event" TITLE="##UiText.objects.calendar_entry##" CODE-LIB="1" IMAGE-URL="//base_pict/calendar_entry.ico" IMAGE-URL-EXPR="get_image_url()" SCREEN-FORM-URL="//base2/base2_event.xms">
+
+<calendar_entry PRIMARY-DISP-NAME="type_id.ForeignDispName + ' ' + StrDate( date, true, false )">
+	<local_date TYPE="date" LOCAL-TIME="1"/>
+	<is_delegate TYPE="bool" NULL-FALSE="1" TITLE="##UiText.fields.is_delegate##"/>
+	
+	<outlook_eid TYPE="string" INDEXED="1" FT-IGNORE="1"/>
+	<lotus_eid TYPE="string" INDEXED="1" FT-IGNORE="1"/>
+	<google_eid TYPE="string" INDEXED="1" FT-IGNORE="1"/>
+
+	<entry_pass_request_eid TYPE="string" FT-IGNORE="1" TITLE="Номер заявки на пропуск" lang-en:TITLE="Entry Pass ID" lang-ua:TITLE="Номер заявки на пропуск"/>
+</calendar_entry>
+
+
+
+</SPXML-FORM>

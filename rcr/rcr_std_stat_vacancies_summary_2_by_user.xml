@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>vacancies_summary_2_by_user</id>
+	<name VALUE="Состояние вакансий по рекрутерам" lang-en:VALUE="Vacancy Statuses by Recruiter" lang-ua:VALUE="Стан вакансій по рекрутерам"/>
+	<section_id>vacancies</section_id>
+
+	<is_v2>1</is_v2>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>date</id>
+			<data_type>date</data_type>
+			<title VALUE="##UiText.titles.time_period##"/>
+			<use_range>1</use_range>
+			<use_period_quick_selector>1</use_period_quick_selector>
+			<default_period>
+				<unit_id>m</unit_id>
+				<unit_specifier_id>cur</unit_specifier_id>
+			</default_period>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>division_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.objects.division##"/>
+			<foreign_array>divisions</foreign_array>
+			<is_multiple>0</is_multiple>
+			<use_idata>1</use_idata>
+			<width>40zr</width>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.fields.recruiter##"/>
+			<foreign_array>users</foreign_array>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}</view_filter_expr>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.objects.group##"/>
+			<foreign_array>groups</foreign_array>
+			<is_multiple>0</is_multiple>
+		</dyn_filter>
+	</dyn_filters>
+
+	<groups>
+		<group>
+			<id>group_id</id>
+			<foreign_array>groups</foreign_array>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+		</group>
+		<group>
+			<id>user_id</id>
+			<foreign_array>users</foreign_array>
+		</group>
+	</groups>
+
+	<fields>
+		<field>
+			<id>division_id</id>
+			<col_title VALUE="##UiText.fields.recruiter##"/>
+			<width>100%</width>
+		</field>
+		<field>
+			<id>init_vacancy_count</id>
+			<col_title VALUE="##UiText.titles.vacancies_at_period_start##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>vacancy</src_object_type_id>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>new_vacancy_count</id>
+			<col_title VALUE="##UiText.titles.created_during_period##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>vacancy</src_object_type_id>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>closed_vacancy_count</id>
+			<col_title VALUE="##UiText.titles.closed##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>vacancy</src_object_type_id>
+			<force_final_value>1</force_final_value>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>req_closed_vacancy_count</id>
+			<col_title VALUE="##UiText.titles.planned__date##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>vacancy</src_object_type_id>
+			<force_final_value>1</force_final_value>
+			<bk_color>245,245,245</bk_color>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>closed_vacancy_count_deviation</id>
+			<col_title VALUE="##UiText.titles.deviation_from_plan##"/>
+			<data_type>integer</data_type>
+			<rotation>90</rotation>
+		</field>
+
+		<field>
+			<id>cancelled_vacancy_count</id>
+			<col_title VALUE="##UiText.titles.cancelled__recalled##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>vacancy</src_object_type_id>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>suspended_vacancy_count</id>
+			<col_title VALUE="##UiText.titles.suspended__frozen##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>vacancy</src_object_type_id>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>final_vacancy_count</id>
+			<col_title VALUE="##UiText.titles.vacancies_at_period_end##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>vacancy</src_object_type_id>
+			<rotation>90</rotation>
+		</field>
+	</fields>
+
+	<code_lib_url>x-app://rcr/rcr_std_stat_vacancies_summary_2_by_user.js</code_lib_url>
+
+	<show_total>1</show_total>
+	<show_chart>1</show_chart>
+	<use_group_bk_colors>1</use_group_bk_colors>
+</std_stat>

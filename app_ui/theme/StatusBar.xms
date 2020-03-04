@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+<PANEL NAME="STATUS-BAR" SAMPLE="1">
+</PANEL>
+
+<PANEL NAME="STATUS-BAR-ENTRY" SAMPLE="1">
+</PANEL>
+
+
+<!--
+<COMPLEX-ITEM NAME="STATUS-BAR" INNER-ALIAS="toolbar" SAMPLE="1" VIEW="StatusBarView">
+</COMPLEX-ITEM>
+
+<COMPLEX-ITEM NAME="STATUS-BAR-ENTRY">
+</COMPLEX-ITEM>
+
+
+<PANEL NAME="StatusBarView" INNER-ALIAS="toolbarView" SAMPLE="1" WIDTH="100%" HEIGHT="3.5em">
+	<LINE HEIGHT="100%">
+		<LOOP EXPR="toolbarView.MasterItem.Entries" VAR="entry">
+			<SUBST TYPE="StatusBarEntryView" MASTER-ITEM="entry"/>
+		</LOOP>
+	</LINE>
+</PANEL>
+
+
+<PANEL NAME="StatusBarEntryView" INNER-ALIAS="entryView" SAMPLE="1" STD-MARGINS="0" PADDING="1px 4px 2px 4px" BK-COLOR-EXPR="">
+	<LABEL TITLE-EXPR="entry.Title" TEXT-COLOR-EXPR="
+			switch ( BaseSampleItem.State )
+			{
+				case 'hover':
+				case 'pressed':
+					return AppUi.gThemeData.colors.blue_text;
+			}
+
+			if ( StatusBarEntryView.AuxData.isCurrent )
+				return AppUi.gThemeData.colors.blue_text;
+
+			return '';
+	"/>
+</PANEL>
+
+-->
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+
+

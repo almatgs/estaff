@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<UNIT NAME="testing_report_context_menu" SAMPLE="1">
+	<MENU RIGHT-CLICK="1">
+		<MENU-ENTRY TITLE="Открыть карточку отчета" lang-en:TITLE="Open report card" lang-ua:TITLE="Відкрити картку звіту" ACTION="
+				ObtainDocScreen( _testing_report.ObjectUrl );
+		" PASSIVE="1"/>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="Повторить попытку загрузки" lang-en:TITLE="Retry loading report" lang-ua:TITLE="Перезавантажити" ACTION="
+				lib_ontarget.HandleRetryTestingReportLoad( _testing_report );
+		"/>
+	</MENU>
+</UNIT>
+
+
+<PANEL NAME="testing_preview_base" SAMPLE="1">
+
+<WITH VAR="_testing" EXPR="GetForeignElem( testings, Ps.id )">
+	<IF EXPR="AppModuleUsed( 'module_sanofi' )">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="20zr"/>
+			</COLUMNS>
+
+			<LOOP EXPR="ArraySort( _testing.assigned_tests, 'external_test_id.ForeignElem.order_index', '+' )" VAR="_assigned_test">
+				<LABEL TITLE-EXPR="_assigned_test.external_test_id.ForeignDispName"/>
+				<LABEL TITLE-EXPR="
+					if ( _assigned_test.completion_id == 1 &amp;&amp; _assigned_test.score.HasValue )
+					{
+						str = _assigned_test.score;
+						if ( _assigned_test.possible_cheating_flag )
+							str += '(!)';
+
+						return str;
+					}
+					else
+					{
+						return _assigned_test.completion_id.ForeignDispName;
+					}
+				"/>
+			</LOOP>
+		</TABLE>
+
+		<WITH VAR="_testing_reports_array" EXPR="ArraySort( lib_ontarget.GetTestingReportsArray( _testing ), 'date', '+' )">
+			<IF EXPR="ArrayCount( _testing_reports_array ) != 0">
+				<BR/>
+			</IF>
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="16px"/>
+					<COL WIDTH="100%"/>
+				</COLUMNS>
+
+				<LOOP EXPR="_testing_reports_array" VAR="_testing_report">
+					<IF EXPR="_testing_report.is_active">
+						<IMAGE URL="1.ico" URL-EXPR="_testing_report.is_group_report ? '//base_pict/excel.ico' : '//base_pict/word_doc.ico'" ACTION="lib_ontarget.HandleOpenTestingReportFile( _testing_report )" PASSIVE="1"/>
+						<LINK TITLE-EXPR="_testing_report.cs_report_type_id.ForeignDispName" ACTION="lib_ontarget.HandleOpenTestingReportFile( _testing_report )" PASSIVE="1">
+							<INHERIT TYPE="testing_report_context_menu"/>
+						</LINK>
+					</IF>
+					<ELSE>
+						<IMAGE URL="//base_pict/load.ico" ACTION="lib_ontarget.HandleRefreshTestingReportState( _testing_report )"/>
+						<PANEL BK-COLOR-EXPR="" STD-MARGINS="0">
+							<LABEL TITLE-EXPR="_testing_report.cs_report_type_id.ForeignDispName + '  (' + UiText.titles.not_received_yet + ')'" TEXT-COLOR="100,100,100"/>
+							<INHERIT TYPE="testing_report_context_menu"/>
+						</PANEL>
+					</ELSE>
+				</LOOP>
+			</TABLE>
+			<IF EXPR="ArrayCount( _testing_reports_array ) != 0">
+				<PANEL HEIGHT="2px">
+				</PANEL>
+			</IF>
+		</WITH>
+	</IF>
+	<ELSE>
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="20zr"/>
+				<COL WIDTH="12zr"/>
+			</COLUMNS>
+
+			<LOOP EXPR="ArraySort( _testing.assigned_tests, 'external_test_id.ForeignElem.order_index', '+' )" VAR="_assigned_test">
+				<LABEL TITLE-EXPR="_assigned_test.external_test_id.ForeignDispName"/>
+				<LABEL TITLE-EXPR="
+					if ( _assigned_test.completion_id == 1 &amp;&amp; _assigned_test.score.HasValue )
+					{
+						str = _assigned_test.score;
+						if ( _assigned_test.possible_cheating_flag )
+							str += '(!)';
+
+						return str;
+					}
+					else
+					{
+						return StrTitleCase( _assigned_test.completion_id.ForeignDispName );
+					}
+				"/>
+				
+				<IF EXPR="_assigned_test.completion_id == 1 &amp;&amp; _assigned_test.result_url.HasValue">
+					<LINK TITLE="##UiText.fields.link##" HREF-EXPR="_assigned_test.result_url" TARGET="_web"/>
+				</IF>
+				<ELSE>
+					<LABEL/>
+				</ELSE>
+			</LOOP>
+		</TABLE>
+	</ELSE>
+</WITH>
+
+</PANEL>
+
+
+
+</SPXML-SCREEN>

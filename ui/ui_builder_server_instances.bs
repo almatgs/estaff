@@ -1,0 +1,593 @@
+namespace ui_builder_server {
+
+
+function ProcessUiTemplateRules( template )
+{
+	ProcessDeleteRules( template, template );
+	ProcessCustomFieldRules( template, template );
+	ProcessCommonRules( template, template );
+	ProcessItemPutWithFieldAttr( template, template );
+	ExtractItemSubGroups( template, template );
+}
+
+
+function ProcessDeleteRules( template, baseItem )
+{
+	if ( baseItem.type == 'Delete' )
+		ProcessDeleteRule( template, baseItem, template );
+
+	if ( baseItem.items == undefined )
+		return;
+
+	for ( i = 0; i < baseItem.items.length; i++ )
+		ProcessDeleteRules( template, baseItem.items[i] );
+}
+
+
+function ProcessDeleteRule( template, rule, baseItem )
+{
+	if ( baseItem.items == undefined )
+		return;
+
+	for ( i = 0; i < baseItem.items.length - 1; i++ )
+	{
+		item = baseItem.items[i];
+		if ( ItemMatchesRule( item, rule ) )
+		{
+			baseItem.items.splice( i, 1 );
+		}
+		else
+		{
+			ProcessDeleteRule( template, rule, item );
+			i++;
+		}
+	}
+}
+
+
+function ProcessCustomFieldRules( template, baseItem )
+{
+	if ( baseItem.items == undefined )
+		return;
+
+	for ( i = 0; i < baseItem.items.length; )
+	{
+		item = baseItem.items[i];
+		if ( item.type == 'CustomFields' )
+		{
+			ProcessCustomFieldRuleCore( template, baseItem, i );
+			continue;
+		}
+
+		ProcessCustomFieldRules( template, item );
+		i++;
+	}
+}
+
+
+function ProcessCustomFieldRuleCore( template, baseItem, itemIndex )
+{
+	item = baseItem.items[itemIndex];
+	baseItem.items.splice( itemIndex, 1 );
+
+	for ( formElem in template.objectFormElem )
+	{
+		if ( ! StrBegins( formElem.Name, 'cs_' ) )
+			continue;
+
+		if ( formElem.IsMethod )
+			continue;
+
+		newItem = ui_builder_server.CreateUiItem();
+		newItem.type = 'Item';
+		newItem.fieldID = formElem.Name;
+
+		baseItem.items.splice( itemIndex, 0, newItem );
+		itemIndex++;
+	}
+}
+
+
+
+function ItemMatchesRule( item, rule )
+{
+	if ( item.type != rule.itemType )
+		return false;
+
+	if ( item.fieldID != rule.fieldID )
+		return false;
+
+	return true;
+}
+
+
+function ProcessCommonRules( template, baseItem )
+{
+	if ( baseItem.type == 'AllowEditField' )
+		ProcessRuleAllowEditField( template, baseItem, template );
+
+	if ( baseItem.items == undefined )
+		return;
+
+	for ( i = 0; i < baseItem.items.length; i++ )
+		ProcessCommonRules( template, baseItem.items[i] );
+}
+
+
+function ProcessRuleAllowEditField( template, rule, baseItem )
+{
+	if ( baseItem.fieldID != undefined )
+	{
+		if ( rule.allFields )
+		{
+			if ( baseItem.allowEditConditions == undefined )
+				baseItem.allowEditConditions = new Array;
+
+			baseItem.allowEditConditions.push( rule.condition );
+		}
+	}
+
+	if ( baseItem.items != undefined )
+	{
+		for ( item in baseItem.items )
+			ProcessRuleAllowEditField( template, rule, item )
+	}
+}
+
+
+function ProcessItemPutWithFieldAttr( template, baseItem )
+{
+	if ( baseItem.items == undefined )
+		return;
+
+	moveCount = 0;
+
+	for ( i = 0; i < baseItem.items.length; i++ )
+	{
+		item = baseItem.items[i];
+		if ( item.putWithField != undefined )
+		{
+			prevIndex = baseItem.items.FindIndexByKey( item.putWithField, 'fieldID' );
+			if ( prevIndex < 0 )
+			{
+				DebugMsg( ui_builder_server.UiItemError( 'Invalid "PutWithField" attribute: ' + item.putWithField, template, item ) );
+				continue;
+			}
+
+			prevItem = baseItem.items[prevIndex];
+
+			if ( prevIndex + 1 < i )
+			{
+				baseItem.items.splice( i, 1 );
+				baseItem.items.splice( prevIndex + 1, 0, item );
+				moveCount++;
+			}
+			else if ( prevIndex + 1 > i )
+			{
+				baseItem.items.splice( i, 1 );
+				baseItem.items.splice( prevIndex + 1, 0, item );
+				moveCount++;
+				i--;
+			}
+
+			item.keepWithPrev = true;
+			prevItem.keepWithNext = true;
+
+			if ( moveCount > baseItem.items.length )
+				break;
+		}
+	}
+
+	for ( i = 0; i < baseItem.items.length; i++ )
+	{
+		item = baseItem.items[i];
+		ProcessItemPutWithFieldAttr( template, item );
+	}
+}
+
+
+function ExtractItemSubGroups( template, baseItem )
+{
+	if ( baseItem.items == undefined )
+		return;
+
+	for ( i = 0; i < baseItem.items.length - 1; i++ )
+	{
+		item = baseItem.items[i];
+		if ( item.keepWithNext )
+		{
+			subItems = ExtractGroupSubItems( baseItem, i );
+			if ( subItems.length < 2 )
+				continue;
+
+			if ( i == 0 && subItems.length == baseItem.items.length )
+				break;
+
+			newItem = ui_builder_server.CreateUiItem();
+			newItem.items = subItems;
+			
+			if ( baseItem.layout == 'table1' )
+				newItem.layout = 'line';
+
+			baseItem.items.splice( i, subItems.length, newItem );
+		}
+	}
+
+	for ( i = 0; i < baseItem.items.length; i++ )
+	{
+		item = baseItem.items[i];
+		ExtractItemSubGroups( template, item );
+	}
+}
+
+
+function ExtractGroupSubItems( baseItem, startIndex )
+{
+	subItems = new Array;
+	subItems.push( baseItem.items[startIndex] );
+
+	for ( i = startIndex + 1; i < baseItem.items.length; i++ )
+	{
+		item = baseItem.items[i];
+		if ( ! item.keepWithPrev )
+			break;
+
+		subItems.push( baseItem.items[i] );
+	}
+
+	return subItems;
+}
+
+
+
+
+
+function PrepareTemplate( template )
+{
+	if (template.isPrepared)
+		return;
+
+	ui_builder_server.ProcessUiTemplateRules( template );
+
+	PrepareTemplateItems( template, template );
+
+	if ( ! template.isObjectList )
+		RemoveTemplateHiddenFields( template, template );
+
+	if ( template.isObjectList )
+		ui_builder_server.PrepareListViewTemplate( template );
+
+	template.isPrepared = true;
+}
+
+
+function RemoveTemplateHiddenFields( template, baseItem )
+{
+	if ( baseItem.items == undefined )
+		return;
+
+	for ( i = 0; i < baseItem.items.length; )
+	{
+		item = baseItem.items[i];
+
+		if ( item.formElem != undefined && item.formElem.GetOptAttr( 'allow-hide' ) == '1' && ! fields_usage.use_object_field( template.objectTypeID, item.formElem.Name ) )
+		{
+			baseItem.items.splice( i, 1 );
+			continue;
+		}
+
+		RemoveTemplateHiddenFields( template, item );
+		i++;
+	}
+}
+
+
+function PrepareTemplateItems( template, baseItem )
+{
+	PrepareItem( template, baseItem );
+
+	if ( baseItem.items != undefined )
+	{
+		hasPages = false;
+
+		for ( item in baseItem.items )
+		{
+			if ( item.type == 'Page' )
+			{
+				item.isPage = true;
+				hasPages = true;
+			}
+			else if ( hasPages )
+			{
+				item.isPage = true;
+			}
+
+			PrepareTemplateItems( template, item );
+		}
+	}
+}
+
+
+function PrepareItem( template, item )
+{
+	if ( item.fieldID != undefined )
+	{
+		if ( template.objectFormElem == undefined )
+			throw ui_builder_server.UiItemError( 'Object type is not known for the template', template, item );
+
+		item.formElem = template.objectFormElem.EvalOptPath( item.fieldID );
+		if ( item.formElem == undefined )
+		{
+			throw ui_builder_server.UiItemError( 'No such field: ' + item.fieldID, template, item );
+		}
+
+		ui_builder_server.InitUiItemFromFormElem( template, item, item.formElem );
+	}
+
+	switch ( item.type )
+	{
+		case 'Section':
+			PrepareSectionItem( template, item );
+			break;
+
+		case 'Page':
+			PreparePageItem( template, item );
+			break;
+
+		case 'ObjectList':
+			PrepareInnerListItem( template, item );
+			break;
+	}
+}
+
+
+function PrepareSectionItem( template, item )
+{
+	if ( item.templateID == undefined )
+		return;
+
+	destTemplate = ui_builder_server.GetUiTemplate( item.templateID, item.sourceDesc );
+	
+	//item.id = destTemplate.id;
+
+	if ( item.title == undefined )
+		item.title = destTemplate.title;
+}
+
+
+function PreparePageItem( template, item )
+{
+	template.hasPages = true;
+
+	if ( item.templateID != undefined )
+	{
+		subTemplate = ui_builder_server.GetUiTemplate( item.templateID );
+		if ( subTemplate.isObjectList )
+		{
+			item.listTemplateID = item.templateID;
+			PrepareInnerListItem( template, subItem );
+		}
+	}
+}
+
+
+function PrepareInnerListItem( template, item )
+{
+	listTemplate = ui_builder_server.GetUiTemplate( item.listTemplateID );
+	item.listTemplate = ui_builder_server.CloneUiTemplate( listTemplate );
+	//item.listTemplate.id += '.of_' + template.objectTypeID;
+	item.listTemplate.isInnerList = true;
+	
+	if ( ! item.isPage )
+		item.listTemplate.listOnly = true;
+
+	if ( item.items != undefined )
+	{
+		for ( subItem in item.items )
+		{
+			item.listTemplate.items.push( subItem );
+		}
+
+		item.items = undefined;
+	}
+
+	if ( item.title == undefined )
+		item.title = item.listTemplate.title;
+
+	PrepareTemplate( item.listTemplate );
+}
+
+
+
+
+
+
+
+function ApplyInstanceRules( instance )
+{
+	if ( instance.fragment.rules != undefined )
+	{
+		for ( rule in instance.fragment.rules )
+			ApplyInstanceRule( instance, rule );
+	}
+}
+
+
+function ApplyInstanceRule( instance, rule )
+{
+	if ( rule.type == 'Item' )
+	{
+		item = CreateItem();
+		
+		if ( rule.sampleName != undefined )
+		{
+			item.sampleName = rule.sampleName;
+			item.sampleFormUrl = rule.sampleFormUrl;
+		}
+		else
+		{
+			item.fragmentID = rule.fragmentID;
+
+			subFragment = ui_builder_server.GetFragment( item.fragmentID );
+			item.title = subFragment.title;
+		}
+
+		ApplyItemUiProps( item, rule );
+		
+		if ( instance.items == undefined )
+			instance.items = new Array;
+
+		instance.items.push( item );
+		return;
+	}
+
+	if ( rule.targetFieldName != undefined )
+	{
+		ApplyInstanceRuleForField( instance, rule, rule.targetFieldName );
+	}
+
+	if ( rule.targetFieldNames != undefined )
+	{
+		for ( targetFieldName in rule.targetFieldNames )
+			ApplyInstanceRuleForField( instance, rule, targetFieldName );
+	}
+}
+
+
+function ApplyInstanceRuleForField( instance, rule, targetFieldName )
+{
+	if ( instance.items == undefined )
+		throw ui_builder_server.FragmentError( 'Ui rule target field not found: ' + targetFieldName, instance.fragment, rule );
+
+	item = ArrayOptFindByKey( instance.items, targetFieldName, 'fieldName' );
+	if ( item == undefined )
+		throw UiError( 'Ui rule target field not found: ' + targetFieldName );
+
+	if ( rule.type == 'Set' )
+	{
+		ApplyItemUiProps( item, rule );
+	}
+}
+
+
+function ApplyItemUiProps( item, rule )
+{
+	for ( propName in rule )
+	{
+		if ( ui_client.OnListViewSetRowSel.GetUiPropType( propName ) != undefined )
+		{
+			item[propName] = rule[propName];
+		}
+	}
+}
+
+
+function ProcessInstancePages( instance )
+{
+	if ( instance.items == undefined )
+		return;
+
+	customPageRules = new Array;
+
+	for ( rule in instance.fragment.rules )
+	{
+		if ( rule.type == 'Page' )
+			customPageRules.push( rule );
+	}
+
+	pageIDs = ArraySelectDistinct( ArrayExtract( instance.items, 'GetTargetPageID( This.page, instance )' ) );
+	if ( pageIDs.length <= 1 && customPageRules.length == 0 )
+		return;
+
+	for ( rule in customPageRules )
+	{
+		if ( pageIDs.indexOf( rule.id ) < 0 )
+			pageIDs.push( rule.id );
+	}
+
+	items = instance.items;
+
+	instance.items = new Array;
+
+	for ( pageID in pageIDs )
+	{
+		item = CreateItem();
+		item.isPage = true;
+		item.id = pageID;
+		
+		if ( pageID == 'Common' )
+		{
+			item.title = UiText.sections.general;
+			item.imageUrl = 'x-app://base_pict/common.ico';
+		}
+		else if ( pageID == 'AddInfo' )
+		{
+			item.title = UiText.sections.aux_info;
+			item.imageUrl = 'x-app://base_pict/aux_info.ico';
+		}
+		else if ( ( customPageRule = ArrayOptFindByKey( customPageRules, pageID, 'id' ) ) != undefined )
+		{
+			item.title = customPageRule.title;
+			if ( customPageRule.imageUrl != undefined )
+				item.imageUrl = customPageRule.imageUrl;
+		}
+		else
+		{
+			item.title = pageID;
+			item.imageUrl = 'x-app://base_pict/dots.ico';
+		}
+		
+		item.items = ArraySelect( items, 'GetTargetPageID( This.page, instance ) == ' + CodeLiteral( pageID ) );
+		item.layout = instance.layout;
+
+		instance.items.push( item );
+	}
+
+	instance.layout = 'tab';
+}
+
+
+function GetTargetPageID( pageID, instance )
+{
+	switch ( pageID )
+	{
+		case undefined:
+			return 'Common';
+
+		case 'Common':
+		case 'AddInfo':
+			return pageID;
+
+		default:
+			//return 'AddInfo';
+			return pageID;
+	}
+}
+
+
+
+function InitItemLayouts( item )
+{
+	if ( item.items == undefined )
+		return;
+
+	for ( subItem in item.items )
+	{
+		if ( subItem.layout == undefined && item.layout == 'table1' )
+			subItem.layout = 'line';
+
+		InitItemLayouts( subItem );
+	}
+}
+
+
+function ItemContainsTitle( item )
+{
+	if ( item.type == 'Action' )
+		return true;
+
+	return false;
+}
+
+
+}

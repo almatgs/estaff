@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+	<BR/>
+
+	<CHECK SOURCE="Ps.allow_all" TITLE="Полный доступ" lang-en:TITLE="Full access" lang-ua:TITLE="Повний доступ"/>
+	<DELIM/>
+
+	<IF EXPR="! Ps.allow_all">
+		<LINE MULTILINE="1">
+			<CHECK SOURCE="Ps.allow_change_trash" TITLE="Разрешено удаление данных из корзины" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Allow emptying trash" lang-ua:TITLE="Дозволено видалення даних з кошика"/>
+			<CHECK SOURCE="Ps.allow_change_global_settings" TITLE="Разрешено редактирование общих настроек" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Allow editing global settings" lang-ua:TITLE="Заборонити редагування підрозділів Користувачі, Групи і Рівні доступу"/>
+			<CHECK SOURCE="Ps.allow_change_users" TITLE="Разрешено редактирование пользователей и групп" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Allow editing users and groups" lang-ua:TITLE="Дозволено редагування користувачів і груп"/>
+			<CHECK SOURCE="Ps.allow_view_exclusive_objects" AUTO-LABEL="1" READ-ONLY-EXPR="Ps.allow_all"/>
+			
+			<IF EXPR="AppModuleUsed( 'crm' )">
+				<CHECK SOURCE="Ps.allow_view_rev_deals" TITLE="Разрешен просмотр расходов" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Allow viewing expenses" lang-ua:TITLE="Дозволений перегляд видатків"/>
+			</IF>
+		</LINE>
+		<DELIM/>
+
+		<LINE MULTILINE="1">
+			<CHECK SOURCE="Ps.read_only" TITLE="Доступ только на просмотр" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Read-only access" lang-ua:TITLE="Доступ тільки на перегляд"/>
+			<CHECK SOURCE="Ps.prohibit_delete_all" AUTO-LABEL="1" READ-ONLY-EXPR="Ps.allow_all"/>
+			<CHECK SOURCE="Ps.prohibit_list_copy" AUTO-LABEL="1" READ-ONLY-EXPR="Ps.allow_all"/>
+			<CHECK SOURCE="Ps.prohibit_change_object_user" AUTO-LABEL="1" READ-ONLY-EXPR="Ps.allow_all"/>
+			<CHECK SOURCE="Ps.prohibit_change_object_group" AUTO-LABEL="1" READ-ONLY-EXPR="Ps.allow_all"/>
+		</LINE>
+		<DELIM/>
+
+		<LINE MULTILINE="1">
+			<CHECK SOURCE="Ps.prohibit_change_orgs" TITLE="Запрещено редактирование контрагентов" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Prohibit changing companies" lang-ua:TITLE="Заборонено редагування контрагентів"/>
+			<CHECK SOURCE="Ps.prohibit_view_other_group_orgs" TITLE="Запрещен просмотр контрагентов других групп" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Prohibit viewing companies of other groups" lang-ua:TITLE="Заборонений перегляд контрагентів інших груп"/>
+			<CHECK SOURCE="Ps.prohibit_view_other_group_positions" TITLE="Запрещен просмотр штатных должностей вне корневого подразделения группы" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Prohibit viewing positions outside of the root division of the group" lang-ua:TITLE="Заборонений перегляд штатних посад поза кореневого підрозділу групи"/>
+
+			<CHECK SOURCE="Ps.prohibit_view_other_user_events" TITLE="Запрещен просмотр календарей других пользователей" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Prohibit viewing calendars of other users" lang-ua:TITLE="Заборонений перегляд календарів інших користувачів"/>
+			<CHECK SOURCE="Ps.prohibit_view_other_group_events" TITLE="Запрещен просмотр календарей других групп" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Prohibit viewing calendars of other groups" lang-ua:TITLE="Заборонений перегляд календарів інших груп"/>
+
+			<IF EXPR="false &amp;&amp; AppModuleUsed( module_rgs )">
+				<CHECK SOURCE="Ps.prohibit_change_other_group_events" AUTO-LABEL="1" READ-ONLY-EXPR="Ps.allow_all"/>
+			</IF>
+			<CHECK SOURCE="Ps.prohibit_add_past_events" AUTO-LABEL="1" READ-ONLY-EXPR="Ps.allow_all"/>
+		</LINE>
+		<DELIM/>
+
+		<LINE MULTILINE="1">
+			<CHECK SOURCE="Ps.prohibit_view_agreements" AUTO-LABEL="1" READ-ONLY-EXPR="Ps.allow_all"/>
+			<CHECK SOURCE="Ps.prohibit_view_expenses" AUTO-LABEL="1" READ-ONLY-EXPR="Ps.allow_all"/>
+		</LINE>
+		<DELIM/>
+
+		<PANEL NAME="AccessFieldsAnchor">
+		</PANEL>
+	</IF>
+</PANEL>
+
+
+</SPXML-SCREEN>
+
+
+

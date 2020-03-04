@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="100zr" HEIGHT="54zr" SOURCE="TopElem" TITLE="##UiText.sections.settings_target_testing_systems##" RESIZE="1" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<LABEL TITLE="Talent Q:" BOLD="1"/>
+	<BR/>
+	
+	<PANEL SOURCE="Ps.target_testing_systems.ObtainChildByKey( AppModuleUsed( 'module_sibur' ) ? 'talentq_sibur' : 'talentq' )">	
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="20zr"/>
+				<COL WIDTH="15zr"/>
+			</COLUMNS>
+
+			<EDIT SOURCE="Ps.login" AUTO-LABEL="1"/>
+			<EDIT SOURCE="Ps.password" AUTO-LABEL="1" PASSWORD="1"/>
+		</TABLE>
+	</PANEL>
+
+	<DELIM/>
+</PANEL>
+
+
+</SPXML-SCREEN>

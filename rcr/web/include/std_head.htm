@@ -1,0 +1,209 @@
+<%
+
+function outer_link( path, query )
+{
+	if ( outerEnv == undefined )
+		return path + ( query != undefined ? '?' + UrlQuery( query ) : '' );
+
+	link = outerEnv.outerUrl;
+	if ( StrContains( link, '?' ) )
+		link += '&';
+	else
+		link += '?';
+
+	link += 'inner_url_path=' + path;
+
+	if ( query != undefined )
+	{
+		for ( propName in query )
+			link += '&inner_' + propName + '=' + UrlEncode( query.GetProperty( propName ) );
+	}
+
+	return link;
+}
+
+
+function outer_direct_link( path, query )
+{
+	if ( outerEnv == undefined )
+		return path + ( query != undefined ? '?' + UrlQuery( query ) : '' );
+
+	link = outerEnv.outerDirectUrl;
+	if ( StrContains( link, '?' ) )
+		link += '&';
+	else
+		link += '?';
+
+	link += 'inner_url_path=' + path;
+
+	if ( query != undefined )
+	{
+		for ( propName in query )
+			link += '&inner_' + propName + '=' + UrlEncode( query.GetProperty( propName ) );
+	}
+
+	return link;
+}
+
+
+function HandlePostError( err )
+{
+	Server.Execute( 'include/post_error.htm' );
+	Cancel();
+	//throw UserError( err );
+}
+
+
+useOuterFrame = Request.QueryString.HasProperty( 'outer_url' );
+curPerson = undefined;
+
+try
+{
+	isDlg;
+}
+catch ( e )
+{
+	isDlg = false;
+}
+
+if ( useOuterFrame )
+{
+	outerEnv = new Object;
+	outerEnv.outerUrl = Request.QueryString.outer_url;
+
+
+	outerQuery = UrlQuery( outerEnv.outerUrl );
+	newOuterQuery = new Object;
+
+	for ( propName in outerQuery )
+	{
+		if ( StrBegins( propName, 'inner_' ) )
+			continue;
+
+		newOuterQuery.AddProperty( propName, outerQuery.GetProperty( propName ) );
+	}
+	
+	outerEnv.outerUrl = Url( UrlSchema( outerEnv.outerUrl ), UrlHost( outerEnv.outerUrl ), UrlPath( outerEnv.outerUrl ), UrlEncodeQuery( newOuterQuery ) );
+
+	if ( ( urlStr = AppConfig.GetOptProperty( 'web-direct-outer-url' ) ) != undefined )
+		outerEnv.outerDirectUrl = AbsoluteUrl( urlStr, outerEnv.outerUrl );
+	else
+		outerEnv.outerDirectUrl = '/estaff_direct.html';
+
+
+	if ( Request.QueryString.HasProperty( 'outer_person_id' ) )
+	{
+		curPerson = lib_base.query_opt_record_by_key( persons, Request.QueryString.outer_person_id, 'eid' );
+		if ( curPerson == undefined )
+		{
+			if ( ( str = AppConfig.GetOptProperty( 'outer_person_not_found_error_msg' ) ) != undefined )
+				throw UserError( str );
+
+			throw UserError( '” ¬ас недостаточно прав доступа дл€ просмотра этого документа.\n(ѕользователь портала не зарегистрирован а базе E-Staff в качестве сотрудника.\nID: ' + Request.QueryString.outer_person_id + ')' );
+		}
+	}
+}
+else
+{
+	if ( Request.UrlPath != '/' )
+	{
+		if ( Request.AuthLogin == '' )
+		{
+			Request.SetWrongAuth( 'basic=1' );
+			Cancel();
+		}
+
+		//DebugMsg( Request.AuthLogin );
+
+		person = lib_base.query_opt_record_by_key( persons, StrLowerCase( Request.AuthLogin ), 'sys_login' );
+		if ( person == undefined )
+		{
+			Request.SetWrongAuth( 'basic=1' );
+			Cancel();
+		}
+
+		if ( AppServerConfig.GetOptProperty( 'rcr-web-auth' ) == '1' )
+		{
+			if ( ! PasswordVerify( Request.AuthPassword, person.password_hash ) )
+			{
+				Request.SetWrongAuth( 'basic=1' );
+				Cancel();
+			}
+		}
+		else
+		{
+			if ( Request.AuthPassword != person.sys_login )
+			{
+				Request.SetWrongAuth( 'basic=1' );
+				Cancel();
+			}
+		}
+
+		curPerson = person;
+	}
+
+	outerEnv = undefined;
+}
+
+
+if ( Request.Method != 'POST' )
+{
+
+%>
+
+
+
+<%
+if ( ! useOuterFrame || isDlg )
+{
+%>
+
+<html>
+<head>
+<title>E-Staff: Web-interface</title>
+<%Server.Execute( 'include/meta.htm' )%>
+</head>
+
+<%
+}
+%>
+
+
+<script type="text/javascript">
+<!--
+
+var		gSxOuterEnv = undefined;
+
+<%
+if ( useOuterFrame )
+{
+%>
+
+gSxOuterEnv = new Object;
+gSxOuterEnv.outerUrl = '<%=outerEnv.outerUrl%>';
+gSxOuterEnv.outerDirectUrl = '<%=outerEnv.outerDirectUrl%>';
+
+<%
+}
+%>
+
+-->
+</script>
+
+
+<%Server.Execute( 'include/style.htm' )%>
+
+
+<%
+if ( ! useOuterFrame || isDlg )
+{
+%>
+
+<body>
+
+<%
+}
+}
+%>
+
+

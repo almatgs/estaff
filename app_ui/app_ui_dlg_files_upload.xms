@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Выбор файла" WIDTH="90zr" HEIGHT="17zr" lang-en:TITLE="Select file">
+
+
+
+	<BUTTON TITLE="OK" CMD="1" ENABLE-EXPR="Ps.file_id.HasValue"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2" lang-en:TITLE="Cancel"/>
+
+
+</SPXML-SCREEN>
+
+<PANEL HEIGHT="-6zr">
+	<FILE-PICKER UPDATE-ACTION="
+			Ps.file_id = ResourceID;
+			Screen.RunCommand( 'Ok' );
+	"/>
+</PANEL>
+<BR/>
+<PANEL HEIGHT="2px">
+</PANEL>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+	<BUTTON TITLE="OK" CMD="1" ENABLE-EXPR="Ps.file_id.HasValue"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2" lang-en:TITLE="Cancel"/>
+</TABLE>

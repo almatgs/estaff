@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<UNIT NAME="stat_items_base" SAMPLE="1">
+
+<PANEL HEIGHT-EXPR="Ps.spec.show_chart ? '-300px' : '100%'" BK-COLOR-EXPR="" STD-MARGINS="0">
+<GRID HEIGHT="100%" ZERO="-" STD-MARGINS="0" SOLID-ROWS="1" FIXED-WORK-ROW-HEIGHT="1" PRINT-FORMAT-ATTR-EXPR="Ps.spec.print_format.build_tag_attr()">
+	<COLUMNS>
+		<LOOP EXPR="Ps.header_columns" VAR="_column_spec">
+			<COL WIDTH-EXPR="_column_spec.width"/>
+		</LOOP>
+	</COLUMNS>
+
+	<IF EXPR="Ps.top_columns.ChildNum != 0">
+		<ROW HEADER="1">
+			<LOOP EXPR="Ps.top_columns" VAR="_header_cell">
+				<LABEL HSPAN-EXPR="_header_cell.span" TITLE-EXPR="_header_cell.title" ALIGN="center" TIP-TEXT-EXPR="_header_cell.tip_text"/>
+			</LOOP>
+		</ROW>
+	</IF>
+
+	<ROW HEADER="1">
+		<LOOP EXPR="Ps.header_columns" VAR="_column_spec">
+			<LABEL TITLE-EXPR="_column_spec.title" ALIGN="center" TIP-TEXT-EXPR="_column_spec.tip_text"/>
+		</LOOP>
+	</ROW>
+
+	<LOOP EXPR="
+			if ( Ps.total.columns.ChildNum == 0 )
+				return XmlArrayHier( Ps.items );
+			
+			array = XmlArrayHier( Ps.items );
+			
+			if ( Ps.spec.show_total )
+				array = ArrayUnion( array, [Ps.total] );
+			
+			if ( Ps.spec.show_total_average )
+				array = ArrayUnion( array, [Ps.total_average] );
+
+			return array;
+	" VAR="_item">
+		<ROW OPEN-ACTION="lib_stat.open_item( Ps, _item )" BOLD-EXPR="_item.Name == 'total' || _item.bold || ( ( groupSpec = _item.group_spec ) != undefined &amp;&amp; groupSpec.bold )" PRINT-FORMAT-ATTR-EXPR__="_item.build_tag_attr()">
+			<IF EXPR="_item.ChildExists( 'is_delim' ) &amp;&amp; _item.is_delim">
+				<LABEL HSPAN-EXPR="Ps.header_columns.ChildNum" FLAT="1"/>
+			</IF>
+			<ELSE>
+				<LOOP EXPR="Ps.header_columns" VAR="_header_column">
+					<IF EXPR="_item.columns.ChildNum > _header_column.ChildIndex &amp;&amp; _item.columns[_header_column.ChildIndex].is_link">
+						<LINK TITLE-EXPR="
+								column = _item.columns[_header_column.ChildIndex];
+								field = Ps.spec.fields[_header_column.ChildIndex];
+
+								if ( field.stat_only && _item.group_level == null )
+									return '';
+
+								elem = undefined;
+							
+								if ( _item.record_ref.HasValue )
+								{
+									record = _item.record_ref.Object;
+
+									if ( _header_column.elem_ref.HasValue )
+										elem = record.OptChild( _header_column.elem_ref.Object.Name );
+								}
+
+								str = column.indent_str;
+							
+								if ( field.title_expr.HasValue )
+								{
+									try
+									{
+										Value = column.value;
+										str += eval( field.title_expr );
+									}
+									catch ( e )
+									{
+										str += UnifySpaces( e );
+									}
+								}
+								/*else if ( elem != undefined && elem.FormElem.ForeignArrayExpr != '' )
+								{
+									if ( elem.FormElem.IsMultiple )
+										str += elem.MultiElem.ForeignDispName;
+									else
+										str += elem.ForeignDispName;
+								}*/
+								else if ( _item.Name != 'total' && _header_column.elem_ref.HasValue && _header_column.elem_ref.Object.ForeignArrayExpr != '' )
+								{
+									if ( elem != undefined )
+									{
+										if ( _header_column.elem_ref.Object.IsMultiple )
+										{
+											str += elem.MultiElem.ForeignDispName;
+										}
+										else
+										{
+											str += elem.ForeignDispName;
+										}
+									}
+								}
+								else if ( ( _header_column.data_type == 'integer' || ( _item.group_level != null && field.stat_func != '' ) ) && ( DataType( column.value.Value ) == 'integer' || ( DataType( column.value.Value ) == 'real' ) || _header_column.data_type == 'integer' ) )
+								{
+									if ( RValue( column.value ) == undefined )
+										return '';
+
+									//if ( OptInt( column.value ) == undefined )
+										//return '';
+
+									str += StrIntZero( column.value, 0, ! StrEnds( field.id, 'year' ) );
+
+									if ( field.is_percent && column.value != null && column.value != 0 )
+										str += '%';
+								}
+								else if ( _header_column.data_type == 'real' )
+								{
+									if ( RValue( column.value ) == undefined )
+										return '';
+
+									if ( column.value != Real( 0 ) )
+										str += StrReal( column.value, ( field.float_precision.HasValue ? field.float_precision : 0 ), true );
+									else
+										str += '-';
+
+									if ( field.is_percent && column.value != null && column.value != 0 )
+										str += '%';
+								}
+								else if ( _header_column.data_type == 'bool' && ! ( _item.group_level != null /*&& _header_column.stat_func != ''*/ ) )
+								{
+									str += ( column.value ? '+' : '' );
+								}
+								else if ( _header_column.data_type == 'date' && DataType( column.value.Value ) == 'date' )
+								{
+									str += StrDate( column.value, false );
+								}
+								else
+								{
+									str += column.value;
+								}
+
+								return str;
+						" TIP-TEXT-EXPR="
+								column = _item.columns[_header_column.ChildIndex];
+								return UnifySpaces( column.error_text );
+						" FLAT="1" ALIGN-EXPR="_header_column.align" TEXT-COLOR="black" BK-COLOR-EXPR="
+								if ( _item.Name == 'total' )
+									return '240,240,240';
+
+								if ( _item.group_level != null && _item.group_spec.bk_color != '' )
+									return _item.group_spec.bk_color;
+
+								return _item.columns[_header_column.ChildIndex].bk_color;
+						" ACTION="lib_stat.open_item_link( Ps, _item, _item.columns[_header_column.ChildIndex] )" PASSIVE="1"/>
+					</IF>
+					<ELSE>
+						<LABEL TITLE-EXPR="
+								if ( _item.columns.ChildNum &lt;= _header_column.ChildIndex )
+									return '';
+
+								column = _item.columns[_header_column.ChildIndex];
+								field = Ps.spec.fields[_header_column.ChildIndex];
+
+								if ( field.stat_only && _item.group_level == null )
+									return '';
+
+								elem = undefined;
+							
+								if ( _item.record_ref.HasValue )
+								{
+									record = _item.record_ref.Object;
+
+									if ( _header_column.elem_ref.HasValue )
+										elem = record.OptChild( _header_column.elem_ref.Object.Name );
+								}
+
+								str = column.indent_str;
+							
+								if ( field.title_expr.HasValue )
+								{
+									try
+									{
+										Value = column.value;
+										str += eval( field.title_expr );
+									}
+									catch ( e )
+									{
+										str += UnifySpaces( e );
+									}
+								}
+								/*else if ( elem != undefined && elem.FormElem.ForeignArrayExpr != '' )
+								{
+									if ( elem.FormElem.IsMultiple )
+										str += elem.MultiElem.ForeignDispName;
+									else
+										str += elem.ForeignDispName;
+								}*/
+								else if ( _item.Name != 'total' && _header_column.elem_ref.HasValue && _header_column.elem_ref.Object.ForeignArrayExpr != '' )
+								{
+									if ( elem != undefined )
+									{
+										if ( _header_column.elem_ref.Object.IsMultiple )
+										{
+											str += elem.MultiElem.ForeignDispName;
+										}
+										else
+										{
+											str += elem.ForeignDispName;
+										}
+									}
+									else if ( System.IsWebClient &amp;&amp; column.value.HasValue )
+									{
+										str += column.value;
+									}
+								}
+								else if ( ( _header_column.data_type == 'integer' || ( _item.group_level != null && field.stat_func != '' ) ) && ( DataType( column.value.Value ) == 'integer' || ( DataType( column.value.Value ) == 'real' ) || _header_column.data_type == 'integer' ) )
+								{
+									if ( RValue( column.value ) == undefined )
+										return '';
+
+									//if ( OptInt( column.value ) == undefined )
+										//return '';
+
+									str += StrIntZero( column.value, 0, ! StrEnds( field.id, 'year' ) );
+
+									if ( field.is_percent && column.value != null && column.value != 0 )
+										str += '%';
+								}
+								else if ( _header_column.data_type == 'real' )
+								{
+									if ( RValue( column.value ) == undefined )
+										return '';
+
+									if ( column.value != Real( 0 ) )
+										str += StrReal( column.value, ( field.float_precision.HasValue ? field.float_precision : 0 ), true );
+									else
+										str += '-';
+
+									if ( field.is_percent && column.value != null && column.value != 0 )
+										str += '%';
+								}
+								else if ( _header_column.data_type == 'bool' && ! ( _item.group_level != null /*&& _header_column.stat_func != ''*/ ) )
+								{
+									str += ( column.value ? '+' : '' );
+								}
+								else if ( _header_column.data_type == 'date' && DataType( column.value.Value ) == 'date' )
+								{
+									str += StrDate( column.value, false );
+								}
+								else
+								{
+									str += column.value;
+								}
+
+								return str;
+						" TIP-TEXT-EXPR="
+								column = _item.columns[_header_column.ChildIndex];
+								return UnifySpaces( column.error_text );
+						" FLAT="1" ALIGN-EXPR="_header_column.align" TEXT-COLOR-EXPR="_item.columns.ChildNum > _header_column.ChildIndex ? _item.columns[_header_column.ChildIndex].OptChild( 'text_color' ) : ''" BK-COLOR-EXPR="
+								if ( _item.Name == 'total' )
+									return '240,240,240';
+
+								if ( _item.group_level != null && _item.group_spec.bk_color != '' )
+									return _item.group_spec.bk_color;
+
+								if ( _item.columns.ChildNum &lt;= _header_column.ChildIndex )
+									return '';
+
+								return _item.columns[_header_column.ChildIndex].bk_color;
+						"/>
+					</ELSE>
+				</LOOP>
+			</ELSE>
+		</ROW>
+	</LOOP>
+
+	<IF EXPR="Ps.spec.show_object_actions">
+		<MENU RIGHT-CLICK="1">
+			<WITH VAR="_object_type_id" EXPR="'candidate'">
+				<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( object_actions ), 'object_type_id == _object_type_id &amp;&amp; show_in_context_menu' )" VAR="_action">
+					<MENU-ENTRY TITLE-EXPR="_action.name" ACTION="lib_base.run_stat_grid_object_action( Grid, _action.id )" PASSIVE="1" ENABLE-EXPR="! _action.enable_expr.HasValue || eval( _action.enable_expr )"/>
+				</LOOP>
+			</WITH>
+		</MENU>
+	</IF>
+</GRID>
+</PANEL>
+
+
+<IF EXPR="Ps.spec.show_chart">
+	<SPLIT/>
+	<PANEL SUNKEN="1" HEIGHT="100%">
+		<HYPER NAME="ChartHyper" URL-EXPR="Ps.chart_page_url"/>
+	</PANEL>
+
+	<COMMAND-HANDLER CMD="PreviewChartInBrowser" ACTION="
+			ShellExecute( 'open', Ps.chart_page_url );
+	" PASSIVE="1" ENABLE-EXPR="Ps.chart_page_url.HasValue"/>
+</IF>
+
+</UNIT>
+
+
+
+
+
+
+
+
+<UNIT NAME="vert_stat_items_base" SAMPLE="1">
+
+<GRID HEIGHT="100%" ZERO="-" STD-MARGINS="0" SOLID-ROWS="1" FIXED-WORK-ROW-HEIGHT="1">
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="15zr"/>
+	</COLUMNS>
+
+	<ROW HEADER="1">
+		<LABEL TITLE="Наименование показателя" ALIGN="center" lang-en:TITLE="Item" lang-ua:TITLE="Найменування показника"/>
+		<LABEL TITLE="##UiText.fields.value##" ALIGN="center" lang-en:TITLE="Value"/>
+	</ROW>
+
+	<LOOP EXPR="Ps.header_columns" VAR="_header_column">
+		<ROW>
+			<LABEL TITLE-EXPR="_header_column.title" FLAT="1"/>
+
+			<LABEL TITLE-EXPR="
+					_item = Ps.total;
+					if ( _header_column.ChildIndex >= _item.columns.ChildNum )
+						return '';
+
+					column = _item.columns[_header_column.ChildIndex];
+					field = Ps.spec.fields[_header_column.ChildIndex];
+
+					if ( field.stat_only && _item.group_level == null )
+						return '';
+
+					elem = undefined;
+					
+					if ( _item.record_ref.HasValue )
+					{
+						record = _item.record_ref.Object;
+
+						if ( _header_column.elem_ref.HasValue )
+							elem = record.OptChild( _header_column.elem_ref.Object.Name );
+					}
+
+					
+					str = column.indent_str;
+					
+					if ( field.title_expr.HasValue )
+					{
+						try
+						{
+							Value = column.value;
+							str += eval( field.title_expr );
+						}
+						catch ( e )
+						{
+							str += UnifySpaces( e );
+						}
+					}
+					else if ( elem != undefined && elem.FormElem.ForeignArrayExpr != '' )
+					{
+						str += elem.ForeignDispName;
+					}
+					else if ( ( _header_column.data_type == 'integer' || ( _item.group_level != null && field.stat_func != '' ) ) && DataType( column.value.Value ) == 'integer' )
+					{
+						if ( RValue( column.value ) == undefined )
+							return '';
+
+						str += StrIntZero( column.value, 0, ! StrEnds( field.id, 'year' ) );
+
+						if ( field.is_percent && column.value != null && column.value != 0 )
+							str += '%';
+					}
+					else if ( _header_column.data_type == 'real' )
+					{
+						if ( RValue( column.value ) == undefined )
+							return '';
+
+						if ( column.value != 0 )
+							str += StrReal( column.value, 0, true );
+						else
+							str += '-';
+
+						if ( field.is_percent && column.value != null && column.value != 0 )
+							str += '%';
+					}
+					else if ( _header_column.data_type == 'bool' && ! ( _item.group_level != null /*&& _header_column.stat_func != ''*/ ) )
+					{
+						str += ( column.value ? '+' : '' );
+					}
+					else if ( _header_column.data_type == 'date' )
+					{
+						str += StrDate( column.value, false );
+					}
+					else
+					{
+						str += column.value;
+					}
+
+					return str;
+			" TIP-TEXT-EXPR="
+					_item = Ps.total;
+					if ( _header_column.ChildIndex >= _item.columns.ChildNum )
+						return '';
+
+					column = _item.columns[_header_column.ChildIndex];
+					return UnifySpaces( column.error_text );
+			" FLAT="1" ALIGN="right"/>
+		</ROW>
+	</LOOP>
+</GRID>
+
+
+</UNIT>
+
+
+
+
+
+<UNIT NAME="stat_commands" SAMPLE="1">
+	<COMMAND-HANDLER CMD="Print" ACTION="
+			lib_base.print_main_list( Screen );
+	"/>
+
+	<COMMAND-HANDLER CMD="ShowInOfficeCalc" ACTION="
+			lib_stat.show_screen_in_calc( Screen );
+	"/>
+
+	<COMMAND-HANDLER CMD="ShowChart" ACTION="
+			lib_stat_v2.HandleShowChart( Ps );
+	"/>
+</UNIT>
+
+
+
+<UNIT NAME="stat_filter_period_settings" SAMPLE="1">
+	<GROUP>
+		<ITEM TYPE="elem_selector" SOURCE="Ps.unit_id" AUTO-LABEL="1" WIDTH="15zr"/>
+		<ITEM TYPE="elem_selector" SOURCE="Ps.unit_specifier_id" AUTO-LABEL="1" WIDTH="20zr"/>
+	</GROUP>
+</UNIT>
+
+
+
+</SPXML-SCREEN>
+

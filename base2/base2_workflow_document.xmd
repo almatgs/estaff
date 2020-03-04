@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM CODE-LIB="1" TITLE="##UiText.objects.workflow_document##" IMAGE-URL="//base_pict/task.ico" IMAGE-URL-EXPR="
+		is_active ? '//base_pict/task.ico' : '//base_pict/task_inactive.ico'
+">
+
+<workflow_document PRIMARY-DISP-NAME="date">
+	<id TYPE="integer"/>
+	<code TYPE="string" TITLE="##UiText.fields.code##"/>	
+	<date TYPE="date" TITLE="##UiText.fields.date##"/>
+	<type_id TYPE="string" FOREIGN-ARRAY="workflow_document_types" TITLE="##UiText.titles.type##"/>
+
+	<orig_person_id TYPE="integer" FOREIGN-ARRAY="persons" TITLE="##UiText.titles.originator##"/>
+	<cur_resp_person_id TYPE="integer" FOREIGN-ARRAY="persons" TITLE="##UiText.fields.cur_resp_person##"/>
+	
+	<workflow_type_id TYPE="string" TITLE="##UiText.titles.workflow_type##" FOREIGN-ARRAY="workflow_types"/>
+	<workflow_stage_id TYPE="string" FOREIGN-ARRAY="workflow_type_id.ForeignElem.stages" TITLE="##UiText.fields.workflow_stage##" DEPENDS="workflow_type_id"/>
+	<state_id TYPE="string" FOREIGN-ARRAY="workflow_document_states" TITLE="##UiText.fields.state##"/>
+
+	<comment TYPE="string" MULTILINE="1" TITLE="##UiText.fields.card_comment##"/>
+
+	<data_desc TYPE="string" SECONDARY="1" TITLE="##UiText.titles.desc##"/>
+	<is_active PROPERTY="1" EXPR="! state_id.ForeignElem.deactivate_object" EXPR-SHOW-ERRORS="1"/>
+
+	<data DOC-ONLY="1" TITLE="##UiText.titles.parameters##">
+	</data>
+
+	<INHERIT TYPE="card_info_base"/>
+</workflow_document>
+
+
+
+</SPXML-FORM>

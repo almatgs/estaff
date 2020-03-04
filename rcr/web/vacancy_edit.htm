@@ -1,0 +1,71 @@
+<%Server.Execute( 'include/std_head.htm' )%>
+
+<%Server.Execute( 'include/scripts.htm' )%>
+
+<h1>Подача заявки на вакансию</h1>
+
+<p>Базовое подразделение: <b><%=curPerson.division_id.ForeignDispName%></b></p>
+
+<form method="post" action="<%=outer_direct_link( 'vacancy_change.htm' )%>">
+
+<input type="hidden" name="redirect_url" value="<%=outer_link( 'rr_main.htm' )%>"/>
+<input1 type="hidden" name="division_id" value="<%=curPerson.division_id%>"/>
+
+<%
+	filter = new Object;
+	
+	sampleVacancyID = OptInt( Request.QueryString.GetOptProperty( 'sample_vacancy_id' ) );
+	if ( sampleVacancyID != undefined )
+	{
+		sampleVacancyDoc = DefaultDb.OpenObjectDoc( 'vacancy', sampleVacancyID );
+		sampleVacancy = sampleVacancyDoc.TopElem;
+		for ( elem in sampleVacancy )
+		{
+			if ( elem.Type == '' )
+				continue;
+
+			filter.AddProperty( elem.Name, elem.Value );
+		}
+
+		filter.educ_type_id  = sampleVacancy.req_info.educ_type_id;
+
+		if ( AppModuleUsed( 'module_rgs' ) )
+		{
+			attachment = sampleVacancy.attachments.GetOptChildByKey( 'vacancy_desc', 'type_id' );
+			if ( attachment != undefined )
+			{
+				lib = OpenCodeLib( 'x-app://module_rgs/rgs_lib_rgs.js' );
+				lib.SplitVacancyDesc( attachment.resolve_plain_text(), filter );
+			}
+		}
+	}
+	else
+	{
+		divisionID = OptInt( Request.QueryString.GetOptProperty( 'division_id' ) );
+		if ( divisionID != undefined )
+			filter.division_id = divisionID;
+		else
+			filter.division_id = curPerson.division_id;
+
+		//alert( StrHexInt(filter.division_id) );
+		//filter.division_id = null;
+	}
+
+	if ( AppModuleUsed( 'module_rgs' ) )
+		CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_form_edit', Response, 'x-app://module_rgs/rgs_web_form_vacancy_add.xml', filter );
+	else
+		CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_form_edit', Response, '//rcr/web/web_form_vacancy_add.xml', filter );
+%>
+
+<br/>
+
+<div align="center">
+	<input type="submit" value="Подать заявку"/>
+</div>
+
+</form>
+
+<p><b>(*) помечены поля, обязательные для заполнения</b></p>
+
+
+<%Server.Execute( 'include/std_tail.htm' )%>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<USE FORM="old_general.xmd"/>
+
+
+<org>
+	<code TYPE="string"/>
+
+	<disp_name TYPE="string"/>
+
+	<alt_name TYPE="string"/>
+
+	<name TYPE="string"/>
+
+	<parent_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="orgs"/>
+
+	<eid TYPE="string"/>
+
+	<postal_address TYPE="string"/>
+	<type_id TYPE="string" FOREIGN-ARRAY="org_types.items"/>
+	<location_id TYPE="string" FOREIGN-ARRAY="locations.items"/>
+	<comment TYPE="string" MULTILINE="1"/>
+
+
+	<is_own TYPE="bool" NOT-NULL="1"/>
+	<is_partner TYPE="bool" NOT-NULL="1"/>
+	<role_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="org_roles.items"/>
+
+	<partner_org_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="partner_orgs"/>
+
+	<legal_address TYPE="string"/>
+	<inn TYPE="string"/>
+	<kpp TYPE="string"/>
+
+	<bank_account>
+		<bank>
+			<name TYPE="string"/>
+			<bic TYPE="string"/>
+		</bank>
+
+		<has_custom_recipient TYPE="bool" NOT-NULL="1"/>
+		<custom_recipient_desc TYPE="string" EXPR="custom_recipient_desc == '' &amp;&amp; has_custom_recipient ? std_recipient_desc : custom_recipient_desc"/>
+
+		<std_recipient_desc PROPERTY="1" EXPR="'ИНН ' + Parent.inn + '/' + Parent.kpp + ' ' + Parent.name"/>
+		<recipient_desc PROPERTY="1" EXPR="has_custom_recipient ? custom_recipient_desc : std_recipient_desc"/>
+
+		<no TYPE="string"/>
+		<cno TYPE="string"/>
+	</bank_account>
+
+	<phone TYPE="string"/>
+	<phone2 TYPE="string"/>
+	<phone3 TYPE="string"/>
+	<fax TYPE="string"/>
+	<email TYPE="string"/>
+	<web TYPE="string"/>
+
+	<base_deal_code TYPE="string"/>
+
+	<ceo>
+		<INHERIT TYPE="au_person_name"/>
+		<position_name TYPE="string" DEFAULT="Генеральный директор" FOREIGN-ARRAY="dw_common.position_types"/>
+		<mod_name TYPE="au_person_name"/>
+	</ceo>
+
+	<chief_accountant>
+		<INHERIT TYPE="au_person_name"/>
+		<mod_name TYPE="au_person_name"/>
+	</chief_accountant>
+
+	
+	<INHERIT TYPE="au_card_attachments"/>
+	<INHERIT TYPE="bs_user_ref"/>
+	<is_private TYPE="bool" NOT-NULL="1"/>
+	<init_user_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="users"/>
+	<doc_info TYPE="au_doc_info"/>
+
+	<csd DYN-CHILDREN="1">
+	</csd>
+
+
+
+	<main_persons SECONDARY="1">
+		<main_person MULTIPLE="1" PRIMARY-KEY="person_id">
+			<person_id TYPE="integer" FOREIGN-ARRAY="persons"/>
+
+			<fullname TYPE="string"/>
+			<org_person_priority TYPE="integer"/>
+			<disp_phone TYPE="string"/>
+		</main_person>
+	</main_persons>
+
+	<persons_num TYPE="integer" SECONDARY="1"/>
+
+
+	<state_event_id TYPE="integer" DOC-ID="1" SECONDARY="1"/>
+	<state_event_date TYPE="date" TIME="1" SECONDARY="1"/>
+	<state_event_type_id TYPE="string" NOT-NULL="1" FOREIGN-ARRAY="event_types.items" SECONDARY="1"/>
+
+	<desc_event_comment TYPE="string" SECONDARY="1"/>
+
+	<positions_num TYPE="integer" SECONDARY="1"/>
+	<max_hired_persons TYPE="integer" SECONDARY="1"/>
+	<active_orders_num TYPE="integer" SECONDARY="1"/>
+
+
+	<is_active PROPERTY="1" EXPR="! rc_global_settings.is_agency || ! bs_config.use_org_ext_attr || parent_id != null || positions_num != 0"/>
+
+
+	<location_desc_text PROPERTY="1" EXPR="
+			if ( ( attachment = attachments.GetOptChildByKey( 'location_desc' ) ) == undefined )
+				return '';
+
+			return attachment.resolve_plain_text();
+	"/>
+</org>
+
+
+
+<OnCreate PROPERTY="1" EXPR="
+		org.user_id = LdsCurUserID;
+		TopElem.code = au_tools.obtain_new_object_code( TopElem.Name );
+"/>
+
+
+<OnLocalInit PROPERTY="1" EXPR="
+		if ( TopElem.postal_address == '' )
+			TopElem.postal_address = TopElem.legal_address;
+
+		if ( bs_config.use_org_ext_attr && TopElem.attachments.ChildNum == 0 )
+			TopElem.attachments.AddChild().type_id = 'location_desc';
+"/>
+
+
+</SPXML-FORM>

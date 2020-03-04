@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<USE FORM="//imod/imod_general.xms"/>
+
+<PANEL>
+
+	<EDIT SOURCE="Ps.name" AUTO-LABEL="1"/>
+
+	<ITEM TYPE="object_selector" SOURCE="Ps.division_id" AUTO-LABEL="1"/>
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.profession_id" AUTO-LABEL="1"/>
+	<EDIT SOURCE="Ps.salary" AUTO-LABEL="1" WIDTH="15zr"/>
+
+	<GROUP>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.work_type_id" AUTO-LABEL="1" WIDTH="30zr"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.work_schedule_type_id" AUTO-LABEL="1" WIDTH="30zr"/>
+	</GROUP>
+	<BR/>
+
+	<GROUP>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.reason_id" AUTO-LABEL="1" WIDTH="30zr"/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.replaced_employee_id" AUTO-LABEL="1" WIDTH="45zr"/>
+	</GROUP>
+
+	<GROUP>
+		<ITEM TYPE="date_selector" SOURCE="Ps.desired_hire_date" AUTO-LABEL="1" WIDTH="20zr"/>
+		<ITEM TYPE="date_selector" SOURCE="Ps.req_hire_date" AUTO-LABEL="1" WIDTH="20zr"/>
+	</GROUP>
+
+	<ITEM TYPE="elem_selector" SOURCE="Ps.gender_id" AUTO-LABEL="1" WIDTH="15zr"/>
+
+	<GROUP>
+		<EDIT SOURCE="Ps.min_age" AUTO-LABEL="1" WIDTH="10zr"/>
+		<EDIT SOURCE="Ps.max_age" AUTO-LABEL="1" WIDTH="10zr"/>
+	</GROUP>
+
+	<ITEM TYPE="elem_selector" SOURCE="Ps.educ_type_id" AUTO-LABEL="1" WIDTH="30zr"/>
+	<EDIT SOURCE="Ps.min_exp_years" AUTO-LABEL="1" WIDTH="10zr"/>
+
+	<EDIT SOURCE="Ps.req_quantity" AUTO-LABEL="1" WIDTH="10zr"/>
+	<DELIM/>
+</PANEL>
+
+</SPXML-SCREEN>
+

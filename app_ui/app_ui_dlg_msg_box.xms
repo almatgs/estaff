@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="Ps.title" PADDING="1.1em">
+
+<IF EXPR="Ps.type.HasValue">
+	<PANEL PADDING="0.4em">
+		<LINE CHILD-VERT-ALIGN="top">
+			<IMAGE URL-EXPR="'/theme/pict/msg_' + Ps.type + '.svg'"/>
+			<PANEL WITH="1em">
+			</PANEL>
+
+			<PANEL FULL-HEIGHT="1">
+				<LABEL TITLE-EXPR="Ps.text" MAX-WIDTH="80zr" VERT-ALIGN="center"/>
+			</PANEL>
+		</LINE>
+	</PANEL>
+</IF>
+<ELSE>
+	<LABEL TITLE-EXPR="Ps.text"/>
+</ELSE>
+
+<PANEL HEIGHT="1em">
+</PANEL>
+
+<LINE FULL-WIDTH="1">
+	<IF EXPR="StrContains( Ps.usage, 'yes' )">
+		<BUTTON TITLE="##UiText.titles.yes##" ACTION="Ps.choice = 'yes'; Screen.EndModal()" PASSIVE="1" WIDTH-EXPR="AppUi.metrics.dlgYesButtonWidthMeasure" ALIGN="right"/>
+	</IF>
+	<IF EXPR="StrContains( Ps.usage, 'no' )">
+		<BUTTON TITLE="##UiText.titles.no##" ACTION="Ps.choice = 'no'; Screen.EndModal()" PASSIVE="1" WIDTH-EXPR="AppUi.metrics.dlgNoButtonWidthMeasure" ALIGN="right"/>
+	</IF>
+	
+	<IF EXPR="StrContains( Ps.usage, 'ok' ) || Ps.usage == ''">
+		<BUTTON TITLE="OK" CMD__="1" ACTION="Ps.choice = 'ok'; Screen.EndModal()" PASSIVE="1" WIDTH-EXPR="AppUi.metrics.dlgOkButtonWidthMeasure" ALIGN="right"/>
+	</IF>
+
+	<IF EXPR="StrContains( Ps.usage, 'cancel' )">
+		<BUTTON TITLE="##UiText.actions.cancel##" CMD__="2" ACTION="Ps.choice = 'cancel'; Screen.EndModal()" PASSIVE="1" WIDTH-EXPR="AppUi.metrics.dlgCancelButtonWidthMeasure" ALIGN="right"/>
+	</IF>
+</LINE>
+
+</SPXML-SCREEN>

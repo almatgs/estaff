@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_inet_sites>
+	<items>
+		<item MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+
+			<keywords>
+				<keyword TYPE="string" MULTIPLE="1"/>
+			</keywords>
+
+			<ad_response_url_pattern TYPE="string"/>
+		</item>
+	</items>
+</std_inet_sites>
+
+
+</SPXML-FORM>

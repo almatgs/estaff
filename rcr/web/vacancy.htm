@@ -1,0 +1,101 @@
+<%
+	vacancyID = Int( Request.Query.id );
+	vacancyDoc = DefaultDb.OpenObjectDoc( 'vacancy', vacancyID );
+	vacancy = vacancyDoc.TopElem;
+%>
+
+
+<%Server.Execute( 'include/std_head.htm' )%>
+
+<h1>Вакансия</h1>
+
+<%
+if ( AppModuleUsed( 'module_rgs' ) )
+{
+%>
+
+<br/>
+<p><a href="<%=outer_link( 'vacancy_edit.htm', {sample_vacancy_id:vacancyID} )%>">Подать заявку заново</a></p>
+<br/>
+
+<%
+}
+%>
+
+
+
+
+<%
+	if ( AppModuleUsed( 'module_rgs' ) )
+		fieldNames = ['name', 'division_id', 'start_date', 'orig_rr_person_id', 'cs_reason', 'req_info.educ_type_id', 'salary', 'state_id'];
+	else
+		fieldNames = ['name', 'division_id', 'start_date', 'orig_rr_person_id', 'req_info.educ_type_id', 'salary', 'state_id'];
+
+	//lib_web.build_web_card( Response, vacancy );
+	CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_card', Response, vacancy, fieldNames );
+%>
+
+
+<%
+if ( AppModuleUsed( 'module_rgs' ) && vacancy.state_id == 'vacancy_approval' && ( vacancy.cs_approval_person_id == curPerson.id || ( curPerson.cs_can_approve_vacancy && ArrayOptFind( lib_voc.voc_implicit_chain( vacancy.division_id ), 'This == curPerson.division_id' ) != undefined ) ) )
+{
+%>
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+<hr/>
+
+<br/>
+<br/>
+
+<table>
+	<tr>
+		<td>
+			<form method="post" action="<%=outer_direct_link( 'vacancy_approval_change.htm' )%>">
+				<input type="hidden" name="redirect_url" value="<%=outer_link( 'vacancy.htm', {id:vacancyID} )%>"/>
+				<input type="hidden" name="id" value="<%=vacancy.id%>"/>
+				<input type="hidden" name="approve" value="1"/>
+				<input type="submit" value="Заявка согласована"/>
+			</form>
+		</td>
+		<td style="width:20px">
+		</td>
+		<td>
+			<form method="post" action="<%=outer_direct_link( 'vacancy_approval_change.htm' )%>">
+				<input type="hidden" name="redirect_url" value="<%=outer_link( 'vacancy.htm', {id:vacancyID} )%>"/>
+				<input type="hidden" name="id" value="<%=vacancy.id%>"/>
+				<input type="hidden" name="approve" value="0"/>
+				<input type="submit" value="Заявка НЕ согласована"/>
+			</form>
+		</td>
+	</tr>
+</table>
+
+
+<%
+}
+%>
+
+
+
+
+<%
+	CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_card_attachments', Response, vacancy, outerEnv );
+%>
+
+<h3>Кандидаты в работе</h3>
+
+<%
+	if ( ArrayOptFindByKey( views, 'candidates_of_vacancy_web' ) != undefined )
+		CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_view', Response, 'candidates_of_vacancy_web', 'spots.spot.vacancy_id=' + vacancyID + '', outerEnv );
+	else
+		CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_view', Response, 'candidates_of_vacancy', 'spots.spot.vacancy_id=' + vacancyID + '', outerEnv );
+%>
+
+	  
+
+
+<%Server.Execute( 'include/std_tail.htm' )%>

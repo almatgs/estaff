@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="130zr" HEIGHT="90zr" SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" RESIZE="1">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="35zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.office_id" AUTO-LABEL="1" UPDATE-ACTION="
+				if ( Ps.office_id.ForeignElem.location_id.HasValue )
+					Ps.location_id = Ps.office_id.ForeignElem.location_id;
+		"/>
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.location_id" AUTO-LABEL="1"/>
+	</TABLE>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="23zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.max_participants_num" AUTO-LABEL="1"/>
+	</TABLE>
+	<DELIM/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="50%"/>
+			<COL WIDTH="50%"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.outlook_name" AUTO-LABEL="1"/>
+		<EDIT SOURCE="Ps.lotus_name" AUTO-LABEL="1"/>
+	</TABLE>
+	<DELIM/>
+
+</PANEL>
+
+
+</SPXML-SCREEN>

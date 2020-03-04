@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<staff_common SPXML-FORM="staff_common.xmd">
+
+<testing_completions>
+	<testing_completion>
+		<id></id>
+		<name VALUE="-"/>
+	</testing_completion>
+	<testing_completion>
+		<id>2</id>
+		<name VALUE="##UiText.titles.started##"/>
+	</testing_completion>
+	<testing_completion>
+		<id>1</id>
+		<name VALUE="Завершено" lang-en:VALUE="Completed" lang-ua:VALUE="Завершено"/>
+	</testing_completion>
+</testing_completions>
+
+
+</staff_common>

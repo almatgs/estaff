@@ -1,0 +1,43 @@
+﻿<%
+Request.RespWriteMode = 'single';
+
+if ( ! global_settings.pd_processing.auto_consent_request )
+	throw UiError( 'Page disabled' );
+
+if ( global_settings.pd_processing.consent_request_method != 'own_page' )
+	throw UiError( 'Page disabled' );
+
+candidateID = Request.QueryString.candidate_id;
+if ( candidateID == '' )
+	throw UiError( 'Required parameter missing: candidate_id' );
+
+candidateID = Int( candidateID );
+
+candidate = ArrayOptFirstElem( XQuery( 'for $elem in candidates where $elem/id = ' + XQueryLiteral( candidateID ) + ' return $elem' ) );
+if ( candidate == undefined )
+	throw UiError( 'Candidate is not found' );
+
+//if ( ! candidate.pd_consent_request_date.HasValue )
+	//throw UiError( 'PD consent has not been requested' );
+%><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Согласие на обработку персональных данных</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<%=EncodeCharset( EvalCodePage( global_settings.pd_processing.own_page.html_body ), 'utf-8' )%>
+
+<br/>
+
+<form id="form1" action="/personal/pd_consent_submit.htm" method="post">
+<input name="candidate_id" type="hidden" value="<%=candidateID%>"/>
+<input type="submit" value="Отправить согласие"/>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="75zr" HEIGHT="46zr" STD-MARGINS="1" TITLE="##UiText.titles.incoming_call##" WINDOW-ICON-URL="//base_pict/phone_call_incoming.ico" INIT-ACTION="Screen.SetTimer( 'Ps.TimerAction()', 1000 )">
+
+<BR/>
+
+<IF EXPR="Ps.curPhoneCallRecord != undefined">
+	<IF EXPR="Ps.curPhoneCallRecord.direction == 1">
+		<LABEL TITLE="##UiText.titles.incoming_call##" ALIGN="center"/>
+	</IF>
+	<ELSE>
+		<LABEL TITLE="##UiText.titles.outgoing_call##" ALIGN="center"/>
+	</ELSE>
+
+	<LABEL TITLE-EXPR="lib_phone_details.FormatPhone( Ps.curPhoneCallRecord.src_phone_number )" ALIGN="center" BOLD="1"/>
+
+	<IF EXPR="Ps.curPhoneCallRecord.state_id == 'connected' || Ps.curPhoneCallRecord.state_id == 'succeeded'">
+		<LABEL NAME="CallDurationLabel" TITLE-EXPR="Ps.GetActiveCallDurationDesc()" ALIGN="center" WIDTH="12zr"/>
+	</IF>
+	<ELSE>
+		<IF EXPR="Ps.curPhoneCallRecord.state_id != 'failed'">
+			<BR/>
+			<BR/>
+			<PROGRESS-BAR RANGE-EXPR="null" WIDTH="100%" HEIGHT="8px" UPDATE-TIMEOUT="200"/>
+		</IF>
+	</ELSE>
+
+	<BR/>
+	<DELIM/>
+	<BR/>
+	<BR/>
+</IF>
+
+<GROUP>
+	<LABEL TITLE-EXPR="Ps.curPhoneCallRecord.src_person_data.fullname"/>
+	<LABEL TITLE-EXPR="Ps.curPhoneCallRecord.src_person_data.inet_uid" KEEP-RIGHT="1"/>
+</GROUP>
+
+<IF EXPR="Ps.curPhoneCallRecord.src_person_data.talk_transcript.HasValue">
+	<LINK TITLE="##UiText.titles.call_transcript##" ACTION="lib_base.show_info_message( ActiveScreen, Ps.curPhoneCallRecord.src_person_data.talk_transcript )" PASSIVE="1"/>
+</IF>
+
+<BR/>
+
+<IF EXPR="Ps.curPhoneCallRecord.src_person_id.HasValue">
+	<LINE>
+		<PANEL WIDTH="1zr"/>
+		<IMAGE URL="1.ico" URL-EXPR="Ps.curPhoneCallRecord.src_person_id.ForeignElem.ImageUrl"/>
+		<LINK TITLE-EXPR="Ps.curPhoneCallRecord.src_person_id.ForeignElem.fullname" ACTION="Ps.HandleOpenFoundPerson()" PASSIVE="1"/>
+	</LINE>
+</IF>
+
+
+<PANEL HEIGHT="-7zr">
+</PANEL>
+
+<LINE>
+	<LABEL TITLE="##UiText.actions.create__new##:"/>
+
+	<BUTTON IMAGE-URL="//base_pict/candidate.ico" TITLE="##UiText.objects.candidate##" ACTION="Ps.HandleCreateNewCandidate()" WIDTH="25zr"/>
+	<BUTTON IMAGE-URL="//base_pict/contact_person.ico" TITLE="##UiText.objects.contact_person##" ACTION="Ps.HandleCreateNewContactPerson()" WIDTH="25zr"/>
+</LINE>
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+

@@ -1,0 +1,40 @@
+<%
+	candidateID = Int( Request.Query.id );
+	
+	candidateDoc = DefaultDb.OpenObjectDoc( 'candidate', candidateID );
+	candidate = candidateDoc.TopElem;
+%>
+
+
+<%Server.Execute( 'include/std_head.htm' )%>
+
+<h1>Кандидат</h1>
+
+<%
+	fieldNames = ['fullname', 'birth_date', 'main_vacancy_id'];
+
+	//lib_web.build_web_card( Response, candidate );
+	CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_card', Response, candidate, fieldNames, outerEnv );
+%>
+
+<h3>Личное дело</h3>
+
+<%
+	if ( AppModuleUsed( 'module_rgs' ) && curPerson.participant_events.GetOptChildByKey( 'security_check', 'event_type_id' ) == undefined )
+	{
+		outerEnv.curPerson = curPerson;
+		CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_view', Response, 'events_of_candidate', 'candidate_id=' + candidateID, outerEnv, 'participants.GetOptChildByKey( outerEnv.curPerson.id ) != undefined || vacancy_id.ForeignElem.rr_persons.ChildByKeyExists( outerEnv.curPerson.id )' );
+	}
+	else
+	{
+		CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_view', Response, 'events_of_candidate', 'candidate_id=' + candidateID, outerEnv );
+	}
+%>
+
+	  
+<%
+	CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_card_attachments', Response, candidate, outerEnv );
+%>
+
+
+<%Server.Execute( 'include/std_tail.htm' )%>

@@ -1,0 +1,2 @@
+content mozilla .
+overlay chrome://messenger/content/msgHdrViewOverlay.xul chrome://mozilla/content/toolbar.xul

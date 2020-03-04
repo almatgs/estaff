@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM TITLE="##UiText.objects.expense##" CODE-LIB="1" IMAGE-URL="//base_pict/expense.ico" IMAGE-URL-EXPR="image_url()">
+
+
+<expense PRIMARY-DISP-NAME="payment_date">
+	<id TYPE="integer"/>
+	
+	<date TYPE="date" TITLE="##UiText.fields.date##" EXPR="delivery.date"/>
+
+	<org_id TYPE="integer" FOREIGN-ARRAY="orgs" INDEXED="1" TITLE="##UiText.fields.counterpart##" FT-FOREIGN-DISP-NAME="1"/>
+	<type_id TYPE="integer" FOREIGN-ARRAY="expense_types" TITLE="##UiText.fields.expense_service_type##"/>
+	<agreement_id TYPE="integer" FOREIGN-ARRAY="agreements" TITLE="##UiText.objects.agreement##"/>
+
+	<payment_state_id TYPE="string" FOREIGN-ARRAY="payment_states" TITLE="Статус платежа" DEFAULT="not_paid" lang-en:TITLE="Payment state" lang-ua:TITLE="Статус платежу"/>
+	<payment_code TYPE="string" TITLE="Номер платежа" lang-en:TITLE="Payment No." lang-ua:TITLE="Номер платежу"/>
+	<payment_date TYPE="date" TIME="0" TITLE="##UiText.fields.payment_date##"/>
+
+	<yq_date TYPE="date" EXPR="lib_base.calc_yq_date( AppModuleUsed( 'module_vtb24' ) ? cs_payment_req_date : payment_date )" EXPR-SHOW-ERRORS="1"/>
+
+	<delivery>
+		<date TYPE="date" TIME="0" TITLE="##UiText.fields.start_date##" lang-en:TITLE="Start Date"/>
+		<end_date TYPE="date" TIME="0" TITLE="Дата оказания" lang-en:TITLE="Delivery date" lang-ua:TITLE="Дата надання"/>
+	</delivery>
+
+	<division_id TYPE="integer" FOREIGN-ARRAY="divisions" TITLE="##UiText.objects.division##"/>
+	<vacancy_id TYPE="integer" FOREIGN-ARRAY="vacancies" TITLE="##UiText.objects.vacancy##" FT-FOREIGN-DISP-NAME="1"/>
+	<candidate_id TYPE="integer" FOREIGN-ARRAY="candidates" TITLE="##UiText.objects.candidate##" FT-FOREIGN-DISP-NAME="1"/>
+
+
+	<amount TYPE="real" TITLE="Сумма платежа" lang-en:TITLE="Amount" lang-ua:TITLE="Сума платежу"/>
+	<nvat_amount TYPE="real" TITLE="Сумма платежа без НДС" lang-en:TITLE="Amount without VAT" lang-ua:TITLE="Сума платежу без ПДВ"/>
+	<currency_id TYPE="string" TITLE="##UiText.fields.currency##" FOREIGN-ARRAY="currencies"/>
+
+	<aggreement>
+		<code TYPE="string" TITLE="##UiText.fields.deal_code##"/>
+		<date TYPE="date" TIME="0" TITLE="##UiText.fields.payment_date##"/>
+	</aggreement>
+
+	<INHERIT TYPE="card_comment_base"/>
+
+	<user_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="users" TITLE="##UiText.objects.user##" EXP-MAX-LEN="13" COL-ALIGN="center" lang-en:TITLE="User"/>
+
+
+	<INHERIT TYPE="card_attachments"/>
+	<INHERIT TYPE="card_info_base"/>
+
+	<ft_secondary_text TYPE="string" DOC-ONLY="1" SECONDARY="1"/>
+</expense>
+
+
+
+</SPXML-FORM>

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_locations SPXML-FORM="x-app://base2/base2_std_locations.xmd" xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<std_location>
+		<name VALUE="Киев" lang-en:VALUE="Kiev" lang-ua:VALUE="Київ"/>
+		<id>ukr.80</id>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<has_metro>1</has_metro>
+	</std_location>
+	<std_location>
+		<name VALUE="Винницкая область" lang-en:VALUE="Vinnitskaya oblast" lang-ua:VALUE="Вінницька область"/>
+		<id>ukr.05</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Винница" lang-en:VALUE="Vinnitsa" lang-ua:VALUE="Вінниця"/>
+		<id>ukr.05.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.05</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Жмеринка" lang-en:VALUE="Zhmerynka" lang-ua:VALUE="Жмеринка"/>
+		<id>ukr.05.103</id>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.05</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Волынская область" lang-en:VALUE="Volynskaya oblast" lang-ua:VALUE="Волинська область"/>
+		<id>ukr.07</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Луцк" lang-en:VALUE="Lutsk" lang-ua:VALUE="Луцьк"/>
+		<id>ukr.07.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.07</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Днепропетровская область" lang-en:VALUE="Dnepropetrovskaya oblast" lang-ua:VALUE="Дніпропетровська область"/>
+		<id>ukr.12</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Днепропетровск" lang-en:VALUE="Dnepropetrovsk" lang-ua:VALUE="Дніпропетровськ"/>
+		<id>ukr.12.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<has_metro>1</has_metro>
+		<parent_id>ukr.12</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Донецкая область" lang-en:VALUE="Donetskaya oblast" lang-ua:VALUE="Донецька область"/>
+		<id>ukr.14</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Донецк" lang-en:VALUE="Donetsk" lang-ua:VALUE="Донецьк"/>
+		<id>ukr.14.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.14</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Житомирская область" lang-en:VALUE="Zhitomirskaya oblast" lang-ua:VALUE="Житомирська область"/>
+		<id>ukr.18</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Житомир" lang-en:VALUE="Zhitomir" lang-ua:VALUE="Житомир"/>
+		<id>ukr.18.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.18</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Закарпатская область" lang-en:VALUE="Zakarpatskaya oblast" lang-ua:VALUE="Закарпатська область"/>
+		<id>ukr.21</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Ужгород" lang-en:VALUE="Uzhgorod" lang-ua:VALUE="Ужгород"/>
+		<id>ukr.21.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.21</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Запорожская область" lang-en:VALUE="Zaporozhskaya oblast" lang-ua:VALUE="Запорізька область"/>
+		<id>ukr.23</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Запорожье" lang-en:VALUE="Zaporozhe" lang-ua:VALUE="Запоріжжя"/>
+		<id>ukr.23.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.23</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Ивано-Франковская область" lang-en:VALUE="Ivano-Frankovskaya oblast" lang-ua:VALUE="Івано-Франківська область"/>
+		<id>ukr.26</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Ивано-Франковск" lang-en:VALUE="Ivano-Frankovsk" lang-ua:VALUE="Івано-Франківськ"/>
+		<id>ukr.26.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.26</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Киевская область" lang-en:VALUE="Kievskaya oblast" lang-ua:VALUE="Київська область"/>
+		<id>ukr.32</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Кировоградская область" lang-en:VALUE="Kirovogradskaya oblast" lang-ua:VALUE="Кіровоградська область"/>
+		<id>ukr.35</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Кировоград" lang-en:VALUE="Kirovograd" lang-ua:VALUE="Кіровоград"/>
+		<id>ukr.35.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.35</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Луганская область" lang-en:VALUE="Luganskaya oblast" lang-ua:VALUE="Луганська область"/>
+		<id>ukr.44</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Луганск" lang-en:VALUE="Lugansk" lang-ua:VALUE="Луганськ"/>
+		<id>ukr.44.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.44</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Львовская область" lang-en:VALUE="Lvovskaya oblast" lang-ua:VALUE="Львівська область"/>
+		<id>ukr.46</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Львов" lang-en:VALUE="Lvov" lang-ua:VALUE="Львів"/>
+		<id>ukr.46.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.46</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Николаевская область" lang-en:VALUE="Hikolaevskaya oblast" lang-ua:VALUE="Миколаївська область"/>
+		<id>ukr.48</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Николаев" lang-en:VALUE="Hikolaev" lang-ua:VALUE="Миколаїв"/>
+		<id>ukr.48.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.48</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Одесская область" lang-en:VALUE="Odesskaya oblast" lang-ua:VALUE="Одеська область"/>
+		<id>ukr.51</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Одесса" lang-en:VALUE="Odessa" lang-ua:VALUE="Одеса"/>
+		<id>ukr.51.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.51</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Полтавская область" lang-en:VALUE="Poltavskaya oblast" lang-ua:VALUE="Полтавська область"/>
+		<id>ukr.53</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Полтава" lang-en:VALUE="Poltava" lang-ua:VALUE="Полтава"/>
+		<id>ukr.53.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.53</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Ровенская область" lang-en:VALUE="Rovnenskaya oblast" lang-ua:VALUE="Рівненська область"/>
+		<id>ukr.56</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Ровно" lang-en:VALUE="Rovno" lang-ua:VALUE="Рівне"/>
+		<id>ukr.56.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.56</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Сумская область" lang-en:VALUE="Sumskaya oblast" lang-ua:VALUE="Рівне"/>
+		<id>ukr.59</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Сумы" lang-en:VALUE="Sumy" lang-ua:VALUE="Суми"/>
+		<id>ukr.59.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.59</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Тернопольская область" lang-en:VALUE="Ternopolskaya oblast" lang-ua:VALUE="Тернопільська область"/>
+		<id>ukr.61</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Тернополь" lang-en:VALUE="Ternopol" lang-ua:VALUE="Тернопільська область"/>
+		<id>ukr.61.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.61</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Харьковская область" lang-en:VALUE="Kharkovskaya oblast" lang-ua:VALUE="Харківська область"/>
+		<id>ukr.63</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Харьков" lang-en:VALUE="Kharkov" lang-ua:VALUE="Харків"/>
+		<id>ukr.63.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<has_metro>1</has_metro>
+		<parent_id>ukr.63</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Херсонская область" lang-en:VALUE="Khersonskaya oblast" lang-ua:VALUE="Херсонська область"/>
+		<id>ukr.65</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Херсон" lang-en:VALUE="Kherson" lang-ua:VALUE="Херсон"/>
+		<id>ukr.65.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.65</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Хмельницкая область" lang-en:VALUE="Khmelnitskaya oblast" lang-ua:VALUE="Хмельницька область"/>
+		<id>ukr.68</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Хмельницкий" lang-en:VALUE="Khmelnitskiy" lang-ua:VALUE="Хмельницький"/>
+		<id>ukr.68.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.68</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Черкасская область" lang-en:VALUE="Cherkasskaya oblast" lang-ua:VALUE="Черкаська область"/>
+		<id>ukr.71</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Черкассы" lang-en:VALUE="Cherkassy" lang-ua:VALUE="Черкаси"/>
+		<id>ukr.71.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.71</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Черниговская область" lang-en:VALUE="Chernigovskaya oblast" lang-ua:VALUE="Чернігівська область"/>
+		<id>ukr.74</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Чернигов" lang-en:VALUE="Chernigov" lang-ua:VALUE="Чернігів"/>
+		<id>ukr.74.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.74</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Черновицкая область" lang-en:VALUE="Chernovitskaya oblast" lang-ua:VALUE="Чернівецька область"/>
+		<id>ukr.73</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Черновцы" lang-en:VALUE="Chernovtsy" lang-ua:VALUE="Чернівці"/>
+		<id>ukr.73.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>ukr.73</parent_id>
+	</std_location>
+</std_locations>

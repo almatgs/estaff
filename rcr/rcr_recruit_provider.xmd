@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM CODE-LIB="1" OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" SAVE-ACTION="Ps.on_ui_save()">
+
+<recruit_provider_base SAMPLE="1">
+	<features>
+		<new_candidates TYPE="bool" NULL-FALSE="1"/>
+		<video_interview TYPE="bool" NULL-FALSE="1"/>
+		<testing TYPE="bool" NULL-FALSE="1"/>
+		<outside_test_assignment TYPE="bool" NULL-FALSE="1"/>
+		<pd_consent TYPE="bool" NULL-FALSE="1"/>
+		<aux_document TYPE="bool" NULL-FALSE="1"/>
+	</features>
+			
+	<use_server_address TYPE="bool" NULL-FALSE="1"/>
+	<use_login TYPE="bool" NULL-FALSE="1"/>
+	<use_accounts TYPE="bool" NOT-NULL="1"/>
+	<use_access_token TYPE="bool" NULL-FALSE="1"/>
+	<use_access_token_2 TYPE="bool" NULL-FALSE="1"/>
+	<use_account_access_token TYPE="bool" NULL-FALSE="1"/>
+
+	<use_external_vacancies TYPE="bool" NULL-FALSE="1"/>
+	<use_aux_document_types TYPE="bool" NULL-FALSE="1"/>
+	<allow_load_aux_document_types TYPE="bool" NULL-FALSE="1"/>
+
+	<aux_document_types TITLE="">
+		<aux_document_type MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</aux_document_type>
+	</aux_document_types>
+
+	<has_own_testing_notif TYPE="bool" NULL-FALSE="1"/>
+</recruit_provider_base>
+
+
+<recruit_provider>
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+
+	<INHERIT TYPE="recruit_provider_base"/>
+	<std_provider_id TYPE="string" FOREIGN-ARRAY="rcr_common.std_recruit_providers" TITLE="##UiText.titles.std_provider##"/>
+
+	<server_address TYPE="string" TITLE="##UiText.titles.server_address##"/>
+	<login TYPE="string" TITLE="##UiText.fields.login##"/>
+	<password_ed TYPE="string" TITLE="##UiText.fields.password##"/>
+	<access_token TYPE="string" LARGE="1" FT-IGNORE="1"/>
+	<refresh_token TYPE="string" LARGE="1" FT-IGNORE="1"/>
+
+	<dest_candidate_fields>
+		<source_id TYPE="string" FOREIGN-ARRAY="candidate_sources"/>
+		<state_id TYPE="string" FOREIGN-ARRAY="candidate_states"/>
+	</dest_candidate_fields>
+
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</recruit_provider>
+
+
+
+</SPXML-FORM>

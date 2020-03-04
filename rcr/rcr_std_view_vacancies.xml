@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>vacancies</id>
+	<name VALUE="##UiText.titles.vacancies##"></name>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>state_id</id>
+			<is_multiple>1</is_multiple>
+			<width>19zr</width>
+		</dyn_filter>
+		<dyn_filter>
+			<id>profession_id</id>
+			<is_multiple>1</is_multiple>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>is_of_my_divisions</id>
+			<title VALUE="##UiText.titles.of_my_divisions##"/>
+			<xquery_qual_expr>is_of_my_divisions ? 'MatchSome( $elem/division_id, (' + ArrayMerge( lib_user.GetCurrentUserIdataBaseDivisions(), 'XQueryLiteral( This )', ',' ) + ') )' : ''</xquery_qual_expr>
+			<exist_req_expr>global_settings.use_divisions</exist_req_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}</view_filter_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+			<use_store>1</use_store>
+			<width>12zr</width>
+		</dyn_filter>
+	</dyn_filters>
+
+
+	<fields>
+		<field>
+			<id>name</id>
+			<width>60%</width>
+		</field>
+		<field>
+			<id>org_id</id>
+			<exist_req_expr>global_settings.is_agency</exist_req_expr>
+			<width>40%</width>
+		</field>
+		<field>
+			<id>division_id</id>
+			<exist_req_expr>! global_settings.is_agency</exist_req_expr>
+			<width>40%</width>
+		</field>
+		<field>
+			<id>req_quantity</id>
+			<exist_req_expr>global_settings.use_mp_vacancies</exist_req_expr>
+			<width>4zr</width>
+			<align>center</align>
+		</field>
+		<field>
+			<id>active_req_quantity</id>
+			<exist_req_expr>global_settings.use_mp_vacancies</exist_req_expr>
+			<width>4zr</width>
+			<align>center</align>
+		</field>
+		<field>
+			<id>start_date</id>
+			<use_time>0</use_time>
+			<col_title VALUE="##UiText.titles.opened##"/>
+			<width>12zr</width>
+		</field>
+		<field>
+			<id>cur_work_days_num</id>
+			<data_type>integer</data_type>
+			<show_zeroes>0</show_zeroes>
+			<width>5zr</width>
+			<align>center</align>
+			<bk_color_expr>cur_work_wdays_num_bk_color</bk_color_expr>
+			<exist_req_expr>! global_settings.use_vacancy_work_wdays</exist_req_expr>
+		</field>
+		<field>
+			<id>cur_work_wdays_num</id>
+			<data_type>integer</data_type>
+			<show_zeroes>0</show_zeroes>
+			<width>5zr</width>
+			<align>center</align>
+			<bk_color_expr>cur_work_wdays_num_bk_color</bk_color_expr>
+			<exist_req_expr>global_settings.use_vacancy_work_wdays</exist_req_expr>
+		</field>
+		<field>
+			<id>state_id</id>
+			<width>17zr</width>
+		</field>
+		<field>
+			<id>state_date</id>
+			<use_time>0</use_time>
+		</field>
+		<field>
+			<id>final_candidate_id</id>
+		</field>
+		<field>
+			<id>revenue</id>
+			<exist_req_expr>global_settings.is_agency && ! lib_user.active_user_access.prohibit_view_vacancy_revenue</exist_req_expr>
+		</field>
+		<field>
+			<id>user_id</id>
+		</field>
+	</fields>
+</std_view>
+

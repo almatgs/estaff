@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="List.candidates.hm.my.active" BaseTemplate="List.candidates.hm.my" Title="##UiText.titles.candidates## - ##UiText.fields.active_s##" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<UI:Filter Field="is_active" Fixed="1" ValueExpr="true"/>
+
+</UiTemplate>

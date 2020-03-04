@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM CODE-LIB="1" OWN-ID-SPACE="1" STORAGE-TYPE__="single-xml">
+
+<mail_template>
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<dest_type TYPE="string" NOT-NULL="1" DEFAULT="person"/>
+
+	<is_group_starter TYPE="bool" NOT-NULL="1"/>
+	<is_notif TYPE="bool" NULL-FALSE="1"/>
+
+	<email TYPE="string" TITLE="E-Mail получателя" lang-en:TITLE="Recipient's email" lang-ua:TITLE="E-Mail одержувача"/>
+	<subject TYPE="string"/>
+	<text TYPE="string" MULTILINE="1" DOC-ONLY="1"/>
+	
+	<use_html_text TYPE="bool" NULL-FALSE="1"/>
+	<html_text TYPE="string" SUBTYPE="html" DOC-ONLY="1"/>
+
+	<INHERIT TYPE="html_edit_context_base"/>
+
+	<attachments DOC-ONLY="1">
+		<attachment MULTIPLE="1">
+			<name TYPE="string"/>
+			<data TYPE="binary" EXT-DATA="1"/>
+		</attachment>
+	</attachments>
+
+	<card_attachments>
+		<card_attachment MULTIPLE="1">
+			<card_attachment_type_id TYPE="string" FOREIGN-ARRAY="card_attachment_types"/>
+			<name TYPE="string"/>
+			<src_object_type_id TYPE="string" FOREIGN-ARRAY="card_object_types"/>
+			<is_optional TYPE="bool" NOT-NULL="1"/>
+		</card_attachment>
+	</card_attachments>
+
+	<finish_action TYPE="string" SUBTYPE="code"/>
+	
+	<register_event TYPE="bool" NOT-NULL="1"/>
+	<event_type_id TYPE="string" FOREIGN-ARRAY="event_types"/>
+
+	<group_id TYPE="integer" FOREIGN-ARRAY="groups" TITLE="##UiText.objects.group##"/>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+
+
+	<may_use_for_plain_object PROPERTY="1" PARAM="object" EXPR="
+			if ( dest_type != object.Name )
+				return false;
+
+			if ( is_notif )
+				return false;
+
+			for ( attachment in card_attachments )
+			{
+				if ( attachment.src_object_type_id.HasValue && attachment.src_object_type_id != object.Name )
+					continue;
+				
+				if ( attachment.card_attachment_type_id.HasValue && ! attachment.is_optional && object.attachments.GetOptChildByKey( attachment.card_attachment_type_id, 'type_id' ) == undefined )
+					return false;
+			}
+
+			return true;
+	"/>
+</mail_template>
+
+
+
+</SPXML-FORM>

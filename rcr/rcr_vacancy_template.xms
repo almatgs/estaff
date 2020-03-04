@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<USE FORM="//imod/imod_general.xms"/>
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="45zr" STD-MARGINS="0">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="0">
+		</TREE>
+	</PANEL>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.fields.vacancy_template##" SUNKEN="1" EXPANDED="1" IMAGE-URL="//base_pict/generic_item.ico">
+
+
+<PAGE TITLE="##UiText.sections.general##" SUNKEN="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/common.ico">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<IF EXPR="! global_settings.is_agency && global_settings.use_position_types">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="32zr"/>
+			</COLUMNS>
+
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.position_type_id" AUTO-LABEL="1"/>
+		</TABLE>
+	</IF>
+
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="32zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.profession_id" AUTO-LABEL="1" UPDATE-ACTION="
+				if ( local_settings.use_imod &amp;&amp; ! System.IsWebClient )
+					Ps.inet_data.guess_empty_site_professions();
+		"/>
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.location_id" AUTO-LABEL="1"/>
+	</TABLE>
+	<DELIM/>
+</PAGE>
+
+
+<INHERIT TYPE="vacancy_inet_pages"/>
+
+
+</PAGE>
+
+
+
+</SELECTOR>
+
+
+
+</LINE>
+
+
+</SPXML-SCREEN>
+

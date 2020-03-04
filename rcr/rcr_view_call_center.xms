@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.call_center##" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/phone_call_incoming.ico">
+
+
+<UNIT NAME="duplicate_warning" SAMPLE="1">
+	<IF EXPR="Screen.Doc.TopElem.has_duplicates">
+		<LINE>
+			<IMAGE URL="//base_pict/warning.ico"/>
+			<LABEL TITLE="##UiText.messages.possible_duplicates_found##"/>
+		</LINE>
+	</IF>
+</UNIT>
+
+
+<PANEL HEIGHT="50%" BK-COLOR-EXPR="" SUNKEN="1" VERT-SCROLL="1">
+	<PANEL STD-MARGINS="1">
+		<BUTTON TITLE="##UiText.actions.new_candidate##" IMAGE-URL="//base_pict/candidate.ico" ACTION="Ps.HandleAddNewCandidate()" WIDTH="28zr"/>
+	</PANEL>
+	<DELIM/>
+
+	<IF EXPR="Ps.curCandidate != undefined" SOURCE="Ps.curCandidate">
+		<PANEL STD-MARGINS="1">
+			<SUBST FORM-EXPR="ui_client.PrepareUiFragmentSampleScreenFormUrl( 'Fragment.CallCenter.CandidateData' )"/>
+		</PANEL>
+		<DELIM/>
+
+		<PANEL STD-MARGINS="1">
+			<LINE>
+				<IF EXPR="global_settings.call_center.allow_save_new">
+					<BUTTON TITLE="##UiText.actions.save##" IMAGE-URL="//base_pict/save.ico" WIDTH="18zr" ACTION="
+								Screen.Doc.TopElem.PrepareCurCandidateObjectDoc();
+								Screen.Doc.TopElem.curCandidateDoc.Save();
+								UpdateScreens( '*', '*candidates*' );
+					" PASSIVE="1"/>
+				</IF>
+
+				<LOOP VAR="_event_type_id" EXPR="
+						if ( global_settings.call_center.init_event_type_id.HasValue )
+							return global_settings.call_center.init_event_type_id;
+						else
+							return ['group_interview_reg'];
+				">
+					<BUTTON TITLE-EXPR="
+							eventType = GetForeignElem( event_types, _event_type_id );
+							return eventType.name;
+					" IMAGE-URL="//base_pict/event.ico" WIDTH-EXPR="( StrCharCount( Title ) + 10 ) + 'zr'" ACTION="
+							Screen.Doc.TopElem.PrepareCurCandidateObjectDoc();
+							lib_candidate.HandleAddCandidateEvent( Ps, _event_type_id, undefined );
+							//Screen.Doc.TopElem.HandleAddNewCandidate();
+							UpdateScreens( '*', '*candidates*' );
+					" PASSIVE="1"/>
+				</LOOP>
+			</LINE>
+		</PANEL>
+	</IF>
+</PANEL>
+
+<SPLIT/>
+
+<BR/>
+
+<TAB SWITCH-TYPE="source" SOURCE="Ps.bottom_selector">
+	<TAB-ENTRY TITLE="##UiText.titles.history##" VALUE="my_candidates"/>
+
+	<IF EXPR="Screen.Doc.TopElem.has_duplicates">
+		<TAB-ENTRY TITLE="##UiText.titles.duplicates##" VALUE="duplicates"/>
+	</IF>
+</TAB>
+
+
+<PANEL HEIGHT="100%" BK-COLOR-EXPR="" SUNKEN="1" STD-MARGINS="0">
+	<IF EXPR="Ps.bottom_selector == 'my_candidates'">
+		<FRAME HREF-EXPR="lib_view.obtain_view_url( 'candidates_from_call_center' )"/>
+	</IF>
+	<ELSE>
+		<IF EXPR="Ps.has_duplicates">
+			<PANEL HEIGHT="20%" SUNKEN="0" STD-MARGINS="1">
+				<LIST NAME="MainList" LOOP-EXPR="Screen.Doc.TopElem.duplicate_check.foundCandidatesArray">
+					<ROW OPEN-ACTION="ObtainDocScreen( ObjectDocUrl( 'data', 'candidate', ListElem.id ) )" DELETE-ACTION="DeleteDoc( ObjectDocUrl( 'data', 'candidate', ListElem.id ) )" SET-SEL-ACTION="
+							Ps.SetPreviewDupCandidate( ListElem );
+							//Cancel();
+					" IMAGE-URL="//base_pict/candidate.ico">
+						<COL WIDTH="40zr" COL-TITLE="##UiText.fields.fullname##" TITLE-EXPR="ListElem.fullname" BK-COLOR-EXPR="
+								if ( ListElem.lastname.HasValue &amp;&amp; Ps.duplicate_check.filter.lastname.HasValue &amp;&amp; ListElem.lastname != Ps.duplicate_check.filter.lastname )
+									return Ps.mismatch_color;
+
+								if ( ListElem.firstname.HasValue &amp;&amp; Ps.duplicate_check.filter.firstname.HasValue &amp;&amp; ListElem.firstname != Ps.duplicate_check.filter.firstname )
+									return Ps.mismatch_color;
+
+								if ( ListElem.middlename.HasValue &amp;&amp; Ps.duplicate_check.filter.middlename.HasValue &amp;&amp; ListElem.middlename != Ps.duplicate_check.filter.middlename )
+									return Ps.mismatch_color;
+						"/>
+
+						<COL WIDTH="12zr" COL-TITLE="##UiText.fields.birth_date_short##" ALIGN="center" TITLE-EXPR="ListElem.birth_date.HasValue ? ListElem.birth_date : ListElem.birth_year" BK-COLOR-EXPR="
+								if ( ListElem.birth_date.HasValue &amp;&amp; Ps.duplicate_check.filter.birth_date.HasValue )
+									return ( ListElem.birth_date == Ps.duplicate_check.filter.birth_date ? Ps.match_color : Ps.mismatch_color );
+							"/>
+				
+						<COL WIDTH="15zr" COL-TITLE="E-mail" TITLE-EXPR="ListElem.email + ( ListElem.email.HasValue &amp;&amp; ListElem.email2.HasValue ? '; ' : '' ) + ListElem.email2" BK-COLOR-EXPR__="
+								if ( ListElem.email.HasValue &amp;&amp; ( StrEqual( ListElem.email, Ps.duplicate_check.filter.email, true ) || StrEqual( ListElem.email, Ps.duplicate_check.filter.email2, true ) ) )
+									return Ps.match_color;
+								else if ( ListElem.email2.HasValue &amp;&amp; ( StrEqual( ListElem.email2, Ps.duplicate_check.filter.email, true ) || StrEqual( ListElem.email2, Ps.duplicate_check.filter.email2, true ) ) )
+									return Ps.match_color;
+						"/>
+
+						<COL WIDTH="40%" COL-TITLE="##UiText.fields.state##" TITLE-EXPR="ListElem.ChildExists( 'state_id' ) ? ListElem.state_id.ForeignDispName : ( AppServerConfig.GetOptProperty( 'external-candidates-storage-name', '' ) + ':  ' + ListElem.state_name )" TEXT-COLOR-EXPR="ListElem.state_id.ForeignElem.text_color" BK-COLOR-EXPR="ListElem.ChildExists( 'state_id' ) ? ListElem.state_id.ForeignElem.bk_color : '230,230,230'"/>
+						<COL WIDTH="60%" COL-TITLE="##UiText.fields.last_comment##" TITLE-EXPR="ListElem.ChildExists( 'state_id' ) ? ListElem.last_comment : ''"/>
+
+						<COL WIDTH="20zr" COL-TITLE="##UiText.fields.location##" TITLE-EXPR="ListElem.location_id.ForeignDispName" BK-COLOR-EXPR="
+								if ( ListElem.location_id.HasValue &amp;&amp; Ps.duplicate_check.filter.location_id.HasValue )
+									return ( ListElem.location_id == Ps.duplicate_check.filter.location_id ? Ps.match_color : Ps.mismatch_color );
+						"/>
+
+						<COL WIDTH="14zr" COL-TITLE="##UiText.fields.recruiter##" TITLE-EXPR="ListElem.ChildExists( 'state_id' ) ? ListElem.user_id.ForeignDispName : ListElem.user_name"/>
+
+						<IF EXPR="rcr_config.use_ext_duplicates_search">
+							<COL WIDTH="10zr" COL-TITLE="##UiText.objects.group##" TITLE-EXPR="ListElem.ChildExists( 'state_id' ) ? ListElem.group_id.ForeignDispName : ListElem.group_name"/>
+						</IF>
+					</ROW>
+				</LIST>
+			</PANEL>
+
+			<SPLIT/>
+			<FRAME NAME="FrameDupCandidatesPreview" HREF="//base1/base1_blank.xms"/>
+
+		</IF>
+	</ELSE>
+</PANEL>
+
+
+</SPXML-SCREEN>
+
+
+
+
+

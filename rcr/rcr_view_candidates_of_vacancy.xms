@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.candidates##" STD-MARGINS="0" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/candidate_spot.ico">
+
+<WITH VAR="_dummy" EXPR="Ps.BuildView()" IGNORE-ERRORS="0">
+</WITH>
+
+<IF EXPR="Ps.curVacancyID.HasValue">
+
+<IF EXPR="false">
+	<GROUP CHILD-VERT-ALIGN="top">
+		<LABEL TITLE="##UiText.objects.vacancy##:"/>
+		<LINK TITLE-EXPR="Ps.curVacancy.name" ACTION="ObtainDocScreen( Ps.curVacancy.ObjectUrl )" PASSIVE="1" UNDERLINE="0"/>
+
+		<LABEL TITLE="     "/>
+
+		<IF EXPR="global_settings.is_agency">
+			<LINK TITLE-EXPR="Ps.curVacancy.org_id.ForeignDispName" ACTION="ObtainDocScreen( Ps.curVacancy.org_id.ForeignObjectUrl )" PASSIVE="1" ALIGN="right" UNDERLINE="0"/>
+		</IF>
+		<ELSE>
+			<LINK TITLE-EXPR="Ps.curVacancy.division_id.ForeignDispName" ACTION="ObtainDocScreen( Ps.curVacancy.division_id.ForeignObjectUrl )" PASSIVE="1" ALIGN="right" UNDERLINE="0"/>
+		</ELSE>
+	</GROUP>
+</IF>
+
+<IF EXPR="true">
+
+<PANEL SUNKEN="1" STD-MARGINS="1" BK-COLOR-EXPR="SysColors.PanelLightBackground" OPEN-ACTION="
+		local_settings.view_candidates_of_vacancy.show_target_states = ! local_settings.view_candidates_of_vacancy.show_target_states;
+		local_settings.Doc.Save();
+		Screen.Update();
+">
+	<IF EXPR="local_settings.view_candidates_of_vacancy.show_target_states">
+		<LINE>
+			<PANEL WIDTH="35zr">
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH-EXPR="Ps.leftColumnWidth + 'px'"/>
+						<COL WIDTH="3zrc"/>
+						<COL WIDTH="10px"/>
+					</COLUMNS>
+
+					<LOOP EXPR="Ps.targetGroups" VAR="targetGroup">
+						<LINK TITLE-EXPR="targetGroup.title" ACTION="Ps.HandleSelectTargetGroup( targetGroup )" UNDERLINE="0" TEXT-COLOR="black" ALIGN="right"/>
+						<LINK TITLE-EXPR="StrIntZero( targetGroup.destCandidates.length )" ACTION="Ps.HandleSelectTargetGroup( targetGroup )" UNDERLINE="0" TEXT-COLOR="black" ALIGN="right"/>
+					
+						<IF EXPR="targetGroup.id == Ps.selTargetGroupID">
+							<IMAGE URL="//base_pict/left_arrow.png"/>
+						</IF>
+						<ELSE>
+							<LABEL/>
+						</ELSE>
+					</LOOP>
+
+					<GROUP HSPAN="3">
+						<LABEL/>
+						<DELIM WIDTH="10zr" KEEP-RIGHT="1"/>
+					</GROUP>
+
+					<LINK TITLE="##UiText.titles.all_candidates##" UNDERLINE="0" ACTION="Ps.HandleClearTargetSelection()" TEXT-COLOR="black" ALIGN="right"/>
+					<LINK TITLE-EXPR="Ps.destCandidates.length" UNDERLINE="0" ACTION="Ps.HandleClearTargetSelection()" TEXT-COLOR="black" ALIGN="right"/>
+					<LABEL/>
+				</TABLE>
+			</PANEL>
+
+			<LOOP EXPR="ArraySelect( Ps.targetGroups, 'This.destCandidates.length != 0' )" VAR="targetGroup">
+				<PANEL WIDTH-EXPR="targetGroup.widthMeasure">
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="100%"/>
+							<COL WIDTH="3zr"/>
+							<COL WIDTH="10px"/>
+						</COLUMNS>
+
+						<LOOP EXPR="targetGroup.targetStates" VAR="targetState">
+							<LINK TITLE-EXPR="targetState.state_id.ForeignDispName" ACTION="Ps.HandleSelectTargetState( targetState )" UNDERLINE="0" TEXT-COLOR-EXPR="targetState.state_id.ForeignElem.text_color" BK-COLOR-EXPR="targetState.state_id.ForeignElem.bk_color" ALIGN="right"/>
+							<LINK TITLE-EXPR="targetState.destCandidates.length" ACTION="Ps.HandleSelectTargetState( targetState )" UNDERLINE="0" TEXT-COLOR="black" ALIGN="right"/>
+
+							<IF EXPR="targetState.state_id == Ps.selTargetStateID">
+								<IMAGE URL="//base_pict/left_arrow.png"/>
+							</IF>
+							<ELSE>
+								<LABEL/>
+							</ELSE>
+						</LOOP>
+					</TABLE>
+				</PANEL>
+			</LOOP>
+
+			<PANEL>
+				<BR HEIGHT-EXPR="( Int( Max( Ps.maxGroupTargetStatesNum, 5 ) * 3 * ActiveScreen.ZrSize ) - 3 ) + 'px'"/>
+
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="100%"/>
+						<COL WIDTH="7px"/>
+					</COLUMNS>
+
+					<LABEL/>
+				
+					<IMAGE URL="//base_pict/collapse_up.png" ACTION="
+							local_settings.view_candidates_of_vacancy.show_target_states = false;
+							local_settings.Doc.Save();
+					"/>
+				</TABLE>
+			</PANEL>
+		</LINE>
+	</IF>
+	<ELSE>
+		<LINE>
+			<LOOP EXPR="Ps.targetGroups" VAR="targetGroup">
+				<LINK TITLE-EXPR="targetGroup.title" ACTION="Ps.HandleSelectTargetGroup( targetGroup )" UNDERLINE="0" TEXT-COLOR="black"/>
+				<LABEL/>
+				<LINK TITLE-EXPR="StrIntZero( targetGroup.destCandidates.length )" ACTION="Ps.HandleSelectTargetGroup( targetGroup )" UNDERLINE="0" TEXT-COLOR="black"/>
+					
+				<IF EXPR="targetGroup.id == Ps.selTargetGroupID">
+					<IMAGE URL="//base_pict/left_arrow.png" WIDTH="10px" HEIGHT="12px"/>
+				</IF>
+				<ELSE>
+					<PANEL WIDTH="10px"/>
+				</ELSE>
+
+				<PANEL WIDTH="5zr"/>
+			</LOOP>
+
+			<PANEL WIDTH="15zr">
+			</PANEL>
+
+			<LINK TITLE="##UiText.titles.all_candidates##" UNDERLINE="0" ACTION="Ps.HandleClearTargetSelection()" TEXT-COLOR="black"/>
+			<LABEL/>
+			<LINK TITLE-EXPR="Ps.destCandidates.length" UNDERLINE="0" ACTION="Ps.HandleClearTargetSelection()" TEXT-COLOR="black"/>
+
+			<PANEL WIDTH="-20px">
+			</PANEL>
+
+			<IMAGE URL="//base_pict/dots.png" ACTION="
+					local_settings.view_candidates_of_vacancy.show_target_states = true;
+					local_settings.Doc.Save();
+			"/>
+		</LINE>
+	</ELSE>
+</PANEL>
+
+<SPLIT FIXED="1"/>
+
+</IF>	
+
+
+<PANEL BK-COLOR-EXPR="" HEIGHT="100%">
+	<ITEM FORM-DATA-EXPR="lib_view.build_prepared_array_view_screen_data( 'candidates_of_vacancy_2', 'selDestCandidates' )"/>
+</PANEL>
+
+
+<INHERIT TYPE="view_commands"/>
+<INHERIT TYPE="view_commands_2"/>
+
+</IF>
+
+
+</SPXML-SCREEN>

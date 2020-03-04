@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<telephony_panel>
+	<curActiveCall TYPE="variant" STRICT="1"/>
+
+	<curLookupThread TYPE="variant" STRICT="1"/>
+
+	<found_persons>
+		<found_person MULTIPLE="1" PRIMARY-KEY="person_id">
+			<person_id TYPE="integer" FOREIGN-ARRAY="persons"/>
+		</found_person>
+	</found_persons>
+</telephony_panel>
+
+
+</SPXML-INLINE-FORM>

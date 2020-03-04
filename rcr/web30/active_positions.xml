@@ -1,0 +1,46 @@
+<%
+	Response.WriteMode = 'single';
+	Response.ContentType = 'text/xml';
+
+	if ( AppSnLimit != 0 && AppSnLimit < 100 )
+		throw UserError( 'License limit' );
+
+	respDoc = OpenNewDoc( 'x-app://rcr/portal30/active_positions.xmd' );
+
+	for ( srcElem in XQuery( 'for $elem in vacancies where $elem/is_active = true() return $elem' ) )
+	{
+		if ( ! srcElem.publish_on_portal )
+			continue;
+
+		elem = respDoc.TopElem.AddChild();
+		elem.AssignElem( srcElem );
+		elem.eid = srcElem.id;
+		elem.portal_eid = srcElem.eid;
+		
+		srcDivision = srcElem.division_id.OptForeignElem;
+		if ( srcDivision != undefined )
+		{
+			elem.subdivision_eid = srcDivision.id;
+			elem.subdivision_data.portal_eid = srcDivision.eid;
+			elem.subdivision_data.AssignElem( srcDivision );
+			elem.subdivision_data.disp_name = srcDivision.name;
+		}
+
+		if ( srcElem.rr_persons.ChildNum != 0 )
+		{
+			srcPerson = srcElem.rr_persons[0].person_id.OptForeignElem;
+			if ( srcPerson == undefined )
+				continue;
+
+			elem.person_eid = srcPerson.id;
+			elem.person_data.portal_eid = srcPerson.eid;
+			elem.person_data.AssignElem( srcPerson, true );
+		}
+
+		elem.state_name = srcElem.state_id.ForeignElem.name;
+	}
+
+	Response.Write( '<?xml version="1.0" encoding="windows-1251"?>' );
+	//Response.Write( '<?xml-stylesheet type="text/xsl" href="active_positions.xsl"?>' );
+	Response.Write( respDoc.TopElem.Xml );
+%>

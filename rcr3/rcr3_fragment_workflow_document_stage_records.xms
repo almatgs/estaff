@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SPXML-SCREEN>
+
+<PANEL STD-MARGINS_="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="10zr"/>
+			<COL WIDTH="7zr"/>
+
+			<COL WIDTH="100%"/>
+			<COL WIDTH="40zr"/>
+
+			<COL WIDTH="15zr"/>
+			<COL WIDTH="7zr"/>
+			<COL WIDTH="40zr"/>
+		</COLUMNS>
+
+		<LABEL TITLE="##UiText.fields.date##" ALIGN="right"/>
+		<LABEL/>
+		<LABEL TITLE="##UiText.fields.workflow_stage##"/>
+		<LABEL TITLE="##UiText.titles.resp_person##"/>
+
+		<LABEL TITLE="##UiText.fields.end_date##" ALIGN="right"/>
+		<LABEL/>
+		<LABEL TITLE="##UiText.fields.result##"/>
+		<DELIM HSPAN="7"/>
+
+		<LOOP EXPR="Ps.stage_records" VAR="ListElem">
+			<LABEL TITLE-EXPR="StrDate( ListElem.start_date, false )" ALIGN="right"/>
+			<LABEL TITLE-EXPR="StrTime( ListElem.start_date, false )"/>
+			
+			<LABEL TITLE-EXPR="ListElem.workflow_stage_id.ForeignDispName"/>
+			<LINK TITLE-EXPR="ListElem.resp_person_id.ForeignDispName" UNDERLINE="0" ACTION="ui_client.HandleOpenObjectCard( ListElem.resp_person_id.ForeignObjectUrl )" PASSIVE="1"/>
+
+			<LABEL TITLE-EXPR="StrDate( ListElem.end_date, false )" ALIGN="right"/>
+			<LABEL TITLE-EXPR="StrTime( ListElem.end_date, false )"/>
+			<LABEL TITLE-EXPR="ListElem.action_id.HasValue ? ListElem.action_id.ForeignElem.name_pv : ''"/>
+
+			<BR HSPAN="7"/>
+
+			<IF EXPR="ListElem.comment.HasValue">
+				<TABLE HSPAN="7">
+					<COLUMNS>
+						<COL WIDTH="6zr"/>
+						<COL WIDTH="100%"/>
+					</COLUMNS>
+
+					<LABEL/>
+					<LABEL TITLE-EXPR="ListElem.comment" TEXT-COLOR="80,80,80"/>
+				</TABLE>
+				<BR HSPAN="7"/>
+			</IF>
+		</LOOP>
+	</TABLE>
+</PANEL>
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+

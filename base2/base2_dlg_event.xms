@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="130zr" HEIGHT="70zr" WIDTH-EXPR="Ps.widthMeasure" HEIGHT-EXPR="Ps.heightMeasure" TITLE-EXPR="Ps.reminderOnly ? UiText.titles.reminder : Ps.eventType.name" INIT-ACTION="
+		Screen.FindItemBySource( Ps.comment ).SetFocus();
+		Cancel();
+" OK-ACTION="
+		Ps.Finish();
+">
+
+<PANEL HEIGHT="-7zrc">
+
+<IF EXPR="Ps.event_results.ChildNum > 0">
+	<LABEL TITLE="##UiText.fields.result##:"/>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<LOOP EXPR="Ps.event_result_groups" VAR="_group">
+				<COL WIDTH-EXPR="_group.widthMeasure"/>
+			</LOOP>
+		</COLUMNS>
+
+		<LOOP EXPR="Ps.event_result_groups" VAR="_group">
+			<PANEL>
+				<LOOP EXPR="_group.eventResults" VAR="_event_result">
+					<CHECK TITLE-EXPR="_event_result.title" SOURCE="_event_result === Ps.selectedEventResult" SET-VALUE-ACTION="
+							if ( NewValue )
+							{
+								Ps.selectedEventResult = _event_result;
+
+								if ( _event_result.occurrence.default_comment.HasValue &amp;&amp; ! Ps.comment.HasValue )
+									Ps.comment = _event_result.occurrence.default_comment;
+							}
+					"/>
+				</LOOP>
+			</PANEL>
+		</LOOP>
+	</TABLE>
+<BR/>
+</IF>
+
+<GROUP>
+	<IF EXPR="Ps.eventType.use_contact_type">
+		<PANEL SOURCE="Ps.multi_contact_type_id" AUTO-LABEL="1">
+			<BR HEIGHT="3px"/>
+			<ITEM TYPE="voc_elem_selector_flags"/>
+		</PANEL>
+	</IF>
+	<IF EXPR="lib_event.IsRejectOccurrence( Ps.eventType, Ps.selectedEventResult != undefined ? Ps.selectedEventResult.occurrence.id : '' )">
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.candidate_reject_reason_id" AUTO-LABEL="1" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.candidate_reject_reason_id, 20, 40 )" MAX-WIDTH="100%"/>
+	</IF>
+	<IF EXPR="lib_event.IsWithdrawalOccurrence( Ps.eventType, Ps.selectedEventResult != undefined ? Ps.selectedEventResult.occurrence.id : '' )">
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.candidate_withdrawal_reason_id" AUTO-LABEL="1" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.candidate_withdrawal_reason_id, 20, 40 )" MAX-WIDTH="100%"/>
+	</IF>
+	<IF EXPR="Ps.eventType.id == 'blacklist' &amp;&amp; ArrayCount( lib_voc.get_sorted_voc( candidate_blacklist_reasons ) ) != 0">
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.candidate_blacklist_reason_id" AUTO-LABEL="1" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.candidate_blacklist_reason_id, 20, 40 )" MAX-WIDTH="100%"/>
+	</IF>
+</GROUP>
+
+
+<IF EXPR="Ps.selectedEventResult != undefined &amp;&amp; Ps.selectedEventResult.useReminder">
+	<BR/>
+	<DELIM/>
+	<BR/>
+</IF>
+
+<IF EXPR="Ps.reminderOnly || ( Ps.selectedEventResult != undefined &amp;&amp; Ps.selectedEventResult.useReminder )">
+	<LABEL TITLE="##UiText.titles.reminder##:"/>
+	<BR/>
+	<GROUP>
+		<RADIO-BUTTON TITLE="##UiText.titles.after__period##" SOURCE="Ps.reminder_data.fixed_date_selected" SWITCH-VALUE="false" WIDTH="auto"/>
+				
+		<ITEM TYPE="hour_offset_selector" SOURCE="Ps.reminder_data.hour_offset" UPDATE-ACTION="
+				if ( Ps.reminder_data.hour_offset.HasValue )
+					Ps.reminder_data.fixed_date_selected = false;
+
+				Ps.UpdateReminderDataOnOffsetChange( Ps.reminder_data );
+		"/>
+		<ITEM TYPE="hours_suffix_label" SOURCE="Ps.reminder_data.hour_offset" KEEP-WITH-PREV="1"/>
+				
+		<ITEM TYPE="minute_offset_selector" SOURCE="Ps.reminder_data.minute_offset" UPDATE-ACTION="
+				if ( Ps.reminder_data.minute_offset.HasValue )
+					Ps.reminder_data.fixed_date_selected = false;
+
+				Ps.UpdateReminderDataOnOffsetChange( Ps.reminder_data );
+		"/>
+		<ITEM TYPE="minutes_suffix_label" SOURCE="Ps.reminder_data.minute_offset" KEEP-WITH-PREV="1"/>
+
+		<LABEL TITLE="       "/>
+
+		<RADIO-BUTTON TITLE="##UiText.titles.today##" SOURCE="Ps.reminder_data.fixed_date_selected &amp;&amp; Ps.reminder_data.date == DateNewTime( CurDate )" SET-VALUE-ACTION="
+				Ps.reminder_data.date = DateNewTime( CurDate );
+				Ps.reminder_data.fixed_date_selected = true;
+		" SWITCH-VALUE="true" WIDTH="auto"/>
+				
+		<RADIO-BUTTON TITLE="##UiText.titles.tomorrow##" SOURCE="Ps.reminder_data.fixed_date_selected &amp;&amp; Ps.reminder_data.date == DateOffset( DateNewTime( CurDate ), 86400 )" SET-VALUE-ACTION="
+				Ps.reminder_data.date = DateOffset( CurDate, 86400 );
+				Ps.reminder_data.fixed_date_selected = true;
+		" SWITCH-VALUE="true" WIDTH="auto"/>
+
+		<ITEM TYPE="date_selector" SOURCE="Ps.reminder_data.date" UPDATE-ACTION="
+				if ( Ps.reminder_data.date.HasValue )
+					Ps.reminder_data.fixed_date_selected = true;
+		" WIDTH="14zr"/>
+
+		<ITEM TYPE="abstract_time_edit_new" SOURCE="Ps.reminder_data.time" UPDATE-ACTION="
+				if ( Ps.reminder_data.time.hour.HasValue )
+					Ps.reminder_data.fixed_date_selected = true;
+		"/>
+
+		<CHECK TITLE="##UiText.titles.at_this_exact_time##" SOURCE="Ps.is_exact_time_reminder" ALIGN="right"/>
+	</GROUP>
+	<BR/>
+</IF>
+
+<IF EXPR="Ps.selectedEventResult != undefined &amp;&amp; Ps.selectedEventResult.useReminder">
+	<DELIM/>
+</IF>
+
+
+<BR/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="30zr"/>
+	</COLUMNS>
+	
+	<LABEL TITLE="##UiText.fields.comment##:"/>
+	
+	<IF EXPR="lib_event.use_shared_comment_flag">
+		<CHECK SOURCE="Ps.is_shared_comment" AUTO-LABEL="1" ALIGN="right"/>
+	</IF>
+</TABLE>
+
+<EDIT SOURCE="Ps.comment" MULTILINE="1" HEIGHT="100%" VERT-SCROLL="1" PASSIVE="1"/>
+
+</PANEL>
+
+
+<PANEL HEIGHT="-5zrc">
+</PANEL>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<BUTTON TITLE="OK" CMD="1" ENABLE-EXPR="Ps.reminderOnly || Ps.selectedEventResult != undefined || Ps.event_results.ChildNum == 0"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2"/>
+</TABLE>
+
+
+</SPXML-SCREEN>

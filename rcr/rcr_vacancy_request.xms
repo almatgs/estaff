@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.date" MAXIMIZED="1" BEFORE-SAVE-ACTION="
+		fields_usage.check_object_required_fields( Ps );
+">
+
+
+<USE FORM="//imod/imod_general.xms"/>
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="40zr" STD-MARGINS="0">
+	<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="1" HEIGHT="39zr">
+	</TREE>
+	<SPLIT FIXED="1"/>
+
+	<PANEL SUNKEN="1" STD-MARGINS="1" HEIGHT-EXPR="lib_base.card_left_prop_panel_height" BK-COLOR="sys-bk-ctrl">
+	</PANEL>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.objects.object_request##" SUNKEN="1" EXPANDED="1" IMAGE-URL-EXPR="Ps.ImageUrl">
+
+
+<PAGE TITLE="##UiText.sections.general##" SUNKEN="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/common.ico">
+	<GROUP>
+		<EDIT SOURCE="Ps.date" AUTO-LABEL="1" WIDTH="15zrc"/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.orig_person_id" AUTO-LABEL="1" WIDTH="40zr"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.workflow_type_id" AUTO-LABEL="1" WIDTH="40zr" KEEP-RIGHT="1"/>
+	</GROUP>
+	<DELIM/>
+	<GROUP>
+		<ITEM TYPE="elem_selector" SOURCE="Ps.state_id" AUTO-LABEL="1" WIDTH="30zr"/>
+	</GROUP>
+	<DELIM/>
+	<GROUP>
+		<ITEM TYPE="elem_selector" SOURCE="Ps.workflow_stage_id" AUTO-LABEL="1" WIDTH="50%"/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.cur_resp_person_id" AUTO-LABEL="1"/>
+	</GROUP>
+	<DELIM/>
+
+	<ITEM TYPE="object_selector" SOURCE="Ps.vacancy_id" AUTO-LABEL="1"/>
+	<DELIM/>
+	<BR/>
+
+	<LABEL TITLE="##UiText.titles.change_history##:"/>
+	<BR/>
+	<SUBST FORM-EXPR="'//rcr3/rcr3_fragment_workflow_document_stage_records.xms'" TYPE_="stage_records_base"/>
+</PAGE>
+
+
+
+
+
+<PAGE TITLE="##UiText.sections.add_info##" IMAGE-URL="//base_pict/aux_info.ico" SUNKEN="1" VERT-SCROLL="1">
+	<LABEL TITLE="Детали заявки:" BOLD="1" lang-en:TITLE="Request details:" lang-ua:TITLE="Деталі заявки:"/>
+	<BR/>
+
+	<EDIT SOURCE="Ps.name" AUTO-LABEL="1"/>
+
+	<ITEM TYPE="object_selector" SOURCE="Ps.division_id" AUTO-LABEL="1"/>
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.profession_id" AUTO-LABEL="1" />
+	<DELIM/>
+	<GROUP>
+		<EDIT SOURCE="Ps.salary" AUTO-LABEL="1" WIDTH="15zr"/>
+	</GROUP>
+	<DELIM/>
+
+	<GROUP>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.work_type_id" AUTO-LABEL="1" WIDTH="30zr"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.work_schedule_type_id" AUTO-LABEL="1" WIDTH="30zr"/>
+	</GROUP>
+	<DELIM/>
+
+	<GROUP>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.reason_id" AUTO-LABEL="1" WIDTH="30zr"/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.replaced_employee_id" AUTO-LABEL="1" WIDTH="45zr"/>
+	</GROUP>
+	<DELIM/>
+
+	<IF EXPR="Ps.ChildExists( 'desired_hire_date' ) || Ps.ChildExists( 'req_hire_date' )">
+		<GROUP>
+			<IF EXPR="Ps.ChildExists( 'desired_hire_date' )">
+				<ITEM TYPE="date_selector" SOURCE="Ps.desired_hire_date" AUTO-LABEL="1" WIDTH="20zr"/>
+			</IF>
+			<IF EXPR="Ps.ChildExists( 'req_hire_date' )">
+				<ITEM TYPE="date_selector" SOURCE="Ps.req_hire_date" AUTO-LABEL="1" WIDTH="20zr"/>
+			</IF>
+		</GROUP>
+		<DELIM/>
+	</IF>
+
+	<GROUP>
+		<ITEM TYPE="elem_selector" SOURCE="Ps.gender_id" AUTO-LABEL="1" WIDTH="15zr"/>
+		<EDIT SOURCE="Ps.min_age" AUTO-LABEL="1" WIDTH="10zr"/>
+		<EDIT SOURCE="Ps.max_age" AUTO-LABEL="1" WIDTH="10zr"/>
+	</GROUP>
+	<DELIM/>
+
+	<GROUP>
+		<ITEM TYPE="elem_selector" SOURCE="Ps.educ_type_id" AUTO-LABEL="1" WIDTH="30zr"/>
+		<EDIT SOURCE="Ps.min_exp_years" AUTO-LABEL="1" WIDTH="10zr"/>
+	</GROUP>
+	<DELIM/>
+
+	<GROUP>
+		<EDIT SOURCE="Ps.req_quantity" AUTO-LABEL="1" WIDTH="10zr"/>
+	</GROUP>
+	<DELIM/>
+
+	<EDIT SOURCE="Ps.vacancy_desc" MULTILINE="1" AUTO-LABEL="1" HEIGHT="20zr"/>
+	<DELIM/>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+
+	<IF EXPR="AppModuleUsed( 'module_hoff' )">
+		<ITEM TYPE="elem_selector" SOURCE="Ps.cs_vacancy_request_type_id" AUTO-LABEL="1"/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.cs_func_manager_id" AUTO-LABEL="1"/>
+
+		<EDIT SOURCE="Ps.cs_subordinates_num_desc" MULTILINE="1" AUTO-LABEL="1" HEIGHT="10zr"/>
+		<EDIT SOURCE="Ps.cs_duties_desc" MULTILINE="1" AUTO-LABEL="1" HEIGHT="10zr"/>
+		<EDIT SOURCE="Ps.cs_social_package_desc" MULTILINE="1" AUTO-LABEL="1" HEIGHT="10zr"/>
+		<EDIT SOURCE="Ps.cs_trips_desc" MULTILINE="1" AUTO-LABEL="1" HEIGHT="10zr"/>
+		<EDIT SOURCE="Ps.cs_age_desc" AUTO-LABEL="1"/>
+		<EDIT SOURCE="Ps.cs_req_desc" MULTILINE="1" AUTO-LABEL="1" HEIGHT="10zr"/>
+		<EDIT SOURCE="Ps.cs_computer_skills_desc" MULTILINE="1" AUTO-LABEL="1" HEIGHT="10zr"/>
+		<EDIT SOURCE="Ps.cs_foreign_lang_desc" MULTILINE="1" AUTO-LABEL="1" HEIGHT="10zr"/>
+
+		<ITEM TYPE="elem_selector" SOURCE="Ps.cs_ca_reject_reason_id" AUTO-LABEL="1"/>
+		<BR/>
+	</IF>
+</PAGE>
+
+
+<IF EXPR="AppModuleUsed( 'module_hoff' )">
+	<PAGE TITLE-EXPR="Ps.stage_records.Title" SUNKEN="1" IMAGE-URL="//base_pict/edit.ico">
+		<LABEL TITLE-EXPR="Ps.stage_records.Title + ':'"/>
+		<BR/>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="10zr"/>
+				<COL WIDTH="8zr"/>
+				<COL WIDTH="100%"/>
+
+				<COL WIDTH="10zr"/>
+				<COL WIDTH="8zr"/>
+				<COL WIDTH="20zr"/>
+
+				<COL WIDTH="35zr"/>
+			</COLUMNS>
+
+			<LOOP EXPR="ArraySort( Ps.stage_records, 'start_date', '-' )" VAR="_record">
+				<LABEL TITLE-EXPR="StrDate( _record.start_date, false )"/>
+				<LABEL TITLE-EXPR="StrTime( _record.start_date )"/>
+				<LABEL TITLE-EXPR="_record.workflow_stage_id.ForeignDispName"/>
+			
+				<LABEL TITLE-EXPR="StrDate( _record.end_date, false )"/>
+				<LABEL TITLE-EXPR="StrTime( _record.end_date )"/>
+				<LABEL TITLE-EXPR="_record.action_id.ForeignDispName"/>
+
+				<LABEL TITLE-EXPR="_record.resp_person_id.ForeignDispName" ALIGN="right"/>
+
+				<IF EXPR="_record.comment.HasValue">
+					<LABEL HSPAN="2"/>
+					<LABEL HSPAN="5" TITLE-EXPR="_record.comment"/>
+				</IF>
+			</LOOP>
+		</TABLE>
+	</PAGE>
+</IF>
+
+
+<ITEM TYPE="card_attachments"/>
+
+
+</PAGE>
+
+
+
+</SELECTOR>
+
+
+
+</LINE>
+
+
+</SPXML-SCREEN>
+

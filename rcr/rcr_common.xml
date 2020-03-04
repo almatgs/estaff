@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<rcr_common SPXML-FORM="rcr_common.xmd">
+
+<vacancy_term_types>
+	<vacancy_term_type>
+		<id>job_offer</id>
+		<date_field_name>job_offer_date</date_field_name>
+	</vacancy_term_type>
+	<vacancy_term_type>
+		<id>job_offer_acceptance</id>
+		<date_field_name>job_offer_acceptance_date</date_field_name>
+	</vacancy_term_type>
+	<vacancy_term_type>
+		<id>vacancy_close</id>
+		<date_field_name>close_date</date_field_name>
+	</vacancy_term_type>
+</vacancy_term_types>
+
+
+<vacancy_record_types>
+	<vacancy_record_type>
+		<id>state_change</id>
+		<name VALUE="Статус изменен" lang-en:VALUE="State changed" lang-ua:VALUE="Статус змінено"/>
+	</vacancy_record_type>
+	<vacancy_record_type>
+		<id>user_change</id>
+		<name VALUE="Пользователь изменен" lang-en:VALUE="User changed" lang-ua:VALUE="Користувач змінений"/>
+	</vacancy_record_type>
+	<vacancy_record_type>
+		<id>hire</id>
+		<name VALUE="Кандидат принят" lang-en:VALUE="Candidate hired" lang-ua:VALUE="Кандидат прийнятий"/>
+	</vacancy_record_type>
+	<vacancy_record_type>
+		<id>term_adjustment</id>
+		<name VALUE="##UiText.titles.adjustment##"/>
+	</vacancy_record_type>
+	<vacancy_record_type>
+		<id>open</id>
+		<name VALUE="##UiText.titles.opened##"/>
+	</vacancy_record_type>
+</vacancy_record_types>
+
+
+
+<raw_storage_types>
+	<raw_storage_type>
+		<id>mailbox</id>
+		<name VALUE="Почтовый ящик" lang-en:VALUE="Mailbox" lang-ua:VALUE="Поштова скринька"/>
+	</raw_storage_type>
+	<raw_storage_type>
+		<id>folder</id>
+		<name VALUE="Папка на диске" lang-en:VALUE="Folder" lang-ua:VALUE="Каталог на диску"/>
+	</raw_storage_type>
+</raw_storage_types>
+
+
+
+<request_object_types>
+	<request_object_type>
+		<id>vacancy_template</id>
+		<name VALUE="##UiText.fields.vacancy_template##"/>
+	</request_object_type>
+	<request_object_type>
+		<id>vacancy</id>
+		<name VALUE="##UiText.objects.vacancy##"/>
+	</request_object_type>
+</request_object_types>
+
+
+
+<std_recruit_providers>
+	<std_recruit_provider>
+		<id>wts</id>
+		<name VALUE="##UiText.titles.wts##"/>
+		<features>
+			<video_interview>1</video_interview>
+		</features>
+		<use_access_token>1</use_access_token>
+	</std_recruit_provider>
+
+	<std_recruit_provider>
+		<id>eos</id>
+		<name VALUE="##UiText.titles.eos##"/>
+		<features>
+			<pd_consent>1</pd_consent>
+			<aux_document>1</aux_document>
+		</features>
+		<use_access_token>1</use_access_token>
+		<use_aux_document_types>1</use_aux_document_types>
+		<allow_load_aux_document_types>1</allow_load_aux_document_types>
+	</std_recruit_provider>
+
+	<std_recruit_provider>
+		<id>proaction</id>
+		<name VALUE="Proaction.pro"/>
+		<features>
+			<testing>1</testing>
+			<outside_test_assignment>1</outside_test_assignment>
+		</features>
+		<use_accounts>1</use_accounts>
+		<use_account_access_token>1</use_account_access_token>
+		<has_own_testing_notif>1</has_own_testing_notif>
+	</std_recruit_provider>
+
+	<std_recruit_provider>
+		<id>maintest</id>
+		<name VALUE="Maintest"/>
+		<features>
+			<testing>1</testing>
+			<outside_test_assignment>1</outside_test_assignment>
+		</features>
+		<use_login>1</use_login>
+		<use_server_address>1</use_server_address>
+		<use_accounts>0</use_accounts>
+		<use_account_access_token>0</use_account_access_token>
+	</std_recruit_provider>
+
+	<std_recruit_provider>
+		<id>fssp</id>
+		<name VALUE="FSSP"/>
+		<features>
+		</features>
+		<use_access_token>1</use_access_token>
+	</std_recruit_provider>
+</std_recruit_providers>
+
+
+</rcr_common>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<COMPLEX-ITEM NAME="WindowMenuBar" SAMPLE="1" VIEW="WindowMenuBarView" MENU-ENTRIES="1">
+</COMPLEX-ITEM>
+
+
+<PANEL NAME="WindowMenuBarView" INNER-ALIAS="menuBarView" SAMPLE="1" WIDTH="100%">
+	<LINE>
+		<LOOP EXPR="titleBar.MasterItem.MenuBar.Entries" VAR="entry">
+			<SUBST TYPE="WindowMenuBarEntryView" MASTER-ITEM="entry"/>
+		</LOOP>
+	</LINE>
+</PANEL>
+
+
+<PANEL NAME="WindowMenuBarEntryView" INNER-ALIAS="entryView" SAMPLE="1" HEIGHT="100%" STATES="hover,pressed" TRANSFERABLE-PRESSED-STATE="1" DROP-DOWN-BASE="1" STD-MARGINS="0" BK-COLOR-EXPR="
+	if ( entryView.AuxData.isCurrent )
+		return AppUi.gThemeData.colors.gray_hover;
+	else
+		return '';
+
+	switch ( State )
+	{
+		case 'hover':
+		case 'pressed':
+			return AppUi.gThemeData.colors.gray_hover;
+	}
+
+	return '';
+" OnBeforeBuild="
+		entryView.AuxData.imageUrl = entry.ImageUrl;
+		if ( entryView.AuxData.imageUrl == '' )
+			entryView.AuxData.imageUrl = undefined;
+" OnMouseDown="
+		LibMenu.OnMenuBarEntryMouseDown( menuBarView, entryView )
+" OnVisualStateChange="
+		LibMenu.OnMenuBarEntryVisualStateChange( menuBarView, entryView )
+" PASSIVE="1">
+	<PANEL PADDING="1px 4px 2px 4px">
+		<LINE HEIGHT="100%">
+			<IF EXPR="entry.Title != ''">
+				<PANEL WIDTH="9epx">
+				</PANEL>
+				<LABEL TITLE-EXPR="entry.Title" TEXT-COLOR-EXPR="
+					switch ( entryView.State )
+					{
+						case 'hover':
+						case 'pressed':
+							return AppUi.gThemeData.colors.blue_text;
+					}
+
+					if ( entryView.AuxData.isCurrent )
+						return AppUi.gThemeData.colors.blue_text;
+
+					return '';
+			"/>
+			</IF>
+		</LINE>
+	</PANEL>
+</PANEL>
+
+
+
+<PANEL NAME="WindowTitleBar" INNER-ALIAS="titleBar" SAMPLE="1" WIDTH="100%" HEIGHT="100%"
+		STD-MARGINS="0"
+		PADDING="0 0 0 6epx"
+		BK-COLOR-EXPR="AppUi.themeColors.window_title_bar"
+		OnPressedMouseMove="LibWindow.OnWindowTitleBarMove( titleBar.MasterItem, Event )">
+	<LINE HEIGHT="100%">
+		<IF EXPR="titleBar.MasterItem.IconUrl != ''">
+			<IMAGE URL-EXPR="titleBar.MasterItem.IconUrl" OnDoubleClick="titleBar.MasterItem.Close()"/>
+		</IF>
+
+		<IF EXPR="titleBar.MasterItem.MenuBar != undefined">
+			<WindowMenuBar>
+				<MENU TITLE="File">
+					<MENU-ENTRY TITLE="New"/>
+				</MENU>
+				<MENU TITLE="Edit">
+				</MENU>
+			</WindowMenuBar>
+		</IF>
+		<ELSE>
+			<PANEL WIDTH="1zr">
+			</PANEL>
+			<LABEL TITLE-EXPR="titleBar.MasterItem.Title"/>
+		</ELSE>
+
+		<IF EXPR="System.IsWebClient">
+			<SUBST TYPE="WindowsSelector" ALIGN="right"/>
+			<PANEL WIDTH="20epx" ALIGN="right">
+			</PANEL>
+		</IF>
+
+		<LINE HEIGHT="90%" ALIGN="right" VERT-ALIGN="top" WIDTH="100epx">
+			<IF EXPR="! System.IsWebClient || titleBar.Screen !== MainScreen">
+				<IF EXPR="! titleBar.MasterItem.Screen.IsDlg">
+					<PANEL INNER-ALIAS="button" IMAGE-URL="pict/wnd_minimize.svg" STATES="hover,pressed" HEIGHT="100%"
+							STD-MARGINS="0" PADDING="14epx 10epx 0 10epx"
+							BK-COLOR-EXPR="
+							switch ( Item.State )
+							{
+								case 'normal':
+									return '';//AppUi.gThemeData.colors.background;
+
+								case 'hover':
+									return AppUi.gThemeData.colors.primary;
+
+								case 'pressed':
+									return AppUi.gThemeData.colors.dark;
+							}
+					" ACTION="titleBar.MasterItem.Minimize()" PASSIVE="1" ALIGN="right">
+						<IMAGE URL-EXPR="
+							colorMapping = new Object;
+
+							switch ( button.State )
+							{
+								case 'hover':
+								case 'pressed':
+									colorMapping[AppUi.gThemeData.colors.button_gray_text] = AppUi.gThemeData.colors.background;
+									break;
+							}
+
+							return AppUi.GetStateImageUrl( button.ImageUrl, button.State, colorMapping );
+						" VERT-ALIGN_="center"/>
+					</PANEL>
+
+					<PANEL INNER-ALIAS="button" IMAGE-URL="pict/wnd_maximize.svg" STATES="hover,pressed,disabled" HEIGHT="100%"
+							STD-MARGINS="0" PADDING="0 10epx 0 10epx"
+							BK-COLOR-EXPR="
+							switch ( Item.State )
+							{
+								case 'normal':
+									return '';//AppUi.gThemeData.colors.background;
+
+								case 'hover':
+									return AppUi.gThemeData.colors.primary;
+
+								case 'pressed':
+									return AppUi.gThemeData.colors.dark;
+							}
+					" ACTION="
+							if ( titleBar.MasterItem.IsMaximized )
+								titleBar.MasterItem.ShowNormal();
+							else
+								titleBar.MasterItem.Maximize()
+					" PASSIVE="1" ENABLE-EXPR="titleBar.MasterItem.Screen.IsResizable" ALIGN="right">
+						<IMAGE URL-EXPR="
+							colorMapping = new Object;
+
+							switch ( button.State )
+							{
+								case 'hover':
+								case 'pressed':
+									colorMapping[AppUi.gThemeData.colors.button_gray_text] = AppUi.gThemeData.colors.background;
+									break;
+
+								case 'disabled':
+									colorMapping[AppUi.gThemeData.colors.button_gray_text] = '#DEE0E5';
+									break;
+							}
+
+							return AppUi.GetStateImageUrl( button.ImageUrl, button.State, colorMapping );
+						" VERT-ALIGN="center"/>
+					</PANEL>
+				</IF>
+
+				<PANEL INNER-ALIAS="button" IMAGE-URL="pict/wnd_close.svg" STATES="hover,pressed" HEIGHT="100%"
+						STD-MARGINS="0" PADDING="0 10epx 0 10epx"
+						BK-COLOR-EXPR="
+						switch ( Item.State )
+						{
+							case 'normal':
+								return '';//AppUi.gThemeData.colors.background;
+
+							case 'hover':
+								return AppUi.gThemeData.colors.primary;
+
+							case 'pressed':
+								return AppUi.gThemeData.colors.dark;
+						}
+				" ACTION="titleBar.MasterItem.Close()" PASSIVE="1" ALIGN="right">
+					<IMAGE URL-EXPR="
+						colorMapping = new Object;
+
+						switch ( button.State )
+						{
+							case 'hover':
+							case 'pressed':
+								colorMapping[AppUi.gThemeData.colors.button_gray_text] = AppUi.gThemeData.colors.background;
+								break;
+						}
+
+						return AppUi.GetStateImageUrl( button.ImageUrl, button.State, colorMapping );
+					" VERT-ALIGN="center"/>
+				</PANEL>
+			</IF>
+		</LINE>
+	</LINE>
+</PANEL>
+
+
+
+<PANEL NAME="WindowsSelector" SAMPLE="1">
+	<WITH VAR="screensArray" EXPR="AppUi.GetTopScreens()">
+		<IF EXPR="titleBar.MasterItem.IsMaximized &amp;&amp; screensArray.length > 1">
+			<PANEL INNER-ALIAS="button"
+				STATES="hover,pressed"
+				STD-MARGINS="0"
+				PADDING="3epx 7epx 3epx 7epx"
+				BORDER="1"
+				BK-COLOR-EXPR="
+					switch ( button.State )
+					{
+						case 'hover':
+							return AppUi.gThemeData.colors.primary;
+
+						case 'pressed':
+							return AppUi.gThemeData.colors.dark;
+					}
+			
+					return AppUi.themeColors.background;
+				"
+				BORDER-COLOR-EXPR="AppUi.themeColors.window_border"
+				BORDER-RADIUS="3epx">
+				<LABEL TITLE-EXPR="screensArray.length" TEXT-COLOR-EXPR="
+						switch ( button.State )
+						{
+							case 'hover':
+							case 'pressed':
+								return AppUi.gThemeData.colors.background;
+						}
+			
+						return AppUi.themeColors.primary;
+				" FONT-SIZE-EXPR="8"/>
+
+				<MENU>
+					<LOOP EXPR="screensArray" VAR="screen">
+						<MENU-ENTRY TITLE-EXPR="screen.RootItem.Title" CHECKED-EXPR="screen === Item.Screen" ACTION="screen.BringWindowToFront()" PASSIVE="1"/>
+					</LOOP>
+				</MENU>
+			</PANEL>
+		</IF>	
+	</WITH>
+</PANEL>
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+
+

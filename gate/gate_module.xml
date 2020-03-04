@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<spxml_module>
+	<ui_texts>
+		<ui_text>
+			<url>gate_ui_text.xml</url>
+		</ui_text>
+	</ui_texts>
+
+	<shared_docs>
+		<shared_doc>
+			<url>gate_lib_gate.js</url>
+		</shared_doc>
+	</shared_docs>
+</spxml_module>
+
+
+

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="140zr" HEIGHT="114zr" TITLE="##UiText.sections.global_settings_region##" SAVE-ACTION="
+		UpdateScreens( '*', '*' );
+" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="35zr"/>
+			<COL WIDTH="18zr"/>
+			<COL WIDTH="35zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.country_id" AUTO-LABEL="1"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.default_currency_id" AUTO-LABEL="1"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.default_location_id" AUTO-LABEL="1"/>
+	</TABLE>
+	<DELIM/>
+
+	<LABEL TITLE-EXPR="Ps.use_multi_currencies.Title + ':'"/>
+	<LINE>
+		<LOOP EXPR="Ps.use_multi_currencies" VAR="ListElem">
+			<CHECK TITLE-EXPR="ListElem.Title" SOURCE="ListElem" WIDTH="auto"/>
+		</LOOP>
+	</LINE>
+	<DELIM/>
+
+	<LABEL TITLE="Собственные почтовые домены ('@mycompany.com'):" lang-en:TITLE="My mail domains ('@mycompany.com'):" lang-ua:TITLE="Власні поштові домени ('@mycompany.com'):"/>
+	<BR/>
+
+	<GRID HEIGHT="5gr" WIDTH="52zr" VERT-SCROLL="1">
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<ROW HEADER="1">
+			<LABEL TITLE="##UiText.titles.domain##"/>
+		</ROW>
+
+		<ROW MULTIPLE="1" SOURCE="Ps.own_mail_domain">
+			<EDIT SOURCE="ListElem" UPDATE-ACTION="
+					if ( ListElem != '' && ! StrBegins( ListElem, '@' ) )
+						ListElem.Value = '@' + ListElem;
+			"/>
+		</ROW>
+	</GRID>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.adjust_phones" WIDTH="auto" AUTO-LABEL="1"/>
+	<CHECK SOURCE="Ps.use_phone_base_object_country" WIDTH="auto" AUTO-LABEL="1"/>
+	<LINE>
+		<CHECK SOURCE="Ps.use_strict_mobile_phones" WIDTH="auto" AUTO-LABEL="1"/>
+		<CHECK SOURCE="Ps.use_strict_other_phones" WIDTH="auto" AUTO-LABEL="1"/>
+	</LINE>
+	<DELIM/>
+	
+	<CHECK SOURCE="Ps.use_national_call_phone_format" WIDTH="auto" AUTO-LABEL="1"/>
+	<GROUP>
+		<EDIT SOURCE="Ps.outside_line_dialing_prefix" WIDTH="6zr" AUTO-LABEL="1" ENABLE-EXPR="Ps.use_national_call_phone_format"/>
+	</GROUP>
+	<DELIM/>
+
+	<IF EXPR="base1_config.is_int_version">
+		<GROUP>
+			<EDIT SOURCE="Ps.default_country_dialing_code" WIDTH="6zr" AUTO-LABEL="1" CHECK-VALUE-ACTION="
+					if ( ! lib_base.str_contains_digits_only( NewValue ) )
+						throw UiError( UiText.errors.invalid_value );
+			"/>
+		</GROUP>
+		<DELIM/>
+	</IF>
+
+	<CHECK SOURCE="Ps.use_phone_formatting" WIDTH="auto" AUTO-LABEL="1"/>
+
+	<IF EXPR="Ps.use_phone_formatting">
+		<LINE CHILD-VERT-ALIGN="top">
+			<GRID HEIGHT="7gr" WIDTH="52zr" VERT-SCROLL="1">
+				<COLUMNS>
+					<COL WIDTH="100%"/>
+				</COLUMNS>
+
+				<ROW HEADER="1">
+					<LABEL TITLE="##UiText.titles.pattern##"/>
+				</ROW>
+
+				<ROW MULTIPLE="1" SOURCE="Ps.phone_formatting.patterns">
+					<EDIT SOURCE="ListElem"/>
+				</ROW>
+			</GRID>
+
+			<BUTTON TITLE="Установить значения по умолчанию" lang-en:TITLE="Set Default Values" lang-ua:TITLE="Встановити значення за замовчуванням" ACTION="
+					lib_phone_details.SetDefaultPhoneFormattingSettings( Ps.phone_formatting, Ps.country_id );
+					Ps.Doc.SetChanged( true );
+			" WIDTH="40zr"/>
+		</LINE>
+		<DELIM/>
+
+	</IF>
+</PANEL>
+
+
+<COMMAND-HANDLER CMD="Help" HREF="help/settings_policy.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+</SPXML-SCREEN>

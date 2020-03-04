@@ -1,0 +1,1769 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<COMBO-PICKER NAME="object_selector" SAMPLE="1" PARAM-usage="optional=1;default=''" PARAM-view-filter-expr="optional=1;default='';subtype=code" PARAM-view="optional=1;default=''" PARAM-before-select-action="optional=1;default='';subtype=code" HEIGHT="edit" ACTION="
+		if ( ! Screen.EditMode )
+			return;
+
+		source = Source;
+		
+		if ( GetSampleParam( 'view-filter-expr' ) != '' )
+			defaultFilter = EvalSampleParam( 'view-filter-expr' );
+		else
+			defaultFilter = undefined;
+
+		viewID = GetSampleParam( 'view' );
+
+		if ( GetSampleParam( 'before-select-action' ) != '' )
+			EvalSampleParam( 'before-select-action' );
+
+		if ( source.IsMultiElem )
+		{
+			addToExisting = IsKeyPressed( 17 );
+			
+			if ( viewID != '' )
+				newValues = lib_base.select_objects_from_view( viewID, defaultFilter );
+			else
+				newValues = lib_base.select_objects_from_catalog( source.FormElem.ForeignArrayExpr );
+
+			if ( true )
+			{
+				if ( addToExisting )
+				{
+					newValue = ArraySelectAll( source );
+					for ( subValue in newValues )
+					{
+						if ( newValue.indexOf( subValue ) &lt; 0 )
+							newValue.push( subValue );
+					}
+				}
+				else
+				{
+					newValue = ArraySelectAll( newValues );
+				}
+
+				ExecCheckValueAction( newValue );
+				source.SetValues( newValue );
+			}
+			else
+			{
+				if ( addToExisting )
+				{
+					for ( newValue in newValues )
+						source.ObtainByValue( newValue );
+				}
+				else
+				{
+					source.SetValues( newValues );
+				}
+			}
+
+			ExecUpdateAction();
+
+			if ( source.OptDoc != undefined )
+				source.Doc.SetChanged( true );
+		}
+		else
+		{
+			if ( viewID != '' )
+				newValue = lib_base.select_object_from_view( viewID, defaultFilter );
+			else
+				newValue = lib_base.select_object_from_catalog( source.FormElem.ForeignArrayExpr, defaultFilter );
+
+			if ( source.Name == 'parent_id' && source.OptDoc != undefined && source.Parent.ChildExists( 'id' ) )
+			{
+				if ( source.Parent.id == newValue )
+					throw UserError( UiText.errors.hier_loop_detected );
+
+				if ( lib_base.is_catalog_hier_child( source.ForeignArray, newValue, source.Parent.id ) )
+					throw UserError( UiText.errors.hier_loop_detected );
+			}
+
+			SetSourceValue( newValue );
+
+			if ( GetSampleItem().IsPassive )
+				GetSampleItem().FindSubItemByType( 'LABEL' ).UpdateText();
+		}
+" TIP-TEXT-EXPR="FindSubItemByType( 'LABEL' ).Text" OPEN-ACTION="
+		if ( ! Source.HasValue )
+			return;
+
+		ObtainDocScreen( Source.ForeignPrimaryObjectUrl );
+">
+	<IF EXPR="Ps.HasValue && GetSampleParam( 'usage' ) != 'filter'">
+		<IMAGE URL-EXPR="
+				if ( ! Ps.HasValue )
+					return '';
+
+				return ArrayOptFirstElem( Ps.Instances ).ForeignElem.ImageUrl" URL="xxx.ico"/>
+		<PANEL WIDTH="4px"/>
+	</IF>
+
+	<LABEL MULTILINE="0" WIDTH="100%" HEIGHT="100%" TITLE-EXPR="
+			if ( ! Ps.HasValue )
+			{
+				if ( GetSampleParam( 'usage' ) == 'filter' )
+					return base1_config.empty_filter_str;
+				else
+					return '';
+			}
+
+			title = '';
+
+			for ( instance in Ps.Instances )
+			{
+				foreignElem = instance.OptForeignElem;
+
+				if ( title != '' )
+					title += ';  ';
+
+				if ( foreignElem != undefined )
+					title += foreignElem.ExternalDispName;
+				else
+					title += '[' + UiText.titles.object_deleted + '] 0x' + StrHexInt( instance, 16 );
+			}
+
+			return title;
+	" TIP-TEXT-EXPR="Text" OPEN-ACTION="
+			if ( ! Ps.HasValue )
+				return;
+
+			ObtainDocScreen( Ps.ForeignPrimaryObjectUrl );
+	"/>
+
+	<MENU RIGHT-CLICK="1">
+		<IF EXPR="! Ps.IsMultiElem">
+			<MENU-ENTRY TITLE="##UiText.actions.open_object_card##" ACTION="
+					ObtainDocScreen( Ps.ForeignPrimaryObjectUrl );
+			" ENABLE-EXPR="Ps != null"/>
+
+			<MENU-ENTRY SEPARATOR="1"/>
+		</IF>
+
+		<MENU-ENTRY TITLE="##UiText.actions.clear_field##" ACTION="
+				if ( ! Ps.HasValue )
+					return;
+				
+				//if ( Ps.FormElem.Type == 'string' )
+					//newValue = '';
+				//else
+					newValue = null;
+
+				if ( Ps.IsMultiElem )
+				{
+					GetSampleItem().ExecCheckValueAction( [null] );
+					Ps.Clear();
+					Ps.Doc.SetChanged( true );
+					GetSampleItem().ExecUpdateAction();
+				}
+				else
+				{
+					GetSampleItem().SetSourceValue( newValue );
+				}
+		" ENABLE-EXPR="Ps != null"/>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="##UiText.actions.copy_text##" ACTION="
+				label = GetSampleItem().FindSubItemByType( 'LABEL' );
+				SetClipboard( label.Title );
+		" ENABLE-EXPR="Ps.HasValue"/>
+	</MENU>
+</COMBO-PICKER>
+
+
+
+<PANEL NAME="voc_selector_loop" SAMPLE="1">
+	<LOOP EXPR="
+			array = ArraySelect( _voc_array, '( ! ChildExists( \'is_active\' ) || is_active )' + ( _voc_info.is_hier ? ' && parent_id == ' + CodeLiteral( _parent_id ) : '' ) );
+			
+			//if ( _voc_info.id == 'division_types' )
+				//DebugMsg( ArrayCount( array ) );
+			//return array;
+
+			if ( true )
+			{
+				array = ArraySelect( array, '! ChildExists( \'target_group_id\' ) || ! target_group_id.HasValue || target_group_id.ByValueExists( ' + CodeLiteral( lib_user.active_user_info.main_group_id ) + ' )' );
+				
+				if ( lib_user.active_user_info.main_group_id.ForeignElem.ChildExists( 'recruit_type_id' ) &amp;&amp; lib_user.active_user_info.main_group_id.ForeignElem.recruit_type_id.HasValue )
+					array = ArraySelect( array, '! ChildExists( \'target_recruit_type_id\' ) || ! target_recruit_type_id.HasValue || target_recruit_type_id.ByValueExists( ' + CodeLiteral( lib_user.active_user_info.main_group_id.ForeignElem.recruit_type_id ) + ' )' );
+			}
+
+			if ( _voc_info.auto_order.HasValue )
+				return ArraySort( array, 'name', '+' );
+			else
+				return ArraySort( array, 'order_index', '+' );
+	" VAR="ListElem">
+		<IF EXPR="_voc_info.is_hier && ListElem.hce == true && ListElem.id.HasValue">
+			<MENU TITLE-EXPR="ListElem.name">
+				<SUBST UNIT="voc_selector_loop" VAR="_parent_id" EXPR="ListElem.id"/>
+			</MENU>
+		</IF>
+		<ELSE>
+			<MENU-ENTRY TITLE-EXPR="ListElem.name" ACTION="
+					try
+					{
+						_param_action;
+						hasAction = true;
+					}
+					catch ( e )
+					{
+						hasAction = false;
+					}
+
+					if ( hasAction )
+					{
+						eval( _param_action );
+						return;
+					}
+
+					source = Ps;
+
+					if ( source.Name == 'parent_id' && source.OptDoc != undefined && source.Parent.ChildExists( 'id' ) )
+					{
+						if ( source.Parent.id == ListElem.id )
+							throw UserError( UiText.errors.hier_loop_detected );
+
+						if ( lib_base.is_catalog_hier_child( source.ForeignArray, ListElem.id, source.Parent.id ) )
+							throw UserError( UiText.errors.hier_loop_detected );
+					}
+
+					if ( false &amp;&amp; _base_selector.HasSetValueAction )
+					{
+						_base_selector.SetSourceValue( ListElem.id );
+					}
+					else
+					{
+						if ( Ps.IsMultiElem )
+						{
+							if ( IsKeyPressed( 17 ) )
+							{
+								newValue = ArraySelectAll( Ps );
+								newValue.ObtainByValue( ListElem.id );
+							}
+							else
+							{
+								newValue = [ListElem.id];
+							}
+
+							//_base_selector.ExecCheckValueAction( newValue );
+							//Ps.SetValues( newValue );
+						}
+						else
+						{
+							newValue = ListElem.id;
+							//_base_selector.ExecCheckValueAction( newValue );
+							//Ps = newValue;
+						}
+
+						_base_selector.ExecCheckValueAction( newValue );
+						_base_selector.SetSourceValueCore( newValue );
+						lib_voc.update_idata_by_voc( Ps );
+						_base_selector.ExecUpdateAction();
+
+						if ( Ps.OptDoc != undefined )
+							Ps.Doc.SetChanged( true );
+					}
+
+					code = GetSampleParamRec( 'afterSelectAction' )
+					if ( code != '' )
+						EvalSampleParamRec( 'afterSelectAction' );
+
+					if ( _base_selector.IsPassive )
+						_base_selector.FindSubItemByType( 'LABEL' ).UpdateText();
+					else
+						Screen.Update();
+			" CHECKED-EXPR="
+					if ( Ps.IsMultiElem )
+						return ArrayCount( ArraySelect( Ps, '\'\' + Value == ' + CodeLiteral( ListElem.id ) + '' ) ) != 0;
+					else
+						return ( Ps == ListElem.id );
+			" PASSIVE="1"/>
+		</ELSE>
+	</LOOP>
+
+	<IF EXPR="
+			try
+			{
+				ListElem;
+				return true;
+			}
+			catch ( e )
+			{
+			}
+
+			return _usage == 'filter';
+	">
+		<MENU-ENTRY TITLE-EXPR="lib_voc.all_voc_elems_filter_desc" ACTION="
+					try
+					{
+						_param_action;
+						hasAction = true;
+					}
+					catch ( e )
+					{
+						hasAction = false;
+					}
+
+					if ( hasAction )
+					{
+						eval( _param_action );
+						return;
+					}
+
+					try
+					{
+						ListElem;
+						hasListElem = true;
+					}
+					catch ( e )
+					{
+						hasListElem = false;
+					}
+
+					source = Ps;
+
+					if ( source.Name == 'parent_id' && source.OptDoc != undefined && source.Parent.ChildExists( 'id' ) )
+					{
+						if ( source.Parent.id == ListElem.id )
+							throw UserError( UiText.errors.hier_loop_detected );
+
+						if ( lib_base.is_catalog_hier_child( source.ForeignArray, ListElem.id, source.Parent.id ) )
+							throw UserError( UiText.errors.hier_loop_detected );
+					}
+
+					if ( hasListElem )
+						lib_base.OnVocElemSelectorElemSelected( _base_selector, Ps, ListElem.id );
+					else
+						lib_base.OnVocElemSelectorClear( _base_selector, Ps );
+			" PASSIVE="1"/>
+	</IF>
+</PANEL>
+
+
+
+<UNIT NAME="voc_menu_entries" SAMPLE="1" PARAM-catalog-name="" PARAM-action="">
+	<WITH VAR="_param_action" EXPR="GetSampleParam( 'action' )" IGNORE-ERRORS="0">
+		<WITH VAR="_voc_info" EXPR="lib_voc.get_voc_info( eval( GetSampleParam( 'catalog-name' ) ) )" IGNORE-ERRORS="0">
+			<WITH VAR="_voc_array" EXPR="
+					array = eval( _voc.eid );
+
+					if ( GetSampleParam( 'view-filter-expr' ) != '' )
+					{
+						viewFilter = EvalSampleParam( 'view-filter-expr' );
+						array = ArraySelect( array, 'lib_view.ElemMatchesViewFilter( This, viewFilter )' );
+					}
+
+					return array;
+			" IGNORE-ERRORS="0">
+				<SUBST UNIT="voc_selector_loop" VAR="_parent_id" EXPR="null"/>
+			</WITH>
+		</WITH>
+	</WITH>
+</UNIT>
+
+
+
+<MENU NAME="voc_elem_selector_right_menu" RIGHT-CLICK="1" SAMPLE="1">
+	<MENU-ENTRY TITLE="##UiText.actions.select_from_list##" ACTION="
+			//lib_voc.handle_select_voc_elem( Ps );
+			//GetSampleItem().ExecUpdateAction();
+
+			_base_selector = GetSampleItem();
+
+			if ( Ps.IsMultiElem )
+			{
+				newValue = lib_voc.select_voc_elems( eval( _voc_info.id ) );
+			}
+			else
+			{
+				newValue = lib_voc.select_voc_elem( eval( _voc_info.id ) );
+			}
+
+			_base_selector.ExecCheckValueAction( newValue );
+			_base_selector.SetSourceValueCore( newValue );
+			lib_voc.update_idata_by_voc( Ps );
+			_base_selector.ExecUpdateAction();
+
+			if ( Ps.OptDoc != undefined )
+				Ps.Doc.SetChanged( true );
+
+			code = GetSampleParamRec( 'afterSelectAction' )
+			if ( code != '' )
+				EvalSampleParamRec( 'afterSelectAction' );
+
+			if ( _base_selector.IsPassive )
+				_base_selector.FindSubItemByType( 'LABEL' ).UpdateText();
+			else
+				Screen.Update();
+	" PASSIVE="1"/>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<MENU-ENTRY TITLE="##UiText.actions.clear_field##" ACTION="lib_base.OnVocElemSelectorClear( GetSampleItem(), Ps )" PASSIVE="1" ENABLE-EXPR="Ps != null" lang-en:TITLE="Clear field"/>
+</MENU>
+
+
+
+
+<COMBO-PICKER NAME="voc_elem_selector" SAMPLE="1" PARAM-view-filter-expr="optional=1;default='';subtype=code" PARAM-usage="optional=1;default=''" PARAM-afterSelectAction="optional=1;default='';subtype=code" HEIGHT="edit" ACTION="
+		if ( ! Screen.EditMode )
+			return;
+
+		_voc_info = lib_voc.get_voc_info( Source.ForeignArray );
+		if ( _voc_info.selector_type != 'dlg' )
+			Cancel();
+
+		if ( GetSampleParam( 'view-filter-expr' ) != '' )
+			defaultFilter = EvalSampleParam( 'view-filter-expr' );
+		else
+			defaultFilter = undefined;
+
+		lib_voc.handle_select_voc_elem( Source, defaultFilter );
+		GetSampleItem().ExecUpdateAction();
+
+		if ( GetSampleItem().IsPassive )
+			GetSampleItem().FindSubItemByType( 'LABEL' ).UpdateText();
+" TIP-TEXT-EXPR="FindSubItemByType( 'LABEL' ).Text">
+	<WITH VAR="_voc_info" EXPR="
+			array = Ps.ForeignArray;
+
+			return lib_voc.get_voc_info( array )
+	" IGNORE-ERRORS="0">
+
+	<WITH VAR="_usage" EXPR="GetSampleParam( 'usage' )" IGNORE-ERRORS="0">
+
+	<LABEL TITLE-EXPR="lib_voc.foreign_voc_title( Ps, GetSampleParam( 'usage' ) )" TIP-TEXT-EXPR="Text" READ-ONLY="1" MULTILINE="0" WIDTH="100%" HEIGHT="100%"/>
+
+	<IF EXPR="_voc_info.selector_type != 'dlg'">
+		<WITH VAR="_dummy" EXPR="
+				Ps.ForeignArray.LdsCaching = 'full';
+		" IGNORE-ERRORS="0">
+		</WITH>
+
+		<MENU AUTO-UPDATE="0">
+			<IF EXPR="ArrayCount( Ps.ForeignArray ) != 0">
+				<WITH VAR="_base_selector" EXPR="GetSampleItem()">
+					<WITH VAR="_voc_array" EXPR="
+							array = eval( _voc_info.id );
+
+							if ( GetSampleParam( 'view-filter-expr' ) != '' )
+							{
+								viewFilter = EvalSampleParam( 'view-filter-expr', _base_selector );
+								array = ArraySelect( array, 'lib_view.ElemMatchesViewFilter( This, viewFilter )' );
+							}
+
+							return array;
+					">
+						<SUBST UNIT="voc_selector_loop" VAR="_parent_id" EXPR="_voc_info.key_type == 'string' ? '' : null"/>
+					</WITH>
+				</WITH>
+			</IF>
+			<ELSE>
+				<MENU-ENTRY TITLE="##UiText.errors.voc_is_empty##" ENABLE-EXPR="false"/>
+			</ELSE>
+		</MENU>
+	</IF>
+
+	<ITEM TYPE="voc_elem_selector_right_menu"/>
+
+	</WITH>
+	</WITH>
+</COMBO-PICKER>
+
+
+<LINE NAME="voc_elem_selector_flags" SAMPLE="1" MULTILINE="1" PARAM-view-filter-expr="optional=1;default='';subtype=code" PARAM-afterSelectAction="optional=1;subtype=code">
+	<LOOP EXPR="lib_voc.get_sorted_voc( Ps.ForeignArray )" VAR="ListElem">
+		<CHECK TITLE-EXPR="ListElem.name" SOURCE="Ps.ByValueExists( ListElem.id )" SET-VALUE-ACTION="
+				if ( NewValue )
+					Ps.ObtainByValue( ListElem.id );
+				else
+					Ps.DeleteByValue( ListElem.id );
+				
+				GetSampleItem().ExecUpdateAction();
+
+				if ( Ps.OptDoc != undefined )
+					Ps.Doc.SetChanged( true );
+		"/>
+
+		<LABEL TITLE=""/>
+	</LOOP>
+</LINE>
+
+
+
+<COMBO-PICKER NAME="elem_selector" SAMPLE="1" PARAM-usage="optional=1;default=''" PARAM-foreign-array="optional=1;default='';subtype=code" PARAM-foreign-elem-qual="optional=1;default='';subtype=code" PARAM-foreign-disp-name="optional=1;default='';subtype=code" PARAM-primary-key="optional=1;default='';subtype=code" PARAM-usage="optional=1;default=''" HEIGHT="edit">
+	<LABEL TITLE-EXPR="
+			if ( GetSampleParam( 'foreign-array' ) == '' && GetSampleParam( 'foreign-disp-name' ) == '' )
+				return Ps.ForeignDispName;
+
+			//DebugMsg( 1 );
+			//DebugMsg( Ps.Value );
+			if ( ! Ps.HasValue )
+			{
+				if ( GetSampleParam( 'usage' ) == 'filter' )
+					return base1_config.empty_filter_str;
+				else
+					return '';
+			}
+
+			if ( GetSampleParam( 'foreign-array' ) != '' )
+				foreignArray = EvalSampleParam( 'foreign-array' );
+			else
+				foreignArray = Ps.ForeignArray;
+
+			if ( ( keyName = GetSampleParam( 'primary-key' ) ) != '' )
+			{
+				if ( Ps.IsMultiElem )
+				{
+					str = '';
+
+					for ( val in Ps.Instances )
+					{
+						if ( str != '' )
+							str += ';  ';
+
+						foreignElem = ArrayOptFindByKey( foreignArray, val, keyName );
+						if ( foreignElem == undefined )
+							str += '??? ' + val;
+
+						if ( GetSampleParam( 'foreign-disp-name' ) != '' )
+							str += GetObjectProperty( foreignElem, GetSampleParam( 'foreign-disp-name' ) );
+						else
+							str += foreignElem.ExternalDispName;
+					}
+
+					return str;
+				}
+				else
+				{
+					foreignElem = ArrayOptFindByKey( foreignArray, Ps, keyName );
+					if ( foreignElem == undefined )
+						return '??? ' + Ps;
+
+					if ( GetSampleParam( 'foreign-disp-name' ) != '' )
+						return GetObjectProperty( foreignElem, GetSampleParam( 'foreign-disp-name' ) );
+					else
+						return foreignElem.ExternalDispName;
+				}
+			}
+			else
+			{
+				foreignElem = GetForeignElem( foreignArray, Ps );
+			
+				if ( GetSampleParam( 'foreign-disp-name' ) != '' )
+				{
+					with ( foreignElem )
+					{
+						return EvalSampleParam( 'foreign-disp-name' );
+					}
+				}
+				else
+				{
+					return foreignElem.ExternalDispName;
+				}
+			}
+	" MULTILINE="0" WIDTH="100%" HEIGHT="100%"/>
+
+	<MENU>
+		<LOOP EXPR="
+				if ( GetSampleParam( 'foreign-array' ) != '' )
+					foreignArray = EvalSampleParam( 'foreign-array' );
+				else
+					foreignArray = Ps.ForeignArray;
+
+				if ( GetSampleParam( 'foreign-elem-qual' ) == '' )
+					return foreignArray;
+				else
+					return ArraySelect( foreignArray, GetSampleParam( 'foreign-elem-qual' ) );
+		" VAR="ListElem">
+			<MENU-ENTRY TITLE-EXPR="
+					if ( GetSampleParam( 'foreign-disp-name' ) == '' )
+					{
+						return ListElem.name;
+					}
+					else
+					{
+						with ( ListElem )
+						{
+							return EvalSampleParam( 'foreign-disp-name' );
+						}
+					}
+			" ACTION="
+					if ( ( keyName = GetSampleParam( 'primary-key' ) ) != '' )
+					{
+						keyVal = GetObjectProperty( ListElem, keyName );
+					}
+					else
+					{
+						keyVal = ListElem.id;
+					}
+
+					if ( Ps.IsMultiElem )
+					{
+						if ( ! IsKeyPressed( 17 ) )
+							Ps.DeleteAll();
+
+						Ps.Add().Value = keyVal;
+						//_base_selector.ExecUpdateAction();
+
+						if ( Ps.OptDoc != undefined )
+							Ps.Doc.SetChanged( true );
+					}
+					else
+					{
+						GetSampleItem().SetSourceValue( keyVal );
+					}
+
+					if ( GetSampleItem().IsPassive )
+						GetSampleItem().FindSubItemByType( 'LABEL' ).UpdateText();
+					else
+						Screen.Update();
+			" CHECKED-EXPR="
+					if ( ( keyName = GetSampleParam( 'primary-key' ) ) != '' )
+					{
+						keyVal = GetObjectProperty( ListElem, keyName );
+					}
+					else
+					{
+						keyVal = ListElem.id;
+					}
+
+					if ( Ps.IsMultiElem )
+						return Ps.ByValueExists( keyVal );
+					else
+						return ( Ps == keyVal );
+			" PASSIVE="1"/>
+		</LOOP>
+	</MENU>
+
+	<MENU NAME="voc_elem_selector_right_menu" RIGHT-CLICK="1">
+		<MENU-ENTRY TITLE="##UiText.actions.clear_field##" ACTION="
+				if ( Ps.IsMultiElem )
+				{
+					Ps.Clear();
+					Ps.Doc.SetChanged( true );
+					GetSampleItem().ExecUpdateAction();
+				}
+				else
+				{
+					GetSampleItem().SetSourceValue( '' );
+				}
+
+				if ( GetSampleItem().IsPassive )
+					GetSampleItem().FindSubItemByType( 'LABEL' ).UpdateText();
+				else
+					Screen.Update();
+		" PASSIVE="1" ENABLE-EXPR="Ps != null" lang-en:TITLE="Clear field"/>
+	</MENU>
+</COMBO-PICKER>
+
+
+
+<ITEM NAME="tri_state_selector" SAMPLE="1" PARAM-dummy="optional=1;default=''" TYPE="elem_selector" foreign-array="base1_common.tri_states" usage="filter"/>
+
+
+
+
+<UNIT NAME="generic_selector" SAMPLE="1">
+	<IF EXPR="lib_voc.get_opt_voc_info( Ps.FormElem.ForeignArrayExpr ) != undefined" IGNORE-ERRORS="0">
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps"/>
+	</IF>
+	<ELSE>
+		<IF EXPR="DefaultDb.GetOptCatalog( Ps.FormElem.ForeignArrayExpr ) != undefined" IGNORE-ERRORS="0">
+			<ITEM TYPE="object_selector" SOURCE="Ps"/>
+		</IF>
+		<ELSE>
+			<ITEM TYPE="elem_selector" SOURCE="Ps"/>
+		</ELSE>
+	</ELSE>
+</UNIT>
+
+
+<COMBO-PICKER NAME="card_attachment_selector" SAMPLE="1" PARAM-usage="optional=1;default=''" HEIGHT="edit" ACTION="
+		source = Source;
+		source.Value = lib_base.select_object_from_catalog( source.ForeignArrayCodeStr );
+
+		source.Doc.SetChanged( true );
+		ExecUpdateAction();
+" OPEN-ACTION="
+		if ( ! Source.HasValue )
+			return;
+
+		ObtainDocScreen( Source.ForeignPrimaryObjectUrl );
+">
+	<IF EXPR="Ps.HasValue && GetSampleParam( 'usage' ) != 'filter'">
+		<IMAGE URL-EXPR="Ps.ForeignElem.ImageUrl" URL="xxx.ico"/>
+		<PANEL WIDTH="4px"/>
+	</IF>
+
+	<LABEL MULTILINE="0" TITLE-EXPR="
+			if ( ! Ps.HasValue )
+			{
+				if ( GetSampleParam( 'usage' ) == 'filter' )
+					return base1_config.empty_filter_str;
+				else
+					return '';
+			}
+
+			try
+			{
+				foreignElem = Ps.ForeignElem;
+			}
+			catch ( e )
+			{
+				foreignElem = undefined;
+			}
+
+			if ( foreignElem != undefined )
+			{
+				return foreignElem.ExternalDispName;
+			}
+
+			title = '[' + UiText.titles.object_deleted + '] 0x' + StrHexInt( Ps, 16 );
+			return title;
+	" OPEN-ACTION="
+			if ( ! Ps.HasValue )
+				return;
+
+			Screen.ExposeItemBySource( Ps.ForeignElem.name );
+	"/>
+
+	<MENU>
+		<IF EXPR="ArrayCount( Ps.ForeignArray ) != 0">
+			<LOOP EXPR="Ps.ForeignArray" VAR="ListElem">
+				<MENU-ENTRY TITLE-EXPR="ListElem.PrimaryDispName" ACTION="
+						if ( Ps.IsMultiElem )
+						{
+							if ( ! IsKeyPressed( 17 ) )
+								Ps.DeleteAll();
+
+							Ps.Add().Value = ListElem.code;
+						}
+						else
+						{
+							Ps = ListElem.id;
+						}
+
+						GetSampleItem().ExecUpdateAction();
+						Ps.Doc.SetChanged( true );
+				" CHECKED-EXPR="
+						if ( Ps.IsMultiElem )
+							return ArrayCount( ArraySelect( Ps, '\'\' + Value == \'' + ListElem.id + '\'' ) ) != 0;
+						else
+							return ( Ps == ListElem.id );
+				"/>
+			</LOOP>
+		</IF>
+		<ELSE>
+			<MENU-ENTRY TITLE="Список приложений пуст" ENABLE-EXPR="false" lang-en:TITLE="No attachments exist" lang-ua:TITLE="Список додатків порожній"/>
+		</ELSE>
+	</MENU>
+
+	<MENU RIGHT-CLICK="1">
+		<MENU-ENTRY TITLE="##UiText.actions.open_object_card##" ACTION="
+				ObtainDocScreen( UrlFromDocID( Ps ) );
+		" ENABLE-EXPR="Ps != null" lang-en:TITLE="Open object card"/>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="##UiText.actions.clear_field##" ACTION="
+				if ( Ps == null )
+					return;
+				
+				Ps.Clear();
+				Ps.Doc.SetChanged( true );
+		" ENABLE-EXPR="Ps != null" lang-en:TITLE="Clear field"/>
+	</MENU>
+</COMBO-PICKER>
+
+
+
+
+<IF EXPR="true" NAME="object_preview" SAMPLE="1" PARAM-view-filter-expr="optional=1;default='';subtype=code" PARAM-afterSelectAction="optional=1;default='';subtype=code">
+	<PANEL OPEN-ACTION="
+			try
+			{
+				Ps.ForeignArrayCodeStr;
+			}
+			catch( e )
+			{
+				return;
+			}
+
+			if ( Ps.Name == 'user_id' &amp;&amp; lib_user.active_user_access.prohibit_change_object_user )
+				throw UiError( UiText.errors.change_user_prohibited );
+
+			if ( Ps.Name == 'group_id' &amp;&amp; lib_user.active_user_access.prohibit_change_object_group )
+				throw UiError( UiText.errors.change_group_prohibited );
+
+			if ( lib_voc.get_opt_voc_info( Ps.ForeignArrayCodeStr ) != undefined )
+			{
+				lib_voc.handle_select_voc_elem( Ps );
+			}
+			else
+			{
+				if ( Ps.Name == 'user_id' )
+					curUser = Ps.OptForeignElem;
+
+				source = Ps;
+
+				if ( GetSampleParam( 'view-filter-expr' ) != '' )
+				{
+					defaultFilter = EvalSampleParam( 'view-filter-expr' );
+					newValue = lib_base.select_object_from_view( source.ForeignArrayCodeStr, defaultFilter );
+				}
+				else
+				{
+					newValue = lib_base.select_object_from_catalog( source.ForeignArrayCodeStr );
+				}
+
+				if ( Ps.Name == 'user_id' &amp;&amp; curUser != undefined &amp;&amp; lib_user.active_user_access.prohibit_change_object_group )
+				{
+					newUser = GetForeignElem( users, newValue );
+					if ( newUser.main_group_id != curUser.main_group_id )
+						throw UiError( UiText.errors.change_group_prohibited );
+				}
+
+				source.Value = newValue;
+				source.Doc.SetChanged( true );
+			}
+
+			code = GetSampleParamRec( 'afterSelectAction' );
+			if ( code != '' )
+				EvalSampleParamRec( 'afterSelectAction' );
+
+			Screen.Update();
+	" STD-MARGINS="0">
+		<LABEL TITLE-EXPR="( title = GetSampleItem().Title ) != '' ? title : Ps.Title + ':'" ALIGN="right" TEXT-COLOR="64,64,64"/>
+
+		<PANEL HEIGHT="4px">
+		</PANEL>
+	</PANEL>
+
+	<PANEL OPEN-ACTION="
+			try
+			{
+				Ps.ForeignArrayCodeStr;
+			}
+			catch( e )
+			{
+				return;
+			}
+
+			if ( Ps.Name == 'user_id' &amp;&amp; lib_user.active_user_access.prohibit_change_object_user )
+				throw UiError( UiText.errors.change_user_prohibited );
+
+			if ( Ps.Name == 'group_id' &amp;&amp; lib_user.active_user_access.prohibit_change_object_group )
+				throw UiError( UiText.errors.change_group_prohibited );
+
+			if ( lib_voc.get_opt_voc_info( Ps.ForeignArrayCodeStr ) != undefined )
+			{
+				lib_voc.handle_select_voc_elem( Ps );
+			}
+			else
+			{
+				if ( Ps.Name == 'user_id' )
+					curUser = Ps.OptForeignElem;
+
+				source = Ps;
+
+				if ( GetSampleParam( 'view-filter-expr' ) != '' )
+				{
+					defaultFilter = EvalSampleParam( 'view-filter-expr' );
+					newValue = lib_base.select_object_from_view( source.ForeignArrayCodeStr, defaultFilter );
+				}
+				else
+				{
+					newValue = lib_base.select_object_from_catalog( source.ForeignArrayCodeStr );
+				}
+
+				if ( Ps.Name == 'user_id' &amp;&amp; curUser != undefined &amp;&amp; lib_user.active_user_access.prohibit_change_object_group )
+				{
+					newUser = GetForeignElem( users, newValue );
+					if ( newUser.main_group_id != curUser.main_group_id )
+						throw UiError( UiText.errors.change_group_prohibited );
+				}
+
+				source.Value = newValue;
+				source.Doc.SetChanged( true );
+			}
+
+			code = GetSampleParamRec( 'afterSelectAction' );
+			if ( code != '' )
+				EvalSampleParamRec( 'afterSelectAction' );
+
+			Screen.Update();
+	" STD-MARGINS="0">>
+		<LABEL TITLE-EXPR="
+				if ( Ps.Name == 'author_id' )
+					return Ps.ForeignElem.shortname;
+
+				try
+				{
+					return Ps.ForeignDispName;
+				}
+				catch ( e )
+				{
+					return Ps;
+				}
+		" TEXT-COLOR="0,0,92"/>
+
+		<PANEL HEIGHT="4px">
+		</PANEL>
+	</PANEL>
+</IF>
+
+
+<LINE NAME="object_preview_left" SAMPLE="1" PARAM-view-filter-expr="optional=1;default='';subtype=code">
+	<LABEL TITLE-EXPR="( title = GetSampleItem().Title ) != '' ? title : Ps.Title + ':'" TEXT-COLOR="64,64,64" OPEN-ACTION="
+			try
+			{
+				Ps.ForeignArrayCodeStr;
+			}
+			catch( e )
+			{
+				return;
+			}
+
+			if ( lib_voc.get_opt_voc_info( Ps.ForeignArrayCodeStr ) != undefined )
+			{
+				lib_voc.handle_select_voc_elem( Ps );
+			}
+			else
+			{
+				source = Ps;
+
+				if ( GetSampleParam( 'view-filter-expr' ) != '' )
+				{
+					defaultFilter = EvalSampleParam( 'view-filter-expr' );
+					source.Value = lib_base.select_object_from_view( source.ForeignArrayCodeStr, defaultFilter );
+				}
+				else
+				{
+					source.Value = lib_base.select_object_from_catalog( source.ForeignArrayCodeStr );
+				}
+
+				source.Doc.SetChanged( true );
+			}
+
+			Screen.Update();
+	"/>
+
+	<PANEL OPEN-ACTION="
+			try
+			{
+				Ps.ForeignArrayCodeStr;
+			}
+			catch( e )
+			{
+				return;
+			}
+
+			if ( lib_voc.get_opt_voc_info( Ps.ForeignArrayCodeStr ) != undefined )
+			{
+				lib_voc.handle_select_voc_elem( Ps );
+			}
+			else
+			{
+				source = Ps;
+
+				if ( GetSampleParam( 'view-filter-expr' ) != '' )
+				{
+					defaultFilter = EvalSampleParam( 'view-filter-expr' );
+					source.Value = lib_base.select_object_from_view( source.ForeignArrayCodeStr, defaultFilter );
+				}
+				else
+				{
+					source.Value = lib_base.select_object_from_catalog( source.ForeignArrayCodeStr );
+				}
+
+				source.Doc.SetChanged( true );
+			}
+
+			Screen.Update();
+	" STD-MARGINS="0">>
+		<LABEL TITLE-EXPR="
+				try
+				{
+					return Ps.ForeignDispName;
+				}
+				catch ( e )
+				{
+					return Ps;
+				}
+		" TEXT-COLOR="0,0,92"/>
+	</PANEL>
+</LINE>
+
+
+<IF EXPR="true" NAME="value_preview" SAMPLE="1" PARAM-dummy="optional=1;default=''">
+	<LABEL TITLE-EXPR="( title = GetSampleItem().Title ) != '' ? title : Ps.Title + ':'" ALIGN="right"/>
+
+	<LABEL TITLE-EXPR="Ps" TEXT-COLOR="0,0,92"/>
+</IF>
+
+
+
+<COMBO NAME="elem_selector__OLD" SAMPLE="1" PARAM-usage="optional=1;default=''" ELEM="ListElem.name">
+	<LOOP EXPR="Ps.ForeignArray" VAR="ListElem">
+		<COMBO-ENTRY TITLE-EXPR="ListElem.PrimaryDispName" VALUE-EXPR="ListElem.id"/>
+	</LOOP>
+
+	<IF EXPR="GetSampleParam( 'usage' ) == 'filter'">
+		<COMBO-ENTRY TITLE-EXPR="lib_voc.all_voc_elems_filter_desc" VALUE-EXPR="null"/>
+	</IF>
+</COMBO>
+
+
+
+
+<COMBO-PICKER NAME="date_selector" SAMPLE="1" PARAM-usage="optional=1;default=''" PARAM-allow-no-month="optional=1;default=false" HEIGHT="edit" URL="base1_dropdown_list.xml" WIDTH="14zr">
+	<EDIT SOURCE="
+			if ( Ps == null || Ps == '' )
+				return '';
+	
+			allowNoMonth = GetSampleParam( 'allow-no-month' ) == '1';
+			if ( allowNoMonth )
+			{
+				noMonthElem = Ps.Parent.Child( Ps.Name + '_no_month' );
+				if ( noMonthElem.Value )
+					return Year( Ps );
+
+				noDayElem = Ps.Parent.Child( Ps.Name + '_no_day' );
+				if ( noDayElem.HasValue )
+					return StrInt( Month( Ps ), 2 ) + '.' + Year( Ps );
+			}
+
+			return DateNewTime( Ps );
+	" SET-VALUE-ACTION="
+			allowNoMonth = GetSampleParam( 'allow-no-month' ) == '1';
+			if ( allowNoMonth )
+			{
+				noMonthElem = Ps.Parent.Child( Ps.Name + '_no_month' );
+				noDayElem = Ps.Parent.Child( Ps.Name + '_no_day' );
+			}
+	
+			/*if ( GetSampleItem().HasSetValueAction )
+			{
+				GetSampleItem().SetSourceValue( NewValue );
+				return;
+			}*/
+
+			try
+			{
+				Ps.Value = NewValue;
+				isDate = true;
+			}
+			catch ( e )
+			{
+				isDate = false;
+			}
+
+			if ( isDate )
+			{
+				if ( allowNoMonth )
+				{
+					noMonthElem.Clear();
+					noDayElem.Clear();
+				}
+			}
+			else
+			{
+				if ( allowNoMonth &amp;&amp; ( year = OptInt( NewValue ) ) != undefined )
+				{
+					if ( year &lt; 1900 || year > 9999 )
+						throw UserError( UiText.errors.invalid_date );
+
+					Ps.Value = Date( year, 1, 1 );
+					noMonthElem.Value = true;
+					noDayElem.Value = true;
+				}
+				else if ( allowNoMonth &amp;&amp; ( obj = StrOptScan( NewValue, '%s.%s' ) ) != undefined )
+				{
+					month = Int( obj[0] );
+					year = Int( obj[1] );
+
+					if ( month &lt; 1 || month > 12 )
+						throw UserError( UiText.errors.invalid_date );
+
+					if ( year &lt; 1900 || year > 9999 )
+						throw UserError( UiText.errors.invalid_date );
+
+					Ps.Value = Date( year, month, 1 );
+					noMonthElem.Value = false;
+					noDayElem.Value = true;
+				}
+				else
+				{
+					throw UserError( UiText.errors.invalid_date );
+				}
+			}
+
+			Ps.Doc.SetChanged( true )
+	" UPDATE-ACTION="
+			GetSampleItem().ExecUpdateAction();
+
+			if ( ! GetSampleItem().IsPassive )
+				Screen.Update();
+	" BORDER="0" PASSIVE="1" ENABLE-EXPR="GetSampleItem().IsEnabled" READ-ONLY-EXPR="GetSampleItem().IsReadOnly"/>
+
+	<CALENDAR SOURCE="Ps" DROP-DOWN="1" UPDATE-ACTION="
+			allowNoMonth = ( GetSampleParam( 'allow-no-month' ) == '1' );
+			if ( allowNoMonth )
+			{
+				noMonthElem = Ps.Parent.Child( Ps.Name + '_no_month' );
+				noDayElem = Ps.Parent.Child( Ps.Name + '_no_day' );
+
+				noMonthElem.Clear();
+				noDayElem.Clear();
+			}
+
+			GetSampleItem().ExecUpdateAction();
+
+			if ( ! GetSampleItem().IsPassive )
+				Screen.Update();
+	" PASSIVE="1"/>
+</COMBO-PICKER>
+
+
+
+
+
+<UNIT NAME="date_time_selector" PARAM-dummy="optional=1" SAMPLE="1">
+	<LINE SPACING="short">
+		<IF EXPR="GetSampleItem().IsEnabled">
+			<COMBO-PICKER HEIGHT="edit" WIDTH="13zrc" WIDTH-EXPR="( CalcTextScreenWidth( '22.22.2222' ) + 28 ) + 'px'" URL="base1_dropdown_list.xml">
+				<EDIT SOURCE="DateNewTime( Ps )" SET-VALUE-ACTION="
+						try
+						{
+							newDate = lib_base.parse_edit_date( NewValue );
+						}
+						catch ( e )
+						{
+							throw UserError( UiText.errors.invalid_date );
+						}
+
+						if ( Ps.HasValue && Hour( Ps ) != undefined )
+							Ps.Value = DateNewTime( newDate, Hour( Ps ), Minute( Ps ) );
+						else
+							Ps.Value = newDate;
+
+						Ps.Doc.SetChanged( true )
+				" UPDATE-ACTION="
+						GetSampleItem().ExecUpdateAction();
+
+						if ( ! GetSampleItem().IsPassive )
+							Screen.Update();
+				" BORDER="0" PASSIVE="1" ENABLE-EXPR="GetSampleItem().IsEnabled"/>
+
+				<CALENDAR SOURCE="Ps" DROP-DOWN="1" SET-VALUE-ACTION="
+						try
+						{
+							newDate = lib_base.parse_edit_date( NewValue );
+						}
+						catch ( e )
+						{
+							throw UserError( UiText.errors.invalid_date );
+						}
+
+						if ( Ps.HasValue && Hour( Ps ) != undefined )
+							Ps.Value = DateNewTime( newDate, Hour( Ps ), Minute( Ps ) );
+						else
+							Ps.Value = newDate;
+
+						Ps.Doc.SetChanged( true )
+				" UPDATE-ACTION="
+						GetSampleItem().ExecUpdateAction();
+
+						if ( ! GetSampleItem().IsPassive )
+							Screen.Update();
+				" PASSIVE="1"/>
+
+				<MENU RIGHT-CLICK="1">
+					<MENU-ENTRY TITLE="##UiText.titles.calendar##" ACTION="
+							calendarOptions = new Object;
+
+							if ( Ps.Parent.ChildExists( 'user_id' ) )
+								calendarOptions.user_id = Ps.Parent.user_id;
+
+							obj = lib_calendar.select_date_and_room( Ps, calendarOptions );
+							
+							Ps = obj.date;
+							if ( Ps.Parent.ChildExists( 'room_id' ) && obj.room_id.HasValue )
+								Ps.Parent.room_id = obj.room_id;
+
+							Ps.Doc.SetChanged( true );
+							GetSampleItem().ExecUpdateAction();
+					"/>
+				</MENU>
+			</COMBO-PICKER>
+		</IF>
+		<ELSE>
+			<EDIT WIDTH="13zrc" ENABLE-EXPR="false"/>
+		</ELSE>
+
+
+		<EDIT SOURCE="StrTime( Ps )" SET-VALUE-ACTION="
+				if ( NewValue != '' )
+				{
+					if ( ( obj = StrOptScan( NewValue, '%s:%s' ) ) == undefined )
+						throw UiError( UiText.errors.invalid_value );
+
+					hour = OptInt( obj[0] );
+					if ( hour == undefined || hour > 23 )
+						throw UiError( UiText.errors.invalid_value );
+
+					minute = OptInt( obj[1] );
+					if ( minute == undefined || minute > 59 )
+						throw UiError( UiText.errors.invalid_value );
+
+					if ( Ps.HasValue )
+					{
+						timeZone = TimeZone( Ps );
+						newDate = DateNewTime( Ps, hour, minute );
+						if ( timeZone != null )
+							newDate = DateNewTimeZone( newDate, timeZone );
+					}
+					else
+					{
+						newDate = DateNewTime( CurDate, hour, minute );
+					}
+
+					Ps.Value = newDate;
+				}
+				else
+				{
+					Ps = DateNewTime( Ps );
+				}
+
+				Ps.Doc.SetChanged( true );
+				GetSampleItem().ExecUpdateAction();
+		" WIDTH="6zrc" WIDTH-EXPR="( CalcTextScreenWidth( '22:22' ) + 12 ) + 'px'" ENABLE-EXPR="GetSampleItem().IsEnabled" TIP-TEXT-EXPR="
+				Ps.HasValue ? lib_base.GetTimeZoneDesc( TimeZone( Ps ) ) : ''
+		"/>
+	</LINE>
+</UNIT>
+
+
+
+<UNIT NAME="date_time_read_only" PARAM-dummy="optional=1" SAMPLE="1">
+	<LINE SPACING="short">
+		<EDIT SOURCE="DateNewTime( Ps )" READ-ONLY="1" WIDTH="11zr" ALIGN="center"/>
+		<EDIT SOURCE="StrTime( Ps )" READ-ONLY="1" WIDTH="7zr" ALIGN="center"/>
+	</LINE>
+</UNIT>
+
+
+<PANEL NAME="time_edit" SAMPLE="1" PARAM-dummy="optional=1" STD-MARGINS="0">
+	<EDIT NAME="time_edit" SOURCE="StrTime( Ps )" SET-VALUE-ACTION="
+			if ( NewValue != '' )
+			{
+				try
+				{
+					obj = StrScan( NewValue, '%s:%s' );
+					hour = Int( obj[0] );
+					minute = Int( obj[1] );
+				}
+				catch ( e )
+				{
+					throw UserError( UiText.errors.invalid_time );
+				}
+
+				if ( hour > 23 || minute > 59 )
+					throw UserError( UiText.errors.invalid_time );
+					
+				Ps.Value = DateNewTime( Ps.Value, hour, minute );
+			}
+			else
+			{
+				Ps.Value = DateNewTime( Ps.Value );
+			}
+
+			Ps.Doc.SetChanged( true );
+			GetSampleItem().ExecUpdateAction();
+	"/>
+</PANEL>
+
+
+
+
+<TABLE NAME="abstract_time_edit" SAMPLE="1" SPACING="short" WIDTH="10zr" PARAM-dummy="optional=1" STD-MARGINS="0">
+	<COLUMNS>
+		<COL WIDTH="50%"/>
+		<COL WIDTH="1zr"/>
+		<COL WIDTH="50%"/>
+	</COLUMNS>
+
+	<EDIT SOURCE="Ps.hour" SET-VALUE-ACTION="
+			if ( NewValue != '' )
+			{
+				hour = OptInt( NewValue );
+				if ( hour == undefined || hour &lt; 0 || hour > 23 )
+					throw UiError( UiText.errors.invalid_time );
+					
+				Ps.hour = hour;
+			}
+			else
+			{
+				Ps.hour = null;
+			}
+
+			Ps.Doc.SetChanged( true );
+			GetSampleItem().ExecUpdateAction();
+	" ENABLE-EXPR="GetSampleItem().IsEnabled" ALIGN="center"/>
+
+	<LABEL TITLE=":" ALIGN="center"/>
+
+	<EDIT SOURCE="Ps.minute" SET-VALUE-ACTION="
+			if ( NewValue != '' )
+			{
+				minute = OptInt( NewValue );
+				if ( minute == undefined || minute &lt; 0 || minute > 59 )
+					throw UiError( UiText.errors.invalid_time );
+					
+				Ps.minute = minute;
+			}
+			else
+			{
+				Ps.minute = null;
+			}
+
+			Ps.Doc.SetChanged( true );
+			GetSampleItem().ExecUpdateAction();
+	" ENABLE-EXPR="GetSampleItem().IsEnabled" ALIGN="center"/>
+</TABLE>
+
+
+
+<COMBO-PICKER NAME="hour_selector" SAMPLE="1" PARAM-usage="optional=1;default=''" HEIGHT="edit" WIDTH="6zrc">
+	<EDIT SOURCE="StrInt( Ps, 2 )" SET-VALUE-ACTION="
+			if ( NewValue == '' )
+			{
+				GetSampleItem().SetSourceValue( null );
+				return;
+			}
+
+			hour = OptInt( NewValue );
+			if ( hour == undefined || hour &lt; 0 || hour > 23 )
+				throw UiError( UiText.errors.invalid_time );
+
+			GetSampleItem().SetSourceValue( hour );
+
+			//if ( ! GetSampleItem().IsPassive )
+				//Screen.Update();
+	" BORDER="0" PASSIVE="1" ALIGN="center" ENABLE-EXPR="GetSampleItem().IsEnabled" READ-ONLY-EXPR="GetSampleItem().IsReadOnly"/>
+
+	<MENU>
+		<LOOP EXPR="PlainSeq( 24 )" VAR="_hour">
+			<IF EXPR="_hour == 9">
+				<MENU-ENTRY VERT-SEPARATOR="1"/>
+			</IF>
+			<IF EXPR="_hour == 20">
+				<MENU-ENTRY SEPARATOR="1"/>
+			</IF>
+
+			<MENU-ENTRY TITLE-EXPR="StrInt( _hour, 2 ) + ':00'" ACTION="
+					GetSampleItem().SetSourceValue( _hour );
+			"/>
+		</LOOP>
+	</MENU>
+</COMBO-PICKER>
+
+
+
+<COMBO-PICKER NAME="minute_selector" SAMPLE="1" PARAM-usage="optional=1;default=''" HEIGHT="edit" WIDTH="6zrc">
+	<EDIT SOURCE="StrInt( Ps, 2 )" SET-VALUE-ACTION="
+			if ( NewValue == '' )
+			{
+				GetSampleItem().SetSourceValue( null );
+				return;
+			}
+
+			minute = OptInt( NewValue );
+			if ( minute == undefined || minute &lt; 0 || minute > 59 )
+				throw UiError( UiText.errors.invalid_time );
+
+			GetSampleItem().SetSourceValue( minute );
+	" BORDER="0" PASSIVE__="1" ALIGN="center" ENABLE-EXPR="GetSampleItem().IsEnabled" READ-ONLY-EXPR="GetSampleItem().IsReadOnly"/>
+
+	<MENU>
+		<LOOP EXPR="[0,5,10,15,20,25,30,35,40,45,50,55]" VAR="_minute">
+			<IF EXPR="_minute == 15 || _minute == 30 || _minute == 45">
+				<MENU-ENTRY SEPARATOR="1"/>
+			</IF>
+
+			<MENU-ENTRY TITLE-EXPR="StrInt( _minute, 2 )" ACTION="
+					GetSampleItem().SetSourceValue( _minute );
+			"/>
+		</LOOP>
+	</MENU>
+</COMBO-PICKER>
+
+
+
+<LINE NAME="abstract_time_edit_new" SAMPLE="1" SPACING="short" WIDTH="14zr" PARAM-dummy="optional=1">
+	<ITEM TYPE="hour_selector" SOURCE="Ps.hour" UPDATE-ACTION="
+			if ( Ps.hour.HasValue &amp;&amp; ! Ps.minute.HasValue )
+				Ps.minute = 0;
+
+			GetSampleItem().Parent.ExecUpdateAction();
+	"/>
+
+	<LABEL TITLE=":"/>
+
+	<ITEM TYPE="minute_selector" SOURCE="Ps.minute"/>
+</LINE>
+
+
+
+<LINE NAME="day_minute_edit" SAMPLE="1" SPACING="short" WIDTH="14zr" PARAM-dummy="optional=1">
+	<ITEM TYPE="hour_selector" SOURCE="Ps.HasValue ? Ps / 60 : ''" SET-VALUE-ACTION="
+			minute = ( Ps.HasValue ? Ps % 60 : 0 );
+			Ps.Value = NewValue * 60 + minute;
+
+			GetSampleItem().Parent.ExecUpdateAction();
+	"/>
+
+	<LABEL TITLE=":"/>
+
+	<ITEM TYPE="minute_selector" SOURCE="Ps.HasValue ? Ps % 60 : ''" SET-VALUE-ACTION="
+			hour = ( Ps.HasValue ? Ps / 60 : 0 );
+			Ps.Value = hour * 60 + NewValue;
+
+			GetSampleItem().Parent.ExecUpdateAction();
+	"/>
+</LINE>
+
+
+
+<COMBO-PICKER NAME="hour_offset_selector" SAMPLE="1" PARAM-usage="optional=1;default=''" HEIGHT="edit" WIDTH="8zr">
+	<EDIT SOURCE="Ps" SET-VALUE-ACTION="
+			GetSampleItem().SetSourceValue( NewValue );
+	" BORDER="0" PASSIVE__="1" ENABLE-EXPR="GetSampleItem().IsEnabled" READ-ONLY-EXPR="GetSampleItem().IsReadOnly"/>
+
+	<MENU>
+		<LOOP EXPR="PlainSeq( 11 )" VAR="_offset">
+			<MENU-ENTRY TITLE-EXPR="_offset + 1" ACTION="
+					GetSampleItem().SetSourceValue( _offset + 1 );
+			"/>
+		</LOOP>
+	</MENU>
+</COMBO-PICKER>
+
+
+
+<COMBO-PICKER NAME="minute_offset_selector" SAMPLE="1" PARAM-usage="optional=1;default=''" HEIGHT="edit" WIDTH="6zr">
+	<EDIT SOURCE="Ps"  SET-VALUE-ACTION="
+			GetSampleItem().SetSourceValue( NewValue );
+	" BORDER="0" PASSIVE__="1" ENABLE-EXPR="GetSampleItem().IsEnabled" READ-ONLY-EXPR="GetSampleItem().IsReadOnly"/>
+
+	<MENU>
+		<LOOP EXPR="[5,10,15,20,30,40,45]" VAR="_offset">
+			<MENU-ENTRY TITLE-EXPR="_offset" ACTION="
+					GetSampleItem().SetSourceValue( _offset );
+			"/>
+		</LOOP>
+	</MENU>
+</COMBO-PICKER>
+
+
+
+<EDIT NAME="year_edit" SAMPLE="1" SOURCE="Source" SET-VALUE-ACTION="
+		if ( NewValue != '' )
+		{
+			try
+			{
+				year = Int( NewValue );
+			}
+			catch ( e )
+			{
+				throw UserError( UiText.errors.invalid_year );
+			}
+
+			if ( year <= 20 )
+				year += 2000;
+			else if ( year <= 99 )
+				year += 1900;
+			else if ( year < 1900 || year > 2099 )
+				throw UserError( UiText.errors.invalid_year );
+
+			Source = year;
+		}
+		else
+		{
+			Source = NewValue;
+		}
+
+		Source.Doc.SetChanged( true );
+"/>
+
+
+<EDIT NAME="birth_date_edit" SAMPLE="1" SOURCE="
+		if ( ! Ps.birth_date.HasValue && Ps.ChildExists( 'birth_year' ) && Ps.birth_year.HasValue )
+			return Ps.birth_year;
+		else
+			return Ps.birth_date;
+" SET-VALUE-ACTION="
+		if ( NewValue != '' && StrLen( NewValue ) <= 4 && Ps.ChildExists( 'birth_year' ) )
+		{
+			try
+			{
+				year = Int( NewValue );
+			}
+			catch ( e )
+			{
+				throw UserError( UiText.errors.invalid_year );
+			}
+
+			if ( year <= 20 )
+				year += 2000;
+			else if ( year <= 99 )
+				year += 1900;
+			else if ( year < 1900 || year > 2099 )
+				throw UserError( UiText.errors.invalid_year );
+
+			Ps.birth_date.Clear();
+			Ps.birth_year = year;
+		}
+		else
+		{
+			Ps.birth_date = NewValue;
+
+			if ( Ps.ChildExists( 'birth_year' ) )
+			{
+				if ( NewValue != '' )
+					Ps.birth_year = Year( Ps.birth_date );
+				else
+					Ps.birth_year.Clear();
+			}
+		}
+
+		Ps.Doc.SetChanged( true );
+"/>
+
+
+<EDIT NAME="phone_edit" SAMPLE="1" SET-VALUE-ACTION="
+		lib_base.OnPhoneFieldSetValue( Source, NewValue );
+"/>
+
+
+
+<PANEL NAME="email_edit" SPACING="short" PARAM-destType="" PARAM-templateAction="subtype=code" SAMPLE="1">
+	<LINE SPACING="short">
+		<IMAGE URL="//base_pict/email_message.ico">
+			<MENU LEFT-CLICK="1">
+				<IF EXPR="Ps != ''">
+					<MENU-ENTRY TITLE="-- ##UiText.actions.new_message__email## --" HREF-EXPR="'mailto:' + Ps" TARGET="_web"/>
+
+					<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( mail_templates ), '! is_notif && dest_type == \'' + GetSampleParam( 'destType' ) + '\'' )" VAR="_template">
+						<IF EXPR="_template.is_group_starter">
+							<MENU-ENTRY VERT-SEPARATOR="1"/>
+						</IF>
+
+						<MENU-ENTRY TITLE-EXPR="_template.name" ACTION="EvalSampleParam( 'templateAction' )" ENABLE-EXPR="_template.may_use_for_plain_object( Ps.Doc.TopElem )"/>
+					</LOOP>
+				</IF>
+				<ELSE>
+					<MENU-ENTRY TITLE="E-mail не указан" ENABLE-EXPR="false" lang-en:TITLE="E-mail is not specified" lang-ua:TITLE="E-mail не вказано"/>
+				</ELSE>
+			</MENU>
+		</IMAGE>
+
+		<LABEL TITLE-EXPR="GetSampleItem().Title"/>
+	</LINE>
+
+	<EDIT SOURCE="Ps" UPDATE-ACTION="
+			Parent.ExecUpdateAction();
+	" />
+</PANEL>
+
+
+
+
+<PANEL NAME="skype_edit" SPACING="short" SAMPLE="1" PARAM-dummy="optional=1">
+	<LINE SPACING="short" MULTILINE="0">
+		<IMAGE URL="//base_pict/skype.ico" WIDTH="16px" HEIGHT="16px">
+			<MENU LEFT-CLICK="1">
+				<IF EXPR="Ps != ''">
+					<MENU-ENTRY TITLE="##UiText.actions.call##" HREF-EXPR="'skype:' + Ps + '?call'" TARGET="_web"/>
+					<MENU-ENTRY TITLE="Чат" HREF-EXPR="'skype:' + Ps + '?chat'" TARGET="_web" lang-en:TITLE="Chat" lang-ua:TITLE="Чат"/>
+				</IF>
+				<ELSE>
+					<MENU-ENTRY TITLE="Skype не указан" ENABLE-EXPR="false" lang-en:TITLE="Skype is not specified" lang-ua:TITLE="Skype не вказаний"/>
+				</ELSE>
+			</MENU>
+		</IMAGE>
+
+		<LABEL TITLE-EXPR="GetSampleItem().Title"/>
+	</LINE>
+
+	<EDIT SOURCE="Ps"/>
+</PANEL>
+
+
+
+<PANEL NAME="phone_edit_ext" SPACING="short" PARAM-destType="" SAMPLE="1">
+	<LINE SPACING="short">
+		<IMAGE URL="//base_pict/phone_mobile.ico" URL-EXPR="Ps.Name == 'work_phone' ? '//base_pict/phone_work.ico' : ( Ps.Name == 'home_phone' ? '//base_pict/phone.ico' : '//base_pict/phone_mobile.ico' )">
+			<MENU LEFT-CLICK="1">
+				<MENU-ENTRY TITLE="##UiText.actions.call##" ACTION="lib_telephony.MakeCall( Ps, Ps.Parent )" ENABLE-EXPR="Ps.HasValue" PASSIVE="1"/>
+
+				<IF EXPR="base1_config.use_phone_api" IGNORE-ERRORS="0">
+					<MENU-ENTRY TITLE="##UiText.titles.call_history##" ACTION="lib_telephony.ShowCallHistory( Ps )" ENABLE-EXPR="Ps.HasValue" PASSIVE="1"/>
+				</IF>
+
+				<IF EXPR="Ps.Name != 'work_phone'">
+					<MENU-ENTRY SEPARATOR="1"/>
+					<MENU-ENTRY TITLE="##UiText.actions.send_sms##..." ACTION="lib_base.handle_send_sms( Ps )" ENABLE-EXPR="base1_config.use_sms &amp;&amp; Ps.HasValue" PASSIVE="1"/>
+
+					<IF EXPR="base1_config.use_sms" IGNORE-ERRORS="0">
+						<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( sms_templates ), '! is_notif && dest_type == \'' + GetSampleParam( 'destType' ) + '\'' )" VAR="_template" IGNORE-ERRORS="0">
+							<IF EXPR="_template.is_group_starter">
+								<MENU-ENTRY VERT-SEPARATOR="1"/>
+							</IF>
+
+							<MENU-ENTRY TITLE-EXPR="_template.name" ACTION="
+									if ( GetSampleParam( 'destType' ) == 'candidate' )
+										envObject = Ps.Parent.build_mail_env_object( Ps.Parent.get_screen_target_vacancy_id() );
+									else
+										envObject = lib_mail.build_default_env( Ps.Parent );
+								
+									smsMessage = lib_sms.build_sms_message( _template, Ps, Ps.Parent, envObject );
+									if ( lib_sms.show_sms_message( smsMessage ) == false )
+										return;
+
+									lib_base.RegisterSmsSending( _template, Ps.Parent );
+							" ENABLE-EXPR="_template.may_use_for_plain_object( Ps.Doc.TopElem ) &amp;&amp; Ps.HasValue"/>
+						</LOOP>
+					</IF>
+				</IF>
+			</MENU>
+		</IMAGE>
+
+		<LABEL TITLE-EXPR="GetSampleItem().Title"/>
+	</LINE>
+
+	<EDIT SOURCE="lib_base.GetPhoneFieldDispValue( Ps )" SET-VALUE-ACTION="
+			lib_base.OnPhoneFieldSetValue( Ps, NewValue );
+	" UPDATE-ACTION="
+			Parent.ExecUpdateAction();
+	" />
+</PANEL>
+
+
+
+
+<TABLE NAME="color_selector" SAMPLE="1" PARAM-dummy="optional=1" SPACING="short">
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="button"/>
+	</COLUMNS>
+	
+	<EDIT BK-COLOR-EXPR="Ps" SOURCE="Ps == '' ? '---' : ''" ALIGN="center" READ-ONLY="1"/>
+
+	<BUTTON IMAGE-URL="//base_pict/dots.ico" STD-MARGINS="0" ACTION="
+			Ps = Screen.AskColor( Ps );
+			Ps.Doc.SetChanged( true );
+	" ENABLE-EXPR="! GetSampleItem().IsReadOnly"/>
+</TABLE>
+
+
+
+<TABLE NAME="file_path_selector" SAMPLE="1" PARAM-suffix-pattern-expr="optional=1;default='';subtype=code" SPACING="short">
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="17zr"/>
+	</COLUMNS>
+	
+	<EDIT SOURCE="Ps" ENABLE-EXPR="GetSampleItem().IsEnabled" FILE-PATH="1" UPDATE-ACTION="
+			GetSampleItem().ExecUpdateAction();
+	"/>
+
+	<BUTTON TITLE="##UiText.actions.browse##..." IMAGE-URL="//base_pict/open.ico" ACTION="
+			Ps.Value = UrlToFilePath( Screen.AskFileOpen( FilePathToUrl( Ps ), EvalSampleParam( 'suffix-pattern-expr' ) ) );
+			Ps.Doc.SetChanged( true );
+			GetSampleItem().ExecUpdateAction();
+	" ENABLE-EXPR="GetSampleItem().IsEnabled"/>
+</TABLE>
+
+
+
+<TABLE NAME="dir_path_selector" SAMPLE="1" PARAM-dummy="optional=1;default='';subtype=code" SPACING="short">
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="17zr"/>
+	</COLUMNS>
+	
+	<EDIT SOURCE="Ps" ENABLE-EXPR="GetSampleItem().IsEnabled" DIR-PATH="1"/>
+
+	<BUTTON TITLE="##UiText.actions.browse##..." IMAGE-URL="//base_pict/open.ico" ACTION="
+			Ps.Value = UrlToFilePath( Screen.AskDir( FilePathToUrl( Ps ) ) );
+			Ps.Doc.SetChanged( true );
+	" ENABLE-EXPR="GetSampleItem().IsEnabled"/>
+</TABLE>
+
+
+
+<LINE NAME="width_edit" SAMPLE="1">
+	<EDIT SOURCE="
+			if ( Ps == '' )
+				return ''
+
+			if ( StrEnds( Ps, '%' ) )
+				return StrLeftRange( Ps, StrLen( Ps ) - 1 );
+			else if ( StrEnds( Ps, 'zr' ) )
+				return StrLeftRange( Ps, StrLen( Ps ) - 2 );
+	" SET-VALUE-ACTION="
+			if ( NewValue == '' )
+			{
+				newWidth = '';
+			}
+			else
+			{
+				newValue = Int( NewValue );
+
+				if ( StrEnds( Ps, '%' ) )
+					newWidth = newValue + '%';
+				else if ( StrEnds( Ps, 'zr' ) )
+					newWidth = newValue + 'zr';
+				else
+					newWidth = newValue + '%';
+			}
+
+			Item.Parent.SetSourceValue( newWidth );
+	" WIDTH="8zr"/>
+
+	<COMBO SOURCE="
+			if ( StrEnds( Ps, '%' ) )
+				return '%';
+			else if ( StrEnds( Ps, 'zr' ) )
+				return 'zr';
+			else
+				return '%';
+	" SET-VALUE-ACTION="
+			newWidth = '' + Ps;
+			if ( newWidth == '' )
+				newWidth = '10';
+
+			if ( NewValue == null )
+				NewValue = '%';
+
+			if ( StrEnds( newWidth, '%' ) )
+				newWidth = StrLeftRange( newWidth, StrLen( newWidth ) - 1 ) + NewValue;
+			else if ( StrEnds( newWidth, 'zr' ) )
+				newWidth = StrLeftRange( newWidth, StrLen( newWidth ) - 2 ) + NewValue;
+			else
+				newWidth = newWidth + NewValue;
+
+			Item.Parent.SetSourceValue( newWidth );
+	" WIDTH="14zr">
+		<COMBO-ENTRY TITLE="%" VALUE="%"/>
+		<COMBO-ENTRY TITLE="##UiText.titles.symbols##" VALUE="zr"/>
+	</COMBO>
+</LINE>
+
+
+
+</SPXML-SCREEN>

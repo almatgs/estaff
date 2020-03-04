@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_voc_param>
+	<voc_id TYPE="string" FOREIGN-ARRAY="vocs"/>
+
+	<param>
+		<selector_type TYPE="string"/>
+		<auto_order TYPE="string"/>
+	</param>
+</dlg_voc_param>
+
+
+
+</SPXML-INLINE-FORM>

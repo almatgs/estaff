@@ -1,0 +1,1631 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_countries SPXML-FORM="x-local://base2/base2_std_countries_int.xmd">
+	<std_country>
+		<id>BLR</id>
+		<name_en>Belarus</name_en>
+		<name_ru>Белоруссия</name_ru>
+		<name_ua>Білорусь</name_ua>
+		<full_name_en>Republic of Belarus</full_name_en>
+		<full_name_ru>Республика Беларусь</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>KAZ</id>
+		<name_en>Kazakhstan</name_en>
+		<name_ru>Казахстан</name_ru>
+		<full_name_en>Republic of Kazakhstan</full_name_en>
+		<full_name_ru>Республика Казахстан</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>RUS</id>
+		<name_en>Russia</name_en>
+		<name_ru>Россия</name_ru>
+		<name_ua>Росія</name_ua>
+		<full_name_en>Russian Federation</full_name_en>
+		<full_name_ru>Российская Федерация</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>UKR</id>
+		<name_en>Ukraine</name_en>
+		<name_ru>Украина</name_ru>
+		<name_ua>Україна</name_ua>
+	</std_country>
+	<std_country>
+		<id>ABW</id>
+		<name_en>Aruba</name_en>
+		<name_ru>Аруба</name_ru>
+	</std_country>
+	<std_country>
+		<id>AFG</id>
+		<name_en>Afghanistan</name_en>
+		<name_ru>Афганистан</name_ru>
+		<full_name_en>Islamic Republic of Afghanistan</full_name_en>
+		<full_name_ru>Исламская Республика Афганистан</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>AGO</id>
+		<name_en>Angola</name_en>
+		<name_ru>Ангола</name_ru>
+		<full_name_en>Republic of Angola</full_name_en>
+		<full_name_ru>Республика Ангола</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>AIA</id>
+		<name_en>Anguilla</name_en>
+		<name_ru>Ангилья</name_ru>
+	</std_country>
+	<std_country>
+		<id>ALA</id>
+		<name_en>Aland Islands</name_en>
+		<name_ru>Аландские острова</name_ru>
+	</std_country>
+	<std_country>
+		<id>ALB</id>
+		<name_en>Albania</name_en>
+		<name_ru>Албания</name_ru>
+		<full_name_en>Republic of Albania</full_name_en>
+		<full_name_ru>Республика Албания</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>AND</id>
+		<name_en>Andorra</name_en>
+		<name_ru>Андорра</name_ru>
+		<full_name_en>Principality of Andorra</full_name_en>
+		<full_name_ru>Княжество Андорра</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>ARE</id>
+		<name_en>United Arab Emirates</name_en>
+		<name_ru>Объединённые Арабские Эмираты</name_ru>
+		<full_name_ru>Объединенные Арабские Эмираты</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>ARG</id>
+		<name_en>Argentina</name_en>
+		<name_ru>Аргентина</name_ru>
+		<full_name_en>Argentine Republic</full_name_en>
+		<full_name_ru>Аргентинская Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>ARM</id>
+		<name_en>Armenia</name_en>
+		<name_ru>Армения</name_ru>
+		<full_name_en>Republic of Armenia</full_name_en>
+		<full_name_ru>Республика Армения</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>ASM</id>
+		<name_en>American Samoa</name_en>
+		<name_ru>Американское Самоа</name_ru>
+		<full_name_ru>американское Самоа</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>ATA</id>
+		<name_en>Antarctica</name_en>
+		<name_ru>Антарктида</name_ru>
+	</std_country>
+	<std_country>
+		<id>ATF</id>
+		<name_en>French Southern and Antarctic Lands</name_en>
+		<name_ru>Французские Южные и Антарктические территории</name_ru>
+		<full_name_en>Territory of the French Southern and Antarctic Lands</full_name_en>
+		<full_name_ru>Территория Французские Южные и Антарктические земли</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>ATG</id>
+		<name_en>Antigua and Barbuda</name_en>
+		<name_ru>Антигуа и Барбуда</name_ru>
+	</std_country>
+	<std_country>
+		<id>AUS</id>
+		<name_en>Australia</name_en>
+		<name_ru>Австралия</name_ru>
+		<full_name_en>Commonwealth of Australia</full_name_en>
+		<full_name_ru>Содружество Австралии</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>AUT</id>
+		<name_en>Austria</name_en>
+		<name_ru>Австрия</name_ru>
+		<full_name_en>Republic of Austria</full_name_en>
+		<full_name_ru>Австрийская Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>AZE</id>
+		<name_en>Azerbaijan</name_en>
+		<name_ru>Азербайджан</name_ru>
+		<full_name_en>Republic of Azerbaijan</full_name_en>
+		<full_name_ru>Азербайджанская Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>BDI</id>
+		<name_en>Burundi</name_en>
+		<name_ru>Бурунди</name_ru>
+		<full_name_en>Republic of Burundi</full_name_en>
+		<full_name_ru>Республика Бурунди</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>BEL</id>
+		<name_en>Belgium</name_en>
+		<name_ru>Бельгия</name_ru>
+		<full_name_en>Kingdom of Belgium</full_name_en>
+		<full_name_ru>Королевство Бельгия</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>BEN</id>
+		<name_en>Benin</name_en>
+		<name_ru>Бенин</name_ru>
+		<full_name_en>Republic of Benin</full_name_en>
+		<full_name_ru>Республика Бенин</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>BFA</id>
+		<name_en>Burkina Faso</name_en>
+		<name_ru>Буркина-Фасо</name_ru>
+		<full_name_ru>Буркина -Фасо</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>BGD</id>
+		<name_en>Bangladesh</name_en>
+		<name_ru>Бангладеш</name_ru>
+		<full_name_en>People's Republic of Bangladesh</full_name_en>
+		<full_name_ru>Народная Республика Бангладеш</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>BGR</id>
+		<name_en>Bulgaria</name_en>
+		<name_ru>Болгария</name_ru>
+		<full_name_en>Republic of Bulgaria</full_name_en>
+		<full_name_ru>Республика Болгария</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>BHR</id>
+		<name_en>Bahrain</name_en>
+		<name_ru>Бахрейн</name_ru>
+		<full_name_en>Kingdom of Bahrain</full_name_en>
+		<full_name_ru>Королевство Бахрейн</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>BHS</id>
+		<name_en>Bahamas</name_en>
+		<name_ru>Багамские Острова</name_ru>
+		<full_name_en>Commonwealth of the Bahamas</full_name_en>
+		<full_name_ru>Содружество Багамских Островов</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>BIH</id>
+		<name_en>Bosnia and Herzegovina</name_en>
+		<name_ru>Босния и Герцеговина</name_ru>
+	</std_country>
+	<std_country>
+		<id>BLM</id>
+		<name_en>Saint Barthelemy</name_en>
+		<name_ru>Сен-Бартелеми</name_ru>
+		<full_name_en>Collectivity of Saint BarthelemySaint Barthelemy</full_name_en>
+		<full_name_ru>Коллективность Санкт -БартельмиСент Бартелеми</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>BLZ</id>
+		<name_en>Belize</name_en>
+		<name_ru>Белиз</name_ru>
+	</std_country>
+	<std_country>
+		<id>BMU</id>
+		<name_en>Bermuda</name_en>
+		<name_ru>Бермудские Острова</name_ru>
+		<full_name_ru>Бермудские острова</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>BOL</id>
+		<name_en>Bolivia</name_en>
+		<name_ru>Боливия</name_ru>
+		<full_name_en>Plurinational State of Bolivia</full_name_en>
+		<full_name_ru>Многонациональное Государство Боливия</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>BRA</id>
+		<name_en>Brazil</name_en>
+		<name_ru>Бразилия</name_ru>
+		<full_name_en>Federative Republic of Brazil</full_name_en>
+		<full_name_ru>Федеративная Республика Бразилия</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>BRB</id>
+		<name_en>Barbados</name_en>
+		<name_ru>Барбадос</name_ru>
+	</std_country>
+	<std_country>
+		<id>BRN</id>
+		<name_en>Brunei</name_en>
+		<name_ru>Бруней</name_ru>
+		<full_name_en>Nation of Brunei, Abode of Peace</full_name_en>
+		<full_name_ru>Нация Бруней, обитель мира</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>BTN</id>
+		<name_en>Bhutan</name_en>
+		<name_ru>Бутан</name_ru>
+		<full_name_en>Kingdom of Bhutan</full_name_en>
+		<full_name_ru>Королевство Бутан</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>BVT</id>
+		<name_en>Bouvet Island</name_en>
+		<name_ru>Остров Буве</name_ru>
+	</std_country>
+	<std_country>
+		<id>BWA</id>
+		<name_en>Botswana</name_en>
+		<name_ru>Ботсвана</name_ru>
+		<full_name_en>Republic of Botswana</full_name_en>
+		<full_name_ru>Республика Ботсвана</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>CAF</id>
+		<name_en>Central African Republic</name_en>
+		<name_ru>Центральноафриканская Республика</name_ru>
+		<full_name_ru>Центрально-Африканская Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>CAN</id>
+		<name_en>Canada</name_en>
+		<name_ru>Канада</name_ru>
+	</std_country>
+	<std_country>
+		<id>CCK</id>
+		<name_en>Cocos (Keeling) Islands</name_en>
+		<name_ru>Кокосовые острова</name_ru>
+		<full_name_en>Territory of the Cocos (Keeling) Islands</full_name_en>
+		<full_name_ru>Территория Кокосовые (Килинг) острова</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>CHE</id>
+		<name_en>Switzerland</name_en>
+		<name_ru>Швейцария</name_ru>
+		<full_name_en>Swiss Confederation</full_name_en>
+		<full_name_ru>Швейцарская Конфедерация</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>CHL</id>
+		<name_en>Chile</name_en>
+		<name_ru>Чили</name_ru>
+		<full_name_en>Republic of Chile</full_name_en>
+		<full_name_ru>Республика Чили</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>CHN</id>
+		<name_en>China</name_en>
+		<name_ru>Китай</name_ru>
+		<full_name_en>People's Republic of China</full_name_en>
+		<full_name_ru>Народная Республика Китай</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>CIV</id>
+		<name_en>Ivory Coast</name_en>
+		<name_ru>Кот-д’Ивуар</name_ru>
+		<full_name_en>Republic of Cote d'Ivoire</full_name_en>
+		<full_name_ru>Республика Кот- д'Ивуаре</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>CMR</id>
+		<name_en>Cameroon</name_en>
+		<name_ru>Камерун</name_ru>
+		<full_name_en>Republic of Cameroon</full_name_en>
+		<full_name_ru>Республика Камерун</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>COD</id>
+		<name_en>DR Congo</name_en>
+		<name_ru>Демократическая Республика Конго</name_ru>
+		<full_name_en>Democratic Republic of the Congo</full_name_en>
+	</std_country>
+	<std_country>
+		<id>COG</id>
+		<name_en>Republic of the Congo</name_en>
+		<name_ru>Республика Конго</name_ru>
+	</std_country>
+	<std_country>
+		<id>COK</id>
+		<name_en>Cook Islands</name_en>
+		<name_ru>Острова Кука</name_ru>
+		<full_name_ru>острова Кука</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>COL</id>
+		<name_en>Colombia</name_en>
+		<name_ru>Колумбия</name_ru>
+		<full_name_en>Republic of Colombia</full_name_en>
+		<full_name_ru>Республика Колумбия</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>COM</id>
+		<name_en>Comoros</name_en>
+		<name_ru>Коморы</name_ru>
+		<full_name_en>Union of the Comoros</full_name_en>
+		<full_name_ru>Союз Коморских Островов</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>CPV</id>
+		<name_en>Cape Verde</name_en>
+		<name_ru>Кабо-Верде</name_ru>
+		<full_name_en>Republic of Cabo Verde</full_name_en>
+		<full_name_ru>Республика Кабо -Верде</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>CRI</id>
+		<name_en>Costa Rica</name_en>
+		<name_ru>Коста-Рика</name_ru>
+		<full_name_en>Republic of Costa Rica</full_name_en>
+		<full_name_ru>Республика Коста-Рика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>CUB</id>
+		<name_en>Cuba</name_en>
+		<name_ru>Куба</name_ru>
+		<full_name_en>Republic of Cuba</full_name_en>
+		<full_name_ru>Республика Куба</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>CUW</id>
+		<name_en>Curacao</name_en>
+		<name_ru>Кюрасао</name_ru>
+		<full_name_en>Country of Curacao</full_name_en>
+		<full_name_ru>Страна Кюрасао</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>CXR</id>
+		<name_en>Christmas Island</name_en>
+		<name_ru>Остров Рождества</name_ru>
+		<full_name_en>Territory of Christmas Island</full_name_en>
+		<full_name_ru>Территория острова Рождества</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>CYM</id>
+		<name_en>Cayman Islands</name_en>
+		<name_ru>Каймановы острова</name_ru>
+	</std_country>
+	<std_country>
+		<id>CYP</id>
+		<name_en>Cyprus</name_en>
+		<name_ru>Кипр</name_ru>
+		<full_name_en>Republic of Cyprus</full_name_en>
+		<full_name_ru>Республика Кипр</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>CZE</id>
+		<name_en>Czech Republic</name_en>
+		<name_ru>Чехия</name_ru>
+		<full_name_ru>Чешская Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>DEU</id>
+		<name_en>Germany</name_en>
+		<name_ru>Германия</name_ru>
+		<full_name_en>Federal Republic of Germany</full_name_en>
+		<full_name_ru>Федеративная Республика Германия</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>DJI</id>
+		<name_en>Djibouti</name_en>
+		<name_ru>Джибути</name_ru>
+		<full_name_en>Republic of Djibouti</full_name_en>
+		<full_name_ru>Республика Джибути</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>DMA</id>
+		<name_en>Dominica</name_en>
+		<name_ru>Доминика</name_ru>
+		<full_name_en>Commonwealth of Dominica</full_name_en>
+		<full_name_ru>Содружество Доминики</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>DNK</id>
+		<name_en>Denmark</name_en>
+		<name_ru>Дания</name_ru>
+		<full_name_en>Kingdom of Denmark</full_name_en>
+		<full_name_ru>Королевство Дания</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>DOM</id>
+		<name_en>Dominican Republic</name_en>
+		<name_ru>Доминиканская Республика</name_ru>
+	</std_country>
+	<std_country>
+		<id>DZA</id>
+		<name_en>Algeria</name_en>
+		<name_ru>Алжир</name_ru>
+		<full_name_en>People's Democratic Republic of Algeria</full_name_en>
+		<full_name_ru>Народно-Демократическая Республика Алжир</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>ECU</id>
+		<name_en>Ecuador</name_en>
+		<name_ru>Эквадор</name_ru>
+		<full_name_en>Republic of Ecuador</full_name_en>
+		<full_name_ru>Республика Эквадор</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>EGY</id>
+		<name_en>Egypt</name_en>
+		<name_ru>Египет</name_ru>
+		<full_name_en>Arab Republic of Egypt</full_name_en>
+		<full_name_ru>Арабская Республика Египет</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>ERI</id>
+		<name_en>Eritrea</name_en>
+		<name_ru>Эритрея</name_ru>
+		<full_name_en>State of Eritrea</full_name_en>
+		<full_name_ru>Государство Эритрея</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>ESH</id>
+		<name_en>Western Sahara</name_en>
+		<name_ru>Западная Сахара</name_ru>
+		<full_name_en>Sahrawi Arab Democratic Republic</full_name_en>
+		<full_name_ru>Sahrawi Арабская Демократическая Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>ESP</id>
+		<name_en>Spain</name_en>
+		<name_ru>Испания</name_ru>
+		<full_name_en>Kingdom of Spain</full_name_en>
+		<full_name_ru>Королевство Испания</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>EST</id>
+		<name_en>Estonia</name_en>
+		<name_ru>Эстония</name_ru>
+		<full_name_en>Republic of Estonia</full_name_en>
+		<full_name_ru>Эстонская Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>ETH</id>
+		<name_en>Ethiopia</name_en>
+		<name_ru>Эфиопия</name_ru>
+		<full_name_en>Federal Democratic Republic of Ethiopia</full_name_en>
+		<full_name_ru>Федеративная Демократическая Республика Эфиопия</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>FIN</id>
+		<name_en>Finland</name_en>
+		<name_ru>Финляндия</name_ru>
+		<full_name_en>Republic of Finland</full_name_en>
+		<full_name_ru>Финляндская Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>FJI</id>
+		<name_en>Fiji</name_en>
+		<name_ru>Фиджи</name_ru>
+		<full_name_en>Republic of Fiji</full_name_en>
+		<full_name_ru>Республика Фиджи</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>FLK</id>
+		<name_en>Falkland Islands</name_en>
+		<name_ru>Фолклендские острова</name_ru>
+	</std_country>
+	<std_country>
+		<id>FRA</id>
+		<name_en>France</name_en>
+		<name_ru>Франция</name_ru>
+		<full_name_en>French Republic</full_name_en>
+		<full_name_ru>Французская Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>FRO</id>
+		<name_en>Faroe Islands</name_en>
+		<name_ru>Фарерские острова</name_ru>
+	</std_country>
+	<std_country>
+		<id>FSM</id>
+		<name_en>Micronesia</name_en>
+		<name_ru>Федеративные Штаты Микронезии</name_ru>
+		<full_name_en>Federated States of Micronesia</full_name_en>
+	</std_country>
+	<std_country>
+		<id>GAB</id>
+		<name_en>Gabon</name_en>
+		<name_ru>Габон</name_ru>
+		<full_name_en>Gabonese Republic</full_name_en>
+		<full_name_ru>Габона Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>GBR</id>
+		<name_en>United Kingdom</name_en>
+		<name_ru>Великобритания</name_ru>
+		<full_name_en>United Kingdom of Great Britain and Northern Ireland</full_name_en>
+		<full_name_ru>Соединенное Королевство Великобритании и Северной Ирландии</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>GEO</id>
+		<name_en>Georgia</name_en>
+		<name_ru>Грузия</name_ru>
+	</std_country>
+	<std_country>
+		<id>GGY</id>
+		<name_en>Guernsey</name_en>
+		<name_ru>Гернси</name_ru>
+		<full_name_en>Bailiwick of Guernsey</full_name_en>
+		<full_name_ru>Коронное владение Гернси</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>GHA</id>
+		<name_en>Ghana</name_en>
+		<name_ru>Гана</name_ru>
+		<full_name_en>Republic of Ghana</full_name_en>
+		<full_name_ru>Республика Гана</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>GIB</id>
+		<name_en>Gibraltar</name_en>
+		<name_ru>Гибралтар</name_ru>
+	</std_country>
+	<std_country>
+		<id>GIN</id>
+		<name_en>Guinea</name_en>
+		<name_ru>Гвинея</name_ru>
+		<full_name_en>Republic of Guinea</full_name_en>
+		<full_name_ru>Республика Гвинея</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>GLP</id>
+		<name_en>Guadeloupe</name_en>
+		<name_ru>Гваделупа</name_ru>
+	</std_country>
+	<std_country>
+		<id>GMB</id>
+		<name_en>Gambia</name_en>
+		<name_ru>Гамбия</name_ru>
+		<full_name_en>Republic of the Gambia</full_name_en>
+		<full_name_ru>Республика Гамбия</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>GNB</id>
+		<name_en>Guinea-Bissau</name_en>
+		<name_ru>Гвинея-Бисау</name_ru>
+		<full_name_en>Republic of Guinea-Bissau</full_name_en>
+		<full_name_ru>Республика Гвинея -Бисау</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>GNQ</id>
+		<name_en>Equatorial Guinea</name_en>
+		<name_ru>Экваториальная Гвинея</name_ru>
+		<full_name_en>Republic of Equatorial Guinea</full_name_en>
+		<full_name_ru>Республика Экваториальная Гвинея</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>GRC</id>
+		<name_en>Greece</name_en>
+		<name_ru>Греция</name_ru>
+		<full_name_en>Hellenic Republic</full_name_en>
+		<full_name_ru>Греческая Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>GRD</id>
+		<name_en>Grenada</name_en>
+		<name_ru>Гренада</name_ru>
+	</std_country>
+	<std_country>
+		<id>GRL</id>
+		<name_en>Greenland</name_en>
+		<name_ru>Гренландия</name_ru>
+	</std_country>
+	<std_country>
+		<id>GTM</id>
+		<name_en>Guatemala</name_en>
+		<name_ru>Гватемала</name_ru>
+		<full_name_en>Republic of Guatemala</full_name_en>
+		<full_name_ru>Республика Гватемала</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>GUF</id>
+		<name_en>French Guiana</name_en>
+		<name_ru>Французская Гвиана</name_ru>
+		<full_name_en>Guiana</full_name_en>
+		<full_name_ru>Гвиана</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>GUM</id>
+		<name_en>Guam</name_en>
+		<name_ru>Гуам</name_ru>
+	</std_country>
+	<std_country>
+		<id>GUY</id>
+		<name_en>Guyana</name_en>
+		<name_ru>Гайана</name_ru>
+		<full_name_en>Co-operative Republic of Guyana</full_name_en>
+		<full_name_ru>Кооперативная Республика Гайана</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>HKG</id>
+		<name_en>Hong Kong</name_en>
+		<name_ru>Гонконг</name_ru>
+		<full_name_en>Hong Kong Special Administrative Region of the People's Republic of China</full_name_en>
+		<full_name_ru>Hong Kong Специальный административный район Китайской Народной Республики Китая</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>HMD</id>
+		<name_en>Heard Island and McDonald Islands</name_en>
+		<name_ru>Остров Херд и острова Макдональд</name_ru>
+	</std_country>
+	<std_country>
+		<id>HND</id>
+		<name_en>Honduras</name_en>
+		<name_ru>Гондурас</name_ru>
+		<full_name_en>Republic of Honduras</full_name_en>
+		<full_name_ru>Республика Гондурас</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>HRV</id>
+		<name_en>Croatia</name_en>
+		<name_ru>Хорватия</name_ru>
+		<full_name_en>Republic of Croatia</full_name_en>
+		<full_name_ru>Республика Хорватия</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>HTI</id>
+		<name_en>Haiti</name_en>
+		<name_ru>Гаити</name_ru>
+		<full_name_en>Republic of Haiti</full_name_en>
+		<full_name_ru>Республика Гаити</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>HUN</id>
+		<name_en>Hungary</name_en>
+		<name_ru>Венгрия</name_ru>
+	</std_country>
+	<std_country>
+		<id>IDN</id>
+		<name_en>Indonesia</name_en>
+		<name_ru>Индонезия</name_ru>
+		<full_name_en>Republic of Indonesia</full_name_en>
+		<full_name_ru>Республика Индонезия</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>IMN</id>
+		<name_en>Isle of Man</name_en>
+		<name_ru>Остров Мэн</name_ru>
+	</std_country>
+	<std_country>
+		<id>IND</id>
+		<name_en>India</name_en>
+		<name_ru>Индия</name_ru>
+		<full_name_en>Republic of India</full_name_en>
+		<full_name_ru>Республика Индия</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>IOT</id>
+		<name_en>British Indian Ocean Territory</name_en>
+		<name_ru>Британская территория в Индийском океане</name_ru>
+		<full_name_ru>Британская территория Индийского океана</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>IRL</id>
+		<name_en>Ireland</name_en>
+		<name_ru>Ирландия</name_ru>
+		<full_name_en>Republic of Ireland</full_name_en>
+	</std_country>
+	<std_country>
+		<id>IRN</id>
+		<name_en>Iran</name_en>
+		<name_ru>Иран</name_ru>
+		<full_name_en>Islamic Republic of Iran</full_name_en>
+		<full_name_ru>Исламская Республика Иран</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>IRQ</id>
+		<name_en>Iraq</name_en>
+		<name_ru>Ирак</name_ru>
+		<full_name_en>Republic of Iraq</full_name_en>
+		<full_name_ru>Республика Ирак</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>ISL</id>
+		<name_en>Iceland</name_en>
+		<name_ru>Исландия</name_ru>
+	</std_country>
+	<std_country>
+		<id>ISR</id>
+		<name_en>Israel</name_en>
+		<name_ru>Израиль</name_ru>
+		<full_name_en>State of Israel</full_name_en>
+		<full_name_ru>Государство Израиль</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>ITA</id>
+		<name_en>Italy</name_en>
+		<name_ru>Италия</name_ru>
+		<full_name_en>Italian Republic</full_name_en>
+		<full_name_ru>итальянская Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>JAM</id>
+		<name_en>Jamaica</name_en>
+		<name_ru>Ямайка</name_ru>
+	</std_country>
+	<std_country>
+		<id>JEY</id>
+		<name_en>Jersey</name_en>
+		<name_ru>Джерси</name_ru>
+		<full_name_en>Bailiwick of Jersey</full_name_en>
+		<full_name_ru>Коронное владение Джерси</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>JOR</id>
+		<name_en>Jordan</name_en>
+		<name_ru>Иордания</name_ru>
+		<full_name_en>Hashemite Kingdom of Jordan</full_name_en>
+		<full_name_ru>Иорданского Хашимитского Королевства</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>JPN</id>
+		<name_en>Japan</name_en>
+		<name_ru>Япония</name_ru>
+	</std_country>
+	<std_country>
+		<id>KEN</id>
+		<name_en>Kenya</name_en>
+		<name_ru>Кения</name_ru>
+		<full_name_en>Republic of Kenya</full_name_en>
+		<full_name_ru>Республика Кения</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>KGZ</id>
+		<name_en>Kyrgyzstan</name_en>
+		<name_ru>Киргизия</name_ru>
+		<full_name_en>Kyrgyz Republic</full_name_en>
+		<full_name_ru>Кыргызская Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>KHM</id>
+		<name_en>Cambodia</name_en>
+		<name_ru>Камбоджа</name_ru>
+		<full_name_en>Kingdom of Cambodia</full_name_en>
+		<full_name_ru>Королевство Камбоджа</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>KIR</id>
+		<name_en>Kiribati</name_en>
+		<name_ru>Кирибати</name_ru>
+		<full_name_en>Independent and Sovereign Republic of Kiribati</full_name_en>
+		<full_name_ru>Независимой и суверенной Республики Кирибати</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>KNA</id>
+		<name_en>Saint Kitts and Nevis</name_en>
+		<name_ru>Сент-Китс и Невис</name_ru>
+		<full_name_en>Federation of Saint Christopher and Nevisa</full_name_en>
+		<full_name_ru>Федерация Сент- Кристофер и Nevisa</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>KOR</id>
+		<name_en>South Korea</name_en>
+		<name_ru>Южная Корея</name_ru>
+		<full_name_en>Republic of Korea</full_name_en>
+		<full_name_ru>Республика Корея</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>KOS</id>
+		<name_en>Kosovo</name_en>
+		<name_ru>Республика Косово</name_ru>
+		<full_name_en>Republic of Kosovo</full_name_en>
+	</std_country>
+	<std_country>
+		<id>KWT</id>
+		<name_en>Kuwait</name_en>
+		<name_ru>Кувейт</name_ru>
+		<full_name_en>State of Kuwait</full_name_en>
+		<full_name_ru>Государство Кувейт</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>LAO</id>
+		<name_en>Laos</name_en>
+		<name_ru>Лаос</name_ru>
+		<full_name_en>Lao People's Democratic Republic</full_name_en>
+		<full_name_ru>Лаосская Народно-Демократическая Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>LBN</id>
+		<name_en>Lebanon</name_en>
+		<name_ru>Ливан</name_ru>
+		<full_name_en>Lebanese Republic</full_name_en>
+		<full_name_ru>Ливанская Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>LBR</id>
+		<name_en>Liberia</name_en>
+		<name_ru>Либерия</name_ru>
+		<full_name_en>Republic of Liberia</full_name_en>
+		<full_name_ru>Республика Либерия</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>LBY</id>
+		<name_en>Libya</name_en>
+		<name_ru>Ливия</name_ru>
+		<full_name_en>State of Libya</full_name_en>
+		<full_name_ru>Государство Ливии</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>LCA</id>
+		<name_en>Saint Lucia</name_en>
+		<name_ru>Сент-Люсия</name_ru>
+	</std_country>
+	<std_country>
+		<id>LIE</id>
+		<name_en>Liechtenstein</name_en>
+		<name_ru>Лихтенштейн</name_ru>
+		<full_name_en>Principality of Liechtenstein</full_name_en>
+		<full_name_ru>Княжество Лихтенштейн</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>LKA</id>
+		<name_en>Sri Lanka</name_en>
+		<name_ru>Шри-Ланка</name_ru>
+		<full_name_en>Democratic Socialist Republic of Sri Lanka</full_name_en>
+		<full_name_ru>Демократическая Социалистическая Республика Шри-Ланка</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>LSO</id>
+		<name_en>Lesotho</name_en>
+		<name_ru>Лесото</name_ru>
+		<full_name_en>Kingdom of Lesotho</full_name_en>
+		<full_name_ru>Королевство Лесото</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>LTU</id>
+		<name_en>Lithuania</name_en>
+		<name_ru>Литва</name_ru>
+		<full_name_en>Republic of Lithuania</full_name_en>
+		<full_name_ru>Литовская Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>LUX</id>
+		<name_en>Luxembourg</name_en>
+		<name_ru>Люксембург</name_ru>
+		<full_name_en>Grand Duchy of Luxembourg</full_name_en>
+		<full_name_ru>Великое Герцогство Люксембург</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>LVA</id>
+		<name_en>Latvia</name_en>
+		<name_ru>Латвия</name_ru>
+		<full_name_en>Republic of Latvia</full_name_en>
+		<full_name_ru>Латвийская Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>MAC</id>
+		<name_en>Macau</name_en>
+		<name_ru>Макао</name_ru>
+		<full_name_en>Macao Special Administrative Region of the People's Republic of China</full_name_en>
+		<full_name_ru>Специальный административный район Макао Китайской Народной Республики Китай</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>MAF</id>
+		<name_en>Saint Martin</name_en>
+		<name_ru>Сен-Мартен</name_ru>
+	</std_country>
+	<std_country>
+		<id>MAR</id>
+		<name_en>Morocco</name_en>
+		<name_ru>Марокко</name_ru>
+		<full_name_en>Kingdom of Morocco</full_name_en>
+		<full_name_ru>Королевство Марокко</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>MCO</id>
+		<name_en>Monaco</name_en>
+		<name_ru>Монако</name_ru>
+		<full_name_en>Principality of Monaco</full_name_en>
+		<full_name_ru>Княжество Монако</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>MDA</id>
+		<name_en>Moldova</name_en>
+		<name_ru>Молдавия</name_ru>
+		<full_name_en>Republic of Moldova</full_name_en>
+		<full_name_ru>Молдова</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>MDG</id>
+		<name_en>Madagascar</name_en>
+		<name_ru>Мадагаскар</name_ru>
+		<full_name_en>Republic of Madagascar</full_name_en>
+		<full_name_ru>Республика Мадагаскар</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>MDV</id>
+		<name_en>Maldives</name_en>
+		<name_ru>Мальдивы</name_ru>
+		<full_name_en>Republic of the Maldives</full_name_en>
+		<full_name_ru>Республика Мальдивы</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>MEX</id>
+		<name_en>Mexico</name_en>
+		<name_ru>Мексика</name_ru>
+		<full_name_en>United Mexican States</full_name_en>
+		<full_name_ru>Мексиканских Соединенных Штатов</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>MHL</id>
+		<name_en>Marshall Islands</name_en>
+		<name_ru>Маршалловы Острова</name_ru>
+		<full_name_en>Republic of the Marshall Islands</full_name_en>
+		<full_name_ru>Республика Маршалловы острова</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>MKD</id>
+		<name_en>Macedonia</name_en>
+		<name_ru>Республика Македония</name_ru>
+		<full_name_en>Republic of Macedonia</full_name_en>
+	</std_country>
+	<std_country>
+		<id>MLI</id>
+		<name_en>Mali</name_en>
+		<name_ru>Мали</name_ru>
+		<full_name_en>Republic of Mali</full_name_en>
+		<full_name_ru>Республика Мали</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>MLT</id>
+		<name_en>Malta</name_en>
+		<name_ru>Мальта</name_ru>
+		<full_name_en>Republic of Malta</full_name_en>
+		<full_name_ru>Республика Мальта</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>MMR</id>
+		<name_en>Myanmar</name_en>
+		<name_ru>Мьянма</name_ru>
+		<full_name_en>Republic of the Union of Myanmar</full_name_en>
+		<full_name_ru>Республика Союза Мьянма</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>MNE</id>
+		<name_en>Montenegro</name_en>
+		<name_ru>Черногория</name_ru>
+	</std_country>
+	<std_country>
+		<id>MNG</id>
+		<name_en>Mongolia</name_en>
+		<name_ru>Монголия</name_ru>
+	</std_country>
+	<std_country>
+		<id>MNP</id>
+		<name_en>Northern Mariana Islands</name_en>
+		<name_ru>Северные Марианские острова</name_ru>
+		<full_name_en>Commonwealth of the Northern Mariana Islands</full_name_en>
+		<full_name_ru>Содружество Северных Марианских островов</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>MOZ</id>
+		<name_en>Mozambique</name_en>
+		<name_ru>Мозамбик</name_ru>
+		<full_name_en>Republic of Mozambique</full_name_en>
+		<full_name_ru>Республика Мозамбик</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>MRT</id>
+		<name_en>Mauritania</name_en>
+		<name_ru>Мавритания</name_ru>
+		<full_name_en>Islamic Republic of Mauritania</full_name_en>
+		<full_name_ru>Исламская Республика Мавритания</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>MSR</id>
+		<name_en>Montserrat</name_en>
+		<name_ru>Монтсеррат</name_ru>
+	</std_country>
+	<std_country>
+		<id>MTQ</id>
+		<name_en>Martinique</name_en>
+		<name_ru>Мартиника</name_ru>
+	</std_country>
+	<std_country>
+		<id>MUS</id>
+		<name_en>Mauritius</name_en>
+		<name_ru>Маврикий</name_ru>
+		<full_name_en>Republic of Mauritius</full_name_en>
+		<full_name_ru>Республика Маврикий</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>MWI</id>
+		<name_en>Malawi</name_en>
+		<name_ru>Малави</name_ru>
+		<full_name_en>Republic of Malawi</full_name_en>
+		<full_name_ru>Республика Малави</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>MYS</id>
+		<name_en>Malaysia</name_en>
+		<name_ru>Малайзия</name_ru>
+	</std_country>
+	<std_country>
+		<id>MYT</id>
+		<name_en>Mayotte</name_en>
+		<name_ru>Майотта</name_ru>
+		<full_name_en>Department of Mayotte</full_name_en>
+		<full_name_ru>Департамент Майотта</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>NAM</id>
+		<name_en>Namibia</name_en>
+		<name_ru>Намибия</name_ru>
+		<full_name_en>Republic of Namibia</full_name_en>
+		<full_name_ru>Республика Намибия</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>NCL</id>
+		<name_en>New Caledonia</name_en>
+		<name_ru>Новая Каледония</name_ru>
+	</std_country>
+	<std_country>
+		<id>NER</id>
+		<name_en>Niger</name_en>
+		<name_ru>Нигер</name_ru>
+		<full_name_en>Republic of Niger</full_name_en>
+		<full_name_ru>Республика Нигер</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>NFK</id>
+		<name_en>Norfolk Island</name_en>
+		<name_ru>Норфолк</name_ru>
+		<full_name_en>Territory of Norfolk Island</full_name_en>
+		<full_name_ru>Территория острова Норфолк</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>NGA</id>
+		<name_en>Nigeria</name_en>
+		<name_ru>Нигерия</name_ru>
+		<full_name_en>Federal Republic of Nigeria</full_name_en>
+		<full_name_ru>Федеративная Республика Нигерия</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>NIC</id>
+		<name_en>Nicaragua</name_en>
+		<name_ru>Никарагуа</name_ru>
+		<full_name_en>Republic of Nicaragua</full_name_en>
+		<full_name_ru>Республика Никарагуа</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>NIU</id>
+		<name_en>Niue</name_en>
+		<name_ru>Ниуэ</name_ru>
+	</std_country>
+	<std_country>
+		<id>NLD</id>
+		<name_en>Netherlands</name_en>
+		<name_ru>Нидерланды</name_ru>
+	</std_country>
+	<std_country>
+		<id>NOR</id>
+		<name_en>Norway</name_en>
+		<name_ru>Норвегия</name_ru>
+		<full_name_en>Kingdom of Norway</full_name_en>
+		<full_name_ru>Королевство Норвегия</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>NPL</id>
+		<name_en>Nepal</name_en>
+		<name_ru>Непал</name_ru>
+		<full_name_en>Federal Democratic Republic of Nepal</full_name_en>
+		<full_name_ru>Федеративная Демократическая Республика Непал</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>NRU</id>
+		<name_en>Nauru</name_en>
+		<name_ru>Науру</name_ru>
+		<full_name_en>Republic of Nauru</full_name_en>
+		<full_name_ru>Республика Науру</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>NZL</id>
+		<name_en>New Zealand</name_en>
+		<name_ru>Новая Зеландия</name_ru>
+	</std_country>
+	<std_country>
+		<id>OMN</id>
+		<name_en>Oman</name_en>
+		<name_ru>Оман</name_ru>
+		<full_name_en>Sultanate of Oman</full_name_en>
+		<full_name_ru>Султанат Оман</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>PAK</id>
+		<name_en>Pakistan</name_en>
+		<name_ru>Пакистан</name_ru>
+		<full_name_en>Islamic Republic of Pakistan</full_name_en>
+		<full_name_ru>Исламская Республика Пакистан</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>PAN</id>
+		<name_en>Panama</name_en>
+		<name_ru>Панама</name_ru>
+		<full_name_en>Republic of Panama</full_name_en>
+		<full_name_ru>Республика Панама</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>PCN</id>
+		<name_en>Pitcairn Islands</name_en>
+		<name_ru>Острова Питкэрн</name_ru>
+		<full_name_en>Pitcairn Group of Islands</full_name_en>
+		<full_name_ru>Питкэрн группа островов</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>PER</id>
+		<name_en>Peru</name_en>
+		<name_ru>Перу</name_ru>
+		<full_name_en>Republic of Peru</full_name_en>
+		<full_name_ru>Республика Перу</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>PHL</id>
+		<name_en>Philippines</name_en>
+		<name_ru>Филиппины</name_ru>
+		<full_name_en>Republic of the Philippines</full_name_en>
+		<full_name_ru>Республика Филиппины</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>PLW</id>
+		<name_en>Palau</name_en>
+		<name_ru>Палау</name_ru>
+		<full_name_en>Republic of Palau</full_name_en>
+		<full_name_ru>Республика Палау</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>PNG</id>
+		<name_en>Papua New Guinea</name_en>
+		<name_ru>Папуа — Новая Гвинея</name_ru>
+		<full_name_en>Independent State of Papua New Guinea</full_name_en>
+		<full_name_ru>Независимое Государство Папуа-Новой Гвинеи</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>POL</id>
+		<name_en>Poland</name_en>
+		<name_ru>Польша</name_ru>
+		<full_name_en>Republic of Poland</full_name_en>
+		<full_name_ru>Республика Польша</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>PRI</id>
+		<name_en>Puerto Rico</name_en>
+		<name_ru>Пуэрто-Рико</name_ru>
+		<full_name_en>Commonwealth of Puerto Rico</full_name_en>
+		<full_name_ru>Содружество Пуэрто- Рико</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>PRK</id>
+		<name_en>North Korea</name_en>
+		<name_ru>Северная Корея</name_ru>
+		<full_name_en>Democratic People's Republic of Korea</full_name_en>
+		<full_name_ru>Корейская Народно-Демократическая Республика Корея</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>PRT</id>
+		<name_en>Portugal</name_en>
+		<name_ru>Португалия</name_ru>
+		<full_name_en>Portuguese Republic</full_name_en>
+		<full_name_ru>Португальская Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>PRY</id>
+		<name_en>Paraguay</name_en>
+		<name_ru>Парагвай</name_ru>
+		<full_name_en>Republic of Paraguay</full_name_en>
+		<full_name_ru>Республика Парагвай</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>PSE</id>
+		<name_en>Palestine</name_en>
+		<name_ru>Палестина</name_ru>
+		<full_name_en>State of Palestine</full_name_en>
+		<full_name_ru>Государство Палестина</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>PYF</id>
+		<name_en>French Polynesia</name_en>
+		<name_ru>Французская Полинезия</name_ru>
+	</std_country>
+	<std_country>
+		<id>QAT</id>
+		<name_en>Qatar</name_en>
+		<name_ru>Катар</name_ru>
+		<full_name_en>State of Qatar</full_name_en>
+		<full_name_ru>Государство Катар</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>REU</id>
+		<name_en>Reunion</name_en>
+		<name_ru>Реюньон</name_ru>
+		<full_name_en>Reunion Island</full_name_en>
+	</std_country>
+	<std_country>
+		<id>ROU</id>
+		<name_en>Romania</name_en>
+		<name_ru>Румыния</name_ru>
+	</std_country>
+	<std_country>
+		<id>RWA</id>
+		<name_en>Rwanda</name_en>
+		<name_ru>Руанда</name_ru>
+		<full_name_en>Republic of Rwanda</full_name_en>
+		<full_name_ru>Республика Руанда</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SAU</id>
+		<name_en>Saudi Arabia</name_en>
+		<name_ru>Саудовская Аравия</name_ru>
+		<full_name_en>Kingdom of Saudi Arabia</full_name_en>
+		<full_name_ru>Королевство Саудовская Аравия</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SDN</id>
+		<name_en>Sudan</name_en>
+		<name_ru>Судан</name_ru>
+		<full_name_en>Republic of the Sudan</full_name_en>
+		<full_name_ru>Республика Судан</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SEN</id>
+		<name_en>Senegal</name_en>
+		<name_ru>Сенегал</name_ru>
+		<full_name_en>Republic of Senegal</full_name_en>
+		<full_name_ru>Республика Сенегал</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SGP</id>
+		<name_en>Singapore</name_en>
+		<name_ru>Сингапур</name_ru>
+		<full_name_en>Republic of Singapore</full_name_en>
+		<full_name_ru>Республика Сингапур</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SGS</id>
+		<name_en>South Georgia</name_en>
+		<name_ru>Южная Георгия и Южные Сандвичевы острова</name_ru>
+		<full_name_en>South Georgia and the South Sandwich Islands</full_name_en>
+	</std_country>
+	<std_country>
+		<id>SJM</id>
+		<name_en>Svalbard and Jan Mayen</name_en>
+		<name_ru>Шпицберген и Ян-Майен</name_ru>
+		<full_name_en>Svalbard og Jan Mayen</full_name_en>
+		<full_name_ru>Свальбарда ог Ян-Майен</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SLB</id>
+		<name_en>Solomon Islands</name_en>
+		<name_ru>Соломоновы Острова</name_ru>
+		<full_name_ru>Соломоновы острова</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SLE</id>
+		<name_en>Sierra Leone</name_en>
+		<name_ru>Сьерра-Леоне</name_ru>
+		<full_name_en>Republic of Sierra Leone</full_name_en>
+		<full_name_ru>Республика Сьерра- Леоне</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SLV</id>
+		<name_en>El Salvador</name_en>
+		<name_ru>Сальвадор</name_ru>
+		<full_name_en>Republic of El Salvador</full_name_en>
+		<full_name_ru>Республика Эль- Сальвадор</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SMR</id>
+		<name_en>San Marino</name_en>
+		<name_ru>Сан-Марино</name_ru>
+		<full_name_en>Most Serene Republic of San Marino</full_name_en>
+		<full_name_ru>Большинство Serene Республика Сан- Марино</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SOM</id>
+		<name_en>Somalia</name_en>
+		<name_ru>Сомали</name_ru>
+		<full_name_en>Federal Republic of Somalia</full_name_en>
+		<full_name_ru>Федеративная Республика Сомали</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SPM</id>
+		<name_en>Saint Pierre and Miquelon</name_en>
+		<name_ru>Сен-Пьер и Микелон</name_ru>
+	</std_country>
+	<std_country>
+		<id>SRB</id>
+		<name_en>Serbia</name_en>
+		<name_ru>Сербия</name_ru>
+		<full_name_en>Republic of Serbia</full_name_en>
+		<full_name_ru>Республика Сербия</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SSD</id>
+		<name_en>South Sudan</name_en>
+		<name_ru>Южный Судан</name_ru>
+		<full_name_en>Republic of South Sudan</full_name_en>
+		<full_name_ru>Республика Южный Судан</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>STP</id>
+		<name_en>Sao Tome and Principe</name_en>
+		<name_ru>Сан-Томе и Принсипи</name_ru>
+		<full_name_en>Democratic Republic of Sao Tome and Principe</full_name_en>
+		<full_name_ru>Демократическая Республика Сан-Томе и Принсипи</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SUR</id>
+		<name_en>Suriname</name_en>
+		<name_ru>Суринам</name_ru>
+		<full_name_en>Republic of Suriname</full_name_en>
+		<full_name_ru>Республика Суринам</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SVK</id>
+		<name_en>Slovakia</name_en>
+		<name_ru>Словакия</name_ru>
+		<full_name_en>Slovak Republic</full_name_en>
+		<full_name_ru>Словацкая Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SVN</id>
+		<name_en>Slovenia</name_en>
+		<name_ru>Словения</name_ru>
+		<full_name_en>Republic of Slovenia</full_name_en>
+		<full_name_ru>Республика Словения</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SWE</id>
+		<name_en>Sweden</name_en>
+		<name_ru>Швеция</name_ru>
+		<full_name_en>Kingdom of Sweden</full_name_en>
+		<full_name_ru>Королевство Швеция</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SWZ</id>
+		<name_en>Swaziland</name_en>
+		<name_ru>Свазиленд</name_ru>
+		<full_name_en>Kingdom of Swaziland</full_name_en>
+		<full_name_ru>Королевство Свазиленд</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SXM</id>
+		<name_en>Sint Maarten</name_en>
+		<name_ru>Синт-Мартен</name_ru>
+		<full_name_ru>Синт-Маартен</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SYC</id>
+		<name_en>Seychelles</name_en>
+		<name_ru>Сейшельские Острова</name_ru>
+		<full_name_en>Republic of Seychelles</full_name_en>
+		<full_name_ru>Республика Сейшельские Острова</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>SYR</id>
+		<name_en>Syria</name_en>
+		<name_ru>Сирия</name_ru>
+		<full_name_en>Syrian Arab Republic</full_name_en>
+		<full_name_ru>Сирийская Арабская Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>TCA</id>
+		<name_en>Turks and Caicos Islands</name_en>
+		<name_ru>Теркс и Кайкос</name_ru>
+		<full_name_ru>Теркс и Кайкос острова</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>TCD</id>
+		<name_en>Chad</name_en>
+		<name_ru>Чад</name_ru>
+		<full_name_en>Republic of Chad</full_name_en>
+		<full_name_ru>Республика Чад</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>TGO</id>
+		<name_en>Togo</name_en>
+		<name_ru>Того</name_ru>
+		<full_name_en>Togolese Republic</full_name_en>
+		<full_name_ru>Того Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>THA</id>
+		<name_en>Thailand</name_en>
+		<name_ru>Таиланд</name_ru>
+		<full_name_en>Kingdom of Thailand</full_name_en>
+		<full_name_ru>Королевство Таиланд</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>TJK</id>
+		<name_en>Tajikistan</name_en>
+		<name_ru>Таджикистан</name_ru>
+		<full_name_en>Republic of Tajikistan</full_name_en>
+		<full_name_ru>Республика Таджикистан</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>TKL</id>
+		<name_en>Tokelau</name_en>
+		<name_ru>Токелау</name_ru>
+	</std_country>
+	<std_country>
+		<id>TKM</id>
+		<name_en>Turkmenistan</name_en>
+		<name_ru>Туркмения</name_ru>
+		<full_name_ru>Туркменистан</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>TLS</id>
+		<name_en>Timor-Leste</name_en>
+		<name_ru>Восточный Тимор</name_ru>
+		<full_name_en>Democratic Republic of Timor-Leste</full_name_en>
+		<full_name_ru>Демократическая Республика Тимор -Лешти</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>TON</id>
+		<name_en>Tonga</name_en>
+		<name_ru>Тонга</name_ru>
+		<full_name_en>Kingdom of Tonga</full_name_en>
+		<full_name_ru>Королевство Тонга</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>TTO</id>
+		<name_en>Trinidad and Tobago</name_en>
+		<name_ru>Тринидад и Тобаго</name_ru>
+		<full_name_en>Republic of Trinidad and Tobago</full_name_en>
+		<full_name_ru>Республика Тринидад и Тобаго</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>TUN</id>
+		<name_en>Tunisia</name_en>
+		<name_ru>Тунис</name_ru>
+		<full_name_en>Tunisian Republic</full_name_en>
+		<full_name_ru>Тунисской Республики</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>TUR</id>
+		<name_en>Turkey</name_en>
+		<name_ru>Турция</name_ru>
+		<full_name_en>Republic of Turkey</full_name_en>
+		<full_name_ru>Республика Турции</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>TUV</id>
+		<name_en>Tuvalu</name_en>
+		<name_ru>Тувалу</name_ru>
+	</std_country>
+	<std_country>
+		<id>TWN</id>
+		<name_en>Taiwan</name_en>
+		<name_ru>Тайвань</name_ru>
+		<full_name_en>Republic of China</full_name_en>
+		<full_name_ru>Китайская Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>TZA</id>
+		<name_en>Tanzania</name_en>
+		<name_ru>Танзания</name_ru>
+		<full_name_en>United Republic of Tanzania</full_name_en>
+		<full_name_ru>Объединенная Республика Танзания</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>UGA</id>
+		<name_en>Uganda</name_en>
+		<name_ru>Уганда</name_ru>
+		<full_name_en>Republic of Uganda</full_name_en>
+		<full_name_ru>Республика Уганда</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>UMI</id>
+		<name_en>United States Minor Outlying Islands</name_en>
+		<name_ru>Внешние малые острова США</name_ru>
+	</std_country>
+	<std_country>
+		<id>URY</id>
+		<name_en>Uruguay</name_en>
+		<name_ru>Уругвай</name_ru>
+		<full_name_en>Oriental Republic of Uruguay</full_name_en>
+		<full_name_ru>Восточной Республики Уругвай</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>USA</id>
+		<name_en>United States</name_en>
+		<name_ru>Соединённые Штаты Америки</name_ru>
+		<name_ua>США</name_ua>
+		<full_name_en>United States of America</full_name_en>
+		<full_name_ru>Соединенные Штаты Америки</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>UZB</id>
+		<name_en>Uzbekistan</name_en>
+		<name_ru>Узбекистан</name_ru>
+		<full_name_en>Republic of Uzbekistan</full_name_en>
+		<full_name_ru>Республика Узбекистан</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>VAT</id>
+		<name_en>Vatican City</name_en>
+		<name_ru>Ватикан</name_ru>
+		<full_name_en>Vatican City State</full_name_en>
+		<full_name_ru>Город-государство Ватикан</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>VCT</id>
+		<name_en>Saint Vincent and the Grenadines</name_en>
+		<name_ru>Сент-Винсент и Гренадины</name_ru>
+	</std_country>
+	<std_country>
+		<id>VEN</id>
+		<name_en>Venezuela</name_en>
+		<name_ru>Венесуэла</name_ru>
+		<full_name_en>Bolivarian Republic of Venezuela</full_name_en>
+		<full_name_ru>Боливарианская Республика Венесуэла</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>VGB</id>
+		<name_en>British Virgin Islands</name_en>
+		<name_ru>Британские Виргинские острова</name_ru>
+		<full_name_en>Virgin Islands</full_name_en>
+		<full_name_ru>Виргинские острова</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>VIR</id>
+		<name_en>United States Virgin Islands</name_en>
+		<name_ru>Виргинские Острова</name_ru>
+		<full_name_en>Virgin Islands of the United States</full_name_en>
+		<full_name_ru>Виргинские острова Соединенных Штатов</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>VNM</id>
+		<name_en>Vietnam</name_en>
+		<name_ru>Вьетнам</name_ru>
+		<full_name_en>Socialist Republic of Vietnam</full_name_en>
+		<full_name_ru>Социалистическая Республика Вьетнам</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>VUT</id>
+		<name_en>Vanuatu</name_en>
+		<name_ru>Вануату</name_ru>
+		<full_name_en>Republic of Vanuatu</full_name_en>
+		<full_name_ru>Республика Вануату</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>WLF</id>
+		<name_en>Wallis and Futuna</name_en>
+		<name_ru>Уоллис и Футуна</name_ru>
+		<full_name_en>Territory of the Wallis and Futuna Islands</full_name_en>
+		<full_name_ru>Территория Уоллис и Футуна острова</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>WSM</id>
+		<name_en>Samoa</name_en>
+		<name_ru>Самоа</name_ru>
+		<full_name_en>Independent State of Samoa</full_name_en>
+		<full_name_ru>Независимое Государство Самоа</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>YEM</id>
+		<name_en>Yemen</name_en>
+		<name_ru>Йемен</name_ru>
+		<full_name_en>Republic of Yemen</full_name_en>
+		<full_name_ru>Йеменская Республика</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>ZAF</id>
+		<name_en>South Africa</name_en>
+		<name_ru>Южно-Африканская Республика</name_ru>
+		<full_name_en>Republic of South Africa</full_name_en>
+	</std_country>
+	<std_country>
+		<id>ZMB</id>
+		<name_en>Zambia</name_en>
+		<name_ru>Замбия</name_ru>
+		<full_name_en>Republic of Zambia</full_name_en>
+		<full_name_ru>Республика Замбия</full_name_ru>
+	</std_country>
+	<std_country>
+		<id>ZWE</id>
+		<name_en>Zimbabwe</name_en>
+		<name_ru>Зимбабве</name_ru>
+		<full_name_en>Republic of Zimbabwe</full_name_en>
+		<full_name_ru>Республика Зимбабве</full_name_ru>
+	</std_country>
+</std_countries>

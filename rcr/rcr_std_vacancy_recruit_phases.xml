@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_vacancy_recruit_phases SPXML-FORM="rcr_std_vacancy_recruit_phases.xmd">
+	<std_vacancy_recruit_phase>
+		<id>recruit_phase_init</id>
+		<name VALUE="Предварительный отбор" lang-en:VALUE="Initial selection" lang-ua:VALUE="Попередній відбір"/>
+	</std_vacancy_recruit_phase>
+
+	<std_vacancy_recruit_phase>
+		<id>recruit_phase_interview</id>
+		<name VALUE="Интервьюирование" lang-en:VALUE="Interviewing" lang-ua:VALUE="Інтерв'ювання"/>
+		<is_active>1</is_active>
+		<req_candidate_conditions>
+			<req_candidate_condition>
+				<event_type_id>interview</event_type_id>
+			</req_candidate_condition>
+		</req_candidate_conditions>
+	</std_vacancy_recruit_phase>
+
+	<std_vacancy_recruit_phase>
+		<id>recruit_phase_client_interview</id>
+		<name VALUE="Интервьюирование у заказчика" lang-en:VALUE="Interviewing at a Client" lang-ua:VALUE="Інтерв'ювання у замовника"/>
+		<is_active>1</is_active>
+		<req_candidate_conditions>
+			<req_candidate_condition>
+				<event_type_id>rr_interview</event_type_id>
+			</req_candidate_condition>
+		</req_candidate_conditions>
+	</std_vacancy_recruit_phase>
+
+	<std_vacancy_recruit_phase>
+		<id>recruit_phase_final</id>
+		<name VALUE="Финалист" lang-en:VALUE="Finalist" lang-ua:VALUE="Фіналіст"/>
+		<is_active>1</is_active>
+		<req_candidate_conditions>
+			<req_candidate_condition>
+				<event_type_id>job_offer</event_type_id>
+			</req_candidate_condition>
+		</req_candidate_conditions>
+	</std_vacancy_recruit_phase>
+</std_vacancy_recruit_phases>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

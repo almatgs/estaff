@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+<COMPLEX-ITEM NAME="DATE" SAMPLE="1" VIEW="DateView">
+	<ATTRIBUTE NAME="TIME" TYPE="bool"/>
+</COMPLEX-ITEM>
+
+
+<PANEL NAME="DateView" SAMPLE="1" INNER-ALIAS="dateView" HEIGHT-EXPR="AppUi.metrics.editHeightMeasure" MIN-WIDTH__="6zr" STD-MARGINS="0" PADDING-EXPR="'0px 0px 0px ' + AppUi.metrics.editPaddingLeftMeasure" STATES="focused" BORDER-WIDTH="1px" BORDER-COLOR-EXPR="
+		switch ( Item.State )
+		{
+			case 'normal':
+				return AppUi.gThemeData.colors.edit_border;
+
+			case 'focused':
+				return AppUi.gThemeData.colors.primary_bright;
+		}
+" border-radius-expr="AppUi.metrics.editBorderRadiusMeasure
+" OnBeforeBuild="
+		comboPickerView = BaseSampleItem;
+		comboPicker = comboPickerView.MasterItem;
+
+		comboPickerView.AuxData.masterLabel = comboPickerView.MasterItem.FindOptSubItemByType( 'LABEL' );
+">
+	<LINE HEIGHT="100%" STD-MARGINS="0">
+		<EDIT SOURCE="BaseSampleItem.MasterItem.Source" SET-VALUE-ACTION="
+				BaseSampleItem.MasterItem.SetSourceValue( NewValue );
+		" BORDER="0" WIDTH-EXPR="( AppUi.metrics.dateStrWidth + 1 ) + 'px'" BK-COLOR__="200,255,200"/>
+
+		<PANEL NAME="RightPart" HEIGHT="100%" ALIGN="right" STD-MARGINS="0" PADDING-EXPR="'0px ' + AppUi.metrics.dropDownBoxPaddingRightMeasure + ' 0px ' + AppUi.metrics.editPaddingLeftMeasure" STATES="hover,pressed">
+			<IMAGE URL-EXPR="
+					stateItem = FindOptUpperItemByName( 'RightPart' );
+
+					colorMapping = new Object;
+					colorMapping.hover = AppUi.gThemeData.colors.primary;
+					colorMapping.pressed = AppUi.gThemeData.colors.dark;
+
+					return AppUi.GetStateImageUrl2( '/theme/pict/dropdown.svg', stateItem.State, colorMapping );
+			" VERT-ALIGN="center" WIDTH-EXPR="AppUi.GetImageSize( '/theme/pict/dropdown.svg' ).x" HEIGHT-EXPR="AppUi.GetImageSize( '/theme/pict/dropdown.svg' ).y"/>
+
+			<CALENDAR DROP-DOWN="1" SOURCE="dateView.MasterItem.Source"/>
+		</PANEL>
+	</LINE>
+</PANEL>
+
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+<PANEL NAME="VertScrollBar" SAMPLE="1" INNER-ALIAS="scrollBar" STD-MARGINS="0" BK-COLOR__="230,255,235" BK-COLOR-EXPR="AppUi.themeColors.background" OnMouseDown="">
+	<PANEL WIDTH="100%" HEIGHT-EXPR="LibScrollBar.GetSliderPos( scrollBar ) + 'px'"
+			OnMouseHold="LibScrollBar.OnPrevAreaMouseDown( scrollBar )"
+	>
+	</PANEL>
+
+	<PANEL STATES="hover,pressed" WIDTH="100%"
+			HEIGHT-EXPR="LibScrollBar.GetSliderSize( scrollBar ) + 'px'"
+			PADDING="3epx 0epx 3epx 0epx"
+			OnPressedMouseMove="LibScrollBar.OnSliderMove( scrollBar, Event )"
+	>
+		<PANEL WIDTH-EXPR="AppUi.metrics.scrollBarSliderWidthMeasure" HEIGHT="100%"
+				BK-COLOR-EXPR="LibScrollBar.GetSliderBkColor( Item.Parent )"
+				BORDER-COLOR-EXPR="LibScrollBar.GetSliderBkColor( Item.Parent )"
+				BORDER-RADIUS="4px"
+				ALIGN="center"
+	>
+		</PANEL>
+	</PANEL>
+
+	<PANEL WIDTH="100%" HEIGHT="100%" OnMouseHold="LibScrollBar.OnNextAreaMouseDown( scrollBar )">
+	</PANEL>
+</PANEL>
+	
+	
+<PANEL NAME="HorizScrollBar" SAMPLE="1" INNER-ALIAS="scrollBar" BK-COLOR-EXPR="AppUi.themeColors.background" OnMouseDown="">
+	<LINE>
+		<PANEL HEIGHT="100%" WIDTH-EXPR="LibScrollBar.GetSliderPos( scrollBar ) + 'px'"
+				OnMouseHold="LibScrollBar.OnPrevAreaMouseDown( scrollBar )"
+		>
+		</PANEL>
+
+		<PANEL STATES="hover,pressed" HEIGHT="100%"
+				WIDTH-EXPR="LibScrollBar.GetSliderSize( scrollBar ) + 'px'"
+				PADDING="2epx 3epx 0 3epx"
+				OnPressedMouseMove="LibScrollBar.OnSliderMove( scrollBar, Event )"
+				>
+			<PANEL WIDTH="100%" HEIGHT-EXPR="AppUi.metrics.scrollBarSliderWidthMeasure"
+					BK-COLOR-EXPR="LibScrollBar.GetSliderBkColor( Item.Parent )"
+					BORDER-COLOR-EXPR="LibScrollBar.GetSliderBkColor( Item.Parent )"
+					BORDER-RADIUS="4px"
+				>
+			</PANEL>
+		</PANEL>
+
+		<PANEL WIDTH="100%" HEIGHT="100%" OnMouseHold="LibScrollBar.OnNextAreaMouseDown( scrollBar )">
+		</PANEL>
+	</LINE>
+</PANEL>
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+

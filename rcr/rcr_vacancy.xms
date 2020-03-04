@@ -1,0 +1,1502 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="Ps.name + ' - ' + UiText.objects.vacancy" BEFORE-INIT-ACTION="
+		Ps.view.prev_data.AssignElem( Ps.id.Parent );
+		Ps.clean_up_records_from_old_40();
+" BEFORE-SAVE-ACTION="
+		Ps.handle_before_ui_save();
+" SAVE-ACTION="
+		Ps.handle_ui_save();
+" MAXIMIZED="1">
+
+
+
+<MENU TITLE="##UiText.titles.file##" GLOBAL="1">
+	<MENU TITLE="##UiText.actions.create__new##">
+		<!--<MENU-ENTRY TITLE="##UiText.objects.event##" ACTION="
+				eventTypeID = lib_voc.select_voc_elem( event_types );
+				lib_base.HandleCreateNewDependentObjectCard( GetForeignElem( event_types, eventTypeID ).get_object_name(), Ps );
+		" PASSIVE="1"/>-->
+			
+		<MENU-ENTRY TITLE="##UiText.objects.recruiting_expense##" ACTION="lib_base.HandleCreateNewDependentObjectCard( 'expense', Ps );" PASSIVE="1" ENABLE-EXPR="global_settings.use_expenses"/>
+	</MENU>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<MENU-ENTRY TITLE="##UiText.actions.save##&#09;Ctrl+S" CMD="Save"/>
+	<MENU-ENTRY SEPARATOR="1"/>
+	<MENU-ENTRY TITLE="##UiText.actions.print##&#09;Ctrl+P" CMD="Print" lang-en:TITLE="Print&#09;Ctrl+P"/>
+
+	<INHERIT TYPE="card_file_menu_end_entries"/>
+</MENU>
+
+<INHERIT TYPE="card_edit_menu"/>
+<INHERIT TYPE="view_menu"/>
+
+
+<MENU TITLE="##UiText.sections.service##" GLOBAL="1">
+	<MENU-ENTRY TITLE="##UiText.actions.set_state_manually##" ACTION="
+			stateID = lib_voc.select_voc_elem( vacancy_states );
+			lib_vacancy.handle_set_vacancy_state( Ps, stateID, {isManual:true, showInitDlg:false, registerRecord:false} );
+	"/>
+
+	<MENU-ENTRY TITLE="##UiText.actions.set_state_in_the_past##" ACTION="
+			stateID = lib_voc.select_voc_elem( vacancy_states );
+			lib_vacancy.handle_set_vacancy_state( Ps, stateID, {isManual:true, showInitDlg:true} );
+	"/>
+
+	<MENU-ENTRY TITLE="Добавить запись" ACTION="
+			dlg = OpenDoc( 'rcr_dlg_vacancy_record.xml' );
+			dlg.TopElem.record.date = CurDate;
+
+			Screen.ModalDlg( dlg );
+
+			record = Ps.records.AddChild();
+			record.AssignElem( dlg.TopElem.record );
+
+			Ps.Doc.SetChanged( true );
+			Screen.Update();
+	" lang-en:TITLE="Add record" lang-ua:TITLE="Додати запис"/>
+
+	<IF EXPR="AppModuleUsed( 'module_efko' )">
+		<MENU-ENTRY TITLE="##UiText.actions.assign_recruiter##..." ACTION="
+				vacancy.user_id = lib_vacancy.SelectUserByCurrentWorkload();
+				Ps.Doc.SetChanged( true );
+		" ENABLE-EXPR="UseLds || base1_config.sn_owner == 'test'"/>
+	</IF>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<MENU-ENTRY TITLE="Пересчитать дни on-hold по истории изменений" ACTION="
+			Ps.restore_suspended_days_num_from_records();
+			Ps.Doc.SetChanged( true );
+
+			try
+			{
+				Screen.ExposeItemBySource( Ps.suspended_days_num );
+			}
+			catch ( e )
+			{
+			}
+	" lang-en:TITLE="Calculate on-hold days using change history" lang-ua:TITLE="Перерахувати дні on-hold по історії змін"/>
+
+	<MENU-ENTRY TITLE="Пересчитать этап подбора" ACTION="
+			lib_vacancy.update_vacancy_recruit_phase( Ps );
+			Ps.Doc.SetChanged( true );
+	" lang-en:TITLE="Calculate recruitment phase" lang-ua:TITLE="Перерахувати етап підбору"/>
+
+	<IF EXPR="AppModuleUsed( 'module_hms' )">
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="Отчет о выполнении заявки" ACTION="
+				CallCodeUrlFunction( '//module_hms/hms_utils.js', 'ShowVacancyReport', Ps );
+		" lang-en:TITLE="Vacancy report" lang-ua:TITLE="Звіт про виконання заявки"/>
+	</IF>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<INHERIT TYPE="card_service_menu_end_entries"/>
+
+	<WITH VAR="_custom_actions" EXPR="ArraySelectByKey( ArraySelectByKey( base1_config.card_custom_actions, Ps.Name, 'object_type_id' ), 'service', 'menu_id' )">
+		<IF EXPR="_custom_actions.length != 0">
+			<MENU-ENTRY SEPARATOR="1"/>
+		</IF>
+
+		<LOOP EXPR="_custom_actions" VAR="_action">
+			<MENU-ENTRY TITLE-EXPR="_action.name" ACTION="lib_base.RunCardCustomAction( _action, Ps )" PASSIVE="1"/>
+		</LOOP>
+	</WITH>
+</MENU>
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="save_toolbar_entries"/>
+
+	<IF EXPR="AppModuleUsed( 'module_rgs' )">
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/print.ico" CMD="Print" TIP-TEXT="##UiText.actions.print##">
+			<MENU>
+				<MENU-ENTRY TITLE="##UiText.actions.print_profile##" ACTION="Screen.RunCommand( 'Print' )"/>
+				<MENU-ENTRY TITLE="##UiText.actions.print_attachment##" ACTION="Screen.RunCommand( 'PrintDocument' )" ENABLE-EXPR__="Ps.active_attachment.is_text || Ps.active_attachment.is_plain_text"/>
+			</MENU>
+		</TOOLBAR-ENTRY>
+	</IF>
+	<ELSE>
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/print.ico" CMD="PrintDocument" TIP-TEXT="##UiText.actions.print##"/>
+	</ELSE>
+	
+	<INHERIT TYPE="edit_toolbar_entries"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/spelling.ico" CMD="CheckSpelling" TIP-TEXT="##UiText.actions.check_spelling##"/>
+
+
+	<!--<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/bold.ico" CMD="EditBold" TIP-TEXT="Полужирный" lang-en:TIP-TEXT="Bold" lang-ua:TIP-TEXT="Напівжирний"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/italic.ico" CMD="EditItalic" TIP-TEXT="Курсив" lang-en:TIP-TEXT="Italic" lang-ua:TIP-TEXT="Курсив"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/order_list.ico" CMD="EditOrderList" TIP-TEXT="Нумерация" lang-en:TIP-TEXT="Numbering" lang-ua:TIP-TEXT="Нумерація"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/bullet_list.ico" CMD="EditBulletList" TIP-TEXT="Неупорядоченный список" lang-en:TIP-TEXT="Unordered list" lang-ua:TIP-TEXT="Невпорядкований список"/>
+	-->
+
+	<IF EXPR="Ps.is_mp_vacancy && ! Ps.is_mass_vacancy">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/vacancy_instance.ico" ACTION="Ps.handle_add_instances()" TIP-TEXT="##UiText.actions.add_instances##"/>
+	</IF>
+
+	<IF EXPR="global_settings.is_agency">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+		<TOOLBAR-ENTRY TIP-TEXT="##UiText.actions.add_event##" IMAGE-URL="//base_pict/event.ico" CMD="QQQ">
+			<MENU>
+				<LOOP EXPR="ArraySelect( event_types, '! target_object_type_id.HasValue || target_object_type_id.ByValueExists( \'org\' )' )" VAR="_event_type">
+					<MENU-ENTRY TITLE-EXPR="_event_type.name" ACTION="
+							eventDoc = DefaultDb.OpenNewObjectDoc( _event_type.get_object_name() );
+							eventDoc.TopElem.type_id = _event_type.id;
+							eventDoc.TopElem.date = CurDate;
+						
+							eventDoc.TopElem.org_id = Ps.org_id;
+							eventDoc.TopElem.vacancy_id = Ps.id;
+
+							eventDoc.TopElem.init();
+
+							if ( _event_type.has_occurrence( 'scheduled' ) )
+								eventDoc.TopElem.occurrence_id = 'scheduled';
+
+							CreateDocScreen( eventDoc );
+					" PASSIVE="1"/>
+				</LOOP>
+			</MENU>
+		</TOOLBAR-ENTRY>
+	</IF>
+
+	<IF EXPR="rcr_config.use_imod">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+		<TOOLBAR-ENTRY TITLE="Публикация" IMAGE-URL="//base_pict/inet.ico" CMD_="Publish" lang-en:TITLE="Posting" lang-ua:TITLE="Публікація">
+			<MENU>
+				<MENU-ENTRY TITLE="Разместить в Интернет" ACTION="Ps.Publish()" PASSIVE="1" lang-en:TITLE="Publish on Web" lang-ua:TITLE="Розмістити в Інтернет"/>
+
+				<MENU-ENTRY SEPARATOR="1"/>
+
+				<MENU-ENTRY TITLE="Удалить публикацию" ACTION="lib_vacancy_publish.DeleteVacancyPublishing( Ps )" PASSIVE="1" ENABLE-EXPR="! Ps.inet_data.never_published" lang-en:TITLE="Delete posting" lang-ua:TITLE="Видалити публікацію"/>
+			</MENU>
+		</TOOLBAR-ENTRY>
+	</IF>
+
+
+	<ITEM TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+
+
+<LINE STD-MARGINS="0">
+
+
+<PANEL WIDTH="40zr" STD-MARGINS="0">
+	<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="1" HEIGHT="42zr">
+	</TREE>
+	<SPLIT FIXED="1"/>
+
+	<PANEL SUNKEN="1" STD-MARGINS="1" HEIGHT-EXPR="lib_base.card_left_prop_panel_height" BK-COLOR="sys-bk-ctrl">
+		<BR/>
+		<IF EXPR="! global_settings.is_agency">
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="14zr" WIDTH-EXPR="CalcTextScreenWidth( Ps.orig_rr_person_id.Title + ':' ) + 'px'" MAX-WIDTH="14zr"/>
+					<COL WIDTH="100%"/>
+				</COLUMNS>
+				<ITEM TYPE="object_preview" SOURCE="Ps.orig_rr_person_id" view-filter-expr="({is_candidate:false})"/>
+			</TABLE>
+			<BR/>
+			<BR/>
+			<BR/>
+		</IF>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH-EXPR="( ArrayOptMax( ArrayExtract( [Ps.work_start_date.Title + ':', ( Ps.is_active ? UiText.titles.in_progress__duration : UiText.vacancy_fields.work_days_num ) + ':'], 'CalcTextScreenWidth( This )' ) ) ) + 'px'"/>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+			<IF EXPR="true &amp;&amp; Ps.ChildExists( 'receipt_date' )">
+				<LABEL TITLE-EXPR="Ps.receipt_date.Title + ':'" TEXT-COLOR-EXPR="base1_common.std_colors.object_preview_label" ALIGN="right" OPEN-ACTION="Ps.HandleSelectReceiptDate()"/>
+				<LABEL TITLE-EXPR="Ps.receipt_date" TEXT-COLOR-EXPR="base1_common.std_colors.object_preview_value" OPEN-ACTION="Ps.HandleSelectReceiptDate()"/>
+			</IF>
+
+			<IF EXPR="! global_settings.hide_vacancy_work_start_date">
+				<LABEL TITLE-EXPR="Ps.work_start_date.Title + ':'" TEXT-COLOR-EXPR="base1_common.std_colors.object_preview_label" ALIGN="right" OPEN-ACTION="Ps.HandleSelectWorkStartDate()"/>
+				<LABEL TITLE-EXPR="Ps.work_start_date" TEXT-COLOR-EXPR="base1_common.std_colors.object_preview_value" OPEN-ACTION="Ps.HandleSelectWorkStartDate()"/>
+				<BR HSPAN="2" HEIGHT="2px"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'suspended_days_num' ) &amp;&amp; Ps.state_id != 'vacancy_suspended'">
+				<LABEL TITLE="##UiText.titles.suspended__vacancy##:" TEXT-COLOR-EXPR="base1_common.std_colors.object_preview_label" ALIGN="right"/>
+
+				<IF EXPR="Ps.suspended_days_num > 0 || Ps.suspended_wdays_num > 0">
+					<IF EXPR="global_settings.use_vacancy_work_wdays">
+						<LABEL TITLE-EXPR="lib_base.WDaysNumDesc( Ps.suspended_wdays_num )" TEXT-COLOR-EXPR="base1_common.std_colors.object_preview_value"/>
+					</IF>
+					<ELSE>
+						<LABEL TITLE-EXPR="lib_base.DaysNumDesc( Ps.suspended_days_num )" TEXT-COLOR-EXPR="base1_common.std_colors.object_preview_value"/>
+					</ELSE>
+				</IF>
+				<ELSE>
+					<LABEL TITLE="—" TEXT-COLOR-EXPR="base1_common.std_colors.object_preview_value"/>
+				</ELSE>
+			</IF>
+
+			<BR HSPAN="2" HEIGHT="2px"/>
+
+			<IF EXPR="Ps.is_active">
+				<LABEL TITLE="##UiText.titles.in_progress__duration##:" TEXT-COLOR-EXPR="base1_common.std_colors.object_preview_label" ALIGN="right"/>
+			</IF>
+			<ELSE>
+				<LABEL TITLE="##UiText.vacancy_fields.work_days_num##:" TEXT-COLOR-EXPR="base1_common.std_colors.object_preview_label" ALIGN="right"/>
+			</ELSE>
+
+			<IF EXPR="global_settings.use_vacancy_work_wdays">
+				<LABEL TITLE-EXPR="lib_base.WDaysNumDesc( Ps.cur_work_wdays_num )" TEXT-COLOR-EXPR="base1_common.std_colors.object_preview_value"/>
+			</IF>
+			<ELSE>
+				<LABEL TITLE-EXPR="lib_base.DaysNumDesc( Ps.cur_work_days_num )" TEXT-COLOR-EXPR="base1_common.std_colors.object_preview_value"/>
+			</ELSE>
+		</TABLE>
+
+
+		<IF EXPR="global_settings.use_vacancy_term_adjustments &amp;&amp; ! Ps.is_mass_vacancy">
+			<BR/>
+			<BR/>
+			<LINE>
+				<LABEL TITLE="##UiText.titles.term_adjustments##:" TEXT-COLOR-EXPR="base1_common.std_colors.object_preview_label"/>
+
+				<IF EXPR="Ps.term_adjustments_sum_day_num > 0 || Ps.term_adjustments_sum_wday_num > 0">
+					<IF EXPR="global_settings.use_vacancy_work_wdays">
+						<LABEL TITLE-EXPR="lib_base.WDaysNumDesc( Ps.term_adjustments_sum_wday_num )" TEXT-COLOR-EXPR="base1_common.std_colors.object_preview_value"/>
+					</IF>
+					<ELSE>
+						<LABEL TITLE-EXPR="lib_base.DaysNumDesc( Ps.term_adjustments_sum_wday_num )" TEXT-COLOR-EXPR="base1_common.std_colors.object_preview_value"/>
+					</ELSE>
+				</IF>
+				<ELSE>
+					<LABEL TITLE="—" TEXT-COLOR-EXPR="base1_common.std_colors.object_preview_value"/>
+				</ELSE>
+			</LINE>
+		</IF>
+
+
+
+		<PANEL NAME="AnchorLeftProperties">
+		</PANEL>
+
+		<PANEL HEIGHT="-14zr">
+		</PANEL>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH-EXPR="( ArrayOptMax( ArrayExtract( [Ps.user_id.Title + ':', UiText.fields.recruiter + ':', (global_settings.use_vacancy_dual_users ? Ps.resp_user_id.Title + ':' : '' )], 'CalcTextScreenWidth( This )' ) ) ) + 'px'"/>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+			<IF EXPR="! Ps.user_id.HasValue">
+				<LABEL TITLE="##UiText.fields.recruiter##:" ALIGN="right"/>
+				<ITEM TYPE="object_selector" SOURCE="Ps.user_id" view="users_with_workload" before-select-action="lib_recruit.UpdateUsersWorkload()" UPDATE-ACTION="Ps.OnUserChanged()"/>
+			</IF>
+			<ELSE>
+				<ITEM TYPE="object_preview" SOURCE="Ps.user_id" afterSelectAction="Ps.Doc.TopElem.OnUserChanged()"/>
+			</ELSE>
+			
+			<IF EXPR="global_settings.use_vacancy_dual_users">
+				<ITEM TYPE="object_preview" SOURCE="Ps.resp_user_id"/>
+			</IF>
+
+			<ITEM TYPE="object_preview" SOURCE="Ps.group_id"/>
+		</TABLE>
+		<BR HEIGHT="-4zr"/>
+		<CHECK SOURCE="Ps.use_exclusive_access" AUTO-LABEL="1"/>
+	</PANEL>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.objects.vacancy##" SUNKEN="1" EXPANDED="1" IMAGE-URL-EXPR="Ps.ImageUrl">
+
+
+
+<PAGE TITLE="##UiText.sections.general##" HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/common.ico">
+	<PANEL NAME="HeadCsdAnchor">
+	</PANEL>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="12zr"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.code" AUTO-LABEL="1" PASSIVE="1"/>
+
+		<IF EXPR="Ps.recruit_type_id.ForeignElem.select_name_from_position_types || AppModuleUsed( 'module_mdmbank' )">
+			<INHERIT TYPE="vacancy_position_type_selector_base"/>
+		</IF>
+		<ELSE>
+			<EDIT SOURCE="Ps.name" AUTO-LABEL="1" PASSIVE="1" READ-ONLY-EXPR="Ps.name.HasValue && global_settings.force_vacancy_position_names && Ps.position_id.HasValue"/>
+		</ELSE>
+	</TABLE>
+	<BR/>
+
+	<LINE>
+		<IF EXPR="global_settings.use_vacancy_orgs">
+			<ITEM TYPE="object_selector" SOURCE="Ps.org_id" AUTO-LABEL="1" CHECK-VALUE-ACTION="
+					if ( lib_user.active_user_access.restrict_vacancy_orgs_to_own && Ps.user_id == lib_user.active_user_info.id )
+					{
+						if ( NewValue != null && GetForeignElem( orgs, NewValue ).user_id != lib_user.active_user_info.id )
+							throw UserError( UiText.errors.prohibited_by_usage_policy );
+					}
+			" UPDATE-ACTION="
+					Ps.handle_org_selected();
+			" WIDTH-EXPR="global_settings.use_divisions ? '30%' : '100%'"/>
+		</IF>
+
+		<IF EXPR="global_settings.use_divisions">
+			<ITEM TYPE="object_selector" SOURCE="Ps.division_id" AUTO-LABEL="1" UPDATE-ACTION="
+					if ( Ps.division_id.HasValue )
+					{
+						if ( global_settings.use_division_orgs )
+							Ps.org_id = lib_struct.GetDivisionExplicitOrgID( Ps.division_id );
+
+						Ps.load_rr_persons_by_division();
+					}
+			" view-filter-expr="({is_active:true})" view-filter-expr__="global_settings.use_vacancy_orgs &amp;&amp; Ps.org_id.HasValue ? {parent_id:Ps.org_id} : undefined"/>
+		</IF>
+	</LINE>
+
+	<PANEL NAME="PostDivisionCsdAnchor">
+	</PANEL>
+
+	<IF EXPR="global_settings.use_divisions &amp;&amp; ( global_settings.use_positions || global_settings.use_position_types )">
+		<TABLE>
+			<COLUMNS>
+				<IF EXPR="global_settings.use_positions">
+					<COL WIDTH="70%"/>
+				</IF>
+				<IF EXPR="global_settings.use_position_types &amp;&amp; ! Ps.recruit_type_id.ForeignElem.select_name_from_position_types &amp;&amp; ! AppModuleUsed( 'module_mdmbank' )">
+					<COL WIDTH="30%"/>
+				</IF>
+			</COLUMNS>
+
+			<IF EXPR="global_settings.use_positions">
+				<ITEM TYPE="object_selector" SOURCE="Ps.position_id" AUTO-LABEL="1" UPDATE-ACTION="
+						if ( Ps.position_id.HasValue )
+						{
+							if ( Ps.position_id.ForeignElem.division_id.HasValue )
+								Ps.division_id = Ps.position_id.ForeignElem.division_id;
+
+							if ( global_settings.use_position_types && Ps.position_id.ForeignElem.type_id.HasValue )
+								Ps.position_type_id = Ps.position_id.ForeignElem.type_id;
+
+							if ( Ps.name == '' || global_settings.force_vacancy_position_names )
+								Ps.name = Ps.position_id.ForeignElem.name;
+								
+							Ps.salary = Ps.position_id.ForeignElem.salary;
+						}
+				" view-filter-expr="Ps.division_id.HasValue ? {division_id:Ps.division_id}:undefined"/>
+			</IF>
+			<IF EXPR="global_settings.use_position_types &amp;&amp; ! Ps.recruit_type_id.ForeignElem.select_name_from_position_types &amp;&amp; ! AppModuleUsed( 'module_mdmbank' )">
+				<INHERIT TYPE="vacancy_position_type_selector_base"/>
+			</IF>
+		</TABLE>
+	</IF>
+
+	<IF EXPR="! Ps.is_sample_vacancy">
+		<BR/>
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="16px"/>
+			</COLUMNS>
+
+			<LABEL TITLE="##UiText.fields.contact_persons##:"/>
+
+			<IMAGE URL="//base_pict/select.ico" TIP-TEXT="##UiText.actions.select_person##" ACTION="
+					Ps.select_rr_person();
+					Ps.Doc.SetChanged( true );
+			"/>
+		</TABLE>
+
+		<LIST SUNKEN="1" LOOP-CATALOG="persons" XQUERY-QUAL-EXPR="
+				return 'MatchSome( $elem/id, ( ' + ArrayMerge( Ps.rr_persons, 'person_id', ',' ) + ' ) )';
+		" HEIGHT="12zr" HEIGHT-EXPR="Ps.rr_persons.ChildNum &lt;=1 ? '8zrc' : '12zr'">
+			<ROW IMAGE-URL-EXPR="ListElem.ImageUrl" DELETE-ACTION="Ps.rr_persons.DeleteChildByKey( ListElem.id ); Ps.Doc.SetChanged( true );">
+				<COL WIDTH="40%" COL-TITLE="##UiText.fields.fullname##" TITLE-EXPR="ListElem.fullname"/>
+				<COL WIDTH="40%" COL-TITLE="##UiText.fields.position##" TITLE-EXPR="ListElem.position_name"/>
+				<COL WIDTH="20%" COL-TITLE="##UiText.fields.phone##" TITLE-EXPR="ListElem.disp_phone"/>
+
+				<IF EXPR="AppModuleUsed( 'module_rgs' )">
+					<COL WIDTH="15zr" COL-TITLE="##UiText.fields.role##" TITLE-EXPR="ListElem.is_rr_viewer ? ListElem.is_rr_viewer.Title : ''"/>
+				</IF>
+			</ROW>
+		</LIST>
+		<DELIM/>
+
+		<PANEL NAME="PostContacsCsdAnchor">
+		</PANEL>
+
+		<IF EXPR="lib_vacancy.AllowMpVacanies() &amp;&amp; global_settings.use_mp_vacancies">
+			<LINE>
+				<LABEL TITLE="##UiText.objects.vacancy##: "/>
+
+				<CHECK SOURCE="! Ps.is_mp_vacancy && ! Ps.is_mass_vacancy" SET-VALUE-ACTION="
+						if ( NewValue )
+						{
+							Ps.is_mp_vacancy = false;
+							Ps.is_mass_vacancy = false;
+						}
+
+						Ps.Doc.SetChanged( true );
+				" TITLE="Одиночная" lang-en:TITLE="Individual" WIDTH="auto" lang-ua:TITLE="Одиночна"/>
+
+				<CHECK SOURCE="Ps.is_mp_vacancy && ! Ps.is_mass_vacancy" SET-VALUE-ACTION="
+						if ( NewValue )
+						{
+							Ps.is_mp_vacancy = true;
+							Ps.is_mass_vacancy = false;
+						}
+
+						Ps.Doc.SetChanged( true );
+				" TITLE="На несколько человек" lang-en:TITLE="Multi-person" WIDTH="auto" lang-ua:TITLE="На кілька людей"/>
+
+				<IF EXPR="global_settings.use_mass_vacancies">
+					<CHECK SOURCE="Ps.is_mass_vacancy" SET-VALUE-ACTION="
+							if ( NewValue )
+							{
+								Ps.is_mp_vacancy = true;
+								Ps.is_mass_vacancy = true;
+							}
+
+							Ps.Doc.SetChanged( true );
+					" TITLE="Массовая (поток)" lang-en:TITLE="Mass" WIDTH="auto" lang-ua:TITLE="Масова (потік)"/>
+				</IF>
+			</LINE>
+			<DELIM/>
+		</IF>
+
+
+		<LINE>
+			<ITEM TYPE="date_selector" SOURCE="Ps.start_date" AUTO-LABEL="1" READ-ONLY-EXPR="lib_user.active_user_access.prohibit_change_vacancy_start_date" WIDTH="14zr"/>
+
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'reason_id' ) &amp;&amp; ! Ps.is_mass_vacancy">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.reason_id" AUTO-LABEL="1" PASSIVE="1" WIDTH="30zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.reason_id, 30, ( fields_usage.use_object_field( 'vacancy', 'cost_center_id' ) ? 40 : 53 ) )"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'recruit_type_id' )">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.recruit_type_id" AUTO-LABEL="1" UPDATE-ACTION="
+						//if ( AppModuleUsed( 'module_mdmbank' ) &amp;&amp; ! Ps.req_job_offer_date.HasValue )
+							lib_vacancy.UpdateVacancyTermDatesByMetrics( Ps, true );
+				" WIDTH="29zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.recruit_type_id, 30, ( fields_usage.use_object_field( 'vacancy', 'cost_center_id' ) ? 35 : 40 ) )"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'staff_category_id' )">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.staff_category_id" AUTO-LABEL="1" PASSIVE="1" WIDTH="22zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.staff_category_id, 22, 40 )"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'difficulty_level_id' )">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.difficulty_level_id" AUTO-LABEL="1" PASSIVE="1" WIDTH="22zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.difficulty_level_id, 22, 40 )"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'priority_id' )">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.priority_id" AUTO-LABEL="1" PASSIVE="1" WIDTH="11zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.priority_id, 11, 40 )"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'cost_center_id' )">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.cost_center_id" AUTO-LABEL="1" PASSIVE="1" WIDTH="18zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.cost_center_id, 18, 40 )"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'profession_id' )">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.profession_id" LABEL-TITLE="##UiText.fields.profession##:" UPDATE-ACTION="
+						if ( local_settings.use_imod &amp;&amp; ! System.IsWebClient )
+							Ps.inet_data.guess_empty_site_professions();
+				"/>
+			</IF>
+
+		</LINE>
+	</IF>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'salary' )">
+				<COL WIDTH="9zr"/>
+			</IF>
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'min_salary' )">
+				<COL WIDTH-EXPR="global_settings.use_multi_currencies.vacancy_salary ? '31zr' : '21zr'"/>
+			</IF>
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'country_id' )">
+				<COL WIDTH="20zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.country_id, 20, ( Ps.GetUiLine2DensityLevel() == 3 ? 22 : ( Ps.GetUiLine2DensityLevel() == 2 ? 24 : 26 ) ) )"/>
+			</IF>
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'location_id' )">
+				<COL WIDTH="28zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.location_id, 28, ( Ps.GetUiLine2DensityLevel() == 3 ? 26 : 50 ) )"/>
+			</IF>
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'metro_station_id' )">
+				<COL WIDTH="24zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.metro_station_id, 24, ( Ps.GetUiLine2DensityLevel() == 3 ? 16 : ( Ps.GetUiLine2DensityLevel() == 2 ? 20 : 40 ) ) )"/>
+			</IF>
+
+			<COL WIDTH="100%"/>
+
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'work_type_id', 'common' )">
+				<COL WIDTH="24zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.work_type_id, 24, 40 )"/>
+			</IF>
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'work_schedule_type_id', 'common' )">
+				<COL WIDTH="28zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.work_schedule_type_id, 28, 40 )"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'req_empl_start_date', 'common' ) &amp;&amp; ! Ps.is_mass_vacancy">
+				<COL WIDTH="16zr" WIDTH-EXPR="CalcTextScreenWidth( Ps.req_empl_start_date.Title + ':' ) + 'px'"/>
+			</IF>
+		</COLUMNS>
+
+		<IF EXPR="fields_usage.use_object_field( 'vacancy', 'salary' )">
+			<EDIT SOURCE="Ps.salary" AUTO-LABEL="1"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'vacancy', 'min_salary' )">
+			<TABLE SPACING="short" LABEL-TITLE-EXPR="lib_base.amount_title( UiText.fields.salary_level, 'vacancy_salary', Ps.salary_currency_id ) + ':'">
+				<COLUMNS>
+					<COL WIDTH="50%"/>
+					<COL WIDTH="50%"/>
+
+					<IF EXPR="global_settings.use_multi_currencies.vacancy_salary">
+						<COL WIDTH="9zr"/>
+					</IF>
+				</COLUMNS>
+
+				<EDIT SOURCE="Ps.min_salary" BK-COLOR-EXPR="lib_base.amount_bk_color( 'vacancy_salary', Ps.salary_currency_id )"/>
+				<EDIT SOURCE="Ps.max_salary" BK-COLOR-EXPR="lib_base.amount_bk_color( 'vacancy_salary', Ps.salary_currency_id )"/>
+
+				<IF EXPR="global_settings.use_multi_currencies.vacancy_salary">
+					<ITEM TYPE="voc_elem_selector" SOURCE="Ps.salary_currency_id"/>
+				</IF>
+			</TABLE>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'vacancy', 'country_id' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.country_id" AUTO-LABEL="1" PASSIVE="1"/>
+		</IF>
+		<IF EXPR="fields_usage.use_object_field( 'vacancy', 'location_id' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.location_id" AUTO-LABEL="1"/>
+		</IF>
+		<IF EXPR="fields_usage.use_object_field( 'vacancy', 'metro_station_id' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.metro_station_id" AUTO-LABEL="1" view-filter-expr="Ps.location_id.HasValue ? ({location_id:Ps.location_id}) : undefined" ENABLE-EXPR="! Ps.location_id.HasValue || Ps.location_id.ForeignElem.has_metro"/>
+		</IF>
+		<LABEL/>
+		<IF EXPR="fields_usage.use_object_field( 'vacancy', 'work_type_id', 'common' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.work_type_id" AUTO-LABEL="1"/>
+		</IF>
+		<IF EXPR="fields_usage.use_object_field( 'vacancy', 'work_schedule_type_id', 'common' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.work_schedule_type_id" AUTO-LABEL="1"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'vacancy', 'req_empl_start_date', 'common' ) &amp;&amp; ! Ps.is_mass_vacancy">
+			<ITEM TYPE="date_selector" SOURCE="Ps.req_empl_start_date" AUTO-LABEL="1" WIDTH="100%"/>
+		</IF>
+	</TABLE>
+	<DELIM/>
+
+	<PANEL NAME="PreStateCsdAnchor">
+	</PANEL>
+
+	<GROUP>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.state_id" SET-VALUE-ACTION="
+				if ( AppModuleUsed( 'module_vtb24' ) &amp;&amp; GetForeignElem( vacancy_states, NewValue ).close_object )
+					throw UserError( UiText.errors.vacancy_may_be_closed_by_hire_only );
+
+				lib_vacancy.handle_set_vacancy_state( Ps, NewValue );
+		" AUTO-LABEL="1" WIDTH="22zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.state_id, 22, 40 )"/>
+
+		<PANEL WIDTH="0px"/>
+		<ITEM TYPE="vert_delim"/>
+
+		<LABEL TITLE-EXPR="
+				str = '';
+				str += lib_base.BuildUiParamEntry( UiText.titles.since_xxx, StrDate( Ps.state_date, false ) );
+				return str;
+		" KEEP-WITH-PREV="1"/>
+
+		<ITEM TYPE="vert_delim" KEEP-WITH-PREV="1"/>
+
+		<IF EXPR="! Ps.state_id.ForeignElem.deactivate_object">
+			<LABEL TITLE-EXPR="lib_base.DaysNumDesc( Ps.days_in_state )" KEEP-WITH-PREV="1"/>
+			<ITEM TYPE="vert_delim" KEEP-WITH-PREV="1"/>
+			<!--<ITEM TYPE="vert_delim" KEEP-WITH-PREV="1"/>
+			<LABEL TITLE-EXPR="lib_base.WDaysNumDesc( Ps.wdays_in_state )" KEEP-WITH-PREV="1"/>-->
+		</IF>
+
+		<IF EXPR="Ps.is_mp_vacancy &amp;&amp; ! Ps.is_mass_vacancy">
+			<IF EXPR="global_settings.use_fractional_mp_vacancies">
+				<EDIT SOURCE="StrIntZero( Ps.get_active_req_quantity_f() )" READ-ONLY="1" LABEL-TITLE-EXPR="Ps.active_req_quantity_f.Title + ':'" NUM-SPACES="1" ALIGN="right" WIDTH="4zr" KEEP-RIGHT="1"/>
+			</IF>
+			<ELSE>
+				<EDIT SOURCE="StrIntZero( Ps.get_active_req_quantity() )" READ-ONLY="1" LABEL-TITLE-EXPR="Ps.active_req_quantity.Title + ':'" ALIGN="right" WIDTH="4zr" TIP-TEXT="##UiText.titles.active_vacancy_instances_num##" KEEP-RIGHT="1"/>
+			</ELSE>
+
+			<LABEL TITLE="/" KEEP-WITH-PREV="1" KEEP-RIGHT="1"/>
+			<EDIT SOURCE="StrIntZero( Ps.get_req_quantity() )" READ-ONLY="1" ALIGN="right" TIP-TEXT="##UiText.titles.vacancy_instances_num##" KEEP-RIGHT="1" WIDTH="4zr"/>
+		</IF>
+
+		<IF EXPR="rcr_config.use_vacancy_recruit_phases &amp;&amp; Ps.is_active &amp;&amp; ! Ps.is_mass_vacancy">
+			<LABEL TITLE="  " KEEP-RIGHT="1"/>
+
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.recruit_phase_id" SET-VALUE-ACTION="
+					lib_vacancy.SetVacancyRecruitPhase( Ps, NewValue );
+					Ps.Doc.SetChanged( true );
+			" AUTO-LABEL="1" WIDTH="30zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.recruit_phase_id, 30, 45 )" KEEP-RIGHT="1"/>
+		</IF>
+	</GROUP>
+
+	<PANEL NAME="PostStateCsdAnchor">
+	</PANEL>
+
+	<DELIM/>
+
+	<IF EXPR="! Ps.is_mp_vacancy &amp;&amp; ! Ps.is_mass_vacancy">
+		<ITEM TYPE="vacancy_planned_dates" section="common"/>
+		<BR/>
+	</IF>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+
+	<IF EXPR="! Ps.is_mass_vacancy &amp;&amp; ! Ps.is_sample_vacancy &amp;&amp; ! Ps.recruit_type_id.ForeignElem.prohibit_spots">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="16px"/>
+			</COLUMNS>
+
+			<LABEL TITLE="Финальные кандидаты:" lang-en:TITLE="Final candidates:" lang-ua:TITLE="Фінальні кандидати:"/>
+
+			<IMAGE URL="//base_pict/select.ico" TIP-TEXT="##UiText.actions.select_person##" ACTION="
+					Ps.select_final_candidates();
+					Ps.Doc.SetChanged( true );
+			"/>
+		</TABLE>
+
+		<LIST SUNKEN="1" LOOP-CATALOG="candidates" XQUERY-QUAL-EXPR="
+				if ( ! Ps.multi_final_candidate_id.HasValue )
+					return 'false()';
+
+				return 'MatchSome( $elem/id, ( ' + ArrayMerge( Ps.multi_final_candidate_id, 'This', ',' ) + ' ) ) and MatchSome( $elem/spots/spot/vacancy_id, ' + Ps.id + ' )';
+		" HEIGHT="12zr" HEIGHT-EXPR="ArrayCount( Ps.multi_final_candidate_id ) &lt;=1 ? '8zrc' : '12zr'">
+			<ROW IMAGE-URL-EXPR="ListElem.ImageUrl" DELETE-ACTION="
+					Ps.multi_final_candidate_id.DeleteByValue( ListElem.id );
+
+					if ( Ps.final_candidate_id == ListElem.id )
+						Ps.check_next_final_candidate();
+
+					Ps.Doc.SetChanged( true );
+			">
+				<COL WIDTH="14zr" COL-TITLE="##UiText.fields.date##" TITLE-EXPR="StrDate( ListElem.spots.GetChildOrEmptyElemByKey( Ps.id ).state_date, false )" ORDER="spots.GetChildOrEmptyElemByKey( Ps.id ).state_date" ORDER-DIR="-" LOCAL-SORT="1"/>
+				<COL WIDTH="38zr" COL-TITLE="##UiText.fields.fullname##" TITLE-EXPR="ListElem.fullname"/>
+				<COL WIDTH="27zr" COL-TITLE="##UiText.fields.state##" TITLE-EXPR="ListElem.spots.GetChildOrEmptyElemByKey( Ps.id ).state_id.ForeignDispName" ORDER="spots.GetChildOrEmptyElemByKey( Ps.id ).state_id.ForeignElem.order_index" LOCAL-SORT="1" ALIGN="center" TEXT-COLOR-EXPR="ListElem.spots.GetChildOrEmptyElemByKey( Ps.id ).state_id.ForeignElem.text_color" BK-COLOR-EXPR="ListElem.spots.GetChildOrEmptyElemByKey( Ps.id ).get_state_bk_color()"/>
+				
+				<IF EXPR="Ps.show_multi_final_candidate">
+					<COL WIDTH="4zr" COL-TITLE="+" TIP-TEXT="Последний финальный кандидат" TITLE-EXPR="ListElem.id == Ps.final_candidate_id ? '+' : ''" ORDER="id != Ps.final_candidate_id" ALIGN="center" lang-en:TIP-TEXT="Last final candidate" lang-ua:TIP-TEXT="Останній фінальний кандидат"/>
+				</IF>
+
+				<COL WIDTH="100%" COL-TITLE="##UiText.fields.last_comment##" TITLE-EXPR="ListElem.last_comment"/>
+			</ROW>
+		</LIST>
+	</IF>
+	<ELSE>
+		<IF EXPR="Ps.recruit_type_id.ForeignElem.prohibit_spots">
+			<GROUP>
+				<ITEM TYPE="object_selector" SOURCE="Ps.final_candidate_id" AUTO-LABEL="1"/>
+			</GROUP>
+		</IF>
+	</ELSE>
+
+	<PANEL NAME="PreCommentCsdAnchor">
+	</PANEL>
+
+	<BR/>
+
+	<EDIT SOURCE="Ps.comment" MULTILINE="1" SHORT="1" HEIGHT="-4px" MIN-HEIGHT="6zr" MAX-HEIGHT="25zr" VERT-SCROLL="1" AUTO-LABEL="1" PASSIVE="1"/>
+
+	<PANEL NAME="PostCommentCsdAnchor">
+	</PANEL>
+</PAGE>
+
+
+
+
+
+<PAGE TITLE="##UiText.sections.add_info##" SUNKEN="1" STD-MARGINS="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/aux_info.ico" EXPANDED="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="65zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.eid" LABEL-TITLE="##UiText.fields.eid##:" PASSIVE="1"/>
+	</TABLE>
+	<DELIM/>
+	
+	<IF EXPR="fields_usage.UseSomeOfObjectFields( 'vacancy', 'reason_id,work_type_id,work_schedule_type_id', 'add_info' )">
+		<TABLE>
+			<COLUMNS>
+				<IF EXPR="fields_usage.use_object_field( 'vacancy', 'reason_id', 'add_info' )">
+					<COL WIDTH="24zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.reason_id, 24, 40 )"/>
+				</IF>
+				<IF EXPR="fields_usage.use_object_field( 'vacancy', 'work_type_id', 'add_info' )">
+					<COL WIDTH="24zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.work_type_id, 24, 40 )"/>
+				</IF>
+				<IF EXPR="fields_usage.use_object_field( 'vacancy', 'work_schedule_type_id', 'add_info' )">
+					<COL WIDTH="24zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.work_schedule_type_id, 24, 40 )"/>
+				</IF>
+				<IF EXPR="fields_usage.use_object_field( 'vacancy', 'req_empl_start_date', 'add_info' ) &amp;&amp; ! Ps.is_mass_vacancy">
+					<COL WIDTH="16zr" WIDTH-EXPR="CalcTextScreenWidth( Ps.req_empl_start_date.Title + ':' ) + 'px'"/>
+				</IF>
+			</COLUMNS>
+
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'reason_id', 'add_info' )">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.reason_id" AUTO-LABEL="1"/>
+			</IF>
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'work_type_id', 'add_info' )">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.work_type_id" AUTO-LABEL="1"/>
+			</IF>
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'work_schedule_type_id', 'add_info' )">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.work_schedule_type_id" AUTO-LABEL="1"/>
+			</IF>
+			<IF EXPR="fields_usage.use_object_field( 'vacancy', 'req_empl_start_date', 'add_info' ) &amp;&amp; ! Ps.is_mass_vacancy">
+				<ITEM TYPE="date_selector" SOURCE="Ps.req_empl_start_date" AUTO-LABEL="1" WIDTH="100%"/>
+			</IF>
+		</TABLE>
+		<DELIM/>
+	</IF>
+
+	<CHECK SOURCE="Ps.is_confidential" AUTO-LABEL="1"/>
+	<DELIM/>
+
+	<IF EXPR="rcr_config.use_imod">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="35zr"/>
+			</COLUMNS>
+
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.template_id" AUTO-LABEL="1" UPDATE-ACTION="
+					Ps.load_data_from_template();
+			"/>
+		</TABLE>
+		<DELIM/>
+	</IF>
+
+	<IF EXPR="AppModuleUsed( 'ras' )">
+		<CHECK SOURCE="Ps.use_ras" AUTO-LABEL="1"/>
+
+		<IF EXPR="Ps.use_ras">
+			<BR/>
+
+			<GROUP>
+				<ITEM TYPE="object_selector" SOURCE="Ps.ras_info.resume_search_template_id" AUTO-LABEL="1"/>
+				<SEPARATOR/>
+			</GROUP>
+			<CHECK SOURCE="Ps.ras_info.use_vacancy_salary" AUTO-LABEL="1"/>
+			<BR/>
+
+			<GROUP>
+				<LABEL TITLE="Использовать интервалы для встреч сотрудников:" lang-en:TITLE="Use Appointment Slots of Employees:" lang-ua:TITLE="Використовувати інтервали для зустрічей співробітників:"/>
+
+				<CHECK SOURCE="Ps.ras_info.bot_appointment.use_orig_rr_person" TITLE-EXPR="Ps.orig_rr_person_id.Title"/>
+				<BUTTON TITLE="##UiText.actions.check_slots##" ACTION="
+						if ( ! Ps.orig_rr_person_id.HasValue )
+							throw UiError( UiText.errors.field_is_empty + ': ' + Ps.orig_rr_person_id.Title );
+
+						lib_calendar_slots.HandleCheckPersonSlots( Ps.orig_rr_person_id );
+				" PASSIVE="1" WIDTH="24zr"/>
+
+				<PANEL WIDTH="2zr"/>
+
+				<CHECK SOURCE="Ps.ras_info.bot_appointment.use_rr_persons" TITLE-EXPR="Ps.rr_persons.Title"/>
+				<BUTTON TITLE="##UiText.actions.check_slots##" ACTION="
+						if ( Ps.rr_persons.ChildNum == 0 )
+							throw UiError( UiText.errors.field_is_empty + ': ' + Ps.rr_persons.Title );
+
+						personID = lib_base.select_elem( Ps.rr_persons, 'person_id.ForeignDispName' ).person_id;
+						lib_calendar_slots.HandleCheckPersonSlots( personID );
+				" PASSIVE="1" WIDTH="24zr"/>
+			</GROUP>
+		</IF>
+		<DELIM/>
+	</IF>
+
+	<PANEL NAME="PostRasInfoCsdAnchor">
+	</PANEL>
+
+	<CHECK SOURCE="Ps.is_extra_ad" AUTO-LABEL="1"/>
+
+	<IF EXPR="Ps.is_extra_ad">
+		<BR/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.base_vacancy_id" AUTO-LABEL="1" WIDTH="80%"/>
+	</IF>
+	<DELIM/>
+
+	
+	<IF EXPR="global_settings.use_sample_vacancies">
+		<ITEM TYPE="object_selector" SOURCE="Ps.sample_vacancy_id" AUTO-LABEL="1" WIDTH="80%"/>
+		<DELIM/>
+	</IF>
+
+	<IF EXPR="! Ps.is_sample_vacancy">
+		<IF EXPR="global_settings.is_agency">
+			<TABLE>
+				<COLUMNS>
+					<IF EXPR="AppModuleUsed( 'module_pm' )">
+						<COL WIDTH="18zr"/>
+					</IF>
+
+					<COL WIDTH="18zr"/>
+					<COL WIDTH="12zr"/>
+					<COL WIDTH="16zr"/>
+
+					<IF EXPR="base1_config.sn_owner == 'abmc' || base1_config.sn_owner == 'test'">
+						<COL WIDTH="33zr"/>
+					</IF>
+
+					<COL WIDTH="22zr"/>
+				</COLUMNS>
+
+				<IF EXPR="AppModuleUsed( 'module_pm' )">
+					<ITEM TYPE="object_selector" SOURCE="Ps.agreement_id" AUTO-LABEL="1" UPDATE-ACTION="
+							agreement = Ps.agreement_id.ForeignElem;
+							
+							if ( agreement.code.HasValue )
+								Ps.base_deal_code = agreement.code;
+							
+							if ( agreement.amount.HasValue )
+								Ps.revenue = agreement.amount;
+					"/>
+				</IF>
+
+				<EDIT SOURCE="Ps.base_deal_code" AUTO-LABEL="1"/>
+				<EDIT SOURCE="lib_user.active_user_access.prohibit_view_vacancy_revenue ? 'xxxxxxxx' : Ps.revenue" LABEL-TITLE-EXPR="Ps.revenue.FormElem.Title + ':'" READ-ONLY-EXPR="lib_user.active_user_access.prohibit_view_vacancy_revenue"/>
+				<DATE SOURCE="lib_user.active_user_access.prohibit_view_vacancy_revenue ? 'xxxxxxxx' : Ps.payment_date" LABEL-TITLE-EXPR="Ps.payment_date.FormElem.Title + ':'" ALLOW-NULL="1" READ-ONLY-EXPR="lib_user.active_user_access.prohibit_view_vacancy_revenue" UPDATE-ACTION="
+						/*if ( ! AppModuleUsed( 'module_pm' ) )
+							return;
+
+						if ( ! Ps.agreement_id.HasValue )
+							return;
+
+						agreementDoc = OpenDoc( Ps.agreement_id.ForeignObjectUrl );
+						agreement = agreementDoc.TopElem;
+						if ( agreement.payment_date.HasValue )
+							return;
+
+						agreement.payment_date = Ps.payment_date;
+						agreementDoc.Save();*/
+				"/>
+				
+				<IF EXPR="base1_config.sn_owner == 'abmc' || base1_config.sn_owner == 'test'">
+					<EDIT SOURCE="lib_user.active_user_access.prohibit_view_vacancy_revenue ? 'xxxxxxxx' : Ps.planned_manager_fee" LABEL-TITLE-EXPR="Ps.planned_manager_fee.FormElem.Title + ':'" READ-ONLY-EXPR="lib_user.active_user_access.prohibit_view_vacancy_revenue"/>
+				</IF>
+
+				<IF EXPR="fields_usage.use_object_field( 'vacancy', 'manager_fee', 'add_info' )">
+					<EDIT SOURCE="lib_user.active_user_access.prohibit_view_vacancy_revenue ? 'xxxxxxxx' : Ps.manager_fee" LABEL-TITLE-EXPR="Ps.manager_fee.FormElem.Title + ':'" READ-ONLY-EXPR="lib_user.active_user_access.prohibit_view_vacancy_revenue"/>
+				</IF>
+			</TABLE>
+			<DELIM/>
+		</IF>
+
+		<IF EXPR="false && global_settings.portal.address != '' && Ps.is_active">
+			<CHECK SOURCE="Ps.publish_on_portal" AUTO-LABEL="1"/>
+			<DELIM/>
+		</IF>
+	</IF>
+
+
+	<IF EXPR="! global_settings.is_agency">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="20px"/>
+			</COLUMNS>
+
+			<LABEL TITLE-EXPR="Ps.source_agencies.Title + ':'"/>
+
+			<IMAGE URL="//base_pict/select.ico" TIP-TEXT="Выбрать агентства из списка" ACTION="
+					filter = undefined;
+					//filter = new Object;
+					//filter.org_id = Ps.org_id;
+
+					for ( orgID in lib_base.select_objects_from_view( 'orgs', filter ) )
+					{
+						Ps.source_agencies.ObtainChildByKey( orgID );
+
+						if ( AppModuleUsed( 'module_saintgobain' ) )
+							OpenCodeLib( '//module_saintgobain/saintgobain_lib_saintgobain.js' ).OnVacancySourceAgencyAdded( Ps, orgID );
+					}
+
+					Ps.Doc.SetChanged( true );
+			" lang-en:TIP-TEXT="Select agencies from list" lang-ua:TIP-TEXT="Вибрати агентства зі списку"/>
+		</TABLE>
+
+		<LIST LOOP-EXPR="Ps.source_agencies" SUNKEN="1" HEIGHT="16zr" MIN-HEIGHT="9zr">
+			<ROW OPEN-ACTION="ObtainDocScreen( ListElem.org_id.ForeignObjectUrl )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );" IMAGE-URL-EXPR="
+					ListElem.org_id.ForeignElem.ImageUrl
+			">
+				<COL WIDTH="100%" COL-TITLE="##UiText.fields.name##" TITLE-EXPR="ListElem.org_id.ForeignDispName"/>
+			</ROW>
+		</LIST>
+		<DELIM/>
+	</IF>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="40zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.final_candidate_source_id" AUTO-LABEL="1" READ-ONLY="1"/>
+	</TABLE>
+
+	<INHERIT TYPE="object_access"/>
+
+	<PANEL NAME="AddInfoCsdAnchor">
+	</PANEL>
+</PAGE>
+
+
+
+<PAGE TITLE="##UiText.titles.job_requirements##" SUNKEN="1" STD-MARGINS="1" IMAGE-URL="//base_pict/skill.ico">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="25zr"/>
+			<IF EXPR="! AppModuleUsed( 'module_pm' )">
+				<COL WIDTH="14zr"/>
+			</IF>
+			<COL WIDTH="10zr"/>
+			
+			<COL WIDTH="16zr"/>
+			<COL WIDTH="9zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="elem_selector" SOURCE="Ps.req_info.educ_type_id" AUTO-LABEL="1"/>
+
+		<IF EXPR="! AppModuleUsed( 'module_pm' )">
+			<EDIT SOURCE="Ps.req_info.min_exp_years" AUTO-LABEL="1"/>
+		</IF>
+
+		<LABEL/>
+
+		<TABLE SPACING="short" LABEL-TITLE="Возраст (с,по):" lang-en:LABEL-TITLE="Age (min,max):" lang-ua:LABEL-TITLE="Вік (з,до):">
+			<COLUMNS>
+				<COL WIDTH="50%"/>
+				<COL WIDTH="50%"/>
+			</COLUMNS>
+
+			<EDIT SOURCE="Ps.req_info.min_age"/>
+			<EDIT SOURCE="Ps.req_info.max_age"/>
+		</TABLE>
+
+		<ITEM TYPE="elem_selector" SOURCE="Ps.req_info.gender_id" AUTO-LABEL="1"/>
+	</TABLE>
+	<DELIM/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="30%"/>
+			<COL WIDTH="35%"/>
+			<IF EXPR="lib_recruit_provider.ExternalVacanciesEnabled()">
+				<COL WIDTH="35%"/>
+			</IF>
+		</COLUMNS>
+
+		<ITEM TYPE="elem_selector" SOURCE="Ps.testing_sample_id" AUTO-LABEL="1"/>
+		<ITEM TYPE="elem_selector" SOURCE="Ps.video_interview_poll_spec_id" AUTO-LABEL="1"/>
+		<IF EXPR="lib_recruit_provider.ExternalVacanciesEnabled()">
+			<ITEM TYPE="object_selector" SOURCE="Ps.video_interview_external_vacancy_id" AUTO-LABEL="1" before-select-action="lib_recruit_provider.OnBeforeExternalVacancySelect()"/>
+		</IF>
+	</TABLE>
+	<DELIM/>
+
+	<PANEL NAME="ReqInfoCsdAnchor">
+	</PANEL>
+</PAGE>
+
+
+
+
+<IF EXPR="Ps.is_mp_vacancy &amp;&amp; ! Ps.is_mass_vacancy">
+
+<PAGE TITLE-EXPR="
+		str = Ps.instances.Title + '  (';
+		
+		if ( global_settings.use_fractional_mp_vacancies )
+			str += StrReal( Ps.get_active_req_quantity_f() ) + '/' + StrReal( Ps.get_req_quantity_f() );
+		else
+			str += StrIntZero( Ps.get_active_req_quantity() ) + '/' + StrIntZero( Ps.get_req_quantity() );
+		
+		str += ')';
+		return str;
+" SUNKEN="1" IMAGE-URL="//base_pict/vacancy_instance.ico">
+	<WITH VAR="_dummy" EXPR="Ps.BuildStoredInstancesArray()" IGNORE-ERRORS="0">
+	</WITH>
+
+	<LIST LOOP-EXPR="
+			sortInfo = List.GetCurCodeSortInfo();
+			//alert( sortInfo );
+			return eval( 'ArraySort( Ps.instances, ' + sortInfo + ' )' );
+	">
+		<ROW OPEN-ACTION="Ps.handle_open_instance( ListElem )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );" IMAGE-URL-EXPR="ListElem.is_active ? '//base_pict/vacancy_instance.ico' : '//base_pict/vacancy_instance_inactive.ico'">
+			<COL WIDTH="16zr" COL-TITLE="##UiText.titles.opened##" TITLE-EXPR="StrDate( ListElem.start_date, false )" ORDER="start_date" ORDER-DIR="-"/>
+			<COL WIDTH="6zr" COL-TITLE="##UiText.vacancy_fields.req_quantity##" TITLE-EXPR="ListElem.req_quantity" ALIGN="center"/>
+
+			<COL WIDTH="6zr" COL-TITLE="!" TITLE-EXPR="ListElem.priority_id.ForeignDispName" ORDER="start_date" ORDER-DIR="-" ALIGN="center"/>
+			<COL WIDTH="18zr" COL-TITLE="##UiText.fields.state##" TITLE-EXPR="ListElem.state_id.ForeignDispName" ALIGN="center" TEXT-COLOR-EXPR="ListElem.state_id.ForeignElem.text_color"/>
+			<COL WIDTH="14zr" COL-TITLE="##UiText.fields.date##" TITLE-EXPR="StrDate( ListElem.state_date, false )" ALIGN="center" ORDER="state_date"/>
+			
+			<IF EXPR="global_settings.use_fractional_mp_vacancies">
+				<COL WIDTH="9zr" COL-TITLE="Ставки" lang-en:COL-TITLE="Sum rate" TITLE-EXPR="ListElem.req_quantity_f" ALIGN="center" lang-ua:COL-TITLE="Ставки"/>
+			</IF>
+
+			<COL WIDTH="37zr" COL-TITLE="##UiText.objects.candidate##" TITLE-EXPR="ListElem.final_candidate_id.ForeignDispName"/>
+			<COL WIDTH="100%" COL-TITLE="##UiText.fields.comment##" TITLE-EXPR="ListElem.comment"/>
+			<COL WIDTH="12zr" COL-TITLE="##UiText.fields.recruiter##" TITLE-EXPR="ListElem.user_id.ForeignDispName" ALIGN="center"/>
+		</ROW>
+
+		<MENU RIGHT-CLICK="1">
+			<INHERIT TYPE="list_menu_entries"/>
+				
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE="##UiText.actions.change_state##..." ACTION="
+					newStateID = lib_voc.select_voc_elem( vacancy_states );
+
+					for ( instance in ArrayExtract( List.SelRows, 'Env.ListElem' ) )
+					{
+						instance.set_new_state( newStateID );
+					}
+
+					Ps.Doc.SetChanged( true );
+			"/>
+
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE="##UiText.actions.change_recruiter##..." ACTION="
+					newUserID = lib_vacancy.SelectUserByCurrentWorkload();
+
+					for ( instance in ArrayExtract( List.SelRows, 'Env.ListElem' ) )
+						instance.user_id = newUserID;
+
+					Ps.Doc.SetChanged( true );
+			"/>
+		</MENU>
+	</LIST>
+</PAGE>
+
+</IF>
+
+
+<IF EXPR="AppModuleUsed( 'module_sanofi' )">
+	<PAGE TITLE="##UiText.titles.agencies##" SUNKEN="1" IMAGE-URL="//base_pict/org.ico">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="16zr"/>
+			</COLUMNS>
+
+			<LABEL TITLE-EXPR="Ps.source_agencies.Title + ':'"/>
+
+			<BUTTON IMAGE-URL="//base_pict/plus.ico" TITLE="##UiText.actions.add##" ACTION="
+					Ps.HandleAddSourceAgencies();
+			" lang-en:TIP-TEXT="Select agencies from list" lang-ua:TIP-TEXT="Вибрати агентства зі списку"/>
+		</TABLE>
+		<DELIM/>
+
+		<LOOP EXPR="Ps.source_agencies" VAR="ListElem">
+			<GROUP>
+				<ITEM TYPE="object_selector" SOURCE="ListElem.org_id" WIDTH="-30px" LABEL-TITLE="##UiText.objects.org##:"/>
+
+				<IMAGE URL="//base_pict/more_actions.ico" WIDTH="16px" HEIGHT="16px" KEEP-RIGHT="1">
+					<MENU>
+						<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+								ListElem.Delete();
+								Ps.Doc.SetChanged( true );
+						"/>
+					</MENU>
+				</IMAGE>
+				<SEPARATOR/>
+
+				<ITEM TYPE="date_selector" SOURCE="ListElem.work_start_date" WIDTH="14zr" AUTO-LABEL="1"/>
+				<ITEM TYPE="date_selector" SOURCE="ListElem.work_end_date" WIDTH="14zr" AUTO-LABEL="1"/>
+
+				<EDIT SOURCE="ListElem.work_days_num" READ-ONLY="1" LABEL-TITLE="##UiText.vacancy_fields.cur_work_days_num##:" WIDTH="12zr"/>
+			</GROUP>
+			<DELIM/>
+		</LOOP>
+	</PAGE>
+</IF>
+
+
+
+	
+<IF EXPR="global_settings.use_vacancy_recruit_plans">
+
+<PAGE TITLE-EXPR="Ps.recruit_plan_id.Title" SUNKEN="1" STD-MARGINS="1" IMAGE-URL="//base_pict/plan.ico">
+	<GROUP>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.recruit_plan_id" AUTO-LABEL="1" WIDTH="60zr" UPDATE-ACTION="lib_vacancy.UpdateVacancyPlan( Ps )"/>
+	</GROUP>
+	<DELIM/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="50zr"/>
+			<COL WIDTH="20zr"/>
+			
+			<COL WIDTH="12zr"/>
+			<COL WIDTH="12zr"/>
+			
+			<COL WIDTH="2zr"/>
+			<COL WIDTH="20zr"/>
+		</COLUMNS>
+
+		<LABEL TITLE="##UiText.fields.recruit_phase##:"/>
+
+		<LABEL TITLE="##UiText.titles.estimated_duration## (##UiText.titles.wdays__short##):"/>
+		<LABEL TITLE="##UiText.fields.start_date##:"/>
+		<LABEL TITLE="##UiText.fields.end_date##:"/>
+		<LABEL/>
+		<LABEL TITLE="##UiText.titles.estimated_effort## (##UiText.titles.hours##):"/>
+
+		<LOOP EXPR="ArraySort( Ps.plan.target_recruit_phases, 'recruit_phase_id.ForeignElem.order_index', '+' )" VAR="ListElem">
+			<EDIT SOURCE="ListElem.recruit_phase_id.ForeignDispName" READ-ONLY="1" WIDTH="40zr"/>
+			<EDIT SOURCE="ListElem.wdays_num" READ-ONLY="1" WIDTH="10zr"/>
+			
+			<EDIT SOURCE="ListElem.start_date" READ-ONLY="1"/>
+			<EDIT SOURCE="ListElem.end_date" READ-ONLY="1"/>
+			<LABEL/>
+
+			<EDIT SOURCE="ListElem.effort_hours" READ-ONLY="1" WIDTH="10zr"/>
+		</LOOP>
+	</TABLE>
+	<DELIM/>
+	<BR/>
+
+	<LABEL TITLE="##UiText.titles.actual__fact##:"/>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="25zr"/>
+			<COL WIDTH="25zr"/>
+			
+			<COL WIDTH="45zr"/>
+			<COL WIDTH="45zr"/>
+		</COLUMNS>
+
+		<LABEL TITLE="##UiText.fields.start_date##:"/>
+		<LABEL TITLE="##UiText.fields.end_date##:"/>
+		<LABEL TITLE="##UiText.fields.recruit_phase##:"/>
+		<LABEL/>
+
+		<LOOP EXPR="Ps.recruit_phase_records" VAR="ListElem">
+			<LABEL TITLE-EXPR="StrDate( ListElem.date, false )"/>
+			<LABEL TITLE-EXPR="StrDate( ListElem.end_date )"/>
+			
+			<LABEL TITLE-EXPR="ListElem.recruit_phase_id.ForeignDispName"/>
+			<LABEL TITLE-EXPR="ListElem.candidate_id.ForeignDispName"/>
+		</LOOP>
+	</TABLE>
+	<DELIM/>
+
+	<GROUP>
+		<EDIT SOURCE="StrSignedInt( Ps.recruit_plan_deviation_wdays_num )" READ-ONLY="1" LABEL-TITLE-EXPR="Ps.recruit_plan_deviation_wdays_num.Title + ':'" WIDTH="6zr"/>
+	</GROUP>
+	<DELIM/>
+</PAGE>
+
+</IF>
+
+
+
+<PAGE TITLE="Сроки поиска" lang-en:TITLE="Deadlines" lang-ua:TITLE="Терміни пошуку" SUNKEN="1" STD-MARGINS="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/adjustment.ico">
+	<GROUP>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.recruit_metrics_set_id" AUTO-LABEL="1" WIDTH="30zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.recruit_metrics_set_id, 30, 60 )" MIN-WIDTH="40zr"/>
+
+		<LABEL TITLE=" "/>
+
+		<BUTTON IMAGE-URL="//base_pict/select.ico" TITLE="Автоматический выбор" lang-en:TITLE="Select Automatically" lang-ua:TITLE="Автоматичний вибір" ACTION="
+				lib_vacancy.HandleGuessVacancyRecruitMetricsSet( Ps );
+		" WIDTH="30zr" ENABLE-EXPR="ArrayCount( lib_voc.get_sorted_voc( recruit_metrics_sets ) ) != 0"/>
+	</GROUP>
+	<DELIM/>
+	<BR/>
+
+	<WITH VAR="metricsSet" EXPR="Ps.recruit_metrics_set_id.ForeignElem">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="36zr"/>
+				<COL WIDTH="1zr"/>
+				<COL WIDTH="25zr"/>
+				<COL WIDTH="35zr"/>
+				<COL WIDTH="40zr"/>
+			</COLUMNS>
+		
+			<LABEL/>
+			<LABEL/>
+			<LINE>
+				<LABEL TITLE="Сроки по нормативу:" lang-en:TITLE="Metrics-based Duration:" lang-ua:TITLE="Терміни за нормативом:"/>
+				<LABEL/>
+				<IMAGE URL="//base_pict/copy_to_right.png" TIP-TEXT="##UiText.actions.recalculate##" ACTION="
+						lib_vacancy.UpdateVacancyTermDatesByMetrics( Ps, true );
+						Ps.Doc.SetChanged( true );
+				"/>
+			</LINE>
+			<LINE>
+				<LABEL TITLE="Начальные плановые сроки:" lang-en:TITLE="Originally Planned Duration:" lang-ua:TITLE="Початкові планові терміни:"/>
+				<LABEL/>
+				<IMAGE URL="//base_pict/copy_to_right.png" TIP-TEXT="##UiText.actions.recalculate##" ACTION="
+						lib_vacancy.UpdateVacancyTermDatesByOrigMaxTerms( Ps, true );
+						Ps.Doc.SetChanged( true );
+				"/>
+			</LINE>
+			<LINE>
+				<LABEL TITLE="Скорректированные плановые сроки:" lang-en:TITLE="Adjusted Planned Duration:" lang-ua:TITLE="Скориговані планові терміни:"/>
+				<LABEL/>
+				<IMAGE URL="//base_pict/copy_to_right.png" TIP-TEXT="##UiText.actions.recalculate##" ACTION="
+						lib_vacancy.UpdateVacancyTermDatesByMaxTerms( Ps, true );
+						Ps.Doc.SetChanged( true );
+				"/>
+			</LINE>
+
+			<BR HSPAN="5"/>
+
+			<LOOP EXPR="rcr_common.active_vacancy_term_types" VAR="vtt">
+				<LABEL TITLE-EXPR="Ps.Child( vtt.max_term_field_name ).Title + ':'" ALIGN="right"/>
+				<LABEL/>
+				<LABEL TITLE-EXPR="lib_vacancy.GetVacancyMetricsFieldDesc( Ps, metricsSet, vtt.max_term_field_name )"/>
+				<ITEM TYPE="d_period" SOURCE="Ps.Child( vtt.orig_max_term_field_name )" UPDATE-ACTION="lib_vacancy.UpdateVacancyTermDatesByOrigMaxTerms( Ps, false )" READ-ONLY-EXPR="lib_user.active_user_access.prohibit_change_vacancy_max_work_term" WIDTH="23zr"/>
+				<ITEM TYPE="d_period" SOURCE="Ps.Child( vtt.max_term_field_name )" UPDATE-ACTION="lib_vacancy.UpdateVacancyTermDatesByMaxTerms( Ps, false )" READ-ONLY-EXPR="lib_user.active_user_access.prohibit_change_vacancy_max_work_term" WIDTH="23zr"/>
+			</LOOP>
+		</TABLE>
+	</WITH>
+	<DELIM/>
+
+	<GROUP>
+		<EDIT SOURCE="Ps.suspended_days_num" WIDTH="6zr" ALIGN="right" LABEL-TITLE="##UiText.titles.suspended__vacancy##:"/>
+		<ITEM TYPE="days_suffix_label" SOURCE="Ps.suspended_days_num" KEEP-WITH-PREV="1"/>
+		
+		<IF EXPR="global_settings.use_vacancy_work_wdays">
+			<ITEM TYPE="vert_delim"/>
+			<EDIT SOURCE="Ps.suspended_wdays_num" WIDTH="6zr" ALIGN="right"/>
+			<ITEM TYPE="wdays_suffix_label" SOURCE="Ps.suspended_wdays_num" KEEP-WITH-PREV="1"/>
+		</IF>
+
+		<IF EXPR="global_settings.use_vacancy_term_adjustments">
+			<EDIT SOURCE="StrIntZero( Ps.term_adjustments_sum_day_num )" WIDTH="6zr" READ-ONLY="1" ALIGN="right" LABEL-TITLE="##UiText.titles.term_adjustments##:" KEEP-RIGHT="1"/>
+			<ITEM TYPE="days_suffix_label" SOURCE="Ps.term_adjustments_sum_day_num" KEEP-WITH-PREV="1"/>
+		
+			<IF EXPR="global_settings.use_vacancy_work_wdays">
+				<ITEM TYPE="vert_delim"/>
+				<EDIT SOURCE="StrIntZero( Ps.term_adjustments_sum_wday_num )" READ-ONLY="1" ALIGN="right" WIDTH="6zr"/>
+				<ITEM TYPE="wdays_suffix_label" SOURCE="Ps.term_adjustments_sum_wday_num" KEEP-WITH-PREV="1"/>
+			</IF>
+		</IF>
+	</GROUP>
+	<DELIM/>
+
+	<ITEM TYPE="vacancy_planned_dates"/>
+	<DELIM/>
+
+	<IF EXPR="global_settings.use_vacancy_term_adjustments">
+
+	<GROUP>
+		<LABEL TITLE="##UiText.titles.term_adjustments##"/>
+	
+		<BUTTON IMAGE-URL="//base_pict/plus.ico" WIDTH="16zr" TITLE="##UiText.actions.add##" ACTION="
+				adjustments = Ps.term_adjustments.AddChild();
+				adjustments.date = CurDate;
+				adjustments.period.unit_id = ( global_settings.use_vacancy_work_wdays ? 'wd' : 'd' );
+				Ps.Doc.SetChanged( true );
+		" KEEP-RIGHT="1"/>
+	</GROUP>
+	<DELIM/>
+
+	<LOOP EXPR="ArraySort( Ps.term_adjustments, 'date', '+', 'reason_id.ForeignElem.order_index', '-' )" VAR="ListElem">
+		<GROUP>
+			<ITEM TYPE="date_selector" SOURCE="ListElem.date" AUTO-LABEL="1" WIDTH="14zr"/>
+
+			<ITEM TYPE="voc_elem_selector" SOURCE="ListElem.reason_id" AUTO-LABEL="1" WIDTH="-24px" UPDATE-ACTION="
+					if ( ListElem.reason_id.ForeignElem.default_period.length.HasValue )
+					{
+						if ( ! ListElem.period.length.HasValue )
+						{
+							ListElem.period.AssignElem( ListElem.reason_id.ForeignElem.default_period );
+							lib_vacancy.UpdateVacancyTermDatesByOrigMaxTerms( Ps, true );
+						}
+					}
+			"/>
+
+			<IMAGE URL="//base_pict/more_actions.ico" WIDTH="16px" HEIGHT="16px" KEEP-RIGHT="1">
+				<MENU>
+					<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+							ListElem.Delete();
+							lib_vacancy.UpdateVacancyTermDatesByOrigMaxTerms( Ps, true );
+							Ps.Doc.SetChanged( true );
+					"/>
+				</MENU>
+			</IMAGE>
+
+			<SEPARATOR/>
+
+			<ITEM TYPE="dm_period" SOURCE="ListElem.period" AUTO-LABEL="1" UPDATE-ACTION="
+						lib_vacancy.UpdateVacancyTermDatesByOrigMaxTerms( Ps, true );
+			" WIDTH="26zr"/>
+
+			<IF EXPR="false &amp;&amp; AppModuleUsed( 'module_efko' )">
+				<ITEM TYPE="date_selector" SOURCE="
+						base1_config.dummy_date = ( ListElem.period.length.HasValue ? lib_base.get_term_date_offset( ListElem.date, ListElem.period ) : null );
+						return base1_config.dummy_date;
+				" UPDATE-ACTION="
+						if ( ListElem.date >= DateNewTime( base1_config.dummy_date ) )
+							return;
+
+						if ( ListElem.period.unit_id == 'd' )
+							ListElem.period.length = lib_base.get_date_days_diff( DateNewTime( base1_config.dummy_date ), ListElem.date );
+						else if ( ListElem.period.unit_id == 'wd' )
+							ListElem.period.length = lib_calendar.get_date_wdays_diff( DateNewTime( base1_config.dummy_date ), ListElem.date );
+				"/>
+			</IF>
+		</GROUP>
+		<BR/>
+
+		<EDIT SOURCE="ListElem.comment" AUTO-LABEL="1" MULTILINE="1" VERT-SCROLL="1" HEIGHT="10zr"/>
+		<DELIM/>
+	</LOOP>
+</IF>
+
+</PAGE>
+
+
+
+<IF EXPR="rcr_config.use_imod">
+	<INHERIT TYPE="vacancy_inet_pages"/>
+</IF>
+
+
+
+<PAGE TITLE-EXPR="Ps.records.Title" SUNKEN="1" IMAGE-URL="//base_pict/edit.ico">
+	<LIST LOOP-EXPR="lib_vacancy.BuildVacancyDispRecordsArray( Ps )">
+		<ROW OPEN-ACTION="
+				dlg = OpenDoc( 'rcr_dlg_vacancy_record.xml' );
+				dlg.TopElem.record.AssignElem( ListElem );
+
+				Screen.ModalDlg( dlg );
+
+				ListElem.AssignElem( dlg.TopElem.record );
+				Ps.Doc.SetChanged( true );
+				Screen.Update();
+		" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );" IMAGE-URL="//base_pict/edit.ico">
+			<COL WIDTH="16zr" COL-TITLE="##UiText.fields.date##" TITLE-EXPR="StrDate( ListElem.date, false )" ORDER="date" ORDER-DIR="-"/>
+			<COL WIDTH="20zr" COL-TITLE-EXPR="Ps.FormElem.records.record.type_id.Title" ALIGN="center" TITLE-EXPR="ListElem.type_id == 'state_change' ? ListElem.state_id.ForeignDispName : ListElem.type_id.ForeignDispName" TEXT-COLOR-EXPR="ListElem.type_id == 'state_change' ? ListElem.state_id.ForeignElem.text_color : ''" lang-en:COL-TITLE="Record type"/>
+			<COL WIDTH="42zr" COL-TITLE="##UiText.objects.candidate##" TITLE-EXPR="ListElem.candidate_id.ForeignDispName"/>
+			<COL WIDTH="100%" COL-TITLE="##UiText.fields.comment##" TITLE-EXPR="ListElem.comment"/>
+		</ROW>
+	</LIST>
+</PAGE>
+
+
+
+
+
+
+
+
+<IF EXPR="lib_app2.AppFeatureEnabled( 'classic_recruit' )">
+	<PAGE TITLE="##UiText.sections.current_candidates##" IMAGE-URL="//base_pict/candidate_spot.ico">
+		<!--<ITEM FORM-DATA-EXPR="lib_view.build_card_view_screen_data( 'candidates_of_vacancy' )" SOURCE="Ps.view"/>-->
+		<FRAME NAME="CardFrameCandidatesOfVacancy"/>
+		
+		<WITH VAR="_dummy" EXPR="
+				if ( Ps.view.viewCandidatesOfVacancyDoc == undefined )
+				{
+					innerDoc = OpenNewDoc( 'rcr_view_candidates_of_vacancy.xml' );
+					innerDoc.TopElem.curVacancyID = Ps.id;
+					innerDoc.TopElem.curVacancy = Ps;
+
+					Ps.view.viewCandidatesOfVacancyDoc = innerDoc;
+				}
+
+				frame = Screen.FindItem( 'CardFrameCandidatesOfVacancy' );
+				if ( frame.InnerScreen.OptDoc == undefined )
+					frame.InnerScreen.SetDoc( Ps.view.viewCandidatesOfVacancyDoc );
+		" IGNORE-ERRORS="0">
+		</WITH>
+	</PAGE>
+
+
+	<ITEM FORM-DATA-EXPR="lib_base.get_card_pages_form( 'vacancy' )"/>
+</IF>
+
+<ITEM TYPE="card_attachments"/>
+
+
+
+
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+
+</LINE>
+
+
+
+<COMMAND-HANDLER CMD="CheckSpelling" ACTION="
+		Screen.CheckSpelling();
+"/>
+
+
+<COMMAND-HANDLER CMD="Print" ACTION="
+		if ( AppModuleUsed( 'module_rgs' ) )
+		{
+			reportStr = EvalCodePageUrl( '//module_rgs/rgs_vacancy.xmp', 'strict-errors=1' );
+			lib_base.print_report( reportStr );
+		}
+		else
+		{
+			if ( Ps.active_attachment == undefined )
+				return;
+
+			lib_base.print_card_attachment( Ps.active_attachment );
+		}
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="PrintDocument" ACTION="
+		if ( Ps.active_attachment == undefined )
+			return;
+
+		lib_base.print_card_attachment( Ps.active_attachment );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="QQQ" ACTION="
+			CreateDocScreen( doc );
+"/>
+
+
+<INHERIT TYPE="generic_screen_commands"/>
+
+<COMMAND-HANDLER CMD="Help" HREF="help/intro.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+
+</SPXML-SCREEN>
+
+

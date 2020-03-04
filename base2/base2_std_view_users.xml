@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>users</id>
+	<name VALUE="##UiText.sections.users##"/>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>is_active</id>
+		</dyn_filter>
+		<dyn_filter>
+			<id>main_group_id</id>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>login</id>
+		</field>
+		<field>
+			<id>fullname</id>
+		</field>
+		<field>
+			<id>access_role_id</id>
+		</field>
+		<field>
+			<id>main_group_id</id>
+		</field>
+	</fields>
+
+	<action>
+		<title VALUE="Новый пользователь" lang-en:VALUE="New User" lang-ua:VALUE="Новий користувач"/>
+		<image_url>//base_pict/user.ico</image_url>
+		<code>
+				if ( UseLds &amp;&amp; ArrayCount( ArraySelect( users, 'is_active' ) ) >= ( usersLimit = CallServerMethod( 'lib_app2', 'GetActiveUsersLimit' ) ) )
+				{
+					Screen.MsgBox( lib_base.BuildUiParamEntry( UiText.errors.users_num_limit_of_xxx_exceeded, usersLimit ), UiText.titles.error, 'error' );
+					return;
+				}
+
+				doc = DefaultDb.OpenNewObjectDoc( 'user' );
+				CreateDocScreen( doc );
+		</code>
+	</action>
+</std_view>
+

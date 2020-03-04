@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="100zr" HEIGHT="40zr" SOURCE="TopElem" TITLE="##UiText.titles.telephony##" RESIZE="1" WINDOW-ICON-URL="//base_pict/settings.ico" SAVE-ACTION="
+		lib_telephony.OnTelephonyLocalSettingsChanged();
+">
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<CHECK SOURCE="Ps.display_panel_on_incoming_call" TITLE="Показывать всплывающее окно при входящем звонке" lang-en:TITLE="Show window on incoming call" lang-ua:TITLE="Показувати спливаюче вікно при вхідному дзвінку"/>
+	<CHECK SOURCE="Ps.make_outgoing_calls_via_softphone" TITLE="Делать исходящие вызовы напрямую через программный телефон" lang-en:TITLE="Make outgoing calls via softphone" lang-ua:TITLE="Виробляти вихідні дзвінки безпосередньо через програмний телефон"/>
+	<DELIM/>
+
+	<IF EXPR="! lib_telephony.is_telephony_enabled">
+		<BR/>
+		<LINE>
+			<IMAGE URL="//base_pict/error.ico"/>
+			<LABEL TITLE="##UiText.errors.telephony_not_enabled##"/>
+		</LINE>
+	</IF>
+	<ELSE>
+		<IF EXPR="lib_telephony.GetCurUserPhoneExtension() == null">
+			<BR/>
+			<LINE>
+				<IMAGE URL="//base_pict/warning.ico"/>
+				<LABEL TITLE="##UiText.errors.cur_user_phone_extension_not_specified##"/>
+			</LINE>
+		</IF>
+	</ELSE>
+</PANEL>
+
+
+</SPXML-SCREEN>

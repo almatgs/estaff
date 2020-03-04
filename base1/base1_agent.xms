@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name + ' - ' + UiText.objects.agent" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1">
+
+
+<INHERIT TYPE="card_menus"/>
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="base_toolbar_start_entries"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/start.ico" ACTION="
+			if ( Ps.Doc.IsChanged )
+				Screen.SaveDoc();
+			
+			lib_agent.handle_launch_agent( Ps.id, {RunSync:false} );
+	" TITLE="##UiText.actions.launch_in_background##"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/start.ico" ACTION="
+			if ( Ps.Doc.IsChanged )
+				Screen.SaveDoc();
+			
+			lib_agent.handle_launch_agent( Ps.id, {RunSync:true} );
+	" TITLE="##UiText.actions.run_now##"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/help.ico" CMD="Help" TIP-TEXT="##UiText.sections.help##"/>
+</TOOLBAR>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+
+	<IF EXPR="Ps.scenario_object_type_id.HasValue">
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.scenario_id" LABEL-TITLE="##UiText.fields.scenario##:" WIDTH="60%"/>
+	</IF>
+	<ELSE>
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+			<CODE-EDIT SOURCE="Ps.code" LABEL-TITLE="##UiText.fields.executable_code##:" HEIGHT="-65zr" READ-ONLY-EXPR="! Ps.voc_info.std_field_editable( Ps, 'code' )"/>
+		</TABLE>
+	</ELSE>
+	<BR/>
+
+	<CHECK SOURCE="Ps.show_in_main_menu" AUTO-LABEL="1"/>
+	<DELIM/>
+
+	<LINE>
+		<RADIO-BUTTON TITLE="Запускать на сервере" SOURCE="Ps.run_on_client" SWITCH-VALUE="false" WIDTH="auto" lang-en:TITLE="Run on server" READ-ONLY-EXPR="! Ps.voc_info.std_field_editable( Ps, 'run_on_client' )" lang-ua:TITLE="Запускати на сервері"/>
+		<RADIO-BUTTON TITLE="Запускать на рабочем месте" SOURCE="Ps.run_on_client" SWITCH-VALUE="true" WIDTH="auto" lang-en:TITLE="Run on client" READ-ONLY-EXPR="! Ps.voc_info.std_field_editable( Ps, 'run_on_client' )" lang-ua:TITLE="Запускати на робочому місці"/>
+	</LINE>
+	<BR/>
+	<CHECK SOURCE="Ps.run_sync_manually" AUTO-LABEL="1"/>
+	<DELIM/>
+
+	<LINE>
+		<LABEL TITLE="Расписание запуска:" lang-en:TITLE="Launch schedule:" lang-ua:TITLE="Розклад запуску:"/>
+		<RADIO-BUTTON TITLE="Ежедневно в заданное время" lang-en:TITLE="Daily at a fixed time" SOURCE="Ps.schedule.use_term" SWITCH-VALUE="false" WIDTH="auto" lang-ua:TITLE="Щодня в заданий час"/>
+		<RADIO-BUTTON TITLE="Через равные промежутки времени" lang-en:TITLE="Continuously at even time intervals" SOURCE="Ps.schedule.use_term" SWITCH-VALUE="true" WIDTH="auto" lang-ua:TITLE="Через рівні проміжки часу"/>
+	</LINE>
+	<BR/>
+
+	<IF EXPR="Ps.schedule.use_term">
+		<LABEL TITLE="Промежуток времени:" lang-en:TITLE="Time interval:" lang-ua:TITLE="Проміжок часу:"/>
+		<ITEM TYPE="smhd_period" SOURCE="Ps.schedule.term"/>
+	</IF>
+	<ELSE>
+		<LABEL TITLE="Время запуска:" lang-en:TITLE="Launch time:" lang-ua:TITLE="Час запуску:"/>
+		<BR/>
+
+		<GRID HEIGHT="auto">
+			<COLUMNS>
+				<COL WIDTH="8zr"/>
+				<COL WIDTH="8zr"/>
+			</COLUMNS>
+
+			<ROW HEADER="1">
+				<LABEL TITLE="##UiText.titles.hour##" ALIGN="center"/>
+				<LABEL TITLE="##UiText.titles.minute##" ALIGN="center"/>
+			</ROW>
+
+			<ROW MULTIPLE="1" SOURCE="Ps.schedule.time_entries">
+				<EDIT SOURCE="ListElem.hour"/>
+				<EDIT SOURCE="ListElem.minute"/>
+			</ROW>
+		</GRID>
+	</ELSE>
+	<BR/>
+
+	<IF EXPR="Ps.settings_section.holder.HasValue">
+		<BUTTON IMAGE-URL="//base_pict/settings.ico" TITLE="##UiText.fields.launch_settings##" WIDTH="24zr" ACTION="
+				ObtainSubDocScreen( eval( Ps.settings_section.holder ), Ps.settings_section.screen_form );
+		" PASSIVE="1" lang-en:TITLE="Launch settings"/>
+	</IF>
+
+	<DELIM/>
+
+	<GROUP>
+		<EDIT SOURCE="Ps.get_last_run_start_date" WIDTH="25zr" READ-ONLY="1" LABEL-TITLE-EXPR="Ps.FormElem.get_last_run_start_date.Title + ':'"/>
+		<EDIT SOURCE="Ps.get_last_run_end_date" WIDTH="25zr" READ-ONLY="1" LABEL-TITLE-EXPR="Ps.FormElem.get_last_run_end_date.Title + ':'"/>
+	</GROUP>
+	<BR/>
+
+	<EDIT SOURCE="Ps.get_last_run_error_str" MULTILINE="1" HEIGHT="10zr" VERT-SCROLL="1" READ-ONLY="1" LABEL-TITLE-EXPR="Ps.FormElem.get_last_run_error_str.Title + ':'"/>
+</PANEL>
+
+</SPXML-SCREEN>

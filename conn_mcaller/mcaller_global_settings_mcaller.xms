@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.mobile_app##" SAVE-ACTION="
+		UpdateScreens( '*', '*' );
+" RESIZE="1" WIDTH="70zr" HEIGHT="50zr" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<LABEL TITLE="##UiText.titles.mobile_app## (E-Staff Caller ID)"/>
+	<BR/>
+	
+	<CHECK SOURCE="Ps.allow_access" AUTO-LABEL="1" WIDTH="auto"/>
+	<DELIM/>
+
+	<GROUP>
+		<LABEL TITLE="##UiText.titles.server_address##:"/>
+		<EDIT SOURCE="ui_base.GetServerHostName()" READ-ONLY="1" WIDTH="30zr"/>
+
+		<LINK TITLE="##UiText.actions.modify##" ACTION="
+				ObtainSubDocScreen( global_settings.web, '//base1/base1_global_settings_web.xms' );
+		" PASSIVE="1"/>
+	</GROUP>
+	<BR/>
+	<BR/>
+	<BUTTON TITLE-EXPR = "
+					UiText.actions.send_email + ' (' +lib_user.active_user_info.login + ')'" 
+					ACTION="OpenCodeLib('mcaller_lib_mcaller_ui.js').SendEmail(ui_base.GetServerHostName(), false);" WIDTH="35zr" />
+	<BUTTON TITLE="##UiText.actions.send_email## (##UiText.objects.user##)" 
+					ACTION="OpenCodeLib('mcaller_lib_mcaller_ui.js').SendEmail(ui_base.GetServerHostName(), true);" WIDTH="35zr"/>
+
+</PANEL>
+
+</SPXML-SCREEN>

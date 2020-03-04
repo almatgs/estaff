@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>budgets</id>
+	<name VALUE="Исполнение бюджета" lang-en:VALUE="Budgets" lang-ua:VALUE="Виконання бюджету"/>
+	<section_id>other</section_id>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>yq_date</id>
+			<source_id>budgets</source_id>
+			<use_range>1</use_range>
+			<use_period_quick_selector>1</use_period_quick_selector>
+			<title VALUE="##UiText.fields.date##"/>
+		</dyn_filter>
+	</dyn_filters>
+
+	<sources>
+		<source>
+			<id>budgets</id>
+		</source>
+		<source>
+			<id>expenses</id>
+
+			<join_base>budgets</join_base>
+			<join_key>yq_date</join_key>
+			<join_base_key>yq_date</join_base_key>
+
+			<stat_only>1</stat_only>
+		</source>
+	</sources>
+
+	<fields>
+		<field>
+			<id>year</id>
+			<align>center</align>
+		</field>
+
+		<field>
+			<id>quarter</id>
+			<align>center</align>
+		</field>
+
+		<field>
+			<id>amount</id>
+			<col_title VALUE="##UiText.titles.planned__date##"/>
+			<ref_id>amount</ref_id>
+		</field>
+
+		<field>
+			<id>amount</id>
+			<col_title VALUE="##UiText.titles.actual__fact##"/>
+			<source_id>expenses</source_id>
+			<stat_qual>payment_state_id == 'paid'</stat_qual>
+			<stat_func>sum</stat_func>
+			<ref_id>actual_amount</ref_id>
+		</field>
+
+		<field>
+			<col_title VALUE="##UiText.titles.deviation##"/>
+			<expr>actual_amount != null && amount >= 0 ? amount - actual_amount : 0</expr>
+			<data_type>real</data_type>
+		</field>
+	</fields>
+</std_stat>
+

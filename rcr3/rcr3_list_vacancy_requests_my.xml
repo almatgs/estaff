@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="List.vacancy_requests.my" BaseTemplate="List.vacancy_requests" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<UI:Filter Field="orig_person_id" Fixed="1" ValueExpr="lib_user.active_user_person.id"/>
+
+<UI:Action StdAction="NewObject"/>
+
+</UiTemplate>

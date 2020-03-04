@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" MAXIMIZED="1">
+
+
+<INHERIT TYPE="card_menus"/>
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="base_toolbar_start_entries"/>
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY TITLE="##UiText.actions.add##" IMAGE-URL="//base_pict/plus.ico" lang-en:TITLE="Add">
+		<MENU>
+			<MENU-ENTRY TITLE="##UiText.titles.question##" ACTION="
+					elem = Ps.questions.AddChild();
+					elem.id = Ps.generate_question_id();
+
+					Screen.Update();
+					Screen.ExposeItemBySource( elem.name );
+			" PASSIVE="1"/>
+
+			<MENU-ENTRY TITLE="##UiText.fields.question_group_separator##" ACTION="
+					elem = Ps.questions.AddChild();
+					elem.is_separator = true;
+
+					Screen.Update();
+					Screen.ExposeItemBySource( elem.name );
+			" PASSIVE="1"/>
+		</MENU>
+	</TOOLBAR-ENTRY>
+
+	<IF EXPR="AppModuleUsed( 'conn_wts' )">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/actions.ico" TITLE="##UiText.actions.upload_to_wts##" ACTION="lib_wts.HandleUploadPollSpec( Ps )" WIDTH="32zr"/>
+	</IF>
+
+	<INHERIT TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="40zr" STD-MARGINS="0">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="0">
+		</TREE>
+	</PANEL>
+</PANEL>
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.titles.questionnaire_form##" SUNKEN="1" EXPANDED="1" IMAGE-URL="//base_pict/generic_item.ico">
+
+
+<PAGE TITLE="##UiText.sections.general##" SUNKEN="1" IMAGE-URL="//base_pict/common.ico" lang-en:TITLE="General">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<LABEL TITLE="##UiText.titles.questions##:"/>
+	<LIST LOOP-EXPR="Ps.questions" SUNKEN="1">
+		<ROW OPEN-ACTION="Screen.ExposeItemBySource( ListElem.id )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true ); Screen.Update();" IMAGE-URL-EXPR="ListElem.is_separator ? '//base_pict/generic_item_group.ico' : '//base_pict/generic_item.ico'">
+			<COL WIDTH="100%" COL-TITLE="##UiText.titles.question##" TITLE-EXPR="ListElem.name"/>
+			<COL WIDTH="15zr" COL-TITLE="ID" TITLE-EXPR="ListElem.id"/>
+		</ROW>
+
+		<MENU>
+			<INHERIT TYPE="list_menu_entries"/>
+			<MENU-ENTRY SEPARATOR="1"/>
+			<INHERIT TYPE="list_order_menu_entries"/>
+		</MENU>
+	</LIST>
+</PAGE>
+
+
+<IF EXPR="AppModuleUsed( 'conn_wts' )">
+
+<PAGE TITLE="##UiText.sections.add_info##" SUNKEN="1" STD-MARGINS="1" IMAGE-URL="//base_pict/aux_info.ico" EXPANDED="1">
+	<GROUP>
+		<EDIT SOURCE="Ps.wts_eid" LABEL-TITLE="##UiText.fields.eid##:" WIDTH="35zr"/>
+	</GROUP>
+	<DELIM/>
+
+	<EDIT SOURCE="Ps.final_message_text" MULTILINE="1" AUTO-LABEL="1" HEIGHT="40zr"/>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.use_auto_apply" AUTO-LABEL="1"/>
+
+	<IF EXPR="Ps.use_auto_apply">
+		<BR/>
+		<GROUP>
+			<EDIT SOURCE="Ps.auto_apply_data.position_name" LABEL-TITLE="##UiText.fields.position##:"/>
+		</GROUP>
+		<IF EXPR="Ps.auto_apply_data.url.HasValue">
+			<BR/>
+			<LINK TITLE-EXPR="Ps.auto_apply_data.url" HREF-EXPR="Ps.auto_apply_data.url" TARGET="_web"/>
+		</IF>
+		<DELIM/>
+		<LABEL TITLE="##UiText.titles.set_for_loaded_candidates##:"/>
+		<BR/>
+		<GROUP SOURCE="Ps.auto_apply_data.dest_candidate_fields">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.source_id" WIDTH="30zr" LABEL-TITLE="##UiText.fields.entrance_source##:"/>
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.state_id" WIDTH="30zr" LABEL-TITLE="##UiText.fields.state##:"/>
+		</GROUP>
+	</IF>
+	<DELIM/>
+</PAGE>
+
+</IF>
+
+
+<PAGE TITLE="##UiText.titles.questions##" IMAGE-URL="//base_pict/folder.ico" EXPANDED="1" SUNKEN="1">
+	<LOOP EXPR="Ps.questions" VAR="ListElem">
+		<PAGE TITLE-EXPR="ListElem.name" IMAGE-URL-EXPR="ListElem.is_separator ? '//base_pict/generic_item_group.ico' : '//base_pict/generic_item.ico'" SOURCE="ListElem" SUNKEN="1" VERT-SCROLL="1">
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="100%"/>
+					<COL WIDTH="20zr"/>
+				</COLUMNS>
+
+				<EDIT SOURCE="Ps.name" LABEL-TITLE="Заголовок вопроса:" lang-en:LABEL-TITLE="Question title:" lang-ua:LABEL-TITLE="Тема питання:"/>
+				<EDIT SOURCE="Ps.id" LABEL-TITLE="##UiText.fields.id##:" ENABLE-EXPR="! Ps.is_separator" lang-en:LABEL-TITLE="ID:"/>
+			</TABLE>
+
+			<IF EXPR="AppModuleUsed( 'conn_wts' )">
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="35zr"/>
+					</COLUMNS>
+
+					<ITEM TYPE="elem_selector" SOURCE="Ps.type_id" LABEL-TITLE="##UiText.titles.type##:"/>
+				</TABLE>
+
+				<IF EXPR="Ps.type_id == 'rating'">
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="15zr"/>
+							<COL WIDTH="15zr"/>
+						</COLUMNS>
+
+						<EDIT SOURCE="Ps.min_score" LABEL-TITLE="Мин. балл:" lang-en:LABEL-TITLE="Min. score:" lang-ua:LABEL-TITLE="Мін. бал:"/>
+						<EDIT SOURCE="Ps.max_score" LABEL-TITLE="##UiText.titles.max_score__s##:"/>
+					</TABLE>
+				</IF>
+				<IF EXPR="Ps.type_id == 'choice_single' || Ps.type_id == 'choice_multiple' || Ps.type_id == 'dropdown'">
+					<BR/>
+					<GROUP>
+						<LABEL TITLE="Варианты ответов:" lang-en:LABEL-TITLE="Possible answers:" lang-ua:LABEL-TITLE="Варіанти відповідей:"/>
+						<IMAGE URL="//base_pict/plus.ico" ACTION="
+								answer = Ps.answers.AddChild();
+								answer.id = Ps.Doc.TopElem.GetFreeAnswerID( Ps );
+								Screen.Update();
+								Screen.ExposeItemBySource( answer.name );
+						" WIDTH="16px" HEIGHT="16px" KEEP-RIGHT="1" PASSIVE="1"/>
+					</GROUP>
+					<BR/>
+
+					<LOOP EXPR="Ps.answers" VAR="_item">
+						<GROUP>
+							<EDIT SOURCE="_item.id" LABEL-TITLE="##UiText.fields.id##:" WIDTH="6zr"/>
+
+							<EDIT SOURCE="_item.name" LABEL-TITLE="##UiText.titles.text##:" WIDTH="-6zr"/>
+
+							<IMAGE URL="//base_pict/more_actions.ico" WIDTH="16px" HEIGHT="16px" KEEP-RIGHT="1">
+								<MENU>
+									<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+											_item.Delete();
+											Ps.Doc.SetChanged( true );
+									"/>
+								</MENU>
+							</IMAGE>
+						</GROUP>
+					</LOOP>
+					<DELIM/>
+				</IF>
+			</IF>
+			<ELSE>
+				<BR/>
+
+				<CHECK TITLE="##UiText.fields.question_group_separator##" SOURCE="Ps.is_separator" lang-en:TITLE="Group name"/>
+
+				<IF EXPR="! Ps.is_separator">
+					<LINE>
+						<LABEL TITLE="Тип ответа:" lang-en:TITLE="Answer type:" lang-ua:TITLE="Тип відповіді:"/>
+						<CHECK TITLE="##UiText.fields.score__n##" SOURCE="Ps.use_score"/>
+					</LINE>
+					<BR/>
+					<BR/>
+
+				</IF>
+			</ELSE>
+
+			<IF EXPR="Ps.use_score &amp;&amp; ! Ps.is_separator">
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="15zr"/>
+						<COL WIDTH="15zr"/>
+					</COLUMNS>
+
+					<EDIT SOURCE="Ps.min_score" LABEL-TITLE="Мин. балл:" lang-en:LABEL-TITLE="Min. score:" lang-ua:LABEL-TITLE="Мін. бал:"/>
+					<EDIT SOURCE="Ps.max_score" LABEL-TITLE="##UiText.titles.max_score__s##:"/>
+				</TABLE>
+			</IF>
+
+			<IF EXPR="Ps.type_id == 'video'">
+				<BR/>
+				<GROUP>
+					<CHECK SOURCE="Ps.prohibit_view" TITLE="Запретить просмотр записанного видео" lang-en:TITLE="Prohibit Viewing of Recorded Video" lang-ua:TITLE="Заборонити перегляд записаного відео"/>
+					<CHECK SOURCE="Ps.prohibit_overwrite" TITLE="Запретить перезапись видео" lang-en:TITLE="Prohibit Overwriting of Recorded Video" lang-ua:TITLE="Заборонити перезапис відео"/>
+				</GROUP>
+				<BR/>
+				<GROUP>
+					<ITEM TYPE="smh_period" SOURCE="Ps.max_preparation_period" LABEL-TITLE="##UiText.fields.max_preparation_time##:"/>
+					<SEPARATOR/>
+					<ITEM TYPE="smh_period" SOURCE="Ps.max_duration" LABEL-TITLE="##UiText.fields.max_duration##:"/>
+				</GROUP>
+			</IF>
+
+			<IF EXPR="! Ps.is_separator">
+				<BR/>
+				<CHECK SOURCE="Ps.is_optional" TITLE="Необязательный ответ" lang-en:TITLE="Optional Answer" lang-ua:TITLE="Необов'язковий відповідь:"/>
+			</IF>
+		</PAGE>
+	</LOOP>
+</PAGE>
+
+
+
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+
+</LINE>
+
+
+</SPXML-SCREEN>
+

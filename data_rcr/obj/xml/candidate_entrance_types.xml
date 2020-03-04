@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<candidate_entrance_types SPXML-FORM="x-app://base1/rcr_candidate_entrance_types.xmd"><candidate_entrance_type><id>vacancy_response</id><name>Отклик</name><order_index>0</order_index><is_folder>0</is_folder><is_std>1</is_std></candidate_entrance_type><candidate_entrance_type><id>active_search</id><name>Активный поиск</name><order_index>1</order_index><is_folder>0</is_folder><is_std>1</is_std></candidate_entrance_type></candidate_entrance_types>

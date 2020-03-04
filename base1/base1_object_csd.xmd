@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<object_csd>
+	<INHERIT TYPE="csd_def"/>
+</object_csd>
+
+
+<OnSave PROPERTY="1" EXPR="
+		for ( objectType in object_types.items )
+		{
+			DropFormsCache( objectType.object_form_url );
+			
+			try
+			{
+				DropScreenFormsCache( StrReplace( objectType.object_form_url, '.xmd', '.xms' ) );
+			}
+			catch ( e )
+			{
+			}
+		}
+"/>
+
+
+</SPXML-FORM>

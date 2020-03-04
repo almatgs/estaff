@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_mass_mail>
+	<target_type TYPE="string" DEFAULT="candidate"/>
+
+	<sample_letter>
+		<subject TYPE="string"/>
+		<body TYPE="string" LARGE="1"/>
+	</sample_letter>
+
+	<count TYPE="integer"/>
+</dlg_mass_mail>
+
+
+</SPXML-INLINE-FORM>

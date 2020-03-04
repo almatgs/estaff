@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<spxml_module>
+	<ui_texts>
+		<ui_text>
+			<url>lotus_ui_text.xml</url>
+		</ui_text>
+	</ui_texts>
+
+	<shared_docs>
+		<shared_doc>
+			<url>lotus_lib_lotus.js</url>
+		</shared_doc>
+
+		<shared_doc>
+			<url>x-local://data_local/lotus_local_settings.xml</url>
+			<form_url>lotus_local_settings.xmd</form_url>
+		</shared_doc>
+	</shared_docs>
+</spxml_module>
+
+
+

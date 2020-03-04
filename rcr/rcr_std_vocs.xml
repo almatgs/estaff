@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<std_vocs SPXML-FORM="//base1/base1_std_vocs.xmd">
+	<std_voc>
+		<id>recruit_types</id>
+		<name VALUE="##UiText.titles.recruit_types##"/>
+		<section_id>common</section_id>
+
+		<object_form_url>//rcr/rcr_recruit_type.xmd</object_form_url>
+		<key_type>string</key_type>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+	</std_voc>
+
+	<std_voc>
+		<id>vacancy_reasons</id>
+		<name VALUE="Основания появления вакансий" lang-en:VALUE="Vacancy bases" lang-ua:VALUE="Підстави появи вакансій"/>
+		<section_id>vacancies</section_id>
+
+		<key_type>string</key_type>
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>vacancy_difficulty_levels</id>
+		<name VALUE="Категории сложности вакансий" lang-en:VALUE="Vacancy difficulty levels" lang-ua:VALUE="Категорії складності вакансій"/>
+		<section_id>vacancies</section_id>
+
+		<key_type>integer</key_type>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>vacancy_priorities</id>
+		<name VALUE="Приоритеты вакансий" lang-en:VALUE="Vacancy priority levels" lang-ua:VALUE="Пріоритети вакансій"/>
+		<section_id>vacancies</section_id>
+
+		<key_type>integer</key_type>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>vacancy_states</id>
+		<name VALUE="Статусы вакансий" lang-en:VALUE="Vacancy states" lang-ua:VALUE="Статуси вакансій"/>
+		<section_id>vacancies</section_id>
+
+		<object_form_url>//rcr/rcr_vacancy_state.xmd</object_form_url>
+		<key_type>string</key_type>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+
+		<edit_std_prohibit_fields>
+			<field>name</field>
+			<field>text_color</field>
+			<field>bk_color</field>
+		</edit_std_prohibit_fields>
+	</std_voc>
+
+	<std_voc>
+		<id>vacancy_recruit_phases</id>
+		<name VALUE="Этапы подбора по вакансии" lang-en:VALUE="Vacancy recruitment phases" lang-ua:VALUE="Етапи підбору по вакансії"/>
+		<section_id>vacancies</section_id>
+
+		<object_form_url>x-app://rcr/rcr_vacancy_recruit_phase.xmd</object_form_url>
+		<key_type>string</key_type>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+	</std_voc>
+
+	<std_voc>
+		<id>recruit_plans</id>
+		<name VALUE="Расчетные планы подбора" lang-en:VALUE="Vacancy recruitment plans" lang-ua:VALUE="Розрахункові плани підбору"/>
+		<section_id>vacancies</section_id>
+
+		<object_form_url>x-app://rcr/rcr_recruit_plan.xmd</object_form_url>
+		<key_type>string</key_type>
+	</std_voc>
+
+	<std_voc>
+		<id>vacancy_term_adjustment_reasons</id>
+		<name VALUE="Причины корректировки срока закрытия" lang-en:VALUE="Vacancy work term adjustment reasons" lang-ua:VALUE="Причини коригування терміну закриття"/>
+		<section_id>vacancies</section_id>
+
+		<key_type>string</key_type>
+		<object_form_url>//rcr/rcr_vacancy_term_adjustment_reason.xmd</object_form_url>
+		<selector_type>dlg</selector_type>
+	</std_voc>
+
+	<std_voc>
+		<id>vacancy_templates</id>
+		<name VALUE="Шаблоны вакансий" lang-en:VALUE="Vacancy templates" lang-ua:VALUE="Шаблони вакансій"/>
+		<section_id>vacancies</section_id>
+
+		<object_form_url>//rcr/rcr_vacancy_template.xmd</object_form_url>
+		<key_type>integer</key_type>
+
+		<extra_columns>
+			<extra_column>
+				<id>profession_id</id>
+			</extra_column>
+		</extra_columns>
+	</std_voc>
+
+	<std_voc>
+		<id>candidate_entrance_types</id>
+		<name VALUE="Способы поступления кандидатов" lang-en:VALUE="Candidate entrance type" lang-ua:VALUE="Методи надходження кандидатів"/>
+		<section_id>candidates</section_id>
+
+		<key_type>string</key_type>
+		<use_keywords>1</use_keywords>
+	</std_voc>
+
+	<std_voc>
+		<id>candidate_sources</id>
+		<name VALUE="Источники кандидатов" lang-en:VALUE="Candidate sources" lang-ua:VALUE="Джерела кандидатів"/>
+		<section_id>candidates</section_id>
+
+		<object_form_url>//rcr/rcr_candidate_source.xmd</object_form_url>
+		<key_type>string</key_type>
+		<is_hier>1</is_hier>
+		<use_keywords>1</use_keywords>
+
+		<edit_std_prohibit_fields>
+			<field_>name</field_>
+			<field>keywords</field>
+		</edit_std_prohibit_fields>
+		<is_optional_std_elems>0</is_optional_std_elems>
+		<selector_type>dlg</selector_type>
+	</std_voc>
+
+	<std_voc__>
+		<id>candidate_referral_sources</id>
+		<name VALUE="Источники информации о вакансии" lang-en:VALUE="Referral source" lang-ua:VALUE="Джерела інформації про вакансії"/>
+		<section_id>candidates</section_id>
+
+		<key_type>string</key_type>
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc__>
+
+	<std_voc>
+		<id>candidate_states</id>
+		<name VALUE="Статусы кандидатов" lang-en:VALUE="Candidate states" lang-ua:VALUE="Статуси кандидатів"/>
+		<section_id>candidates</section_id>
+
+		<primary_voc_id>event_types</primary_voc_id>
+
+		<object_form_url>//rcr/rcr_candidate_state.xmd</object_form_url>
+		<object_screen_form_url>//base2/base2_object_state.xmd</object_screen_form_url>
+		<key_type>string</key_type>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+		<selector_type>dlg</selector_type>
+	</std_voc>
+
+	<std_voc>
+		<id>raw_storages</id>
+		<name VALUE="Источники импорта резюме" lang-en:VALUE="Resume import sources" lang-ua:VALUE="Джерела імпорту резюме"/>
+		<section_id>candidates</section_id>
+
+		<object_form_url>//rcr/rcr_raw_storage.xmd</object_form_url>
+	</std_voc>
+
+	<std_voc>
+		<id>candidate_reject_reasons</id>
+		<name VALUE="##UiText.titles.candidate_reject_reasons##"/>
+		<section_id>candidates</section_id>
+
+		<key_type>string</key_type>
+	</std_voc>
+
+	<std_voc>
+		<id>candidate_withdrawal_reasons</id>
+		<name VALUE="##UiText.titles.candidate_withdrawal_reasons##"/>
+		<section_id>candidates</section_id>
+
+		<key_type>string</key_type>
+	</std_voc>
+
+	<std_voc>
+		<id>candidate_blacklist_reasons</id>
+		<name VALUE="##UiText.titles.candidate_blacklist_reasons##"/>
+		<section_id>candidates</section_id>
+
+		<key_type>string</key_type>
+	</std_voc>
+
+	<std_voc>
+		<id>work_types</id>
+		<name VALUE="Типы занятости" lang-en:VALUE="Job types" lang-ua:VALUE="Типи зайнятості"/>
+		<section_id>vacancies</section_id>
+
+		<key_type>integer</key_type>
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>work_schedule_types</id>
+		<name VALUE="Графики работы" lang-en:VALUE="Work schedule types" lang-ua:VALUE="Графіки роботи"/>
+		<section_id>vacancies</section_id>
+
+		<key_type>integer</key_type>
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>expense_types</id>
+		<name VALUE="Статьи затрат" lang-en:VALUE="Expense types" lang-ua:VALUE="Статті витрат"/>
+		<section_id>common</section_id>
+
+		<key_type>integer</key_type>
+	</std_voc>
+
+	<std_voc>
+		<id>educ_institutions</id>
+		<name VALUE="Учебные заведения" lang-en:VALUE="Educational Institutions" lang-ua:VALUE="Навчальні заклади"/>
+		<section_id></section_id>
+
+		<key_type>integer</key_type>
+		<auto_order>1</auto_order>
+	</std_voc>
+
+	<std_voc>
+		<id>recruit_metrics_sets</id>
+		<name VALUE="##UiText.sections.recruit_metrics_sets##"/>
+		<section_id>vacancies</section_id>
+
+		<object_form_url>x-app://rcr/rcr_recruit_metrics_set.xmd</object_form_url>
+		<key_type>integer</key_type>
+	</std_voc>
+
+	<std_voc>
+		<id>recruit_providers</id>
+		<name VALUE="##UiText.titles.recruit_providers##"/>
+		<section_id>integration</section_id>
+		<object_form_url>x-app://rcr/rcr_recruit_provider.xmd</object_form_url>
+		<key_type>string</key_type>
+
+		<extra_actions>
+			<extra_action MULTIPLE="1">
+				<name VALUE="##UiText.actions.select_from_list##"/>
+				<image_url>//base_pict/generic_item.ico</image_url>
+				<code>lib_recruit_provider.HandleAddNewStdRecruitProvider()</code>
+			</extra_action>
+		</extra_actions>
+	</std_voc>
+</std_vocs>
+

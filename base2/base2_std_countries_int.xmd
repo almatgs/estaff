@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_countries>
+	<std_country MULTIPLE="1" PRIMARY-KEY="id">
+		<id TYPE="string"/>
+		<name_en TYPE="string"/>
+		<name_ru TYPE="string"/>
+		<name_ua TYPE="string"/>
+		<name_native TYPE="string"/>
+
+		<full_name_en TYPE="string"/>
+		<full_name_ru TYPE="string"/>
+	</std_country>
+</std_countries>
+
+
+</SPXML-FORM>

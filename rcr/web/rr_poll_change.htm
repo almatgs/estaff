@@ -1,0 +1,129 @@
+<%
+Server.Execute( 'include/std_head.htm' );
+
+//DebugMsg( Request.Body );
+
+eventID = Int( Request.Query.id );
+event = GetOptForeignElem( events, eventID );
+if ( event == undefined )
+	throw 'Event not found';
+
+eventDoc = OpenDoc( DefaultDb.GetRecordPrimaryObjectUrl( event ) );
+event = eventDoc.TopElem;
+
+participant = event.participants.GetChildByKey( curPerson.id );
+
+pollResult = event.participant_poll_results.GetChildByKey( curPerson.id );
+
+spec = pollResult.spec_id.ForeignElem;
+
+for ( question in spec.questions )
+{
+	if ( question.is_separator )
+		continue;
+
+	if ( question.exist_req_expr.HasValue && ! eval( question.exist_req_expr ) )
+		continue;
+
+	questionAnswer = pollResult.question_answers.ObtainChildByKey( question.id );
+	questionAnswer.answer_id.Clear();
+
+	if ( question.expr.HasValue )
+	{
+		with ( pollResult )
+		{
+			score = eval( question.expr );
+		}
+
+		questionAnswer.score = score;
+		//DebugMsg( questionAnswer.score + '-----' );
+	}
+
+	if ( question.use_comment )
+	{
+		value = Request.Query.GetOptProperty( question.id + '__comment', '' );
+		if ( value == '' )
+		{
+			if ( ( question.type == 'undefined' || ( question.id == 'q_decision' && Request.Query.GetOptProperty( question.id, '' ) == '3' ) ) && ! question.is_optional )
+				HandlePostError( 'Опросный лист не заполнен полностью. Не заполнен пункт: "' + question.name + '"' );
+
+			//continue;
+		}
+
+		questionAnswer.comment = value;
+	}
+
+	if ( question.expr.HasValue )
+		continue;
+
+	if ( question.is_multi_answer )
+	{
+		for ( value in Request.Query.GetProperties( question.id, '' ) )
+		{
+			questionAnswer.answer_id.ObtainByValue( value );
+		}
+	}
+	else if ( question.type != 'undefined' )
+	{
+		value = Request.Query.GetOptProperty( question.id, '' );
+		if ( value == '' )
+		{
+			if ( ! question.is_optional )
+				HandlePostError( 'Опросный лист не заполнен полностью. Не заполнен пункт: "' + question.name + '"' );
+
+			continue;
+		}
+
+		//DebugMsg( question.id + ':' + Request.Query.GetProperty( question.id ) );
+		try
+		{
+			score = Int( Request.Query.GetProperty( question.id ) );
+		}
+		catch ( e )
+		{
+			HandlePostError( 'Недопустимое значение поля: "' + question.name + '"' );
+		}
+
+		if ( question.min_score.HasValue && score < question.min_score )
+			HandlePostError( 'Недопустимый диапазон значения поля: "' + question.name + '"' );
+
+		if ( question.max_score.HasValue && score > question.max_score )
+			HandlePostError( 'Недопустимый диапазон значения поля: "' + question.name + '"' );
+
+		questionAnswer.answer_id.ObtainByValue( score );
+	}
+}
+
+pollResult.completion_id = 1;
+pollResult.end_date = CurDate;
+
+//DebugMsg( pollResult.average_score );
+
+prevStateID = RValue( event.candidate_id.ForeignElem.state_id );
+
+eventDoc.Save();
+
+
+if ( AppModuleUsed( 'module_rgs' ) )
+{
+	candidate = OpenDoc( event.candidate_id.ForeignObjectUrl ).TopElem;
+
+	if ( candidate.state_id != prevStateID && ( stateEvent = candidate.get_state_event() ) != undefined && stateEvent.id == event.id )
+	{
+		lib_candidate.RunCandidateStateCoreActions( candidate, event, event.type.get_opt_occurrence( event.occurrence_id ), 1 );
+	}
+	else if ( event.type_id == 'rr_poll_co' )
+	{
+		lib = OpenCodeLib( 'x-app://module_rgs/rgs_lib_rgs.js' );
+		lib.activate_next_poll_participant( event );
+		eventDoc.Save();
+}
+	else if ( ( event.type.use_participants_order && ArrayOptFind( event.participant_poll_results, '! completion_id.HasValue' ) != undefined ) )
+	{
+		lib_candidate.RunCandidateStateCoreActions( candidate, event, event.type.get_opt_occurrence( event.occurrence_id ), 1 );
+	}
+}
+
+if ( outerEnv == undefined )
+	Response.Redirect( 'event.htm?id=' + eventID );
+%>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<USE FORM="old_general.xmd"/>
+
+
+<user>
+	<login TYPE="string"/>
+	<password TYPE="string"/>
+
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<person_id TYPE="integer" FOREIGN-ARRAY="persons"/>
+	<disp_name TYPE="string" EXPR="login"/>
+
+	<INHERIT TYPE="au_person_name"/>
+
+	<group_id TYPE="integer" FOREIGN-ARRAY="user_groups"/>
+
+
+	<allow_all TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<allow_change_users TYPE="bool" NOT-NULL="1"/>
+	<allow_change_global_settings TYPE="bool" NOT-NULL="1"/>
+	<allow_view_stat_clpos TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<allow_change_trash TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<allow_db_export TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<prohibit_view_other_user_events TYPE="bool" NOT-NULL="1"/>
+	<prohibit_view_other_user_candidates TYPE="bool" NOT-NULL="1"/>
+	<prohibit_view_other_user_active_candidates TYPE="bool" NOT-NULL="1"/>
+	<prohibit_view_other_user_spot_candidates TYPE="bool" NOT-NULL="1"/>
+
+	<prohibit_view_other_group_orgs TYPE="bool" NOT-NULL="1"/>
+	<prohibit_view_other_group_positions TYPE="bool" NOT-NULL="1"/>
+	<prohibit_view_other_group_candidates TYPE="bool" NOT-NULL="1" EXPR="prohibit_view_other_user_candidates ? true : prohibit_view_other_group_candidates"/>
+	<prohibit_view_position_revenue TYPE="bool" NOT-NULL="1"/>
+
+	<read_only TYPE="bool" NOT-NULL="1"/>
+
+
+	<comment TYPE="string" MULTILINE="1"/>
+
+	<doc_info TYPE="au_doc_info"/>
+</user>
+
+
+
+</SPXML-FORM>

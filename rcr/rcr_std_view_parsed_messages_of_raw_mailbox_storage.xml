@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>parsed_messages_of_raw_mailbox_storage</id>
+	<name VALUE="Загруженные письма по источнику-почтовому ящику" lang-en:VALUE="Imported mail messages by source mailbox" lang-ua:VALUE="Завантажені листи по джерелу-поштовій скриньці"/>
+	<parent_id>parsed_messages</parent_id>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>raw_storage_id</id>
+			<is_auto>1</is_auto>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>sender.disp_name</id>
+			<width>50zr</width>
+		</field>
+		<field>
+			<id>has_dup_candidates</id>
+			<bk_color_expr>has_dup_candidates ? base1_common.std_colors.duplicate : ''</bk_color_expr>
+		</field>
+		<field>
+			<id>subject</id>
+		</field>
+		<field>
+			<id>date</id>
+			<use_time>1</use_time>
+			<is_default_sort>1</is_default_sort>
+		</field>
+		<field>
+			<id>req_vacancy_id</id>
+			<exist_req_expr>global_settings.rparse.vacancy_mail_prefix != ''</exist_req_expr>
+		</field>
+	</fields>
+
+
+	<action>
+		<title VALUE="##UiText.actions.load##"/>
+		<image_url>//base_pict/load.ico</image_url>
+		<code>lib_storage_load.process_raw_mailbox_storage( Int( UrlQuery( Ps.Doc.Url ).raw_storage_id ) )</code>
+	</action>
+</std_view>
+

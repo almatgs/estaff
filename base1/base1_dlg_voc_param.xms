@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.voc_params##" WIDTH="60zr" HEIGHT="27zr">
+
+
+<LABEL TITLE="Способ выбора элемента справочника:" lang-en:TITLE="Selector type:" lang-ua:TITLE="Спосіб вибору елемента довідника:"/>
+<BR/>
+
+<LINE>
+	<RADIO-BUTTON SOURCE="Ps.param.selector_type" TITLE="##UiText.titles.dropdown_list##" SWITCH-VALUE="" WIDTH="auto"/>
+	<RADIO-BUTTON SOURCE="Ps.param.selector_type" TITLE="Диалог" SWITCH-VALUE="dlg" WIDTH="auto" lang-en:TITLE="Dialog window" lang-ua:TITLE="Діалог"/>
+</LINE>
+<BR/>
+<BR/>
+
+<CHECK SOURCE="Ps.param.auto_order.HasValue" SET-VALUE-ACTION="
+		Ps.param.auto_order = ( NewValue ? 'name' : '' );
+		Ps.Doc.SetChanged( true );
+" TITLE="Автоматическая сортировка по названию элемента" lang-en:TITLE="Automatically sort by element name" lang-ua:TITLE="Автоматичне сортування за назвою елементу"/>
+<BR/>
+
+
+<ITEM TYPE="dlg_footer_start"/>
+
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<BUTTON TITLE="OK" CMD="1"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2"/>
+</TABLE>
+
+</SPXML-SCREEN>

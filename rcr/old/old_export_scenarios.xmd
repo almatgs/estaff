@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<USE FORM="old_general.xmd"/>
+
+
+<export_scenarios>
+	<items>
+		<item MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+
+			<method_id TYPE="string" DEFAULT="dir"/>
+			<dest_dir_path TYPE="string"/>
+
+			<filter>
+				<use_object_type TYPE="bool" NOT-NULL="1"/>
+				<object_type_id TYPE="string" MULTIPLE="1"/>
+				<min_date TYPE="date"/>
+			</filter>
+
+			<schedule>
+				<term TYPE="au_term"/>
+			</schedule>
+
+			<last_run_date TYPE="date" TEMP="1"/>
+
+			<is_std TYPE="bool" NOT-NULL="1"/>
+		</item>
+	</items>
+</export_scenarios>
+
+
+
+</SPXML-FORM>

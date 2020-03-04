@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="110zr" HEIGHT="50zr" TITLE="##UiText.titles.record##" INIT-ACTION="
+		Screen.FindItemBySource( Ps.comment ).SetFocus();
+		Cancel();
+" OK-ACTION="
+		lib_event.check_event_comment( Ps, Ps.state_ref.Object );
+">
+
+<PANEL HEIGHT-EXPR="lib_base.dlg_body_height">
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="27zr"/>
+	</COLUMNS>
+
+	<ITEM TYPE="date_time_selector" SOURCE="Ps.date" AUTO-LABEL="1"/>
+</TABLE>
+<BR/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="30zr"/>
+	</COLUMNS>
+	
+	<LABEL TITLE="##UiText.fields.comment##:"/>
+	
+	<IF EXPR="lib_event.use_shared_comment_flag">
+		<CHECK SOURCE="Ps.is_shared_comment" AUTO-LABEL="1" ALIGN="right"/>
+	</IF>
+</TABLE>
+
+<EDIT SOURCE="Ps.comment" MULTILINE="1" HEIGHT="100%" VERT-SCROLL="1" PASSIVE="1"/>
+
+
+
+
+</PANEL>
+
+
+<ITEM TYPE="dlg_footer"/>
+
+
+</SPXML-SCREEN>

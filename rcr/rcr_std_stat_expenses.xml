@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>expenses</id>
+	<name VALUE="Расходы на подбор персонала" lang-en:VALUE="Recruiting expenses" lang-ua:VALUE="Витрати на підбір персоналу"/>
+	<section_id>other</section_id>
+
+	<is_v2>1</is_v2>
+	<default_catalog_name>expenses</default_catalog_name>
+	<auto_calc_all_fields>1</auto_calc_all_fields>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>date</id>
+			<use_range>1</use_range>
+			<use_period_quick_selector>1</use_period_quick_selector>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>org_id</id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>division_id</id>
+			<use_idata>1</use_idata>
+			<is_multiple>1</is_multiple>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>type_id</id>
+		</dyn_filter>
+	</dyn_filters>
+
+	<groups>
+		<group>
+			<id>expense_id</id>
+			<foreign_array>expenses</foreign_array>
+		</group>
+	</groups>
+
+	<fields>
+		<field>
+			<id>org_id</id>
+			<width>60%</width>
+		</field>
+
+		<field>
+			<id>candidate_id</id>
+			<width>30zr</width>
+		</field>
+
+		<field>
+			<id>vacancy_id</id>
+			<width>40%</width>
+		</field>
+
+		<field>
+			<id>type_id</id>
+		</field>
+
+		<field>
+			<id>amount</id>
+			<stat_func>sum</stat_func>
+		</field>
+
+		<field>
+			<id>nvat_amount</id>
+			<stat_func>sum</stat_func>
+		</field>
+	</fields>
+
+	<show_total>1</show_total>
+
+	<build_phases>
+		<build_phase>
+			<catalog_name>expenses</catalog_name>
+		</build_phase>
+	</build_phases>
+</std_stat>
+

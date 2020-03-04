@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem">
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="7zr"/>
+		<COL WIDTH="20zr"/>
+		<COL WIDTH="22zr"/>
+		<COL WIDTH="8zr"/>
+		<COL WIDTH="25zr"/>
+		<COL WIDTH="40zr"/>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="22zr"/>
+	</COLUMNS>
+
+	<LABEL TITLE="##UiText.fields.from__sender##:" ALIGN="right"/>
+	<EDIT SOURCE="lib_phone_details.FormatPhone( Ps.src_phone_number )"/>
+
+	<LABEL TITLE="##UiText.titles.extension__phone##" ALIGN="right"/>
+	<EDIT SOURCE="Ps.src_phone_extension"/>
+	
+	<LABEL TITLE="##UiText.titles.contact##:" ALIGN="right"/>
+	<ITEM TYPE="object_selector" SOURCE="Ps.src_person_id" />
+	<LABEL/>
+	<IF EXPR="Ps.recording_eid.HasValue || ( ( provider = lib_telephony.GetDefaultProvider() ) != undefined &amp;&amp; provider.recording_retrieval_code.HasValue )">
+		<LINK TITLE="##UiText.titles.call_recording##" ACTION="
+				lib_telephony.HandleListenPhoneCallRecording( Ps );
+		" PASSIVE="1" ALIGN="right"/>
+	</IF>
+	<ELSE>
+		<LABEL/>
+	</ELSE>
+	
+
+	<LABEL TITLE="##UiText.fields.to__recipient##:" ALIGN="right"/>
+	<EDIT SOURCE="lib_phone_details.FormatPhone( Ps.dest_phone_number )"/>
+
+	<LABEL TITLE="##UiText.titles.extension__phone##" ALIGN="right"/>
+	<EDIT SOURCE="Ps.dest_phone_extension"/>
+
+	<LABEL TITLE="##UiText.titles.contact##:" ALIGN="right"/>
+	<ITEM TYPE="object_selector" SOURCE="Ps.dest_person_id"/>
+	
+	<IF EXPR="Ps.src_person_data.fullname.HasValue || Ps.src_person_data.inet_uid.HasValue">
+		<LINE>
+			<LABEL TITLE="  "/>
+
+			<LABEL TITLE-EXPR="Ps.src_person_data.fullname"/>
+
+			<IF EXPR="Ps.src_person_data.fullname.HasValue &amp;&amp; Ps.src_person_data.inet_uid.HasValue">
+				<LABEL TITLE=" | "/>
+			</IF>
+
+			<LABEL TITLE-EXPR="Ps.src_person_data.inet_uid"/>
+		</LINE>
+	</IF>
+	<ELSE>
+		<LABEL/>
+	</ELSE>
+
+	<IF EXPR="Ps.src_person_data.talk_transcript.HasValue || Ps.src_person_data.talk_recording_url.HasValue">
+		<LINE>
+			<IF EXPR="Ps.src_person_data.talk_transcript.HasValue">
+				<LINK TITLE="##UiText.titles.call_transcript##" ACTION="lib_base.show_info_message( ActiveScreen, Ps.src_person_data.talk_transcript )" PASSIVE="1"/>
+			</IF>
+			<IF EXPR="Ps.src_person_data.talk_recording_url.HasValue">
+				<IMAGE URL="//base_pict/start.ico" TIP-TEXT="##UiText.titles.call_recording##" HREF-EXPR="Ps.src_person_data.talk_recording_url" TARGET="_web"/>
+				<IF EXPR="! Ps.src_person_data.talk_transcript.HasValue">
+					<LINK TITLE="##UiText.titles.call_recording##" HREF-EXPR="Ps.src_person_data.talk_recording_url" TARGET="_web"/>
+				</IF>
+			</IF>
+		</LINE>
+	</IF>
+	<ELSE>
+		<LABEL/>
+	</ELSE>
+</TABLE>
+
+
+
+</SPXML-SCREEN>
+

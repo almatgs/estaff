@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems.xmd">
+	<std_voc_elem>
+		<id>phone</id>
+		<name VALUE="##UiText.fields.phone##"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>email</id>
+		<name VALUE="E-mail"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>skype</id>
+		<name VALUE="Skype"/>
+	</std_voc_elem>
+</std_voc_elems>
+

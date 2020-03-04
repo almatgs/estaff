@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<replica_stat>
+	<replica_scenario_id TYPE="string"/>
+	
+	<last_run_date TYPE="date"/>
+</replica_stat>
+
+
+</SPXML-FORM>

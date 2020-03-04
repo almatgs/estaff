@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_org_types>
+	<std_org_type MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT TYPE="org_type_base"/>
+	</std_org_type>
+</std_org_types>
+
+
+</SPXML-FORM>

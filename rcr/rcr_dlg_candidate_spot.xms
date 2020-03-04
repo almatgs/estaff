@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.selected_for_vacancy##" WIDTH="70zr" HEIGHT="23zr">
+
+
+<GROUP>
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.entrance_type_id" AUTO-LABEL="1"/>
+	<SEPARATOR/>
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.source_id" AUTO-LABEL="1"/>
+</GROUP>
+
+
+<INHERIT TYPE="dlg_footer"/>
+
+</SPXML-SCREEN>

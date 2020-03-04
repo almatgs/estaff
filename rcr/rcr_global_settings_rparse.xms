@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="80zr" HEIGHT="34zr" TITLE="##UiText.sections.global_settings_resume_parsing##" WINDOW-ICON-URL="//base_pict/settings.ico" RESIZE="1">
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" SUNKEN="1">
+	<LABEL TITLE="Начинать распознавание резюме после указанной фразы:" lang-en:TITLE="Start parsing after the string:" lang-ua:TITLE="Починати розпізнавання резюме після зазначеної фрази:"/>
+	<EDIT SOURCE="Ps.start_str" WIDTH="80%"/>
+	<BR/>
+
+	<LABEL TITLE="Использовать префикс кода вакансии для распознавания кода в теме письма:" lang-en:TITLE="Use prefix for recognition of position code in message subject:" lang-ua:TITLE="Використовувати префікс коду вакансії для розпізнавання коду в темі листа:"/>
+	<EDIT SOURCE="Ps.vacancy_mail_prefix"/>
+</PANEL>
+
+
+<COMMAND-HANDLER CMD="Help1" HREF="help/settings_numbering.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1" TARGET-NEW-WINDOW="1"/>
+
+
+</SPXML-SCREEN>

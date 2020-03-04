@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiRules TargetFragment="WorkflowDocument" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<UI:Set TargetField="code" MaxLen="6"/>
+<UI:Set TargetField="date" ShowTime="1"/>
+
+<UI:Page ID="Data" Title="##UiText.titles.parameters##" ImageUrl="x-app://base_pict/aux_info.ico"/>
+
+<UI:Set TargetField="data" Page="Data"/>
+
+
+</UiRules>

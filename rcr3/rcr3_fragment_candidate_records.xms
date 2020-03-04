@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+<BR/>
+<TABLE CHILD-VERT-ALIGN="top">
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="28zr"/>
+	</COLUMNS>
+
+	<PANEL STD-MARGINS="1">
+		<LOOP EXPR="ArraySort( lib_recruit_hm.GetCandidateEvents( candidate ), 'state_date', '-' )" VAR="ListElem">
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="10zr"/>
+					<COL WIDTH="7zr"/>
+					<COL WIDTH="100%"/>
+				</COLUMNS>
+
+				<LABEL TITLE-EXPR="StrDate( ListElem.state_date, false )" ALIGN="right"/>
+				<LABEL TITLE-EXPR="StrTime( ListElem.state_date, false )"/>
+			
+				<LINE>
+					<LABEL TITLE-EXPR="ListElem.state_name" TEXT-COLOR-EXPR="ListElem.state_text_color" BK-COLOR-EXPR="ListElem.dyn_state_bk_color"/>
+				
+					<IF EXPR="ListElem.occurrence_id == 'scheduled'">
+						<LABEL/>
+						<IMAGE URL="//base_pict/calendar.ico"/>
+									
+						<LABEL TITLE-EXPR="
+								str = lib_recruit.candidate_event_date_str( ListElem.date, Ps.Doc.TopElem, ListElem );
+
+								if ( ListElem.type.use_room &amp;&amp; ListElem.room_id.HasValue )
+									str += ',   ' + ListElem.room_id.ForeignDispName;
+
+								return str;
+						"/>
+					</IF>
+
+					<IF EXPR="ListElem.author_id.HasValue">
+						<PANEL WIDTH="1zr"/>
+						<LINK TITLE-EXPR="StrFromCharCodesArray( [Int( '0x2014' )] ) + ' ' + ListElem.author_id.ForeignElem.shortname" TEXT-COLOR="60,60,60" UNDERLINE="0" ACTION="ui_client.HandleOpenObjectCard( ListElem.author_id.ForeignObjectUrl )" PASSIVE="1"/>
+					</IF>
+				</LINE>
+			</TABLE>
+
+			<IF EXPR="ListElem.type.is_group_event_reg &amp;&amp; ListElem.group_event_id.HasValue &amp;&amp; lib_app2.AppFeatureEnabled( 'mass_recruit' )">
+				<BR HEIGHT="1px"/>
+				<LINE>
+					<PANEL WIDTH="20zr">
+					</PANEL>
+
+					<PANEL>
+						<LINE>
+							<IMAGE URL="//base_pict/calendar.ico"/>
+							<LABEL TITLE-EXPR="ListElem.type.group_event_type_id.ForeignDispName + '   ' + lib_recruit.candidate_event_date_str( ListElem.group_event_id.ForeignElem.date, Ps.Doc.TopElem, ListElem )" UNDERLINE="0"/>
+						</LINE>
+					</PANEL>
+				</LINE>
+				<BR HEIGHT="2px"/>
+			</IF>
+
+			<IF EXPR="ListElem.web_url.HasValue">
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="30zr"/>
+						<COL WIDTH="100%"/>
+					</COLUMNS>
+
+					<LABEL/>
+					<LINK TITLE="##UiText.titles.portal_link##" HREF-EXPR="ListElem.web_url" TARGET="_web"/>
+				</TABLE>
+			</IF>
+
+			<IF EXPR="ListElem.comment.HasValue &amp;&amp; ! ListElem.occurrence.is_rr_duty_portal_state">
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="6zr"/>
+						<COL WIDTH="100%"/>
+					</COLUMNS>
+
+					<LABEL/>
+					<LABEL TITLE-EXPR="ListElem.comment" TEXT-COLOR="80,80,80"/>
+				</TABLE>
+				<BR/>
+			</IF>
+
+			<IF EXPR="ListElem.occurrence.is_rr_duty_portal_state || ( ListElem.occurrence.is_participant_duty_state &amp;&amp; ListElem.participants.ChildByKeyExists( LdsCurUserID ) )">
+				<BR/>
+				<WITH VAR="_result" EXPR="
+						res = new Object;
+						res.occurrence_id = '';
+						res.comment = ListElem.comment;
+						return res;
+				" EVALUATE-ONCE="1">
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="20zr"/>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<LABEL TITLE="##UiText.fields.result##:" ALIGN="right"/>
+
+						<LINE>
+							<LOOP EXPR="ArraySelect( ListElem.type.get_sorted_occurrences(), 'This.id != ListElem.occurrence_id' )" VAR="_occurrrence">
+								<CHECK TITLE-EXPR="_occurrrence.get_name()" SOURCE="_result.occurrence_id == _occurrrence.id" SET-VALUE-ACTION="
+										if ( NewValue )
+										{
+											_result.occurrence_id = _occurrrence.id;
+											if ( _occurrrence.default_comment.HasValue &amp;&amp; ( _result.comment == undefined || _result.comment == '' ) )
+												_result.comment = _occurrrence.default_comment;
+										}
+								"/>
+							</LOOP>
+						</LINE>
+
+						<LABEL TITLE="##UiText.fields.comment##:" ALIGN="right"/>
+						<EDIT SOURCE="_result.comment" SET-VALUE-ACTION="_result.comment = NewValue" MULTILINE="1" MAX-WIDTH="100zr" HEIGHT="14zr"/>
+				
+						<LABEL/>
+						<BUTTON TITLE="##UiText.actions.submit##" ACTION="lib_recruit_hm.HandleSubmitCandidateEventResult( Ps, ListElem, _result )" PASSIVE="1" WIDTH="22zr"/>
+					</TABLE>
+				</WITH>
+				<BR/>
+			</IF>
+		</LOOP>
+	</PANEL>
+
+	<PANEL STD-MARGINS="1">
+		<BUTTON IMAGE-URL="//base_pict/note.ico" TITLE="##UiText.actions.add_comment##" FLAT="1" ACTION="lib_recruit_hm.HandleAddCandidateComment( Ps )" PASSIVE="1"/>
+	</PANEL>
+</TABLE>
+</SPXML-SCREEN>
+
+
+
+
+
+
+

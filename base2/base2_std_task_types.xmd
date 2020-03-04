@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_task_types>
+	<std_task_type MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT TYPE="task_type_base"/>
+	</std_task_type>
+</std_task_types>
+
+
+</SPXML-FORM>

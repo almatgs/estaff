@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.sections.mailbox_scanner##" SAVE-ACTION="
+		if ( Ps.is_enabled )
+			lib_agent.EnsureAgentHasSchedule( 'mailbox_scanner', {unit_id:'minute',length:30} );
+
+		UpdateScreens( '*', '*' );
+" RESIZE="1" WIDTH="70zr" HEIGHT="50zr" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<CHECK SOURCE="Ps.is_enabled" AUTO-LABEL="1" WIDTH="auto"/>
+	<DELIM/>
+
+	<LINE>
+		<LABEL TITLE="##UiText.sections.external_accounts##:"/>
+		<LABEL TITLE-EXPR="StrIntZero( ArrayCount( ArraySelect( external_accounts, 'is_active &amp;&amp; type_id == \'imap\'' ) ) )"/>
+	</LINE>
+</PANEL>
+
+</SPXML-SCREEN>

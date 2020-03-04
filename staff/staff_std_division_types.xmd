@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_division_types RECURSIVE-ARRAY="1">
+	<std_division_type MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT FORM="staff_division_type.xmd" TYPE="division_type"/>
+	</std_division_type>
+</std_division_types>
+
+
+</SPXML-FORM>

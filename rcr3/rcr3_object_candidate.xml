@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="Object.candidate" ObjectType="candidate" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<Page ID="Common">
+	<UI:Group Height="60%" VertScroll="1">
+		<UI:Group Layout="table1">
+			<UI:Item Field="fullname"/>
+
+			<!--
+			<UI:Item Field="mobile_phone"/>
+			<UI:Item Field="work_phone" PutWithField="mobile_phone"/>
+			<UI:Item Field="email" PutWithField="mobile_phone"/>
+			<UI:Item Field="state_id"/>
+			<UI:Item Field="state_date" Title="##UiText.fields.date##" PutWithField="state_id"/>
+			-->
+
+			<UI:Item Field="main_vacancy_id"/>
+			<UI:Item Field="user_id"/>
+		</UI:Group>
+	
+		<UI:Break/>
+
+		<!--
+		<UI:Group Title="##UiText.fields.personal_records##">
+			<List LoopExpr="candidate.get_ui_events_array()">
+				<Column Field="date"/>
+				<Column Field="type_id"/>
+				<Column Field="comment"/>
+			</List>
+		</UI:Group>
+		-->
+
+		<UI:Group>
+			<UI:CustomFields/>
+		</UI:Group>
+
+		<UI:XMS Url="rcr3_fragment_candidate_records.xms"/>
+	</UI:Group>
+
+	<UI:Split/>
+	<UI:Attachment Field="opt_default_attachment" FullSpace="1"/>
+</Page>
+
+
+<UI:Attachments/>
+
+
+</UiTemplate>
+

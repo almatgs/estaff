@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_auth>
+	<prompt TYPE="string"/>
+
+	<login TYPE="string"/>
+	<password TYPE="string"/>
+	<save_password TYPE="bool" NOT-NULL="1" DEAULT="true" EXPR="AppConfig.HasProperty( 'LDS-HTTPS' ) && AppConfig.GetProperty( 'LDS-HTTPS' ) == '1' ? false : save_password"/>
+
+	<prohibit_save_password TYPE="bool" NOT-NULL="1"/>
+</dlg_auth>
+
+</SPXML-INLINE-FORM>
+
+
+
+

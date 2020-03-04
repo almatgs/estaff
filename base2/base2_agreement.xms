@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="UiText.objects.agreement" WIDTH="160zr" HEIGHT="100zr" BEFORE-SAVE-ACTION="
+		Ps.check_before_screen_save();
+" WINDOW-ICON-URL-EXPR="Ps.image_url" RESIZE="1">
+
+
+<ITEM TYPE="card_menu_start"/>
+
+<ITEM TYPE="card_toolbar"/>
+
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="39zr" STD-MARGINS="0">
+	<PANEL HEIGHT-EXPR="'-' + lib_base.GetCardInfoHeightMeasure( Ps )" SUNKEN="1">
+		<TREE SUNKEN="0" SWITCH-TYPE="selector" TARGET="main_selector">
+		</TREE>
+	</PANEL>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.objects.agreement##" SUNKEN="1" EXPANDED="1" IMAGE-URL-EXPR="Ps.image_url">
+
+
+
+<PAGE TITLE="##UiText.sections.general##" IMAGE-URL="//base_pict/common.ico">
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="14zr"/>
+			<COL WIDTH="15zr"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<ITEM TYPE="date_selector" SOURCE="Ps.date" AUTO-LABEL="1"/>
+		<EDIT SOURCE="Ps.code" AUTO-LABEL="1"/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.org_id" AUTO-LABEL="1"/>
+	</TABLE>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="14zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="date_selector" SOURCE="Ps.end_date" AUTO-LABEL="1"/>
+	</TABLE>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="14zr"/>
+			<COL WIDTH="10zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.amount" AUTO-LABEL="1"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.currency_id" AUTO-LABEL="1"/>
+	</TABLE>
+	<BR/>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+
+	<EDIT SOURCE="Ps.desc" MULTILINE="1" HEIGHT="auto" AUTO-LABEL="1"/>
+</PANEL>
+
+</PAGE>
+
+
+
+<ITEM TYPE="card_attachments"/>
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+</LINE>
+
+
+
+<COMMAND-HANDLER CMD="Help" HREF-EXPR="lib_base.build_help_article_url( 'intro.htm' )" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+</SPXML-SCREEN>

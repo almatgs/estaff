@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>divisions</id>
+	<name VALUE="##UiText.titles.divisions##"/>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>is_active</id>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>name</id>
+		</field>
+		<field>
+			<id>code</id>
+			<align>center</align>
+		</field>
+		<field>
+			<id>full_name</id>
+			<exist_req_expr>fields_usage.use_object_field( 'division', 'full_name' )</exist_req_expr>
+		</field>
+		<field>
+			<id>short_name</id>
+			<width>28zr</width>
+			<exist_req_expr>fields_usage.use_object_field( 'division', 'short_name' )</exist_req_expr>
+		</field>
+		<field>
+			<id>filled_positions_num</id>
+		</field>
+		<field>
+			<id>free_positions_num</id>
+		</field>
+		<field>
+			<id>partially_filled_positions_num</id>
+			<exist_req_expr>global_settings.allow_multi_employee_positions</exist_req_expr>
+		</field>
+	</fields>
+
+	<frame_sub_view_id>persons_of_division</frame_sub_view_id>
+</std_view>
+

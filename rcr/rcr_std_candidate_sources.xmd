@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_candidate_sources RECURSIVE-ARRAY="1">
+	<std_candidate_source MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT TYPE="candidate_source_base"/>
+	</std_candidate_source>
+</std_candidate_sources>
+
+
+</SPXML-FORM>

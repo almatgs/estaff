@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" BEFORE-INIT-ACTION="
+		if ( Ps.preview.attachment_index >= Ps.attachments.ChildNum )
+			Ps.preview.attachment_index = 0;
+">
+
+
+<TOOLBAR RIGHT-LABELS="1">
+	<LOOP EXPR="Ps.attachments" VAR="_attachment">
+		<TOOLBAR-ENTRY TITLE-EXPR="_attachment.name_desc" IMAGE-URL-EXPR="_attachment.image_url" CHECKED-EXPR="Ps.preview.attachment_index == _attachment.ChildIndex" ACTION="Ps.preview.attachment_index = _attachment.ChildIndex"/>
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+	</LOOP>
+</TOOLBAR>
+
+
+<ITEM TYPE="card_attachment_content" SOURCE="Ps.attachments[Ps.preview.attachment_index]"/>
+
+
+
+
+</SPXML-SCREEN>
+
+

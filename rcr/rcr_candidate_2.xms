@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<PANEL NAME="candidate_left_panel_state" SAMPLE="1">
+
+<GRID NO-MARKS="1" NO-SEL="1" ROW-AUTO-HEIGHT="1" LIST-STYLE="1" VERT-SCROLL="0" HEIGHT="auto">
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+	</COLUMNS>
+
+	<ROW HEADER="1">
+		<LABEL TITLE="##UiText.fields.cur_state##"/>
+	</ROW>
+
+	<ROW>
+		<LABEL TITLE-EXPR="
+				Ps.state.name + '\r\n' + ( Ps.state_id != 'new' ? StrDate( Ps.state_date, true, false ) : '' )
+		" FLAT="1" TEXT-COLOR-EXPR="Ps.state.text_color" BK-COLOR-EXPR="Ps.get_state_bk_color()"/>
+	</ROW>
+</GRID>
+
+</PANEL>
+
+
+
+
+
+
+<PANEL NAME="candidate_left_panel_actions" SAMPLE="1">
+
+<GRID NO-MARKS="1" NO-SEL="1" LIST-STYLE="1" VERT-SCROLL="0" HEIGHT="auto">
+	<COLUMNS>
+		<COL WIDTH="3zr"/>
+		<COL WIDTH="100%"/>
+	</COLUMNS>
+
+	<ROW HEADER="1">
+		<LABEL HSPAN="2" TITLE="##UiText.titles.actions##"/>
+	</ROW>
+
+	<LOOP EXPR="ArraySelect( lib_event.build_object_sorted_event_types( Ps ), '( use_separate_button || ( ! AppModuleUsed( \'module_sanofi\' ) &amp;&amp; is_state &amp;&amp; ! is_automatic &amp;&amp; ArrayOptFindByKey( Ps.get_ui_events_array(), id, \'type_id\' ) != undefined ) )' )" VAR="_event_type">
+		<ROW>
+			<LABEL TITLE-EXPR="
+					event = ArrayOptFindByKey( Ps.get_ui_events_array(), _event_type.id, 'type_id' );
+					if ( event == undefined )
+						return '';
+
+					switch ( event.occurrence_id )
+					{
+						case 'scheduled':
+							return '!';
+
+						case 'started':
+							return '*';
+
+						case 'succeeded':
+							return '+';
+
+						case 'failed':
+							return 'x';
+
+						case 'cancelled':
+							return '-';
+
+						default:
+							if ( event.type.has_occurrence( 'succeeded' ) )
+								return '*';
+							else
+								return '+';
+					}
+			" BK-COLOR-EXPR="
+					event = ArrayOptFindByKey( Ps.get_ui_events_array(), _event_type.id, 'type_id' );
+					if ( event == undefined )
+						return '';
+
+					switch ( event.occurrence_id )
+					{
+						case 'scheduled':
+							return lib_event.bk_color_scheduled;
+
+						case 'started':
+							return lib_event.bk_color_started;
+
+						case 'succeeded':
+							return '200,200,200';
+
+						case 'failed':
+							return '255,128,128';
+
+						case 'cancelled':
+							return '';
+
+						default:
+							if ( event.type.has_occurrence( 'succeeded' ) )
+								return lib_event.bk_color_started;
+							else
+								return '200,200,200';
+					}
+			" FLAT="1" ALIGN="center"/>
+			
+			<LINK TITLE-EXPR="
+					if ( _event_type.separate_button_title.HasValue )
+						return _event_type.separate_button_title;
+
+					return _event_type.name;
+			" TEXT-COLOR-EXPR="_event_type.text_color.HasValue ? _event_type.text_color : 'black'" BK-COLOR-EXPR="_event_type.bk_color" ACTION="
+					lib_candidate.HandleAddCandidateEvent( Ps, _event_type.id )
+			" PASSIVE="1" FLAT="1"/>
+		</ROW>
+	</LOOP>
+
+
+	<ROW>
+		<LABEL FLAT="1"/>
+
+		<LINK TITLE=" • • •" FLAT="1" BOLD_="1" ALIGN="left" TEXT-COLOR="black" TIP-TEXT="Остальные события" lang-en:TIP-TEXT="Other events" lang-ua:TIP-TEXT="Решта подій">
+			<MENU>
+				<LOOP EXPR="ArraySelect( lib_event.build_object_sorted_event_types( Ps ), '! use_separate_button && ! is_automatic' )" VAR="_event_type">
+					<MENU-ENTRY TITLE-EXPR="_event_type.name" ACTION="
+							lib_candidate.HandleAddCandidateEvent( Ps, _event_type.id );
+					" PASSIVE="1"/>
+				</LOOP>
+
+				<MENU-ENTRY SEPARATOR="1"/>
+
+				<MENU-ENTRY TITLE="##UiText.actions.add_past_event_manually##" ACTION="
+						lib_candidate.HandleAddCandidatePastEvent( Ps );
+				" PASSIVE="1" ENABLE-EXPR="! lib_user.active_user_access.prohibit_add_past_events"/>
+			</MENU>
+		</LINK>
+	</ROW>
+</GRID>
+
+
+</PANEL>
+
+
+
+
+
+
+
+
+
+
+<UNIT NAME="candidate_left_panel_info" SAMPLE="1">
+	<IF EXPR="! global_settings.is_agency && AppModuleUsed( 'module_vtb24' )">
+		<CHECK SOURCE="Ps.is_internal_candidate" AUTO-LABEL="1"/>
+		<DELIM/>
+	</IF>
+
+	<IF EXPR="fields_usage.use_object_field( 'candidate', 'entrance_type_id' )">
+		<ITEM TYPE="object_preview_left" TITLE="##UiText.fields.entrance_type##:" SOURCE="Ps.entrance_type_id"/>
+	</IF>
+
+	<ITEM TYPE="object_preview_left" TITLE-EXPR="fields_usage.get_field_ext_title( Ps.source_id, UiText.fields.source ) + ':'" SOURCE="Ps.source_id"/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="53%"/>
+			<COL WIDTH="47%"/>
+		</COLUMNS>
+	</TABLE>
+
+	<IF EXPR="Ps.person_id.HasValue">
+		<LINE>
+			<IMAGE URL="1.ico" URL-EXPR="Ps.person_id.ForeignElem.ImageUrl"/>
+			<LINK TITLE-EXPR="Ps.person_id.ForeignElem.is_own_person ? UiText.titles.own_person_card : UiText.titles.person_card" ACTION="ObtainDocScreen( Ps.person_id.ForeignObjectUrl )"/>
+		</LINE>
+		<DELIM/>
+	</IF>
+
+	<PANEL NAME="AnchorLeftProperties">
+	</PANEL>
+
+	<PANEL HEIGHT="-7zr">
+	</PANEL>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="30%"/>
+			<COL WIDTH="70%"/>
+		</COLUMNS>
+
+		<ITEM TYPE="object_preview" SOURCE="Ps.user_id"/>
+		<ITEM TYPE="object_preview" SOURCE="Ps.group_id"/>
+	</TABLE>
+</UNIT>
+
+
+
+<UNIT NAME="candidate_pd_consent_info" SAMPLE="1">
+	<GROUP>
+		<CHECK SOURCE="Ps.pd_consent_received" AUTO-LABEL="1" UPDATE-ACTION="
+				if ( ! Ps.pd_consent_date.HasValue )
+					Ps.pd_consent_date = CurDate;
+		" READ-ONLY-EXPR="global_settings.pd_processing.auto_consent_request"/>
+		
+		<PANEL WIDTH="1zr"/>
+
+		<IF EXPR="global_settings.pd_processing.auto_consent_request">
+			<EDIT SOURCE="Ps.pd_consent_date" AUTO-LABEL="1" WIDTH="20zr" READ-ONLY="1"/>
+		</IF>
+		<ELSE>
+			<ITEM TYPE="date_time_selector" SOURCE="Ps.pd_consent_date" AUTO-LABEL="1" WIDTH="22zr" UPDATE-ACTION="
+					if ( Ps.pd_consent_date.HasValue )
+						Ps.pd_consent_received = true;
+			"/>
+		</ELSE>
+
+		<EDIT SOURCE="Ps.pd_consent_request_date" AUTO-LABEL="1" WIDTH="19zr" READ-ONLY="1"/>
+
+		<BUTTON TITLE="Запросить" lang-en:TITLE="Request" lang-ua:TITLE="Запросити" WIDTH="15zr" ACTION="lib_recruit_provider.HandleRequestCandidatePdConsent( Ps )" ENABLE-EXPR="global_settings.pd_processing.auto_consent_request"/>
+	</GROUP>
+</UNIT>
+
+
+<UNIT NAME="candidate_hire_info" SAMPLE="1" PARAM-section="">
+	<GROUP>
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'est_empl_start_date', GetSampleParam( 'section' ) )">
+			<ITEM TYPE="date_selector" SOURCE="Ps.est_empl_start_date" AUTO-LABEL="1" WIDTH="14zr" UPDATE-ACTION="
+					if ( ! Ps.est_empl_start_date.HasValue )
+						return;
+					
+					if ( global_settings.probation_period.length.HasValue &amp;&amp; ( ! global_settings.use_candidate_probation_period || ! Ps.probation_end_date.HasValue ) )
+						Ps.probation_end_date = lib_base.get_term_date_offset( Ps.est_empl_start_date, global_settings.probation_period );
+			"/>
+		</IF>
+		<IF EXPR="fields_usage.use_object_field( 'candidate', 'probation_end_date', GetSampleParam( 'section' ) )">
+			<IF EXPR="global_settings.use_candidate_probation_period">
+				<ITEM TYPE="date_selector" SOURCE="Ps.probation_end_date" AUTO-LABEL="1" WIDTH="14zr"/>
+			</IF>
+			<ELSE>
+				<EDIT SOURCE="Ps.probation_end_date" READ-ONLY="1" AUTO-LABEL="1" WIDTH="12zr" ALIGN="center"/>
+			</ELSE>
+		</IF>
+		<IF EXPR="global_settings.use_fractional_mp_vacancies">
+			<EDIT SOURCE="Ps.day_ratio" WIDTH="6zr" AUTO-LABEL="1"/>
+		</IF>
+	</GROUP>
+</UNIT>
+
+
+</SPXML-SCREEN>

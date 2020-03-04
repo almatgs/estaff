@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<USE FORM="old_general.xmd"/>
+
+
+<event>
+	<type_id TYPE="string" NOT-NULL="1" FOREIGN-ARRAY="event_types.items"/>
+
+	<org_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="orgs">
+		<sd SECONDARY="1">
+			<disp_name TYPE="string"/>
+		</sd>
+	</org_id>
+			
+	<person_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="persons">
+		<sd SECONDARY="1">
+			<fullname TYPE="string"/>
+			<disp_phone TYPE="string"/>
+		</sd>
+	</person_id>
+
+	<use_end_date TYPE="bool" EXPR-INIT="type_id.OptForeignElem.use_end_date"/>
+	<date TYPE="date"/>
+	<end_date TYPE="date"/>
+
+	<completion_id TYPE="integer"/>
+
+	<room_id TYPE="integer" FOREIGN-ARRAY="rooms.items"/>
+	
+	<use_reminder TYPE="bool" NOT-NULL="1"/>
+	<reminder_type_id TYPE="integer" DEFAULT="0" FOREIGN-ARRAY="dw_common.reminder_types"/>
+
+	<comment TYPE="string" MULTILINE="1"/>
+
+	<INHERIT TYPE="au_card_attachments"/>
+	<INHERIT TYPE="bs_user_ref"/>
+	<is_private TYPE="bool" NOT-NULL="1"/>
+	<doc_info TYPE="au_doc_info"/>
+</event>
+
+
+</SPXML-FORM>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<voc_object_base SAMPLE="1">
+	<voc_info PROPERTY="1" EXPR="lib_voc.get_voc_info_by_id( lib_base.object_name_to_catalog_name( Form.TopElem.Name ) )"/>
+</voc_object_base>
+
+
+</SPXML-FORM>

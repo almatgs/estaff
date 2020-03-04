@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<person SPXML-FORM="x-app://base2/base2_person.xmd"><id>0x5E5F6BD91AC84B0D</id><code>00001</code><lastname>Лавров</lastname><firstname>Лаврентий</firstname><fullname>Лавров Лаврентий</fullname><is_derived>1</is_derived><is_candidate>1</is_candidate><gender_id>0</gender_id><is_active>1</is_active><creation_date>2020-03-04T16:08:16+06:00</creation_date><last_mod_date>2020-03-04T16:08:21+06:00</last_mod_date></person>

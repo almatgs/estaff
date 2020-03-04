@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="List.comments.hm.subscribed" ObjectList="1" ObjectType="event" Title="##UiText.titles.comments##" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<UI:Filter Field="type_id" Fixed="1" ValueExpr="'comment'"/>
+<UI:Filter Field="vacancy_id" Multiple="1" Fixed="1" ValueExpr="lib_recruit_hm.GetRrPersonFocusVacancyIDs( lib_user.active_user_person.id )"/>
+
+<UI:Column Field="date"/>
+<UI:Column Field="candidate_id"/>
+<UI:Column Field="comment"/>
+<UI:Column Field="vacancy_id"/>
+<UI:Column Field="author_id"/>
+
+</UiTemplate>

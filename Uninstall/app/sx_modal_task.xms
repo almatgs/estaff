@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="modal_task" WIDTH="80zr" HEIGHT="10zr" INIT-ACTION="Screen.SetTimer( 'Screen.Update()', 150 )" FREQUENT-UPDATE="1" CAPTION="0">
+
+<LABEL TITLE-EXPR="Ps.title"/>
+<LABEL TITLE-EXPR="Ps.msg"/>
+
+</SPXML-SCREEN>

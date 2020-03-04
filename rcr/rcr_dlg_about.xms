@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN TITLE="##UiText.sections.about_program##" WIDTH="108zr" HEIGHT="72zr" >
+
+<PANEL HEIGHT-EXPR="lib_base.dlg_body_height">
+	<LABEL TITLE-EXPR="AppName + ' ' + AppVersion + ' ' + AppSubName" BOLD="1"/>
+	<LABEL TITLE-EXPR="UiText.titles.build + '  ' + StrDate( AppBuildDate, false )"/>
+	<BR/>
+	<LABEL TITLE-EXPR="AppSpec.copyright"/>
+	<LINK TITLE-EXPR="lib_base.disp_site_url( AppSpec.web_site )" HREF-EXPR="lib_base.href_site_url( AppSpec.web_site )" TARGET="_web"/>
+	<DELIM/>
+
+	<IF EXPR="AppSn != ''">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="18zr"/>
+			</COLUMNS>
+
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="17zr"/>
+					<COL WIDTH="100%"/>
+				</COLUMNS>
+
+				<LABEL TITLE="##UiText.fields.serial_number##:" ALIGN="right"/>
+				<LABEL TITLE-EXPR="AppSn" ALLOW-COPY="1"/>
+
+				<LABEL TITLE="##UiText.fields.activation_code##:" ALIGN="right" lang-en:TITLE="Activation code:"/>
+				<LABEL TITLE-EXPR="AppActivationCode" ALLOW-COPY="1"/>
+			</TABLE>
+
+			<PANEL>
+				<IF EXPR="! UseLds && AppActivationCode != ''">
+					<BUTTON TITLE="##UiText.actions.deactivate##" ACTION="
+							lib_app2.handle_deactivate_app();
+					"/>
+				</IF>
+			</PANEL>
+		</TABLE>
+		<DELIM/>
+
+		<LINE>
+			<LABEL TITLE="##UiText.titles.support_end_date##:"/>
+			<LABEL TITLE-EXPR="
+					if ( app_license.support_end_date.HasValue )
+						return StrDate( app_license.support_end_date, false );
+					else
+						return '???';
+			" WIDTH="12zr"/>
+
+			<IMAGE URL="//base_pict/load.ico" TIP-TEXT="Запросить" lang-en:TIP-TEXT="Query" ACTION="
+					if ( System.IsWebClient )
+						return;
+
+					lib_app2.SyncLicense( true );
+			" lang-ua:TIP-TEXT="Запросити"/>
+
+			<IF EXPR="app_license.support_end_date > CurDate &amp;&amp; lib_base.get_date_days_diff( app_license.support_end_date, CurDate ) &lt;= 14">
+				<IMAGE URL="//base_pict/warning.ico"/>
+			</IF>
+		</LINE>
+		<DELIM/>
+
+		<LINE>
+			<LABEL TITLE="Количество пользователей в лицензии:" lang-en:TITLE="Number of users of the license:" lang-ua:TITLE="Кількість користувачів в ліцензії:"/>
+
+			<LABEL TITLE-EXPR="
+					limit = AppSnLimit;
+					if ( limit >= 99 )
+						return UiText.titles.unlimited;
+
+					if ( limit == 0 )
+						return '1';
+
+					return limit;
+			"/>
+
+			<PANEL WIDTH="4zr"/>
+
+			<LABEL TITLE="Используется:" lang-en:TITLE="Used:" lang-ua:TITLE="Використовується:"/>
+
+			<LABEL TITLE-EXPR="CallServerMethod( 'lib_app2', 'GetActiveUsersNum' )"/>
+		</LINE>
+		<DELIM/>
+
+		<LABEL TITLE="Доступные модули:" lang-en:TITLE="Available modules:" lang-ua:TITLE="Доступні модулі:"/>
+		<BR/>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="2zr"/>
+				<COL WIDTH="50%"/>
+				<COL WIDTH="20zr"/>
+				<COL WIDTH="50%"/>
+			</COLUMNS>
+
+			<LOOP EXPR="lib_app2.GetAppFeaturesList()" VAR="ListElem">
+				<LABEL/>
+				<LABEL TITLE-EXPR="ListElem.name"/>
+				<LABEL TITLE-EXPR="
+						if ( ! ListElem.is_enabled )
+							return '-';
+						
+						if ( ListElem.is_expired )
+							return UiText.messages.subscription_expired;
+
+						return '+';
+				" ALIGN="center"/>
+
+				<LABEL TITLE-EXPR="ListElem.comment" ALIGN="center"/>
+			</LOOP>
+		</TABLE>
+	</IF>
+
+	<IF EXPR="lib_base.is_sql_storage()" IGNORE-ERRORS="0">
+		<LINE>
+			<LABEL TITLE="##UiText.titles.database_engine##:"/>
+			<LABEL TITLE="MS SQL"/>
+		</LINE>
+		<DELIM/>
+	</IF>
+</PANEL>
+
+<ITEM TYPE="dlg_footer_start"/>
+
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+	<BUTTON TITLE="OK" CMD="Ok"/>
+</TABLE>
+
+
+</SPXML-SCREEN>

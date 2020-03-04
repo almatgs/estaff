@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="130zr" HEIGHT="95zr" SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" RESIZE="1" WINDOW-ICON-URL-EXPR="Ps.ImageUrl">
+
+
+<INHERIT TYPE="min_menus"/>
+
+
+<TOOLBAR NAME="min_toolbar" GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="base_toolbar_start_entries"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/plus.ico" ACTION="
+			testIDArray = lib_voc.select_voc_elems( external_tests );
+
+			for ( testID in testIDArray )
+				assignedTest = Ps.assigned_tests.ObtainChildByKey( testID );
+
+			Ps.Doc.SetChanged( true );
+	" TITLE="##UiText.actions.add_tests##"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/help.ico" CMD="Help" TIP-TEXT="##UiText.sections.help##"/>
+</TOOLBAR>
+
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<LOOP EXPR="Ps.assigned_tests" VAR="ListElem">
+		<BR/>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="18zr"/>
+				<COL WIDTH="button"/>
+			</COLUMNS>
+
+			<ITEM TYPE="voc_elem_selector" SOURCE="ListElem.external_test_id" AUTO-LABEL="1"/>
+
+			<EDIT SOURCE="ListElem.pass_score" READ-ONLY="1" AUTO-LABEL="1"/>
+
+			<BUTTON IMAGE-URL="//base_pict/actions.ico" LABEL-TITLE=" ">
+				<MENU>
+					<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+							ListElem.Delete();
+							Ps.Doc.SetChanged( true );
+					"/>
+				</MENU>
+			</BUTTON>
+		</TABLE>
+	</LOOP>
+
+
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+
+
+

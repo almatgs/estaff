@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems.xmd">
+	<std_voc_elem>
+		<id>qualification</id>
+		<name VALUE="Недостаточная квалификация" lang-en:VALUE="Unqualified" lang-ua:VALUE="Недостатня кваліфікація"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>work_experience</id>
+		<name VALUE="Недостаточный опыт работы" lang-en:VALUE="Insufficient work experience" lang-ua:VALUE="Недостатній досвід роботи"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>personality</id>
+		<name VALUE="Личные качества" lang-en:VALUE="Unsuitable personality" lang-ua:VALUE="Особисті якості"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>salary</id>
+		<name VALUE="Завышенные зарплатные ожидания" lang-en:VALUE="Unaffordable salary expectations" lang-ua:VALUE="Завищені зарплатні очікування"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>work_permit</id>
+		<name VALUE="Нет разрешения на работу" lang-en:VALUE="No work permit" lang-ua:VALUE="Немає дозволу на роботу"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>other</id>
+		<name VALUE="Иное" lang-en:VALUE="Other" lang-ua:VALUE="Інша"/>
+	</std_voc_elem>
+</std_voc_elems>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

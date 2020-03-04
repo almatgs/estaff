@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<view_generic_catalog>
+	<filter>
+		<query TYPE="string"/>
+	</filter>
+
+	<cur_record_ref TYPE="variant"/>
+</view_generic_catalog>
+
+</SPXML-INLINE-FORM>

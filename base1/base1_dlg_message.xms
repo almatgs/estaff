@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="Ps.title" WIDTH="34zr" HEIGHT="20zr" WIDTH-EXPR="Ps.calc_width_px() + 'px'" HEIGHT-EXPR="Ps.calc_height_zr() + 'zr'">
+
+<PANEL HEIGHT="7px">
+</PANEL>
+
+<LINE>
+	<PANEL WIDTH="1px">
+	</PANEL>
+
+	<PANEL WIDTH="40px">
+		<IMAGE URL="1.ico" URL-EXPR="'x-sys-image://std-icon/' + Ps.message_type + '.ico'" WIDTH="32px" HEIGHT="32px"/>
+		<BR/>
+	</PANEL>
+	
+	<PANEL WIDTH="2px">
+	</PANEL>
+
+	<PANEL MIN-HEIGHT="60px">
+		<LABEL TITLE-EXPR="Ps.text"/>
+	</PANEL>
+</LINE>
+
+
+<PANEL HEIGHT="-9zr">
+</PANEL>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="50%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="50%"/>
+	</COLUMNS>
+
+	<LABEL/>
+	<BUTTON TITLE="OK" CMD="1"/>
+	<LABEL/>
+</TABLE>
+
+<CHECK SOURCE="Ps.never_show_again" TITLE="Больше не показывать это сообщение" lang-en:TITLE="Do not show this message again" lang-ua:TITLE="Більше не показувати це повідомлення"/>
+
+</SPXML-SCREEN>

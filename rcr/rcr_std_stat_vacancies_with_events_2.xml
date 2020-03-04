@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>vacancies_with_events_2</id>
+	<name VALUE="##UiText.titles.recruitment_process## 2"/>
+	<section_id>recruit</section_id>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>date</id>
+			<data_type>date</data_type>
+			<title VALUE="##UiText.titles.time_period##"/>
+			<use_range>1</use_range>
+			<use_period_quick_selector>1</use_period_quick_selector>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<source_id>vacancies</source_id>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}</view_filter_expr>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<source_id>vacancies</source_id>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+		</dyn_filter>
+	</dyn_filters>
+
+	<sources>
+		<source>
+			<id>vacancies</id>
+			<qual>( dest.filter.min_date == null || deactivate_date == null || deactivate_date >= dest.filter.min_date ) &amp;&amp; ( dest.filter.max_date == null || start_date &lt;= DateNewTime( dest.filter.max_date, 23, 59, 59 ) )</qual>
+		</source>
+
+		<source>
+			<id>events</id>
+
+			<xquery_qual_expr>filter.min_date.HasValue ? '$elem/date >= ' + filter.min_date.XQueryLiteral : ''</xquery_qual_expr>
+			<xquery_qual_expr>filter.max_date.HasValue ? '$elem/date &lt;= ' + XQueryLiteral( DateNewTime( filter.max_date, 23, 59, 59 ) ) : ''</xquery_qual_expr>
+
+			<join_base>vacancies</join_base>
+			<join_key>vacancy_id</join_key>
+			<join_merge_single>1</join_merge_single>
+			<use_smart_join>1</use_smart_join>
+
+			<stat_only>1</stat_only>
+		</source>
+	</sources>
+
+	<fields>
+		<field>
+			<id>name</id>
+			<col_title VALUE="##UiText.objects.vacancy##"/>
+			<width>60zr</width>
+		</field>
+
+		<field>
+			<id>start_date</id>
+		</field>
+
+		<field>
+			<id>active_req_quantity</id>
+			<align>center</align>
+		</field>
+
+		<field>
+			<id>org_id</id>
+			<width>40zr</width>
+			<exist_req_expr>global_settings.is_agency</exist_req_expr>
+		</field>
+
+		<field>
+			<id>division_id</id>
+			<width>40zr</width>
+			<exist_req_expr>! global_settings.is_agency</exist_req_expr>
+		</field>
+
+		<field>
+			<id>priority_id</id>
+			<align>center</align>
+		</field>
+
+		<field>
+			<col_title VALUE="##UiText.titles.selected__n##"/>
+			<tip_text VALUE="Рассматривалось кандидатов" lang-en:VALUE="Selected candidates" lang-ua:VALUE="Розглядалося кандидатів"/>
+			<source_id>events</source_id>
+			<stat_func>unique_count</stat_func>
+			<unique_key>candidate_id</unique_key>
+		</field>
+
+		<field>
+			<ref_id>interviews_completed</ref_id>
+			<col_title VALUE="##UiText.titles.interview##"/>
+			<tip_text VALUE="Состоялось интервью" lang-en:VALUE="Interviews completed" lang-ua:VALUE="Відбулося інтерв'ю"/>
+			<source_id>events</source_id>
+			<stat_func>count</stat_func>
+			<stat_qual>type_id == 'interview' && occurrence_id == ''</stat_qual>
+		</field>
+
+		<field>
+			<col_title VALUE="##UiText.titles.submitted_to_rr__n##"/>
+			<ref_id>rr_resume_reviews</ref_id>
+			<source_id>events</source_id>
+			<stat_func>count</stat_func>
+			<stat_qual>type_id == 'rr_resume_review'</stat_qual>
+		</field>
+
+		<field>
+			<col_title VALUE="##UiText.titles.client_interview##"/>
+			<tip_text VALUE="##UiText.titles.client_interview##"/>
+			<ref_id>rr_interviews</ref_id>
+			<source_id>events</source_id>
+			<stat_func>count</stat_func>
+			<stat_qual>type_id == 'rr_interview' && occurrence_id == ''</stat_qual>
+		</field>
+
+		<field>
+			<col_title VALUE="##UiText.titles.security_check##"/>
+			<source_id>events</source_id>
+			<id>date</id>
+			<stat_qual>type_id == 'security_check'</stat_qual>
+			<exist_req_expr>! global_settings.is_agency</exist_req_expr>
+		</field>
+
+		<field>
+			<id>close_date</id>
+		</field>
+
+		<field>
+			<col_title VALUE="##UiText.objects.candidate##"/>
+			<id>multi_final_candidate_id</id>
+			<width>30zr</width>
+		</field>
+
+		<field>
+			<id>comment</id>
+		</field>
+	</fields>
+</std_stat>
+

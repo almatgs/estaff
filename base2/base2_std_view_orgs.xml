@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>orgs</id>
+	<name VALUE="##UiText.sections.orgs##"/>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>type_id</id>
+		</dyn_filter>
+		<dyn_filter>
+			<id>last_event_type_id</id>
+			<view_filter_expr>{target_object_type_id:'org'}</view_filter_expr>
+		</dyn_filter>
+		<dyn_filter>
+			<id>partner_org_id</id>
+			<exist_req_expr>global_settings.use_resellers</exist_req_expr>
+		</dyn_filter>
+		<dyn_filter>
+			<id>user_id</id>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}</view_filter_expr>
+		</dyn_filter>
+		<dyn_filter>
+			<id>group_id</id>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>name</id>
+		</field>
+		<field>
+			<id>main_persons_desc</id>
+		</field>
+		<field>
+			<id>type_id</id>
+		</field>
+		<field>
+			<id>last_event_type_id</id>
+			<title_expr>lib_event.BuildObjectStateName( last_event_type_id, last_event_occurrence_id )</title_expr>
+			<text_color_expr>last_event_type_id.ForeignElem.get_occurrence( last_event_occurrence_id ).get_text_color()</text_color_expr>
+			<bk_color_expr>lib_event.build_dyn_occurrence_bk_color( last_event_type_id.ForeignElem, last_event_occurrence_id, last_event_date, null )</bk_color_expr>
+		</field>
+		<field>
+			<id>last_event_date</id>
+			<use_time>0</use_time>
+		</field>
+		<field>
+			<id>last_comment</id>
+		</field>
+		<field>
+			<id>last_contact_date</id>
+			<use_time>0</use_time>
+			<col_title VALUE="##UiText.fields.last_contact##"/>
+			<col_tip_text VALUE="##UiText.fields.last_contact_date##"/>
+		</field>
+		<field>
+			<id>vacancies_num</id>
+			<width>6zr</width>
+			<exist_req_expr>AppModuleUsed( 'rcr' ) &amp;&amp; global_settings.is_agency</exist_req_expr>
+		</field>
+		<field>
+			<id>active_vacancies_num</id>
+			<width>5zr</width>
+			<exist_req_expr>AppModuleUsed( 'rcr' ) &amp;&amp; global_settings.is_agency</exist_req_expr>
+		</field>
+		<field>
+			<id>user_id</id>
+		</field>
+	</fields>
+</std_view>
+

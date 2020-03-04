@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" MAXIMIZED="1" TITLE="XQuery panel" WINDOW-ICON-URL="//base_pict/actions.ico">
+
+
+<PANEL SUNKEN="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<PANEL>
+			<LABEL TITLE="XQuery:"/>
+
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="100%"/>
+					<COL WIDTH="14zr"/>
+				</COLUMNS>
+
+				<EDIT SOURCE="Ps.filter.query" ACTION="Screen.Update()" PASSIVE="1"/>
+
+				<BUTTON TITLE="##UiText.actions.show##" IMAGE-URL="//base_pict/find.ico" STD-MARGINS="0" ACTION="
+						//Ps.used_fulltext = Ps.fulltext;
+				" HANDLE-CMD__="RunSearch"/>
+			</TABLE>
+		</PANEL>
+	</TABLE>
+</PANEL>
+
+<SPLIT FIXED="1"/>
+
+<PANEL HEIGHT="50%" SUNKEN="1">
+	<LIST LOOP-EXPR="XQuery( Ps.filter.query )">
+		<ROW OPEN-ACTION="ObtainDocScreen( DefaultDb.GetRecordPrimaryObjectUrl( ListElem ) )" DELETE-ACTION="DeleteDoc( DefaultDb.GetRecordPrimaryObjectUrl( ListElem ) )" SET-SEL-ACTION="
+				Ps.cur_record_ref = ListElem;
+		" IMAGE-URL-EXPR="ListElem.ImageUrl">
+			<COL WIDTH="100%" COL-TITLE="##UiText.fields.object##" TITLE-EXPR="ListElem.PrimaryDispName" lang-en:COL-TITLE="Object"/>
+			<COL WIDTH="21zr" COL-TITLE="ID" TITLE-EXPR="ListElem.id.XmlValue"/>
+		</ROW>
+	</LIST>
+</PANEL>
+
+<SPLIT FIXED="1"/>
+
+<PANEL HEIGHT="100%" SUNKEN="1" STD-MARGINS="0">
+	<EDIT SOURCE="Ps.cur_record_ref.HasValue ? Ps.cur_record_ref.Object.Xml : ''" MULTILINE="1" READ-ONLY="1" VERT-SCROLL="1" SUNKEN="0"/>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+

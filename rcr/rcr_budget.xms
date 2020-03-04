@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.quarterly_budget##" WINDOW-ICON-URL-EXPR="Ps.image_url" WIDTH="100zr" HEIGHT="60zr">
+
+
+<ITEM TYPE="card_menu_start"/>
+
+<ITEM TYPE="card_toolbar"/>
+
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="33zr" STD-MARGINS="0">
+	<PANEL HEIGHT="-18zr" SUNKEN="1">
+		<TREE SUNKEN="0" SWITCH-TYPE="selector" TARGET="main_selector">
+		</TREE>
+	</PANEL>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.titles.quarterly_budget##" SUNKEN="1" EXPANDED="1" IMAGE-URL-EXPR="Ps.image_url">
+
+
+
+<PAGE TITLE="##UiText.sections.general##" IMAGE-URL="//base_pict/common.ico">
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="10zr"/>
+			<COL WIDTH="8zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="year_edit" SOURCE="Ps.year" AUTO-LABEL="1"/>
+
+		<COMBO SOURCE="Ps.quarter" AUTO-LABEL="1">
+			<COMBO-ENTRY TITLE="1" VALUE-EXPR="1"/>
+			<COMBO-ENTRY TITLE="2" VALUE-EXPR="2"/>
+			<COMBO-ENTRY TITLE="3" VALUE-EXPR="3"/>
+			<COMBO-ENTRY TITLE="4" VALUE-EXPR="4"/>
+		</COMBO>
+	</TABLE>
+	<BR/>
+
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="16zr"/>
+			<COL WIDTH="10zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.amount" AUTO-LABEL="1"/>
+		
+		<IF EXPR="false">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.currency_id" AUTO-LABEL="1"/>
+		</IF>
+	</TABLE>
+	<BR/>
+
+
+	<EDIT SOURCE="Ps.comment" MULTILINE="1" HEIGHT="auto" AUTO-LABEL="1"/>
+</PANEL>
+
+</PAGE>
+
+
+
+<ITEM TYPE="card_attachments"/>
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+</LINE>
+
+
+
+<COMMAND-HANDLER CMD="Help" HREF="//rc/help/intro.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1" TARGET-NEW-WINDOW="1"/>
+
+</SPXML-SCREEN>

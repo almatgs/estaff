@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="Object.vacancy_request" ObjectType="vacancy_request" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<UI:Page ID="Common" Layout="table1">
+	<UI:Item Field="code"/>
+	<UI:Item Field="date"/>
+	<UI:Item Field="workflow_document_type_id"/>
+	<UI:Item Field="orig_person_id"/>
+	<UI:Item Field="state_id"/>
+	<UI:Break/>
+
+	<UI:Item Field="workflow_stage_id" Width="100%"/>
+	<UI:Item Field="cur_resp_person_id"/>
+
+	<UI:Separator/>
+
+	<UI:Item Field="name"/>
+	<UI:Item Field="division_id"/>
+	<UI:Item Field="position_type_id"/>
+	
+	<UI:Item Field="reason_id"/>
+	<!--<UI:Item Field="recruit_type_id"/>-->
+	<UI:Item Field="staff_category_id"/>
+	<UI:Item Field="difficulty_level_id"/>
+	<UI:Item Field="priority_id"/>
+	<UI:Item Field="cost_center_id"/>
+	<UI:Item Field="req_empl_start_date"/>
+	<UI:Break/>
+
+	<UI:Item Field="salary"/>
+	<UI:Item Field="min_salary"/>
+	<UI:Item Field="max_salary"/>
+	<UI:Break/>
+
+	<UI:Item Field="req_quantity" MaxLen="3" Width="6zr"/>
+
+	<UI:Break/>
+	<UI:CustomFields/>
+
+	<UI:Break/>
+	<UI:Item Field="vacancy_desc"/>
+
+	<UI:Break/>
+
+
+	<UI:Group Layout="line">
+		<UI:Action Title="##UiText.actions.submit##" Action="lib_recruit_hm.DoVacancyRequestAction( object, 'submit', object.view.workflow_action_data )" ShowCondition="lib_recruit_hm.AllowVacancyRequestAction( object, 'submit' )"/>
+
+		<UI:Action Title="##UiText.actions.approve##" Action="lib_recruit_hm.DoVacancyRequestAction( object, 'approve', object.view.workflow_action_data )" ShowCondition="lib_recruit_hm.AllowVacancyRequestAction( object, 'approve' )"/>
+		<UI:Action Title="##UiText.actions.reject##" Action="lib_recruit_hm.DoVacancyRequestAction( object, 'reject', object.view.workflow_action_data )" ShowCondition="lib_recruit_hm.AllowVacancyRequestAction( object, 'reject' )"/>
+		<UI:Action Title="##UiText.actions.return_to_orig_person##" Action="lib_recruit_hm.DoVacancyRequestAction( object, 'return_to_orig_person', object.view.workflow_action_data )" ShowCondition="lib_recruit_hm.AllowVacancyRequestAction( object, 'return_to_orig_person' )"/>
+
+		<UI:Action Title="##UiText.actions.resubmit##" Action="lib_recruit_hm.DoVacancyRequestAction( object, 'resubmit', object.view.workflow_action_data )" ShowCondition="lib_recruit_hm.AllowVacancyRequestAction( object, 'resubmit' )"/>
+		<UI:Action Title="##UiText.actions.revoke##" Action="lib_recruit_hm.DoVacancyRequestAction( object, 'cancel', object.view.workflow_action_data )" ShowCondition="lib_recruit_hm.AllowVacancyRequestAction( object, 'cancel' )"/>
+	</UI:Group>
+
+	<UI:Break/>
+	<UI:Break/>
+
+	<UI:Item Field="view.workflow_action_data.comment" Title="##UiText.fields.comment##" Width="80zr" Height="15zr" ShowCondition="lib_recruit_hm.AllowVacancyRequestAction( object, 'approve' )"/>
+
+
+
+	<UI:AllowEditField AllFields="1" Condition="lib_recruit_hm.IsVacancyRequestFieldEditable( object, field )"/>
+</UI:Page>
+
+
+<UI:Page Title="##UiText.titles.change_history##">
+	<UI:XMS Url="rcr3_fragment_workflow_document_stage_records.xms"/>
+</UI:Page>
+
+
+<UI:Attachments/>
+
+
+</UiTemplate>
+

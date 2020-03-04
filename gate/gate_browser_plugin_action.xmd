@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<browser_plugin_action>
+	<action_id TYPE="string"/>
+	<url TYPE="string"/>
+	<html TYPE="string" SUBTYPE="html"/>
+	<sel_html TYPE="string" SUBTYPE="html"/>
+</browser_plugin_action>
+
+
+
+</SPXML-FORM>

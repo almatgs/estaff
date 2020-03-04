@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<candidate>
+	<eid TYPE="integer"/>
+
+	<lastname TYPE="string"/>
+	<firstname TYPE="string"/>
+	<middlename TYPE="string"/>
+
+	<code TYPE="string"/>
+	<birth_date TYPE="date" TIME="0"/>
+	<birth_year TYPE="integer"/>
+
+	<phone TYPE="string"/>
+	<work_phone TYPE="string"/>
+	<mobile_phone TYPE="string"/>
+
+	<email TYPE="string"/>
+	<email2 TYPE="string"/>
+
+	<attachments>
+		<attachment MULTIPLE="1" PRIMARY-KEY="type_id">
+			<type_id TYPE="string"/>
+			<type_desc TYPE="string"/>
+			<name TYPE="string"/>
+			
+			<date TYPE="date" EXPR-INIT="Date()"/>
+			<content_type TYPE="string" DEFAULT="text/html"/>
+
+			<plain_text TYPE="string" MULTILINE="1"/>
+			<text TYPE="string" RICH-TEXT="1"/>
+			<data TYPE="binary"/>
+			<file_name TYPE="string"/>
+		</attachment>
+	</attachments>
+
+	<records>
+		<record MULTIPLE="1">
+			<eid TYPE="integer"/>
+			<is_state TYPE="bool" NOT-NULL="1"/>
+
+			<date TYPE="date" EXPR-INIT="Date()"/>
+			<end_date TYPE="date"/>
+			<type_id TYPE="string"/>
+			<completion_id TYPE="integer"/>
+			<type_desc TYPE="string"/>
+
+			<creation_date TYPE="date"/>
+			<use_end_date PROPERTY="1" EXPR="type_id.ForeignElem.use_end_date"/>
+
+			<room_id TYPE="integer" FOREIGN-ARRAY="rooms.items"/>
+
+			<position_eid TYPE="integer"/>
+			<position_data>
+				<name TYPE="string"/>
+			</position_data>
+
+			<comment TYPE="string"/>
+		</record>
+	</records>
+</candidate>
+
+
+</SPXML-FORM>
+
+
+

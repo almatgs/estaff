@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_workflow_document_states SPXML-FORM="base2_std_workflow_document_states.xmd">
+	<std_workflow_document_state>
+		<id>draft</id>
+		<name VALUE="##UiText.titles.draft##"/>
+		<deactivate_object>1</deactivate_object>
+	</std_workflow_document_state>
+	<std_workflow_document_state>
+		<id>active</id>
+		<name VALUE="##UiText.titles.in_progress__active##"/>
+	</std_workflow_document_state>
+	<std_workflow_document_state>
+		<id>finished</id>
+		<name VALUE="##UiText.titles.processed##"/>
+		<deactivate_object>1</deactivate_object>
+	</std_workflow_document_state>
+	<std_workflow_document_state>
+		<id>rejected</id>
+		<name VALUE="##UiText.titles.rejected__f##"/>
+		<deactivate_object>1</deactivate_object>
+	</std_workflow_document_state>
+	<std_workflow_document_state>
+		<id>returned</id>
+		<name VALUE="##UiText.titles.returned_to_orig_person##"/>
+		<deactivate_object>1</deactivate_object>
+	</std_workflow_document_state>
+	<std_workflow_document_state>
+		<id>cancelled</id>
+		<name VALUE="##UiText.titles.cancelled__recalled__f##"/>
+		<deactivate_object>1</deactivate_object>
+	</std_workflow_document_state>
+</std_workflow_document_states>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

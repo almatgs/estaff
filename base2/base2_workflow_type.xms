@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+
+<INHERIT TYPE="card_menus"/>
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="base_toolbar_start_entries"/>
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY TITLE="##UiText.actions.add##" IMAGE-URL="//base_pict/plus.ico" lang-en:TITLE="Add">
+		<MENU>
+			<MENU-ENTRY TITLE="##UiText.fields.workflow_stage##" ACTION="
+					stage = Ps.stages.AddChild();
+					stage.id = Ps.GenerateUniqueStageID();
+					Ps.Doc.SetChanged( true );
+					Screen.Update();
+					Screen.ExposeItemBySource( stage.id );
+			" PASSIVE="1"/>
+		</MENU>
+	</TOOLBAR-ENTRY>
+
+	<INHERIT TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="40zr" STD-MARGINS="0">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="0">
+		</TREE>
+	</PANEL>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.titles.workflow_type##" SUNKEN="1" EXPANDED="1" IMAGE-URL="//base_pict/generic_item.ico">
+
+
+<PAGE TITLE="##UiText.sections.general##" SUNKEN="1" IMAGE-URL="//base_pict/common.ico">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<CHECK SOURCE="Ps.allow_resubmit" AUTO-LABEL="1"/>
+</PAGE>
+
+
+
+<PAGE TITLE="##UiText.titles.workflow_stages##" IMAGE-URL="//base_pict/folder.ico" EXPANDED="1">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<LIST>
+			<COLUMNS>
+				<COL WIDTH="50zr" TITLE="##UiText.fields.id##"/>
+				<COL WIDTH="100%" TITLE="##UiText.fields.name##"/>
+			</COLUMNS>
+
+			<LOOP EXPR="Ps.stages" VAR="ListElem">
+				<ROW OPEN-ACTION="Screen.ExposeItemBySource( ListElem.id )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );" IMAGE-URL="//base_pict/generic_item.ico">
+					<COL TITLE-EXPR="ListElem.id"/>
+					<COL TITLE-EXPR="ListElem.name"/>
+				</ROW>
+
+				<PAGE TITLE-EXPR="ListElem.name" IMAGE-URL="//base_pict/generic_item.ico" SOURCE="ListElem" SUNKEN="1" VERT-SCROLL="1">
+					<LABEL TITLE="##UiText.fields.workflow_stage##:" BOLD="1"/>
+					<BR/>
+
+					<GROUP>
+						<EDIT SOURCE="Ps.id" LABEL-TITLE="##UiText.fields.id##:" WIDTH="15zr"/>
+						<EDIT SOURCE="Ps.name" LABEL-TITLE="##UiText.fields.name##:"/>
+					</GROUP>
+					<DELIM/>
+					
+					<PANEL SOURCE="Ps.resp_person">
+						<GROUP>
+							<ITEM TYPE="elem_selector" SOURCE="Ps.type_id" AUTO-LABEL="1"/>
+						</GROUP>
+						<BR/>
+
+						<IF EXPR="Ps.type_id == 'cur_resp_person_direct_supervisor'">
+							<GROUP>
+								<CHECK SOURCE="Ps.repeat_while_exists" AUTO-LABEL="1"/>
+							</GROUP>
+						</IF>
+
+						<IF EXPR="Ps.type_id == 'division_head'">
+							<GROUP>
+								<ITEM TYPE="voc_elem_selector" SOURCE="Ps.division_type_id" AUTO-LABEL="1" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.division_type_id, 20, 60 )"/>
+							</GROUP>
+						</IF>
+
+						<IF EXPR="Ps.type_id == 'upper_person_with_role'">
+							<GROUP>
+								<ITEM TYPE="voc_elem_selector" SOURCE="Ps.person_struct_role_type_id" AUTO-LABEL="1" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.person_struct_role_type_id, 20, 60 )"/>
+							</GROUP>
+						</IF>
+
+						<IF EXPR="Ps.type_id == 'fixed_person'">
+							<GROUP>
+								<ITEM TYPE="object_selector" SOURCE="Ps.person_id" AUTO-LABEL="1" WIDTH="45zr"/>
+							</GROUP>
+						</IF>
+					</PANEL>
+					<DELIM/>
+
+					<CHECK SOURCE="Ps.allow_return_to_orig_person" AUTO-LABEL="1"/>
+				</PAGE>
+			</LOOP>
+		</LIST>
+	</PANEL>
+</PAGE>
+
+
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+
+</LINE>
+
+
+</SPXML-SCREEN>
+

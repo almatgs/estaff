@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>vacancies_active_with_candidates</id>
+	<parent_id>vacancies</parent_id>
+	<name VALUE="Вакансии + кандидаты" lang-en:VALUE="Vacancies + Candidates" lang-ua:VALUE="Вакансії + кандидати"/>
+
+	<static_filters>
+		<static_filter>
+			<id>is_active</id>
+			<value>true</value>
+		</static_filter>
+	</static_filters>
+
+	<frame_sub_url>//rcr/rcr_view_candidates_of_vacancy.xml</frame_sub_url>
+	<list_with_preview_height>25%</list_with_preview_height>
+	<set_sel_action>Screen.FindItem( 'FrameSubView' ).InnerScreen.Doc.TopElem.SetCurVacancy( ListElem );</set_sel_action>
+</std_view>
+

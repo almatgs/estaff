@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_division_types SPXML-FORM="//staff/staff_std_division_types.xmd" LANG="ru">
+	<std_division_type>
+		<id>department</id>
+		<name VALUE="Департамент" lang-en:VALUE="Department"/>
+	</std_division_type>
+
+	<std_division_type>
+		<id>sub_department</id>
+		<name>Управление</name>
+	</std_division_type>
+
+	<std_division_type>
+		<id>unit</id>
+		<name>Отдел</name>
+	</std_division_type>
+
+	<std_division_type>
+		<id>sector</id>
+		<name>Сектор</name>
+	</std_division_type>
+
+	<std_division_type>
+		<id>shop</id>
+		<name>Магазин</name>
+		<is_mass_recruit_division>1</is_mass_recruit_division>
+	</std_division_type>
+</std_division_types>
+
+
+
+

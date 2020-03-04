@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_vocs SPXML-FORM="base1_std_vocs.xmd">
+	<std_voc>
+		<id>card_object_types</id>
+		<name VALUE="Объекты" lang-en:VALUE="Objects" lang-ua:VALUE="Об'єкти"/>
+		<section_id>service</section_id>
+		<object_form_url>base1_card_object_type.xmd</object_form_url>
+
+		<key_type>string</key_type>
+		<no_edit>1</no_edit>
+
+		<edit_std_prohibit_fields>
+			<field>name</field>
+		</edit_std_prohibit_fields>
+	</std_voc>
+
+	<std_voc>
+		<id>card_attachment_types</id>
+		<name VALUE="Приложения к карточкам" lang-en:VALUE="Card attachments" lang-ua:VALUE="Додатки до карток"/>
+		<section_id>common</section_id>
+		<object_form_url>base1_card_attachment_type.xmd</object_form_url>
+
+		<key_type>string</key_type>
+		<is_hier>0</is_hier>
+
+		<use_text_color>0</use_text_color>
+		<use_bk_color>0</use_bk_color>
+
+		<edit_std_prohibit_fields>
+			<field>init_content_type</field>
+		</edit_std_prohibit_fields>
+	</std_voc>
+
+	<std_voc>
+		<id>mail_templates</id>
+		<name VALUE="Шаблоны писем" lang-en:VALUE="E-mail Templates" lang-ua:VALUE="Шаблони листів"/>
+		<section_id>common</section_id>
+		<object_form_url>base1_mail_template.xmd</object_form_url>
+
+		<key_type>string</key_type>
+		<is_hier>0</is_hier>
+
+		<use_text_color>0</use_text_color>
+		<use_bk_color>0</use_bk_color>
+
+		<edit_std_prohibit_fields>
+			<field>dest_type</field>
+		</edit_std_prohibit_fields>
+
+		<extra_columns>
+			<extra_column>
+				<id>group_id</id>
+			</extra_column>
+		</extra_columns>
+	</std_voc>
+
+	<std_voc>
+		<id>sms_templates</id>
+		<name VALUE="Шаблоны SMS" lang-en:VALUE="SMS templates" lang-ua:VALUE="Шаблони SMS"/>
+		<section_id>common</section_id>
+		<object_form_url>base1_sms_template.xmd</object_form_url>
+
+		<key_type>string</key_type>
+		<is_hier>0</is_hier>
+
+		<use_text_color>0</use_text_color>
+		<use_bk_color>0</use_bk_color>
+
+		<extra_columns>
+			<extra_column>
+				<id>group_id</id>
+			</extra_column>
+		</extra_columns>
+	</std_voc>
+
+	<std_voc>
+		<id>currencies</id>
+		<name VALUE="Валюты" lang-en:VALUE="Currencies" lang-ua:VALUE="Валюти"/>
+		<object_form_url>base1_currency.xmd</object_form_url>
+
+		<key_type>string</key_type>
+
+		<use_full_name>1</use_full_name>
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>languages</id>
+		<name VALUE="##UiText.titles.languages##"/>
+		<object_form_url>base1_language.xmd</object_form_url>
+		<section_id></section_id>
+
+		<key_type>string</key_type>
+		<is_optional_std_elems>1</is_optional_std_elems>
+		<auto_order>name</auto_order>
+		<selector_type>dlg</selector_type>
+	</std_voc>
+
+	<std_voc>
+		<id>views</id>
+		<name VALUE="Списки объектов" lang-en:VALUE="Objects lists" lang-ua:VALUE="Списки об'єктів"/>
+		<section_id>service</section_id>
+
+		<object_form_url>base1_view.xmd</object_form_url>
+		<key_type>string</key_type>
+		<is_hier>1</is_hier>
+
+		<edit_std_prohibit_>1</edit_std_prohibit_>
+
+		<edit_std_prohibit_fields>
+			<field>name</field>
+			<field>parent_id</field>
+			<field>is_card_page</field>
+		</edit_std_prohibit_fields>
+	</std_voc>
+
+	<std_voc>
+		<id>agents</id>
+		<name VALUE="##UiText.sections.agents##"/>
+
+		<object_form_url>base1_agent.xmd</object_form_url>
+		<key_type>string</key_type>
+
+		<edit_std_prohibit_fields>
+			<field>name</field>
+			<field>code</field>
+			<field>run_on_client</field>
+			<field>run_on_server</field>
+		</edit_std_prohibit_fields>
+	</std_voc>
+
+	<std_voc>
+		<id>save_triggers</id>
+		<name VALUE="Обработчики измененных объектов" lang-en:VALUE="Save triggers" lang-ua:VALUE="Обробники змінених об'єктів"/>
+		<section_id>hidden</section_id>
+
+		<object_form_url>base1_save_trigger.xmd</object_form_url>
+		<key_type>string</key_type>
+	</std_voc>
+
+	<std_voc>
+		<id>object_actions</id>
+		<name VALUE="Действия над объектами" lang-en:VALUE="Object actions" lang-ua:VALUE="Дії над об'єктами"/>
+
+		<object_form_url>base1_object_action.xmd</object_form_url>
+		<key_type>string</key_type>
+	</std_voc>
+	<std_voc>
+		<id>stat_sections</id>
+		<name VALUE="Группы отчетов" lang-en:VALUE="Statistics sections" lang-ua:VALUE="Групи звітів"/>
+
+		<key_type>string</key_type>
+	</std_voc>
+	<std_voc>
+		<id>stats</id>
+		<name VALUE="##UiText.titles.reports##"/>
+		<section_id>service</section_id>
+
+		<object_form_url>base1_stat.xmd</object_form_url>
+		<key_type>string</key_type>
+	</std_voc>
+	<std_voc>
+		<id>poll_specs</id>
+		<name VALUE="##UiText.titles.questionnaire_forms##"/>
+
+		<object_form_url>base1_poll_spec.xmd</object_form_url>
+		<key_type>string</key_type>
+	</std_voc>
+	<std_voc>
+		<id>telephony_providers</id>
+		<name VALUE="Провайдеры телефонии" lang-en:VALUE="Telephony providers" lang-ua:VALUE="Провайдери телефонії"/>
+		<section_id>integration</section_id>
+
+		<object_form_url>base1_telephony_provider.xmd</object_form_url>
+		<key_type>string</key_type>
+	</std_voc>
+	<std_voc>
+		<id>telephony_rules</id>
+		<name VALUE="Правила телефонии" lang-en:VALUE="Telephony rules" lang-ua:VALUE="Правила телефонії"/>
+		<section_id>integration</section_id>
+
+		<object_form_url>base1_telephony_rule.xmd</object_form_url>
+		<key_type>string</key_type>
+
+		<edit_std_prohibit_fields>
+			<field>name</field>
+		</edit_std_prohibit_fields>
+	</std_voc>
+	<std_voc>
+		<id>sms_gates</id>
+		<name VALUE="SMS-шлюзы" lang-en:VALUE="SMS gates" lang-ua:VALUE="SMS-шлюзи"/>
+		<section_id>integration</section_id>
+
+		<object_form_url>base1_sms_gate.xmd</object_form_url>
+		<key_type>string</key_type>
+	</std_voc>
+	<std_voc>
+		<id>linked_systems</id>
+		<name VALUE="Сопряженные системы" lang-en:VALUE="Linked systems" lang-ua:VALUE="Зовнішні системи"/>
+		<section_id>integration</section_id>
+
+		<object_form_url>base1_linked_system.xmd</object_form_url>
+		<key_type>string</key_type>
+	</std_voc>
+	<std_voc>
+		<id>import_scenarios</id>
+		<name VALUE="Сценарии импорта" lang-en:VALUE="Import Scenarios" lang-ua:VALUE="Сценарії імпорту"/>
+		<section_id>integration</section_id>
+
+		<object_form_url>base1_import_scenario.xmd</object_form_url>
+		<key_type>string</key_type>
+	</std_voc>
+	<std_voc>
+		<id>export_scenarios</id>
+		<name VALUE="Сценарии экспорта" lang-en:VALUE="Export Scenarios" lang-ua:VALUE="Сценарії експорту"/>
+		<section_id>integration</section_id>
+
+		<object_form_url>base1_export_scenario.xmd</object_form_url>
+		<key_type>string</key_type>
+	</std_voc>
+	<std_voc>
+		<id>custom_vocs</id>
+		<name VALUE="Собственные справочники" lang-en:VALUE="Own reference lists" lang-ua:VALUE="Власні довідники"/>
+
+		<object_form_url>base1_custom_voc.xmd</object_form_url>
+		<key_type>string</key_type>
+	</std_voc>
+</std_vocs>

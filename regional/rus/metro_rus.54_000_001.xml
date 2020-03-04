@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<metro_map xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<location_name>Новосибирск</location_name>
+	<lines>
+		<line>
+			<id>30</id>
+			<name VALUE="Дзержинская"/>
+		</line>
+		<line>
+			<id>29</id>
+			<name VALUE="Ленинская"/>
+		</line>
+	</lines>
+	<stations>
+		<station>
+			<id>277</id>
+			<name VALUE="Берёзовая роща" lang-en:VALUE="Berjozovaya roscha"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>278</id>
+			<name VALUE="Гагаринская" lang-en:VALUE="Gagarinskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>279</id>
+			<name VALUE="Заельцовская" lang-en:VALUE="Zaelcovskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>280</id>
+			<name VALUE="Красный проспект" lang-en:VALUE="Krasnyj prospekt"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>281</id>
+			<name VALUE="Маршала Покрышкина" lang-en:VALUE="Marshala Pokryshkina"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>282</id>
+			<name VALUE="Октябрьская" lang-en:VALUE="Oktyabrskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>283</id>
+			<name VALUE="Площадь Гарина-Михайловского" lang-en:VALUE="Ploschad Garina-Mihajlovskogo"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>284</id>
+			<name VALUE="Площадь Ленина" lang-en:VALUE="Ploschad Lenina"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>285</id>
+			<name VALUE="Площадь Маркса" lang-en:VALUE="Ploschad Marksa"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>286</id>
+			<name VALUE="Речной вокзал" lang-en:VALUE="Rechnoj vokzal"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>287</id>
+			<name VALUE="Сибирская" lang-en:VALUE="Sibirskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>288</id>
+			<name VALUE="Студенческая" lang-en:VALUE="Studencheskaya"/>
+			<line_id>0</line_id>
+		</station>
+	</stations>
+</metro_map>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems.xmd">
+	<std_voc_elem>
+		<id>vacancy_response</id>
+		<name VALUE="Отклик" lang-en:VALUE="Response" lang-ua:VALUE="Відгук"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>active_search</id>
+		<name VALUE="Активный поиск" lang-en:VALUE="Active search" lang-ua:VALUE="Активний пошук"/>
+	</std_voc_elem>
+</std_voc_elems>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

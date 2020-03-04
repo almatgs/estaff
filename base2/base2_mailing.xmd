@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM CODE-LIB="1" TITLE="##UiText.messages.mass_mail##" IMAGE-URL-EXPR="is_active ? '//base_pict/mailing.ico' : '//base_pict/mailing_inactive.ico'">
+
+
+<mailing>
+	<id TYPE="integer"/>
+	<code TYPE="string"/>
+	<name TYPE="string"/>
+	
+	<date TYPE="date"/>
+	<end_date TYPE="date"/>
+	<completion_id TYPE="integer"/>
+
+	<template>
+		<subject TYPE="string"/>
+		<text TYPE="string" MULTILINE="1"/>
+	</template>
+
+	<recipients>
+		<recipient MULTIPLE="1" PRIMARY-KEY="person_id">
+			<person_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="persons"/>
+			<enable_flag TYPE="bool"/>
+			<completion_id TYPE="integer"/>
+		</recipient>
+	</recipients>
+
+	<comment TYPE="string" LARGE="1" TITLE="##UiText.fields.comment##"/>
+
+	<test_email TYPE="string"/>
+
+	<INHERIT TYPE="card_attachments"/>
+	<INHERIT TYPE="user_ref"/>
+	<INHERIT TYPE="card_info_base"/>
+
+
+	<is_active PROPERTY="1" EXPR="completion_id == null"/>
+</mailing>
+
+
+
+
+
+
+</SPXML-FORM>

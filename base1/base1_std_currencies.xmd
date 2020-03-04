@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_currencies>
+	<std_currency MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT FORM="base1_currency.xmd" TYPE="currency"/>
+	</std_currency>
+</std_currencies>
+
+
+</SPXML-FORM>
+

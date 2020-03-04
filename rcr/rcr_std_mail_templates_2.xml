@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_mail_templates SPXML-FORM="rcr_std_mail_templates.xmd">
+	<std_mail_template>
+		<id>notify_resp_person_on_workflow_document</id>
+		<name VALUE="##UiText.titles.workflow_notification##: ##UiText.notify_resp_person_on_workflow_document.subject##"/>
+		<dest_type>person</dest_type>
+		<is_notif>1</is_notif>
+		<subject VALUE="##UiText.notify_resp_person_on_workflow_document.subject##"/>
+		<text><![CDATA[##UiText.titles.originator##: <%=request.orig_person_id.ForeignElem.fullname%>
+
+##UiText.notify_resp_person_on_workflow_document.body_footer##
+<%=request.web_link%>
+]]></text>
+	</std_mail_template>
+
+	<std_mail_template>
+		<id>notify_orig_person_on_workflow_document_state</id>
+		<name VALUE="##UiText.titles.workflow_notification##: ##UiText.notify_orig_person_on_workflow_document_state.subject##"/>
+		<dest_type>person</dest_type>
+		<is_notif>1</is_notif>
+		<subject VALUE="##UiText.notify_orig_person_on_workflow_document_state.subject##"/>
+		<text><![CDATA[##UiText.titles.prev_stage##: <%=request.prev_stage_record.workflow_stage_id.ForeignElem.name%>
+##UiText.titles.resp_person__approver##: <%=request.prev_stage_record.resp_person_id.ForeignElem.fullname%>
+##UiText.fields.result##: <%=request.prev_stage_record.action_id.ForeignElem.name_pv%>
+##UiText.fields.comment##: <%=request.prev_stage_record.comment%>
+
+##UiText.fields.cur_state##: <%=request.comb_state_name%>
+<%if(request.cur_resp_person_id.HasValue){%>##UiText.titles.resp_person__approver##: <%=request.cur_resp_person_id.ForeignElem.fullname%><%}%>
+
+##UiText.fields.link##:
+<%=request.web_link%>
+]]></text>
+	</std_mail_template>
+
+	<std_mail_template>
+		<id>request_candidate_pd_consent</id>
+		<name VALUE="##UiText.titles.pd_consent_request##"/>
+		<dest_type>candidate</dest_type>
+		<is_notif>1</is_notif>
+		<subject VALUE="##UiText.titles.pd_consent_request##"/>
+		<text><![CDATA[<%=request.web_link%>
+]]></text>
+	</std_mail_template>
+
+	<std_mail_template>
+		<id>notify_resp_person_on_workflow_document_cancel</id>
+		<name VALUE="##UiText.titles.workflow_notification##: ##UiText.notify_resp_person_on_workflow_document_cancel.subject##"/>
+		<dest_type>person</dest_type>
+		<is_notif>1</is_notif>
+		<subject VALUE="##UiText.notify_resp_person_on_workflow_document_cancel.subject##"/>
+		<text><![CDATA[##UiText.titles.originator##: <%=request.orig_person_id.ForeignElem.fullname%>
+
+##UiText.notify_resp_person_on_workflow_document_cancel.body_footer##
+<%=request.web_link%>
+]]></text>
+	</std_mail_template>
+</std_mail_templates>

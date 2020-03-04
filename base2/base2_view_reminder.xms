@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.reminder##" WIDTH="140zr" HEIGHT="60zr" RESIZE="1" WINDOW-ICON-URL="//base_pict/reminder.ico" STD-MARGINS="1">
+
+
+<LABEL TITLE="Ближайшие события:" lang-en:TITLE="Upcoming:" lang-ua:TITLE="Найближчі події:"/>
+<BR HEIGHT="2px"/>
+
+<LIST USE-KEY-SEL="1" SUNKEN="1" LOOP-EXPR="Ps.GetEntries()" HEIGHT="-1zr">
+	<ROW IMAGE-URL-EXPR="ListElem.event.ImageUrl" OPEN-ACTION="
+			screen = lib_event.open_event_ext( ListElem.event );
+			
+			if ( screen.Doc.TopElem.Name == 'candidate' &amp;&amp; ListElem.event.requires_completion() &amp;&amp; ListElem.event.type.use_auto_create )
+				lib_candidate.SelectCandidateEventResult( screen.Doc.TopElem, ListElem.event );
+
+			//if ( Ps.ChildExists( 'filter' ) &amp;&amp; Ps.filter.used_fulltext.HasValue )
+				//screen.SetInitSearch( Ps.filter.used_fulltext );
+	" DELETE-ACTION="">
+		<COL COL-TITLE="##UiText.fields.date##" WIDTH="14zr" TITLE-EXPR="StrDate( ListElem.date, false )"/>
+		<COL COL-TITLE="##UiText.titles.time##" WIDTH="8zr" TITLE-EXPR="StrTime( ListElem.date, false )" ALIGN="center"/>
+		<COL COL-TITLE="##UiText.fields.event_type##" WIDTH="100%" TITLE-EXPR="ListElem.name" ALIGN="left" TEXT-COLOR-EXPR="ListElem.event.state_text_color"/>
+			
+		<COL COL-TITLE="##UiText.fields.fullname##" WIDTH="35zr" TITLE-EXPR="ListElem.event.contacts_desc"/>
+
+		<COL COL-TITLE="Ожидается" lang-en:COL-TITLE="Expected" lang-ua:COL-TITLE="Очікується" WIDTH="19zr" TITLE-EXPR="
+				if ( Hour( ListElem.date ) &lt;= 0 &amp;&amp; DateNewTime( ListElem.date ) == DateNewTime( CurDate ) )
+					return UiText.titles.today;
+
+				if ( DateDiff( DateNewTime( CurDate ), DateNewTime( ListElem.date ) ) == 86400 )
+					return UiText.titles.yesterday;
+
+				diff = DateDiff( ListElem.date, CurDate );
+				if ( Math.abs( diff ) &lt; 60 )
+					return UiText.titles.now;
+
+				if ( diff >= 0 )
+					return lib_base.DateOffsetShortDescription( diff );
+				else
+					return StrLowerCase( lib_base.BuildUiParamEntry( UiText.titles.ago_xxx__period, ' ' + lib_base.DateOffsetShortDescription( - diff ) ) );
+		" ALIGN="center" BK-COLOR-EXPR="
+				if ( Hour( ListElem.date ) &lt;= 0 &amp;&amp; DateNewTime( ListElem.date ) == DateNewTime( CurDate ) )
+					return lib_event.bk_color_reached;
+
+				diff = DateDiff( ListElem.date, CurDate );
+				if ( diff > - 300 &amp;&amp; diff &lt; 60 )
+					return lib_event.bk_color_reached;
+				else if ( diff &lt; 0 )
+					return lib_event.bk_color_expired;
+		"/>
+	</ROW>
+	<MENU RIGHT-CLICK="1">
+		<MENU-ENTRY TITLE="##UiText.actions.open##" CMD="OpenSel"/>
+		<MENU-ENTRY SEPARATOR="1"/>
+		<MENU-ENTRY TITLE="##UiText.actions.del##" CMD="Clear"/>
+		<MENU-ENTRY SEPARATOR="1"/>
+		<MENU-ENTRY TITLE-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name" ACTION="lib_office.show_screen_in_calc( Screen )" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="##UiText.actions.open_event##" ACTION="
+				lib_event.open_event( List.SelRow.Env.ListElem.event );
+		" PASSIVE="1"/>
+	</MENU>
+</LIST>
+
+
+
+</SPXML-SCREEN>

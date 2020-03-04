@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="95zr" HEIGHT="75zr" TITLE="##UiText.sections.global_settings_backup##" WINDOW-ICON-URL="//base_pict/settings.ico" RESIZE="1">
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" SUNKEN="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<ITEM TYPE="dir_path_selector" SOURCE="Ps.dest_dir_path" AUTO-LABEL="1"/>
+	</TABLE>
+	<BR/>
+
+	<CHECK SOURCE="Ps.use_inc_backup" AUTO-LABEL="1"/>
+
+	<BR/>
+
+	<LINE>
+		<LABEL TITLE="Производить полную выгрузку каждые" lang-en:TITLE="Do full backup every" lang-ua:TITLE="Повністю вивантажувати кожні"/>
+		<EDIT SOURCE="Ps.min_full_backup_days_range" WIDTH="6zr" ENABLE-EXPR="Ps.use_inc_backup"/>
+		<LABEL TITLE="##UiText.titles.days__mod2##"/>
+	</LINE>
+	<DELIM/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="25zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.last_full_backup_date" AUTO-LABEL="1"/>
+		<EDIT SOURCE="Ps.last_inc_backup_date" AUTO-LABEL="1"/>
+	</TABLE>
+	<DELIM/>
+
+	<ITEM TYPE="agent_control" SOURCE="GetForeignElem( agents, 'backup' )"/>
+	<DELIM/>
+</PANEL>
+
+
+<COMMAND-HANDLER CMD="Help1" HREF="help/settings_numbering.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1" TARGET-NEW-WINDOW="1"/>
+
+
+</SPXML-SCREEN>

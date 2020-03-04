@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+	<BR/>
+
+	<GROUP>
+		<ITEM TYPE="elem_selector" SOURCE="Ps.country_id" AUTO-LABEL="1" WIDTH="40zr"/>
+		<ITEM TYPE="year_edit" SOURCE="Ps.year" AUTO-LABEL="1" WIDTH="10zr"/>
+	</GROUP>
+	<DELIM/>
+
+	<GROUP>
+		<LABEL TITLE="##UiText.titles.list##:"/>
+		<IMAGE URL="//base_pict/plus.ico" ACTION="Ps.items.AddChild()" WIDTH="16px" HEIGHT="16px" KEEP-RIGHT="1"/>
+	</GROUP>
+	<BR/>
+
+	<LOOP EXPR="Ps.items" VAR="_item">
+		<GROUP>
+			<LABEL TITLE="##UiText.fields.date##:"/>
+			<ITEM TYPE="elem_selector" SOURCE="_item.month" WIDTH="14zr"/>
+			<EDIT SOURCE="_item.day" WIDTH="6zr"/>
+
+			<RADIO-BUTTON SOURCE="_item.is_working_day" SWITCH-VALUE="false" WIDTH="auto" TITLE="Выходной день" lang-en:TITLE="Day off" lang-ua:TITLE="Вихідний день"/>
+			<RADIO-BUTTON SOURCE="_item.is_working_day" SWITCH-VALUE="true" WIDTH="auto" TITLE="Рабочий день" lang-en:TITLE="Working day" lang-ua:TITLE="Робочий день"/>
+
+			<EDIT SOURCE="_item.name" LABEL-TITLE="##UiText.fields.name##:" WIDTH="-6zr"/>
+
+			<IMAGE URL="//base_pict/more_actions.ico" WIDTH="16px" HEIGHT="16px" KEEP-RIGHT="1">
+				<MENU>
+					<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+							_item.Delete();
+							Ps.Doc.SetChanged( true );
+					"/>
+				</MENU>
+			</IMAGE>
+		</GROUP>
+	</LOOP>
+</PANEL>
+
+
+</SPXML-SCREEN>
+
+
+

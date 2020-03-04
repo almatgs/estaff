@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="package.name + ' - ' + StrLowerCase( UiText.titles.setup )" WIDTH="84zr" HEIGHT="60zr" BEFORE-INIT-ACTION="
+		Ps.remove_app();
+		Cancel();
+" WINDOW-ICON-URL="//au/pict/setup.ico" STD-MARGINS="0" OWNED="1" DLG-BUTTONS="1">
+
+
+<PANEL HEIGHT="-10zr">
+	<PANEL HEIGHT="2zr">
+	</PANEL>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="3zr"/>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="3zr"/>
+		</COLUMNS>
+
+		<LABEL/>
+
+		<PANEL>
+			<IF EXPR="Ps.cur_stage.id == 'init'">
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="8zr"/>
+						<COL WIDTH="100%"/>
+					</COLUMNS>
+
+					<PANEL>
+						<PANEL HEIGHT="9px">
+						</PANEL>
+
+						<IMAGE URL="//au/pict/setup.ico" WIDTH="32px" HEIGHT="32px"/>
+					</PANEL>
+
+					<PANEL>
+						<BR/>
+						<LABEL TITLE-EXPR="'Добро пожаловать в установочную программу\n' + package.name" BOLD="1"/>
+						<BR/>
+						<BR/>
+
+						<LABEL TITLE-EXPR="'На Ваш компьютер будет установлена программа\n' + package.full_name"/>
+						<BR/>
+						<BR/>
+						<BR/>
+						<BR/>
+						<BR/>
+						<BR/>
+					</PANEL>
+				</TABLE>
+			</IF>
+
+
+
+
+		</PANEL>
+
+		<LABEL/>
+
+	</TABLE>
+</PANEL>
+
+
+<PANEL STD-MARGINS="1">
+	<DELIM/>
+
+	<PANEL HEIGHT="2px">
+	</PANEL>
+
+	<TABLE STD-MARGINS="0">
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="13zr"/>
+			<COL WIDTH="13zr"/>
+			<COL WIDTH="2zr"/>
+			<COL WIDTH="13zr"/>
+			<COL WIDTH="2zr"/>
+		</COLUMNS>
+
+		<LABEL/>
+
+		<IF EXPR="Ps.cur_stage_index != 0 && Ps.cur_stage.id != 'progress' && Ps.cur_stage.id != 'finish'">
+			<BUTTON TITLE="##UiText.actions.btn_back##" ACTION="
+					Ps.cur_stage_index--;
+			" ENABLE-EXPR="Ps.cur_stage.id != 'progress'" lang-en:TITLE="&lt; Back"/>
+		</IF>
+		<ELSE>
+			<LABEL/>
+		</ELSE>
+
+		<IF EXPR="Ps.cur_stage.id != 'progress'">
+			<IF EXPR="Ps.cur_stage_index + 1 < Ps.stages.ChildNum">
+				<IF EXPR="Ps.stages[Ps.cur_stage_index + 1].id != 'progress'">
+					<BUTTON TITLE="##UiText.actions.btn_next##" HANDLE-CMD="Ok" ACTION="
+							Ps.check_cur_stage();
+							Ps.cur_stage_index++;
+					" ENABLE-EXPR="Ps.cur_stage.id != 'license' || Ps.license.is_accepted == true" lang-en:TITLE="Next >"/>
+				</IF>
+				<ELSE>
+					<BUTTON TITLE="##UiText.titles.setup##" HANDLE-CMD="Ok" ACTION="
+							Ps.check_cur_stage();
+							Ps.cur_stage_index++;
+							Ps.start_progress();
+					"/>
+				</ELSE>
+			</IF>
+			<ELSE>
+				<BUTTON TITLE="##UiText.actions.btn_finish##" HANDLE-CMD="Ok" ACTION="
+						if ( Ps.launch_app )
+							ShellExecute( 'open', Ps.dest_app_path );
+
+						Ps.quit();
+				" lang-en:TITLE="Finish"/>
+			</ELSE>
+		</IF>
+		<ELSE>
+			<LABEL/>
+		</ELSE>
+
+		<LABEL/>
+
+		<IF EXPR="Ps.cur_stage.id != 'finish'">
+			<BUTTON TITLE="##UiText.actions.cancel##" HANDLE-CMD="Cancel" ACTION="FindScreen( '' ).RunCommand( 'Quit' )" lang-en:TITLE="Cancel"/>
+		</IF>
+		<ELSE>
+			<LABEL/>
+			<COMMAND-HANDLER HANDLE-CMD="Cancel" ACTION="FindScreen( '' ).RunCommand( 'Quit' )"/>
+		</ELSE>
+
+		<LABEL/>
+	</TABLE>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+

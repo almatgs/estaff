@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="174zr" HEIGHT="112zr" TITLE="##UiText.sections.global_settings_candidates##" SAVE-ACTION="
+		UpdateScreens( '*', '*' );
+" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+
+<LINE>
+	<CHECK SOURCE="Ps.init_candidate_profession_from_vacancy" AUTO-LABEL="1" WIDTH="auto"/>
+	<CHECK SOURCE="Ps.show_last_job_first" AUTO-LABEL="1" WIDTH="auto"/>
+</LINE>
+
+<CHECK SOURCE="Ps.use_candidate_select_event" AUTO-LABEL="1" WIDTH="auto"/>
+<CHECK SOURCE="Ps.use_candidate_spot_source" AUTO-LABEL="1" WIDTH="auto"/>
+<CHECK SOURCE="Ps.use_candidate_card_update_event" AUTO-LABEL="1" WIDTH="auto"/>
+<CHECK SOURCE="Ps.use_candidate_spot_user_notif" AUTO-LABEL="1" WIDTH="auto"/>
+<DELIM/>
+
+
+<!--
+<LABEL TITLE="Считать датой изменения статуса кандидата:" lang-en:TITLE="Calculate candidate state date as:"/>
+<LINE>
+	<LABEL TITLE="  "/>
+	<RADIO-BUTTON SOURCE="Ps.use_candidate_latest_event_cp_date" SWITCH-VALUE="true" TITLE="Дату последнего события" lang-en:TITLE="Last event date" WIDTH="auto"/>
+	<RADIO-BUTTON SOURCE="Ps.use_candidate_latest_event_cp_date" SWITCH-VALUE="false" TITLE="Дату последнего статусного события" lang-en:TITLE="Last state event date" WIDTH="auto"/>
+</LINE>
+<DELIM/>
+-->
+
+
+
+<CHECK SOURCE="Ps.use_candidate_unused_state" AUTO-LABEL="1" WIDTH="auto"/>
+
+<IF EXPR="Ps.use_candidate_unused_state">
+	<GROUP>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.unused_candidate_state_id" AUTO-LABEL="1" WIDTH="30zr"/>
+		<ITEM TYPE="dm_period" SOURCE="Ps.unused_candidate_start_period" AUTO-LABEL="1"/>
+	</GROUP>
+</IF>
+<DELIM/>
+
+<LINE>
+	<LABEL TITLE="##UiText.titles.hide_section##: "/>
+	<CHECK SOURCE="Ps.hide_section_recruit_current_progress" TITLE="&quot;##UiText.titles.current_progress##&quot;" WIDTH="auto" ENABLE-EXPR="lib_app2.AppFeatureEnabled( 'classic_recruit' )"/>
+	<CHECK SOURCE="Ps.hide_section_candidates_duty" TITLE="&quot;##UiText.fields.is_user_duty##&quot;" WIDTH="auto"/>
+	<CHECK SOURCE="Ps.hide_section_candidates_call_again" TITLE="&quot;##UiText.sections.call_again##&quot;" WIDTH="auto"/>
+	<CHECK SOURCE="Ps.hide_section_candidates_expired" TITLE="&quot;##UiText.titles.state_overdue##&quot;" WIDTH="auto"/>
+</LINE>
+<DELIM/>
+
+<CHECK SOURCE="Ps.require_spot_selection" AUTO-LABEL="1" WIDTH="auto"/>
+<CHECK SOURCE="Ps.use_spot_for_vacancy_events_only" AUTO-LABEL="1" WIDTH="auto"/>
+<DELIM/>
+
+
+<CHECK SOURCE="Ps.use_calendar_filter_user" AUTO-LABEL="1" WIDTH="auto"/>
+<CHECK SOURCE="Ps.use_candidate_user_for_calendar_filter" AUTO-LABEL="1" WIDTH="auto"/>
+<CHECK SOURCE="Ps.use_candidate_user_for_event" AUTO-LABEL="1" WIDTH="auto"/>
+<CHECK SOURCE="Ps.update_candidate_user_on_new_event" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="! Ps.use_candidate_user_for_event"/>
+<DELIM/>
+
+<LINE>
+	<CHECK SOURCE="Ps.show_candidate_event_date_in_event_timezone" AUTO-LABEL="1" WIDTH="auto"/>
+	<CHECK SOURCE="Ps.show_candidate_event_other_timezone" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="Ps.show_candidate_event_date_in_event_timezone"/>
+	<CHECK SOURCE="Ps.init_candidate_timezone_from_location" AUTO-LABEL="1" WIDTH="auto"/>
+</LINE>
+<DELIM/>
+
+<CHECK SOURCE="Ps.use_candidate_name_en" AUTO-LABEL="1" WIDTH="auto"/>
+<DELIM/>
+
+<CHECK SOURCE="Ps.allow_candidates_as_contact_persons" AUTO-LABEL="1" WIDTH="auto"/>
+<DELIM/>
+
+<CHECK SOURCE="Ps.select_plugin_mail_message_attachments" AUTO-LABEL="1" WIDTH="auto"/>
+<DELIM/>
+
+<GROUP>
+	<EDIT SOURCE="Ps.candidates_of_vacancy_view_depth" AUTO-LABEL="1" WIDTH="6zr"/>
+	<ITEM TYPE="days_suffix_label" SOURCE="Ps.candidates_of_vacancy_view_depth" KEEP-WITH-PREV="1"/>
+</GROUP>
+
+<IF EXPR="Ps.candidates_of_vacancy_view_depth == null || Ps.candidates_of_vacancy_view_depth > 180">
+	<LINE>
+		<IMAGE URL="//base_pict/warning.ico"/>
+		<LABEL TITLE="Внимание! Сброс глубины просмотра или ее установка в слишком большое значение может привести к снижению производительности системы." lang-en:TITLE="Warning: clearing of the lookup depth or setting it to a large value may slow down the application." lang-ua:TITLE="Увага! Скидання глибини перегляду або її установка в занадто велике значення може привести до зниження продуктивності системи." TEXT-COLOR="96,0,0"/>
+	</LINE>
+	<LINE>
+		<IMAGE URL="//base_pict/warning.ico"/>
+		<LABEL TITLE="Не рекомендуется использовать отбор кандидатов на вакансию для формирования кадрового резерва." lang-en:TITLE="It is not recommended to add candidates to a vacancy to have a long term pool of candidates." lang-ua:TITLE="Не рекомендується використовувати відбір кандидатів на вакансію для формування кадрового резерву." TEXT-COLOR="96,0,0"/>
+	</LINE>
+</IF>
+
+</PANEL>
+
+
+<COMMAND-HANDLER CMD="Help" HREF="help/settings_policy.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+</SPXML-SCREEN>

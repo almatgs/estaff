@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="110zr" HEIGHT="30zr" TITLE="Гиперссылка">
+
+<PANEL HEIGHT-EXPR="lib_base.dlg_body_height">
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="24px"/>
+	</COLUMNS>
+
+	<EDIT SOURCE="Ps.url" LABEL-TITLE="URL:"/>
+	
+	<BUTTON IMAGE-URL="//base_pict/select.ico" LABEL-TITLE=" " ACTION="
+			articleID = lib_base.select_object( 'article' );
+			article = GetForeignElem( articles, articleID );
+
+			url = '/object.htm?';
+			if ( article.eid.HasValue )
+				url += 'eid=' + article.eid;
+			else
+				url += 'id=0x' + StrHexInt( article.id, 16 );
+
+			Ps.url = url;
+			if ( ! Ps.text.HasValue )
+				Ps.text = article.name;
+	" ENABLE-EXPR="AppModuleUsed( 'prt' )"/>
+</TABLE>
+<BR/>
+
+<EDIT SOURCE="Ps.text" LABEL-TITLE="##UiText.titles.text##:"/>
+
+
+
+</PANEL>
+
+
+<ITEM TYPE="dlg_footer"/>
+
+
+</SPXML-SCREEN>

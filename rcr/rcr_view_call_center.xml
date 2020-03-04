@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<view_call_center>
+	<curCandidateDoc TYPE="variant" STRICT="1"/>
+	<curCandidate TYPE="variant" STRICT="1"/>
+
+	<bottom_selector TYPE="string" NOT-NULL="1" DEFAULT="my_candidates"/>
+
+	<curDuplicateCheckThread TYPE="variant" STRICT="1"/>
+
+	<duplicate_check>
+		<filter>
+			<lastname TYPE="string"/>
+			<firstname TYPE="string"/>
+			<middlename TYPE="string"/>
+
+			<birth_date TYPE="string"/>
+
+			<mobile_phone TYPE="string"/>
+			<email TYPE="string"/>
+
+			<location_id TYPE="string" FOREIGN-ARRAY="locations"/>
+		</filter>
+
+		<foundCandidatesArray TYPE="variant" STRICT="1"/>
+	</duplicate_check>
+</view_call_center>
+
+
+</SPXML-INLINE-FORM>

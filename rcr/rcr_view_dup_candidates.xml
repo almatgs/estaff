@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<view_dup_candidates>
+	<dup_sets>
+		<dup_set MULTIPLE="1">
+			<fullname TYPE="string"/>
+			
+			<target_candidates>
+				<target_candidate MULTIPLE="1" PRIMARY-KEY="candidate_id">
+					<candidate_id TYPE="integer" FOREIGN-ARRAY="candidates"/>
+					<candidate_ref TYPE="variant"/>
+					<candidate PROPERTY="1" EXPR="candidate_ref.Object"/>
+
+					<dup_seq_no TYPE="integer"/>
+
+					<is_duplicate TYPE="bool" TEMP="1" NULL-FALSE="1"/>
+					<is_primary TYPE="bool" TEMP="1" NULL-FALSE="1"/>
+				</target_candidate>
+			</target_candidates>
+		</dup_set>
+	</dup_sets>
+</view_dup_candidates>
+
+
+</SPXML-INLINE-FORM>

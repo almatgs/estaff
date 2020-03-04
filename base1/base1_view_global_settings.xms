@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem">
+
+<PANEL HEIGHT="100%" SUNKEN="1">
+	<LIST NAME="ListElems">
+		<COLUMNS>
+			<COL WIDTH="100%" TITLE="##UiText.fields.name##" lang-en:TITLE="Name"/>
+		</COLUMNS>
+
+		<LOOP EXPR="Ps.sections" VAR="ListElem">
+			<ROW OPEN-ACTION="ObtainSubDocScreen( eval( ListElem.holder ), ListElem.screen_form );" DELETE-ACTION="" IMAGE-URL="//base_pict/settings.ico">
+				<COL WIDTH="100%" TITLE-EXPR="ListElem.name"/>
+			</ROW>
+		</LOOP>
+	</LIST>
+</PANEL>
+
+
+
+</SPXML-SCREEN>

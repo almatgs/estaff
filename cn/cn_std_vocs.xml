@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_vocs SPXML-FORM="//base1/base1_std_vocs.xmd">
+	<std_voc>
+		<id>public_holiday_maps</id>
+		<name VALUE="Официальные праздники" lang-en:VALUE="Public Holidays" lang-ua:VALUE="Святкові дні"/>
+		<section_id></section_id>
+
+		<object_form_url>//cn/cn_public_holiday_map.xmd</object_form_url>
+		<key_type>string</key_type>
+		<auto_order>name</auto_order>
+		<is_optional_std_elems>1</is_optional_std_elems>
+
+		<extra_actions>
+			<extra_action>
+				<name VALUE="##UiText.actions.load##..."/>
+				<code>lib_calendar.handle_load_std_public_holidays()</code>
+			</extra_action>
+		</extra_actions>
+	</std_voc>
+
+	<std_voc>
+		<id>annual_holiday_maps</id>
+		<name VALUE="Переносы выходных дней" lang-en:VALUE="Holidays and observances" lang-ua:VALUE="Переноси вихідних днів"/>
+		<section_id></section_id>
+
+		<object_form_url>//cn/cn_annual_holiday_map.xmd</object_form_url>
+		<key_type>string</key_type>
+		<auto_order>name</auto_order>
+		<is_optional_std_elems>1</is_optional_std_elems>
+
+		<extra_actions>
+			<extra_action>
+				<name VALUE="##UiText.actions.load##..."/>
+				<code>lib_calendar.handle_load_std_annual_holidays()</code>
+			</extra_action>
+		</extra_actions>
+	</std_voc>
+</std_vocs>
+

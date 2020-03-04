@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<GROUP>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.telephony_provider_id" AUTO-LABEL="1" WIDTH="40zr"/>
+		<ITEM TYPE="elem_selector" SOURCE="Ps.phone" AUTO-LABEL="1" WIDTH="25zr" foreign-array="Ps.Doc.TopElem.telephony_provider_id.ForeignElem.phone_numbers" foreign-disp-name="phone" primary-key="phone"/>
+	</GROUP>
+	<DELIM/>
+
+	<GROUP>
+		<ITEM TYPE="object_selector" SOURCE="Ps.target_groups.group_id" LABEL-TITLE="##UiText.titles.valid_only_for_group##:"/>
+		<SEPARATOR/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.target_divisions.division_id" AUTO-LABEL="1"/>
+		<SEPARATOR/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.target_users.user_id" AUTO-LABEL="1"/>
+	</GROUP>
+	<DELIM/>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+

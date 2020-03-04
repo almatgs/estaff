@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+<COMPLEX-ITEM NAME="COMBO" SAMPLE="1" VIEW="ComboBoxView" CLASS="">
+	<ATTRIBUTE NAME="EDITABLE" TYPE="bool"/>
+	<ATTRIBUTE NAME="FOREIGN-ARRAY" TYPE="expr"/>
+	<ATTRIBUTE NAME="ELEM" TYPE="expr"/>
+</COMPLEX-ITEM>
+
+<COMPLEX-ITEM NAME="COMBO-ENTRY" SAMPLE="1" VIEW___="ComboBoxEntryView" CLASS="">
+</COMPLEX-ITEM>
+
+
+
+<PANEL NAME="ComboBoxView" SAMPLE="1" INNER-ALIAS="comboBoxView"
+	WIDTH="100%"
+	HEIGHT-EXPR="AppUi.metrics.editHeightMeasure"
+	MIN-WIDTH="6zr"
+	STD-MARGINS="0"
+	STATES="hover,pressed"
+	BORDER-WIDTH="1px" BORDER-COLOR-EXPR="AppUi.gThemeData.colors.edit_border" BORDER-RADIUS="3px"
+	OnBeforeBuild="
+		comboBox = comboBoxView.MasterItem;
+
+		//comboBoxView.AuxData.isEditable = comboBox.GetOptAttrValue( 'EDITABLE' );
+
+		comboBoxView.AuxData.sourceVal = comboBoxView.MasterItem.Source;
+
+		if ( comboBox.Entries.length != 0 )
+		{
+			curEntry = undefined;
+
+			for ( entry in comboBox.Entries )
+			{
+				if ( entry.Value == comboBoxView.AuxData.sourceVal )
+				{
+					curEntry = entry;
+					break;
+				}
+			}
+
+			if ( curEntry != comboBoxView.AuxData.curEntry )
+			{
+				if ( comboBoxView.AuxData.curEntry != undefined )
+					comboBoxView.AuxData.curEntry.AuxData.isChecked = false;
+
+				comboBoxView.AuxData.curEntry = curEntry;
+
+				if ( comboBoxView.AuxData.curEntry != undefined )
+					comboBoxView.AuxData.curEntry.AuxData.isChecked = true;
+			}
+		}
+		else
+		{
+			if ( comboBox.AttrExists( 'FOREIGN-ARRAY' ) )
+			{
+				comboBoxView.AuxData.foreignArray = comboBox.EvalAttr( 'FOREIGN-ARRAY' );
+				//if ( comboBoxView.AuxData.foreignArray == undefined )
+					//throw 'Either FOREIGN-ARRAY attribute or child entries must be defined';
+			}
+			else
+			{
+				comboBoxView.AuxData.foreignArray = comboBox.Source.ForeignArray;
+			}
+		}
+">
+	<LINE HEIGHT="100%" STD-MARGINS="0">
+		<PANEL PADDING-EXPR="'0px ' + AppUi.metrics.editPaddingLeftMeasure + ' 0px ' + AppUi.metrics.editPaddingLeftMeasure" STD-MARGINS="0">
+			<IF EXPR="comboBoxView.MasterItem.GetOptAttrValue( 'EDITABLE' )">
+				<EDIT BORDER="0" SOURCE="comboBoxView.MasterItem.Source"
+				SET-VALUE-ACTION="comboBoxView.MasterItem.SetSourceValue( NewValue )"
+				PASSIVE="1"
+				WIDTH="100%"/>
+			</IF>
+			<ELSE>
+				<LABEL TITLE-EXPR="
+						comboBox = comboBoxView.MasterItem;
+		
+						if ( comboBoxView.AuxData.foreignArray != undefined )
+						{
+							foreignArray = comboBoxView.AuxData.foreignArray;
+							elem = GetOptForeignElem( foreignArray, comboBoxView.AuxData.sourceVal );
+							if ( elem == undefined )
+								return '';
+					
+							if ( comboBox.AttrExists( 'ELEM' ) )
+								return comboBox.EvalAttr( 'ELEM', [{ListElem:elem}] );
+							else
+								return elem;
+						}
+						else
+						{
+							if ( comboBoxView.AuxData.curEntry != undefined )
+								return comboBoxView.AuxData.curEntry.Title;
+							else
+								return '';
+						}
+				" MULTILINE="0" WIDTH="100%" END-ELLIPSIS="1"/>
+			</ELSE>
+		</PANEL>
+		
+		<IF EXPR="comboBoxView.MasterItem.GetOptAttrValue( 'EDITABLE' )">
+			<PANEL INNER-ALIAS="dropDownBox" HEIGHT="100%"
+					STATES="hover,pressed"
+					PADDING-EXPR="'0px ' + AppUi.metrics.dropDownBoxPaddingRightMeasure + ' 0px ' + AppUi.metrics.dropDownBoxPaddingLeftMeasure"
+					ACTION="comboBoxView.MasterItem.RunActions()"
+					OnContextMenu="
+							if ( comboBoxView.MasterItem.ContextMenu != undefined )
+								comboBoxView.MasterItem.ContextMenu.OpenDropDown( dropDownBox, 'bottom-left', 0, -1 );
+					"
+					PASSIVE="1"
+					ALIGN="right">
+				<IMAGE URL-EXPR="
+						colorMapping = new Object;
+
+						switch ( dropDownBox.State )
+						{
+							case 'hover':
+								colorMapping[AppUi.gThemeData.colors.gray_fill] = AppUi.gThemeData.colors.primary;
+								break;
+
+							case 'pressed':
+								colorMapping[AppUi.gThemeData.colors.gray_fill] = AppUi.gThemeData.colors.dark;
+								break;
+						}
+
+						return AppUi.GetStateImageUrl( '/theme/pict/dropdown.svg', dropDownBox.State, colorMapping );
+				" VERT-ALIGN="center"/>
+
+				<SUBST TYPE="ComboBoxDropDownView"/>
+			</PANEL>
+		</IF>
+		<ELSE>
+			<PANEL HEIGHT="100%"
+					PADDING-EXPR="'0px ' + AppUi.metrics.dropDownBoxPaddingRightMeasure + ' 0px ' + AppUi.metrics.dropDownBoxPaddingLeftMeasure"
+					ALIGN="right">
+				<IMAGE URL-EXPR="
+						colorMapping = new Object;
+						colorMapping.hover = AppUi.gThemeData.colors.primary;
+						colorMapping.pressed = AppUi.gThemeData.colors.dark;
+
+						/*switch ( comboBoxView.State )
+						{
+							case 'hover':
+								colorMapping[AppUi.gThemeData.colors.gray_fill] = AppUi.gThemeData.colors.primary;
+								break;
+
+							case 'pressed':
+								colorMapping[AppUi.gThemeData.colors.gray_fill] = AppUi.gThemeData.colors.dark;
+								break;
+						}*/
+
+						return AppUi.GetStateImageUrl2( '/theme/pict/dropdown.svg', comboBoxView.State, colorMapping );
+				" VERT-ALIGN="center" WIDTH="8epx" HEIGHT="4epx"/>
+			</PANEL>
+		</ELSE>
+	</LINE>
+
+	<IF EXPR="! comboBoxView.MasterItem.GetOptAttrValue( 'EDITABLE' )">
+		<SUBST TYPE="ComboBoxDropDownView"/>
+	</IF>
+</PANEL>
+
+
+
+<PANEL NAME="ComboBoxDropDownView" SAMPLE="1" DROP-DOWN="1"
+	STD-MARGINS="0"
+	BK-COLOR-EXPR="AppUi.gThemeData.colors.background"
+	BORDER-WIDTH="1px"
+	BORDER-COLOR-EXPR="AppUi.gThemeData.colors.menu_border"
+	BORDER-RADIUS="2px"
+	SHADOW-BLUR-RADIUS="2px"
+	SHADOW-OFFSET="1px 1px"
+	SHADOW-COLOR-EXPR="AppUi.gThemeData.colors.shadow_inner"
+	SHADOW-GRADIENT-OPACITY="0"
+	VERT-SCROLL="1"
+	OnBuild="
+		comboBox = comboBoxView.MasterItem;
+		sourceVal = comboBoxView.AuxData.sourceVal;
+">
+	<TABLE>
+		<COLUMNS>
+			<COL/>
+			<COL WIDTH="20px"/>
+		</COLUMNS>
+
+		<IF EXPR="comboBoxView.AuxData.foreignArray != undefined">
+			<LOOP EXPR="comboBoxView.AuxData.foreignArray" VAR="_entryValue">
+				<SUBST TYPE="ComboBoxEntryView"/>
+			</LOOP>
+		</IF>
+		<ELSE>
+			<LOOP EXPR="comboBoxView.MasterItem.Entries" VAR="entry">
+				<SUBST TYPE="ComboBoxEntryView" MASTER-ITEM="entry"/>
+			</LOOP>
+		</ELSE>
+	</TABLE>
+</PANEL>
+
+
+
+<TABLE-ROW NAME="ComboBoxEntryView" SAMPLE="1" INNER-ALIAS="entryView" STATES="hover,pressed" CLOSE-DROP-DOWN="1" BK-COLOR-EXPR="
+		switch ( BaseSampleItem.State )
+		{
+			case 'normal':
+				return AppUi.gThemeData.colors.background;
+
+			case 'hover':
+				return AppUi.gThemeData.colors.gray_hover;
+
+			case 'pressed':
+				return AppUi.gThemeData.colors.gray_pressed;
+		}
+" ACTION="
+		comboBox = comboBoxView.MasterItem;
+		
+		if ( comboBox.Entries.length != 0 )
+		{
+			//entry = ComboBoxEntryView.MasterItem;
+
+			if ( comboBoxView.AuxData.curEntry != undefined )
+				comboBoxView.AuxData.curEntry.AuxData.isChecked = false;
+
+			comboBoxView.AuxData.curEntry = entry;
+			comboBoxView.AuxData.curEntry.AuxData.isChecked = true;
+
+			comboBox.SetSourceValue( entry.Value );
+		}
+		else
+		{
+			comboBox.SetSourceValue( _entryValue.PrimaryKey );
+		}
+		
+		if ( comboBox.IsPassive )
+			comboBox.Update();
+		else
+			Screen.Update();
+" PASSIVE="1">
+	<PANEL PADDING="8epx 16epx 8epx 8epx">
+		<LABEL TITLE-EXPR="
+				comboBox = comboBoxView.MasterItem;
+				if ( comboBox.Entries.length != 0 )
+				{
+					if ( entryView.MasterItem.FormItem.HasTitle )
+						return entryView.MasterItem.Title;
+					else
+						return entryView.MasterItem.Value;
+				}
+				else
+				{
+					if ( comboBox.AttrExists( 'ELEM' ) )
+					{
+						return comboBox.EvalAttr( 'ELEM', [{ListElem:_entryValue}] );
+					}
+					else
+					{
+						return _entryValue.id;
+					}
+				}
+		" MULTILINE="0" TEXT-COLOR-EXPR="
+				switch ( entryView.State )
+				{
+					case 'normal':
+						return AppUi.gThemeData.colors.text;
+
+					case 'hover':
+						return AppUi.gThemeData.colors.primary;
+
+					case 'pressed':
+						return AppUi.gThemeData.colors.dark;
+				}
+		"/>
+	</PANEL>
+
+	<IF EXPR="
+			return false;
+			return entryView.MasterItem.AuxData.isChecked;
+	">
+		<IMAGE URL-EXPR="
+			colorMapping = new Object;
+			return AppUi.GetStateImageUrl( '/theme/pict/menu_entry_check.svg', entryView.State, colorMapping );
+		" WIDTH="11epx" HEIGHT="9epx"/>
+	</IF>
+</TABLE-ROW>
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+
+

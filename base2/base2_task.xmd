@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM CODE-LIB="1" TITLE="##UiText.objects.task##" lang-en:TITLE="Task" IMAGE-URL-EXPR="is_tentative ? '//base_pict/task_tentative.ico' : ( is_active ? '//base_pict/task.ico' : '//base_pict/task_inactive.ico' )">
+
+<task>
+	<id TYPE="integer"/>
+
+	<type_id TYPE="string" NOT-NULL="1" FOREIGN-ARRAY="task_types" TITLE="Тип задачи" lang-en:TITLE="Task type" DEFAULT="plain_task" EXP-MAX-LEN="12" lang-ua:TITLE="Тип завдання"/>
+	<name TYPE="string" TITLE="##UiText.fields.name##"/>
+	<code TYPE="string" TITLE="##UiText.fields.code##" COL-TITLE="#" EXP-MAX-LEN="6" COL-ALIGN="center"/>
+
+	<req_start_date TYPE="date" TITLE="Плановая дата начала" lang-en:TITLE="Est. Start Date" lang-ua:TITLE="Планова дата початку"/>
+	<req_duration TYPE="term" TITLE="##UiText.titles.planned_duration##"/>
+	<req_end_date TYPE="date" TITLE="Плановая дата завершения" lang-en:TITLE="Est. End Date" lang-ua:TITLE="Планова дата завершення"/>
+	<req_effort TYPE="term" TITLE="Плановые трудозатраты" lang-en:TITLE="Est. Time of Effort" lang-ua:TITLE="Планові трудовитрати"/>
+
+	<start_date TYPE="date" TITLE="Факт. дата начала" lang-en:TITLE="Start Date" lang-ua:TITLE="Факт. дата початку"/>
+	<duration TYPE="term" TITLE="##UiText.titles.actual_duration__s##"/>
+	<end_date TYPE="date" TITLE="Факт. дата завершения" lang-en:TITLE="End Date" lang-ua:TITLE="Факт. дата завершення"/>
+	<effort TYPE="term" TITLE="Факт. трудозатраты" lang-en:TITLE="Time of Effort" lang-ua:TITLE="Факт. трудовитрати"/>
+
+	<priority_id TYPE="integer" FOREIGN-ARRAY="task_priorities" TITLE="##UiText.fields.priority##" EXP-MAX-LEN="1"/>
+	<occurrence_id TYPE="string" FOREIGN-ARRAY="base2_common.event_occurrences" TITLE="##UiText.fields.state##"/>
+
+	<org_id TYPE="integer" FOREIGN-ARRAY="orgs" TITLE="##UiText.objects.company##" lang-en:TITLE="Company"/>
+	<person_id TYPE="integer" FOREIGN-ARRAY="persons" TITLE="##UiText.objects.contact_person##" INDEXED="1" lang-en:TITLE="Contact Person"/>
+
+	<orig_user_id TYPE="integer" FOREIGN-ARRAY="users" TITLE="Автор" lang-en:TITLE="Author" lang-ua:TITLE="Автор"/>
+
+
+	<state_id TYPE="string" FOREIGN-ARRAY="task_states" TITLE="##UiText.fields.cur_state##" COL-TITLE="##UiText.fields.cur_state##" DEFAULT="" EXP-MAX-LEN="11"/>
+
+	<records TITLE="##UiText.titles.change_history##">
+		<record MULTIPLE="1">
+			<INHERIT TYPE="task_record_base"/>
+		</record>
+	</records>
+
+
+	<INHERIT TYPE="card_comment_base"/>
+
+	<INHERIT TYPE="card_attachments"/>
+	<INHERIT TYPE="user_ref"/>
+	<is_private TYPE="bool" NOT-NULL="1"/>
+	<INHERIT TYPE="card_info_base"/>
+
+
+	<is_tentative TYPE="bool" NULL-FALSE="1" TITLE="Потенциальная задача" EXPR="state_id == 'tentative'" lang-en:TITLE="Tentative task" lang-ua:TITLE="Потенційна задача"/>
+</task>
+
+
+
+</SPXML-FORM>

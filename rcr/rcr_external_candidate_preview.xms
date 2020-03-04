@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem.external_candidate_ref.Object">
+
+<PANEL SUNKEN="1" HEIGHT="100%">
+	<GROUP>
+		<EDIT SOURCE="Ps.fullname" LABEL-TITLE="##UiText.fields.fullname##:" WIDTH="50zr"/>
+		<EDIT SOURCE="Ps.birth_date" LABEL-TITLE="##UiText.fields.birth_date##:" WIDTH="12zr" KEEP-RIGHT="1"/>
+		<SEPARATOR/>
+		<EDIT SOURCE="Ps.email" LABEL-TITLE="E-mail:" WIDTH="30zr"/>
+		<EDIT SOURCE="Ps.skype" LABEL-TITLE="Skype:" WIDTH="30zr"/>
+		<SEPARATOR/>
+
+		<EDIT SOURCE="Ps.location_id.ForeignDispName" LABEL-TITLE="##UiText.fields.location##:" WIDTH="40zr"/>
+	</GROUP>
+	<DELIM/>
+
+	<LABEL TITLE="##UiText.fields.personal_records##:"/>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="18px"/>
+			<COL WIDTH="18zr"/>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="20zr"/>
+		</COLUMNS>
+
+		<LOOP EXPR="ArraySort( Ps.records, 'date', '-' )" VAR="_record">
+			<IMAGE URL="//base_pict/event.ico"/>
+			<LABEL TITLE-EXPR="StrDate( _record.date, true, false )"/>
+			<LABEL TITLE-EXPR="_record.state_name"/>
+			<LABEL TITLE-EXPR="_record.user_name" WIDTH="20zr" KEEP-RIGHT="1"/>
+		</LOOP>
+	</TABLE>
+</PANEL>
+
+</SPXML-SCREEN>

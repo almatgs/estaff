@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM AUTO-SAVE="1">
+
+<stat_local_data>
+	<stat_data_entries>
+		<stat_data_entry MULTIPLE="1" PRIMARY-KEY="stat_id">
+			<INHERIT TYPE="stat_data_entry_base"/>
+		</stat_data_entry>
+	</stat_data_entries>
+</stat_local_data>
+
+
+
+</SPXML-FORM>

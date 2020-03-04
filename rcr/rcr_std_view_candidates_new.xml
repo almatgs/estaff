@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>candidates_new</id>
+	<name VALUE="Кандидаты - новые" lang-en:VALUE="Candidate - new" lang-ua:VALUE="Кандидати - нові"/>
+	<parent_id>candidates</parent_id>
+
+	<static_filters>
+		<static_filter>
+			<id>state_id</id>
+			<value>new</value>
+		</static_filter>
+	</static_filters>
+
+	<fields>
+		<field>
+			<id>state_date</id>
+			<use_time>0</use_time>
+			<col_title VALUE="##UiText.fields.date##"/>
+		</field>
+		<field>
+			<id>fullname</id>
+		</field>
+		<field>
+			<id>state_id</id>
+			<width>8zr</width>
+		</field>
+		<field>
+			<id>main_vacancy_id</id>
+			<width>40%</width>
+		</field>
+		<field>
+			<id>main_vacancy_org_id</id>
+			<exist_req_expr>global_settings.is_agency</exist_req_expr>
+			<width>30%</width>
+		</field>
+		<field>
+			<id>main_vacancy_division_id</id>
+			<exist_req_expr>! global_settings.is_agency</exist_req_expr>
+			<width>30%</width>
+		</field>
+		<field>
+			<id>salary</id>
+			<col_title VALUE="##UiText.fields.salary__s##"/>
+			<width>8zr</width>
+		</field>
+		<field>
+			<id>last_job_org_name</id>
+			<col_title VALUE="##UiText.fields.last_job_org##"/>
+			<text_color>90,0,120</text_color>
+			<width>30%</width>
+		</field>
+		<field>
+			<id>user_id</id>
+		</field>
+	</fields>
+</std_view>

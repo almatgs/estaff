@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<service_phone_api>
+	<call_record SAMPLE="1">
+		<id TYPE="string"/>
+		<date TYPE="date"/>
+		<src_phone TYPE="string"/>
+		<dest_phone TYPE="string"/>
+		<duration_seconds TYPE="integer"/>
+	</call_record>
+</service_phone_api>
+
+
+</SPXML-FORM>
+

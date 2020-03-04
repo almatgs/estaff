@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SPXML-FORM>
+
+<access_role_extension SAMPLE="1">
+	<prohibit_change_divisions TYPE="bool" NULL-FALSE="1" TITLE="Запрещено редактирование структурных подразделений" lang-en:TITLE="Prohibit changing divisions" lang-ua:TITLE="Заборонено редагування структурних підрозділів"/>
+
+	<prohibit_view_other_user_vacancies TYPE="bool" NULL-FALSE="1" TITLE="Запрещен просмотр вакансий других пользователей" lang-en:TITLE="Prohibit viewing vacancies of other users" lang-ua:TITLE="Заборонений перегляд вакансій інших користувачів"/>
+	<prohibit_view_other_group_vacancies TYPE="bool" NULL-FALSE="1"/>
+	<prohibit_view_other_division_vacancies TYPE="bool" NULL-FALSE="1" TITLE="Запрещен просмотр вакансий вне собственного подразделения" lang-en:TITLE="Prohibit viewing vacancies out of own division" lang-ua:TITLE="Заборонений перегляд вакансій поза власного підрозділу"/>
+
+	<prohibit_create_vacancies TYPE="bool" NULL-FALSE="1" TITLE="Запрещено создание вакансий" lang-en:TITLE="Prohibit creating vacancies" lang-ua:TITLE="Заборонено створення вакансій"/>
+	<assign_vacancies_to_users TYPE="bool" NULL-FALSE="1" TITLE="Может назначать рекрутера по вакансии" lang-en:TITLE="May assign vacancies to recruiters" lang-ua:TITLE="Може призначати рекрутера по вакансії"/>
+	<prohibit_change_other_user_vacancies TYPE="bool" NULL-FALSE="1" TITLE="Запрещено редактирование вакансий других пользователей" lang-en:TITLE="Prohibit changing vacancies of other users" lang-ua:TITLE="Заборонено редагування вакансій інших користувачів"/>
+	<prohibit_change_vacancy_state TYPE="bool" NULL-FALSE="1" TITLE="Запрещено изменение статуса вакансии вручную" lang-en:TITLE="Prohibit changing vacancy state manually" lang-ua:TITLE="Заборонено зміна статусу вакансії вручну"/>
+
+	<restrict_view_vacancies_with_recruit_type TYPE="bool" NULL-FALSE="1" TITLE="Разрешить просмотр вакансий только заданных направлений подбора" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Allow viewing vacancies of certain recruitment categories" lang-ua:TITLE="Дозволити перегляд вакансій тільки заданих напрямків підбору"/>
+	<vacancy_recruit_type_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="recruit_types" TITLE="##UiText.titles.recruit_types##"/>
+
+	<prohibit_view_other_user_candidates TYPE="bool" NULL-FALSE="1"/>
+	<prohibit_view_other_spot_candidates_with_state TYPE="bool" NULL-FALSE="1" TITLE="Запрещен просмотр кандидатов, отобранных на вакансии других пользователей и дошедших до определенного статуса" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Prohibit viewing candidates selected for vacancies of other users and achieved certain state" lang-ua:TITLE="Заборонений перегляд кандидатів, відібраних на вакансії інших користувачів і які дійшли до певного статусу"/>
+	<other_spot_candidates_state_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="candidate_states" TITLE="Статус скрываемого кандидата" lang-en:TITLE="Candidate status" lang-ua:TITLE="Статус приховуваного кандидата"/>
+	<prohibit_change_other_user_candidates TYPE="bool" NULL-FALSE="1"/>
+	<prohibit_change_other_user_active_candidates TYPE="bool" NULL-FALSE="1"/>
+
+	<prohibit_view_other_group_candidates TYPE="bool" NULL-FALSE="1" EXPR="prohibit_view_other_user_candidates ? true : prohibit_view_other_group_candidates"/>
+	<prohibit_open_other_group_candidates TYPE="bool" NULL-FALSE="1" EXPR="prohibit_view_other_group_candidates ? true : prohibit_open_other_group_candidates"/>
+
+	<prohibit_view_other_group_candidates_attachments TYPE="bool" NULL-FALSE="1" TITLE="Запрещен просмотр приложений к карточкам кандидатов других групп" lang-en:TITLE="Prohibit viewing attachments to candidates of other groups" lang-ua:TITLE="Заборонено перегляд додатків до карток кандидатів інших груп"/>
+	<other_group_candidate_attachment_type_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="card_attachment_types" TITLE="##UiText.fields.attachment_type##"/>
+
+	<prohibit_change_vacancy_start_date TYPE="bool" NULL-FALSE="1" TITLE="Запрещено изменение даты открытия вакансии" lang-en:TITLE="Prohibit change vacancy open date" lang-ua:TITLE="Заборонена зміна дати відкриття вакансії"/>
+	<prohibit_change_vacancy_max_work_term TYPE="bool" NULL-FALSE="1" TITLE="Запрещено изменение планового срока закрытия вакансии" lang-en:TITLE="Prohibit change vacancy required close date" lang-ua:TITLE="Заборонена зміна планового терміну закриття вакансії"/>
+	<prohibit_view_vacancy_revenue TYPE="bool" NULL-FALSE="1"/>
+
+	<restrict_vacancy_orgs_to_own TYPE="bool" NULL-FALSE="1" TITLE="Выбор клиента в карточке вакансии ограничен своими компаниями" lang-en:TITLE="Restrict vacancy organizations to own" lang-ua:TITLE="Вибір клієнта в картці вакансії обмежений своїми компаніями"/>
+
+	<restrict_view_candidates_with_state TYPE="bool" NULL-FALSE="1" TITLE="Разрешить просмотр кандидатов только определенных статусов" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Allow viewing candidates of certain states only" lang-ua:TITLE="Дозволити перегляд кандидатів тільки певних статусів"/>
+	<candidate_state_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="candidate_states" TITLE="##UiText.titles.candidate_state##"/>
+
+	<prohibit_view_other_division_candidates TYPE="bool" NULL-FALSE="1" TITLE="Запрещено открытие карточки кандидатов, не рассматриваемых на вакансии внутри собственного подразделения" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Prohibit viewing candidates selected for vacancies out of own division" lang-ua:TITLE="Заборонено відкриття картки кандидатів, що не розглянуті на вакансії всередині власного підрозділу"/>
+
+	<restrict_view_candidates_with_recruit_type TYPE="bool" NULL-FALSE="1" TITLE="Разрешить просмотр кандидатов только заданных направлений подбора" READ-ONLY-EXPR="Ps.allow_all" lang-en:TITLE="Allow viewing candidates of certain recruitment categories" lang-ua:TITLE="Дозволити перегляд кандидатів тільки заданих напрямків підбору"/>
+	<candidate_recruit_type_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="recruit_types" TITLE="##UiText.titles.recruit_types##"/>
+</access_role_extension>
+
+
+</SPXML-FORM>

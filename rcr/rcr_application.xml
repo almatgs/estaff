@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<spxml_application SPXML-FORM="x-app://app/sx_application.xmd">
+	<id>EStaff</id>
+	<name>E-Staff Рекрутер</name>
+	<version>4.8</version>
+	<build_date>2019-06-10T20:31:09+03:00</build_date>
+	<copyright>(c) 2000-2019 Datex Software</copyright>
+	<web_site>http://www.e-staff.ru</web_site>
+	<modules>
+		<module>
+			<name>base1</name>
+		</module>
+		<module>
+			<name>base2</name>
+		</module>
+		<module>
+			<name>ui</name>
+		</module>
+		<module>
+			<name>cn</name>
+		</module>
+		<module>
+			<name>staff</name>
+		</module>
+		<module>
+			<name>hedit</name>
+		</module>
+		<module>
+			<name>imod</name>
+		</module>
+		<module>
+			<name>app2</name>
+		</module>
+		<module>
+			<name>cproc</name>
+		</module>
+		<module>
+			<name>gate</name>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</module>
+		<module>
+			<name>rcr</name>
+		</module>
+		<module>
+			<name>outlook</name>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</module>
+		<module>
+			<name>thunderbird</name>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</module>
+		<module>
+			<name>firefox</name>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</module>
+		<module>
+			<name>chrome</name>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</module>
+		<module>
+			<name>lotus</name>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</module>
+		<module>
+			<name>conn_google</name>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</module>
+		<module>
+			<name>conn_wts</name>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</module>
+		<module>
+			<name>conn_mcaller</name>
+			<exist_req_expr>! LdsIsClient</exist_req_expr>
+		</module>
+	</modules>
+	<databases>
+		<database>
+			<name>data</name>
+			<trash_db>trash</trash_db>
+			<storage_type>classic</storage_type>
+			<file_name>data_rcr</file_name>
+		</database>
+		<database>
+			<name>share</name>
+		</database>
+		<database>
+			<name>trash</name>
+		</database>
+	</databases>
+	<default_db>data</default_db>
+	<start_url>rcr_view_main.xml</start_url>
+	<web_dir>rcr/web</web_dir>
+</spxml_application>

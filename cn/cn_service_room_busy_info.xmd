@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<room_busy_info>
+	<busy_entries>
+		<busy_entry MULTIPLE="1">
+			<date TYPE="date"/>
+			<end_date TYPE="date"/>
+			<room_id TYPE="integer" FOREIGN-ARRAY="rooms"/>
+			<user_id TYPE="integer" FOREIGN-ARRAY="users"/>
+		</busy_entry>
+	</busy_entries>
+</room_busy_info>
+
+
+</SPXML-FORM>

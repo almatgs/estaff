@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<lib_agent>
+	<running_agents>
+		<running_agent MULTIPLE="1" PRIMARY-KEY="agent_id">
+			<agent_id TYPE="string" FOREIGN-ARRAY="agents"/>
+			<thread_ref TYPE="variant"/>
+		</running_agent>
+	</running_agents>
+
+	<agent_requests>
+		<agent_request MULTIPLE="1" PRIMARY-KEY="agent_id">
+			<agent_id TYPE="string" FOREIGN-ARRAY="agents"/>
+			<explicit_run_ticks TYPE="integer"/>
+		</agent_request>
+	</agent_requests>
+
+	<server_running_agents>
+		<server_running_agent MULTIPLE="1" PRIMARY-KEY="agent_id">
+			<agent_id TYPE="string" FOREIGN-ARRAY="agents"/>
+		</server_running_agent>
+	</server_running_agents>
+
+	<server_running_agents_last_load_ticks TYPE="integer" DEFAULT="0"/>
+
+	<METHOD NAME="kick_agent">
+		<PARAM NAME="agentID" TYPE="string"/>
+	</METHOD>
+
+	<METHOD NAME="get_server_running_agents_ids" TYPE="string" RUN-ON-SERVER="1">
+	</METHOD>
+</lib_agent>
+
+
+</SPXML-INLINE-FORM>

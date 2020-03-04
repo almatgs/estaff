@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<spxml_module>
+	<ui_texts>
+		<ui_text>
+			<url>base2_ui_text.xml</url>
+		</ui_text>
+	</ui_texts>
+
+	<sample_forms>
+		<sample_form>
+			<url>base2_general.xmd</url>
+		</sample_form>
+	</sample_forms>
+
+	<sample_screen_forms>
+		<sample_screen_form>
+			<url>base2_general.xms</url>
+		</sample_screen_form>
+	</sample_screen_forms>
+
+
+	<shared_docs>
+		<shared_doc>
+			<url>base2_common.xml</url>
+		</shared_doc>
+
+		<shared_doc>
+			<url>base2_lib_custom_action.js</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base2_lib_event.xml</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base2_lib_location.js</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base2_lib_office_access.js</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base2_lib_notif.xml</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base2_lib_person.js</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base2_lib_reminder.xml</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base2_lib_user.xml</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base2_lib_workflow.js</url>
+			<server_only>1</server_only>
+		</shared_doc>
+	</shared_docs>
+
+
+	<object_types>
+		<object_type>
+			<form_url>base2_org.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>base2_person.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>base2_contact_list.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>base2_agreement.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>base2_expense.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>base2_group.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>base2_event.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>base2_task.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>base2_workflow_document.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>base2_mailing.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>base2_user.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>base2_notification.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>base2_external_account.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>base2_phone_call_record.xmd</form_url>
+		</object_type>
+		<object_type>
+			<form_url>//base2/base2_email_message.xmd</form_url>
+		</object_type>
+	</object_types>
+</spxml_module>
+
+
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="130zr" HEIGHT="90zr" SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" RESIZE="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<IF EXPR="lib_app2.AppFeatureEnabled( 'mass_recruit' )">
+		<CHECK SOURCE="Ps.select_name_from_position_types" AUTO-LABEL="1" WIDTH="auto"/>
+		<BR/>
+		<CHECK SOURCE="Ps.use_candidate_position_type" AUTO-LABEL="1" WIDTH="auto"/>
+		<CHECK SOURCE="Ps.use_candidate_desired_division" AUTO-LABEL="1" WIDTH="auto"/>
+		<CHECK SOURCE="Ps.prohibit_spots" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="lib_app2.AppFeatureEnabled( 'classic_recruit' )"/>
+		<DELIM/>
+
+		<CHECK SOURCE="Ps.require_hired_candidate_vacancy" AUTO-LABEL="1" WIDTH="auto"/>
+		<CHECK SOURCE="Ps.require_hired_candidate_division" AUTO-LABEL="1" WIDTH="auto"/>
+		<CHECK SOURCE="Ps.require_hired_candidate_position" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="global_settings.use_positions"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.hire_event_type_id" AUTO-LABEL="1"/>
+		<DELIM/>
+	</IF>
+
+	<ITEM TYPE="dm_period" SOURCE="Ps.max_work_term" AUTO-LABEL="1"/>
+
+	<IF EXPR="AppModuleUsed( 'module_mdmbank' )">
+		<BR/>
+		<ITEM TYPE="dm_period" SOURCE="Ps.max_job_offer_term" AUTO-LABEL="1"/>
+	</IF>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+
+
+

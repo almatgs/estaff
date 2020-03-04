@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+
+
+<PANEL NAME="small_calendar" SAMPLE="1" STD-MARGINS="0" HEIGHT="100%">
+
+<WITH EXPR="Ps.build()" VAR="_dummy" IGNORE-ERRORS="0">
+</WITH>
+
+<PANEL BK-COLOR="230,230,230" STD-MARGINS="0" HEIGHT="3zrc">
+	<BR HEIGHT="2px"/>
+
+	<TABLE STD-MARGINS="0">
+		<COLUMNS>
+			<COL WIDTH="2px"/>
+			<COL WIDTH="16px"/>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="16px"/>
+			<COL WIDTH="2px"/>
+		</COLUMNS>
+
+		<LABEL/>
+		<IMAGE URL="//base_pict/left_arrow.ico" ACTION="
+				Ps.start_date = lib_base.get_month_date_offset( Ps.start_date, 0 - 1 );
+		"/>
+
+		<LABEL TITLE-EXPR="base1_common.months[ Month( Ps.start_date ) - 1].name + ' ' + Year( Ps.start_date )" ALIGN="center"/>
+
+		<IMAGE URL="//base_pict/right_arrow.ico" ACTION="
+				Ps.start_date = lib_base.get_month_date_offset( Ps.start_date, 1 );
+		"/>
+		<LABEL/>
+	</TABLE>
+</PANEL>
+
+
+<PANEL STD-MARGINS="0" LEFT-MARGIN="4" TOP-MARGIN="2" BK-COLOR="white" HEIGHT="100%">
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="6px"/>
+	</COLUMNS>
+
+	<TABLE STD-MARGINS="0">
+		<COLUMNS>
+			<COL WIDTH="14%"/>
+			<COL WIDTH="14%"/>
+			<COL WIDTH="14%"/>
+			<COL WIDTH="14%"/>
+			<COL WIDTH="14%"/>
+			<COL WIDTH="14%"/>
+			<COL WIDTH="14%"/>
+			<COL WIDTH="2%"/>
+		</COLUMNS>
+
+		<LOOP EXPR="lib_calendar.get_sorted_week_days()" VAR="_week_day">
+			<LABEL TITLE-EXPR="_week_day.short_name" ALIGN="center" TEXT-COLOR-EXPR="_week_day.id == local_settings.weekend_day1 || _week_day.id == local_settings.weekend_day2 ? '200,0,0' : 'black'"/>
+		</LOOP>
+		<LABEL/>
+
+		<DELIM HSPAN="8"/>		
+
+		<LOOP EXPR="PlainSeq( 6 )" VAR="_vert_index">
+			<LOOP EXPR="PlainSeq( 7 )" VAR="_horiz_index">
+				<LINK TITLE-EXPR="
+						targetDate = Ps.target_dates[_vert_index * 7 + _horiz_index];
+						return Day( targetDate.date ) + ' ';
+				" UNDERLINE="0" TEXT-COLOR-EXPR="
+						targetDate = Ps.target_dates[_vert_index * 7 + _horiz_index];
+					
+						if ( targetDate.date == DateNewTime( CurDate ) )
+							return 'white';
+						else if ( Month( targetDate.date ) != Month( Ps.start_date ) )
+							return '180,180,180';
+
+						if ( ! lib_calendar.is_wday( targetDate.date ) )
+							return '200,0,0';
+
+						return '';
+				" BK-COLOR-EXPR="
+						targetDate = Ps.target_dates[_vert_index * 7 + _horiz_index];
+
+						if ( targetDate.date == DateNewTime( CurDate ) )
+							return '10,36,106';
+						else if ( targetDate.date >= Ps.sel_start_date &amp;&amp; targetDate.date &lt;= Ps.sel_end_date )
+							return '200,200,200';
+						else
+							return '';
+				" ALIGN="right" ACTION="
+						targetDate = Ps.target_dates[_vert_index * 7 + _horiz_index];
+
+						if ( Ps.host_ref.HasValue )
+							Ps.host_ref.Object.handle_small_calendar_date_changed( targetDate.date );
+			
+				" WIDTH="100%"/>
+			</LOOP>
+			<LABEL/>
+		</LOOP>
+	</TABLE>
+
+	<LABEL/>
+</TABLE>
+</PANEL>
+
+
+</PANEL>
+
+
+
+
+<UNIT NAME="calendar_entry_menus" SAMPLE="1">
+	<MENU RIGHT-CLICK="1">
+		<MENU-ENTRY TITLE="##UiText.actions.open##" ACTION="
+				lib_calendar.open_calendar_entry_ext( _entry.src_entry );
+		"/>
+
+		<IF EXPR="_entry.src_entry.allows_ext_open()">
+			<MENU-ENTRY TITLE="Открыть запись в календаре" lang-en:TITLE="Open Calendar Entry" ACTION="
+					lib_calendar.open_calendar_entry( _entry.src_entry );
+			" lang-ua:TITLE="Відкрити запис у календарі"/>
+		</IF>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+				lib_base.ask_warning_to_continue( Screen, UiText.messages.event_will_be_deleted );
+				lib_calendar.delete_calendar_entry( _entry.src_entry );
+		"/>
+	</MENU>
+</UNIT>
+
+
+
+</SPXML-SCREEN>

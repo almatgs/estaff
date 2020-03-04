@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_agents SPXML-FORM="//base1/base1_std_agents.xmd">
+	<std_agent>
+		<id>backup</id>
+		<name VALUE="##UiText.sections.global_settings_backup##"/>
+		<is_active>1</is_active>
+		<code>OpenCodeLib( 'x-app://base1/base1_lib_backup.js' ).run_backup()</code>
+		<run_on_server>1</run_on_server>
+
+		<settings_section>
+			<holder>global_settings.backup</holder>
+			<screen_form>//base1/base1_global_settings_backup.xms</screen_form>
+		</settings_section>
+	</std_agent>
+</std_agents>

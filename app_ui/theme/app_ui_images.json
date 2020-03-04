@@ -1,0 +1,124 @@
+{
+	"images": [
+		{
+			"url": "pict/arrow_left.svg",
+			"width": "13epx",
+			"height": "12epx"
+		},
+		{
+			"url": "pict/arrow_right.svg",
+			"width": "13epx",
+			"height": "12epx"
+		},
+		{
+			"url": "pict/dropdown.svg",
+			"width": "8epx",
+			"height": "4epx"
+		},
+		{
+			"url": "pict/close_small.svg",
+			"width": "8epx",
+			"height": "8epx"
+		},
+		{
+			"url": "pict/column_sort_down.svg",
+			"width": "8epx",
+			"height": "4epx"
+		},
+		{
+			"url": "pict/column_sort_up.svg",
+			"width": "8epx",
+			"height": "4epx"
+		},
+		{
+			"url": "pict/corner_triangle_bottom_right.svg",
+			"width": "4epx",
+			"height": "4epx"
+		},
+		{
+			"url": "pict/corner_triangle_top_right.svg",
+			"width": "4epx",
+			"height": "4epx"
+		},
+		{
+			"url": "pict/icon_search.svg",
+			"width": "24epx",
+			"height": "24epx"
+		},
+		{
+			"url": "pict/left_double_small.svg",
+			"width": "8epx",
+			"height": "8epx"
+		},
+		{
+			"url": "pict/list_row_collapse.svg",
+			"width": "8epx",
+			"height": "4epx"
+		},
+		{
+			"url": "pict/list_row_expand.svg",
+			"width": "4epx",
+			"height": "8epx"
+		},
+		{
+			"url": "pict/msg_error.svg",
+			"width": "36epx",
+			"height": "36epx"
+		},
+		{
+			"url": "pict/msg_info.svg",
+			"width": "36epx",
+			"height": "36epx"
+		},
+		{
+			"url": "pict/msg_question.svg",
+			"width": "36epx",
+			"height": "36epx"
+		},
+		{
+			"url": "pict/msg_warning.svg",
+			"width": "32epx",
+			"height": "26epx"
+		},
+		{
+			"url": "pict/radio_button_checked.svg",
+			"width": "18epx",
+			"height": "18epx"
+		},
+		{
+			"url": "pict/radio_button_unchecked.svg",
+			"width": "18epx",
+			"height": "18epx"
+		},
+		{
+			"url": "pict/right_double_small.svg",
+			"width": "8epx",
+			"height": "8epx"
+		},
+		{
+			"url": "pict/tree_entry_collapse.svg",
+			"width": "12epx",
+			"height": "8epx"
+		},
+		{
+			"url": "pict/tree_entry_expand.svg",
+			"width": "12epx",
+			"height": "8epx"
+		},
+		{
+			"url": "pict/wnd_close.svg",
+			"width": "10epx",
+			"height": "10epx"
+		},
+		{
+			"url": "pict/wnd_maximize.svg",
+			"width": "10epx",
+			"height": "10epx"
+		},
+		{
+			"url": "pict/wnd_minimize.svg",
+			"width": "10epx",
+			"height": "2epx"
+		}
+	]
+}

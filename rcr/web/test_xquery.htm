@@ -1,0 +1,90 @@
+<%
+	Request.CheckLdsAuth();
+	
+	if ( ! Request.IsLdsAdminAuth && ! Request.AuthObject.access_role_id.ForeignElem.allow_all )
+		throw "Access denied";
+
+	queryStr = Request.Form.GetOptProperty( 'query_str', '' );
+%>
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<%=AppCharset%>"/>
+<title>SQL Test Page</title>
+</head>
+
+
+<body>
+
+<form method="post" action_="sql_test.htm">
+
+<p>XQuery:</p>
+<p><input name="query_str" value="<%=queryStr%>" style="width:100%"/></p>
+
+<p><input type="submit"/></p>
+
+</form>
+
+<br/>
+
+<%
+	if ( queryStr != '' )
+	{
+		array = XQuery( queryStr );
+
+		Response.Write( '<table>' );
+
+		count = 0;
+
+		for ( record in array )
+		{
+			if ( count == 0 )
+			{
+				colNum = Min( record.ChildNum, 10 );
+
+				Response.Write( '<tr>' );
+				for ( i = 0; i < colNum; i++ )
+				{
+					field = record.Child( i );
+
+					Response.Write( '<td>' );
+					Response.Write( field.Name );
+					Response.Write( '</td>' );
+				}
+
+				Response.Write( '</tr>' );
+			}
+
+			Response.Write( '<tr>' );
+
+			for ( i = 0; i < colNum; i++ )
+			{
+				field = record.Child( i );
+
+				Response.Write( '<td>' );
+
+				Response.Write( field );
+
+				Response.Write( '</td>' );
+			}
+
+			Response.Write( '</tr>' );
+			count++;
+		}
+
+		Response.Write( '</table>' );
+
+		//Response.Write( '<br/>' );
+
+		Response.Write( '<p>' );
+		Response.Write( '<b>' );
+		Response.Write( 'Total: ' + count );
+		Response.Write( '</b>' );
+		Response.Write( '</p>' );
+	}
+%>
+
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM TITLE="##UiText.objects.event##" CODE-LIB="1" IMAGE-URL="//base_pict/phone.ico" IMAGE-URL-EXPR="image_url()">
+
+<phone_call_record PRIMARY-DISP-NAME="StrDate( date, true, false )">
+	<id TYPE="integer"/>
+	<eid TYPE="string" INDEXED="1" FT-IGNORE="1"/>
+
+	<date TYPE="date" TITLE="##UiText.fields.date##" INDEXED="1" ALL-ACCESS="1"/>
+	<talk_start_date TYPE="date"/>
+	<end_date TYPE="date" TITLE="##UiText.fields.end_date##"/>
+
+	<direction TYPE="integer" TITLE="Направление вызова" lang-en:TITLE="Call Direction" lang-ua:TITLE="Напрямок виклику" FOREIGN-ARRAY="base1_common.phone_call_directions"/>
+
+	<src_phone_number TYPE="string" TITLE="##UiText.fields.from__sender## (##UiText.titles.phone_number##)"/>
+	<src_phone_extension TYPE="integer" TITLE="##UiText.fields.from__sender## (##UiText.titles.extension__phone##)"/>
+	<src_phone_desc PROPERTY="1" TITLE="##UiText.fields.from__sender##" DEPENDS="src_phone_number,src_phone_extension"/>
+
+	<dest_phone_number TYPE="string" TITLE="##UiText.fields.to__recipient## (##UiText.titles.phone_number##)"/>
+	<dest_phone_extension TYPE="integer" TITLE="##UiText.fields.to__recipient## (##UiText.titles.extension__phone##)"/>
+	<dest_phone_desc PROPERTY="1" TITLE="##UiText.fields.to__recipient##" DEPENDS="dest_phone_number,dest_phone_extension"/>
+
+	<state_id TYPE="string" TITLE="##UiText.fields.state##" FOREIGN-ARRAY="base1_common.phone_call_states"/>
+	<is_active TYPE="bool" NULL-FALSE="1"/>
+	<failure_reason_id TYPE="string" TITLE="Причина недозвона" lang-en:TITLE="Failure Details" lang-ua:TITLE="Причина недозвона" FOREIGN-ARRAY="base1_common.phone_call_failure_reasons"/>
+
+	<recording_eid TYPE="string" FT-IGNORE="1"/>
+
+	<wait_seconds TYPE="integer"/>
+	<talk_seconds TYPE="integer"/>
+
+	<cur_wait_seconds PROPERTY="1" TITLE="Время ожидания" lang-en:TITLE="Waiting time" lang-ua:TITLE="Час очікування" DEPENDS="wait_seconds,date"/>
+	<cur_talk_seconds PROPERTY="1" TITLE="Время разговора" lang-en:TITLE="Talk Time" lang-ua:TITLE="Напрямок виклику" DEPENDS="talk_seconds,talk_start_date"/>
+
+	<src_person_data DOC-ONLY="1">
+		<INHERIT TYPE="person_name_base"/>
+		<inet_uid TYPE="string"/>
+
+		<talk_transcript TYPE="string" MULTILINE="1"/>
+		<talk_recording_url TYPE="string"/>
+	
+		<dest_candidate_state_id TYPE="string" FOREIGN-ARRAY="candidate_states"/>
+	</src_person_data>
+	
+	<src_person_id TYPE="integer" FOREIGN-ARRAY="persons" TITLE="##UiText.fields.from__sender## (##UiText.titles.contact##)"/>
+	<dest_person_id TYPE="integer" FOREIGN-ARRAY="persons" TITLE="##UiText.fields.to__recipient## (##UiText.titles.contact##)"/>
+
+	<external_person_id PROPERTY="1" TYPE="integer" FOREIGN-ARRAY="persons" TITLE="##UiText.titles.contact##" DEPENDS="src_person_id,dest_person_id,empty_person_id"/>
+
+	<candidate_id TYPE="integer" FOREIGN-ARRAY="candidates" TITLE="##UiText.objects.candidate##" EXPR="external_person_id.ForeignElem.is_candidate ? external_person_id : null"/>
+
+	<user_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="users" TITLE="##UiText.objects.user##" EXP-MAX-LEN="13" COL-ALIGN="center" lang-en:TITLE="User"/>
+	<group_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="groups" TITLE="##UiText.objects.group##" EXP-MAX-LEN="12" COL-ALIGN="center" lang-en:TITLE="Group"/>
+
+	<INHERIT TYPE="card_info_base"/>
+
+	<image_url PROPERTY="1" DEPENDS="direction,src_phone_extension,dest_phone_extension,state_id"/>
+
+	<empty_person_id TYPE="integer" TEMP="1" FOREIGN-ARRAY="persons"/>
+</phone_call_record>
+
+
+
+</SPXML-FORM>

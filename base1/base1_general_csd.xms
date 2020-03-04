@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<UNIT NAME="attr_csd" SAMPLE="1" PARAM-templateArray="">
+	<LINE MULTILINE="1">
+		<LOOP EXPR="eval(GetSampleParam( 'templateArray' ))" VAR="ListElem">
+			<CHECK TITLE-EXPR="ListElem.name" SOURCE="Ps.Child( ListElem.id )" WIDTH="auto"/>
+		</LOOP>
+	</LINE>
+</UNIT>
+
+
+
+</SPXML-SCREEN>

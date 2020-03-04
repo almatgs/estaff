@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="AppName" RESIZE="1" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/estaff_wnd.ico" STD-MARGINS="0" BEFORE-INIT-ACTION="
+		Ps.Init();
+		//Cancel();
+">
+
+<PANEL STD-MARGINS="0" HEIGHT="10zr">
+	<TABLE CHILD-VERT-ALIGN="bottom">
+		<COLUMNS>
+			<COL WIDTH="140px"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<PANEL HEIGHT="100%" STD-MARGINS="0">
+			<BR/>
+			<LINE>
+				<IF EXPR="System.IsWebClient">
+					<IF EXPR="StrBegins( AppID, 'DatexRecruit' )">
+						<PANEL WIDTH="10px"/>
+						<IMAGE URL="//base_pict/large/datex_logo.svg" WIDTH="120px" HEIGHT="55px"/>
+					</IF>
+					<ELSE>
+						<PANEL WIDTH="20px"/>
+						<IMAGE URL="//base_pict/large/estaff_logo.svg" WIDTH="95px" HEIGHT="55px"/>
+					</ELSE>
+				</IF>
+			</LINE>
+		</PANEL>
+	</TABLE>
+</PANEL>
+
+
+<PANEL STD-MARGINS="1">
+
+<LABEL TITLE-EXPR="Ps.event.state_name" BOLD="1"/>
+<BR/>
+
+<LINE>
+	<LABEL TITLE="##UiText.objects.candidate##:"/>
+	<LABEL TITLE-EXPR="Ps.candidate.fullname" BOLD="1"/>
+</LINE>
+<BR/>
+<BR/>
+<BR/>
+<BR/>
+
+<IF EXPR="Ps.event.occurrence_id == ''">
+	<LINE>
+		<LOOP EXPR="ArraySelect( Ps.event.type.get_sorted_occurrences(), 'id.HasValue' )" VAR="occurrence">
+			<BUTTON TITLE-EXPR="occurrence.action_name.HasValue ? occurrence.action_name : occurrence.name" ACTION="
+					resultData = Ps.event.Clone();
+					resultData.occurrence_id = occurrence.id;
+
+					lib_recruit_hm.HandleSubmitCandidateEventResult( Ps.candidate, Ps.event, resultData );
+					Ps.Init();
+			" PASSIVE__="1"/>
+		</LOOP>
+	</LINE>
+	<BR/>
+	<BR/>
+
+	<EDIT SOURCE="Ps.event.comment" MULTILINE="1" AUTO-LABEL="1" HEIGHT="30zr"/>
+</IF>
+
+</PANEL>
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+

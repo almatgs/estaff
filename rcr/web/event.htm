@@ -1,0 +1,410 @@
+<%
+	eventID = Int( Request.Query.id );
+	event = GetOptForeignElem( events, eventID );
+	if ( event == undefined )
+		throw 'Event not found';
+
+	event = OpenDoc( DefaultDb.GetRecordPrimaryObjectUrl( event ) ).TopElem;
+
+
+	allowEdit = true;
+%>
+
+
+<%Server.Execute( 'include/std_head.htm' )%>
+<%Server.Execute( 'include/scripts.htm' )%>
+
+<h1><%=event.type.name%></h1>
+
+<%
+	fieldNames = ['date', 'candidate_id', 'vacancy_id'];
+
+	//lib_web.build_web_card( Response, event );
+	CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_card', Response, event, fieldNames, outerEnv );
+
+	if ( event.type_id == 'rr_poll_co' )
+	{
+		Response.Write( '<p>' );
+		Response.Write( 'Регион: ' );
+		Response.Write( event.candidate_id.ForeignElem.location_id.ForeignDispName, true );
+		Response.Write( '</p>\r\n' );
+
+		Response.Write( '<p>' );
+		Response.Write( 'Рекрутер: ' );
+		Response.Write( event.candidate_id.ForeignElem.user_id.ForeignDispName, true );
+		Response.Write( '</p>\r\n' );
+
+		Response.Write( '<p>' );
+		Response.Write( 'Группа: ' );
+		Response.Write( event.vacancy_id.ForeignElem.group_id.ForeignDispName, true );
+		Response.Write( '</p>\r\n' );
+
+		Response.Write( '<p>' );
+		Response.Write( 'Функция должности: ' );
+		Response.Write( event.vacancy_id.ForeignElem.cs_position_function, true );
+		Response.Write( '</p>\r\n' );
+
+		Response.Write( '<p>' );
+		Response.Write( 'Статус должности: ' );
+		Response.Write( event.vacancy_id.ForeignElem.cs_position_status, true );
+		Response.Write( '</p>\r\n' );
+
+		Response.Write( '<p>' );
+		Response.Write( 'Направление бизнеса: ' );
+		Response.Write( event.vacancy_id.ForeignElem.cs_business_area, true );
+		Response.Write( '</p>\r\n' );
+
+		prevEvent = ArrayOptFindByKey( event.candidate_id.ForeignElem.get_events_array(), 'rr_poll_regional', 'type_id' );
+		if ( prevEvent != undefined )
+		{
+			Response.Write( '<br/>' );
+			Response.Write( '<p>' );
+			Response.Write( '<a href="' + outer_link( 'event.htm', {id:prevEvent.id,show_history:1} ) + '">' );
+			Response.Write( 'Результаты оценки в регионе' );
+			Response.Write( '</a>' );
+			Response.Write( '</p>\r\n' );
+		}
+	}
+%>
+
+<br/>
+
+
+<%
+if ( event.type.use_participants )
+{
+	if ( curPerson != undefined )
+		curParticipant = event.participants.GetOptChildByKey( curPerson.id );
+	else
+		curParticipant = undefined;
+
+	showAllResults = ( event.type_id == 'rr_poll_regional' && curParticipant == undefined );
+%>
+
+<%
+if ( event.type_id == 'rr_poll_co' && curPerson.participant_events.GetOptChildByKey( 'rr_poll_co' ) != undefined )
+{
+	showAllResults = true;
+	Server.Execute( 'event_participants_edit.htm' );
+}
+else if ( ( curPersonUser = ArrayOptFindByKey( users, curPerson.id, 'person_id' ) ) != undefined )
+{
+	//DebugMsg( curPersonUser.Xml );
+	showAllResults = true;
+}
+else
+{
+	if ( event.type_id == 'rr_poll_co' && ( curParticipant == undefined ) )
+		throw UserError( 'Вы не являетесь участником оценки' );
+%>
+
+
+Участники:
+<br/>
+<br/>
+
+<%
+for ( participant in event.participants )
+{
+%>
+
+<b><%=participant.person_id.ForeignElem.fullname%></b>
+<br/>
+
+<%
+}
+
+}
+%>
+
+
+
+<%
+if ( event.type.is_approval && curParticipant != undefined )
+{
+%>
+
+<br/>
+<hr/>
+
+<form method="post" action="<%=outer_direct_link( 'event_approval_change.htm' )%>">
+
+<input type="hidden" name="redirect_url" value="<%=outer_link( 'rr_main.htm' )%>"/>
+<input type="hidden" name="id" value="<%=eventID%>"/>
+
+Предварительное утверждение кандидата (<b><%=curParticipant.person_id.ForeignDispName%></b>):
+<br/>
+<br/>
+
+<b>
+<input type="radio" name="approve" value="1" <%=curParticipant.approval_flag == true ? 'checked="1"' : ''%>/>Да
+<input type="radio" name="approve" value="2" <%=curParticipant.approval_flag == false ? 'checked="1"' : ''%>/>Нет
+</b>
+<br/>
+
+	  
+<div align="center">
+
+<%
+if ( event.occurrence_id == '' )
+{
+%>
+	<input type="submit" value="Отправить"/>
+<%
+}
+else
+{
+%>
+	<input type="submit" value="Отправить" disabled="1"/>
+<%
+}
+%>
+
+</div>
+
+
+</form>
+<hr/>
+
+<%
+}
+%>
+
+
+
+
+<%
+if ( ( event.type_id == 'rr_poll' || event.type_id == 'rr_poll_adapt' || event.type_id == 'rr_poll_seq' || event.type_id == 'rr_poll_regional' || ( event.type_id == 'rr_poll_co' && event.occurrence_id == 'started' ) ) && ( showAllResults || curParticipant != undefined ) )
+{
+	allowEdit = ( curParticipant != undefined );
+%>
+
+<%
+if ( curParticipant != undefined && event.type.use_participants_order /*&& event.type_id != 'rr_poll_co'*/ )
+{
+	nextParticipant = ArrayOptFind( event.participants, '( participantPollResult = event.participant_poll_results.GetOptChildByKey( person_id ) ) == undefined || ! participantPollResult.completion_id.HasValue' );
+
+	if ( nextParticipant != undefined && curParticipant.ChildIndex > nextParticipant.ChildIndex )
+	{
+		//throw UserError( 'Опросный лист еще не заполнен предыдущими участниками' );
+		allowEdit = false;
+	}
+}
+%>
+
+
+<br/>
+<hr/>
+
+<form method="post" action="<%=outer_direct_link( 'rr_poll_change.htm' )%>">
+
+<input type="hidden" name="redirect_url" value="<%=outer_link( 'rr_main.htm' )%>"/>
+<input type="hidden" name="id" value="<%=eventID%>"/>
+
+<%
+}
+%>
+
+
+
+<%
+if ( event.ChildExists( 'participant_poll_results' ) )
+{
+%>
+
+
+
+<p>Опросный лист
+<%
+if ( curParticipant != undefined )
+{
+%>
+(<b><%=curParticipant.person_id.ForeignDispName%></b>)
+<%
+}
+%>
+:</p>
+
+<%if ( event.poll_result.spec_id == 'rgs_poll_6' )
+{
+%>
+<p>
+1 - полностью не соответствует<br/>
+2 - частично соответствует<br/>
+3 - полностью соответствует<br/>
+4 - превосходит ожидания<br/>
+</p>
+
+<%
+}
+%>
+
+
+<%
+	if ( curParticipant != undefined )
+		participantPollResult = event.participant_poll_results.GetChildByKey( curParticipant.person_id );
+	else
+		participantPollResult = event.participant_poll_results[0];
+
+	CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_poll_result_edit', Response, event, participantPollResult, showAllResults );
+%>
+
+<br/>
+
+<p>
+<%
+if ( event.poll_result.spec_id == 'rgs_poll' )
+{
+%>
+
+4 - полностью за принятие на работу<br/>
+3 - есть отдельные замечания, но в общем не против<br/>
+2 - есть серьезные замечания, согласен с принятием на работу только в случае крайней необходимости<br/>
+1 - против принятия на работу, есть принципиальные возражения
+
+<%
+}
+else if ( event.poll_result.spec_id == 'rgs_poll_4' )
+{
+%>
+
+1 - полностью не соответствует<br/>
+2 - частично соответствует<br/>
+3 - полностью соответствует<br/>
+4 - превосходит ожидания<br/>
+
+<%
+}
+else if ( event.poll_result.spec_id.ForeignElem.questions.ChildNum != 0 && event.poll_result.spec_id.ForeignElem.questions[0].max_score == 5 )
+{
+%>
+
+Шкала оценки от 1 до 5, где 1 - не соответствует, 5 - полностью соответствует
+
+<%
+}
+else if ( event.poll_result.spec_id != 'rgs_poll_6' )
+{
+%>
+
+1 - не соответствует <br/>
+2 - соответствует с оговорками<br/>
+3 - полностью соответствует
+
+<%
+}
+%>
+
+</p>
+
+<%
+//if ( curParticipant != undefined && event.type.use_participants_order /*&& event.type_id != 'rr_poll_co'*/ )
+if ( curParticipant != undefined )
+{
+%>
+
+<div align="center">
+
+<%
+if ( allowEdit && ( event.occurrence_id == '' && ! event.type.use_participants_order || ! participantPollResult.completion_id.HasValue ) )
+{
+%>
+	<input type="submit" value="Отправить результаты"/>
+<%
+}
+else
+{
+%>
+	<input type="submit" value="Отправить результаты" disabled="1"/>
+<%
+}
+%>
+
+</div>
+
+
+<%
+}
+%>
+
+
+</form>
+
+
+
+<hr/>
+
+<%
+}
+%>
+
+
+
+<%
+}
+%>
+
+
+
+
+
+
+<%
+if ( event.type_id == 'security_check' /*&& curParticipant != undefined*/ )
+{
+%>
+
+<br/>
+<hr/>
+
+<form method="post" action="<%=outer_direct_link( 'event_change.htm' )%>">
+<input type="hidden" name="redirect_url" value="<%=outer_link( 'rr_main.htm' )%>"/>
+<input type="hidden" name="id" value="<%=eventID%>"/>
+
+На момент проверки информации негативного характера в отношении кандидата<br/>
+<b>
+<input type="radio" name="occurrence_id" value="succeeded" <%=event.occurrence_id == 'succeeded' ? 'checked="1"' : ''%>/>Не выявлено
+<input type="radio" name="occurrence_id" value="failed" <%=event.occurrence_id == 'failed' ? 'checked="1"' : ''%>/>Выявлено
+</b>
+<br/>
+
+<br/>
+<br/>
+
+Комментарии сотрудника ДЭИиЭБ:<br/>
+<textarea name="comment" cols="90" rows="10"><%=event.comment%></textarea>
+
+<br/>
+<br/>
+
+	  
+<div align="center">
+
+<%
+if ( event.occurrence_id == '' && curParticipant != undefined )
+{
+%>
+	<input type="submit" value="Отправить"/>
+<%
+}
+else
+{
+%>
+	<input type="submit" value="Отправить" disabled="1"/>
+<%
+}
+%>
+
+</div>
+</form>
+
+<%
+}
+%>
+
+
+
+
+
+<%Server.Execute( 'include/std_tail.htm' )%>
+

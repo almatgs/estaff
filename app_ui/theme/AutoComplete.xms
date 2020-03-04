@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<PANEL NAME="AutoCompleteView" SAMPLE="1" INNER-ALIAS="autoCompleteView" DROP-DOWN="1"
+	STD-MARGINS="0"
+	BK-COLOR-EXPR="AppUi.gThemeData.colors.background"
+	BORDER-WIDTH="1px"
+	BORDER-COLOR-EXPR="AppUi.gThemeData.colors.menu_border"
+	BORDER-RADIUS="2px"
+	SHADOW-BLUR-RADIUS="2px"
+	SHADOW-OFFSET="1px 1px"
+	SHADOW-COLOR-EXPR="AppUi.gThemeData.colors.shadow_inner"
+	SHADOW-GRADIENT-OPACITY="0"
+	VERT-SCROLL="1"
+	OnKeyDown="LibAutoComplete.OnAutoCompleteKeyDown( autoCompleteView, Event )"
+>
+	<TABLE>
+		<COLUMNS>
+			<COL/>
+		</COLUMNS>
+
+		<LOOP EXPR="autoCompleteView.AuxData.entries" VAR="_entryValue">
+			<SUBST TYPE="AutoCompleteEntryView"/>
+		</LOOP>
+	</TABLE>
+</PANEL>
+
+
+
+<TABLE-ROW NAME="AutoCompleteEntryView" SAMPLE="1" INNER-ALIAS="entryView" STATES="hover,pressed" CLOSE-DROP-DOWN="1" BK-COLOR-EXPR="
+		switch ( BaseSampleItem.State )
+		{
+			case 'hover':
+				return AppUi.gThemeData.colors.gray_hover;
+
+			case 'pressed':
+				return AppUi.gThemeData.colors.gray_pressed;
+
+		   	default:
+				if ( autoCompleteView.AuxData.focusEntryIndex == _entryValue__Index )	
+					return AppUi.gThemeData.colors.list_row_selected;
+				else
+					return AppUi.gThemeData.colors.background;
+			}
+" ACTION="
+		LibAutoComplete.OnAutoCompleteEntryAction( autoCompleteView, _entryValue );
+" PASSIVE="1">
+	<PANEL PADDING="8epx 16epx 8epx 8epx">
+		<LABEL TITLE-EXPR="_entryValue" MULTILINE="0" TEXT-COLOR-EXPR="
+				switch ( entryView.State )
+				{
+					case 'normal':
+						return AppUi.gThemeData.colors.text;
+
+					case 'hover':
+						return AppUi.gThemeData.colors.primary;
+
+					case 'pressed':
+						return AppUi.gThemeData.colors.dark;
+				}
+		"/>
+	</PANEL>
+</TABLE-ROW>
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+
+

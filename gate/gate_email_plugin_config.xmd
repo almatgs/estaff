@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<email_plugin_config>
+	<description TYPE="string"/>
+	<handler_method TYPE="string" SUBTYPE="code"/>
+
+	<actions>
+		<action MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<image_url TYPE="string"/>
+
+			<target_item_type TYPE="string"/>
+			<allow_multi_select TYPE="bool" NULL-FALSE="1"/>
+
+			<exist_req_expr TYPE="string" SUBTYPE="code"/>
+		</action>
+	</actions>
+</email_plugin_config>
+
+
+
+</SPXML-FORM>

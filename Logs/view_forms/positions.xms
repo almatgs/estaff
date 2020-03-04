@@ -1,0 +1,55 @@
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Штатные должности" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/list.ico">
+	<PANEL SUNKEN="1" STD-MARGINS="1" BK-COLOR-EXPR="SysColors.PanelLightBackground">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="38zr"/>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="14zr"/>
+				<COL WIDTH="60zr"/>
+				<COL WIDTH="33zr"/>
+			</COLUMNS>
+			<ITEM TYPE="ft_filter" SOURCE="Ps.filter"/>
+			<PANEL/>
+			<PANEL>
+				<LABEL TITLE="Действующие:"/>
+				<ITEM TYPE="tri_state_selector" usage="filter" SOURCE="Ps.filter.is_active"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Структурное подразделение:"/>
+				<ITEM TYPE="object_selector" usage="filter" SOURCE="Ps.filter.division_id"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Типовая должность:"/>
+				<ITEM TYPE="voc_elem_selector" usage="filter" SOURCE="Ps.filter.type_id"/>
+			</PANEL>
+		</TABLE>
+		<PANEL HEIGHT="2px"/>
+		<TABLE>
+			<COLUMNS/>
+		</TABLE>
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="Очистить форму" ACTION="lib_view.clear_filters( 'positions', Ps ); lib_view.clear_stored_filters( 'positions' ); lib_view.adjust_filters( 'positions', Ps );Screen.Update()" PASSIVE="1"/>
+		</MENU>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+	<PANEL BK-COLOR-EXPR="" HEIGHT="100%">
+		<LIST NAME="MainList" USE-KEY-SEL="1" SUNKEN="1" LOOP-CATALOG="positions" FT-FILTER="Ps.filter" XQUERY-QUAL-EXPR="lib_view.build_xquery_qual( 'positions', Ps )" XQUERY-FIELDS-EXPR="['id','is_active','image_url','name','code','division_id','multi_employee_id']" AFTER-BUILD-ASYNC-ACTION="if ( StrContains( Screen.FrameName, 'Sub' ) ) return; size = ArrayOptSize( MainArray ); if ( size == undefined ) { StatusMsg( '' ); return; }; StatusMsg( UiText.titles.items_in_list + ': ' + StrInt( size, 0, true ) + ( lib_view.is_some_filter_applied( 'positions', Ps ) ? '  (с учетом фильтра)' : '' ) )">
+			<ROW IMAGE-URL-EXPR="ListElem.ImageUrl">
+				<COL COL-TITLE="Наименование" WIDTH="50%" TITLE-EXPR="ListElem.name" ORDER="name"/>
+				<COL COL-TITLE="Номер" WIDTH="8zr" TITLE-EXPR="ListElem.code" ORDER="code" ALIGN="center"/>
+				<COL COL-TITLE="Структурное подразделение" WIDTH="50%" TITLE-EXPR="ListElem.division_id.ForeignDispName" ORDER="division_id.ForeignDispName" ALIGN="left"/>
+				<COL COL-TITLE="+" WIDTH="3zr" TITLE-EXPR="with ( Ps ) { with ( ListElem ) { return ArrayCount( multi_employee_id ) != 0 ? ArrayCount( multi_employee_id ) : ''; }}" ALIGN="center"/>
+				<COL COL-TITLE="Сотрудники, занимающие должность" WIDTH="35zr" TITLE-EXPR="ListElem.multi_employee_id.ForeignDispName" ORDER="multi_employee_id.ForeignDispName" ALIGN="left"/>
+			</ROW>
+			<MENU RIGHT-CLICK="1">
+				<MENU-ENTRY TITLE="Открыть" CMD="OpenSel"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Удалить" CMD="Clear"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name" ACTION="lib_view.ShowScreenInExcel( Screen, List )" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+			</MENU>
+		</LIST>
+	</PANEL>
+	<INHERIT TYPE="view_commands"/>
+	<INHERIT TYPE="view_commands_2"/>
+</SPXML-SCREEN>

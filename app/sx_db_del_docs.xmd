@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM CATALOG="1" LARGE="1">
+
+<db_del_docs>
+	<db_del_doc MULTIPLE="1" PRIMARY-KEY="id">
+		<id TYPE="integer" INDEXED="1"/>
+		<del_date TYPE="date" INDEXED="1"/>
+	</db_del_doc>
+</db_del_docs>
+
+
+
+
+</SPXML-FORM>
+
+
+

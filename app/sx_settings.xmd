@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM AUTO-SAVE="1">
+
+<USE FORM="sx_general.xmd"/>
+
+<spxml_settings>
+	<INHERIT TYPE="spxml_settings_base"/>
+
+	<http_auth>
+		<login TYPE="string"/>
+		<password TYPE="string"/>
+		<save_password TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	</http_auth>
+	<lds_auth>
+		<login TYPE="string"/>
+		<password TYPE="string"/>
+		<save_password TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	</lds_auth>
+
+
+	<load_from_machine_settings PROPERTY="1" EXPR="
+			if ( ! spxml_machine_settings.is_shared_install )
+				return;
+
+			if ( spxml_machine_settings.use_machine_lds )
+			{
+				use_lds = spxml_machine_settings.use_lds;
+				lds.AssignElem( spxml_machine_settings.lds );
+			}
+	"/>
+</spxml_settings>
+
+
+<OnInit PROPERTY="1" EXPR="
+		spxml_settings.load_from_machine_settings;
+"/>
+
+
+</SPXML-FORM>

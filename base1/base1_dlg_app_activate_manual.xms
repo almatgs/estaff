@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Активация продукта в ручном режиме" WIDTH="60zr" HEIGHT="30zr" OK-ACTION="
+		if ( Ps.activation_code == '' )
+		{
+			lib_base.show_error_message( Screen, UiText.errors.activation_code_not_specified );
+			Cancel();
+		}
+
+		lib_app2.set_app_activation_code( Ps.activation_code );
+" lang-en:TITLE="Manual activation" lang-ua:TITLE="Активація продукту в ручному режимі">
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="18zr"/>
+		<COL WIDTH="15zr"/>
+		<COL WIDTH="100%"/>
+	</COLUMNS>
+
+	<LABEL TITLE="##UiText.fields.serial_number##:"/>
+	<LABEL TITLE="Код установки:" lang-en:TITLE="Installation code:" lang-ua:TITLE="Код встановлення:"/>
+	<LABEL TITLE="##UiText.fields.activation_code##:"/>
+
+	<EDIT SOURCE="AppSn" READ-ONLY="1"/>
+	<EDIT SOURCE="AppSeedCode" READ-ONLY="1"/>
+	<EDIT SOURCE="Ps.activation_code"/>
+</TABLE>
+<BR/>
+
+<LABEL TITLE="Для получения кода активации обратитесь в компанию, в которой Вы приобретали программный продукт, и сообщите серийный номер и код установки." lang-en:TITLE="To obtain activation code, please contact your product seller" lang-ua:TITLE="Для отримання коду активації зверніться в компанію, в якій Ви купували програмний продукт, і повідомте серійний номер і код установки."/>
+
+
+<PANEL HEIGHT-EXPR="lib_base.dlg_body_height">
+</PANEL>
+
+
+<ITEM TYPE="dlg_footer_start"/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<BUTTON TITLE="OK" CMD="1"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2" lang-en:TITLE="Cancel"/>
+</TABLE>
+
+</SPXML-SCREEN>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<cn_local_settings SAMPLE="1">
+	<first_week_day TYPE="integer" TITLE="Первый день недели" lang-en:TITLE="First day of week" lang-ua:TITLE="Перший день тижня"/>
+	<weekend_day1 TYPE="integer" TITLE="Выходной день 1" lang-en:TITLE="Weekend 1" lang-ua:TITLE="Вихідний день 1"/>
+	<weekend_day2 TYPE="integer" TITLE="Выходной день 2" lang-en:TITLE="Weekend 2" lang-ua:TITLE="Вихідний день 2"/>
+
+	<t1 TYPE="bool" TEMP="1" EXPR="
+		if ( ! first_week_day.HasValue )
+			lib_calendar.init_calendar_regional_settings( this );
+	" EXPR-SHOW-ERRORS="1"/>
+
+	<calendar_start_minutes TYPE="integer" DEFAULT="540"/>
+	<calendar_end_minutes TYPE="integer" DEFAULT="1200"/>
+	<calendar_step_length TYPE="integer" DEFAULT="30"/>
+	<use_calendar_time_coloring TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<work_hours_num TYPE="integer" DEFAULT="8"/>
+	<show_calendar_workload TYPE="bool" NOT-NULL="1" DEFAULT="false" EXPR="false"/>
+
+	<calendar_app_id TYPE="string" OBSOLETE="1"/>
+	<ext_calendar_type_id TYPE="string" FOREIGN-ARRAY="cn_common.ext_calendar_types" EXPR-INIT="calendar_app_id"/>
+
+	<load_from_ext_calendar>
+		<entry_min_last_mod_date TYPE="date"/>
+		<load_unknown_entries TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+		<unknown_entry_type_id TYPE="string" DEFAULT="office_meeting" FOREIGN-ARRAY="event_types"/>
+	</load_from_ext_calendar>
+</cn_local_settings>
+
+
+
+<small_calendar_base SAMPLE="1">
+	<sel_start_date TYPE="date" EXPR-INIT="DateNewTime( CurDate )"/>
+	<sel_end_date TYPE="date" EXPR-INIT="DateNewTime( CurDate )"/>
+	<start_date TYPE="date"/>
+
+	<target_dates>
+		<target_date MULTIPLE="1" PRIMARY-KEY="date">
+			<date TYPE="date" TIME="0"/>
+			<week_day TYPE="integer" FOREIGN-ARRAY="base1_common.week_days"/>
+		</target_date>
+	</target_dates>
+
+	<host_ref TYPE="variant"/>
+
+	
+	<build PROPERTY="1" EXPR="
+			if ( ! start_date.HasValue )
+				start_date = Date( Year( CurDate ), Month( CurDate ), 1 );
+
+			target_dates.Clear();
+
+			endDate = DateOffset( lib_base.get_month_date_offset( start_date, 1 ), 0 - 86400 );
+
+			startWeekDay = WeekDay( start_date );
+
+			if ( local_settings.first_week_day == 0 )
+			{
+				headDaysNum = startWeekDay;
+			}
+			else
+			{
+				if ( startWeekDay == 0 )
+					headDaysNum = 6;
+				else
+					headDaysNum = startWeekDay - 1;
+			}
+
+			for ( i = 0; i &lt; headDaysNum; i++ )
+			{
+				targetDate = target_dates.AddChild();
+				targetDate.date = DateOffset( start_date, 0 - 86400 * ( headDaysNum - i ) );
+				targetDate.week_day = WeekDay( targetDate.date );
+			}
+
+			for ( i = 0; ; i++ )
+			{
+				curDate = DateOffset( start_date, 86400 * i );
+				if ( Month( curDate ) != Month( start_date ) )
+					break;
+
+				targetDate = target_dates.AddChild();
+				targetDate.date = curDate;
+				targetDate.week_day = WeekDay( targetDate.date );
+			}
+
+			tailDaysNum = 42 - target_dates.ChildNum;
+
+			for ( i = 0; i &lt; tailDaysNum; i++ )
+			{
+				targetDate = target_dates.AddChild();
+				targetDate.date = curDate;
+				targetDate.week_day = WeekDay( targetDate.date );
+
+				curDate = DateOffset( curDate, 86400 );
+			}
+
+			//alert( target_dates.ChildNum );
+	"/>
+
+
+	<expose_date_range PROPERTY="1" PARAM="startDate" PARAM="endDate" EXPR="
+			if ( target_dates.ChildNum == 0 )
+				return;
+			
+			if ( startDate >= target_dates[0].date && endDate <= target_dates[target_dates.ChildNum - 1].date )
+				return;
+
+			if ( Month( startDate ) == Month( endDate ) || Day( endDate ) < 7 )
+				start_date = Date( Year( startDate ), Month( startDate ), 1 );
+			else
+				start_date = Date( Year( endDate ), Month( endDate ), 1 );
+	"/>
+</small_calendar_base>
+
+
+
+
+
+
+
+</SPXML-FORM>

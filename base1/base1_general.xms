@@ -1,0 +1,1945 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<TABLE NAME="person_name" SPACING="short" SAMPLE="1">
+	<COLUMNS>
+		<IF EXPR="base1_config.is_int_version">
+			<COL WIDTH="55%"/>
+			<COL WIDTH="45%"/>
+		</IF>
+		<ELSE>
+			<COL WIDTH="40%"/>
+			<COL WIDTH="25%"/>
+			<COL WIDTH="35%"/>
+		</ELSE>
+	</COLUMNS>
+
+	<EDIT SOURCE="Ps.lastname" AUTO-LABEL="1"/>
+	<EDIT SOURCE="Ps.firstname" AUTO-LABEL="1"/>
+
+	<IF EXPR="base1_config.use_person_middlename">
+		<EDIT SOURCE="Ps.middlename" AUTO-LABEL="1"/>
+	</IF>
+</TABLE>
+
+
+
+<UNIT NAME="edit_menu_start_entries" SAMPLE="1">
+	<MENU-ENTRY TITLE="##UiText.actions.undo##&#09;Ctrl+Z" CMD="Undo"/>
+	<MENU-ENTRY SEPARATOR="1"/>
+	<MENU-ENTRY TITLE="##UiText.actions.cut##&#09;Ctrl+X" CMD="Cut" lang-en:TITLE="Cut&#09;Ctrl+X"/>
+	<MENU-ENTRY TITLE="##UiText.actions.copy##&#09;Ctrl+C" CMD="Copy" lang-en:TITLE="Copy&#09;Ctrl+C"/>
+	<MENU-ENTRY TITLE="##UiText.actions.paste##&#09;Ctrl+V" CMD="Paste" lang-en:TITLE="Paste&#09;Ctrl+V"/>
+	<MENU-ENTRY TITLE="##UiText.actions.del##&#09;Del" CMD="Clear"/>
+	<MENU-ENTRY SEPARATOR="1"/>
+	<MENU-ENTRY TITLE="##UiText.actions.select_all##&#09;Ctrl+A" CMD="SelectAll" lang-en:TITLE="Select All&#09;Ctrl+A"/>
+</UNIT>
+
+
+<UNIT NAME="edit_menu" SAMPLE="1">
+	<MENU TITLE="##UiText.titles.menu_edit##" GLOBAL="1" lang-en:TITLE="Edit">
+		<INHERIT TYPE="edit_menu_start_entries"/>
+	</MENU>
+</UNIT>
+
+
+<UNIT NAME="card_edit_menu" SAMPLE="1">
+	<MENU TITLE="##UiText.titles.menu_edit##" GLOBAL="1" lang-en:TITLE="Edit">
+		<INHERIT TYPE="edit_menu_start_entries"/>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+		<MENU-ENTRY TITLE="Найти...&#09;Ctrl+F" CMD="Find" lang-en:TITLE="Find&#09;Ctrl+F" lang-ua:TITLE="Знайти ...&#09;Ctrl+F"/>
+		<MENU-ENTRY TITLE="Найти следующее вхождение&#09;F3" CMD="FindNext" lang-en:TITLE="Find Next&#09;F3" lang-ua:TITLE="Знайти наступний збіг&#09;F3"/>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+		<MENU-ENTRY TITLE="##UiText.actions.check_spelling##&#09;F7" CMD="CheckSpelling"/>
+		<MENU-ENTRY SEPARATOR="1"/>
+		<MENU-ENTRY TITLE="##UiText.fields.font##..." CMD="SetCharFormat"/>
+	</MENU>
+</UNIT>
+
+
+<UNIT NAME="card_view_menu_end_entries" SAMPLE="1">
+	<MENU-ENTRY TITLE="##UiText.actions.view_as_xml##" ACTION="
+			lib_base.show_doc_source( Screen.Doc );
+	" PASSIVE="1"/>
+</UNIT>
+
+
+<UNIT NAME="card_service_menu_end_entries" SAMPLE="1">
+	<IF EXPR="! System.IsWebClient">
+		<MENU-ENTRY TITLE-EXPR="StrReplace( UiText.actions.edit_attachment_in_xxx, '%s', lib_office.active_editor_name )" ACTION="
+				lib_base.execute_card_attachment( Ps.active_attachment, Screen );
+		" ENABLE-EXPR="Ps.active_attachment !=  undefined &amp;&amp; Ps.active_attachment.is_text"/>
+	</IF>
+</UNIT>
+
+
+<UNIT NAME="view_menu" SAMPLE="1">
+	<MENU TITLE="##UiText.titles.view##" GLOBAL="1" lang-en:TITLE="View">
+		<INHERIT TYPE="card_view_menu_end_entries"/>
+	</MENU>
+</UNIT>
+
+
+<UNIT NAME="main_screen_view_menu" SAMPLE="1">
+	<MENU TITLE="##UiText.titles.view##" GLOBAL="1" lang-en:TITLE="View">
+		<MENU-ENTRY TITLE="##UiText.titles.filters##..." CMD="ChangeViewFilters"/>
+		<MENU-ENTRY TITLE="##UiText.titles.columns##..." CMD="ChangeViewColumns"/>
+
+		<IF EXPR="UseLds">
+			<MENU-ENTRY TITLE="Сбросить личные настройки списка" lang-en:TITLE="Reset personal list settings" CMD="ResetSubstView" lang-ua:TITLE="Скинути особисті настройки списку"/>
+		</IF>
+
+		<IF EXPR="! System.IsWebClient">
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU TITLE="##UiText.fields.font##">
+				<MENU-ENTRY TITLE="##UiText.titles.small##" CMD="SetSmallFont"/>
+				<MENU-ENTRY TITLE="##UiText.titles.large##" CMD="SetLargeFont"/>
+			</MENU>
+		</IF>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="##UiText.actions.open_section_in_new_window##&#09;Ctrl+N" CMD="NewWindow"/>
+
+		<IF EXPR="System.IsWebClient">
+			<MENU-ENTRY SEPARATOR="1"/>
+			<MENU-ENTRY TITLE="Обновить экран" lang-en:TITLE="Refresh Screen" CMD__="Refresh" ACTION="" lang-ua:TITLE="Оновити екран"/>
+		</IF>
+	</MENU>
+</UNIT>
+
+
+<UNIT NAME="min_menus" SAMPLE="1">
+	<MENU TITLE="##UiText.titles.file##" GLOBAL="1">
+		<MENU-ENTRY TITLE="##UiText.actions.save##&#09;Ctrl+S" CMD="Save"/>
+		<MENU-ENTRY SEPARATOR="1"/>
+		<MENU-ENTRY TITLE="##UiText.actions.print##&#09;Ctrl+P" CMD="Print" lang-en:TITLE="Print&#09;Ctrl+P"/>
+	</MENU>
+
+	<INHERIT TYPE="edit_menu"/>
+	<INHERIT TYPE="view_menu"/>
+</UNIT>
+
+
+
+<UNIT NAME="card_file_menu_end_entries" SAMPLE="1">
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<MENU-ENTRY TITLE="Создать дубликат карточки" ACTION="
+			if ( ( vocInfo = lib_voc.get_opt_voc_info( lib_base.object_name_to_catalog_name( Screen.Doc.TopElem.Name ) ) ) != undefined )
+			{
+				voc = DefaultDb.GetOptCatalog( lib_base.object_name_to_catalog_name( Screen.Doc.TopElem.Name ) );
+				newID = lib_voc.obtain_next_voc_elem_id( voc );
+				newDoc = DefaultDb.OpenNewObjectDoc( Screen.Doc.TopElem.Name, newID );
+			}
+			else
+			{
+				newDoc = OpenNewDoc( Screen.Doc.FormUrl );
+				newDoc.BindToDb( UrlHost( Screen.Doc.Url ) );
+				newID = Screen.Doc.DocID;
+			}
+
+			newDoc2 = OpenNewDoc( Screen.Doc.FormUrl );
+
+			newDoc.TopElem.AssignElem( Screen.Doc.TopElem );
+			newDoc.TopElem.id = newID;
+			
+			if ( newDoc.TopElem.ChildExists( 'code' ) )
+				newDoc.TopElem.code = newDoc2.TopElem.code;
+
+			if ( newDoc.TopElem.ChildExists( 'doc_info' ) )
+				newDoc.TopElem.doc_info.AssignElem( newDoc2.TopElem.doc_info );
+
+			if ( newDoc.TopElem.ChildExists( 'user_id' ) )
+				newDoc.TopElem.user_id.AssignElem( newDoc2.TopElem.user_id );
+
+			if ( newDoc.TopElem.Name == 'vacancy' )
+			{
+				newDoc.TopElem.final_candidate_id.Clear();
+				newDoc.TopElem.multi_final_candidate_id.Clear();
+				newDoc.TopElem.instances.Clear();
+				newDoc.TopElem.records.Clear();
+			}
+
+			if ( vocInfo != undefined )
+			{
+				newDoc.TopElem.is_std = false;
+
+				if ( vocInfo.auto_order == '' && newDoc.TopElem.ChildExists( 'order_index' ) )
+					newDoc.TopElem.order_index = lib_voc.obtain_next_voc_elem_order_index( voc );
+			}
+
+			CreateDocScreen( newDoc );
+	" lang-en:TITLE="Duplicate card" lang-ua:TITLE="Створити дублікат картки"/>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<MENU-ENTRY TITLE="##UiText.actions.export_to_file##..." ACTION="
+			if ( Screen.Doc.TopElem.Name == 'user' && ! lib_user.active_user_access.allow_all )
+				throw UiError( UiText.errors.permission_denied );
+
+			if ( DataType( RValue( Screen.Doc.TopElem.id ) ) == 'integer' )
+				fileName = StrHexInt( Screen.Doc.TopElem.id ) + '.xml';
+			else
+				fileName = Screen.Doc.TopElem.id + '.xml';
+			
+			newUrl = Screen.AskFileSave( fileName, UiText.titles.xml_documents + ' (*.xml)\t*.xml\t' + lib_base.all_files_suffix_pattern );
+			Screen.Doc.SaveToUrl( newUrl, 'tabs=1' );
+	"/>
+</UNIT>
+
+
+<UNIT NAME="card_menus" SAMPLE="1">
+	<MENU TITLE="##UiText.titles.file##" GLOBAL="1">
+		<MENU-ENTRY TITLE="##UiText.actions.save##&#09;Ctrl+S" CMD="Save"/>
+		<MENU-ENTRY SEPARATOR="1"/>
+		<MENU-ENTRY TITLE="##UiText.actions.print##&#09;Ctrl+P" CMD="Print" lang-en:TITLE="Print&#09;Ctrl+P"/>
+
+		<INHERIT TYPE="card_file_menu_end_entries"/>
+	</MENU>
+
+	<INHERIT TYPE="card_edit_menu"/>
+	<INHERIT TYPE="view_menu"/>
+</UNIT>
+
+
+<UNIT NAME="card_menu_start" SAMPLE="1">
+	<INHERIT TYPE="card_menus"/>
+</UNIT>
+
+
+
+
+<UNIT NAME="main_service_menu_end_entries" SAMPLE="1">
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<MENU TITLE="Управление базой данных" lang-en:TITLE="Database" lang-ua:TITLE="Управління базою даних">
+		<MENU-ENTRY TITLE="Импорт объектов..." ACTION="
+				lib_base.handle_import_objects_from_files();
+		" PASSIVE="1" lang-en:TITLE="Import objects..." lang-ua:TITLE="Імпорт об'єктів..."/>
+
+		<MENU-ENTRY TITLE="##UiText.titles.import_database##..." ACTION="
+				lib = OpenDoc( '//base1/base1_util_db_import.xml' ).TopElem;
+				lib.handle_import_db();
+		" PASSIVE="1"/>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="Экспорт конфигурации базы..." ACTION="
+				OpenCodeLib( 'x-app://base1/base1_util_db_export.js' ).HandleExportDbConfig();
+		" PASSIVE="1" lang-en:TITLE="Export database configuration" lang-ua:TITLE="Експорт конфігурації бази..."/>
+
+		<IF EXPR="! UseLds">
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE="Синхронизация базы с сервером" ACTION="
+					lib_replica.replicate_db_su();
+			" PASSIVE="1" lang-en:TITLE="Synchronize database" lang-ua:TITLE="Синхронізація бази з сервером"/>
+		</IF>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="Открыть карточку объекта по URL..." ACTION="
+				lib_base.handle_open_doc_by_url();
+		" PASSIVE="1" lang-en:TITLE="Open object by URL..." lang-ua:TITLE="Відкрити картку об'єкта по URL..."/>
+
+		<IF EXPR="AppModuleUsed( 'rcr' )">
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE="##UiText.actions.check_imod##" ACTION="
+					lib_imod.Sync( true );
+					Screen.MsgBox( UiText.messages.inet_module_validated, UiText.fields.result, 'info' );
+			" PASSIVE="1"/>
+		</IF>
+
+		<IF EXPR="System.ClientMajorVersion >= 2">
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE="##UiText.actions.clear_app_local_storage##" ACTION="
+					AppLocalStorage.Clear();
+			"/>
+		</IF>
+	</MENU>
+
+	<MENU TITLE="Ручной запуск фоновой задачи" lang-en:TITLE="Manual start" lang-ua:TITLE="Ручний запуск фонового завдання">
+		<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( agents ), 'show_in_main_menu' )" VAR="_agent">
+			<MENU-ENTRY TITLE-EXPR="_agent.name" ACTION="
+					lib_agent.handle_launch_agent( _agent.id );
+					UpdateScreens( '*', '*' );
+			" PASSIVE="1"/>
+		</LOOP>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="Все фоновые задачи..." lang-en:TITLE="All tasks..." ACTION="
+				agentID = lib_voc.select_voc_elem( agents );
+				
+				lib_agent.handle_launch_agent( agentID );
+				UpdateScreens( '*', '*' );
+		" PASSIVE="1" lang-ua:TITLE="Всі фонові завдання..."/>
+	</MENU>
+
+
+	<IF EXPR="! System.IsWebClient">
+		<MENU TITLE="Директории" lang-en:TITLE="Folders" lang-ua:TITLE="Директорії">
+			<MENU-ENTRY TITLE="Установочная" ACTION="
+					ShellExecute( 'open', FilePathToUrl( AppDirectoryPath() ) );
+			" lang-en:TITLE="Program" lang-ua:TITLE="Установча"/>
+
+			<MENU-ENTRY TITLE="Данные пользователя" ACTION="
+					ShellExecute( 'open', FilePathToUrl( UserDataDirectoryPath() ) );
+			" lang-en:TITLE="User Data" lang-ua:TITLE="Дані користувача"/>
+
+			<MENU-ENTRY TITLE="##UiText.sections.logs##" ACTION="
+					ShellExecute( 'open', FilePathToUrl( FilePath( UserDataDirectoryPath(), 'Logs' ) ) );
+			" lang-en:TITLE="Logs"/>
+
+			<MENU-ENTRY TITLE="Временные файлы" ACTION="
+					ShellExecute( 'open', FilePathToUrl( ParentDirectory( UrlToFilePath( ObtainTempFile() ) ) ) );
+			" lang-en:TITLE="Temporary Files" lang-ua:TITLE="Тимчасові файли"/>
+		</MENU>
+	</IF>
+
+	<IF EXPR="AppModuleUsed( 'rcr' ) && rcr_config.use_inet">
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="##UiText.actions.check_imod##" ACTION="
+				lib_imod.Sync( true );
+				Screen.MsgBox( UiText.messages.inet_module_validated, UiText.fields.result, 'info' );
+		" PASSIVE="1"/>
+	</IF>
+
+	<IF EXPR="ArrayOptFind( base1_config.global_custom_actions, 'true' ) != undefined">
+		<MENU-ENTRY SEPARATOR="1"/>
+	</IF>
+
+	<LOOP EXPR="base1_config.global_custom_actions" VAR="_action">
+		<MENU-ENTRY TITLE-EXPR="_action.name" ACTION="eval( _action.code )" PASSIVE="1"/>
+	</LOOP>
+</UNIT>
+
+
+
+<UNIT NAME="main_actions_menu_end_entries" SAMPLE="1">
+	<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( object_actions ), 'show_in_main_menu' )" VAR="_action">
+		<MENU-ENTRY TITLE-EXPR="_action.name" ACTION="lib_base.run_list_object_action( lib_view.get_opt_active_view_list_item(), _action.id )" PASSIVE="1" ENABLE-EXPR="( list = lib_view.get_opt_active_view_list_item() ) != undefined &amp;&amp; list.HasSel &amp;&amp; ( ! _action.enable_expr.HasValue || eval( _action.enable_expr ) )"/>
+	</LOOP>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<MENU-ENTRY TITLE="##UiText.titles.all_actions##..." ACTION="
+			actionID = lib_voc.select_voc_elem( object_actions );
+			lib_base.run_list_object_action( lib_view.get_opt_active_view_list_item(), actionID );
+	" PASSIVE="1" ENABLE-EXPR="( view = lib_view.get_opt_active_view_list_item() ) != undefined && view.HasSel"/>
+</UNIT>
+
+
+
+<UNIT NAME="card_object_actions_menu_entries" SAMPLE="1">
+	<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( object_actions ), 'object_type_id == Ps.Doc.TopElem.Name &amp;&amp; show_in_main_menu' )" VAR="_action">
+		<MENU-ENTRY TITLE-EXPR="_action.name" ACTION="lib_base.run_object_action( Ps.Doc.TopElem, _action.id )" PASSIVE="1" ENABLE-EXPR="! _action.enable_expr.HasValue || eval( _action.enable_expr )"/>
+	</LOOP>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<MENU-ENTRY TITLE="##UiText.titles.all_actions##..." ACTION="
+			actionID = lib_voc.select_voc_elem( object_actions );
+			lib_base.run_list_object_action( lib_view.get_opt_active_view_list_item(), actionID );
+	" PASSIVE="1" ENABLE-EXPR="( view = lib_view.get_opt_active_view_list_item() ) != undefined && view.HasSel"/>
+</UNIT>
+
+
+
+<UNIT NAME="list_object_actions_menu_entries" SAMPLE="1">
+	<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( object_actions ), 'object_type_id == _object_type_id &amp;&amp; show_in_context_menu' )" VAR="_action">
+		<MENU-ENTRY TITLE-EXPR="_action.name" ACTION="lib_base.run_list_object_action( List, _action.id )" PASSIVE="1" ENABLE-EXPR="! _action.enable_expr.HasValue || eval( _action.enable_expr )"/>
+	</LOOP>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<MENU-ENTRY TITLE="##UiText.titles.all_actions##..." ACTION="
+			actionID = lib_voc.select_voc_elem( object_actions );
+			lib_base.run_list_object_action( lib_view.get_opt_active_view_list_item(), actionID );
+	" PASSIVE="1" ENABLE-EXPR="( view = lib_view.get_opt_active_view_list_item() ) != undefined && view.HasSel"/>
+</UNIT>
+
+
+
+<UNIT NAME="list_menu_entries" SAMPLE="1">
+	<MENU-ENTRY TITLE="##UiText.actions.open##" CMD="OpenSel" lang-en:TITLE="Open"/>
+	<MENU-ENTRY SEPARATOR="1"/>
+	<MENU-ENTRY TITLE="##UiText.actions.del##&#09;Del" CMD="Clear"/>
+</UNIT>
+
+
+<UNIT NAME="list_order_menu_entries" SAMPLE="1">
+	<MENU-ENTRY TITLE="##UiText.actions.move_up##" ACTION="
+			curItem = List.SelRow.Env.ListElem;
+			if ( curItem.ChildIndex == 0 )
+				return;
+
+			curItem.SetChildIndex( curItem.ChildIndex - 1 );
+			curItem.Doc.SetChanged( true );
+	" ENABLE-EXPR="List.HasSingleSel"/>
+
+	<MENU-ENTRY TITLE="##UiText.actions.move_down##" ACTION="
+			curItem = List.SelRow.Env.ListElem;
+			if ( curItem.ChildIndex == curItem.Parent.ChildNum - 1 )
+				return;
+
+			curItem.SetChildIndex( curItem.ChildIndex + 1 );
+			curItem.Doc.SetChanged( true );
+	" ENABLE-EXPR="List.HasSingleSel"/>
+</UNIT>
+
+
+<UNIT NAME="voc_elems_list_menu_entries" SAMPLE="1">
+	<MENU-ENTRY TITLE="Сбросить в первоначальное состояние" ACTION="
+			if ( ! lib_user.active_user_access.allow_all &amp;&amp; ! lib_user.active_user_access.allow_change_global_settings )
+				throw UiError( UiText.errors.permission_denied );
+
+			lib_base.ask_warning_to_continue( Screen, UiText.messages.voc_elem_will_be_reset );
+			needRestart = CallServerMethod( 'lib_voc', 'ResetVocElemToStd', [Ps.voc_info.id, List.SelRow.Env.ListElem.id] );
+
+			if ( needRestart )
+			{
+				if ( UseLds )
+					Screen.MsgBox( UiText.messages.changes_require_server_restart, UiText.messages.info_msg_title, 'info' );
+				else
+					Screen.MsgBox( UiText.messages.changes_require_app_restart, UiText.messages.info_msg_title, 'info' );
+			}
+	" ENABLE-EXPR="List.HasSel &amp;&amp; List.SelRow.Env.ListElem.is_std &amp;&amp; ( List.SelRow.Env.ListElem.was_customized || Ps.voc_info.id == 'mail_templates' )" lang-en:TITLE="Reset to Factory Settings" lang-ua:TITLE="Скинути в первинний стан"/>
+</UNIT>
+
+
+<UNIT NAME="edit_toolbar_entries" SAMPLE="1">
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/cut.ico" CMD="Cut" TIP-TEXT="##UiText.actions.cut##" lang-en:TIP-TEXT="Cut"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/copy.ico" CMD="Copy" TIP-TEXT="##UiText.actions.copy##" lang-en:TIP-TEXT="Copy"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/paste.ico" CMD="Paste" TIP-TEXT="##UiText.actions.paste##" lang-en:TIP-TEXT="Paste"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/undo.ico" CMD="Undo" TIP-TEXT="##UiText.actions.undo##" lang-en:TIP-TEXT="Undo"/>
+</UNIT>
+
+
+
+<UNIT NAME="base_toolbar_entries" SAMPLE="1">
+	<IF EXPR="local_settings.use_save_and_close">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+	</IF>
+	<ELSE>
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/save.ico" CMD="Save" TIP-TEXT="##UiText.actions.save##"/>
+	</ELSE>
+
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/print.ico" CMD="Print" TIP-TEXT="##UiText.actions.print##" lang-en:TIP-TEXT="Print"/>
+
+	<INHERIT TYPE="edit_toolbar_entries"/>
+</UNIT>
+
+
+<UNIT NAME="save_toolbar_entries" SAMPLE="1">
+	<IF EXPR="local_settings.use_save_and_close">
+		<TOOLBAR-ENTRY TITLE="Сохранить и закрыть" IMAGE-URL="//base_pict/save.ico" CMD="SaveAndClose" lang-en:TITLE="Save and Close" lang-ua:TITLE="Зберегти і закрити"/>
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+	</IF>
+	<ELSE>
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/save.ico" CMD="Save" TIP-TEXT="##UiText.actions.save##"/>
+	</ELSE>
+</UNIT>
+
+
+<UNIT NAME="base_toolbar_start_entries" SAMPLE="1">
+	<INHERIT TYPE="save_toolbar_entries"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/print.ico" CMD="Print" TIP-TEXT="##UiText.actions.print##" lang-en:TIP-TEXT="Print"/>
+	<INHERIT TYPE="edit_toolbar_entries"/>
+</UNIT>
+
+
+<TOOLBAR NAME="min_toolbar" SAMPLE="1" GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="base_toolbar_start_entries"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/help.ico" CMD="Help" TIP-TEXT="##UiText.sections.help##"/>
+</TOOLBAR>
+
+
+
+<UNIT NAME="card_toolbar_entries" SAMPLE="1">
+	<INHERIT TYPE="base_toolbar_entries"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/spelling.ico" CMD="CheckSpelling" TIP-TEXT="##UiText.actions.check_spelling##"/>
+</UNIT>
+
+
+
+<UNIT NAME="card_toolbar_start_entries" SAMPLE="1">
+	<INHERIT TYPE="base_toolbar_start_entries"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/spelling.ico" CMD="CheckSpelling" TIP-TEXT="##UiText.actions.check_spelling##"/>
+</UNIT>
+
+
+
+<UNIT NAME="card_object_actions_toolbar_entries" SAMPLE="1">
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY TITLE="##UiText.titles.actions##" IMAGE-URL="x-app://base_pict/actions.ico">
+		<MENU>
+			<INHERIT TYPE="card_object_actions_menu_entries"/>
+		</MENU>
+	</TOOLBAR-ENTRY>
+</UNIT>
+
+
+
+<UNIT NAME="card_toolbar_end_entries" SAMPLE="1">
+	<IF EXPR="Screen.Doc.TopElem.ChildExists( 'attachments' )">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/attachment.ico" TIP-TEXT="Добавить приложение" lang-en:TIP-TEXT="Add attachment" lang-ua:TIP-TEXT="Додати вкладення">
+			<MENU>
+				<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( card_attachment_types ), '! target_object_type_id.HasValue || target_object_type_id == \'' + Screen.Doc.TopElem.Name + '\'' )" VAR="ListElem">
+					<MENU-ENTRY TITLE-EXPR="ListElem.name" ACTION="
+							if ( Screen.Doc.TopElem.ChildExists( 'cs_pd_hidden' ) &amp;&amp; Screen.Doc.TopElem.cs_pd_hidden )
+								throw UiError( UiText.errors.permission_denied );
+							
+							if ( ListElem.init_content_type == 'application/binary' )
+							{
+								if ( ListElem.allow_multiple_files )
+								{
+									fileUrls = Screen.AskFilesOpen();
+									
+									for ( fileUrl in fileUrls )
+										lib_base.CheckAttachmentFileRestrictions( fileUrl );
+
+									if ( fileUrls.length == 1 )
+										fileUrl = fileUrls[0];
+								}
+								else
+								{
+									fileUrl = Screen.AskFileOpen();
+									lib_base.CheckAttachmentFileRestrictions( fileUrl );
+								}
+							}
+							
+							attachment = Screen.Doc.TopElem.attachments.AddChild();
+							attachment.type_id = ListElem.id;
+							attachment.content_type = ListElem.init_content_type;
+
+							if ( attachment.is_text &amp;&amp; attachment.type_id.ForeignElem.use_default_text )
+							{
+								attachmentTypeDoc = OpenDoc( attachment.type_id.ForeignObjectUrl );
+								attachmentType = attachmentTypeDoc.TopElem;
+
+								attachment.text = attachmentType.default_text;
+							}
+
+							if ( ListElem.init_content_type == 'application/binary' )
+							{
+								if ( ListElem.allow_multiple_files &amp;&amp; fileUrls.length > 1 )
+								{
+									for ( fileUrl in fileUrls )
+									{
+										file = attachment.files.AddChild();
+										file.data.LoadFromFile( fileUrl );
+										file.file_name = UrlFileName( fileUrl );
+									}
+								}
+								else
+								{
+									attachment.data.LoadFromFile( fileUrl );
+									attachment.file_name = UrlFileName( fileUrl );
+								}
+							}
+
+							Screen.Doc.SetChanged( true );
+
+							Screen.Update();
+							Screen.ExposeItemBySource( attachment.name );
+					" PASSIVE="1"/>
+				</LOOP>
+
+				<MENU-ENTRY SEPARATOR="1"/>
+
+				<MENU-ENTRY TITLE="##UiText.actions.attach_files##..." ACTION="
+						if ( Screen.Doc.TopElem.ChildExists( 'cs_pd_hidden' ) &amp;&amp; Screen.Doc.TopElem.cs_pd_hidden )
+							throw UiError( UiText.errors.permission_denied );
+
+						array = Screen.AskFilesOpen();
+
+						for ( fileUrl in array )
+							lib_base.CheckAttachmentFileRestrictions( fileUrl );
+
+						for ( fileUrl in array )
+						{
+							attachment = Screen.Doc.TopElem.attachments.AddChild();
+						
+							attachment.content_type = 'application/binary';
+							attachment.data.LoadFromFile( fileUrl );
+							attachment.file_name = UrlFileName( fileUrl );
+
+							attachment.build_preview_data();
+						}
+
+						Screen.Doc.SetChanged( true );
+
+						Screen.Update();
+						Screen.ExposeItemBySource( attachment.name );
+				" PASSIVE="1"/>
+			</MENU>
+		</TOOLBAR-ENTRY>
+	</IF>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/help.ico" CMD="Help" TIP-TEXT="##UiText.sections.help##"/>
+</UNIT>
+
+
+
+<TOOLBAR NAME="card_toolbar" SAMPLE="1" GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="base_toolbar_start_entries"/>
+	<INHERIT TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+
+
+<UNIT NAME="generic_screen_commands" SAMPLE="1">
+	<COMMAND-HANDLER CMD="ViewPhoneCallHistory" ACTION="
+			lib_telephony.OpenPhoneCallRecords();
+	" PASSIVE="1"/>
+
+
+	<COMMAND-HANDLER CMD="RunDebugCode" ACTION="
+			filePath = FilePath( AppDirectoryPath(), 'debug.js' );
+			if ( ! FilePathExists( filePath ) )
+				return;
+
+			EvalCodeUrl( FilePathToUrl( filePath ) );
+	" PASSIVE="1"/>
+</UNIT>
+
+
+
+<UNIT NAME="view_commands" SAMPLE="1">
+	<COMMAND-HANDLER CMD="Print" ACTION="
+			lib_base.print_main_list( Screen );
+	" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+
+	<COMMAND-HANDLER CMD="ShowInOfficeCalc" ACTION="
+			lib_view.ShowScreenInExcel( Screen );
+	" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+</UNIT>
+
+
+
+<UNIT NAME="view_commands_2" SAMPLE="1">
+	<COMMAND-HANDLER CMD="ChangeViewFilters" ACTION="
+			lib_view.handle_change_view_filters( Screen );
+	" PASSIVE="1"/>
+
+	<COMMAND-HANDLER CMD="ChangeViewColumns" ACTION="
+			lib_view.handle_change_view_columns( Screen );
+	" PASSIVE="1"/>
+
+	<COMMAND-HANDLER CMD="ResetSubstView" ACTION="
+			lib_view.handle_reset_subst_view( Screen );
+	" PASSIVE="1" ENABLE-EXPR="lib_view.has_subst_view( Screen )"/>
+</UNIT>
+
+
+
+<UNIT NAME="main_screen_commands" SAMPLE="1">
+	<COMMAND-HANDLER CMD="NewWindow" ACTION="
+				lib_view.HandleOpenSectionInNewWindow();
+	" PASSIVE="1"/>
+</UNIT>
+		
+
+
+<PANEL NAME="card_section_title" BK-COLOR="192,192,192" STD-MARGINS="0" SAMPLE="1" PARAM-dummy="optional=1;default=''">
+	<PANEL HEIGHT="3px">
+	</PANEL>
+
+	<LABEL TITLE-EXPR="' ' + GetSampleItem().Title" BOLD="1"/>
+
+	<PANEL HEIGHT="3px">
+	</PANEL>
+</PANEL>
+
+
+
+
+<UNIT NAME="card_info" HEIGHT="100%" STD-MARGINS="0" SUNKEN="1" BK-COLOR="255,255,255" VERT-SCROLL="0" SAMPLE="1">
+	<IF EXPR="lib_base.IsCardInfoCollapsed( TopElem )">
+		<PANEL HEIGHT="100%" STD-MARGINS="1">
+			<IMAGE URL="//base_pict/dots.png" ACTION="lib_base.SetCardInfoCollapsed( TopElem, false )"/>
+		</PANEL>
+	</IF>
+	<ELSE>
+		<SPLIT FIXED="1"/>
+
+		<PANEL HEIGHT="100%" STD-MARGINS="1">
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="21zr" WIDTH-EXPR="
+							width = ( ArrayOptMax( ArrayExtract( [UiText.titles.created__card + ':', UiText.titles.last_modified__card + ':', UiText.objects.user + ':'], 'CalcTextScreenWidth( This )' ) ) );
+							
+							if ( TopElem.Name == 'candidate' )
+								width += 16;
+
+							return width + 'px';
+					"/>
+					<COL WIDTH="100%"/>
+				</COLUMNS>
+
+				<IF EXPR="TopElem.Name == 'candidate'">
+					<LINE>
+						<IF EXPR="TopElem.Name == 'candidate'">
+							<IMAGE URL="//base_pict/collapse_down.png" ACTION="lib_base.SetCardInfoCollapsed( TopElem, true )"/>
+						</IF>
+						<LABEL TITLE="##UiText.titles.created__card##:" ALIGN="right" MULTILINE="0"/>
+					</LINE>
+				</IF>
+				<ELSE>
+					<LABEL TITLE="##UiText.titles.created__card##:" ALIGN="right"/>
+				</ELSE>
+
+				<LABEL TITLE-EXPR="' ' + StrReplace( StrDate( TopElem.creation_date, {ShowSeconds:false,ShowLocalTime:true} ), ' ', '  ' )" TEXT-COLOR="0,96,0"/>
+
+				<IF EXPR="global_settings.user_primary_disp_name == 'login' || ( ! TopElem.doc_info.modification.user_login.HasValue &amp;&amp; ! TopElem.doc_info.modification.user_id.HasValue )">
+					<LABEL TITLE="##UiText.objects.user##:" ALIGN="right"/>
+					<LABEL TITLE-EXPR="' ' + lib_base.BuildCardInfoUserDispName( TopElem.doc_info.creation )" TEXT-COLOR="0,96,0" MULTILINE="0" WIDTH="100%"/>
+				</IF>
+				<ELSE>
+					<LINE HSPAN="2">
+						<LABEL TITLE-EXPR="lib_base.BuildCardInfoUserDispName( TopElem.doc_info.creation )" TEXT-COLOR="0,96,0" MULTILINE="0" WIDTH="100%"/>
+					</LINE>
+				</ELSE>
+
+				<LABEL TITLE="##UiText.titles.last_modified__card##:" ALIGN="right"/>
+				<LABEL TITLE-EXPR="' ' + StrReplace( StrDate( TopElem.last_mod_date, {ShowSeconds:false,ShowLocalTime:true} ), ' ', '  ' )" TEXT-COLOR="128,0,0"/>
+
+				<IF EXPR="global_settings.user_primary_disp_name == 'login' || ( ! TopElem.doc_info.modification.user_login.HasValue &amp;&amp; ! TopElem.doc_info.modification.user_id.HasValue )">
+					<LABEL TITLE="##UiText.objects.user##:" ALIGN="right"/>
+					<LABEL TITLE-EXPR="' ' + lib_base.BuildCardInfoUserDispName( TopElem.doc_info.modification )" TEXT-COLOR="128,0,0" MULTILINE="0" WIDTH="100%"/>
+				</IF>
+				<ELSE>
+					<LINE HSPAN="2">
+						<LABEL TITLE-EXPR="lib_base.BuildCardInfoUserDispName( TopElem.doc_info.modification )" TEXT-COLOR="128,0,0" MULTILINE="0" WIDTH="100%"/>
+					</LINE>
+				</ELSE>
+			</TABLE>
+		</PANEL>
+	</ELSE>
+</UNIT>
+
+
+
+
+<PANEL NAME="dlg_header_end" SAMPLE="1">
+	<BR/>
+	<PANEL HEIGHT="3px">
+	</PANEL>
+</PANEL>
+
+
+<PANEL NAME="dlg_footer_start" SAMPLE="1">
+	<IF EXPR="System.ClientMajorVersion >= 2">
+		<BR HEIGHT-EXPR="( AppUi.metrics.buttonHeight * 0.3 ) + 'px'"/>
+	</IF>
+	<ELSE>
+		<BR/>
+		<PANEL HEIGHT="3px">
+		</PANEL>
+	</ELSE>
+</PANEL>
+
+
+<UNIT NAME="dlg_footer" SAMPLE="1">
+	<PANEL HEIGHT-EXPR="'-' + ( System.ClientMajorVersion >= 2 ? ( AppUi.metrics.buttonHeight * 1.4 ) + 'px' : '5zrc' )">
+	</PANEL>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="14zr"/>
+			<COL WIDTH="14zr"/>
+		</COLUMNS>
+
+		<LABEL/>
+
+		<BUTTON TITLE="OK" CMD="1"/>
+		<BUTTON TITLE="##UiText.actions.cancel##" CMD="2"/>
+	</TABLE>
+</UNIT>
+
+
+
+<PANEL NAME="ft_filter" SAMPLE="1">
+	<LABEL TITLE="##UiText.titles.ft_search##:"/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="11zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.used_fulltext" ACTION="Screen.Update()" PASSIVE="1"/>
+
+		<BUTTON TITLE="##UiText.actions.ft_find##" IMAGE-URL="//base_pict/find.ico" STD-MARGINS="0" ACTION="
+				//Ps.used_fulltext = Ps.fulltext;
+		" HANDLE-CMD__="RunSearch" lang-en:TITLE="Search"/>
+	</TABLE>
+</PANEL>
+
+
+
+
+<LINE NAME="dlg_ft_filter_base" SAMPLE="1">
+	<LABEL TITLE="##UiText.titles.ft_search##:" lang-en:TITLE="Content search:"/>
+
+	<EDIT SOURCE="Ps.used_fulltext" WIDTH="-13zr" ACTION="Screen.Update()" PASSIVE="1"/>
+	
+	<BUTTON TITLE="##UiText.actions.ft_find##" IMAGE-URL="//base_pict/find.ico" ACTION="
+			//Ps.used_fulltext = Ps.fulltext;
+	" HANDLE-CMD__="RunSearch" lang-en:TITLE="Search"/>
+</LINE>
+
+
+
+<PANEL NAME="vert_delim" SAMPLE="1" WIDTH="1px" HEIGHT="3zrc" BK-COLOR-EXPR="SysColors.Delim"/>
+
+
+<LABEL NAME="days_suffix_label" SAMPLE="1" TITLE-EXPR="IntModSelector( Source, base1_common.period_units.GetChildByKey( 'd' ).mod2_name );"/>
+
+<LABEL NAME="wdays_suffix_label" SAMPLE="1" TITLE-EXPR="IntModSelector( Source, base1_common.period_units.GetChildByKey( 'wd' ).mod2_name );"/>
+
+<LABEL NAME="hours_suffix_label" SAMPLE="1" TITLE-EXPR="IntModSelector( Source, base1_common.period_units.GetChildByKey( 'hour' ).mod2_name )" WIDTH-EXPR="ArrayOptMax( ArrayExtract( String( base1_common.period_units.GetChildByKey( 'hour' ).mod2_name ).split( '|' ), 'CalcTextScreenWidth( This )' ) ) + 'px'"/>
+
+<LABEL NAME="minutes_suffix_label" SAMPLE="1" TITLE-EXPR="IntModSelector( Source, base1_common.period_units.GetChildByKey( 'minute' ).mod2_name )" WIDTH-EXPR="ArrayOptMax( ArrayExtract( String( base1_common.period_units.GetChildByKey( 'minute' ).mod2_name ).split( '|' ), 'CalcTextScreenWidth( This )' ) ) + 'px'"/>
+
+
+
+<LABEL NAME="deadline_from_cur_date_offset_label" SAMPLE="1" PARAM-format="optional=1;default='d'" TITLE-EXPR="
+		if ( Source == null )
+			return '';
+
+		format = GetSampleParam( 'format' );
+		return lib_base.DateOffsetFromTodayDescription( Source, format );
+" TEXT-COLOR-EXPR="
+		if ( Source &lt; CurDate &amp;&amp; DateNewTime( Source ) != DateNewTime( CurDate ) )
+			return '210,0,0';
+		
+		return '';
+"/>
+
+
+<LABEL NAME="planned_actual_deviation_label" SAMPLE="1" PARAM-actual-date="subtype=code" TITLE-EXPR="
+		plannedDate = Source;
+		if ( plannedDate == null )
+			return '';
+
+		actualDate = EvalSampleParam( 'actual-date' );
+		if ( actualDate == null )
+			return '';
+
+		daysOffset = lib_base.get_date_days_diff( DateNewTime( plannedDate ), DateNewTime( actualDate ) );
+		if ( daysOffset == 0 )
+			return '-';
+		else if ( daysOffset > 0 )
+			return '+' + daysOffset;
+		else
+			return '-' + (-daysOffset);
+" TEXT-COLOR-EXPR="
+		plannedDate = Source;
+		if ( plannedDate == null )
+			return '';
+
+		actualDate = EvalSampleParam( 'actual-date' );
+		if ( actualDate == null )
+			return '';
+
+		daysOffset = lib_base.get_date_days_diff( DateNewTime( plannedDate ), DateNewTime( actualDate ) );
+		if ( daysOffset == 0 )
+			return '';
+		else if ( daysOffset > 0 )
+			return '0,120,0';
+		else
+			return '210,0,0';
+" ALIGN="right"/>
+
+
+
+
+
+<LINE NAME="term" SPACING="short" SAMPLE="1" PARAM-dumy="optional=1;default=''">
+	<EDIT SOURCE="Ps.length" WIDTH="6zr" UPDATE-ACTION="
+			GetSampleItem().ExecUpdateAction();
+	" ENABLE-EXPR="GetSampleItem().IsEnabled"/>
+
+	<COMBO SOURCE="Ps.unit_id" ELEM="IntModSelector( Ps.length, ListElem.mod2_name )" WIDTH="12zrc" UPDATE-ACTION="
+			GetSampleItem().ExecUpdateAction();
+	" ENABLE-EXPR="GetSampleItem().IsEnabled"/>
+</LINE>
+
+
+<LINE NAME="period" SPACING="short" SAMPLE="1" PARAM-units="optional=1;default='';subtype=code">
+	<EDIT SOURCE="Ps.length" WIDTH="6zr" UPDATE-ACTION="
+			Parent.ExecUpdateAction();
+	" ENABLE-EXPR="Parent.IsEnabled"/>
+
+	<ITEM TYPE="elem_selector" SOURCE="Ps.unit_id" foreign-disp-name="IntModSelector( Ps.Parent.length, mod2_name )" WIDTH="17zr" UPDATE-ACTION="
+			Parent.ExecUpdateAction();
+	" ENABLE-EXPR="Parent.IsEnabled"/>
+</LINE>
+
+
+<LINE NAME="d_period" SPACING="short" SAMPLE="1" PARAM-units="optional=1;default='';subtype=code">
+	<EDIT SOURCE="Ps.length" WIDTH="6zr" UPDATE-ACTION="
+			Parent.ExecUpdateAction();
+	" ENABLE-EXPR="Parent.IsEnabled" READ-ONLY-EXPR="Parent.IsReadOnly"/>
+
+	<ITEM TYPE="elem_selector" SOURCE="Ps.unit_id" foreign-elem-qual="id == 'd' || id == 'wd'" foreign-disp-name="IntModSelector( Ps.Parent.length, mod2_name )" WIDTH="16zrc" UPDATE-ACTION="
+			Parent.ExecUpdateAction();
+	" ENABLE-EXPR="Parent.IsEnabled" READ-ONLY-EXPR="Parent.IsReadOnly"/>
+</LINE>
+
+
+<LINE NAME="dm_period" SPACING="short" SAMPLE="1" PARAM-units="optional=1;default='';subtype=code">
+	<EDIT SOURCE="Ps.length" WIDTH="6zr" UPDATE-ACTION="
+			Parent.ExecUpdateAction();
+	" ENABLE-EXPR="Parent.IsEnabled" READ-ONLY-EXPR="Parent.IsReadOnly"/>
+
+	<ITEM TYPE="elem_selector" SOURCE="Ps.unit_id" foreign-elem-qual="id == 'd' || id == 'wd' || id == 'm'" foreign-disp-name="IntModSelector( Ps.Parent.length, mod2_name )" WIDTH="16zrc" UPDATE-ACTION="
+			Parent.ExecUpdateAction();
+	" ENABLE-EXPR="Parent.IsEnabled" READ-ONLY-EXPR="Parent.IsReadOnly"/>
+</LINE>
+
+
+<LINE NAME="smhd_period" SPACING="short" SAMPLE="1" PARAM-units="optional=1;default='';subtype=code">
+	<EDIT SOURCE="Ps.length" WIDTH="6zr" UPDATE-ACTION="
+			Parent.ExecUpdateAction();
+	" ENABLE-EXPR="Parent.IsEnabled"/>
+
+	<ITEM TYPE="elem_selector" SOURCE="Ps.unit_id" foreign-elem-qual="id == 'second' || id == 'minute' || id == 'hour' || id == 'd'" foreign-disp-name="IntModSelector( Ps.Parent.length, mod2_name )" WIDTH="12zr" UPDATE-ACTION="
+			Parent.ExecUpdateAction();
+	" ENABLE-EXPR="Parent.IsEnabled"/>
+</LINE>
+
+
+<LINE NAME="smh_period" SPACING="short" SAMPLE="1" PARAM-units="optional=1;default='';subtype=code">
+	<EDIT SOURCE="Ps.length" WIDTH="6zr" UPDATE-ACTION="
+			if ( Ps.length.HasValue &amp;&amp; ! Ps.unit_id.HasValue )
+				Ps.unit_id = 'minute';
+
+			Parent.ExecUpdateAction();
+	" ENABLE-EXPR="Parent.IsEnabled"/>
+
+	<ITEM TYPE="elem_selector" SOURCE="Ps.unit_id" foreign-elem-qual="id == 'second' || id == 'minute' || id == 'hour'" foreign-disp-name="IntModSelector( Ps.Parent.length, mod2_name )" WIDTH="12zr" UPDATE-ACTION="
+			Parent.ExecUpdateAction();
+	" ENABLE-EXPR="Parent.IsEnabled"/>
+</LINE>
+
+
+<LINE NAME="mh_period" SPACING="short" SAMPLE="1" PARAM-units="optional=1;default='';subtype=code">
+	<EDIT SOURCE="Ps.length" WIDTH="6zr" UPDATE-ACTION="
+			Parent.ExecUpdateAction();
+	" ENABLE-EXPR="Parent.IsEnabled"/>
+
+	<ITEM TYPE="elem_selector" SOURCE="Ps.unit_id" foreign-elem-qual="id == 'minute' || id == 'hour'" foreign-disp-name="IntModSelector( Ps.Parent.length, mod2_name )" WIDTH="12zr" UPDATE-ACTION="
+			Parent.ExecUpdateAction();
+	" ENABLE-EXPR="Parent.IsEnabled"/>
+</LINE>
+
+
+<LINE NAME="days_term" SPACING="short" SAMPLE="1" PARAM-dumy="optional=1;default=''">
+	<EDIT SOURCE="Ps" WIDTH="6zr" UPDATE-ACTION="
+			GetSampleItem().ExecUpdateAction();
+	" READ-ONLY-EXPR="GetSampleItem().IsReadOnly"/>
+
+	<EDIT SOURCE="IntModSelector( Ps, GetForeignElem( base1_common.period_units, 'd' ).mod2_name )" WIDTH="8zr" READ-ONLY="1"/>
+</LINE>
+
+
+
+<BUTTON NAME="period_quick_selector" SAMPLE="1" IMAGE-URL="//base_pict/down_arrow.ico" STD-MARGINS="0">
+	<MENU>
+		<MENU TITLE="##StrTitleCase( UiText.titles.week )##">
+			<LOOP EXPR="
+					date = DateNewTime( CurDate );
+
+					while ( true )
+					{
+						if ( WeekDay( date ) == 1 )
+							break;
+						
+						date = DateOffset( date, 0 - 86400 );
+					}
+
+					array = [date];
+
+					for ( i = 0; i &lt; 4; i++ )
+					{
+						date = DateOffset( date, 0 - 7 * 86400 );
+						array.push( date );
+					}
+
+					return array;
+			" VAR="_date">
+				<MENU-ENTRY TITLE-EXPR="StrDate( _date, false ) + ' - ' + StrDate( DateOffset( _date, 6 * 86400 ), false )" ACTION="
+						Ps.Value = _date;
+
+						if ( StrBegins( Ps.Name, 'min_' ) && Ps.Parent.ChildExists( StrReplaceOne( Ps.Name, 'min_', 'max_' ) ) )
+							Ps.Parent.Child( StrReplaceOne( Ps.Name, 'min_', 'max_' ) ).Value = DateOffset( _date, 6 * 86400 );
+				"/>
+			</LOOP>
+		</MENU>
+		
+		<MENU TITLE="##StrTitleCase( UiText.titles.month )##">
+			<LOOP EXPR="
+					date = Date( Year( CurDate ), Month( CurDate ), 1 );
+					elemsNum = Max( Month( CurDate ), 3 );
+
+					array = [date];
+
+					for ( i = 0; i &lt; elemsNum; i++ )
+					{
+						date = lib_base.get_month_date_offset( date, 0 - 1 );
+						array.push( date );
+					}
+
+					return array;
+			" VAR="_date">
+				<MENU-ENTRY TITLE-EXPR="base1_common.months[Month( _date ) - 1].name + ' ' + Year( _date )" ACTION="
+						Ps.Value = _date;
+
+						if ( StrBegins( Ps.Name, 'min_' ) && Ps.Parent.ChildExists( StrReplaceOne( Ps.Name, 'min_', 'max_' ) ) )
+							Ps.Parent.Child( StrReplaceOne( Ps.Name, 'min_', 'max_' ) ).Value = DateOffset( lib_base.get_month_date_offset( _date, 1 ), 0 - 86400 );
+				"/>
+			</LOOP>
+		</MENU>
+		
+		<MENU TITLE="##StrTitleCase( UiText.titles.quarter )##">
+			<LOOP EXPR="
+					year = Year( CurDate );
+					return [year, year - 1];
+			" VAR="_year">
+				<IF EXPR="_year != Year( CurDate )">
+					<MENU-ENTRY SEPARATOR="1"/>
+				</IF>
+
+				<LOOP EXPR="[1,2,3,4]" VAR="_quarter">
+					<MENU-ENTRY TITLE-EXPR="_year + ',  ' + lib_base.StrRomanInteger( _quarter )" ACTION="
+							Ps.Value = lib_base.GetQuarterStartDate( _year, _quarter );
+
+							if ( StrBegins( Ps.Name, 'min_' ) && Ps.Parent.ChildExists( StrReplaceOne( Ps.Name, 'min_', 'max_' ) ) )
+								Ps.Parent.Child( StrReplaceOne( Ps.Name, 'min_', 'max_' ) ).Value = lib_base.GetQuarterEndDate( _year, _quarter );;
+					"/>
+				</LOOP>
+			</LOOP>
+		</MENU>
+		
+		<MENU TITLE="##StrTitleCase( UiText.titles.year )##">
+			<LOOP EXPR="
+					array = [];
+
+					year = Year( CurDate );
+
+					for ( i = 0; i &lt; 4; i++ )
+					{
+						date = Date( year, 1, 1 );
+						array.push( date );
+
+						year--;
+					}
+
+					return array;
+			" VAR="_date">
+				<MENU-ENTRY TITLE-EXPR="Year( _date )" ACTION="
+						Ps.Value = _date;
+
+						if ( StrBegins( Ps.Name, 'min_' ) && Ps.Parent.ChildExists( StrReplaceOne( Ps.Name, 'min_', 'max_' ) ) )
+							Ps.Parent.Child( StrReplaceOne( Ps.Name, 'min_', 'max_' ) ).Value = Date( Year( _date ), 12, 31 );
+				"/>
+			</LOOP>
+		</MENU>
+	</MENU>
+</BUTTON>
+
+
+<COMBO NAME="text_align" SOURCE="Ps" LABEL-TITLE="Выравнивание текста:" lang-en:TITLE="Alignment:" SAMPLE="1" lang-en:LABEL-TITLE="Text alignment:" lang-ua:LABEL-TITLE="Вирівнювання тексту:">
+	<COMBO-ENTRY TITLE="По левому краю" VALUE="left" lang-en:TITLE="Left" lang-ua:TITLE="По лівому краю"/>
+	<COMBO-ENTRY TITLE="По правому краю" VALUE="right" lang-en:TITLE="Right" lang-ua:TITLE="По правому краю"/>
+	<COMBO-ENTRY TITLE="По центру" VALUE="center" lang-en:TITLE="Center" lang-ua:TITLE="По центру"/>
+</COMBO>
+
+
+
+<COMBO NAME="data_type_combo_entries" SAMPLE="1">
+	<LOOP EXPR="base1_common.data_types" VAR="ListElem">
+		<COMBO-ENTRY TITLE-EXPR="ListElem.name" VALUE-EXPR="ListElem.id"/>
+	</LOOP>
+</COMBO>
+
+
+
+<UNIT NAME="card_attachment_content" HEIGHT="100%" STD-MARGINS="0" SUNKEN="0" VERT-SCROLL="0" SAMPLE="1">
+	<IF EXPR="Ps.allow_access">
+		<IF EXPR="Ps.is_plain_text">
+			<EDIT NAME="CardAttachmentEdit" SOURCE="Ps.plain_text" MULTILINE="1" DEFAULT-COLORS="1" VERT-SCROLL="1"/>
+		</IF>
+		<IF EXPR="Ps.is_text">
+			<WITH VAR="_dummy" EXPR="
+					if ( System.IsWebClient )
+						return;
+
+					if ( AppCharset != 'utf-8' )
+						return;
+
+					//if ( ! base1_config.detect_broken_charset_encoding )
+						//return;
+
+					newStr = RestoreBrokenCharsetEncoding( Ps.text );
+					if ( newStr == undefined )
+						return;
+
+					Ps.text = newStr;
+			" IGNORE-ERRORS="1">
+			</WITH>
+			
+			<HYPER NAME="CardAttachmentEdit" EDITABLE="1" SOURCE="Ps.text"/>
+		</IF>
+		<IF EXPR="Ps.is_binary">
+			<IF EXPR="Ps.files.ChildNum != 0">
+				<PANEL STD-MARGINS="1" VERT-SCROLL="1" STD_MARGINS="0">
+					<LOOP EXPR="Ps.files" VAR="_file">
+						<LINE>
+							<LOOP EXPR="[Ps]" VAR="ListElem">
+								<IMAGE URL-EXPR="'x-sys-image://shell-icon/' + UrlPathSuffix( _file.file_name )" WIDTH="16px" HEIGHT="16px" ACTION="
+										lib_base.execute_card_attachment( Ps, Screen, _file );
+								" PASSIVE="1">
+									<MENU RIGHT-CLICK="1">
+										<MENU-ENTRY TITLE="##UiText.actions.open##" ACTION="
+												lib_base.execute_card_attachment( Ps, Screen, _file );
+										" PASSIVE="1"/>
+
+										<MENU-ENTRY TITLE="##UiText.actions.save##..." ACTION="
+												lib_base.HandleSaveCardAttachment( Ps, _file );
+										" PASSIVE="1"/>
+									</MENU>
+								</IMAGE>
+							</LOOP>
+
+							<LINK TITLE-EXPR="_file.file_name" ACTION="
+									lib_base.execute_card_attachment( Ps, Screen, _file );
+							" UNDERLINE="0" TEXT-COLOR="black">
+								<MENU RIGHT-CLICK="1">
+									<MENU-ENTRY TITLE="##UiText.actions.open##" ACTION="
+											lib_base.execute_card_attachment( Ps, Screen, _file );
+									" PASSIVE="1"/>
+
+									<MENU-ENTRY TITLE="##UiText.actions.save##..." ACTION="
+											lib_base.HandleSaveCardAttachment( Ps, _file );
+									" PASSIVE="1"/>
+									
+									<MENU-ENTRY SEPARATOR="1"/>
+
+									<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+											_file.Delete();
+											Ps.Doc.SetChanged( true );
+									" ENABLE-EXPR="Ps.files.ChildNum > 1"/>
+								</MENU>
+							</LINK>
+						</LINE>
+
+						<IF EXPR="
+							attcSuffix = StrLowerCase( UrlPathSuffix( _file.file_name ) );
+							return ( attcSuffix == '.bmp' || attcSuffix == '.gif' || attcSuffix == '.jpg' || attcSuffix == '.jpeg' || attcSuffix == '.png' );
+						">
+							<BR/>
+							<LOOP VAR="_dummy" EXPR="array = Array(); array[0] = Random( 0, 1000 ); return array;">
+								<IMAGE SOURCE="_file.data"/>
+							</LOOP>
+						</IF>
+						<BR/>
+						<BR/>
+					</LOOP>
+				</PANEL>
+			</IF>
+			<ELSE>
+				<PANEL WIDTH="100%" HEIGHT-EXPR="Ps.allow_file_preview || Ps.plain_text.HasValue ? '7zr' : '100%'" SUNKEN="1" STD-MARGINS="1" VERT-SCROLL="1">
+					<BR/>
+
+					<LINE>
+						<LOOP EXPR="[Ps]" VAR="ListElem">
+							<IMAGE URL-EXPR="'x-sys-image://shell-icon/' + UrlPathSuffix( Ps.file_name )" WIDTH="16px" HEIGHT="16px" ACTION="
+									lib_base.execute_card_attachment( Ps, Screen );
+							">
+								<MENU RIGHT-CLICK="1">
+									<MENU-ENTRY TITLE="##UiText.actions.open##" ACTION="
+											lib_base.execute_card_attachment( Ps, Screen );
+									" PASSIVE="1"/>
+
+									<MENU-ENTRY TITLE="##UiText.actions.save##..." ACTION="
+											lib_base.HandleSaveCardAttachment( Ps );
+									" PASSIVE="1"/>
+								</MENU>
+							</IMAGE>
+						</LOOP>
+
+						<LINK TITLE-EXPR="Ps.file_name" ACTION="
+								lib_base.execute_card_attachment( Ps, Screen );
+						" UNDERLINE="0" TEXT-COLOR="black">
+							<MENU RIGHT-CLICK="1">
+								<MENU-ENTRY TITLE="##UiText.actions.open##" ACTION="
+										lib_base.execute_card_attachment( Ps, Screen );
+								" PASSIVE="1"/>
+
+								<MENU-ENTRY TITLE="##UiText.actions.save##..." ACTION="
+										lib_base.HandleSaveCardAttachment( Ps );
+								" PASSIVE="1"/>
+							</MENU>
+						</LINK>
+					</LINE>
+
+					<IF EXPR="
+						attcSuffix = StrLowerCase( UrlPathSuffix( Ps.file_name ) );
+						return ( attcSuffix == '.bmp' || attcSuffix == '.gif' || attcSuffix == '.jpg' || attcSuffix == '.jpeg' || attcSuffix == '.png' );
+					">
+						<BR/>
+						<LOOP VAR="_dummy" EXPR="array = Array(); array[0] = Random( 0, 1000 ); return array;">
+							<IMAGE SOURCE="Ps.data"/>
+						</LOOP>
+					</IF>
+				</PANEL>
+
+				<IF EXPR="Ps.allow_file_preview">
+					<SPLIT FIXED="1"/>
+
+					<LOOP VAR="_dummy" EXPR="array = Array(); array[0] = Random( 0, 1000 ); return array;">
+						<FILE-PREVIEW URL-EXPR="
+								tempFileUrl = ObtainSessionTempFile( UrlPathSuffix( Ps.file_name ) );
+								Ps.data.SaveToFile( tempFileUrl );
+								return tempFileUrl;
+						"/>
+					</LOOP>
+				</IF>
+				<ELSE>
+					<IF EXPR="Ps.plain_text.HasValue">
+						<EDIT SOURCE="Ps.plain_text" MULTILINE="1" DEFAULT-COLORS="1" VERT-SCROLL="1" READ-ONLY="1"/>
+					</IF>
+				</ELSE>
+			</ELSE>
+		</IF>
+	</IF>
+	<ELSE>
+		<PANEL SUNKEN="1" STD-MARGINS="1" HEIGHT="100%">
+			<PANEL HEIGHT="30%">
+			</PANEL>
+			<LABEL TITLE="##UiText.errors.permission_denied##" ALIGN="center" TEXT-COLOR="200,0,0"/>
+		</PANEL>
+	</ELSE>
+</UNIT>
+
+
+
+
+<UNIT NAME="card_attachment" HEIGHT="100%" STD-MARGINS="0" SUNKEN="0" VERT-SCROLL="0" SAMPLE="1">
+	<PANEL STD-MARGINS="1" SUNKEN="1">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="50%"/>
+				<COL WIDTH="50%"/>
+				<COL WIDTH="14zr"/>
+				<COL WIDTH="2zr"/>
+				<COL WIDTH="15zr"/>
+			</COLUMNS>
+
+			<LABEL TITLE="##UiText.fields.attachment_type##:"/>
+			<LABEL TITLE="##UiText.fields.name##:" lang-en:TITLE="Name:"/>
+			<LABEL TITLE="##UiText.fields.date##:" lang-en:TITLE="Date:"/>
+			<LABEL/>
+			<LABEL/>
+
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.type_id"/>
+			<EDIT SOURCE="Ps.name"/>
+			<ITEM TYPE="date_selector" SOURCE="Ps.date"/>
+
+			<LABEL/>
+
+			<IF EXPR="Ps.is_text">
+				<BUTTON TITLE="##UiText.titles.import##" IMAGE-URL="//base_pict/word_doc.ico" STD-MARGINS="0" ACTION="
+						fileUrl = Screen.AskFileOpen( '', lib_office.msword_file_suffix_pattern );
+						Ps.text = LoadWordHtml( fileUrl );
+
+						Ps.Doc.SetChanged( true );
+				" lang-en:TITLE="Import"/>
+			</IF>
+			<IF EXPR="Ps.is_binary">
+				<BUTTON TITLE="##UiText.actions.load##" IMAGE-URL="//base_pict/attachment.ico" STD-MARGINS="0" ACTION="
+						if ( Ps.type_id.ForeignElem.allow_multiple_files )
+						{
+							fileUrls = Screen.AskFilesOpen();
+									
+							for ( fileUrl in fileUrls )
+							{
+								lib_base.CheckAttachmentFileRestrictions( fileUrl );
+							}
+
+							if ( Ps.files.ChildNum == 0 )
+							{
+								file = Ps.files.AddChild();
+								file.AssignElem( Ps );
+
+								Ps.file_name.Clear();
+								Ps.data.Clear();
+							}
+
+							for ( fileUrl in fileUrls )
+							{
+								file = Ps.files.AddChild();
+								file.data.LoadFromFile( fileUrl );
+								file.file_name = UrlFileName( fileUrl );
+							}
+						}
+						else
+						{
+							fileUrl = Screen.AskFileOpen();
+						
+							Ps.content_type = 'application/binary';
+							Ps.data.LoadFromFile( fileUrl );
+							Ps.file_name = UrlFileName( fileUrl );
+
+							Ps.build_preview_data();
+						}
+
+						Ps.Doc.SetChanged( true );
+				"/>
+			</IF>
+		</TABLE>
+	</PANEL>
+
+	<SPLIT FIXED="1"/>
+
+	<ITEM TYPE="card_attachment_content"/>
+</UNIT>
+
+
+
+
+<PAGE NAME="card_attachments" SAMPLE="1" TITLE="Приложения" IMAGE-URL="//base_pict/folder.ico" EXPANDED="1" lang-en:TITLE="Attachments" lang-ua:TITLE="Додатки">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<LIST>
+			<COLUMNS>
+				<COL WIDTH="50zr" TITLE="Приложение" lang-en:TITLE="Attachment" lang-ua:TITLE="Додаток"/>
+				<COL WIDTH="12zr" TITLE="##UiText.fields.date##" ALIGN="center" lang-en:TITLE="Date"/>
+			</COLUMNS>
+
+			<LOOP EXPR="Ps.sorted_attachments" VAR="ListElem">
+				<ROW OPEN-ACTION="Screen.ExposeItemBySource( ListElem.name )" DELETE-ACTION="
+						if ( ! ListElem.allow_access )
+							throw UiError( UiText.errors.permission_denied );
+
+						ListElem.Delete(); Ps.Doc.SetChanged( true );
+				" IMAGE-URL-EXPR="ListElem.image_url">
+					<COL TITLE-EXPR="ListElem.name_desc"/>
+					<COL TITLE-EXPR="StrDate( ListElem.date, false )"/>
+				</ROW>
+
+				<PAGE TITLE-EXPR="
+						str = ListElem.name_desc;
+
+						if ( ListElem.type_id.HasValue )
+						{
+							type = ListElem.type_id.ForeignElem;
+
+							if ( ( type.show_date_in_tree &amp;&amp; ! type.show_diff_date_in_tree) || ( type.show_diff_date_in_tree &amp;&amp; ArrayCount( ArraySelectByKey( Ps.attachments, ListElem.type_id, 'type_id' ) ) > 1 ) )
+								str += ' (' + StrDate( ListElem.date, false ) + ')';
+						}
+
+						return str;
+				" IMAGE-URL-EXPR="ListElem.image_url" SOURCE="ListElem">
+					<ITEM TYPE="card_attachment"/>
+				</PAGE>
+			</LOOP>
+
+			<MENU RIGHT-CLICK="1">
+				<INHERIT TYPE="list_menu_entries"/>
+				
+				<IF EXPR="false">
+					<MENU-ENTRY SEPARATOR="1"/>
+
+					<MENU-ENTRY TITLE="Отправить по E-mail" lang-en:TITLE="Send by E-mail" ACTION="
+							lib_base.handle_send_card_attachments_by_email( Ps, ArrayExtract( List.SelRows, 'Env.ListElem' ) );
+					" PASSIVE="1" lang-ua:TITLE="Відправити E-mail"/>
+				</IF>
+			</MENU>
+		</LIST>
+	</PANEL>
+</PAGE>
+
+
+
+
+
+<UNIT NAME="voc_elem_edit_header" SAMPLE="1">
+	<STATUS-BAR>
+		<STATUS-BAR-ENTRY WIDTH="50%"/>
+		<STATUS-BAR-ENTRY WIDTH="50%" TITLE-EXPR="UiText.objects.voc + ': ' + Ps.voc_info.name"/>
+		<STATUS-BAR-ENTRY WIDTH="30zr" TITLE-EXPR="Ps.is_std ? UiText.titles.standard_elem : UiText.titles.custom_elem"/>
+	</STATUS-BAR>
+</UNIT>
+
+
+
+
+<UNIT NAME="voc_elem_edit" SAMPLE="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+
+			<IF EXPR="Ps.voc_info.use_text_color">
+				<COL WIDTH="14zr"/>
+			</IF>
+
+			<IF EXPR="Ps.voc_info.use_bk_color">
+				<COL WIDTH="13zr"/>
+			</IF>
+
+			<COL WIDTH="25zr"/>
+		</COLUMNS>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="21zr"/>
+			</COLUMNS>
+
+			<LABEL TITLE="##UiText.fields.name##:"/>
+
+			<IF EXPR="Ps.ChildExists( 'is_active' )">
+				<CHECK SOURCE="Ps.is_active" TITLE="##UiText.titles.active_element##"/>
+			</IF>
+		</TABLE>
+
+		<IF EXPR="Ps.voc_info.use_text_color">
+			<LABEL TITLE="##UiText.titles.text_color##:"/>
+		</IF>
+		<IF EXPR="Ps.voc_info.use_bk_color">
+			<LABEL TITLE="##UiText.fields.bk_color##:"/>
+		</IF>
+
+		<LABEL TITLE="##UiText.fields.id_of_voc_elem##:"/>
+
+
+		<EDIT SOURCE="Ps.name" READ-ONLY-EXPR="! Ps.voc_info.std_field_editable( Ps, 'name' ) || ( Ps.voc_info.key_synonym.HasValue && ! Ps.Doc.NeverSaved )"/>
+		
+		<IF EXPR="Ps.voc_info.use_text_color">
+			<ITEM TYPE="color_selector" SOURCE="Ps.text_color" READ-ONLY-EXPR="! Ps.voc_info.std_field_editable( Ps, 'text_color' )"/>
+		</IF>
+		<IF EXPR="Ps.voc_info.use_bk_color">
+			<ITEM TYPE="color_selector" SOURCE="Ps.bk_color" READ-ONLY-EXPR="! Ps.voc_info.std_field_editable( Ps, 'bk_color' )"/>
+		</IF>
+
+		<IF EXPR="Ps.voc_info.key_synonym == ''">
+			<EDIT SOURCE="Ps.Doc.ObjectID" SET-VALUE-ACTION="
+					if ( NewValue != '' && ! lib_base.is_valid_object_id( NewValue ) )
+						throw UserError( UiText.errors.invalid_voc_elem_id );
+
+					if ( Ps.voc_info.key_type == 'string' )
+						Ps.Doc.ObjectID = NewValue;
+					else
+						Ps.Doc.ObjectID = Int( NewValue );
+					
+					Ps.id = NewValue;
+					Ps.Doc.SetChanged( true );
+			" READ-ONLY-EXPR="Ps.is_std || ! Ps.Doc.NeverSaved"/>
+		</IF>
+		<ELSE>
+			<EDIT SOURCE="Ps.Child( Ps.voc_info.key_synonym )" READ-ONLY="1"/>
+		</ELSE>
+	</TABLE>
+
+	<IF EXPR="Ps.voc_info.use_full_name">
+		<EDIT SOURCE="Ps.full_name" LABEL-TITLE="##UiText.fields.full_name##:" lang-en:LABEL-TITLE="Full name:"/>
+	</IF>
+
+	<IF EXPR="Ps.voc_info.is_hier">
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.parent_id" WIDTH="70%" LABEL-TITLE="##UiText.fields.parent_element##:" READ-ONLY-EXPR="! Ps.voc_info.std_field_editable( Ps, 'parent_id' )"/>
+	</IF>
+
+	<DELIM/>
+
+	<IF EXPR="Ps.voc_info.use_keywords">
+		<GRID HEIGHT="5gr">
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+			<ROW HEADER="1">
+				<LABEL TITLE="Ключевые слова (почтовые домены)" lang-en:TITLE="Keywords (mail domains)" lang-ua:TITLE="Ключові слова (поштові домени)"/>
+			</ROW>
+
+			<IF EXPR="Ps.voc_info.std_field_editable( Ps, 'keywords' )">
+				<ROW MULTIPLE="1" SOURCE="Ps.keywords">
+					<EDIT SOURCE="ListElem"/>
+				</ROW>
+			</IF>
+			<ELSE>
+				<LOOP EXPR="Ps.keywords" VAR="ListElem">
+					<ROW SOURCE="Ps.keywords">
+						<EDIT SOURCE="ListElem"/>
+					</ROW>
+				</LOOP>
+			</ELSE>
+		</GRID>
+		<DELIM/>
+	</IF>
+</UNIT>
+
+
+
+<UNIT NAME="agent_control" SAMPLE="1">
+	<WITH VAR="_agent" EXPR="Ps">
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="28zr"/>
+			<COL WIDTH="17zr"/>
+			<COL WIDTH="19zr"/>
+		</COLUMNS>
+
+		<LABEL TITLE-EXPR="UiText.objects.agent + ' \'' + _agent.name + '\':'"/>
+
+		<IF EXPR="_agent.is_active">
+			<IF EXPR="_agent.use_schedule" IGNORE-ERRORS="0">
+				<LABEL TITLE="Запуск по расписанию" lang-en:TITLE="Run with schedule" BOLD="1" BOLD="1" ALIGN="center" TEXT-COLOR="0,100,0" lang-ua:TITLE="Запуск за розкладом"/>
+			</IF>
+			<ELSE>
+				<LABEL TITLE="Запуск в ручном режиме" lang-en:TITLE="Run manually" BOLD="1" ALIGN="center" TEXT-COLOR="0,80,80" lang-ua:TITLE="Запуск в ручному режимі"/>
+			</ELSE>
+		</IF>
+		<ELSE>
+			<LABEL TITLE="Отключена" lang-en:TITLE="Disabled" BOLD="1" BOLD="1" ALIGN="center" TEXT-COLOR="90,0,0" lang-ua:TITLE="Відключена"/>
+		</ELSE>
+
+		<BUTTON IMAGE-URL="//base_pict/start.ico" TITLE="Запустить" lang-en:TITLE="Run" ACTION="
+				isSettings = ( Screen.OptHolderElem != undefined && Screen.OptHolderElem.Doc.TopElem.Name == 'local_settings' );
+
+				if ( isSettings && Screen.Doc.IsChanged )
+					Screen.SaveDoc();
+				
+				lib_agent.handle_launch_agent( _agent.id );
+
+				if ( isSettings )
+					Screen.Doc.TopElem.AssignElem( Screen.OptHolderElem.Doc.TopElem );
+
+				UpdateScreens( '*', '*' );
+		" lang-ua:TITLE="Запустити"/>
+
+		<BUTTON IMAGE-URL="//base_pict/settings.ico" TITLE="##UiText.titles.options##..." ACTION="
+				ObtainDocScreen( _agent.ObjectUrl );
+		"/>
+	</TABLE>
+
+	</WITH>
+</UNIT>
+
+
+
+<UNIT NAME="scenario_agents" SAMPLE="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="16px"/>
+		</COLUMNS>
+
+		<LABEL TITLE="##UiText.sections.agents##"/>
+
+		<IMAGE URL="//base_pict/plus.ico" TIP-TEXT="Создать фоновую задачу" ACTION="
+				doc = DefaultDb.OpenNewObjectDoc( 'agent', lib_voc.obtain_next_voc_elem_id( agents ) );
+				doc.TopElem.scenario_object_type_id = Ps.Doc.TopElem.Name;
+				doc.TopElem.scenario_id = Ps.id;
+				CreateDocScreen( doc );
+		" PASSIVE="1" lang-en:TIP-TEXT="Add agent" lang-ua:TIP-TEXT="Створити фонову задачу"/>
+	</TABLE>
+
+	<LIST SUNKEN="1" LOOP-CATALOG="agents" XQUERY-QUAL-EXPR="
+			return '$elem/scenario_id = ' + Ps.id.XQueryLiteral;
+	" HEIGHT="12zr">
+		<ROW IMAGE-URL-EXPR="ListElem.ImageUrl" DELETE-ACTION="">
+			<COL WIDTH="100%" COL-TITLE="##UiText.fields.name##" TITLE-EXPR="ListElem.name"/>
+		</ROW>
+	</LIST>
+</UNIT>
+
+
+
+<UNIT NAME="card_objects_create_menu_entries" SAMPLE="1">
+	<LOOP EXPR="ArraySelect( card_object_types, 'create_action_name.HasValue' )" VAR="_card_object_type">
+		<MENU-ENTRY TITLE-EXPR="_card_object_type.create_action_name" ACTION="
+				doc = DefaultDb.OpenNewObjectDoc( _card_object_type.id );
+				CreateDocScreen( doc );
+		" PASSIVE="1"/>
+	</LOOP>
+</UNIT>
+
+
+<IF EXPR="true" NAME="custom_views_tree_entries" SAMPLE="1" PARAM-usage="optional=1;default=''">
+	<LOOP EXPR="ArraySelect( views, '( ! is_std || StrBegins( id, \'cs__\' ) ) &amp;&amp; ! is_card_page &amp;&amp; ! parent_main_section_id.HasValue' )" VAR="_view">
+		<TREE-ENTRY TITLE-EXPR="_view.name" HREF-EXPR="lib_view.obtain_view_url( _view.id )" IMAGE-URL-EXPR="_view.object_form.ImageUrl"/>
+	</LOOP>
+</IF>
+
+
+
+<UNIT NAME="poll_result" SAMPLE="1">
+	<WITH VAR="_poll_spec" EXPR="Ps.spec_id.ForeignElem">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="60zr"/>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+		
+			<LOOP EXPR="_poll_spec.build_questions_array( Ps.Doc.TopElem )" VAR="_question">
+				<IF EXPR="_question.is_separator">
+					<BR HSPAN="2"/>
+					<LABEL HSPAN="2" TITLE-EXPR="_question.name"/>
+				</IF>
+				<ELSE>
+					<LABEL TITLE-EXPR="_question.name + ':'" ALIGN="right"/>
+
+					<LINE>
+
+					<IF EXPR="_question.use_score">
+						<COMBO SOURCE="
+								questionAnswer = Ps.question_answers.GetOptChildByKey( _question.id );
+								if ( questionAnswer == undefined )
+									return '';
+
+								if ( ! questionAnswer.answer_id.HasValue )
+									return '';
+
+								return ArrayFirstElem( questionAnswer.answer_id );
+						" SET-VALUE-ACTION="
+								questionAnswer = Ps.question_answers.ObtainChildByKey( _question.id );
+								questionAnswer.answer_id.Clear();
+								questionAnswer.answer_id.ObtainByValue( NewValue );
+
+								Ps.Doc.SetChanged( true );
+						" WIDTH="8zr">
+							<LOOP VAR="_score" EXPR="PlainSeq( ( _question.max_score - _question.min_score ) + 1 )">
+								<COMBO-ENTRY TITLE-EXPR="_score + _question.min_score" VALUE-EXPR="_score + _question.min_score"/>
+							</LOOP>
+						</COMBO>
+					</IF>
+					<ELSE>
+						<IF EXPR="_question.answers.ChildNum != 0">
+							<IF EXPR="_question.is_multi_answer">
+								<LINE MULTILINE="1">
+									<LOOP EXPR="_question.answers" VAR="_answer">
+										<CHECK TITLE-EXPR="_answer.name" SOURCE="
+												questionAnswer = Ps.question_answers.GetOptChildByKey( _question.id );
+												if ( questionAnswer == undefined )
+													return false;
+
+												return questionAnswer.answer_id.ByValueExists( _answer.id );
+										" SET-VALUE-ACTION="
+												questionAnswer = Ps.question_answers.ObtainChildByKey( _question.id );
+												
+												if ( NewValue )
+													questionAnswer.answer_id.ObtainByValue( _answer.id );
+												else
+													questionAnswer.answer_id.DeleteByValue( _answer.id );
+
+												Ps.Doc.SetChanged( true );
+										" WIDTH="auto"/>
+									</LOOP>
+								</LINE>
+							</IF>
+							<ELSE>
+									<LOOP EXPR="_question.answers" VAR="_answer">
+										<RADIO-BUTTON TITLE-EXPR="_answer.name" SWITCH-VALUE="true" SOURCE="
+												questionAnswer = Ps.question_answers.GetOptChildByKey( _question.id );
+												if ( questionAnswer == undefined )
+													return false;
+
+												return questionAnswer.answer_id.ByValueExists( _answer.id );
+										" SET-VALUE-ACTION="
+												questionAnswer = Ps.question_answers.ObtainChildByKey( _question.id );
+												questionAnswer.answer_id.Clear();
+												
+												if ( NewValue )
+													questionAnswer.answer_id.ObtainByValue( _answer.id );
+
+												Ps.Doc.SetChanged( true );
+										" WIDTH="auto"/>
+									</LOOP>
+							</ELSE>
+						</IF>
+						<ELSE>
+							<EDIT SOURCE="
+									questionAnswer = Ps.question_answers.GetOptChildByKey( _question.id );
+									if ( questionAnswer == undefined )
+										return '';
+
+									if ( _question.expr.HasValue )
+									{
+										return questionAnswer.score;
+									}
+									else
+									{
+										if ( ! questionAnswer.answer_id.HasValue )
+											return '';
+
+										return ArrayFirstElem( questionAnswer.answer_id );
+									}
+							" SET-VALUE-ACTION="
+									questionAnswer = Ps.question_answers.ObtainChildByKey( _question.id );
+									questionAnswer.answer_id.Clear();
+									questionAnswer.answer_id.ObtainByValue( NewValue );
+
+									Ps.Doc.SetChanged( true );
+							" WIDTH="8zr" READ-ONLY-EXPR="_question.expr.HasValue"/>
+						</ELSE>
+					</ELSE>
+
+					<IF EXPR="_question.use_comment">
+						<EDIT SOURCE="
+								questionAnswer = Ps.question_answers.GetOptChildByKey( _question.id );
+								if ( questionAnswer == undefined )
+									return '';
+
+								return questionAnswer.comment;
+						" SET-VALUE-ACTION="
+								questionAnswer = Ps.question_answers.ObtainChildByKey( _question.id );
+								questionAnswer.comment = NewValue;
+
+								Ps.Doc.SetChanged( true );
+						" ENABLE-EXPR="
+								if ( Ps.spec_id == 'rgs_poll_6' &amp;&amp; _question.id == 'q_decision' )
+								{
+									questionAnswer = Ps.question_answers.GetOptChildByKey( _question.id );
+									if ( questionAnswer == undefined )
+										return false;
+
+									return ArrayOptFirstElem( questionAnswer.answer_id ) == 3;
+								}
+								else
+								{
+									return true;
+								}
+						"/>
+					</IF>
+
+				</LINE>
+				</ELSE>
+			</LOOP>
+
+			<BR HSPAN="2"/>
+
+
+			<LABEL TITLE="##UiText.fields.average_score##:" ALIGN="right"/>
+
+			<EDIT SOURCE="Ps.average_score" READ-ONLY="1"/>
+		</TABLE>
+	</WITH>
+</UNIT>
+
+
+
+
+<UNIT NAME="comb_poll_result" SAMPLE="1">
+	<WITH VAR="_poll_spec" EXPR="Ps.poll_result.spec_id.ForeignElem">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="60zr"/>
+
+				<LOOP EXPR="Ps.participant_poll_results" VAR="_participant_poll_result">
+					<COL WIDTH="15zr"/>
+				</LOOP>
+			</COLUMNS>
+		
+			<LABEL/>
+
+			<LOOP EXPR="Ps.participant_poll_results" VAR="_participant_poll_result">
+				<LABEL TITLE-EXPR="_participant_poll_result.person_id.ForeignElem.fullname"/>
+			</LOOP>
+
+			<LOOP EXPR="_poll_spec.build_questions_array( Ps.Doc.TopElem )" VAR="_question">
+				<IF EXPR="_question.is_separator">
+					<BR HSPAN-EXPR="Ps.participant_poll_results.ChildNum + 1"/>
+					<LABEL HSPAN-EXPR="Ps.participant_poll_results.ChildNum + 1" TITLE-EXPR="_question.name"/>
+				</IF>
+				<ELSE>
+					<LABEL TITLE-EXPR="_question.name + ':'" ALIGN="right"/>
+
+					<LOOP EXPR="Ps.participant_poll_results" VAR="_participant_poll_result">
+						<WITH EXPR="_participant_poll_result.question_answers.GetOptChildByKey( _question.id )" VAR="_question_answer" IGNORE-ERRORS="0">
+							<IF EXPR="_question_answer != undefined">
+								<EDIT SOURCE="
+										if ( _question.answers.ChildNum != 0 )
+											return ArrayMerge( _question_answer.answer_id, 'ArrayOptFindByKey( _question.answers, This, \'id\' ).name', ',' );
+										else if ( _question.expr.HasValue )
+											return _question_answer.score;
+										else
+											return ArrayMerge( _question_answer.answer_id, 'This', ',' );
+								" READ-ONLY="1" ALIGN="right"/>
+							</IF>
+							<ELSE>
+								<LABEL/>
+							</ELSE>
+						</WITH>
+					</LOOP>
+				</ELSE>
+			</LOOP>
+		</TABLE>
+	</WITH>
+</UNIT>
+
+
+
+
+<UNIT NAME="view_voc_elems_header" SAMPLE="1">
+
+<PANEL SUNKEN="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="41zr"/>
+			<COL WIDTH="100%"/>
+
+			<LOOP EXPR="Ps.voc_info.extra_actions" VAR="_extra_action">
+				<COL WIDTH="20zr" WIDTH-EXPR="( CalcTextScreenWidth( _extra_action.name ) + 40 ) + 'px'"/>
+			</LOOP>
+
+			<COL WIDTH="20zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="ft_filter" SOURCE="Ps.filter"/>
+		<LABEL/>
+
+		<LOOP EXPR="Ps.voc_info.extra_actions" VAR="_extra_action">
+			<PANEL STD-MARGINS="0">
+				<PANEL HEIGHT="3zr">
+				</PANEL>
+
+				<BUTTON TITLE-EXPR="_extra_action.name" IMAGE-URL="//base_pict/generic_item.ico" ACTION="
+						eval( _extra_action.code );
+				"/>
+			</PANEL>
+		</LOOP>
+
+		<PANEL STD-MARGINS="0">
+			<PANEL HEIGHT="3zr">
+			</PANEL>
+
+			<BUTTON TITLE="##UiText.actions.new_elem_of_voc##" IMAGE-URL="//base_pict/generic_item.ico" ACTION="
+					if ( Ps.voc_info.is_hier )
+					{
+						vocInfo = Ps.voc_info;
+						voc = Ps.voc;
+
+						subDoc = DefaultDb.OpenNewObjectDoc( Ps.voc_info.object_name, lib_voc.obtain_next_voc_elem_id( Ps.voc ) );
+
+						if ( ! vocInfo.auto_order.HasValue )
+							subDoc.TopElem.order_index = lib_voc.obtain_next_voc_elem_order_index( Ps.voc );
+					}
+					else
+					{
+						if ( Ps.voc_info.primary_voc_id.HasValue )
+						{
+							vocInfo = lib_voc.get_voc_info_by_id( Ps.voc_info.primary_voc_id );
+							voc = eval( vocInfo.id );
+						}
+						else
+						{
+							vocInfo = Ps.voc_info;
+							voc = Ps.voc;
+						}
+
+						subDoc = lib_voc.get_voc_db( Ps.voc_info ).OpenNewObjectDoc( vocInfo.object_name, lib_voc.obtain_next_voc_elem_id( voc ) );
+						
+						if ( ! vocInfo.auto_order.HasValue )
+							subDoc.TopElem.order_index = lib_voc.obtain_next_voc_elem_order_index( voc );
+
+						if ( Ps.voc_info.primary_voc_id.HasValue )
+							subDoc.TopElem.target_object_type_id.ObtainByValue( StrReplace( Ps.voc_info.id, '_states', '' ) );
+					}
+
+					CreateDocScreen( subDoc, vocInfo.object_screen_form_url );
+			" PASSIVE="1" lang-en:TITLE="New element"/>
+		</PANEL>
+	</TABLE>
+
+	<MENU RIGHT-CLICK="1">
+		<MENU-ENTRY TITLE="##UiText.actions.clear_form##" ACTION="Ps.filter.Clear()"/>
+		
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="##UiText.titles.voc_params##..." ACTION="
+				dlgDoc = OpenDoc( 'base1_dlg_voc_param.xml' );
+				dlg = dlgDoc.TopElem;
+
+				dlg.voc_id = Ps.voc_id;
+				dlg.param.AssignElem( Ps.voc_info );
+
+				vocParam = global_settings.voc_params.GetOptChildByKey( Ps.voc_id );
+				if ( vocParam != undefined )
+					dlg.param.AssignElem( vocParam );
+
+				ActiveScreen.ModalDlg( dlgDoc );
+
+				vocParam = global_settings.voc_params.ObtainChildByKey( Ps.voc_id );
+				vocParam.AssignElem( dlg.param );
+				global_settings.Doc.Save();
+
+				if ( Ps.voc_info.auto_order.HasValue && ! vocParam.auto_order.HasValue )
+					lib_voc.adjust_voc_order( Ps.voc, Ps.voc_info.auto_order )
+
+				Ps.voc_info.selector_type = vocParam.selector_type;
+				Ps.voc_info.auto_order = vocParam.auto_order;
+		"/>
+	</MENU>
+</PANEL>
+
+<SPLIT FIXED="1"/>
+
+</UNIT>
+
+
+<UNIT NAME="dlg_view_footer" SAMPLE="1">
+	<ITEM TYPE="dlg_footer_start"/>
+
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="14zr"/>
+			<COL WIDTH="14zr"/>
+		</COLUMNS>
+
+		<IF EXPR="UseLds">
+			<LINE>
+				<RADIO-BUTTON TITLE="Настроить только для меня" lang-en:TITLE="Customize for me only" SOURCE="Ps.use_subst" SWITCH-VALUE="true" WIDTH="auto" lang-ua:TITLE="Налаштувати тільки для мене"/>
+				<RADIO-BUTTON TITLE="Настроить для всех пользователей" lang-en:TITLE="Customize for all users" SOURCE="Ps.use_subst" SWITCH-VALUE="false" WIDTH="auto" ENABLE-EXPR="lib_user.active_user_access.allow_all" lang-ua:TITLE="Налаштувати для всіх користувачів"/>
+			</LINE>
+		</IF>
+		<ELSE>
+			<LABEL/>
+		</ELSE>
+
+		<BUTTON TITLE="OK" CMD="1"/>
+		<BUTTON TITLE="##UiText.actions.cancel##" CMD="2"/>
+	</TABLE>
+</UNIT>
+
+
+
+</SPXML-SCREEN>

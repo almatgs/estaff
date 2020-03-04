@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="AppName" RESIZE="1" MAXIMIZED="1" CUSTOM-FRAME="1" STD-MARGINS="0">
+	<LINE>
+		<MinimizableTree HEIGHT="100%" SWITCH-TYPE="frame" TARGET="FrameMain">
+			<LOOP HIER="1" EXPR="ui_client.ui_sections" VAR="uiSection">
+				<ENTRY TITLE-EXPR="uiSection.title" IMAGE-URL-EXPR="uiSection.icon_url" HREF-EXPR="uiSection.url" SET-SEL-ACTION="ui_client.PrepareSectionViewUrl( uiSection.url )">
+					<LOOP-HIER-SUBST EXPR="uiSection.ui_sections != undefined ? uiSection.ui_sections : []"/>
+				</ENTRY>
+			</LOOP>
+		</MinimizableTree>
+
+		<SPLIT FIXED="1" BK-COLOR-EXPR="AppUi.themeColors.separator"/>
+
+		<FRAME NAME="FrameMain" HREF-EXPR="ui_client.ui_sections[0].url"/>
+	</LINE>
+</SPXML-SCREEN>
+
+
+
+
+
+
+

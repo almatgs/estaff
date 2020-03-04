@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>calendar_entries</id>
+	<name VALUE="Календарные события" lang-en:VALUE="Calendar entries" lang-ua:VALUE="Календарні події"/>
+
+	<open_action>
+			screen = lib_calendar.open_calendar_entry_ext( ListElem );
+			
+			if ( Ps.filter.used_fulltext.HasValue )
+				screen.SetInitSearch( Ps.used_fulltext.fulltext );
+	</open_action>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>type_id</id>
+		</dyn_filter>
+		<dyn_filter>
+			<id>group_id</id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id}:undefined</view_filter_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>date</id>
+			<use_time>0</use_time>
+		</field>
+		<field>
+			<id>date</id>
+			<time_only>1</time_only>
+			<col_title VALUE="##UiText.titles.time##"/>
+		</field>
+		<field>
+			<id>type_id</id>
+			<align>left</align>
+			<bk_color_expr>dyn_state_bk_color</bk_color_expr>
+		</field>
+		<field>
+			<id>contacts_desc</id>
+		</field>
+		<field>
+			<id>comment</id>
+		</field>
+	</fields>
+</std_view>
+

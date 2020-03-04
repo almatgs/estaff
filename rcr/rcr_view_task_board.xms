@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.sections.tasks##" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/task.ico">
+
+<WITH VAR="_dummy" EXPR="Ps.BuildView()" IGNORE-ERRORS="0">
+</WITH>
+
+<PANEL SUNKEN="1" STD-MARGINS="1" BK-COLOR-EXPR="SysColors.PanelLightBackground">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="38zr"/>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="25zr"/>
+			<IF EXPR="lib_user.use_groups">
+				<COL WIDTH="20zr"/>
+			</IF>
+		</COLUMNS>
+
+		<ITEM TYPE="ft_filter" SOURCE="Ps.filter"/>
+
+		<PANEL>
+			<BR HEIGHT="5px"/>
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="24zr"/>
+					<COL WIDTH="8zr"/>
+					<COL WIDTH="16zr"/>
+					<COL WIDTH="8zr"/>
+				</COLUMNS>
+
+				<LABEL TITLE="Всего задач:" lang-en:TITLE="To do:" lang-ua:TITLE="Всього задач:" ALIGN="right"/>
+				<LABEL TITLE-EXPR="StrIntZero( Ps.activeTaskCount )"/>
+
+				<LABEL TITLE="##UiText.titles.overdue##:" ALIGN="right"/>
+				<LABEL TITLE-EXPR="StrIntZero( Ps.overdueTaskCount )"/>
+				
+				<LABEL TITLE="Подходит срок:" lang-en:TITLE="Close to Deadline:" lang-ua:TITLE="Підходить термін:" ALIGN="right"/>
+				<LABEL TITLE-EXPR="StrIntZero( Ps.closeToDeadlineTaskCount )"/>
+
+				<LABEL HSPAN="2"/>
+			</TABLE>
+		</PANEL>
+
+		<ITEM TYPE="object_selector" usage="filter" SOURCE="Ps.filter.user_id" CHECK-VALUE-ACTION="lib_base.check_catalog_filter_constraints( 'events', 'user_id', NewValue )" UPDATE-ACTION="
+				//lib_view.store_filter_elem( 'calendar', Source );
+		" LABEL-TITLE="##UiText.objects.user##:" view-filter-expr="with ( Ps ) { return filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}; }"/>
+
+		<IF EXPR="lib_user.use_groups">
+			<ITEM TYPE="object_selector" usage="filter" SOURCE="Ps.filter.group_id" CHECK-VALUE-ACTION="lib_base.check_catalog_filter_constraints( 'events', 'group_id', NewValue )" UPDATE-ACTION="
+					//lib_view.store_filter_elem( 'calendar', Source );
+			" LABEL-TITLE="##UiText.objects.group##:"/>
+		</IF>
+	</TABLE>
+	<PANEL HEIGHT="2px"/>
+	<MENU RIGHT-CLICK="1">
+		<MENU-ENTRY TITLE="##UiText.actions.clear_form##" ACTION="lib_view.clear_filters( 'events', Ps ); lib_view.clear_stored_filters( 'events' ); Screen.Update()" PASSIVE="1"/>
+	</MENU>
+</PANEL>
+
+<SPLIT FIXED="1"/>
+
+<PANEL BK-COLOR-EXPR="" HEIGHT="100%">
+	<LIST NAME="ListTaskBoard" USE-KEY-SEL="1" SUNKEN="1" LOOP-EXPR="Ps.activeTasks">
+		<ROW IMAGE-URL-EXPR="ListElem.hasReminder ? '//base_pict/reminder.ico' : ListElem.object.ImageUrl" OPEN-ACTION="
+				if ( ListElem.candidate != undefined )
+					screen = ObtainDocScreen( ListElem.candidate.ObjectUrl );
+				else
+					screen = lib_event.open_event_ext( ListElem.event );
+				
+				if ( Ps.ChildExists( 'filter' ) &amp;&amp; Ps.filter.used_fulltext.HasValue )
+					screen.SetInitSearch( Ps.filter.used_fulltext );
+		" DELETE-ACTION="">
+			<COL COL-TITLE="##UiText.fields.date##" WIDTH="14zr" TITLE-EXPR="StrDate( ListElem.date, false )"/>
+			<COL COL-TITLE="##UiText.titles.time##" WIDTH="8zr" TITLE-EXPR="Hour( ListElem.date ) > 0 ? StrTime( ListElem.date, false ) : ''" ALIGN="center"/>
+
+			<COL COL-TITLE="##UiText.titles.deadline__short##" WIDTH="16zr" TITLE-EXPR="ListElem.timeToDeadlineDescription" ALIGN="center" BK-COLOR-EXPR="ListElem.timeToDeadlineBkColor"/>
+
+			<COL COL-TITLE="##UiText.fields.state## / ##UiText.objects.task##" WIDTH="35zr" TITLE-EXPR="ListElem.name" ALIGN="left" TEXT-COLOR-EXPR="ListElem.candidate != undefined ? ListElem.candidate.state_id.ForeignElem.text_color : ListElem.event.state_text_color" BK-COLOR-EXPR="ListElem.candidate != undefined ? ListElem.candidate.state_id.ForeignElem.bk_color : ''"/>
+			
+			<COL COL-TITLE="##UiText.fields.time_in_status##" WIDTH="11zr" TITLE-EXPR="ListElem.rawTimeInStatus != null ? lib_base.DateOffsetDescription( ListElem.rawTimeInStatus, 'd|h' ) : ''" ALIGN="center" BK-COLOR-EXPR="ListElem.timeInStatusBkColor"/>
+
+
+			<COL COL-TITLE="!" WIDTH="5zr" TITLE-EXPR="ListElem.orderIndex" ALIGN="center"/>
+			
+			<COL COL-TITLE="##UiText.fields.fullname##" WIDTH="35zr" TITLE-EXPR="ListElem.candidate != undefined ? ListElem.candidate.fullname : ListElem.event.contacts_desc"/>
+			<COL COL-TITLE="##UiText.objects.vacancy##" WIDTH="100%" TITLE-EXPR="ListElem.candidate != undefined ? ListElem.candidate.main_vacancy_id.ForeignDispName : ListElem.event.vacancy_id.ForeignDispName" ALIGN="left"/>
+			<COL COL-TITLE="##UiText.objects.user##" WIDTH="15zr" TITLE-EXPR="ListElem.object.user_id.ForeignDispName" ALIGN="center"/>
+		</ROW>
+
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="##UiText.actions.open##" CMD="OpenSel"/>
+			<MENU-ENTRY SEPARATOR="1"/>
+			<MENU-ENTRY TITLE="##UiText.actions.del##" CMD="Clear"/>
+			<MENU-ENTRY SEPARATOR="1"/>
+			<MENU-ENTRY TITLE-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name" ACTION="lib_office.show_screen_in_calc( Screen )" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE="##UiText.actions.remind_later##..." ACTION="
+					Ps.HandleRemindLater( ArrayExtract( List.SelRows, 'Env.ListElem' ) );
+			"/>
+
+			<MENU-ENTRY TITLE="##UiText.actions.delete_reminder##" ACTION="
+					Ps.HandleDeleteReminder( ArrayExtract( List.SelRows, 'Env.ListElem' ) );
+			" ENABLE-EXPR="ArrayOptFind( List.SelRows, '!This.Env.ListElem.hasReminder' ) == undefined"/>
+
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE="##UiText.actions.open_event##" ACTION="
+					lib_event.open_event( List.SelRow.Env.ListElem.event );
+			" PASSIVE="1" ENABLE-EXPR="List.HasSel &amp;&amp; List.SelRow.Env.ListElem.candidate == undefined"/>
+		</MENU>
+	</LIST>
+</PANEL>
+<INHERIT TYPE="view_commands"/>
+
+</SPXML-SCREEN>

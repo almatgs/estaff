@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN TITLE="##UiText.titles.duplicates##" WIDTH="180zr" HEIGHT="120zr" SOURCE="TopElem" INIT-ACTION="
+		//list = Screen.FindItem( 'MainList' );
+		//ArrayFirstElem( list.Rows ).SetSel( true );
+		Ps.set_dest_candidate( ArrayOptFirstElem( Ps.dup_array.Object ) );
+		
+		if ( ! Ps.dest_external_candidate_ref.HasValue )
+			Cancel();
+">
+
+<LABEL TITLE="##UiText.messages.possible_duplicates_found##"/>
+<BR/>
+
+<PANEL HEIGHT-EXPR="lib_base.dlg_body_height">
+	<PANEL HEIGHT="20%" SUNKEN="1">
+		<LIST NAME="MainList" LOOP-EXPR="Ps.dup_array.Object">
+			<ROW OPEN-ACTION="ObtainDocScreen( ObjectDocUrl( 'data', 'candidate', ListElem.id ) )" DELETE-ACTION="DeleteDoc( ObjectDocUrl( 'data', 'candidate', ListElem.id ) )" SET-SEL-ACTION="
+					Ps.set_dest_candidate( ListElem );
+					//Cancel();
+			" IMAGE-URL="//base_pict/candidate.ico">
+				<COL WIDTH="40zr" COL-TITLE="##UiText.fields.fullname##" TITLE-EXPR="ListElem.fullname" BK-COLOR-EXPR="
+						if ( ListElem.lastname.HasValue &amp;&amp; Ps.candidate_info.lastname.HasValue &amp;&amp; ListElem.lastname != Ps.candidate_info.lastname )
+							return Ps.mismatch_color;
+
+						if ( ListElem.firstname.HasValue &amp;&amp; Ps.candidate_info.firstname.HasValue &amp;&amp; ListElem.firstname != Ps.candidate_info.firstname )
+							return Ps.mismatch_color;
+
+						if ( ListElem.middlename.HasValue &amp;&amp; Ps.candidate_info.middlename.HasValue &amp;&amp; ListElem.middlename != Ps.candidate_info.middlename )
+							return Ps.mismatch_color;
+				"/>
+
+				<COL WIDTH="12zr" COL-TITLE="##UiText.fields.birth_date_short##" ALIGN="center" TITLE-EXPR="ListElem.birth_date.HasValue ? ListElem.birth_date : ListElem.birth_year" BK-COLOR-EXPR="
+						if ( ListElem.birth_date.HasValue &amp;&amp; Ps.candidate_info.birth_date.HasValue )
+							return ( ListElem.birth_date == Ps.candidate_info.birth_date ? Ps.match_color : Ps.mismatch_color );
+						else if ( ListElem.birth_year.HasValue &amp;&amp; Ps.candidate_info.birth_year.HasValue )
+							return ( ListElem.birth_year == Ps.candidate_info.birth_year ? Ps.match_color : Ps.mismatch_color );
+				"/>
+				
+				<COL WIDTH="15zr" COL-TITLE="##UiText.fields.mobile_phone##" TITLE-EXPR="ListElem.mobile_phone" BK-COLOR-EXPR="
+						if ( ListElem.mobile_phone.HasValue &amp;&amp; StrEqual( ListElem.mobile_phone, Ps.candidate_info.mobile_phone, false ) )
+							return Ps.match_color;
+				"/>
+
+				<COL WIDTH="15zr" COL-TITLE="E-mail" TITLE-EXPR="ListElem.email + ( ListElem.email.HasValue &amp;&amp; ListElem.email2.HasValue ? '; ' : '' ) + ListElem.email2" BK-COLOR-EXPR="
+						if ( ListElem.email.HasValue &amp;&amp; ( StrEqual( ListElem.email, Ps.candidate_info.email, true ) || StrEqual( ListElem.email, Ps.candidate_info.email2, true ) ) )
+							return Ps.match_color;
+						else if ( ListElem.email2.HasValue &amp;&amp; ( StrEqual( ListElem.email2, Ps.candidate_info.email, true ) || StrEqual( ListElem.email2, Ps.candidate_info.email2, true ) ) )
+							return Ps.match_color;
+				"/>
+
+				<COL WIDTH="40%" COL-TITLE="##UiText.fields.state##" TITLE-EXPR="ListElem.ChildExists( 'state_id' ) ? ListElem.state_id.ForeignDispName : ( AppServerConfig.GetOptProperty( 'external-candidates-storage-name', '' ) + ':  ' + ListElem.state_name )" TEXT-COLOR-EXPR="ListElem.state_id.ForeignElem.text_color" BK-COLOR-EXPR="ListElem.ChildExists( 'state_id' ) ? ListElem.state_id.ForeignElem.bk_color : '230,230,230'"/>
+				<COL WIDTH="60%" COL-TITLE="##UiText.fields.last_comment##" TITLE-EXPR="ListElem.ChildExists( 'state_id' ) ? ListElem.last_comment : ''"/>
+
+				<COL WIDTH="20zr" COL-TITLE="##UiText.fields.location##" TITLE-EXPR="ListElem.location_id.ForeignDispName" BK-COLOR-EXPR="
+						if ( ListElem.location_id.HasValue &amp;&amp; Ps.candidate_info.location_id.HasValue )
+							return ( ListElem.location_id == Ps.candidate_info.location_id ? Ps.match_color : Ps.mismatch_color );
+				"/>
+
+				<COL WIDTH="14zr" COL-TITLE="##UiText.fields.recruiter##" TITLE-EXPR="ListElem.ChildExists( 'state_id' ) ? ListElem.user_id.ForeignDispName : ListElem.user_name"/>
+
+				<COL WIDTH="20zr" COL-TITLE="##UiText.objects.vacancy##" TITLE-EXPR="ListElem.main_vacancy_id.ForeignDispName"/>
+
+				<IF EXPR="rcr_config.use_ext_duplicates_search">
+					<COL WIDTH="10zr" COL-TITLE="##UiText.objects.group##" TITLE-EXPR="ListElem.ChildExists( 'state_id' ) ? ListElem.group_id.ForeignDispName : ListElem.group_name"/>
+				</IF>
+			</ROW>
+		</LIST>
+	</PANEL>
+
+	<SPLIT/>
+	<FRAME NAME="FrameDupCandidatesPreview" HREF="//base1/base1_blank.xms"/>
+</PANEL>
+
+<ITEM TYPE="dlg_footer_start"/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="41zr"/>
+		<COL WIDTH="33zr"/>
+		<COL WIDTH="12zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<IF EXPR="Ps.dest_external_candidate_ref.HasValue">
+		<IF EXPR="Ps.allow_save_as_new">
+			<BUTTON TITLE="Сохранить с привязкой к другой базе" ACTION="Screen.RunCommand( 'Ok' )" lang-en:TITLE="Update selected candidate"/>
+		</IF>
+		<ELSE>
+			<BUTTON TITLE="Обновить данные из другой базы" ACTION="Screen.RunCommand( 'Ok' )" lang-en:TITLE="Update data from external database"/>
+		</ELSE>
+	</IF>
+	<ELSE>
+		<BUTTON TITLE="Обновить данные выбранного кандидата" ACTION="Screen.RunCommand( 'Ok' )" lang-en:TITLE="Update selected candidate" lang-ua:TITLE="Оновити дані вибраного кандидата"/>
+	</ELSE>
+	
+	<IF EXPR="Ps.allow_save_as_new">
+		<BUTTON TITLE="Сохранить как нового кандидата" ACTION="Ps.dest_candidate_id = null; Screen.RunCommand( 'Ok' )" lang-en:TITLE="Save as new candidate" lang-ua:TITLE="Зберегти як нового кандидата"/>
+	</IF>
+	<ELSE>
+		<LABEL/>
+	</ELSE>
+	
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2" lang-en:TITLE="Cancel"/>
+</TABLE>
+
+
+</SPXML-SCREEN>

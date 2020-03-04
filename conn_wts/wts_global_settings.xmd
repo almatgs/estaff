@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<wts_global_settings>
+	<access_token TYPE="string" LARGE="1" FT-IGNORE="1"/>
+</wts_global_settings>
+
+
+</SPXML-FORM>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM ALL-DIGEST="1" OWN-ID-SPACE="1" STORAGE-TYPE="xml">
+
+<org_record_type>
+	<INHERIT TYPE="org_record_type_base"/>
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</org_record_type>
+
+
+</SPXML-FORM>

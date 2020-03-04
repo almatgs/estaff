@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>calendar_entries_with_type</id>
+	<name VALUE="Календарные события по типу" lang-en:VALUE="Calendar events by type" lang-ua:VALUE="Календарні події за типом"/>
+
+	<catalog_name>calendar_entries</catalog_name>
+
+	<open_action>
+			screen = lib_event.open_event_ext( ListElem );
+			
+			if ( Ps.ChildExists( 'filter' ) && Ps.filter.used_fulltext.HasValue )
+				screen.SetInitSearch( Ps.filter.used_fulltext );
+	</open_action>
+
+	<delete_action>
+			lib_event.delete_event( ListElem );
+	</delete_action>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>type_id</id>
+		</dyn_filter>
+		<dyn_filter>
+			<id>date</id>
+			<use_range>1</use_range>
+		</dyn_filter>
+		<dyn_filter>
+			<id>user_id</id>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}</view_filter_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+		<dyn_filter>
+			<id>group_id</id>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>date</id>
+			<use_time>0</use_time>
+		</field>
+		<field>
+			<id>date</id>
+			<time_only>1</time_only>
+			<col_title VALUE="##UiText.titles.time##"/>
+		</field>
+		<field>
+			<id>type_id</id>
+			<align>left</align>
+			<text_color_expr>state_text_color</text_color_expr>
+			<bk_color_expr>dyn_state_bk_color</bk_color_expr>
+			<order>type_id.ForeignElem.order_index</order>
+			<order1>occurrence_id</order1>
+		</field>
+		<field>
+			<id>contacts_desc</id>
+			<width>35zr</width>
+		</field>
+		<field>
+			<id>vacancy_id</id>
+			<width>70%</width>
+		</field>
+		<field>
+			<id>comment</id>
+			<width>30%</width>
+		</field>
+		<field>
+			<id>user_id</id>
+		</field>
+	</fields>
+</std_view>
+

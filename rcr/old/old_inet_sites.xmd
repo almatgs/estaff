@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<inet_sites>
+	<items>
+		<item MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+
+			<build_ad_response TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+			<build_resume_search TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+			<keywords>
+				<keyword TYPE="string" MULTIPLE="1"/>
+			</keywords>
+
+			<ad_response_url_pattern TYPE="string"/>
+
+			<is_std TYPE="bool" NOT-NULL="1"/>
+		</item>
+	</items>
+
+</inet_sites>
+
+
+
+</SPXML-FORM>

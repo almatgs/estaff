@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<base1_ui_text xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<errors>
+		<no_message_selected VALUE="Письмо не выбрано" lang-en:VALUE="No message selected" lang-ua:VALUE="Лист не вибрано"/>
+	</errors>
+</base1_ui_text>

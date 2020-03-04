@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM MIXED-FORMS="1">
+
+<trash_object>
+	<id TYPE="integer" INDEXED="1"/>
+	<del_date TYPE="date" INDEXED="1"/>
+
+	<object_name TYPE="string" FOREIGN-ARRAY="card_object_types"/>
+	<disp_name TYPE="string"/>
+
+	<OnBuild PROPERTY="1" EXPR="
+			object_name = SrcDoc.TopElem.Name;
+
+			//DebugMsg( SrcDoc.TopElem.Xml );
+
+			if ( SrcDoc.TopElem.ChildExists( 'last_mod_date' ) )
+				del_date = SrcDoc.TopElem.last_mod_date;
+			
+			if ( del_date == null )
+				del_date = CurDate;
+
+			try
+			{
+				disp_name = SrcDoc.TopElem.PrimaryDispName;
+			}
+			catch ( e )
+			{
+			}
+	"/>
+</trash_object>
+
+
+</SPXML-FORM>
+
+
+

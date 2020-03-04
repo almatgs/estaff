@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="130zr" HEIGHT="90zr" SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" RESIZE="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<GROUP>
+		<ITEM TYPE="dm_period" SOURCE="Ps.default_period" AUTO-LABEL="1"/>
+	</GROUP>
+	<BR/>
+	<CHECK SOURCE="Ps.use_for_final_candidate" AUTO-LABEL="1"/>
+	<BR/>
+	<CHECK SOURCE="Ps.require_comment" AUTO-LABEL="1"/>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+
+
+

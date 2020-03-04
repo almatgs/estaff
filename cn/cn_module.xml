@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<spxml_module>
+	<ui_texts>
+		<ui_text>
+			<url>cn_ui_text.xml</url>
+		</ui_text>
+	</ui_texts>
+
+	<sample_forms>
+		<sample_form>
+			<url>cn_general.xmd</url>
+		</sample_form>
+	</sample_forms>
+
+	<sample_screen_forms>
+		<sample_screen_form>
+			<url>cn_general.xms</url>
+		</sample_screen_form>
+	</sample_screen_forms>
+
+
+	<shared_docs>
+		<shared_doc>
+			<url>cn_common.xml</url>
+		</shared_doc>
+
+		<shared_doc>
+			<url>cn_lib_calendar.xml</url>
+		</shared_doc>
+		<shared_doc>
+			<url>cn_lib_ext_calendar.xml</url>
+		</shared_doc>
+		<shared_doc>
+			<url>cn_lib_calendar_slots.js</url>
+		</shared_doc>
+
+
+		<shared_doc>
+			<url>x-local://data/static/cn_global_settings.xml</url>
+			<form_url>cn_global_settings.xmd</form_url>
+		</shared_doc>
+
+		<shared_doc>
+			<url>x-local://data_local/cn_local_views.xml</url>
+			<form_url>cn_local_views.xmd</form_url>
+		</shared_doc>
+	</shared_docs>
+
+
+	<object_types>
+		<object_type>
+			<form_url>cn_calendar_entry.xmd</form_url>
+		</object_type>
+	</object_types>
+</spxml_module>
+
+
+

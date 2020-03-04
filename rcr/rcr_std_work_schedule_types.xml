@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems_int.xmd" xmlns:lang-en="http://www.datex-soft.com/ns/lang-en" xmlns:lang-ua="http://www.datex-soft.com/ns/lang-ua">
+	<std_voc_elem>
+		<id>1</id>
+		<name VALUE="полный день" lang-en:VALUE="fixed" lang-ua:VALUE="повний день"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>2</id>
+		<name VALUE="неполный день" lang-en:VALUE="fixed, part-time" lang-ua:VALUE="неповний день"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>3</id>
+		<name VALUE="сменный график" lang-en:VALUE="shift work" lang-ua:VALUE="змінний графік"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>4</id>
+		<name VALUE="гибкий график" lang-en:VALUE="flexible" lang-ua:VALUE="гнучкий графік"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>5</id>
+		<name VALUE="удаленная работа" lang-en:VALUE="remote work" lang-ua:VALUE="віддалена робота"/>
+	</std_voc_elem>
+</std_voc_elems>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

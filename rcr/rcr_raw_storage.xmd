@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM STORAGE-TYPE="single-xml" IMAGE-URL="//base_pict/email_message.ico" IMAGE-URL-EXPR="type_id == 'mailbox' ? '//base_pict/email_message.ico' : '//base_pict/raw_storage.ico'">
+
+
+<raw_storage>
+	<id TYPE="integer"/>
+	<name TYPE="string"/>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+
+	<type_id TYPE="string" NOT-NULL="1" FOREIGN-ARRAY="rcr_common.raw_storage_types" DEFAULT="mailbox"/>
+	<user_id TYPE="integer" FOREIGN-ARRAY="users" TITLE="Владелец источника" lang-en:TITLE="Owner of the source" lang-ua:TITLE="Власник джерела"/>
+
+	<access_method_id TYPE="string" NOT-NULL="1" FOREIGN-ARRAY="base1_common.mailbox_access_methods" EXPR-INIT="lib_mail.guess_default_mailbox_accees_method_id()"/>
+
+	<server_address TYPE="string"/>
+	<login TYPE="string"/>
+	<password TYPE="string"/>
+	<use_ssl TYPE="bool" NOT-NULL="1" TITLE="##UiText.titles.use_ssl##"/>
+	<use_ssl_port TYPE="bool" NOT-NULL="1" TITLE="##UiText.titles.dedicated_ssl_port##"/>
+
+	<store_name TYPE="string"/>
+	<folder_path TYPE="string"/>
+	<scan_sub_folders TYPE="bool" NOT-NULL="1" TITLE="Включая вложенные папки" lang-en:TITLE="Include subfolders" lang-ua:TITLE="Включаючи вкладені папки"/>
+
+	<force_download TYPE="bool" NOT-NULL="1" DEFAULT="false"/>
+	<scan_unread_only TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<mark_as_read TYPE="bool" NOT-NULL="1"/>
+	<mark_matched_as_read TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<mark_as_deleted TYPE="bool" NOT-NULL="1"/>
+	<mark_matched_as_deleted TYPE="bool" NOT-NULL="1"/>
+
+	<src_dir TYPE="string"/>
+
+
+	<min_req_rating TYPE="integer" NOT-NULL="1" DEFAULT="3"/>
+
+	<guess_profession_by_folder_name TYPE="bool" NOT-NULL="1"/>
+
+	<dest_candidate_fields>
+		<entrance_type_id TYPE="string" FOREIGN-ARRAY="candidate_entrance_types" TITLE="##UiText.fields.entrance_type##"/>
+		<source_id TYPE="string" FOREIGN-ARRAY="candidate_sources"/>
+		<state_id TYPE="string" FOREIGN-ARRAY="candidate_states"/>
+	</dest_candidate_fields>
+
+	<keep_letter_text TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<skip_duplicates_check TYPE="bool" NULL-FALSE="1" TITLE="Не проверять дубликаты при переносе в базу" lang-en:TITLE="Disable duplicate check" lang-ua:TITLE="Не перевіряти дублікати при перенесенні в базу"/>
+
+
+	<OnCreate PROPERTY="1" EXPR="
+			dest_candidate_fields.entrance_type_id = 'vacancy_response';
+	"/>
+</raw_storage>
+
+
+</SPXML-FORM>

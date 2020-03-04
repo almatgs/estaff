@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>recruit_funnel</id>
+	<name VALUE="##UiText.titles.recruit_funnel##"/>
+	<section_id>recruit</section_id>
+
+	<is_v2>1</is_v2>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>date</id>
+			<data_type>date</data_type>
+			<title VALUE="##UiText.titles.time_period##"/>
+			<use_range>1</use_range>
+			<use_period_quick_selector>1</use_period_quick_selector>
+			<default_period>
+				<unit_id>m</unit_id>
+				<unit_specifier_id>cur</unit_specifier_id>
+			</default_period>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.fields.recruiter##"/>
+			<foreign_array>users</foreign_array>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue &amp;&amp; ArrayCount( filter.group_id.Instances ) == 1 ? {main_group_id:ArrayFirstElem( filter.group_id.Instances ),is_active:true}:{is_active:true}</view_filter_expr>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.objects.group##"/>
+			<foreign_array>groups</foreign_array>
+			<is_multiple>1</is_multiple>
+			<is_hier>1</is_hier>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+		</dyn_filter>
+	</dyn_filters>
+
+	<groups>
+		<group>
+			<id>group_id</id>
+			<foreign_array>groups</foreign_array>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+		</group>
+		<group>
+			<id>user_id</id>
+			<foreign_array>users</foreign_array>
+		</group>
+		<group>
+			<id>vacancy_id</id>
+			<foreign_array>vacancies</foreign_array>
+		</group>
+	</groups>
+
+	<fields>
+		<field>
+			<id>name</id>
+			<col_title VALUE="##UiText.objects.vacancy##"/>
+			<source_id>vacancies</source_id>
+			<width>55zr</width>
+		</field>
+		<field>
+			<id>resp_candidate_count</id>
+			<col_title VALUE="Отклики на публикацию" lang-en:VALUE="Vacancy ad responses" lang-ua:VALUE="Відгуки на вакансію"/>
+			<stat_func>sum</stat_func>
+			<src_object_type_id>vacancy_ad</src_object_type_id>
+		</field>
+		<field>
+			<id>stored_resp_candidate_count</id>
+			<span_title VALUE="Из них интересные" lang-en:VALUE="Selected responses" lang-ua:VALUE="З них відібрано"/>
+			<col_title VALUE="##UiText.titles.quantity__short##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+		</field>
+		<field>
+			<id>stored_resp_candidate_percent</id>
+			<col_title VALUE="%"/>
+			<keep_to_prev>1</keep_to_prev>
+			<is_percent>1</is_percent>
+			<numerator_field_id>stored_resp_candidate_count</numerator_field_id>
+			<denominator_field_id>resp_candidate_count</denominator_field_id>
+		</field>
+
+		<field>
+			<id>active_search_candidate_count</id>
+			<col_title VALUE="Найдено на Интернет- ресурсах" lang-en:VALUE="Found on career sites" lang-ua:VALUE="Знайдено на Інтернет-ресурсах"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+		</field>
+		<field>
+			<id>other_source_candidate_count</id>
+			<col_title VALUE="Другие источники" lang-en:VALUE="Other sources" lang-ua:VALUE="Інші джерела"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+		</field>
+
+		<field>
+			<id>viewed_candidate_count</id>
+			<col_title VALUE="Всего отсмотрено" lang-en:VALUE="Total viewed" lang-ua:VALUE="Всього переглянуто"/>
+			<data_type>integer</data_type>
+		</field>
+		<field>
+			<id>selected_candidate_count</id>
+			<col_title VALUE="Из них интересных" lang-en:VALUE="Selected" lang-ua:VALUE="З них відібрано"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+		</field>
+
+		<field>
+			<id>interview_reg_count</id>
+			<span_title VALUE="Приглашены на интервью" lang-en:VALUE="Invited for an interview" lang-ua:VALUE="Запрошені на інтерв'ю"/>
+			<col_title VALUE="##UiText.titles.quantity__short##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+		</field>
+		<field>
+			<id>interview_reg_percent</id>
+			<col_title VALUE="%"/>
+			<keep_to_prev>1</keep_to_prev>
+			<is_percent>1</is_percent>
+			<numerator_field_id>interview_reg_count</numerator_field_id>
+			<denominator_field_id>selected_candidate_count</denominator_field_id>
+		</field>
+
+		<field>
+			<id>interview_completed_count</id>
+			<span_title VALUE="##UiText.titles.interview_completed##"/>
+			<col_title VALUE="##UiText.titles.quantity__short##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<bk_color>240,240,255</bk_color>
+		</field>
+		<field>
+			<id>interview_completed_percent</id>
+			<col_title VALUE="%"/>
+			<keep_to_prev>1</keep_to_prev>
+			<is_percent>1</is_percent>
+			<numerator_field_id>interview_completed_count</numerator_field_id>
+			<denominator_field_id>interview_reg_count</denominator_field_id>
+			<bk_color>240,240,255</bk_color>
+		</field>
+
+		<field>
+			<id>submitted_to_hm_count</id>
+			<span_title VALUE="##UiText.titles.submitted_to_rr##"/>
+			<col_title VALUE="##UiText.titles.quantity__short##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+		</field>
+		<field>
+			<id>submitted_to_hm_percent</id>
+			<col_title VALUE="%"/>
+			<keep_to_prev>1</keep_to_prev>
+			<is_percent>1</is_percent>
+			<numerator_field_id>submitted_to_hm_count</numerator_field_id>
+			<denominator_field_id>interview_completed_count</denominator_field_id>
+		</field>
+
+		<field>
+			<id>hm_interview_reg_count</id>
+			<span_title VALUE="Приглашены на интервью к заказчику" lang-en:VALUE="Invited to interview with hiring manager" lang-ua:VALUE="Запрошені на інтерв'ю до замовника"/>
+			<col_title VALUE="##UiText.titles.quantity__short##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+		</field>
+		<field>
+			<id>hm_interview_reg_percent</id>
+			<col_title VALUE="%"/>
+			<keep_to_prev>1</keep_to_prev>
+			<is_percent>1</is_percent>
+			<numerator_field_id>hm_interview_reg_count</numerator_field_id>
+			<denominator_field_id>submitted_to_hm_count</denominator_field_id>
+		</field>
+
+		<field>
+			<id>hm_interview_succeeded_count</id>
+			<span_title VALUE="Одобрены заказчиком" lang-en:VALUE="Approved by hiring manager" lang-ua:VALUE="Схвалено замовником"/>
+			<col_title VALUE="##UiText.titles.quantity__short##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<bk_color>255,240,255</bk_color>
+		</field>
+		<field>
+			<id>hm_interview_succeeded_percent</id>
+			<col_title VALUE="%"/>
+			<keep_to_prev>1</keep_to_prev>
+			<is_percent>1</is_percent>
+			<numerator_field_id>hm_interview_succeeded_count</numerator_field_id>
+			<denominator_field_id>hm_interview_reg_count</denominator_field_id>
+			<bk_color>255,240,255</bk_color>
+		</field>
+
+		<field>
+			<id>job_offer_count</id>
+			<span_title VALUE="##UiText.titles.job_offer_made##"/>
+			<col_title VALUE="##UiText.titles.quantity__short##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+		</field>
+		<field>
+			<id>job_offer_percent</id>
+			<col_title VALUE="%"/>
+			<keep_to_prev>1</keep_to_prev>
+			<is_percent>1</is_percent>
+			<numerator_field_id>job_offer_count</numerator_field_id>
+			<denominator_field_id>hm_interview_succeeded_count</denominator_field_id>
+		</field>
+
+		<field>
+			<id>hire_count</id>
+			<span_title VALUE="##UiText.titles.hired__n##"/>
+			<col_title VALUE="##UiText.titles.quantity__short##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+		</field>
+		<field>
+			<id>hire_percent</id>
+			<col_title VALUE="%"/>
+			<keep_to_prev>1</keep_to_prev>
+			<is_percent>1</is_percent>
+			<numerator_field_id>hire_count</numerator_field_id>
+			<denominator_field_id>job_offer_count</denominator_field_id>
+		</field>
+	</fields>
+
+	<show_total>1</show_total>
+	<show_chart>1</show_chart>
+
+	<use_group_bk_colors>1</use_group_bk_colors>
+
+	<code_lib_url>x-app://rcr/rcr_std_stat_recruit_funnel.js</code_lib_url>
+</std_stat>
+

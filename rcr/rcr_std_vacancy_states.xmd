@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_vacancy_states>
+	<std_vacancy_state MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT FORM="rcr_vacancy_state.xmd" TYPE="vacancy_state"/>
+	</std_vacancy_state>
+</std_vacancy_states>
+
+
+
+</SPXML-FORM>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<IF EXPR="! base1_config.is_int_version">
+		<GROUP>
+			<ITEM TYPE="elem_selector" SOURCE="Ps.std_office_access_system_id" AUTO-LABEL="1" WIDTH="40zr"/>
+		</GROUP>
+	</IF>
+	<DELIM/>
+
+	<IF EXPR="Ps.std_office_access_system_id.HasValue">
+		<GROUP>
+			<IF EXPR="Ps.std_office_access_system_id.ForeignElem.use_server_address">
+				<EDIT SOURCE="Ps.server_address" WIDTH="40zr" AUTO-LABEL="1"/>
+				<CHECK SOURCE="Ps.run_on_server" AUTO-LABEL="1"/>
+			</IF>
+
+			<IF EXPR="true">
+				<EDIT SOURCE="Ps.login" WIDTH="40zr" AUTO-LABEL="1"/>
+
+				<EDIT SOURCE="StrStdDecrypt( Ps.password_ed )" SET-VALUE-ACTION="
+						Ps.password_ed = StrStdEncrypt( NewValue );
+						Ps.Doc.SetChanged( true );
+				" LABEL-TITLE="##UiText.fields.password##:" WIDTH="20zr" PASSWORD="1"/>
+			</IF>
+		</GROUP>
+	</IF>
+	<ELSE>
+		<CODE-EDIT SOURCE="Ps.code" MULTILINE="1" HEIGHT="-20zr" AUTO-LABEL="1"/>
+	</ELSE>
+	<DELIM/>
+	<BR/>
+	<BR/>
+	<BR/>
+	<BR/>
+
+	<GROUP>
+		<BUTTON TITLE="Отправить тестовую заявку" lang-en:TITLE="Send Test Request" lang-ua:TITLE="Надіслати тестову заявку" IMAGE-URL="//base_pict/phone_call_outgoing.ico" WIDTH="35zr" ACTION="
+				lib_office_access.HandleSubmitTestRequest( Ps, {officeAccessSystemID:Ps.id} );
+		"/>
+
+		<EDIT SOURCE="Ps.test_request.lastname" AUTO-LABEL="1" WIDTH="25zr"/>
+		<EDIT SOURCE="Ps.test_request.firstname" AUTO-LABEL="1" WIDTH="15zr"/>
+
+		<IF EXPR="! base1_config.is_int_version">
+			<EDIT SOURCE="Ps.test_request.middlename" AUTO-LABEL="1" WIDTH="20zr"/>
+		</IF>
+
+		<ITEM TYPE="date_selector" SOURCE="Ps.test_request.date" AUTO-LABEL="1"/>
+	</GROUP>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="100zr" HEIGHT="48zr" CAPTION="0">
+
+<LIST LOOP-CATALOG="users">
+	<ROW>
+		<COL WITH="100%" TITLE-EXPR="ListElem.login"/>
+	</ROW>
+</LIST>
+
+</SPXML-SCREEN>

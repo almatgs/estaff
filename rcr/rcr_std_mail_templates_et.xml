@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_mail_templates SPXML-FORM="rcr_std_mail_templates.xmd" LANG="et">
+	<std_mail_template>
+		<id>first_call_arrange</id>
+		<name VALUE="Telefonikõne kokku leppimine (aktiivne kandidaat)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject><![CDATA[Ametikoht <%=vacancy.name%>]]></subject>
+		<text><![CDATA[Tere <%=candidate.firstname%> <%=candidate.middlename%>!
+
+Tänan Teid kandideerimise eest  "<%=vacancy.name%>"!
+Millal on Teile  sobiv aeg  telefonivestlust läbi viia, et arutleda detaile?
+
+<%=signature%>
+
+
+--------------------------------
+Tööpakkumise kirjeldus:
+<%=vacancy.public_job_desc%>
+
+]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>first_call_arrange_2</id>
+		<name VALUE="Telefonikõne kokku leppimine (passiivne kandidaat)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject><![CDATA[Ametikoht <%=vacancy.name%>]]></subject>
+		<text><![CDATA[Tere <%=candidate.firstname%> <%=candidate.middlename%>!
+
+Maie ettevõttes on vaba töökoht "<%=vacancy.name%>".
+Me leidsime Teie CV <%=candidate.source_id.HasValue ? ' на ' + candidate.source_id.ForeignElem.name : '' %>, ning me soovime näha Teid selle ametikoha positsioonile kandidaatide hulgas.
+
+Juhul, kui meie tööpakkumine pakkus Teile huvi, siis palun võtke minuga ühendust või andke teada, millal ma võin ise Teile helistada.
+Täpsem tööpakkumise kirjeldus on e-maili allosas.
+
+<%=signature%>
+
+
+--------------------------------
+Tööpakkumise kirjeldus:
+<%=vacancy.public_job_desc%>
+
+]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>interview_invite</id>
+		<name VALUE="Töövestluse aja kokku leppimine (aktiivne kandidaat)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject><![CDATA[Ametikoht <%=vacancy.name%>]]></subject>
+		<text><![CDATA[Tere <%=candidate.firstname%> <%=candidate.middlename%>!
+
+Tänan Teid kandideerimise eest "<%=vacancy.name%>"!
+Me tahaksime kutsuda Teid töövestlusle. Millal oleks Teil mugavam meiega kohtuda?
+
+<%=signature%>
+
+
+--------------------------------
+Tööpakkumise kirjeldus:
+<%=vacancy.public_job_desc%>
+
+]]></text>
+
+		<register_event>1</register_event>
+		<event_type_id>invitation</event_type_id>
+	</std_mail_template>
+
+
+
+	<std_mail_template>
+		<id>interview_invite_2</id>
+		<name VALUE="Töövestluse aja kokku leppimine (passiivne kandidaat)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject>Töövestlus</subject>
+		<text><![CDATA[Tere <%=candidate.firstname%> <%=candidate.middlename%>!
+
+Maie ettevõttes on vaba töökoht "<%=vacancy.name%>".
+Teie CV pakkus meile huvi.
+
+Juhul, kui meie tööpakkumine pakkus Teile huvi, siis palun võtke minuga ühendust, et me saaksime valida töövestlus aega.
+Täpsem tööpakkumise kirjeldus on e-maili allosas.
+
+<%=signature%>
+
+
+--------------------------------
+Tööpakkumise kirjeldus:
+<%=vacancy.public_job_desc%>
+
+]]></text>
+	
+		<register_event>1</register_event>
+		<event_type_id>invitation</event_type_id>
+	</std_mail_template>
+
+
+
+
+	<std_mail_template>
+		<id>interview_date_notif</id>
+		<name VALUE="Teade kokku lepitud töövestlus kohta (sõiduplaan)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject>Töövestlus</subject>
+		<text><![CDATA[Tere <%=candidate.firstname%> <%=candidate.middlename%>!
+Vastavalt meie kokkuleppele ootame Teid <%=StrLongDate( candidate.find_scheduled_event( 'interview', vacancy_id ).date, false )%> (<%=base1_common.week_days.GetChildByKey( WeekDay( candidate.find_scheduled_event( 'interview', vacancy_id ).date, true ) ).name%>) <%=StrTime( candidate.find_scheduled_event( 'interview', vacancy_id ).date )%>.
+
+<%=event.locationDesc%>
+
+<%=signature%>
+]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>rr_interview_date_notif</id>
+		<name VALUE="Teade juhiga kokku lepitud töövestlus kohta (sõiduplaan)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject>Töövestlus</subject>
+		<text><![CDATA[Tere <%=candidate.firstname%> <%=candidate.middlename%>!
+
+Vastavalt meie kokkuleppele ootame Teid <%=StrLongDate( candidate.find_scheduled_event( 'interview', vacancy_id ).date, false )%> (<%=base1_common.week_days.GetChildByKey( WeekDay( candidate.find_scheduled_event( 'interview', vacancy_id ).date, true ) ).name%>) <%=StrTime( candidate.find_scheduled_event( 'interview', vacancy_id ).date )%>.
+
+<%=event.locationDesc%>
+
+<%=signature%>
+]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>org_rr_interview_date_notif</id>
+		<name VALUE="Teade tellijaga kokku lepitud töövestlus kohta (sõiduplaan)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject>Töövestlus</subject>
+		<text><![CDATA[Tere <%=candidate.firstname%> <%=candidate.middlename%>!
+
+Kinnitan töövestlus aega "<%=StrDate( event.date, true, false )%>".
+
+Kontorisse kohale jõudmise plaan/skeem <%=org.name%> Te leiate manuses.
+
+<%=signature%>
+]]></text>
+
+		<card_attachments>
+			<card_attachment>
+				<card_attachment_type_id>location_desc</card_attachment_type_id>
+				<src_object_type_id>org</src_object_type_id>
+			</card_attachment>
+		</card_attachments>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>add_notify</id>
+		<name VALUE="Teade andmebaasi lisamisest"/>
+		<dest_type>candidate</dest_type>
+
+		<subject></subject>
+		<text><![CDATA[Tere <%=candidate.firstname%> <%=candidate.middlename%>!
+
+Täname Teid saadetud CV eest. Teie CV on lisatud meie andmebaasi. Teile sobiva ametikoha leidmisel/tekkimisel võtame Teiega uuesti ühendust.  
+
+<%=signature%>
+]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>reject</id>
+		<name>Kandidaadile äraütlemine (peale töövestlusd)</name>
+		<dest_type>candidate</dest_type>
+
+		<subject>Konkurss on lõppenud</subject>
+		<text><![CDATA[Tere <%=candidate.firstname%> <%=candidate.middlename%>!
+
+Täname Teid, et osalesite meie poolt korraldatud konkursil "<%=vacancy.name%>". Täname Teid konkursile pühendatud aja eest. 
+Töövestlus käigus selgus, et kahjuks jäi puudu Teie professionaalsetest oskustest ning me ei saa Teile hetkel teha tööpakkumist.
+Soovime Teile edu kutsetegevuses!
+
+<%=signature%>]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>vacancy_close</id>
+		<name>Äraütlemise teade</name>
+		<dest_type>candidate</dest_type>
+
+		<subject>Konkurss on lõppenud</subject>
+		<text><![CDATA[Tere <%=candidate.firstname%> <%=candidate.middlename%>!
+
+Käesoleva kirjaga soovime Teid informeerida, et konkurss ametikohale "<%=vacancy.name%>" on lõppenud.
+Praegusel momendil me ei saa teha Teile tööpakkumist.  Teie loal jätame endale õiguse Teie andmete säilitamiseks, et uue ametikoha tekkimisel saaksime Teiega ühendust võtta.
+
+<%=signature%>]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>client_resume</id>
+		<name VALUE="Kandidaadi CV"/>
+		<dest_type>person</dest_type>
+
+		<subject>Kandidaadi CV</subject>
+		<text><![CDATA[Kandidaadi CV ametikohale,  "<%=vacancy.name%>".
+
+<%=signature%>]]></text>
+
+		<card_attachments>
+			<card_attachment>
+				<name>&lt;%=candidate.fullname%>.doc</name>
+				<card_attachment_type_id>resume</card_attachment_type_id>
+				<src_object_type_id>candidate</src_object_type_id>
+			</card_attachment>
+		</card_attachments>
+
+		<register_event>1</register_event>
+		<event_type_id>rr_resume_review</event_type_id>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>notify_vacancy_state_changed</id>
+		<name>Juhataja teatamine ametikoha staatuse muutmisest</name>
+		<dest_type>person</dest_type>
+		<is_notif>1</is_notif>
+
+		<subject>Teade ametikoha staatuse muutmisest</subject>
+
+		<text><![CDATA[Tere <%=firstname%> <%=middlename%>!
+
+Teavitame ametikoha staatuse muutmisest "<%=vacancy.name%>" struktuuris "<%=vacancy.division_id.ForeignDispName%>".
+Uus ametikoha staatus: "<%=vacancy.state_id.ForeignDispName%>"]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>notify_state_rr_approve</id>
+		<name>Уведомление руководителя о начале процедуры утверждения кандидата</name>
+		<dest_type>person</dest_type>
+		<is_notif>1</is_notif>
+
+		<subject>Teavitame kandidaadi kinnitamise protseduurist</subject>
+
+		<text><![CDATA[Tere <%=firstname%> <%=middlename%>!
+
+Teavitame kandidaadi eelkinnitamise protseduurist (<%=candidate.fullname%>) töövestlus tulemuste järgi.
+Kandidaadi kinnitamiseks või edasilükkamiseks vajutage lingile <%=event_web_link%>]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>notify_state_rr_poll</id>
+		<name>Juhataja teavitamine kandidaadi hindamise protseduurist</name>
+		<dest_type>person</dest_type>
+		<is_notif>1</is_notif>
+
+		<subject>Teade kandidaadi hindamise protseduurist</subject>
+
+		<text><![CDATA[Tere <%=firstname%> <%=middlename%>!
+
+Teavitame kandidaadi hindamise protseduurist (<%=candidate.fullname%>) töövestlus tulemuste järgi.
+Hindamise vormi täitmiseks palun vajutage lingile <%=event_web_link%>]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>notify_probation_assessment</id>
+		<name>Juhataja teavitamine kandidaadi katseaja lõppemisest </name>
+		<dest_type>person</dest_type>
+		<is_notif>1</is_notif>
+
+		<subject>Teade katseaja lõppemisest</subject>
+
+		<text><![CDATA[Tere <%=firstname%> <%=middlename%>!
+
+Tuletame meelde, et töötaja <%=candidate.fullname%> katseaeg lõpeb <%=candidate.probation_end_date%>.
+Palun täitke töötaja katseaja läbimise hindamise vorm.
+
+Lugupidamisega,
+personaliosakond.
+]]></text>
+	</std_mail_template>
+</std_mail_templates>

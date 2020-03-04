@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="130zr" HEIGHT="90zr" SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		if ( lib_base.catalog_name_to_opt_object_name( Ps.id ) == '' )
+			throw UserError( UiText.errors.invalid_voc_id );
+		
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+		lib_base.show_need_restart_server_warning( Screen );
+		UpdateScreens( '*', '*scenario*' );
+" RESIZE="1">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+
+	<LINE>
+		<LABEL TITLE="Тип ключевого поля:" lang-en:TITLE="Primary key type:" lang-ua:TITLE="Тип ключового поля:"/>
+		<RADIO-BUTTON SOURCE="Ps.key_type" SWITCH-VALUE="integer" TITLE="Числовой" WIDTH="auto" lang-en:TITLE="Numeric" lang-ua:TITLE="Числовий"/>
+		<RADIO-BUTTON SOURCE="Ps.key_type" SWITCH-VALUE="string" TITLE="Строковый" WIDTH="auto" lang-en:TITLE="String" lang-ua:TITLE="Строковий"/>
+	</LINE>
+	<BR/>
+
+	<CHECK SOURCE="Ps.is_hier" TITLE="Иерархический справочник" lang-en:TITLE="Hierarchical list" lang-ua:TITLE="Ієрархічний довідник"/>
+	<BR/>
+
+	<CHECK SOURCE="Ps.use_text_color" TITLE="Использовать цвет текста" lang-en:TITLE="Use text color" lang-ua:TITLE="Використовувати колір тексту"/>
+	<CHECK SOURCE="Ps.use_bk_color" TITLE="Использовать цвет фона" lang-en:TITLE="Use background color" lang-ua:TITLE="Використовувати колір фону"/>
+</PANEL>
+
+</SPXML-SCREEN>

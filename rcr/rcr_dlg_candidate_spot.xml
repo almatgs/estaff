@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SPXML-INLINE-FORM>
+
+<dlg_candidate_spot>
+	<entrance_type_id TYPE="string" FOREIGN-ARRAY="candidate_entrance_types" TITLE="##UiText.fields.entrance_type##" base1:allow-hide="1"/>
+	<source_id TYPE="string" FOREIGN-ARRAY="candidate_sources" TITLE="##UiText.fields.entrance_source##"/>
+</dlg_candidate_spot>
+
+
+</SPXML-INLINE-FORM>

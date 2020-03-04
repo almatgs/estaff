@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<html_edit_context_base SAMPLE="1">
+	<html_edit_context TEMP="1" DOC-ONLY="1">
+		<selector TYPE="string" NOT-NULL="1" DEFAULT="edit"/>
+		<base_url TYPE="string"/>
+		<editor_engine TYPE="string"/>
+		<temp_dir TYPE="string"/>
+		<temp_file_url TYPE="string"/>
+
+		<use_full_html TYPE="bool" NULL-FALSE="1"/>
+		<hide_editor TYPE="bool" NULL-FALSE="1"/>
+	</html_edit_context>
+</html_edit_context_base>
+
+
+</SPXML-FORM>

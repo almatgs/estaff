@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<spxml_module>
+	<ui_texts>
+		<ui_text>
+			<url>wts_ui_text.xml</url>
+		</ui_text>
+	</ui_texts>
+
+	<shared_docs>
+		<shared_doc>
+			<url>wts_lib_wts.js</url>
+		</shared_doc>
+		<shared_doc>
+			<url>x-local://data/static/wts_global_settings.xml</url>
+			<form_url>wts_global_settings.xmd</form_url>
+		</shared_doc>
+	</shared_docs>
+</spxml_module>
+
+
+

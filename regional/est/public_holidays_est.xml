@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<public_holiday_map SPXML-FORM="//cn/cn_public_holiday_map.xmd" LANG="et">
+	<id>est_01</id>
+	<country_id>EST</country_id>
+	<items>
+		<item>
+			<name VALUE="uusaasta"/>
+			<month>1</month>
+			<day>1</day>
+		</item>
+		<item>
+			<name VALUE="iseseisvuspäev"/>
+			<month>2</month>
+			<day>24</day>
+		</item>
+		<item>
+			<name VALUE="kevadpüha"/>
+			<month>5</month>
+			<day>1</day>
+		</item>
+		<item>
+			<name VALUE="võidupüha and jaanilaupäev"/>
+			<month>6</month>
+			<day>23</day>
+		</item>
+		<item>
+			<name VALUE="jaanipäev"/>
+			<month>6</month>
+			<day>24</day>
+		</item>
+		<item>
+			<name VALUE="taasiseseisvumispäev"/>
+			<month>8</month>
+			<day>20</day>
+		</item>
+		<item>
+			<name VALUE="jõululaupäev"/>
+			<month>12</month>
+			<day>24</day>
+		</item>
+		<item>
+			<name VALUE="esimene jõulupüha"/>
+			<month>12</month>
+			<day>25</day>
+		</item>
+		<item>
+			<name VALUE="teine jõulupüha"/>
+			<month>12</month>
+			<day>26</day>
+		</item>
+	</items>
+</public_holiday_map>

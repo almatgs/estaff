@@ -1,0 +1,309 @@
+namespace AppUi {
+
+var gImageCacheTimeout = 6;
+
+
+function ProcessSvgStateImage2( imageUrl, effects )
+{
+	//if ( System.IsWebClient )
+		//return imageUrl;
+
+	destFileUrl = BuildCachedImageFileUrl2( imageUrl, effects );
+	if ( FileExists( destFileUrl ) && DateDiff( CurDate, GetFileModDate( destFileUrl ) ) >= gImageCacheTimeout )
+		return destFileUrl;
+
+	if ( effects == undefined )
+	{
+		srcFileUrl = imageUrl;
+		useTempFile = false;
+	}
+	else
+	{
+		srcFileUrl = ObtainTempFile( UrlPathSuffix( imageUrl ) );
+		PutUrlData( srcFileUrl, ApplySvgEffects( LoadUrlData( imageUrl ), effects ) );
+		useTempFile = true;
+	}
+
+	ConvertSvgToPng1( srcFileUrl, destFileUrl );
+
+	if ( useTempFile )
+		DeleteFile( srcFileUrl );
+
+	return destFileUrl;
+}
+
+
+function ProcessSvgStateImage( imageUrl, state, colorMapping )
+{
+	if ( System.IsWebClient )
+		return imageUrl;
+
+	destFileUrl = BuildCachedImageFileUrl( imageUrl, state );
+	if ( FileExists( destFileUrl ) && DateDiff( CurDate, GetFileModDate( destFileUrl ) ) >= gImageCacheTimeout )
+		return destFileUrl;
+
+	if ( state == "" || state == "normal" )
+	{
+		srcFileUrl = imageUrl;
+		useTempFile = false;
+	}
+	else
+	{
+		srcFileUrl = ObtainTempFile( UrlPathSuffix( imageUrl ) );
+		PutUrlData( srcFileUrl, ProcessSvgContent( LoadUrlData( imageUrl ), colorMapping ) );
+		useTempFile = true;
+	}
+
+	ConvertSvgToPng1( srcFileUrl, destFileUrl );
+
+	if ( useTempFile )
+		DeleteFile( srcFileUrl );
+
+	return destFileUrl;
+}
+
+
+function GetStateImageUrl2( imageUrl, state, colorMapping )
+{
+	if ( System.IsWebClient )
+	{
+		var		queryObject;
+
+		queryObject = new Object;
+		queryObject.url = AbsoluteUrl( imageUrl );
+		queryObject.state = state;
+
+		targetUrl = '/spxml_web/service/get_image.htm?' + UrlEncodeQuery( queryObject );
+
+		return AbsoluteUrl( targetUrl, System.WebClientUrl );
+	}
+
+	destFileUrl = BuildCachedImageFileUrl( imageUrl, state );
+	if ( FileExists( destFileUrl ) && DateDiff( CurDate, GetFileModDate( destFileUrl ) ) >= gImageCacheTimeout )
+		return destFileUrl;
+
+	if ( ( state == "" || state == "normal" ) && colorMapping.GetOptProperty( 'normal' ) == undefined )
+	{
+		srcFileUrl = imageUrl;
+		useTempFile = false;
+	}
+	else
+	{
+		srcFileUrl = ObtainTempFile( UrlPathSuffix( imageUrl ) );
+		PutUrlData( srcFileUrl, ProcessSvgContent2( LoadUrlData( imageUrl ), state, colorMapping ) );
+		useTempFile = true;
+	}
+
+	ConvertSvgToPng1( srcFileUrl, destFileUrl );
+
+	if ( useTempFile )
+		DeleteFile( srcFileUrl );
+
+	return destFileUrl;
+}
+
+
+function ConvertSvgToPng1( srcFileUrl, destFileUrl )
+{
+	/*if ( reqSize.x != 0 )
+		density = ( reqSize.x * 100 ) / 173;
+	else
+		density = 72;*/
+
+	exePath = FilePath( AppDirectoryPath(), "misc/ImageMagick/magick.exe" );
+
+	commandLine = "";
+	//commandLine += BmStr( "-density " ) + BmStrInteger( density );
+	commandLine += " -background none";
+	commandLine += " +antialias";
+	commandLine += " \"" + UrlToFilePath( srcFileUrl ) + "\" \"" + UrlToFilePath( destFileUrl ) + "\"";
+
+	//PutUrlData( 'x-local://Logs/zz.txt', commandLine );
+
+	options = 'wait=1;hidden=1;exitCodeException=1;stdErr=1;';
+
+	env = new Object;
+	//env.MAGICK_CODER_FILTER_PATH = FilePath( AppDirectoryPath(), "misc/ImageMagick/modules/filters" );
+	env.MAGICK_CODER_MODULE_PATH = FilePath( AppDirectoryPath(), "misc/ImageMagick/modules/coders" );
+	//env.MAGICK_TEMPORARY_PATH = ParentDirectory( UrlToFilePath( ObtainTempFile() ) );
+	//env.MAGICK_CONFIGURE_PATH = FilePath( AppDirectoryPath(), "misc/ImageMagick" );
+	//env.MAGICK_HOME = FilePath( AppDirectoryPath(), "misc/ImageMagick" );
+	//env.HOME = FilePath( AppDirectoryPath(), "misc/ImageMagick" );
+	//env.LD_LIBRARY_PATH = FilePath( AppDirectoryPath(), "misc/ImageMagick" );
+	env.PATH = FilePath( AppDirectoryPath(), "misc/ImageMagick" );
+
+	ProcessExecute( exePath, commandLine, options, env );
+}
+
+
+/*Error ExtImageFormat::ConvertSvgToPng2( const BmStr& srcFilePath, const VmPoint& reqSize, const BmStr& destFilePath )
+{
+	UInt				density;
+	BmStr				exePath;
+	BmConfig			config;
+	BmProcessParam		param;
+	Error				result;
+
+	if ( reqSize.x != 0 )
+		density = ( reqSize.x * 100 ) / 173;
+	else
+		density = 72;
+
+	exePath = FmAppendFilePath( gBmAppInfo.appDir, "D:\\Distr\\inkscape\\inkscape.exe" );
+
+	param.commandLine = "";
+	//param.commandLine += BmStr( "--export-dpi=" ) + BmStrInteger( density );
+	param.commandLine += BmStr( "--export-png=\"" ) + destFilePath + "\"";
+	param.commandLine += BmStr( " \"" ) + srcFilePath + "\"";
+	
+	param.hidden = true;
+	param.waitForCompletion = true;
+	param.readStdErr = true;
+	//param.workDir = FmGetParentDir( exePath );
+
+	result = BmLaunchProcess( exePath, &param );
+	EXCPT_RETURN();
+
+	if ( param.exitCode != 0 || ! FmItemExists( destFilePath ) )
+	{
+		result = BmErrors::VerboseError( BmStr( "Process " ) + FmGetItemName( exePath ) + " exited with code " + BmStrInteger( param.exitCode ) );
+
+		if ( ! param.stdErrDataStr.IsEmpty() )
+			BmErrorInfo::SetLastErrorProp( result, gBmNameSpace.RegisterName( "Details" ), param.stdErrDataStr );
+
+		return result;
+	}
+
+	return noError;
+}
+*/
+
+function BuildCachedImageFileUrl( srcFileUrl, state )
+{
+	destFileName = UrlFileName( srcFileUrl );
+	//if ( reqSize.x != 0 )
+		//destFileName += BmStr( "-w" ) + BmStrInteger( reqSize.x );
+
+	destFileName += "-m" + StrReplace( StrReplace( StrXmlDate( GetFileModDate( srcFileUrl ), {ShowTimeZone:false} ), "-", "" ), ":", "" );
+	destFileName += "-s" + UrlFileSize( srcFileUrl );
+	
+	if ( state != "" && state != "normal" )
+		destFileName += "-" + state;
+
+	destFileName += ".png";
+
+	cacheBaseDir = GetCacheBaseDir();
+	ObtainDirectory( cacheBaseDir, true );
+
+	return UrlAppendPath( cacheBaseDir, destFileName );
+}
+
+
+function BuildCachedImageFileUrl2( srcFileUrl, effects )
+{
+	destFileName = UrlFileName( srcFileUrl );
+	//if ( reqSize.x != 0 )
+		//destFileName += BmStr( "-w" ) + BmStrInteger( reqSize.x );
+
+	destFileName += "-m" + StrReplace( StrReplace( StrXmlDate( GetFileModDate( srcFileUrl ), {ShowTimeZone:false} ), "-", "" ), ":", "" );
+	destFileName += "-s" + UrlFileSize( srcFileUrl );
+	
+	if ( effects != undefined )
+	{
+		for ( propName in effects )
+		{
+			destFileName += "-" + propName + AdjustFileNameStr( effects[propName] );
+		}
+	}
+
+	destFileName += ".png";
+
+	cacheBaseDir = GetCacheBaseDir();
+	ObtainDirectory( cacheBaseDir, true );
+
+	return UrlAppendPath( cacheBaseDir, destFileName );
+}
+
+
+function GetCacheBaseDir()
+{
+	return UrlAppendPath( FilePathToUrl( GetShellFolderPath( "LocalAppData") ), AppID + "/ExtImageCache" );
+}
+
+
+function ProcessSvgContent( dataStr, colorMapping )
+{
+	for ( propName in colorMapping )
+	{
+		origStr = propName;
+
+		if ( ! StrContains( dataStr, origStr ) )// && origStr == AppUi.gThemeData.colors.icon )
+			origStr = AppUi.gThemeData.colors.gray_fill;
+
+		if ( ! StrContains( dataStr, origStr ) )// && propName == AppUi.gThemeData.colors.icon )
+			origStr = AppUi.gThemeData.colors.button_gray_text;
+
+		if ( ! StrContains( dataStr, origStr) )
+			DebugMsg( origStr + ' is not found in SVG' );
+
+		dataStr = StrReplace( dataStr, origStr, colorMapping[propName] );
+	}
+
+	return dataStr;
+}
+
+
+function ProcessSvgContent2( dataStr, state, colorMapping )
+{
+	newColor = colorMapping.GetOptProperty( state );
+	if ( newColor == undefined )
+		return dataStr;
+
+	for ( origColor in [AppUi.themeColors.check_box_fill,AppUi.themeColors.gray_fill,AppUi.themeColors.button_gray_text] )
+	{
+		if ( StrContains( dataStr, origColor ) )
+		{
+			dataStr = StrReplace( dataStr, origColor, newColor );
+			break;
+		}
+	}
+
+	return dataStr;
+}
+
+
+function ApplySvgEffects( dataStr, effects )
+{
+	for ( propName in effects )
+	{
+		if ( propName == 'primary_color' )
+			dataStr = ApplySvgEffectPrimaryColor( dataStr, effects[propName] );
+	}
+
+	return dataStr;
+}
+
+
+function ApplySvgEffectPrimaryColor( dataStr, newColor )
+{
+	for ( origColor in [AppUi.themeColors.check_box_fill,AppUi.themeColors.gray_fill,AppUi.themeColors.gray_text,AppUi.themeColors.button_gray_text,AppUi.themeColors.primary,AppUi.themeColors.text] )
+	{
+		if ( StrContains( dataStr, origColor ) )
+		{
+			dataStr = StrReplace( dataStr, origColor, newColor );
+			break;
+		}
+	}
+
+	return dataStr;
+}
+
+
+function AdjustFileNameStr( str )
+{
+	str = StrReplace( str, '#', '' );
+	return str;
+}
+
+
+}

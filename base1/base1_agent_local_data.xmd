@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM AUTO-SAVE="1">
+
+<agent_local_data>
+	<agent_stats>
+		<agent_stat MULTIPLE="1" PRIMARY-KEY="agent_id">
+			<agent_id TYPE="string" FOREIGN-ARRAY="agents"/>
+			<last_run_start_date TYPE="date"/>
+			<last_run_end_date TYPE="date"/>
+			<last_run_error_str TYPE="string"/>
+		</agent_stat>
+	</agent_stats>
+</agent_local_data>
+
+
+
+</SPXML-FORM>

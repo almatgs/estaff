@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems.xmd">
+	<std_voc_elem>
+		<id>not_in_job_search</id>
+		<name VALUE="Не ищет работу" lang-en:VALUE="Not looking for a job" lang-ua:VALUE="Не шукає роботу"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>company</id>
+		<name VALUE="##UiText.objects.company##"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>location</id>
+		<name VALUE="Месторасположение" lang-en:VALUE="Location" lang-ua:VALUE="Місце розташування"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>work_schedule</id>
+		<name VALUE="##UiText.titles.work_schedule##"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>salary</id>
+		<name VALUE="##UiText.fields.salary_level##"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>work_conditions</id>
+		<name VALUE="Условия труда" lang-en:VALUE="Working conditions" lang-ua:VALUE="Умови праці"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>another_offer</id>
+		<name VALUE="Принял другое предложение" lang-en:VALUE="Accepted another job offer" lang-ua:VALUE="Прийняв інша пропозиція"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>counter_offer</id>
+		<name VALUE="Контроффер" lang-en:VALUE="Counteroffer" lang-ua:VALUE="Контроффер"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>other</id>
+		<name VALUE="Иное" lang-en:VALUE="Other" lang-ua:VALUE="Інша"/>
+	</std_voc_elem>
+</std_voc_elems>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

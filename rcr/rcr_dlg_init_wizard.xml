@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_init_wizard>
+	<stages>
+		<stage MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+		</stage>
+	</stages>
+
+	<cur_stage_index TYPE="integer" NOT-NULL="1"/>
+
+	<cur_stage PROPERTY="1" EXPR="
+			stages[cur_stage_index];
+	"/>
+
+	<set_next_stage PROPERTY="1" EXPR="
+			shift = 1;
+
+			if ( cur_stage.id == 'init' )
+			{
+				global_settings.set_init_dep_values();
+
+				if ( global_settings.is_agency )
+				{
+					stage = stages.GetOptChildByKey( 'struct' );
+					if ( stage != undefined )
+					{
+						stage.Delete();
+						//shift--;
+					}
+				}
+			}
+
+			if ( cur_stage.id == 'country' )
+			{
+				if ( ArrayOptFirstElem( locations ) == undefined &amp;&amp; lib_location.get_country_package_spec( global_settings.country_id ).has_locations )
+				{
+					try
+					{
+						lib_location.handle_load_std_locations();
+					}
+					catch ( e )
+					{
+						if ( ! IsCancelError( e ) )
+							throw e;
+					}
+
+					if ( ! global_settings.default_location_id.HasValue && ArrayCount( locations ) == 1 )
+						global_settings.default_location_id = ArrayFirstElem( locations ).id;
+				}
+
+				lib_calendar.check_load_default_public_holidays();
+				lib_calendar.check_load_default_annual_holidays();
+			}
+
+			cur_stage_index += shift;
+
+			if ( cur_stage_index >= stages.ChildNum )
+			{
+				//Screen.RunCommand( 'Ok' );
+				Screen.EndModal();
+				Cancel();
+			}
+
+	"/>
+
+
+	<OnInit PROPERTY="1" EXPR="
+			global_settings.country_id = lib_location.guess_default_country_id();
+
+			if ( global_settings.country_id.HasValue )
+			{
+				country = GetForeignElem( lib_location.get_std_countries(), global_settings.country_id );
+				global_settings.default_currency_id = country.currency_id;
+				global_settings.default_country_dialing_code = country.phone_code;
+
+				if ( global_settings.default_currency_id == 'RUB' &amp;&amp; global_settings.default_currency_id.OptForeignElem == undefined )
+					global_settings.default_currency_id = 'RUR';
+			}
+
+			stage = stages.AddChild();
+			stage.id = 'init';
+
+			stage = stages.AddChild();
+			stage.id = 'struct';
+
+			stage = stages.AddChild();
+			stage.id = 'country';
+	"/>
+</dlg_init_wizard>
+
+
+
+</SPXML-INLINE-FORM>
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_agents>
+	<std_agent MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT FORM="base1_agent.xmd" TYPE="agent"/>
+	</std_agent>
+</std_agents>
+
+
+</SPXML-FORM>
+

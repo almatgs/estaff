@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<dlg_event>
+	<eventType TYPE="variant" STRICT="1"/>
+	<existingEvent TYPE="variant" STRICT="1"/>
+
+	<reminderOnly TYPE="bool" NULL-FALSE="1"/>
+	<showComment TYPE="bool" NULL-FALSE="1"/>
+
+	<init_occurrence_id TYPE="string"/>
+
+	<event_results>
+		<event_result MULTIPLE="1">
+			<occurrence TYPE="variant" STRICT="1"/>
+			<nextEventType TYPE="variant" STRICT="1"/>
+			<nextEventOccurrence TYPE="variant" STRICT="1"/>
+			<title TYPE="string"/>
+			<needDecideLater TYPE="bool" NULL-FALSE="1"/>
+			<group_index TYPE="integer"/>
+			<useReminder TYPE="bool" NULL-FALSE="1"/>
+		</event_result>
+	</event_results>
+
+	<event_result_groups>
+		<event_result_group MULTIPLE="1">
+			<eventResults TYPE="variant" STRICT="1"/>
+			<maxWidth TYPE="integer"/>
+			<widthMeasure TYPE="string"/>
+		</event_result_group>
+	</event_result_groups>
+
+	<widthMeasure TYPE="string"/>
+	<heightMeasure TYPE="string"/>
+
+	<selectedEventResult TYPE="variant" STRICT="1"/>
+	<selectedOccurence PROPERTY="1" EXPR="selectedEventResult != undefined ? selectedEventResult.occurrence : eventType.main_occurrence"/>
+
+	<reminder_data>
+		<hour_offset TYPE="integer"/>
+		<minute_offset TYPE="integer"/>
+		
+		<fixed_date_selected TYPE="bool" NULL-FALSE="1"/>
+
+		<date TYPE="date" TIME="0"/>
+		<time TYPE="abstract_time"/>
+	</reminder_data>
+
+	<reminder_date TYPE="date" TIME="1"/>
+	<is_exact_time_reminder TYPE="bool" NULL-FALSE="1"/>
+	
+	
+	<date TYPE="date" TITLE="##UiText.fields.date##"/>
+	<comment TYPE="string" MULTILINE="1" TITLE="##UiText.fields.comment##"/>
+
+	<multi_contact_type_id TYPE="string" MULTIPLE="1" TITLE="##UiText.titles.contact_type##" FOREIGN-ARRAY="contact_types"/>
+	<candidate_reject_reason_id TYPE="string" FOREIGN-ARRAY="candidate_reject_reasons" TITLE="##UiText.titles.candidate_reject_reason##"/>
+	<candidate_withdrawal_reason_id TYPE="string" FOREIGN-ARRAY="candidate_withdrawal_reasons" TITLE="##UiText.fields.candidate_withdrawal_reason##"/>
+	<candidate_blacklist_reason_id TYPE="string" FOREIGN-ARRAY="candidate_blacklist_reasons" TITLE="##UiText.titles.candidate_blacklist_reason##"/>
+</dlg_event>
+
+
+</SPXML-INLINE-FORM>
+

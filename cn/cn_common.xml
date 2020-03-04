@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cn_common SPXML-FORM="cn_common.xmd">
+
+
+<participant_statuses>
+	<participant_status__>
+		<id></id>
+		<name VALUE="-"/>
+	</participant_status__>
+	<participant_status>
+		<id>1</id>
+		<name VALUE="Подтвержден" lang-en:VALUE="Accepted" lang-ua:VALUE="Підтверджений"/>
+		<text_color>0,100,0</text_color>
+	</participant_status>
+	<participant_status>
+		<id>2</id>
+		<name VALUE="Предварительно" lang-en:VALUE="Tentative" lang-ua:VALUE="Попередньо"/>
+		<text_color>0,90,110</text_color>
+	</participant_status>
+	<participant_status>
+		<id>3</id>
+		<name VALUE="##UiText.titles.rejected__m##"/>
+		<text_color>140,0,0</text_color>
+	</participant_status>
+</participant_statuses>
+
+
+
+<calendar_types>
+	<calendar_type>
+		<id>day</id>
+	</calendar_type>
+
+	<calendar_type>
+		<id>work_week</id>
+	</calendar_type>
+
+	<calendar_type>
+		<id>week</id>
+	</calendar_type>
+
+	<calendar_type>
+		<id>month</id>
+	</calendar_type>
+</calendar_types>
+
+
+
+<ext_calendar_types>
+	<ext_calendar_type>
+		<id></id>
+		<name VALUE="нет" lang-en:VALUE="none" lang-ua:VALUE="немає"/>
+	</ext_calendar_type>
+
+	<ext_calendar_type>
+		<id>outlook</id>
+		<name>Microsoft Outlook</name>
+		<image_url>//base_pict/outlook.ico</image_url>
+	</ext_calendar_type>
+
+	<ext_calendar_type>
+		<id>lotus</id>
+		<name>Lotus Notes</name>
+		<image_url>//base_pict/lotus.ico</image_url>
+	</ext_calendar_type>
+
+	<ext_calendar_type>
+		<id>google</id>
+		<name>Google</name>
+		<image_url>//base_pict/google.ico</image_url>
+	</ext_calendar_type>
+</ext_calendar_types>
+
+
+
+<holiday_observance_policies>
+	<holiday_observance_policy>
+		<id></id>
+		<name VALUE="без переносов" lang-en:VALUE="no observances" lang-en:VALUE="без переносів"/>
+	</holiday_observance_policy>
+	<holiday_observance_policy>
+		<id>11</id>
+		<name VALUE="вперед" lang-en:VALUE="forward" lang-en:VALUE="вперед"/>
+	</holiday_observance_policy>
+</holiday_observance_policies>
+
+
+
+</cn_common>

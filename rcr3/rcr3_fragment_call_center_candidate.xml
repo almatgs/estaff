@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="Fragment.CallCenter.CandidateData" ObjectType="candidate" EditMode="1" Layout="table1" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<UI:Item Field="lastname" PreprocessMethod="lib_person_details.AdjustPersonName" OnChangeMethod="OnDuplicateCheckCriticalFieldChanged"/>
+<UI:Item Field="firstname" PreprocessMethod="lib_person_details.AdjustPersonName" OnChangeMethod="OnDuplicateCheckCriticalFieldChanged"/>
+<UI:Item Field="middlename" PreprocessMethod="lib_person_details.AdjustPersonName" OnChangeMethod="OnDuplicateCheckCriticalFieldChanged"/>
+
+<UI:Item Field="birth_date"/>
+<UI:Item Field="mobile_phone" PreprocessMethod="lib_phone_details.AdjustPhoneField" OnChangeMethod="OnDuplicateCheckCriticalFieldChanged"/>
+<UI:Item Field="email" PutWithField="mobile_phone" OnChangeMethod="OnDuplicateCheckCriticalFieldChanged"/>
+
+<UI:Item Field="location_id" StartNewGroup="1"/>
+<UI:Item Field="metro_station_id" PutWithField="location_id" EnableCondition="location_id.ForeignElem.has_metro" FilterExpr="{location_id:location_id}"/>
+
+<UI:Item Field="address" StartNewGroup="1"/>
+<UI:Item Field="educ_type_id"/>
+<UI:Item Field="citizenship_id" PutWithField="educ_type_id"/>
+
+<UI:Item Field="position_type_id" StartNewGroup="1"/>
+<UI:Item Field="desired_division_id" PutWithField="position_type_id" SelectorList="divisions_with_mass_recruit" FilterExpr="
+		viewFilter = new Object;
+			
+		if ( location_id.HasValue )
+			viewFilter.location_id = location_id;
+			
+		return viewFilter;
+"/>
+
+<UI:Item Field="source_id" StartNewGroup="1" Title="##UiText.titles.vacancy_information_source##"/>
+
+
+<UI:Item Sample="duplicate_warning" SampleFormUrl="x-app://rcr/rcr_view_call_center.xms" PutWithField="middlename"/>
+
+</UiTemplate>
+
+
+

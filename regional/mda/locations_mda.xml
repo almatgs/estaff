@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<std_locations SPXML-FORM="x-app://base2/base2_std_locations.xmd" xmlns:lang-en="http://www.datex-soft.com/ns/">
+  <std_location>
+    <name VALUE="Кишинев" lang-en:VALUE="Chisinau" lang-md:VALUE="Chisinau"/>
+    <id>mda.01</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Бельцы" lang-en:VALUE="Balti" lang-md:VALUE="Balti"/>
+    <id>mda.03</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Бендеры" lang-en:VALUE="Bender" lang-md:VALUE="Bender"/>
+    <id>mda.04</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Бессарабка" lang-en:VALUE="Basarabeasca" lang-md:VALUE="Basarabeasca"/>
+    <id>mda.05</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Бричаны" lang-en:VALUE="Briceni" lang-md:VALUE="Briceni"/>
+    <id>mda.06</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Вадул-луй-Водэ" lang-en:VALUE="Vadul lui Voda" lang-md:VALUE="Vadul lui Voda"/>
+    <id>mda.07</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Вулканешты" lang-en:VALUE="Vulcanesti" lang-md:VALUE="Vulcanesti"/>
+    <id>mda.08</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Глодяны" lang-en:VALUE="Glodeni" lang-md:VALUE="Glodeni"/>
+    <id>mda.09</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Дондюшаны" lang-en:VALUE="Donduseni" lang-md:VALUE="Donduseni"/>
+    <id>mda.10</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Дрокия" lang-en:VALUE="Drochia" lang-md:VALUE="Drochia"/>
+    <id>mda.11</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Дубоссары" lang-en:VALUE="Dubasari" lang-md:VALUE="Dubasari"/>
+    <id>mda.12</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Единцы" lang-en:VALUE="Edinet" lang-md:VALUE="Edinet"/>
+    <id>mda.13</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Кагул" lang-en:VALUE="Cahul" lang-md:VALUE="Cahul"/>
+    <id>mda.14</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Калараш" lang-en:VALUE="Calarasi" lang-md:VALUE="Calarasi"/>
+    <id>mda.15</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Кантемир" lang-en:VALUE="Cantemir" lang-md:VALUE="Cantemir"/>
+    <id>mda.16</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Каушаны" lang-en:VALUE="Causeni" lang-md:VALUE="Causeni"/>
+    <id>mda.17</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Комрат" lang-en:VALUE="Comrat" lang-md:VALUE="Comrat"/>
+    <id>mda.18</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Крикова" lang-en:VALUE="Cricova" lang-md:VALUE="Cricova"/>
+    <id>mda.19</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Криуляны" lang-en:VALUE="Criuleni" lang-md:VALUE="Criuleni"/>
+    <id>mda.20</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Леова" lang-en:VALUE="Leova" lang-md:VALUE="Leova"/>
+    <id>mda.21</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Леушены" lang-en:VALUE="Leuseni" lang-md:VALUE="Leuseni"/>
+    <id>mda.22</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Ниспорены" lang-en:VALUE="Nisporeni" lang-md:VALUE="Nisporeni"/>
+    <id>mda.23</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Новые Анены" lang-en:VALUE="Anenii Noi" lang-md:VALUE="Anenii Noi"/>
+    <id>mda.24</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Окница" lang-en:VALUE="Ocnita" lang-md:VALUE="Ocnita"/>
+    <id>mda.25</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Оргеев" lang-en:VALUE="Orhei" lang-md:VALUE="Orhei"/>
+    <id>mda.26</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Резина" lang-en:VALUE="Rezina" lang-md:VALUE="Rezina"/>
+    <id>mda.27</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Рыбница" lang-en:VALUE="Ribnita" lang-md:VALUE="Ribnita"/>
+    <id>mda.28</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Рышканы" lang-en:VALUE="Riscani" lang-md:VALUE="Riscani"/>
+    <id>mda.29</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Сороки" lang-en:VALUE="Soroca" lang-md:VALUE="Soroca"/>
+    <id>mda.30</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Страшены" lang-en:VALUE="Straseni" lang-md:VALUE="Straseni"/>
+    <id>mda.31</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Сынжерей" lang-en:VALUE="Singerei" lang-md:VALUE="Singerei"/>
+    <id>mda.32</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Тараклия" lang-en:VALUE="Taraclia" lang-md:VALUE="Taraclia"/>
+    <id>mda.33</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Теленешты" lang-en:VALUE="Telenesti" lang-md:VALUE="Telenesti"/>
+    <id>mda.34</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Тирасполь" lang-en:VALUE="Tiraspol" lang-md:VALUE="Tiraspol"/>
+    <id>mda.35</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Унгены" lang-en:VALUE="Ungheni" lang-md:VALUE="Ungheni"/>
+    <id>mda.36</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Фалешты" lang-en:VALUE="Falesti" lang-md:VALUE="Falesti"/>
+    <id>mda.37</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Флорешты" lang-en:VALUE="Floresti" lang-md:VALUE="Floresti"/>
+    <id>mda.38</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Хынчешты" lang-en:VALUE="Hincesti" lang-md:VALUE="Hincesti"/>
+    <id>mda.39</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Чадыр-Лунга" lang-en:VALUE="Ceadir-Lunga" lang-md:VALUE="Ceadir-Lunga"/>
+    <id>mda.40</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Чимишлия" lang-en:VALUE="Cimislia" lang-md:VALUE="Cimislia"/>
+    <id>mda.41</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Шолданешты" lang-en:VALUE="Soldanesti" lang-md:VALUE="Soldanesti"/>
+    <id>mda.42</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Штефан Водэ" lang-en:VALUE="Stefan Voda" lang-md:VALUE="Stefan Voda"/>
+    <id>mda.43</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+  <std_location>
+    <name VALUE="Яловены" lang-en:VALUE="Ialoveni" lang-md:VALUE="Ialoveni"/>
+    <id>mda.44</id>
+    <type_id>10</type_id>
+    <name_suffix_id>10</name_suffix_id>
+  </std_location>
+</std_locations>

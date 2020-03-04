@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems.xmd" LANG="ru">
+	<std_voc_elem>
+		<id>vacation</id>
+		<name VALUE="в отпуске" lang-en:VALUE="vacation"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>business_trip</id>
+		<name VALUE="в командировке" lang-en:VALUE="business trip"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>sick_leave</id>
+		<name VALUE="на больничном" lang-en:VALUE="sick leave"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>parental_leave</id>
+		<name VALUE="в декретном отпуске" lang-en:VALUE="parental leave"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>absent</id>
+		<name VALUE="временно отсутствует" lang-en:VALUE="temporarily absent"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>dismissed</id>
+		<name VALUE="##StrLowerCase( UiText.titles.dismissed )##"/>
+	</std_voc_elem>
+</std_voc_elems>
+
+

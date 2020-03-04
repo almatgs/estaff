@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>candidates_with_source_persons</id>
+	<name VALUE="Внутренние рекомендации" lang-en:VALUE="Employee referral" lang-ua:VALUE="Внутрішні рекомендації"/>
+	<section_id>candidates</section_id>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>state_date</id>
+			<source_id>candidates</source_id>
+			<title VALUE="##UiText.fields.date##"/>
+			<use_range>1</use_range>
+			<use_period_quick_selector>1</use_period_quick_selector>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<source_id>candidates</source_id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<source_id>candidates</source_id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>state_id</id>
+			<source_id>candidates</source_id>
+			<default_value>hire</default_value>
+			<use_new_line>1</use_new_line>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>source_id</id>
+			<source_id>candidates</source_id>
+			<default_value>emp_ref</default_value>
+			<width>30zr</width>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>source_person_id</id>
+			<source_id>candidates</source_id>
+			<view_filter_expr>{is_own_person: true}</view_filter_expr>
+			<width>38zr</width>
+		</dyn_filter>
+	</dyn_filters>
+
+	<sources>
+		<source>
+			<id>candidates</id>
+			<xquery_qual>$elem/source_person_id != null()</xquery_qual>
+		</source>
+	</sources>
+
+	<fields>
+		<field>
+			<id>state_date</id>
+			<col_title VALUE="##UiText.fields.date##"/>
+		</field>
+
+		<field>
+			<id>fullname</id>
+			<col_title VALUE="##UiText.objects.candidate##"/>
+			<width>35zr</width>
+			<stat_func>count</stat_func>
+		</field>
+
+		<field>
+			<id>main_vacancy_id</id>
+			<width>100%</width>
+		</field>
+
+		<field>
+			<id>source_person_id</id>
+			<width>35zr</width>
+		</field>
+	</fields>
+
+	<show_total>1</show_total>
+</std_stat>
+

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>expenses</id>
+	<name VALUE="Затраты" lang-en:VALUE="Expense" lang-ua:VALUE="Витрати"/>
+
+	<fields>
+		<field>
+			<id>delivery.date</id>
+		</field>
+		<field>
+			<id>delivery.end_date</id>
+		</field>
+		<field>
+			<id>org_id</id>
+			<width>100%</width>
+		</field>
+		<field>
+			<id>type_id</id>
+		</field>
+		<field>
+			<id>candidate_id</id>
+		</field>
+		<field>
+			<id>amount</id>
+		</field>
+		<field>
+			<id>aggreement.code</id>
+		</field>
+		<field>
+			<id>user_id</id>
+		</field>
+	</fields>
+</std_view>
+

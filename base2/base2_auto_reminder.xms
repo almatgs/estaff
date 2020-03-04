@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+	<BR/>
+
+	<GROUP>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.multi_event_type_id" AUTO-LABEL="1" WIDTH="80zr"/>
+	</GROUP>
+	<DELIM/>
+
+	<GROUP>
+		<RADIO-BUTTON TITLE="Интервал до начала события" lang-en:TITLE="Interval before the event" SOURCE="Ps.use_fixed_time" SWITCH-VALUE="false" WIDTH="35zr" lang-ua:TITLE="Інтервал до початку події"/>
+		<ITEM TYPE="mh_period" SOURCE="Ps.interval" ENABLE-EXPR="! Ps.use_fixed_time"/>
+	</GROUP>
+	<BR/>
+
+	<GROUP>
+		<RADIO-BUTTON TITLE="Фиксированное время суток" lang-en:TITLE="Fixed time" SOURCE="Ps.use_fixed_time" SWITCH-VALUE="true" WIDTH="35zr" lang-ua:TITLE="Фіксований час доби"/>
+		<ITEM TYPE="abstract_time_edit" SOURCE="Ps.fixed_time" ENABLE-EXPR="Ps.use_fixed_time"/>
+	</GROUP>
+	<BR/>
+	<BR/>
+
+	<CHECK SOURCE="Ps.use_morning_rule" TITLE="Отдельное правило для событий в первой половине дня" lang-en:TITLE="Separate rule for events in the morning" lang-ua:TITLE="Окреме правило для подій в першій половині дня"/>
+	<IF EXPR="Ps.use_morning_rule">
+		<BR/>
+		<GROUP>
+			<ITEM TYPE="abstract_time_edit" SOURCE="Ps.morning_end_time" LABEL-TITLE="Граница первой половины дня" lang-en:LABEL-TITLE="Morning end time" lang-ua:LABEL-TITLE="Кордон першої половини дня"/>
+			<SEPARATOR/>
+			<ITEM TYPE="abstract_time_edit" SOURCE="Ps.prev_day_fixed_time" LABEL-TITLE="Время напоминания в предшествующий день" lang-en:TITLE="Previous day reminder time" lang-ua:TITLE="Час нагадування в попередній день"/>
+		</GROUP>
+	</IF>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.send_email" AUTO-LABEL="1"/>
+	<BR/>
+	<IF EXPR="Ps.send_email">
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.mail_template_id" AUTO-LABEL="1"/>
+	</IF>
+	<BR/>
+	<BR/>
+
+	<CHECK SOURCE="Ps.send_sms" AUTO-LABEL="1" ENABLE-EXPR="base1_config.use_sms"/>
+	<IF EXPR="Ps.send_sms">
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.sms_template_id" AUTO-LABEL="1"/>
+	</IF>
+</PANEL>
+
+
+</SPXML-SCREEN>
+
+
+

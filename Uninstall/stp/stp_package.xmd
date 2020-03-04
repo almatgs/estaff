@@ -1,0 +1,36 @@
+<SPXML-FORM>
+
+<package>
+	<app_id TYPE="string"/>
+	<sub_id TYPE="string"/>
+	<full_app_id TYPE="string"/>
+
+	<name TYPE="string"/>
+	<version TYPE="string"/>
+	<sub_name TYPE="string"/>
+
+	<full_name TYPE="string" EXPR-INIT="
+			if ( sub_id != 'Server' )
+				return name + ' ' + version + '  ' + sub_name;
+			else
+				return link_name + ' ' + version;
+	"/>
+
+	<copyright TYPE="string"/>
+	<info_web TYPE="string"/>
+	<use_sn TYPE="bool" NOT-NULL="1"/>
+
+	<items>
+		<item MULTIPLE="1">
+			<name TYPE="string"/>
+			<src_name TYPE="string"/>
+		</item>
+	</items>
+
+	<link_name TYPE="string"/>
+	<icon TYPE="string"/>
+</package>
+
+
+
+</SPXML-FORM>

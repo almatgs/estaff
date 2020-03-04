@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<email_plugin_config>
+	<actions>
+		<action MULTIPLE="1">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<image_url TYPE="string"/>
+		</action>
+	</actions>
+</email_plugin_config>
+
+
+
+</SPXML-FORM>

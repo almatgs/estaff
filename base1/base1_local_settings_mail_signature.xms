@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="100zr" HEIGHT="50zr" SOURCE="TopElem" TITLE="Персональные настройки - Подпись" RESIZE="1" WINDOW-ICON-URL="//base_pict/settings.ico" lang-en:TITLE="Personal settings - Signature" lang-ua:TITLE="Персональні налаштування - Підпис">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<LABEL TITLE="Подпись (ФИО) для отправки писем по шаблону:" lang-en:TITLE="E-Mail signature:" lang-ua:TITLE="Підпис (ПІБ) для відправки листів за шаблоном:"/>
+	<EDIT SOURCE="Ps.mail_signature" MULTILINE="1" SHORT="1" HEIGHT="auto"/>
+</PANEL>
+
+
+</SPXML-SCREEN>

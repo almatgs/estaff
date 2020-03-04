@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>vacancy_requests</id>
+	<name VALUE="##UiText.titles.vacancy_requests##"/>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>orig_person_id</id>
+		</dyn_filter>
+		<dyn_filter>
+			<id>state_id</id>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>date</id>
+			<use_time>0</use_time>
+		</field>
+		<field>
+			<id>date</id>
+			<time_only>1</time_only>
+			<col_title VALUE="##UiText.titles.time##"/>
+		</field>
+		<field>
+			<id>orig_person_id</id>
+			<width>25zr</width>
+		</field>
+		<field>
+			<id>division_id</id>
+			<width>100%</width>
+		</field>
+		<field>
+			<id>profession_id</id>
+			<width>25zr</width>
+		</field>
+		<field>
+			<id>state_id</id>
+			<width>15zr</width>
+			<align>center</align>
+		</field>
+		<field>
+			<id>workflow_stage_id</id>
+			<width>25zr</width>
+			<align>center</align>
+		</field>
+		<field>
+			<id>cur_resp_person_id</id>
+			<width>25zr</width>
+		</field>
+	</fields>
+</std_view>
+

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem.instance" WIDTH="156zr" HEIGHT-EXPR="Ps.Doc.TopElem.GetDlgHeightMeasure()" TITLE="##UiText.objects.vacancy_instance##">
+
+<GROUP>
+	<ITEM TYPE="date_selector" SOURCE="Ps.start_date" AUTO-LABEL="1" READ-ONLY-EXPR="lib_user.active_user_access.prohibit_change_vacancy_start_date"/>
+
+	<IF EXPR="fields_usage.use_object_field( 'vacancy', 'reason_id' )">
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.reason_id" AUTO-LABEL="1" PASSIVE="1" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.reason_id, 30, 40 )"/>
+	</IF>
+
+	<IF EXPR="fields_usage.use_object_field( 'vacancy', 'priority_id' )">
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.priority_id" AUTO-LABEL="1" PASSIVE="1" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.priority_id, 10, 30 )"/>
+	</IF>
+
+	<SEPARATOR/>
+
+	<IF EXPR="! global_settings.hide_vacancy_work_start_date">
+		<ITEM TYPE="date_selector" SOURCE="Ps.work_start_date" AUTO-LABEL="1" UPDATE-ACTION="
+				Ps.update_req_close_date_by_max_work_term();
+ 		"/>
+	</IF>
+
+	<ITEM TYPE="d_period" SOURCE="Ps.max_work_term" AUTO-LABEL="1" UPDATE-ACTION="Ps.update_req_close_date_by_max_work_term()" WIDTH="25zr" READ-ONLY-EXPR="lib_user.active_user_access.prohibit_change_vacancy_max_work_term"/>
+	<ITEM TYPE="date_selector" SOURCE="Ps.req_close_date" LABEL-TITLE="Закрыть до:" UPDATE-ACTION="Ps.update_max_work_term_by_req_close_date()" lang-en:LABEL-TITLE="Close Till:" lang-ua:LABEL-TITLE="Закрити до:" READ-ONLY-EXPR="lib_user.active_user_access.prohibit_change_vacancy_max_work_term"/>
+
+	<LABEL/>
+	<ITEM TYPE="object_selector" SOURCE="Ps.user_id" AUTO-LABEL="1" PASSIVE="1"/>
+</GROUP>
+<DELIM/>
+
+<GROUP>
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.state_id" AUTO-LABEL="1" SET-VALUE-ACTION="
+			Ps.set_new_state( NewValue );
+			Ps.Doc.SetChanged( true );
+	" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.state_id, 10, 30 )"/>
+
+	<IF EXPR="Ps.state_id.ForeignElem.close_object">
+		<ITEM TYPE="date_selector" SOURCE="Ps.state_date" LABEL-TITLE="##UiText.fields.vacancy_close_date##:" lang-en:LABEL-TITLE="Closed:"/>
+	</IF>
+	<ELSE>
+		<IF EXPR="! Ps.state_id.ForeignElem.close_object &amp;&amp; Ps.state_date.HasValue">
+			<ITEM TYPE="date_selector" SOURCE="Ps.state_date" LABEL-TITLE="##UiText.fields.date##:" lang-en:LABEL-TITLE="Date:"/>
+		</IF>
+		<ELSE>
+			<LABEL/>
+		</ELSE>
+	</ELSE>
+
+	<EDIT SOURCE="Ps.suspended_days_num" AUTO-LABEL="1" WIDTH="6zr"/>
+
+	<IF EXPR="global_settings.use_vacancy_work_wdays">
+		<EDIT SOURCE="Ps.suspended_wdays_num" AUTO-LABEL="1" WIDTH="6zr"/>
+	</IF>
+
+	<IF EXPR="global_settings.use_fractional_mp_vacancies">
+		<EDIT SOURCE="Ps.req_quantity_f" WIDTH="6zr" LABEL-TITLE="Требуемое количество ставок:" lang-en:LABEL-TITLE="Required sum rate:" lang-ua:LABEL-TITLE="Необхідну кількість ставок:" KEEP-RIGHT="1"/>
+	</IF>
+	<ELSE>
+		<EDIT SOURCE="Ps.req_quantity" WIDTH="6zr" KEEP-RIGHT="1" AUTO-LABEL="1"/>
+	</ELSE>
+</GROUP>
+<DELIM/>
+<BR/>
+
+<EDIT SOURCE="Ps.comment" MULTILINE="1" SHORT="1" HEIGHT="17zr" VERT-SCROLL="1" AUTO-LABEL="1"/>
+<BR/>
+
+<GROUP>
+	<ITEM TYPE="object_selector" SOURCE="Ps.final_candidate_id" AUTO-LABEL="1" WIDTH="45zr"/>
+		
+	<IF EXPR="rcr_config.use_vacancy_recruit_phases &amp;&amp; Ps.is_active">
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.recruit_phase_id" AUTO-LABEL="1" WIDTH="37zr"/>
+	</IF>
+
+	<LABEL/>
+
+	<IF EXPR="global_settings.use_vacancy_work_end_final_candidate_state">
+		<EDIT SOURCE="StrDate( Ps.work_end_date, false )" LABEL-TITLE="##UiText.titles.end_of_recruitment##:" READ-ONLY="1" WIDTH="20zr"/>
+	</IF>
+</GROUP>
+
+
+<PANEL NAME="DefaultCsdAnchor">
+</PANEL>
+
+
+<INHERIT TYPE="dlg_footer"/>
+
+</SPXML-SCREEN>

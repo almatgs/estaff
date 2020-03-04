@@ -1,0 +1,348 @@
+<SPXML-PRINT>
+
+<STYLE NAME="TableHeading" ALIGN="center" BOLD="1" SHADING="25" SPACE-BEFORE="3" SPACE-AFTER="3"/>
+<STYLE NAME="TableHeading2" ALIGN="center" BOLD="1" SHADING="25"/>
+<STYLE NAME="FieldName" BOLD="1"/>
+<STYLE NAME="FieldValue"/>
+
+
+<FORMAT FONT-NAME="Arial" FONT-SIZE="9" SPACE-BEFORE="3" SPACE-AFTER="3">
+
+<TABLE TABLE-BORDER="double" CELL-BORDER="single">
+	<COLGROUP>
+		<COL WIDTH="80%"/>
+		<COL WIDTH="20%"/>
+	</COLGROUP>
+
+	<TR FONT-SIZE="14">
+		<TD BOLD="1">
+			::Ps.fullname
+		</TD>
+		<TD BOLD="1" ALIGN="center">
+			::Ps.code
+		</TD>
+	</TR>
+	<TR>
+		<TD HSPAN="2" FONT-SIZE="8">
+			<%=UiText.fields.creation_date_in_db%>: <FORMAT BOLD="1"><%=StrDate( Ps.creation_date, false )%></FORMAT>
+		</TD>
+	</TR>
+</TABLE>
+
+<P>
+</P>
+
+<TABLE TABLE-BORDER="double" CELL-BORDER="single">
+	<COLGROUP>
+		<COL WIDTH="25zr"/>
+		<COL WIDTH="100%"/>
+	</COLGROUP>
+
+	<TR>
+		<TD ALIGN="right">
+			<%=( Ps.birth_year.HasValue && ! Ps.birth_date.HasValue ? UiText.fields.birth_year : UiText.fields.birth_date )%>:
+		</TD>
+		<TD BOLD="1">
+			<%=Ps.birth_date.HasValue ? Ps.birth_date : Ps.birth_year%>
+		</TD>
+	</TR>
+
+	<%
+	if ( Ps.location_id != '' )
+	{
+	%>
+
+	<TR>
+		<TD ALIGN="right">
+			<%=UiText.fields.location%>:
+		</TD>
+		<TD BOLD="1">
+			::Ps.location_id.ForeignDispName
+		</TD>
+	</TR>
+
+	<%
+	}
+	%>
+
+	<TR>
+		<TD ALIGN="right">
+			<%=UiText.fields.address%>:
+		</TD>
+		<TD BOLD="1">
+			::Ps.address
+		</TD>
+	</TR>
+
+	<TR>
+		<TD ALIGN="right">
+			<%=UiText.fields.home_phone%>:
+		</TD>
+		<TD BOLD="1">
+			::Ps.home_phone
+		</TD>
+	</TR>
+
+	<TR>
+		<TD ALIGN="right">
+			<%=UiText.fields.work_phone%>:
+		</TD>
+		<TD BOLD="1">
+			::Ps.work_phone
+		</TD>
+	</TR>
+
+	<TR>
+		<TD ALIGN="right">
+			<%=UiText.fields.mobile_phone%>:
+		</TD>
+		<TD BOLD="1">
+			::Ps.mobile_phone
+		</TD>
+	</TR>
+
+	<TR>
+		<TD ALIGN="right">
+			E-Mail:
+		</TD>
+		<TD BOLD="1">
+			::Ps.email
+		</TD>
+	</TR>
+
+	<TR>
+		<TD ALIGN="right">
+			<%=Ps.marital_status_id.Title%>:
+		</TD>
+		<TD BOLD="1">
+			<%=Ps.marital_status_id != null ? ( Ps.gender_id == 1 ? Ps.marital_status_id.ForeignElem.name_female : Ps.marital_status_id.ForeignElem.name_male ) : ''%>
+		</TD>
+	</TR>
+
+	<TR>
+		<TD ALIGN="right">
+			<%=Ps.children_num.Title%>:
+		</TD>
+		<TD BOLD="1">
+			::Ps.children_num
+		</TD>
+	</TR>
+</TABLE>
+
+<P>
+</P>
+
+<TABLE TABLE-BORDER="double" CELL-BORDER="single">
+	<COLGROUP>
+		<COL WIDTH="25zr"/>
+		<COL WIDTH="100%"/>
+	</COLGROUP>
+
+	<TR>
+		<TD ALIGN="right">
+			<%=UiText.fields.profession%>:
+		</TD>
+		<TD BOLD="1">
+			<%=Ps.profession_id.ForeignDispName%>
+		</TD>
+	</TR>
+
+	<TR>
+		<TD ALIGN="right">
+			<%=Ps.salary.Title%>:
+		</TD>
+		<TD BOLD="1">
+			::Ps.salary
+		</TD>
+	</TR>
+</TABLE>
+
+<%
+if ( Ps.skills.ChildNum != 0 )
+{
+%>
+
+<P>
+</P>
+
+<TABLE TABLE-BORDER="double" CELL-BORDER="single">
+	<COLGROUP>
+		<COL WIDTH="100%"/>
+	</COLGROUP>
+
+	<TR>
+		<TD BOLD="1" ALIGN="center">
+			<%=UiText.fields.skills%>:
+		</TD>
+	</TR>
+
+	<TR>
+		<TD>
+
+
+<%
+for ( skill in ArraySort( Ps.skills, 'skill_type_id.ForeignElem.sort_index', '+' ) )
+{
+%>
+
+		<FORMAT BOLD="1"><%=skill.type_id.ForeignDispName%></FORMAT>
+<%
+if ( skill.type_id.ForeignElem.use_parent_levels && skill.level_id != null )
+{
+%>
+, <%=StrLowerCase( UiText.fields.level )%>: <FORMAT BOLD="1"><%=skill.level_id.ForeignElem.name%></FORMAT>
+<%
+}
+%>
+		
+<%
+if ( skill.comment != '' )
+{
+%>
+, <FORMAT BOLD="1"><%=skill.comment%></FORMAT>
+<%
+}
+%>
+
+		<BR/>
+
+<%
+}
+%>
+
+		</TD>
+	</TR>
+
+</TABLE>
+
+<%
+}
+%>
+
+<P></P>
+
+<TABLE TABLE-BORDER="double" CELL-BORDER="single">
+	<COLGROUP>
+		<COL WIDTH="8zr"/>
+		<COL WIDTH="100%"/>
+	</COLGROUP>
+
+	<TR>
+		<TD HSPAN="2" BOLD="1" ALIGN="center"><%=UiText.fields.education%></TD>
+	</TR>
+
+<%
+for ( prevEducation in ArraySort( Ps.prev_educations, 'is_secondary', '+', 'start_date', '+' ) )
+{
+%>
+	<TR>
+		<TD CLASS="FieldValue"><%=( prevEducation.start_date.HasValue ? Year( prevEducation.start_date ) : '' ) + ( prevEducation.end_date.HasValue ? ' - ' + Year( prevEducation.end_date ) : '' )%></TD>
+		<TD CLASS="FieldValue"><%=prevEducation.org_name + ( prevEducation.speciality_name.HasValue ? '\n' + prevEducation.speciality_name : '' )%></TD>
+	</TR>
+<%
+}
+%>
+</TABLE>
+
+<P></P>
+
+<TABLE TABLE-BORDER="double" CELL-BORDER="single">
+	<COLGROUP>
+		<COL WIDTH="12zr"/>
+		<COL WIDTH="100%"/>
+	</COLGROUP>
+
+	<TR>
+		<TD HSPAN="2" BOLD="1" ALIGN="center"><%=UiText.fields.work_experience%></TD>
+	</TR>
+
+<%
+for ( prevJob in ArraySort( Ps.prev_jobs, 'start_date', '-' ) )
+{
+%>
+	<TR>
+		<TD>
+			<%=( prevJob.start_date.HasValue ? StrInt( Month( prevJob.start_date ), 2 ) + '.' + Year( prevJob.start_date ) : '' ) + ' - ' + ( prevJob.end_date.HasValue ? StrInt( Month( prevJob.end_date ), 2 ) + '.' + Year( prevJob.end_date ) : UiText.titles.present_time__short )%>
+		</TD>
+		<TD CLASS="FieldValue">
+			<FORMAT BOLD="1"><%=prevJob.org_name%></FORMAT>, <%=prevJob.position_name%>
+
+<%
+if ( prevJob.comment != '' )
+{
+%>
+			<BR/>
+			<%=prevJob.comment%>
+<%
+}
+%>
+		</TD>
+	</TR>
+
+
+<%
+}
+%>
+</TABLE>
+<P></P>
+
+
+<%
+if(AppServerConfig.GetOptProperty('print_profile_candidate_events')=='1') {
+%>
+<TABLE TABLE-BORDER="double" CELL-BORDER="single">
+	<COLGROUP>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="15zr"/>
+	</COLGROUP>
+	<TR>
+		<TD HSPAN="3" BOLD="1" ALIGN="center"><%=UiText.fields.personal_records%></TD>
+	</TR>
+	<%
+	eventsArray = XQuery('for $elem in events where $elem/candidate_id=' + Ps.id + ' order by $elem/date return $elem');
+	for ( event in eventsArray ) {
+	%>
+	<TR>
+		<TD ALIGN="center">
+			<%=StrDate(event.date, true,false)%>
+		</TD>
+		<TD>
+			<%
+			event_name = event.core_event_name();
+			if(lib_event.IsExtraResultOccurrence( event.type, event.occurrence_id )) {
+				opt = event.opt_occurrence().get_name();
+				event_name += opt != undefined ? ' > ' + opt : '';
+			}
+			if(event.candidate_withdrawal_reason_id.HasValue) {
+				event_name += ' (' + event.candidate_withdrawal_reason_id.ForeignDispName+')';
+			}
+			%>
+			<%=event_name%>
+			<%
+			if(event.vacancy_id>0) {
+				%>
+				<BR/><FORMAT BOLD="1"><%=GetForeignElem(vacancies,event.vacancy_id).name%></FORMAT>
+				<%
+				}
+			if(event.comment!='') {
+				%>
+				<BR/><%=event.comment%>
+				<%
+			}
+			%>
+		</TD>
+		<TD CLASS="FieldValue">
+			<%=GetForeignElem(users,event.user_id).login%>
+		</TD>
+	</TR>
+	<%
+	}
+	%>
+</TABLE>
+<%
+}
+%>
+</FORMAT>
+</SPXML-PRINT>
+

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM CODE-LIB="1" OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" IMAGE-URL="//base_pict/generic_item.ico">
+
+<poll_spec>
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<is_active TYPE="bool" NOT-NULL="false" DEFAULT="true"/>
+
+	<wts_eid TYPE="integer" DOC-ID="1"/>
+
+	<use_auto_apply TYPE="bool" NULL-FALSE="1" TITLE="Использовать для отклика на вакансию" lang-en:TITLE="Allow Online Application" lang-ua:TITLE="Використовувати для відгуку на вакансію"/>
+	<auto_apply_data>
+		<position_name TYPE="string"/>
+		<url TYPE="string"/>
+
+		<dest_candidate_fields>
+			<source_id TYPE="string" FOREIGN-ARRAY="candidate_sources"/>
+			<state_id TYPE="string" FOREIGN-ARRAY="candidate_states"/>
+		</dest_candidate_fields>
+	</auto_apply_data>
+
+	<questions>
+		<question MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<type_id TYPE="string" FOREIGN-ARRAY="base1_common.poll_question_types"/>
+			<is_separator TYPE="bool" NULL-FALSE="1"/>
+			<is_optional TYPE="bool" NULL-FALSE="1"/>
+
+			<use_score TYPE="bool" NULL-FALSE="1"/>
+			<min_score TYPE="integer"/>
+			<max_score TYPE="integer"/>
+
+			<answers>
+				<answer MULTIPLE="1" PRIMARY-KEY="id">
+					<id TYPE="integer"/>
+					<name TYPE="string"/>
+				</answer>
+			</answers>
+
+			<is_multi_answer TYPE="bool" NULL-FALSE="1"/>
+
+            <prohibit_view TYPE="bool" NULL-FALSE="1"/>
+            <prohibit_overwrite TYPE="bool" NULL-FALSE="1"/>
+            <max_preparation_period TYPE="sm_period"/>
+            <max_duration TYPE="sm_period"/>
+
+			<expr TYPE="string" SUBTYPE="code"/>
+			<exist_req_expr TYPE="string" SUBTYPE="code"/>
+			<auto_update_form TYPE="bool" NULL-FALSE="1"/>
+
+			<use_comment TYPE="bool" NULL-FALSE="1"/>
+		</question>
+	</questions>
+
+	<final_message_text TYPE="string" LARGE="1" TITLE="Текст, отображаемый после завершения опроса" lang-en:TITLE="Final message text" lang-ua:TITLE="Текст, що відображається після завершення опитування"/>
+
+	<average_score_expr TYPE="string" SUBTYPE="code"/>
+	<is_std TYPE="bool" NOT-NULL="1"/>
+
+
+	<build_questions_array PROPERTY="1" PARAM="event" EXPR="
+			array = new Array;
+
+			for ( question in questions )
+			{
+				if ( question.exist_req_expr.HasValue &amp;&amp; ! eval( question.exist_req_expr ) )
+					continue;
+
+				array.push( question );
+			}
+
+			return array;
+	"/>
+
+
+	<generate_question_id PROPERTY="1" EXPR="
+			for ( i = 1; ; i++ )
+			{
+				questionID = 'q' + StrInt( i, 2 );
+				if ( ! questions.ChildByKeyExists( questionID ) )
+					return questionID;
+			}
+	"/>
+</poll_spec>
+
+
+
+</SPXML-FORM>

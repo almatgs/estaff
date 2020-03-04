@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<UNIT NAME="context_menu_entries" SAMPLE="1">
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<MENU-ENTRY TITLE="Повторно отобрать на данную вакансию" ACTION="
+			candidateIDsArray = ArraySelectDistinct( ArrayExtract( Screen.FindItem( 'MainList' ).SelRows, 'Env.ListElem.candidate_id' ) );
+			lib_recruit.select_candidates_for_vacancy( candidateIDsArray, Ps.Doc.TopElem.id );
+	" lang-en:TITLE="Select again for this vacancy " lang-ua:TITLE="Повторно відібрати на дану вакансію"/>
+</UNIT>
+
+
+
+
+</SPXML-SCREEN>

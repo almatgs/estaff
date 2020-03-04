@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<base1_ui_text xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<messages>
+		<should_register_xxx_firefox_plugin VALUE="На Вашем компьютере установлен браузер Mozilla Firefox. Добавить кнопки %s на панель инструментов Mozilla Firefox?&#10;&#10;Данные кнопки позволят быстро извлекать и переносить в %s данные с Web-страниц." lang-en:VALUE="Mozilla Firefox is installed on your computer. Add %s buttons to Mozilla Firefox toolbar?&#10;&#10;These buttons allow extracting data from Web pages to %s." lang-ua:VALUE="На Вашому комп'ютері встановлений браузер Mozilla Firefox. Додати кнопки %s на панель інструментів Mozilla Firefox?&#10;&#10;Дані кнопки дозволять швидко витягати і переносити в %s дані з Web-сторінок."/>
+		<firefox_plugin_installed VALUE="Обработчик установлен. Функция будет доступна после следующего запуска Mozilla Firefox." lang-en:VALUE="Mail handler installed. The function will be available after you start Mozilla Firefox." lang-ua:VALUE="Оброблювач встановлений. Функція буде доступна після наступного запуску Mozilla Firefox."/>
+	</messages>
+</base1_ui_text>

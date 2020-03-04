@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>divisions_with_mass_recruit</id>
+	<name VALUE="##UiText.titles.divisions## - ##UiText.titles.mass_recruit##"/>
+
+	<catalog_name>divisions</catalog_name>
+	<is_hier>0</is_hier>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>location_id</id>
+		</dyn_filter>
+		<dyn_filter>
+			<id>type_id</id>
+			<is_multiple>1</is_multiple>
+		</dyn_filter>
+		<dyn_filter>
+			<id>is_active</id>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>name</id>
+		</field>
+		<field>
+			<id>code</id>
+			<align>center</align>
+		</field>
+		<field>
+			<id>full_name</id>
+			<exist_req_expr>fields_usage.use_object_field( 'division', 'full_name' )</exist_req_expr>
+		</field>
+		<field>
+			<id>short_name</id>
+			<width>28zr</width>
+			<exist_req_expr>fields_usage.use_object_field( 'division', 'short_name' )</exist_req_expr>
+		</field>
+		<field>
+			<id>location_id</id>
+			<width>35zr</width>
+			<exist_req_expr>fields_usage.use_object_field( 'division', 'location_id' )</exist_req_expr>
+		</field>
+		<field>
+			<id>brand_id</id>
+			<width>25zr</width>
+			<exist_req_expr>fields_usage.use_object_field( 'division', 'brand_id' )</exist_req_expr>
+		</field>
+		<field>
+			<id>filled_positions_num</id>
+		</field>
+		<field>
+			<id>free_positions_num</id>
+		</field>
+		<field>
+			<id>partially_filled_positions_num</id>
+			<exist_req_expr>global_settings.allow_multi_employee_positions</exist_req_expr>
+		</field>
+	</fields>
+
+	<before_init_action>
+			if ( Ps.filter.FormElem.ChildExists( 'type_id' ) )
+			{
+				filterElem = Ps.filter.type_id;
+				filterElem.SetValues( ArrayExtract( ArraySelect( division_types, 'is_active &amp;&amp; is_mass_recruit_division' ), 'id' ) );
+			}
+	</before_init_action>
+
+	<frame_sub_view_id>persons_of_division</frame_sub_view_id>
+</std_view>
+

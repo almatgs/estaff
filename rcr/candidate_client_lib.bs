@@ -1,0 +1,43 @@
+"META:NAMESPACE:candidate_client_lib"
+
+
+function HandleCreateCandidateFromResumeFile()
+{
+	//lib_base.check_desktop_client();
+
+	mask = ArrayMerge( ArrayUnion( lib_office.active_editor_file_suffix_list, ['.htm', 'html', 'pdf'] ), '\'*\' + This', ';' );
+	srcUrl = ActiveScreen.AskFileOpen( '', lib_office.active_editor_document_ui_name + ', ' + UiText.titles.pdf_documents + ' (' + mask + ')\t' + mask + '\t' + lib_base.all_files_suffix_pattern );
+
+	task = new BackgroundTask;
+	task.RunOnServer = true;
+	task.ShowProgress = true;
+
+	respInfo = task.CallMethod( 'candidate_server_lib', 'CreateCandidateFromResumeFile', [srcUrl] );
+
+	ObtainDocScreen( ObjectDocUrl( 'data', 'candidate', respInfo.candidate_id ) );
+}
+
+
+function HandlePasteResume()
+{
+	htmlStr = GetClipboard( 'text/html' );
+	//DebugMsg( htmlStr );
+
+	if ( false && ClipboardFormatAvailable( 'text/html' ) )
+	{
+		resumeText = GetClipboard( 'text/html' );
+
+		resumeContentType = 'text/html';
+		srcUrl = lib_html.get_html_src_url( resumeText );
+	}
+	else
+	{
+		resumeText = GetClipboard();
+		resumeContentType = 'text/plain';
+		srcUrl = undefined;
+	}
+
+	respInfo = CallServerMethod( 'candidate_server_lib', 'CreateCandidateFromResumeText', [resumeText, resumeContentType, srcUrl] );
+
+	ObtainDocScreen( ObjectDocUrl( 'data', 'candidate', respInfo.candidate_id ) );
+}

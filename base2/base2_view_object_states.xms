@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" BEFORE-INIT-ACTION="
+		Ps.init();
+">
+
+<WITH VAR="_dummy" EXPR="
+		Ps.build_array_elem();
+" IGNORE-ERRORS="0"/>
+
+<INHERIT TYPE="view_voc_elems_header"/>
+
+
+<PANEL HEIGHT="100%" SUNKEN="1">
+	<LIST NAME="ListElems" LOOP-EXPR="XmlArrayHier( Ps.array_elem_ref.Object )" HIER="1" FT-FILTER="Ps.filter">
+		<ROW OPEN-ACTION="
+				if ( ListElem.Name != 'event_type' && ListElem.Name != 'candidate_state' )
+				{
+					screen = ObtainDocScreen( ListElem.Parent.Parent.ObjectUrl );
+					screen.ExposeItemBySource( screen.Doc.TopElem.occurrences.Child( ListElem.Name ).name );
+					return;
+				}
+
+				screen = ObtainDocScreen( ListElem.ObjectUrl );
+
+				if ( ListElem.is_std && Ps.voc_info.edit_std_prohibit && Ps.voc_info.edit_std_allow_fields.ChildNum == 0 )
+					screen.EditMode = false;
+		" DELETE-ACTION="
+				if ( ListElem.is_std && ! Ps.voc_info.is_optional_std_elems )
+					throw UserError( UiText.errors.std_voc_elem_delete_prohibited );
+				
+				DeleteDoc( ObjectDocUrl( DefaultDb, Ps.voc_info.object_name, ListElem.id ) );
+		" IMAGE-URL-EXPR="
+				if ( ListElem.is_state_elem )
+					return ( ! ListElem.is_active ? '//base_pict/generic_item_inactive.ico' : '//base_pict/generic_item.ico' );
+				else
+					return ( ListElem.is_active ? '//base_pict/generic_item_group.ico' : '//base_pict/generic_item_group_inactive.ico' );
+		">
+			
+			<COL WIDTH="100%" COL-TITLE="##UiText.fields.name##" TITLE-EXPR="
+					if ( ListElem.Name == 'occurence' )
+						return ListElem.get_name();
+
+					return ListElem.name;
+			" TEXT-COLOR-EXPR="
+					if ( ! ListElem.is_active )
+						return base1_common.std_colors.inactive_voc_elem;
+
+					return ListElem.text_color;
+			" BK-COLOR-EXPR="
+					if ( ListElem.bk_color != '' )
+						return '';
+
+					if ( ! ListElem.is_active )
+						return ListElem.bk_color;
+
+					if ( ListElem.Name == 'candidate_state' && ListElem.event_occurrence_id == 'scheduled' )
+						return GetForeignElem( base2_common.event_expiration_states, 'scheduled' ).bk_color;
+			"/>
+			
+			<COL WIDTH="20zr" COL-TITLE="##UiText.fields.id_of_voc_elem##" TITLE-EXPR="
+					if ( ListElem.Name != 'event_type' )
+						return '';
+
+					return ListElem.id;
+			" TEXT-COLOR-EXPR="ListElem.is_active ? '' : base1_common.std_colors.inactive_voc_elem"/>
+			
+			<COL WIDTH="19zr" COL-TITLE="##UiText.fields.elem_type##" ALIGN="center" TITLE-EXPR="
+					if ( ListElem.Name != 'event_type' )
+						return '';
+
+					return ListElem.is_std ? UiText.titles.standard + ( ListElem.was_customized ? '  (*)' : '' ) : UiText.titles.custom;
+			" TEXT-COLOR-EXPR="ListElem.is_active ? '' : base1_common.std_colors.inactive_voc_elem"/>
+			
+			<COL WIDTH="8zr" COL-TITLE="№" ALIGN="center" TITLE-EXPR="
+					if ( ListElem.Name != 'event_type' )
+						return '';
+
+					return ListElem.order_index;
+			" DEFAULT-SORT="1" TEXT-COLOR-EXPR="ListElem.is_active ? '' : base1_common.std_colors.inactive_voc_elem"/>
+		</ROW>
+
+		<MENU RIGHT-MENU="1">
+			<INHERIT TYPE="list_menu_entries"/>
+		</MENU>
+
+	</LIST>
+</PANEL>
+
+
+<INHERIT TYPE="view_commands"/>
+
+
+</SPXML-SCREEN>
+
+

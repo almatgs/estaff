@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" BEFORE-INIT-ACTION="
+		Ps.init();
+">
+
+<INHERIT TYPE="view_voc_elems_header"/>
+
+
+<PANEL HEIGHT="100%" SUNKEN="1">
+	<LIST NAME="ListElems" LOOP-CATALOG-EXPR="Ps.voc_id" FT-FILTER="Ps.filter">
+		<ROW OPEN-ACTION="
+				if ( Ps.voc_info.primary_voc_id.HasValue )
+				{
+					if ( ListElem.id == 'new' || ListElem.id == 'unused' )
+						throw UserError( UiText.errors.new_state_voc_elem_cannot_be_opened );
+
+					vocInfo = lib_voc.get_voc_info_by_id( Ps.voc_info.primary_voc_id );
+					elemID = ListElem.id;
+					if ( ( pos = String( elemID ).lastIndexOf( ':' ) ) >= 0 )
+						elemID = StrLeftRange( elemID, pos );
+				}
+				else
+				{
+					vocInfo = Ps.voc_info;
+					elemID = ListElem.id;
+				}
+
+				screen = ObtainObjectDocScreen( lib_voc.get_voc_db( Ps.voc_info ), vocInfo.object_name, elemID, vocInfo.object_screen_form_url );
+
+				if ( ListElem.is_std && vocInfo.edit_std_prohibit && vocInfo.edit_std_allow_fields.ChildNum == 0 )
+					screen.EditMode = false;
+		" DELETE-ACTION="
+				if ( ListElem.is_std && ! Ps.voc_info.is_optional_std_elems )
+					throw UserError( UiText.errors.std_voc_elem_delete_prohibited );
+				
+				if ( Ps.voc_info.primary_voc_id.HasValue )
+					throw UserError( UiText.errors.secondary_voc_elem_delete_prohibited );
+
+				DeleteDoc( ObjectDocUrl( lib_voc.get_voc_db( Ps.voc_info ), Ps.voc_info.object_name, ListElem.id ) );
+
+				if ( Ps.voc_info.id == 'event_types' && ListElem.target_object_type_id.ByValueExists( 'candidate' ) )
+					lib_event.update_object_states_by_event_types( 'candidate' );
+
+		" IMAGE-URL-EXPR="ListElem.ChildExists( 'is_active' ) && ! ListElem.is_active ? '//base_pict/generic_item_inactive.ico' : '//base_pict/generic_item.ico'">
+			<COL WIDTH-EXPR="Ps.voc_info.use_full_name ? '30%' : '100%'" COL-TITLE="##UiText.fields.name##" TITLE-EXPR="ListElem.name" TEXT-COLOR-EXPR="! ListElem.ChildExists( 'is_active' ) || ListElem.is_active ? ( Ps.voc_id.ForeignElem.use_text_color ? ListElem.text_color : '' ) : base1_common.std_colors.inactive_voc_elem" BK-COLOR-EXPR="Ps.voc_id.ForeignElem.use_bk_color ? ListElem.bk_color : ''" lang-en:COL-TITLE="Name"/>
+
+			<IF EXPR="Ps.voc_info.use_full_name">
+				<COL WIDTH="70%" COL-TITLE="##UiText.fields.full_name##" TITLE-EXPR="ListElem.full_name" lang-en:COL-TITLE="Full name"/>
+			</IF>
+
+			<LOOP EXPR="Ps.voc_info.extra_columns" VAR="_extra_column">
+				<COL WIDTH-EXPR="
+						return ( _extra_column.width.HasValue ? _extra_column.width : '20zr' );
+				" COL-TITLE-EXPR="Ps.voc_elem_form.TopElem.Child( _extra_column.id ).Title" TITLE-EXPR="
+						if ( _extra_column.title_expr.HasValue )
+						{
+							with ( ListElem )
+							{
+								return eval( _extra_column.title_expr );
+							}
+						}
+
+						with ( ListElem )
+						{
+							subElem = eval( _extra_column.id );
+						}
+						
+						if ( subElem.FormElem.ForeignArrayExpr != '' )
+							return subElem.ForeignDispName;
+
+						return subElem;
+				" ALIGN="center" TEXT-COLOR-EXPR="
+						if ( _extra_column.text_color_expr.HasValue )
+						{
+							with ( ListElem )
+							{
+								color = eval( _extra_column.text_color_expr );
+								if ( color )
+									return color;
+							}
+						}
+
+						return ! ListElem.ChildExists( 'is_active' ) || ListElem.is_active ? '' : base1_common.std_colors.inactive_voc_elem
+				"/>
+			</LOOP>
+
+			<IF EXPR="lib_voc.get_voc_db( Ps.voc_info ).GetObjectForm( Ps.voc_info.object_name ).TopElem.ChildExists( 'user_id' )">
+				<COL WIDTH="20zr" COL-TITLE-EXPR="lib_voc.get_voc_db( Ps.voc_info ).GetObjectForm( Ps.voc_info.object_name ).TopElem.user_id.Title" TITLE-EXPR="ListElem.user_id.ForeignDispName" ALIGN="center"/>
+			</IF>
+
+			<COL WIDTH="20zr" COL-TITLE="##UiText.fields.id_of_voc_elem##" TITLE-EXPR="ListElem.id" lang-en:COL-TITLE="#" TEXT-COLOR-EXPR="! ListElem.ChildExists( 'is_active' ) || ListElem.is_active ? '' : base1_common.std_colors.inactive_voc_elem"/>
+			<COL WIDTH="19zr" COL-TITLE="##UiText.fields.elem_type##" ALIGN="center" TITLE-EXPR="ListElem.is_std ? UiText.titles.standard + ( ListElem.was_customized ? '  (*)' : '' ) : UiText.titles.custom" TEXT-COLOR-EXPR="! ListElem.ChildExists( 'is_active' ) || ListElem.is_active ? '' : base1_common.std_colors.inactive_voc_elem"/>
+			
+			<IF EXPR="! Ps.voc_info.auto_order">
+				<COL WIDTH="9zr" COL-TITLE="№" ALIGN="center" TITLE-EXPR="ListElem.order_index" DEFAULT-SORT="1" TEXT-COLOR-EXPR="! ListElem.ChildExists( 'is_active' ) || ListElem.is_active ? '' : base1_common.std_colors.inactive_voc_elem"/>
+			</IF>
+		</ROW>
+
+		<MENU RIGHT-MENU="1">
+			<INHERIT TYPE="list_menu_entries"/>
+
+			<IF EXPR="! Ps.voc_info.auto_order">
+				<MENU-ENTRY SEPARATOR="1"/>
+
+				<MENU-ENTRY TITLE="##UiText.actions.move_up##" ACTION="
+						lib_voc.adjust_voc_order( Ps.voc, '' );
+
+						elem = List.SelRow.Env.ListElem;
+						query = 'for $elem in ' + Ps.voc_id + ' where $elem/order_index < ' + elem.order_index.XQueryLiteral + ' order by $elem/order_index descending return $elem';
+						//alert( query );
+						array = XQuery( query );
+						
+						if ( ArrayCount( array ) == 0 )
+							return;
+
+						prevElem = ArrayFirstElem( array );
+
+						doc = lib_voc.get_voc_db( Ps.voc_info ).OpenObjectDoc( Ps.voc_info.object_name, elem.id );
+						prevDoc = lib_voc.get_voc_db( Ps.voc_info ).OpenObjectDoc( Ps.voc_info.object_name, prevElem.id );
+
+						curOrderIndex = Int( doc.TopElem.order_index );
+						doc.TopElem.order_index = prevDoc.TopElem.order_index;
+						prevDoc.TopElem.order_index = curOrderIndex;
+
+						doc.Save();
+						prevDoc.Save();
+
+						if ( Ps.voc_info.id == 'event_types' && elem.target_object_type_id.ByValueExists( 'candidate' ) )
+							lib_event.update_object_states_by_event_types( 'candidate' );
+				" ENABLE-EXPR="List.HasSingleSel" lang-en:TITLE="Move Up"/>
+
+				<MENU-ENTRY TITLE="##UiText.actions.move_down##" ACTION="
+						lib_voc.adjust_voc_order( Ps.voc, '' );
+
+						elem = List.SelRow.Env.ListElem;
+						query = 'for $elem in ' + Ps.voc_id + ' where $elem/order_index > ' + elem.order_index.XQueryLiteral + ' order by $elem/order_index ascending return $elem';
+						//alert( query );
+						array = XQuery( query );
+						
+						if ( ArrayCount( array ) == 0 )
+							return;
+
+						prevElem = ArrayFirstElem( array );
+
+						doc = lib_voc.get_voc_db( Ps.voc_info ).OpenObjectDoc( Ps.voc_info.object_name, elem.id );
+						prevDoc = lib_voc.get_voc_db( Ps.voc_info ).OpenObjectDoc( Ps.voc_info.object_name, prevElem.id );
+
+						curOrderIndex = Int( doc.TopElem.order_index );
+						doc.TopElem.order_index = prevDoc.TopElem.order_index;
+						prevDoc.TopElem.order_index = curOrderIndex;
+
+						doc.Save();
+						prevDoc.Save();
+
+						if ( Ps.voc_info.id == 'event_types' && elem.target_object_type_id.ByValueExists( 'candidate' ) )
+							lib_event.update_object_states_by_event_types( 'candidate' );
+				" ENABLE-EXPR="List.HasSingleSel" lang-en:TITLE="Move Down"/>
+			</IF>
+
+
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<INHERIT TYPE="voc_elems_list_menu_entries"/>
+		</MENU>
+
+	</LIST>
+</PANEL>
+
+
+<INHERIT TYPE="view_commands"/>
+
+
+</SPXML-SCREEN>
+
+

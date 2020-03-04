@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="150zr" HEIGHT="85zr" TITLE="##UiText.sections.global_settings_staff##" BEFORE-SAVE-ACTION="
+		if ( Ps.use_positions != FetchDoc( 'x-local://data/static/global_settings.xml' ).TopElem.use_positions )
+		{
+			Screen.MsgBox( UiText.messages.changes_require_app_restart, UiText.messages.info_msg_title, 'info' );
+		}
+
+" SAVE-ACTION="
+		CallServerMethod( 'lib_recruit', 'adjust_dep_views' );
+		UpdateScreens( '*', '*' );
+" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+
+<CHECK SOURCE="Ps.use_divisions" AUTO-LABEL="1" WIDTH="auto"/>
+<CHECK SOURCE="Ps.use_division_short_name_as_primary" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="Ps.use_divisions"/>
+<CHECK SOURCE="Ps.use_positions" AUTO-LABEL="1" WIDTH="auto"/>
+<CHECK SOURCE="Ps.require_employee_positions" AUTO-LABEL="1" WIDTH="auto"/>
+
+<DELIM/>
+
+<CHECK SOURCE="Ps.use_position_types" AUTO-LABEL="1" WIDTH="auto"/>
+<CHECK SOURCE="Ps.require_position_types" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="Ps.use_position_types"/>
+<CHECK SOURCE="Ps.allow_multi_employee_positions" AUTO-LABEL="1" WIDTH="auto"/>
+<DELIM/>
+
+<CHECK SOURCE="Ps.allow_bind_candidates_to_position" AUTO-LABEL="1" WIDTH="auto"/>
+<DELIM/>
+
+<CHECK SOURCE="Ps.use_rr_person_flag" AUTO-LABEL="1" WIDTH="auto"/>
+<CHECK SOURCE="Ps.require_rr_person_flag" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="Ps.use_rr_person_flag"/>
+<DELIM/>
+
+<CHECK SOURCE="Ps.use_candidate_employee_auto_bind" AUTO-LABEL="1" WIDTH="auto"/>
+<GROUP>
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.candidate_employee_auto_bind.req_candidate_state_id" AUTO-LABEL="1" ENABLE-EXPR="Ps.use_candidate_employee_auto_bind"/>
+</GROUP>
+<GROUP>
+	<EDIT SOURCE="Ps.candidate_employee_auto_bind.hire_date_margin" WIDTH="7zr" AUTO-LABEL="1" ENABLE-EXPR="Ps.use_candidate_employee_auto_bind"/>
+</GROUP>
+<GROUP>
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.candidate_employee_auto_bind.hire_state_id" AUTO-LABEL="1" ENABLE-EXPR="Ps.use_candidate_employee_auto_bind"/>
+</GROUP>
+<CHECK SOURCE="Ps.candidate_employee_auto_bind.set_probation_fail_state" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="Ps.use_candidate_employee_auto_bind"/>
+<CHECK SOURCE="Ps.candidate_employee_auto_bind.set_dismissal_state" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="Ps.use_candidate_employee_auto_bind"/>
+<DELIM/>
+
+
+</PANEL>
+
+
+<COMMAND-HANDLER CMD="Help" HREF="help/settings_policy.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+</SPXML-SCREEN>

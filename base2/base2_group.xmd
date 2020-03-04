@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM HIER="1" TITLE="##UiText.objects.group##" CODE-LIB="1" IMAGE-URL="//base_pict/group.ico" lang-en:TITLE="Group">
+
+<group>
+	<id TYPE="integer"/>
+	<name TYPE="string" TITLE="##UiText.fields.name##" lang-en:TITLE="Name"/>
+	<parent_id TYPE="integer" FOREIGN-ARRAY="groups" TITLE="Головная группа" lang-en:TITLE="Parent group" lang-ua:TITLE="Головна група"/>
+	<INHERIT TYPE="card_comment_base"/>
+
+	<is_user_group TYPE="bool" NULL-FALSE="1" TITLE="Группа пользователей программы" lang-en:TITLE="Application users group" lang-ua:TITLE="Група користувачів програми"/>
+
+	<root_division_id TYPE="integer" FOREIGN-ARRAY="divisions" TITLE="##UiText.fields.root_division##"/>
+	
+	<base_divisions>
+		<base_division MULTIPLE="1" PRIMARY-KEY="division_id">
+			<division_id TYPE="integer" FOREIGN-ARRAY="divisions" TITLE="##UiText.fields.root_division##"/>
+		</base_division>
+	</base_divisions>
+
+	<vacancy_load_default_user_id TYPE="integer" FOREIGN-ARRAY="users" TITLE="Рекрутер, обрабатывающий заявки на вакансии, поданные из внешней системы" lang-en:TITLE="Default user for loaded vacancies" lang-ua:TITLE="Рекрутер який обробляє заявки на вакансії що подані з зовнішньої системи"/>
+
+	<member_groups>
+		<member_group MULTIPLE="1" PRIMARY-KEY="group_id">
+			<group_id TYPE="integer" FOREIGN-ARRAY="groups" TITLE="##UiText.objects.group##"/>
+		</member_group>
+	</member_groups>
+
+	<members>
+		<person_id TYPE="integer" MULTIPLE="1" DOC-ID="1" FOREIGN-ARRAY="persons"/>
+	</members>
+
+	<INHERIT TYPE="card_info_base"/>
+
+	<t1 TYPE="bool" TEMP="1" DOC-ONLY="1" EXPR="
+			if ( root_division_id.HasValue )
+			{
+				base_divisions.ObtainChildByKey( root_division_id );
+				root_division_id.Clear();
+			}
+	" EXPR-SHOW-ERRORS="1"/>
+</group>
+
+
+
+</SPXML-FORM>

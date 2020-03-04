@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="80zr" HEIGHT="38zr" SOURCE="TopElem" TITLE="##UiText.sections.logs##" RESIZE="1" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<LABEL TITLE="##UiText.sections.logs##:" lang-en:TITLE="Logs:"/>
+	<BR/>
+
+	<CHECK TITLE="Протокол HTTP" SOURCE="Ps.http" lang-en:TITLE="HTTP" lang-ua:TITLE="Протокол HTTP"/>
+	<CHECK TITLE="Запросы к внутреннему серверу" SOURCE="Ps.lds" lang-en:TITLE="Internal server requests" lang-ua:TITLE="Запити до внутрішнього серверу"/>
+	<CHECK TITLE="Почтовые протоколы" SOURCE="Ps.mail_trans" lang-en:TITLE="Mail protocols" lang-ua:TITLE="Поштові протоколи"/>
+	<DELIM/>
+
+	<BUTTON IMAGE-URL="//base_pict/open.ico" TITLE="Открыть папку с журналами" WIDTH="32zr" ACTION="
+			ShellExecute( 'open', UserDataDirectoryPath() + '\\Logs' );
+	" PASSIVE="1" lang-en:TITLE="Open Logs folder" lang-ua:TITLE="Відкрити папку з журналами"/>
+</PANEL>
+
+
+</SPXML-SCREEN>

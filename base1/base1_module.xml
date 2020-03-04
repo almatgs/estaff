@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<spxml_module>
+	<ui_texts>
+		<ui_text>
+			<url>base1_ui_text.xml</url>
+		</ui_text>
+	</ui_texts>
+
+	<sample_forms>
+		<sample_form>
+			<url>base1_general_csd.xmd</url>
+		</sample_form>
+		<sample_form>
+			<url>base1_general.xmd</url>
+		</sample_form>
+		<sample_form>
+			<url>base1_general_stat.xmd</url>
+		</sample_form>
+	</sample_forms>
+
+	<sample_screen_forms>
+		<sample_screen_form>
+			<url>base1_general_controls.xms</url>
+		</sample_screen_form>
+		<sample_screen_form>
+			<url>base1_general_csd.xms</url>
+		</sample_screen_form>
+		<sample_screen_form>
+			<url>base1_general.xms</url>
+		</sample_screen_form>
+		<sample_screen_form>
+			<url>base1_general_stat.xms</url>
+		</sample_screen_form>
+	</sample_screen_forms>
+
+	<shared_docs>
+		<shared_doc>
+			<url>base1_config.xml</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_common.xml</url>
+		</shared_doc>
+
+		<shared_doc>
+			<url>base1_lib_base.xml</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_agent.xml</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_mail.xml</url>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_sms.xml</url>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_telephony.xml</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_mnt.js</url>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_malware.js</url>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_currency.js</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_export.xml</url>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_import.xml</url>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_html.js</url>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_office.js</url>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_server_api.js</url>
+			<exist_req_expr>! UseLds</exist_req_expr>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_voc.js</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_view.js</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_stat.js</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_stat_v2.js</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_csd.xml</url>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_replica.xml</url>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_web.js</url>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_web_ui.js</url>
+			<exist_req_expr>System.IsWebClient</exist_req_expr>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_sql.js</url>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</shared_doc>
+		<shared_doc>
+			<url>base1_lib_ipc.js</url>
+			<exist_req_expr>! System.IsWebClient</exist_req_expr>
+		</shared_doc>
+
+		<shared_doc>
+			<url>x-local://data/static/base1_vocs.xml</url>
+			<form_url>base1_vocs.xmd</form_url>
+		</shared_doc>
+		<shared_doc>
+			<url>x-local://data/static/base1_fields_usage.xml</url>
+			<form_url>base1_fields_usage.xmd</form_url>
+		</shared_doc>
+		<shared_doc>
+			<url>x-local://data/static/base1_task_results.xml</url>
+			<form_url>base1_task_results.xmd</form_url>
+		</shared_doc>
+
+		<shared_doc>
+			<url>x-local://data_local/base1_views_stored_data.xml</url>
+			<form_url>base1_views_stored_data.xmd</form_url>
+		</shared_doc>
+		<shared_doc>
+			<url>x-local://data_local/base1_subst_views.xml</url>
+			<form_url>base1_subst_views.xmd</form_url>
+		</shared_doc>
+		<shared_doc>
+			<url>x-local://data_local/base1_agent_local_data.xml</url>
+			<form_url>base1_agent_local_data.xmd</form_url>
+		</shared_doc>
+		<shared_doc>
+			<url>x-local://data_local/base1_stat_local_data.xml</url>
+			<form_url>base1_stat_local_data.xmd</form_url>
+		</shared_doc>
+	</shared_docs>
+
+	<code_source_files>
+		<code_source_file>
+			<url>converter_lib.bs</url>
+			<server_only>1</server_only>
+		</code_source_file>
+		<code_source_file>
+			<url>xml_utils.bs</url>
+		</code_source_file>
+	</code_source_files>
+</spxml_module>
+
+
+

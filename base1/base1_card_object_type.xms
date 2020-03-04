@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="130zr" HEIGHT="90zr" SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" RESIZE="1">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+
+	<IF EXPR="Ps.use_coding">
+		<LABEL TITLE="##UiText.sections.card_numbering##"/>
+
+		<TABLE NAME="coding_base">
+			<COLUMNS>
+				<COL WIDTH="18zr"/>
+				<COL WIDTH="21zr"/>
+				<COL WIDTH="24px"/>
+				<COL WIDTH="24px"/>
+				<COL WIDTH="19zr"/>
+			</COLUMNS>
+
+			<LINE>
+				<LABEL TITLE="Префикс:" ALIGN="left" lang-en:TITLE="Prefix:" lang-ua:TITLE="Префікс:"/>
+				<EDIT SOURCE="Ps.coding_prefix"/>
+			</LINE>
+
+			<LINE>
+				<LABEL TITLE="##UiText.fields.next_index##:"/>
+				<EDIT SOURCE="OpenDoc( lib_base.get_coding_doc_url( Ps.id ) ).TopElem.next_index" NUMBER="1" READ-ONLY="1"/>
+			</LINE>
+
+
+			<BUTTON IMAGE-URL="//base_pict/edit.ico" ACTION="
+					nextIndex = lib_base.select_integer_value( UiText.fields.next_index, OpenDoc( lib_base.get_coding_doc_url( Ps.id ) ).TopElem.next_index );
+
+					codingDoc = OpenDoc( lib_base.get_coding_doc_url( Ps.id ) );
+					codingDoc.TopElem.next_index = nextIndex;
+					codingDoc.Save();
+			" TIP-TEXT="Редактировать" lang-en:TIP-TEXT="Edit" lang-ua:TIP-TEXT="Редагувати"/>
+
+
+			<BUTTON IMAGE-URL="//base_pict/actions.ico" ACTION="
+					array = XQuery( 'for $elem in ' + lib_base.object_name_to_catalog_name( Ps.id ) + ' order by $elem/code descending return $elem' );
+					lastElem = ArrayOptFirstElem( array );
+
+					try
+					{
+						codingDoc = OpenDoc( lib_base.get_coding_doc_url( Ps.id ) );
+					}
+					catch ( e )
+					{
+						DeleteUrl( lib_base.get_coding_doc_url( Ps.id ) );
+						codingDoc = OpenDoc( lib_base.get_coding_doc_url( Ps.id ) );
+					}
+
+					if ( lastElem != undefined )
+					{
+						if ( StrBegins( lastElem.code, Ps.coding_prefix ) )
+							lastIndex = Int( StrReplaceOne( lastElem.code, Ps.coding_prefix, '' ) );
+						else
+							lastIndex = Int( lastElem.code );
+
+						codingDoc.TopElem.next_index = lastIndex + 1;
+					}
+
+					codingDoc.Save();
+			" TIP-TEXT="Перестроить нумерацию" lang-en:TIP-TEXT="Rebuild numbering" lang-ua:TIP-TEXT="Перебудувати нумерацію"/>
+
+
+			<LINE>
+				<LABEL TITLE="Кол-во цифр:" ALIGN="left" lang-en:TITLE="Number of Digits:" lang-ua:TITLE="Кількість цифр:"/>
+				<COMBO SOURCE="Ps.coding_digits_num">
+					<COMBO-ENTRY TITLE="3" VALUE-EXPR="3"/>
+					<COMBO-ENTRY TITLE="4" VALUE-EXPR="4"/>
+					<COMBO-ENTRY TITLE="5" VALUE-EXPR="5"/>
+					<COMBO-ENTRY TITLE="6" VALUE-EXPR="6"/>
+				</COMBO>
+			</LINE>
+		</TABLE>
+		<DELIM/>
+	</IF>
+
+	<IF EXPR="DefaultDb.GetObjectForm( Ps.id ).IsHier">
+		<LINE>
+			<LABEL TITLE="Порядок отображения наименования в иерархии:" ALIGN="left" lang-en:TITLE="Hierarchical naming:" lang-ua:TITLE="Порядок відображення найменування в ієрархії:"/>
+			<COMBO SOURCE="Ps.use_reverse_hier_disp_name" WIDTH="15zr">
+				<COMBO-ENTRY TITLE="##UiText.titles.direct##" VALUE-EXPR="false"/>
+				<COMBO-ENTRY TITLE="Обратный" VALUE-EXPR="true" lang-en:TITLE="Reverse" lang-ua:TITLE="Зворотний"/>
+			</COMBO>
+		</LINE>
+		<DELIM/>
+	</IF>
+</PANEL>
+
+</SPXML-SCREEN>

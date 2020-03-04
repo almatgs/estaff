@@ -1,0 +1,1614 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<metro_map xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<location_name>Москва</location_name>
+	<lines>
+		<line>
+			<id>1</id>
+			<name>Кольцевая</name>
+			<color>#643c00</color>
+		</line>
+		<line>
+			<id>2</id>
+			<name>Сокольническая</name>
+			<color>#c80000</color>
+		</line>
+		<line>
+			<id>3</id>
+			<name>Калужско-Рижская</name>
+			<color>#fa8200</color>
+		</line>
+		<line>
+			<id>4</id>
+			<name>Серпуховско-Тимирязевская</name>
+			<color>#787878</color>
+		</line>
+		<line>
+			<id>5</id>
+			<name>Замоскворецкая</name>
+			<color>#157c29</color>
+		</line>
+		<line>
+			<id>6</id>
+			<name>Арбатско-Покровская</name>
+			<color>#0a0a45</color>
+		</line>
+		<line>
+			<id>7</id>
+			<name>Филевская</name>
+			<color>#5050f0</color>
+		</line>
+		<line>
+			<id>8</id>
+			<name>Таганско-Краснопресненская</name>
+			<color>#b414b5</color>
+		</line>
+		<line>
+			<id>9</id>
+			<name>Калининская</name>
+			<color>#f8f846</color>
+		</line>
+		<line>
+			<id>10</id>
+			<name>Люблинско-Дмитровская</name>
+			<color>#3ec71e</color>
+		</line>
+		<line>
+			<id>11</id>
+			<name>Каховская</name>
+			<color>#148c96</color>
+		</line>
+		<line>
+			<id>12</id>
+			<name>Бутовская</name>
+			<color>#a0f0f0</color>
+		</line>
+		<line>
+			<id>13</id>
+			<name>Тимирязевская - улица Сергея Эйзенштейна</name>
+			<color>#78c8c8</color>
+		</line>
+	</lines>
+	<stations>
+		<station>
+			<id>1</id>
+			<name VALUE="Комсомольская" lang-en:VALUE="Komsomolskaya"/>
+			<line_id>1</line_id>
+			<line_id>2</line_id>
+			<gps1>55.774659</gps1>
+			<gps2>37.656029</gps2>
+			<title_offset>46; -6</title_offset>
+		</station>
+		<station>
+			<id>2</id>
+			<name VALUE="Курская" lang-en:VALUE="Kurskaya"/>
+			<line_id>1</line_id>
+			<line_id>6</line_id>
+			<gps1>55.75848</gps1>
+			<gps2>37.65985</gps2>
+			<connected_station_id>155</connected_station_id>
+			<title_offset>27; -6</title_offset>
+		</station>
+		<station>
+			<id>3</id>
+			<name VALUE="Таганская" lang-en:VALUE="Taganskaya"/>
+			<line_id>1</line_id>
+			<line_id>8</line_id>
+			<gps1>55.74255</gps1>
+			<gps2>37.65389</gps2>
+			<connected_station_id>145</connected_station_id>
+			<title_offset>16; -15</title_offset>
+		</station>
+		<station>
+			<id>5</id>
+			<name VALUE="Павелецкая" lang-en:VALUE="Paveleckaya"/>
+			<line_id>1</line_id>
+			<line_id>5</line_id>
+			<gps1>55.7313</gps1>
+			<gps2>37.63612</gps2>
+			<title_offset>36; -6</title_offset>
+		</station>
+		<station>
+			<id>51</id>
+			<name VALUE="Добрынинская" lang-en:VALUE="Dobryninskaya"/>
+			<line_id>1</line_id>
+			<gps1>55.72886</gps1>
+			<gps2>37.62356</gps2>
+			<connected_station_id>65</connected_station_id>
+			<title_offset>-6; -16</title_offset>
+		</station>
+		<station>
+			<id>6</id>
+			<name VALUE="Октябрьская" lang-en:VALUE="Oktyabrskaya"/>
+			<line_id>1</line_id>
+			<line_id>3</line_id>
+			<gps1>55.729</gps1>
+			<gps2>37.61139</gps2>
+			<title_offset>-25; 5</title_offset>
+		</station>
+		<station>
+			<id>7</id>
+			<name VALUE="Парк культуры" lang-en:VALUE="Park Kultury"/>
+			<line_id>1</line_id>
+			<line_id>2</line_id>
+			<gps1>55.73512</gps1>
+			<gps2>37.59328</gps2>
+			<title_offset>-30; 6</title_offset>
+		</station>
+		<station>
+			<id>8</id>
+			<name VALUE="Киевская" lang-en:VALUE="Kievskaya"/>
+			<line_id>1</line_id>
+			<line_id>6</line_id>
+			<line_id>7</line_id>
+			<gps1>55.74388</gps1>
+			<gps2>37.56673</gps2>
+			<title_offset>-18; 5</title_offset>
+		</station>
+		<station>
+			<id>9</id>
+			<name VALUE="Краснопресненская" lang-en:VALUE="Krasnopresnenskaya"/>
+			<line_id>1</line_id>
+			<gps1>55.760109</gps1>
+			<gps2>37.577141</gps2>
+			<connected_station_id>136</connected_station_id>
+			<title_offset>-56; -6</title_offset>
+		</station>
+		<station>
+			<id>10</id>
+			<name VALUE="Белорусская" lang-en:VALUE="Belorusskaya"/>
+			<line_id>1</line_id>
+			<line_id>5</line_id>
+			<gps1>55.77492</gps1>
+			<gps2>37.58207</gps2>
+			<title_offset>-38; -6</title_offset>
+		</station>
+		<station>
+			<id>11</id>
+			<name VALUE="Новослободская" lang-en:VALUE="Novoslobodskaya"/>
+			<line_id>1</line_id>
+			<gps1>55.77921</gps1>
+			<gps2>37.6009</gps2>
+			<connected_station_id>60</connected_station_id>
+			<title_offset>-46; -6</title_offset>
+		</station>
+		<station>
+			<id>12</id>
+			<name VALUE="Проспект мира" lang-en:VALUE="Prospekt Mira"/>
+			<line_id>1</line_id>
+			<line_id>3</line_id>
+			<gps1>55.781196</gps1>
+			<gps2>37.633529</gps2>
+			<title_offset>44; -6</title_offset>
+		</station>
+		<station>
+			<id>13</id>
+			<name VALUE="Бульвар Рокоссовского" lang-en:VALUE="Bulvar Rokossovskogo"/>
+			<line_id>2</line_id>
+			<gps1>55.81336</gps1>
+			<gps2>37.73525</gps2>
+			<title_offset>52; -6</title_offset>
+		</station>
+		<station>
+			<id>15</id>
+			<name VALUE="Черкизовская" lang-en:VALUE="Cherkizovskaya"/>
+			<line_id>2</line_id>
+			<gps1>55.802</gps1>
+			<gps2>37.74438</gps2>
+			<title_offset>37; -6</title_offset>
+		</station>
+		<station>
+			<id>151</id>
+			<name VALUE="Преображенская площадь" lang-en:VALUE="Preobrazhenskaya ploschad"/>
+			<line_id>2</line_id>
+			<gps1>55.79655</gps1>
+			<gps2>37.71591</gps2>
+			<title_offset>67; -6</title_offset>
+		</station>
+		<station>
+			<id>16</id>
+			<name VALUE="Сокольники" lang-en:VALUE="Sokolniki"/>
+			<line_id>2</line_id>
+			<gps1>55.789279</gps1>
+			<gps2>37.679695</gps2>
+			<title_offset>34; -6</title_offset>
+		</station>
+		<station>
+			<id>17</id>
+			<name VALUE="Красносельская" lang-en:VALUE="Krasnoselskaya"/>
+			<line_id>2</line_id>
+			<gps1>55.780763</gps1>
+			<gps2>37.666265</gps2>
+			<title_offset>42; -6</title_offset>
+		</station>
+		<station>
+			<id>18</id>
+			<name VALUE="Красные ворота" lang-en:VALUE="Krasnye vorota"/>
+			<line_id>2</line_id>
+			<gps1>55.76958</gps1>
+			<gps2>37.6499</gps2>
+			<title_offset>38; -12</title_offset>
+		</station>
+		<station>
+			<id>19</id>
+			<name VALUE="Чистые пруды" lang-en:VALUE="Chistye prudy"/>
+			<line_id>2</line_id>
+			<gps1>55.76426</gps1>
+			<gps2>37.6389</gps2>
+			<connected_station_id>38</connected_station_id>
+			<connected_station_id>155</connected_station_id>
+			<title_offset>38; -6</title_offset>
+		</station>
+		<station>
+			<id>20</id>
+			<name VALUE="Лубянка" lang-en:VALUE="Lubyanka"/>
+			<line_id>2</line_id>
+			<gps1>55.75876</gps1>
+			<gps2>37.62573</gps2>
+			<connected_station_id>138</connected_station_id>
+			<title_offset>26; -7</title_offset>
+		</station>
+		<station>
+			<id>21</id>
+			<name VALUE="Охотный ряд" lang-en:VALUE="Ohotnyj ryad"/>
+			<line_id>2</line_id>
+			<gps1>55.75703</gps1>
+			<gps2>37.61615</gps2>
+			<connected_station_id>86</connected_station_id>
+			<connected_station_id>108</connected_station_id>
+			<title_offset>-34; -10</title_offset>
+		</station>
+		<station>
+			<id>22</id>
+			<name VALUE="Библиотека им. Ленина" lang-en:VALUE="Biblioteka im. Lenina"/>
+			<line_id>2</line_id>
+			<gps1>55.75211</gps1>
+			<gps2>37.60988</gps2>
+			<connected_station_id>63</connected_station_id>
+			<connected_station_id>107</connected_station_id>
+			<connected_station_id>127</connected_station_id>
+			<title_offset>60; 0</title_offset>
+		</station>
+		<station>
+			<id>23</id>
+			<name VALUE="Кропоткинская" lang-en:VALUE="Kropotkinskaya"/>
+			<line_id>2</line_id>
+			<gps1>55.74525</gps1>
+			<gps2>37.60463</gps2>
+			<title_offset>28; 5</title_offset>
+		</station>
+		<station>
+			<id>25</id>
+			<name VALUE="Фрунзенская" lang-en:VALUE="Frunzenskaya"/>
+			<line_id>2</line_id>
+			<gps1>55.72718</gps1>
+			<gps2>37.58036</gps2>
+			<title_offset>-36; -6</title_offset>
+		</station>
+		<station>
+			<id>251</id>
+			<name VALUE="Спортивная" lang-en:VALUE="Sportivnaya"/>
+			<line_id>2</line_id>
+			<gps1>55.723095</gps1>
+			<gps2>37.563775</gps2>
+			<title_offset>-33; -6</title_offset>
+		</station>
+		<station>
+			<id>26</id>
+			<name VALUE="Воробьёвы горы" lang-en:VALUE="Vorobjovy gory"/>
+			<line_id>2</line_id>
+			<gps1>55.710455</gps1>
+			<gps2>37.558601</gps2>
+			<title_offset>-44; -6</title_offset>
+		</station>
+		<station>
+			<id>27</id>
+			<name VALUE="Университет" lang-en:VALUE="Universitet"/>
+			<line_id>2</line_id>
+			<gps1>55.69167</gps1>
+			<gps2>37.53433</gps2>
+			<title_offset>-35; -6</title_offset>
+		</station>
+		<station>
+			<id>28</id>
+			<name VALUE="Проспект Вернадского" lang-en:VALUE="Prospekt Vernadskogo"/>
+			<line_id>2</line_id>
+			<gps1>55.67613</gps1>
+			<gps2>37.5045</gps2>
+			<title_offset>-58; -6</title_offset>
+		</station>
+		<station>
+			<id>29</id>
+			<name VALUE="Юго-западная" lang-en:VALUE="Yugo-Zapadnaya"/>
+			<line_id>2</line_id>
+			<gps1>55.66465</gps1>
+			<gps2>37.48421</gps2>
+			<title_offset>-38; -6</title_offset>
+		</station>
+		<station>
+			<id>189</id>
+			<name VALUE="Тропарево" lang-en:VALUE="Troparevo"/>
+			<line_id>2</line_id>
+		</station>
+		<station>
+			<id>30</id>
+			<name VALUE="Медведково" lang-en:VALUE="Medvedkovo"/>
+			<line_id>3</line_id>
+			<gps1>55.88595</gps1>
+			<gps2>37.6612</gps2>
+			<title_offset>36; -6</title_offset>
+		</station>
+		<station>
+			<id>31</id>
+			<name VALUE="Бабушкинская" lang-en:VALUE="Babushkinskaya"/>
+			<line_id>3</line_id>
+			<gps1>55.869906</gps1>
+			<gps2>37.664309</gps2>
+			<title_offset>40; -6</title_offset>
+		</station>
+		<station>
+			<id>32</id>
+			<name VALUE="Свиблово" lang-en:VALUE="Sviblovo"/>
+			<line_id>3</line_id>
+			<gps1>55.855130</gps1>
+			<gps2>37.652765</gps2>
+			<title_offset>28; -6</title_offset>
+		</station>
+		<station>
+			<id>33</id>
+			<name VALUE="Ботанический сад" lang-en:VALUE="Botanicheskij sad"/>
+			<line_id>3</line_id>
+			<gps1>55.84649</gps1>
+			<gps2>37.63915</gps2>
+			<title_offset>48; -6</title_offset>
+		</station>
+		<station>
+			<id>35</id>
+			<name VALUE="ВДНХ" lang-en:VALUE="VDNKH"/>
+			<line_id>3</line_id>
+			<gps1>55.82177</gps1>
+			<gps2>37.64107</gps2>
+			<title_offset>20; -6</title_offset>
+		</station>
+		<station>
+			<id>351</id>
+			<name VALUE="Алексеевская" lang-en:VALUE="Alekseevskaya"/>
+			<line_id>3</line_id>
+			<gps1>55.80737</gps1>
+			<gps2>37.63845</gps2>
+			<title_offset>37; -6</title_offset>
+		</station>
+		<station>
+			<id>36</id>
+			<name VALUE="Рижская" lang-en:VALUE="Rizhskaya"/>
+			<line_id>3</line_id>
+			<gps1>55.79222</gps1>
+			<gps2>37.63557</gps2>
+			<title_offset>26; -6</title_offset>
+		</station>
+		<station>
+			<id>37</id>
+			<name VALUE="Сухаревская" lang-en:VALUE="Suharevskaya"/>
+			<line_id>3</line_id>
+			<gps1>55.772301</gps1>
+			<gps2>37.632487</gps2>
+			<title_offset>24; -15</title_offset>
+		</station>
+		<station>
+			<id>38</id>
+			<name VALUE="Тургеневская" lang-en:VALUE="Turgenevskaya"/>
+			<line_id>3</line_id>
+			<gps1>55.7646</gps1>
+			<gps2>37.63623</gps2>
+			<connected_station_id>19</connected_station_id>
+			<connected_station_id>155</connected_station_id>
+			<title_offset>-36; -6</title_offset>
+		</station>
+		<station>
+			<id>39</id>
+			<name VALUE="Китай-город" lang-en:VALUE="Kitaj-gorod"/>
+			<line_id>8</line_id>
+			<line_id>3</line_id>
+			<gps1>55.755555</gps1>
+			<gps2>37.6325</gps2>
+			<title_offset>34; -6</title_offset>
+		</station>
+		<station>
+			<id>40</id>
+			<name VALUE="Третьяковская" lang-en:VALUE="Tretyakovskaya"/>
+			<line_id>3</line_id>
+			<line_id>9</line_id>
+			<gps1>55.74061</gps1>
+			<gps2>37.62492</gps2>
+			<connected_station_id>87</connected_station_id>
+			<title_offset>28; 5</title_offset>
+		</station>
+		<station>
+			<id>41</id>
+			<name VALUE="Шаболовская" lang-en:VALUE="Shabolovskaya"/>
+			<line_id>3</line_id>
+			<gps1>55.71886</gps1>
+			<gps2>37.60797</gps2>
+			<title_offset>-25; 5</title_offset>
+		</station>
+		<station>
+			<id>42</id>
+			<name VALUE="Ленинский проспект" lang-en:VALUE="Leninskij prospekt"/>
+			<line_id>3</line_id>
+			<gps1>55.70818</gps1>
+			<gps2>37.58742</gps2>
+			<title_offset>-43; 5</title_offset>
+		</station>
+		<station>
+			<id>43</id>
+			<name VALUE="Академическая" lang-en:VALUE="Akademicheskaya"/>
+			<line_id>3</line_id>
+			<gps1>55.68808</gps1>
+			<gps2>37.57501</gps2>
+			<title_offset>-41; -6</title_offset>
+		</station>
+		<station>
+			<id>45</id>
+			<name VALUE="Профсоюзная" lang-en:VALUE="Profsoyuznaya"/>
+			<line_id>3</line_id>
+			<gps1>55.67822</gps1>
+			<gps2>37.56381</gps2>
+			<title_offset>-38; -6</title_offset>
+		</station>
+		<station>
+			<id>451</id>
+			<name VALUE="Новые Черемушки" lang-en:VALUE="Novye Cheremushki"/>
+			<line_id>3</line_id>
+			<gps1>55.66892</gps1>
+			<gps2>37.55417</gps2>
+			<title_offset>-48; -6</title_offset>
+		</station>
+		<station>
+			<id>46</id>
+			<name VALUE="Калужская" lang-en:VALUE="Kaluzhskaya"/>
+			<line_id>3</line_id>
+			<gps1>55.65566</gps1>
+			<gps2>37.53923</gps2>
+			<title_offset>-31; -6</title_offset>
+		</station>
+		<station>
+			<id>47</id>
+			<name VALUE="Беляево" lang-en:VALUE="Belyaevo"/>
+			<line_id>3</line_id>
+			<gps1>55.64371</gps1>
+			<gps2>37.52762</gps2>
+			<title_offset>-25; -6</title_offset>
+		</station>
+		<station>
+			<id>48</id>
+			<name VALUE="Коньково" lang-en:VALUE="Konkovo"/>
+			<line_id>3</line_id>
+			<gps1>55.63253</gps1>
+			<gps2>37.52005</gps2>
+			<title_offset>-27; -6</title_offset>
+		</station>
+		<station>
+			<id>49</id>
+			<name VALUE="Теплый стан" lang-en:VALUE="Teplyj Stan"/>
+			<line_id>3</line_id>
+			<gps1>55.61815</gps1>
+			<gps2>37.50815</gps2>
+			<title_offset>-34; -6</title_offset>
+		</station>
+		<station>
+			<id>50</id>
+			<name VALUE="Ясенево" lang-en:VALUE="Yasenevo"/>
+			<line_id>3</line_id>
+			<gps1>55.60535</gps1>
+			<gps2>37.53495</gps2>
+			<title_offset>-25; -6</title_offset>
+		</station>
+		<station>
+			<id>511</id>
+			<name VALUE="Новоясеневская" lang-en:VALUE="Novojasenevskaja"/>
+			<line_id>3</line_id>
+			<line_id>12</line_id>
+			<gps1>55.601675</gps1>
+			<gps2>37.552965</gps2>
+			<title_offset>-43; -6</title_offset>
+		</station>
+		<station>
+			<id>52</id>
+			<name VALUE="Алтуфьево" lang-en:VALUE="Altufevo"/>
+			<line_id>4</line_id>
+			<gps1>55.89505</gps1>
+			<gps2>37.58605</gps2>
+			<title_offset>-31; -6</title_offset>
+		</station>
+		<station>
+			<id>53</id>
+			<name VALUE="Бибирево" lang-en:VALUE="Bibirevo"/>
+			<line_id>4</line_id>
+			<gps1>55.88295</gps1>
+			<gps2>37.60523</gps2>
+			<title_offset>-29; -6</title_offset>
+		</station>
+		<station>
+			<id>55</id>
+			<name VALUE="Отрадное" lang-en:VALUE="Otradnoe"/>
+			<line_id>4</line_id>
+			<gps1>55.86417</gps1>
+			<gps2>37.60488</gps2>
+			<title_offset>-29; -6</title_offset>
+		</station>
+		<station>
+			<id>551</id>
+			<name VALUE="Владыкино" lang-en:VALUE="Vladykino"/>
+			<line_id>4</line_id>
+			<gps1>55.84669</gps1>
+			<gps2>37.59251</gps2>
+			<title_offset>-33; -6</title_offset>
+		</station>
+		<station>
+			<id>56</id>
+			<name VALUE="Петровско-Разумовская" lang-en:VALUE="Petrovsko-Razumovskaya"/>
+			<line_id>4</line_id>
+			<gps1>55.83712</gps1>
+			<gps2>37.57349</gps2>
+			<title_offset>-62; -6</title_offset>
+		</station>
+		<station>
+			<id>57</id>
+			<name VALUE="Тимирязевская" lang-en:VALUE="Timiryazevskaya"/>
+			<line_id>4</line_id>
+			<gps1>55.81842</gps1>
+			<gps2>37.57571</gps2>
+			<title_offset>-41; -6</title_offset>
+		</station>
+		<station>
+			<id>58</id>
+			<name VALUE="Дмитровская" lang-en:VALUE="Dmitrovskaya"/>
+			<line_id>4</line_id>
+			<gps1>55.80756</gps1>
+			<gps2>37.57959</gps2>
+			<title_offset>-36; -6</title_offset>
+		</station>
+		<station>
+			<id>59</id>
+			<name VALUE="Савеловская" lang-en:VALUE="Savelovskaya"/>
+			<line_id>4</line_id>
+			<gps1>55.794032</gps1>
+			<gps2>37.589196</gps2>
+			<title_offset>-36; -6</title_offset>
+		</station>
+		<station>
+			<id>60</id>
+			<name VALUE="Менделеевская" lang-en:VALUE="Mendeleevskaya"/>
+			<line_id>4</line_id>
+			<gps1>55.78251</gps1>
+			<gps2>37.59792</gps2>
+			<connected_station_id>11</connected_station_id>
+			<title_offset>-42; -6</title_offset>
+		</station>
+		<station>
+			<id>61</id>
+			<name VALUE="Цветной бульвар" lang-en:VALUE="Cvetnoj bulvar"/>
+			<line_id>4</line_id>
+			<gps1>55.7716</gps1>
+			<gps2>37.62058</gps2>
+			<connected_station_id>153</connected_station_id>
+			<title_offset>-34; -15</title_offset>
+		</station>
+		<station>
+			<id>62</id>
+			<name VALUE="Чеховская" lang-en:VALUE="Chehovskaya"/>
+			<line_id>4</line_id>
+			<gps1>55.76596</gps1>
+			<gps2>37.6075</gps2>
+			<connected_station_id>85</connected_station_id>
+			<connected_station_id>137</connected_station_id>
+			<title_offset>14; -15</title_offset>
+		</station>
+		<station>
+			<id>63</id>
+			<name VALUE="Боровицкая" lang-en:VALUE="Borovickaya"/>
+			<line_id>4</line_id>
+			<gps1>55.75035</gps1>
+			<gps2>37.60857</gps2>
+			<connected_station_id>22</connected_station_id>
+			<connected_station_id>107</connected_station_id>
+			<connected_station_id>127</connected_station_id>
+			<title_offset>24; 6</title_offset>
+		</station>
+		<station>
+			<id>65</id>
+			<name VALUE="Полянка" lang-en:VALUE="Polyanka"/>
+			<line_id>4</line_id>
+			<gps1>55.73655</gps1>
+			<gps2>37.61856</gps2>
+			<title_offset>-26; -6</title_offset>
+		</station>
+		<station>
+			<id>651</id>
+			<name VALUE="Серпуховская" lang-en:VALUE="Serpuhovskaya"/>
+			<line_id>4</line_id>
+			<gps1>55.726760</gps1>
+			<gps2>37.625266</gps2>
+			<connected_station_id>5</connected_station_id>
+			<title_offset>26; 5</title_offset>
+		</station>
+		<station>
+			<id>66</id>
+			<name VALUE="Тульская" lang-en:VALUE="Tulskaya"/>
+			<line_id>4</line_id>
+			<gps1>55.70901</gps1>
+			<gps2>37.6226</gps2>
+			<title_offset>24; -6</title_offset>
+		</station>
+		<station>
+			<id>67</id>
+			<name VALUE="Нагатинская" lang-en:VALUE="Nagatinskaya"/>
+			<line_id>4</line_id>
+			<gps1>55.68386</gps1>
+			<gps2>37.62285</gps2>
+			<title_offset>-34; -6</title_offset>
+		</station>
+		<station>
+			<id>68</id>
+			<name VALUE="Нагорная" lang-en:VALUE="Nagornaya"/>
+			<line_id>4</line_id>
+			<gps1>55.67283</gps1>
+			<gps2>37.61019</gps2>
+			<title_offset>-28; -6</title_offset>
+		</station>
+		<station>
+			<id>69</id>
+			<name VALUE="Нахимовский проспект" lang-en:VALUE="Nahimovskij prospekt"/>
+			<line_id>4</line_id>
+			<gps1>55.66376</gps1>
+			<gps2>37.60767</gps2>
+			<title_offset>-58; -6</title_offset>
+		</station>
+		<station>
+			<id>70</id>
+			<name VALUE="Севастопольская" lang-en:VALUE="Sevastopolskaya"/>
+			<line_id>4</line_id>
+			<gps1>55.651336</gps1>
+			<gps2>37.598365</gps2>
+			<connected_station_id>168</connected_station_id>
+			<title_offset>-34; 2</title_offset>
+		</station>
+		<station>
+			<id>71</id>
+			<name VALUE="Чертановская" lang-en:VALUE="Chertanovskaya"/>
+			<line_id>4</line_id>
+			<gps1>55.640677</gps1>
+			<gps2>37.605751</gps2>
+			<title_offset>-37; -6</title_offset>
+		</station>
+		<station>
+			<id>72</id>
+			<name VALUE="Южная" lang-en:VALUE="Yuzhnaya"/>
+			<line_id>4</line_id>
+			<gps1>55.62122</gps1>
+			<gps2>37.60752</gps2>
+			<title_offset>-22; -6</title_offset>
+		</station>
+		<station>
+			<id>73</id>
+			<name VALUE="Пражская" lang-en:VALUE="Prazhskaya"/>
+			<line_id>4</line_id>
+			<gps1>55.61355</gps1>
+			<gps2>37.60499</gps2>
+			<title_offset>-28; -6</title_offset>
+		</station>
+		<station>
+			<id>75</id>
+			<name VALUE="Улица Академика Янгеля" lang-en:VALUE="Ulica Akademika Yangelya"/>
+			<line_id>4</line_id>
+			<gps1>55.596141</gps1>
+			<gps2>37.59981</gps2>
+			<title_offset>-57; -6</title_offset>
+		</station>
+		<station>
+			<id>751</id>
+			<name VALUE="Аннино" lang-en:VALUE="Annino"/>
+			<line_id>4</line_id>
+			<gps1>55.581818</gps1>
+			<gps2>37.594978</gps2>
+			<title_offset>-24; -6</title_offset>
+		</station>
+		<station>
+			<id>76</id>
+			<name VALUE="Бульвар Дмитрия Донского" lang-en:VALUE="Bulvar Dmitriya Donskogo"/>
+			<line_id>4</line_id>
+			<gps1>55.569722</gps1>
+			<gps2>37.576111</gps2>
+			<connected_station_id>170</connected_station_id>
+			<title_offset>57; -15</title_offset>
+		</station>
+		<station>
+			<id>77</id>
+			<name VALUE="Речной вокзал" lang-en:VALUE="Rechnoj vokzal"/>
+			<line_id>5</line_id>
+			<gps1>55.85378</gps1>
+			<gps2>37.47679</gps2>
+			<title_offset>-39; -6</title_offset>
+		</station>
+		<station>
+			<id>78</id>
+			<name VALUE="Водный стадион" lang-en:VALUE="Vodnyj stadion"/>
+			<line_id>5</line_id>
+			<gps1>55.8386</gps1>
+			<gps2>37.48749</gps2>
+			<title_offset>-43; -6</title_offset>
+		</station>
+		<station>
+			<id>79</id>
+			<name VALUE="Войковская" lang-en:VALUE="Vojkovskaya"/>
+			<line_id>5</line_id>
+			<gps1>55.81811</gps1>
+			<gps2>37.49905</gps2>
+			<title_offset>-32; -6</title_offset>
+		</station>
+		<station>
+			<id>80</id>
+			<name VALUE="Сокол" lang-en:VALUE="Sokol"/>
+			<line_id>5</line_id>
+			<gps1>55.804815</gps1>
+			<gps2>37.515457</gps2>
+			<title_offset>-20; -6</title_offset>
+		</station>
+		<station>
+			<id>81</id>
+			<name VALUE="Аэропорт" lang-en:VALUE="Aeroport"/>
+			<line_id>5</line_id>
+			<gps1>55.79981</gps1>
+			<gps2>37.53412</gps2>
+			<title_offset>-28; -6</title_offset>
+		</station>
+		<station>
+			<id>82</id>
+			<name VALUE="Динамо" lang-en:VALUE="Dinamo"/>
+			<line_id>5</line_id>
+			<gps1>55.78867</gps1>
+			<gps2>37.55936</gps2>
+			<title_offset>-25; -6</title_offset>
+		</station>
+		<station>
+			<id>83</id>
+			<name VALUE="Маяковская" lang-en:VALUE="Mayakovskaya"/>
+			<line_id>5</line_id>
+			<gps1>55.76909</gps1>
+			<gps2>37.59635</gps2>
+			<title_offset>-28; -15</title_offset>
+		</station>
+		<station>
+			<id>85</id>
+			<name VALUE="Тверская" lang-en:VALUE="Tverskaya"/>
+			<line_id>5</line_id>
+			<gps1>55.765</gps1>
+			<gps2>37.605555</gps2>
+			<connected_station_id>62</connected_station_id>
+			<connected_station_id>137</connected_station_id>
+			<title_offset>-26; -6</title_offset>
+		</station>
+		<station>
+			<id>86</id>
+			<name VALUE="Театральная" lang-en:VALUE="Teatralnaya"/>
+			<line_id>5</line_id>
+			<gps1>55.757777</gps1>
+			<gps2>37.618611</gps2>
+			<connected_station_id>21</connected_station_id>
+			<connected_station_id>108</connected_station_id>
+			<title_offset>-26; -15</title_offset>
+		</station>
+		<station>
+			<id>87</id>
+			<name VALUE="Новокузнецкая" lang-en:VALUE="Novokuzneckaya"/>
+			<line_id>5</line_id>
+			<gps1>55.74212</gps1>
+			<gps2>37.62901</gps2>
+			<connected_station_id>40</connected_station_id>
+			<title_offset>40; -6</title_offset>
+		</station>
+		<station>
+			<id>88</id>
+			<name VALUE="Автозаводская" lang-en:VALUE="Avtozavodskaya"/>
+			<line_id>5</line_id>
+			<gps1>55.70801</gps1>
+			<gps2>37.65858</gps2>
+			<title_offset>40; -6</title_offset>
+		</station>
+		<station>
+			<id>89</id>
+			<name VALUE="Коломенская" lang-en:VALUE="Kolomenskaya"/>
+			<line_id>5</line_id>
+			<gps1>55.677863</gps1>
+			<gps2>37.663772</gps2>
+			<title_offset>37; -6</title_offset>
+		</station>
+		<station>
+			<id>90</id>
+			<name VALUE="Каширская" lang-en:VALUE="Kashirskaya"/>
+			<line_id>5</line_id>
+			<line_id>11</line_id>
+			<gps1>55.65412</gps1>
+			<gps2>37.64738</gps2>
+			<title_offset>31; -6</title_offset>
+		</station>
+		<station>
+			<id>91</id>
+			<name VALUE="Кантемировская" lang-en:VALUE="Kantemirovskaya"/>
+			<line_id>5</line_id>
+			<gps1>55.6343</gps1>
+			<gps2>37.65632</gps2>
+			<title_offset>43; -6</title_offset>
+		</station>
+		<station>
+			<id>92</id>
+			<name VALUE="Царицыно" lang-en:VALUE="Caricyno"/>
+			<line_id>5</line_id>
+			<gps1>55.62011</gps1>
+			<gps2>37.66939</gps2>
+			<title_offset>28; -6</title_offset>
+		</station>
+		<station>
+			<id>93</id>
+			<name VALUE="Орехово" lang-en:VALUE="Orehovo"/>
+			<line_id>5</line_id>
+			<gps1>55.61215</gps1>
+			<gps2>37.69585</gps2>
+			<title_offset>26; -6</title_offset>
+		</station>
+		<station>
+			<id>95</id>
+			<name VALUE="Домодедовская" lang-en:VALUE="Domodedovskaya"/>
+			<line_id>5</line_id>
+			<gps1>55.61009</gps1>
+			<gps2>37.71612</gps2>
+			<title_offset>43; -6</title_offset>
+		</station>
+		<station>
+			<id>951</id>
+			<name VALUE="Красногвардейская" lang-en:VALUE="Krasnogvardejskaya"/>
+			<line_id>5</line_id>
+			<gps1>55.614491</gps1>
+			<gps2>37.744725</gps2>
+			<connected_station_id>167</connected_station_id>
+			<title_offset>50; -6</title_offset>
+		</station>
+		<station>
+			<id>182</id>
+			<name VALUE="Алма-Атинская" lang-en:VALUE="Alma-Atinskaya"/>
+			<line_id>5</line_id>
+		</station>
+		<station>
+			<id>97</id>
+			<name VALUE="Митино" lang-en:VALUE="Mitino"/>
+			<line_id>6</line_id>
+			<gps1>55.84589</gps1>
+			<gps2>37.35909</gps2>
+			<title_offset>-25; -6</title_offset>
+		</station>
+		<station>
+			<id>183</id>
+			<name VALUE="Пятницкое шоссе" lang-en:VALUE="Pyatnitskoe shosse"/>
+			<line_id>6</line_id>
+		</station>
+		<station>
+			<id>98</id>
+			<name VALUE="Волоколамская" lang-en:VALUE="Volokolamskaya"/>
+			<line_id>6</line_id>
+			<gps1>55.83459</gps1>
+			<gps2>37.38367</gps2>
+			<title_offset>-42; -6</title_offset>
+		</station>
+		<station>
+			<id>99</id>
+			<name VALUE="Мякинино" lang-en:VALUE="Myakinino"/>
+			<line_id>6</line_id>
+			<gps1>55.823285</gps1>
+			<gps2>37.385509</gps2>
+			<title_offset>-31; -6</title_offset>
+		</station>
+		<station>
+			<id>100</id>
+			<name VALUE="Строгино" lang-en:VALUE="Strogino"/>
+			<line_id>6</line_id>
+			<gps1>55.803838</gps1>
+			<gps2>37.402761</gps2>
+			<title_offset>-28; -6</title_offset>
+		</station>
+		<station>
+			<id>101</id>
+			<name VALUE="Крылатское" lang-en:VALUE="Krylatskoe"/>
+			<line_id>6</line_id>
+			<gps1>55.75879</gps1>
+			<gps2>37.40633</gps2>
+			<title_offset>-33; -6</title_offset>
+		</station>
+		<station>
+			<id>102</id>
+			<name VALUE="Молодежная" lang-en:VALUE="Molodezhnaya"/>
+			<line_id>6</line_id>
+			<gps1>55.74001</gps1>
+			<gps2>37.41725</gps2>
+			<title_offset>-37; -6</title_offset>
+		</station>
+		<station>
+			<id>103</id>
+			<name VALUE="Кунцевская" lang-en:VALUE="Kuncevskaya"/>
+			<line_id>6</line_id>
+			<line_id>7</line_id>
+			<gps1>55.73045</gps1>
+			<gps2>37.44646</gps2>
+			<title_offset>-32; -6</title_offset>
+		</station>
+		<station>
+			<id>105</id>
+			<name VALUE="Славянский Бульвар" lang-en:VALUE="Slavyanskij bulvar"/>
+			<line_id>6</line_id>
+			<gps1>55.729720</gps1>
+			<gps2>37.472048</gps2>
+			<title_offset>42; 5</title_offset>
+		</station>
+		<station>
+			<id>191</id>
+			<name VALUE="Парк Победы" lang-en:VALUE="Park Pobedy"/>
+			<line_id>6</line_id>
+			<gps1>55.736559</gps1>
+			<gps2>37.512591</gps2>
+			<title_offset>27; 5</title_offset>
+		</station>
+		<station>
+			<id>106</id>
+			<name VALUE="Смоленская" lang-en:VALUE="Smolenskaya"/>
+			<line_id>6</line_id>
+			<gps1>55.747860</gps1>
+			<gps2>37.583697</gps2>
+			<title_offset>28; 3</title_offset>
+		</station>
+		<station>
+			<id>107</id>
+			<name VALUE="Арбатская" lang-en:VALUE="Arbatskaya"/>
+			<line_id>6</line_id>
+			<gps1>55.752370</gps1>
+			<gps2>37.603278</gps2>
+			<connected_station_id>22</connected_station_id>
+			<connected_station_id>63</connected_station_id>
+			<connected_station_id>127</connected_station_id>
+			<title_offset>-21; 4</title_offset>
+		</station>
+		<station>
+			<id>108</id>
+			<name VALUE="Площадь Революции" lang-en:VALUE="Ploschad Revolyucii"/>
+			<line_id>6</line_id>
+			<gps1>55.756388</gps1>
+			<gps2>37.621388</gps2>
+			<connected_station_id>21</connected_station_id>
+			<connected_station_id>86</connected_station_id>
+			<title_offset>46; 6</title_offset>
+		</station>
+		<station>
+			<id>109</id>
+			<name VALUE="Бауманская" lang-en:VALUE="Baumanskaya"/>
+			<line_id>6</line_id>
+			<gps1>55.77228</gps1>
+			<gps2>37.67857</gps2>
+			<title_offset>34; -6</title_offset>
+		</station>
+		<station>
+			<id>110</id>
+			<name VALUE="Электрозаводская" lang-en:VALUE="Elektrozavodskaya"/>
+			<line_id>6</line_id>
+			<gps1>55.78177</gps1>
+			<gps2>37.70471</gps2>
+			<title_offset>-4; -18</title_offset>
+		</station>
+		<station>
+			<id>111</id>
+			<name VALUE="Семеновская" lang-en:VALUE="Semenovskaya"/>
+			<line_id>6</line_id>
+			<gps1>55.783083</gps1>
+			<gps2>37.719369</gps2>
+			<title_offset>26; 5</title_offset>
+		</station>
+		<station>
+			<id>112</id>
+			<name VALUE="Партизанская" lang-en:VALUE="Partizanskaya"/>
+			<line_id>6</line_id>
+			<gps1>55.78962</gps1>
+			<gps2>37.7479</gps2>
+			<title_offset>28; 5</title_offset>
+		</station>
+		<station>
+			<id>113</id>
+			<name VALUE="Измайловская" lang-en:VALUE="Izmajlovskaya"/>
+			<line_id>6</line_id>
+			<gps1>55.78768</gps1>
+			<gps2>37.78329</gps2>
+			<title_offset>40; -6</title_offset>
+		</station>
+		<station>
+			<id>115</id>
+			<name VALUE="Первомайская" lang-en:VALUE="Pervomajskaya"/>
+			<line_id>6</line_id>
+			<gps1>55.79342</gps1>
+			<gps2>37.79979</gps2>
+			<title_offset>40; -6</title_offset>
+		</station>
+		<station>
+			<id>196</id>
+			<name VALUE="Щелковская" lang-en:VALUE="Schelkovskaya"/>
+			<line_id>6</line_id>
+			<gps1>55.80955</gps1>
+			<gps2>37.79885</gps2>
+			<title_offset>34; -6</title_offset>
+		</station>
+		<station>
+			<id>116</id>
+			<name VALUE="Пионерская" lang-en:VALUE="Pionerskaya"/>
+			<line_id>7</line_id>
+			<gps1>55.73583</gps1>
+			<gps2>37.46731</gps2>
+			<title_offset>-24; -15</title_offset>
+		</station>
+		<station>
+			<id>117</id>
+			<name VALUE="Филевский парк" lang-en:VALUE="Filevskij park"/>
+			<line_id>7</line_id>
+			<gps1>55.73953</gps1>
+			<gps2>37.48366</gps2>
+			<title_offset>32; 5</title_offset>
+		</station>
+		<station>
+			<id>119</id>
+			<name VALUE="Багратионовская" lang-en:VALUE="Bagrationovskaya"/>
+			<line_id>7</line_id>
+			<gps1>55.74326</gps1>
+			<gps2>37.49753</gps2>
+			<title_offset>-34; -15</title_offset>
+		</station>
+		<station>
+			<id>120</id>
+			<name VALUE="Фили" lang-en:VALUE="Fili"/>
+			<line_id>7</line_id>
+			<gps1>55.74673</gps1>
+			<gps2>37.51385</gps2>
+			<title_offset>-6; -15</title_offset>
+		</station>
+		<station>
+			<id>121</id>
+			<name VALUE="Кутузовская" lang-en:VALUE="Kutuzovskaya"/>
+			<line_id>7</line_id>
+			<gps1>55.73947</gps1>
+			<gps2>37.53493</gps2>
+			<title_offset>0; 5</title_offset>
+		</station>
+		<station>
+			<id>122</id>
+			<name VALUE="Студенческая" lang-en:VALUE="Studencheskaya"/>
+			<line_id>7</line_id>
+			<gps1>55.738885</gps1>
+			<gps2>37.548169</gps2>
+			<title_offset>26; 5</title_offset>
+		</station>
+		<station>
+			<id>123</id>
+			<name VALUE="Выставочная" lang-en:VALUE="Vystavochnaya"/>
+			<line_id>7</line_id>
+			<gps1>55.749220</gps1>
+			<gps2>37.543271</gps2>
+			<title_offset>24; 5</title_offset>
+		</station>
+		<station>
+			<id>125</id>
+			<name VALUE="Международная" lang-en:VALUE="Mezhdunarodnaya"/>
+			<line_id>7</line_id>
+			<gps1>55.748326</gps1>
+			<gps2>37.532825</gps2>
+			<title_offset>-8; -17</title_offset>
+		</station>
+		<station>
+			<id>192</id>
+			<name VALUE="Смоленская (Фил.)" lang-en:VALUE="Smolenskaya (Fil.)"/>
+			<line_id>7</line_id>
+			<gps1>55.748611</gps1>
+			<gps2>37.582777</gps2>
+			<title_offset>-47; -7</title_offset>
+		</station>
+		<station>
+			<id>126</id>
+			<name VALUE="Арбатская (Фил.)" lang-en:VALUE="Arbatskaya (Fil.)"/>
+			<line_id>7</line_id>
+			<gps1>55.752125</gps1>
+			<gps2>37.601548</gps2>
+			<title_offset>-43; -6</title_offset>
+		</station>
+		<station>
+			<id>127</id>
+			<name VALUE="Александровский Сад" lang-en:VALUE="Aleksandrovskij sad"/>
+			<line_id>7</line_id>
+			<gps1>55.7525</gps1>
+			<gps2>37.6075</gps2>
+			<connected_station_id>22</connected_station_id>
+			<connected_station_id>63</connected_station_id>
+			<connected_station_id>107</connected_station_id>
+			<title_offset>-50; -15</title_offset>
+		</station>
+		<station>
+			<id>128</id>
+			<name VALUE="Планерная" lang-en:VALUE="Planernaya"/>
+			<line_id>8</line_id>
+			<gps1>55.85931</gps1>
+			<gps2>37.43687</gps2>
+			<title_offset>-32; -6</title_offset>
+		</station>
+		<station>
+			<id>129</id>
+			<name VALUE="Сходненская" lang-en:VALUE="Shodnenskaya"/>
+			<line_id>8</line_id>
+			<gps1>55.850261</gps1>
+			<gps2>37.439936</gps2>
+			<title_offset>-36; -6</title_offset>
+		</station>
+		<station>
+			<id>130</id>
+			<name VALUE="Тушинская" lang-en:VALUE="Tushinskaya"/>
+			<line_id>8</line_id>
+			<gps1>55.8258</gps1>
+			<gps2>37.43621</gps2>
+			<title_offset>-31; -6</title_offset>
+		</station>
+		<station>
+			<id>188</id>
+			<name VALUE="Спартак" lang-en:VALUE="Spartak"/>
+			<line_id>8</line_id>
+		</station>
+		<station>
+			<id>131</id>
+			<name VALUE="Щукинская" lang-en:VALUE="Schukinskaya"/>
+			<line_id>8</line_id>
+			<gps1>55.80796</gps1>
+			<gps2>37.46629</gps2>
+			<title_offset>-32; -6</title_offset>
+		</station>
+		<station>
+			<id>132</id>
+			<name VALUE="Октябрьское поле" lang-en:VALUE="Oktyabrskoe pole"/>
+			<line_id>8</line_id>
+			<gps1>55.793615</gps1>
+			<gps2>37.493496</gps2>
+			<title_offset>-48; -6</title_offset>
+		</station>
+		<station>
+			<id>133</id>
+			<name VALUE="Полежаевская" lang-en:VALUE="Polezhaevskaya"/>
+			<line_id>8</line_id>
+			<gps1>55.77691</gps1>
+			<gps2>37.51692</gps2>
+			<title_offset>-39; -6</title_offset>
+		</station>
+		<station>
+			<id>135</id>
+			<name VALUE="Беговая" lang-en:VALUE="Begovaya"/>
+			<line_id>8</line_id>
+			<gps1>55.77378</gps1>
+			<gps2>37.54412</gps2>
+			<title_offset>-24; -6</title_offset>
+		</station>
+		<station>
+			<id>194</id>
+			<name VALUE="Улица 1905 года" lang-en:VALUE="Ulica 1905 goda"/>
+			<line_id>8</line_id>
+			<gps1>55.76355</gps1>
+			<gps2>37.56375</gps2>
+			<title_offset>-31; -15</title_offset>
+		</station>
+		<station>
+			<id>136</id>
+			<name VALUE="Баррикадная" lang-en:VALUE="Barrikadnaya"/>
+			<line_id>8</line_id>
+			<gps1>55.76027</gps1>
+			<gps2>37.58111</gps2>
+			<connected_station_id>9</connected_station_id>
+			<title_offset>-25; -15</title_offset>
+		</station>
+		<station>
+			<id>137</id>
+			<name VALUE="Пушкинская" lang-en:VALUE="Pushkinskaya"/>
+			<line_id>8</line_id>
+			<gps1>55.765277</gps1>
+			<gps2>37.606666</gps2>
+			<connected_station_id>62</connected_station_id>
+			<connected_station_id>85</connected_station_id>
+			<title_offset>-27; -13</title_offset>
+		</station>
+		<station>
+			<id>138</id>
+			<name VALUE="Кузнецкий Мост" lang-en:VALUE="Kuzneckij most"/>
+			<line_id>8</line_id>
+			<gps1>55.76118</gps1>
+			<gps2>37.62386</gps2>
+			<connected_station_id>20</connected_station_id>
+			<title_offset>44; -7</title_offset>
+		</station>
+		<station>
+			<id>139</id>
+			<name VALUE="Пролетарская" lang-en:VALUE="Proletarskaya"/>
+			<line_id>8</line_id>
+			<gps1>55.73171</gps1>
+			<gps2>37.66726</gps2>
+			<connected_station_id>157</connected_station_id>
+			<title_offset>26; 5</title_offset>
+		</station>
+		<station>
+			<id>140</id>
+			<name VALUE="Волгоградский проспект" lang-en:VALUE="Volgogradskij prospekt"/>
+			<line_id>8</line_id>
+			<gps1>55.7243</gps1>
+			<gps2>37.68795</gps2>
+			<title_offset>62; -6</title_offset>
+		</station>
+		<station>
+			<id>141</id>
+			<name VALUE="Текстильщики" lang-en:VALUE="Tekstilschiki"/>
+			<line_id>8</line_id>
+			<gps1>55.70947</gps1>
+			<gps2>37.73282</gps2>
+			<title_offset>24; -15</title_offset>
+		</station>
+		<station>
+			<id>142</id>
+			<name VALUE="Кузьминки" lang-en:VALUE="Kuzminki"/>
+			<line_id>8</line_id>
+			<gps1>55.70531</gps1>
+			<gps2>37.76775</gps2>
+			<title_offset>19; 5</title_offset>
+		</station>
+		<station>
+			<id>143</id>
+			<name VALUE="Рязанский проспект" lang-en:VALUE="Ryazanskij prospekt"/>
+			<line_id>8</line_id>
+			<gps1>55.71753</gps1>
+			<gps2>37.79425</gps2>
+			<title_offset>38; -15</title_offset>
+		</station>
+		<station>
+			<id>145</id>
+			<name VALUE="Выхино" lang-en:VALUE="Vyhino"/>
+			<line_id>8</line_id>
+			<gps1>55.715795</gps1>
+			<gps2>37.818031</gps2>
+			<title_offset>12; 5</title_offset>
+		</station>
+		<station>
+			<id>184</id>
+			<name VALUE="Лермонтовский проспект" lang-en:VALUE="Lermontovskiy prospekt"/>
+			<line_id>8</line_id>
+		</station>
+		<station>
+			<id>185</id>
+			<name VALUE="Жулебино" lang-en:VALUE="Zhulebino"/>
+			<line_id>8</line_id>
+		</station>
+		<station>
+			<id>186</id>
+			<name VALUE="Деловой центр" lang-en:VALUE="Delovoy center"/>
+			<line_id>9</line_id>
+			<connected_station_id>123</connected_station_id>
+		</station>
+		<station>
+			<id>197</id>
+			<name VALUE="Марксистская" lang-en:VALUE="Marksistskaya"/>
+			<line_id>9</line_id>
+			<gps1>55.7407</gps1>
+			<gps2>37.65773</gps2>
+			<connected_station_id>3</connected_station_id>
+			<title_offset>26; 5</title_offset>
+		</station>
+		<station>
+			<id>146</id>
+			<name VALUE="Площадь Ильича" lang-en:VALUE="Ploschad Ilicha"/>
+			<line_id>9</line_id>
+			<gps1>55.745663</gps1>
+			<gps2>37.681123</gps2>
+			<connected_station_id>156</connected_station_id>
+			<title_offset>32; 5</title_offset>
+		</station>
+		<station>
+			<id>147</id>
+			<name VALUE="Авиамоторная" lang-en:VALUE="Aviamotornaya"/>
+			<line_id>9</line_id>
+			<gps1>55.75208</gps1>
+			<gps2>37.71677</gps2>
+			<title_offset>26; 4</title_offset>
+		</station>
+		<station>
+			<id>148</id>
+			<name VALUE="Шоссе Энтузиастов" lang-en:VALUE="Shosse Entuziastov"/>
+			<line_id>9</line_id>
+			<gps1>55.75837</gps1>
+			<gps2>37.75155</gps2>
+			<title_offset>36; -15</title_offset>
+		</station>
+		<station>
+			<id>149</id>
+			<name VALUE="Перово" lang-en:VALUE="Perovo"/>
+			<line_id>9</line_id>
+			<gps1>55.75109</gps1>
+			<gps2>37.78855</gps2>
+			<title_offset>12; 5</title_offset>
+		</station>
+		<station>
+			<id>150</id>
+			<name VALUE="Новогиреево" lang-en:VALUE="Novogireevo"/>
+			<line_id>9</line_id>
+			<gps1>55.75111</gps1>
+			<gps2>37.81565</gps2>
+			<title_offset>22; 5</title_offset>
+		</station>
+		<station>
+			<id>181</id>
+			<name VALUE="Новокосино" lang-en:VALUE="Novokosino"/>
+			<line_id>9</line_id>
+			<gps1>55.7451</gps1>
+			<gps2>37.8638</gps2>
+			<title_offset/>
+		</station>
+		<station>
+			<id>198</id>
+			<name VALUE="Марьина роща" lang-en:VALUE="Maryina roscha"/>
+			<line_id>10</line_id>
+			<gps1>55.793602</gps1>
+			<gps2>37.615762</gps2>
+			<title_offset>27; -15</title_offset>
+		</station>
+		<station>
+			<id>152</id>
+			<name VALUE="Достоевская" lang-en:VALUE="Dostoevskaya"/>
+			<line_id>10</line_id>
+			<gps1>55.782438</gps1>
+			<gps2>37.612747</gps2>
+			<title_offset>21; -15</title_offset>
+		</station>
+		<station>
+			<id>153</id>
+			<name VALUE="Трубная" lang-en:VALUE="Trubnaya"/>
+			<line_id>10</line_id>
+			<gps1>55.767605</gps1>
+			<gps2>37.6221</gps2>
+			<connected_station_id>61</connected_station_id>
+			<title_offset>4; -12</title_offset>
+		</station>
+		<station>
+			<id>155</id>
+			<name VALUE="Сретенский Бульвар" lang-en:VALUE="Sretenskij bulvar"/>
+			<line_id>10</line_id>
+			<gps1>55.765366</gps1>
+			<gps2>37.636650</gps2>
+			<connected_station_id>19</connected_station_id>
+			<connected_station_id>38</connected_station_id>
+			<title_offset>40; -15</title_offset>
+		</station>
+		<station>
+			<id>195</id>
+			<name VALUE="Чкаловская" lang-en:VALUE="Chkalovskaya"/>
+			<line_id>10</line_id>
+			<gps1>55.756218</gps1>
+			<gps2>37.659375</gps2>
+			<connected_station_id>2</connected_station_id>
+			<title_offset>21; 5</title_offset>
+		</station>
+		<station>
+			<id>156</id>
+			<name VALUE="Римская" lang-en:VALUE="Rimskaya"/>
+			<line_id>10</line_id>
+			<gps1>55.746487</gps1>
+			<gps2>37.682631</gps2>
+			<connected_station_id>146</connected_station_id>
+			<title_offset>26; -6</title_offset>
+		</station>
+		<station>
+			<id>157</id>
+			<name VALUE="Крестьянская Застава" lang-en:VALUE="Krestyanskaya zastava"/>
+			<line_id>10</line_id>
+			<gps1>55.732877</gps1>
+			<gps2>37.668998</gps2>
+			<connected_station_id>139</connected_station_id>
+			<title_offset>56; -6</title_offset>
+		</station>
+		<station>
+			<id>158</id>
+			<name VALUE="Дубровка" lang-en:VALUE="Dubrovka"/>
+			<line_id>10</line_id>
+			<gps1>55.719732</gps1>
+			<gps2>37.676915</gps2>
+			<title_offset>28; -6</title_offset>
+		</station>
+		<station>
+			<id>159</id>
+			<name VALUE="Кожуховская" lang-en:VALUE="Kozhuhovskaya"/>
+			<line_id>10</line_id>
+			<gps1>55.70533</gps1>
+			<gps2>37.68508</gps2>
+			<title_offset>35; -6</title_offset>
+		</station>
+		<station>
+			<id>160</id>
+			<name VALUE="Печатники" lang-en:VALUE="Pechatniki"/>
+			<line_id>10</line_id>
+			<gps1>55.69252</gps1>
+			<gps2>37.7295</gps2>
+			<title_offset>31; -6</title_offset>
+		</station>
+		<station>
+			<id>161</id>
+			<name VALUE="Волжская" lang-en:VALUE="Volzhskaya"/>
+			<line_id>10</line_id>
+			<gps1>55.69101</gps1>
+			<gps2>37.75498</gps2>
+			<title_offset>29; -6</title_offset>
+		</station>
+		<station>
+			<id>162</id>
+			<name VALUE="Люблино" lang-en:VALUE="Lyublino"/>
+			<line_id>10</line_id>
+			<gps1>55.67695</gps1>
+			<gps2>37.76316</gps2>
+			<title_offset>28; -6</title_offset>
+		</station>
+		<station>
+			<id>163</id>
+			<name VALUE="Братиславская" lang-en:VALUE="Bratislavskaya"/>
+			<line_id>10</line_id>
+			<gps1>55.66126</gps1>
+			<gps2>37.7509</gps2>
+			<title_offset>40; -6</title_offset>
+		</station>
+		<station>
+			<id>165</id>
+			<name VALUE="Марьино" lang-en:VALUE="Marino"/>
+			<line_id>10</line_id>
+			<gps1>55.65193</gps1>
+			<gps2>37.74771</gps2>
+			<title_offset>28; -6</title_offset>
+		</station>
+		<station>
+			<id>190</id>
+			<name VALUE="Борисово" lang-en:VALUE="Borisovo"/>
+			<line_id>10</line_id>
+			<gps1>55.633055</gps1>
+			<gps2>37.743333</gps2>
+			<title_offset>28; -6</title_offset>
+		</station>
+		<station>
+			<id>166</id>
+			<name VALUE="Шипиловская" lang-en:VALUE="Shipilovskaya"/>
+			<line_id>10</line_id>
+			<gps1>55.621448</gps1>
+			<gps2>37.743333</gps2>
+			<title_offset>37; -6</title_offset>
+		</station>
+		<station>
+			<id>167</id>
+			<name VALUE="Зябликово" lang-en:VALUE="Zyablikovo"/>
+			<line_id>10</line_id>
+			<gps1>55.611945</gps1>
+			<gps2>37.745277</gps2>
+			<connected_station_id>95</connected_station_id>
+			<title_offset>20; 5</title_offset>
+		</station>
+		<station>
+			<id>168</id>
+			<name VALUE="Каховская" lang-en:VALUE="Kahovskaya"/>
+			<line_id>11</line_id>
+			<gps1>55.65332</gps1>
+			<gps2>37.59722</gps2>
+			<connected_station_id>70</connected_station_id>
+			<title_offset>-6; -15</title_offset>
+		</station>
+		<station>
+			<id>169</id>
+			<name VALUE="Варшавская" lang-en:VALUE="Varshavskaya"/>
+			<line_id>11</line_id>
+			<gps1>55.65381</gps1>
+			<gps2>37.62085</gps2>
+			<title_offset>-6; -15</title_offset>
+		</station>
+		<station>
+			<id>199</id>
+			<name VALUE="Битцевский парк" lang-en:VALUE="Bitsevskiy park"/>
+			<line_id>12</line_id>
+		</station>
+		<station>
+			<id>187</id>
+			<name VALUE="Лесопарковая" lang-en:VALUE="Lesoparkovaya"/>
+			<line_id>12</line_id>
+		</station>
+		<station>
+			<id>170</id>
+			<name VALUE="Улица Старокачаловская" lang-en:VALUE="Ulica Starokachalovskaya"/>
+			<line_id>12</line_id>
+			<gps1>55.568373</gps1>
+			<gps2>37.575903</gps2>
+			<connected_station_id>76</connected_station_id>
+			<title_offset>-55; -6</title_offset>
+		</station>
+		<station>
+			<id>171</id>
+			<name VALUE="Улица Скобелевская" lang-en:VALUE="Ulica Skobelevskaya"/>
+			<line_id>12</line_id>
+			<gps1>55.548095</gps1>
+			<gps2>37.554575</gps2>
+			<title_offset>-46; -6</title_offset>
+		</station>
+		<station>
+			<id>172</id>
+			<name VALUE="Бульвар Адмирала Ушакова" lang-en:VALUE="Bulvar admirala Ushakova"/>
+			<line_id>12</line_id>
+			<gps1>55.545266</gps1>
+			<gps2>37.542065</gps2>
+			<title_offset>-70; -6</title_offset>
+		</station>
+		<station>
+			<id>173</id>
+			<name VALUE="Улица Горчакова" lang-en:VALUE="Ulica Gorchakova"/>
+			<line_id>12</line_id>
+			<gps1>55.541945</gps1>
+			<gps2>37.531142</gps2>
+			<title_offset>-37; -6</title_offset>
+		</station>
+		<station>
+			<id>175</id>
+			<name VALUE="Бунинская Аллея" lang-en:VALUE="Buninskaya alleya"/>
+			<line_id>12</line_id>
+			<gps1>55.537948</gps1>
+			<gps2>37.515360</gps2>
+			<title_offset>-45; -6</title_offset>
+		</station>
+		<station>
+			<id>193</id>
+			<name VALUE="Тимирязевская (С.Эйзеншт.)" lang-en:VALUE="Timiryazevskaya (S.Eisenst.)"/>
+			<line_id>13</line_id>
+			<gps1>55.81888</gps1>
+			<gps2>37.57888</gps2>
+			<title_offset>58; 5</title_offset>
+		</station>
+		<station>
+			<id>176</id>
+			<name VALUE="Улица Милашенкова" lang-en:VALUE="Ulitsa Milashenkova"/>
+			<line_id>13</line_id>
+			<gps1>55.82166</gps1>
+			<gps2>37.59111</gps2>
+			<title_offset>34; 5</title_offset>
+		</station>
+		<station>
+			<id>177</id>
+			<name VALUE="Телецентр" lang-en:VALUE="Teletsentr"/>
+			<line_id>13</line_id>
+			<gps1>55.82166</gps1>
+			<gps2>37.60888</gps2>
+			<title_offset>16; -15</title_offset>
+		</station>
+		<station>
+			<id>178</id>
+			<name VALUE="Улица Академика Королева" lang-en:VALUE="Ulitsa Akademika Koroleva"/>
+			<line_id>13</line_id>
+			<gps1>55.82166</gps1>
+			<gps2>37.62695</gps2>
+			<title_offset>38; 5</title_offset>
+		</station>
+		<station>
+			<id>179</id>
+			<name VALUE="Выставочный центр" lang-en:VALUE="Vystavochny Tsentr"/>
+			<line_id>13</line_id>
+			<gps1>55.82388</gps1>
+			<gps2>37.63833</gps2>
+			<title_offset>38; -15</title_offset>
+		</station>
+		<station>
+			<id>180</id>
+			<name VALUE="Улица Сергея Эйзенштейна" lang-en:VALUE="Ulitsa Sergeya Eizenshteyna"/>
+			<line_id>13</line_id>
+			<gps1>55.831388</gps1>
+			<gps2>37.6425</gps2>
+			<title_offset>48; -15</title_offset>
+		</station>
+	</stations>
+</metro_map>

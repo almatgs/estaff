@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="Ps.title" BEFORE-INIT-ACTION="Ps.Init()" WIDTH-EXPR="Ps.widthMeasure" HEIGHT-EXPR="Ps.heightMeasure">
+
+
+<IF EXPR="Ps.data_type == 'string'">
+	<LABEL TITLE-EXPR="Ps.title + ':'"/>
+	<EDIT SOURCE="Ps.string_value"/>
+</IF>
+
+<IF EXPR="Ps.data_type == 'integer'">
+	<LABEL TITLE-EXPR="Ps.title + ':'"/>
+	<EDIT SOURCE="Ps.integer_value" WIDTH="10zr"/>
+</IF>
+
+<IF EXPR="Ps.data_type == 'real'">
+	<LABEL TITLE-EXPR="Ps.title + ':'"/>
+	<EDIT SOURCE="Ps.real_value" WIDTH="10zr"/>
+</IF>
+
+<IF EXPR="Ps.data_type == 'date'">
+	<IF EXPR="Ps.use_time">
+		<LABEL TITLE-EXPR="Ps.title + ':'"/>
+		<ITEM TYPE="date_time_selector" SOURCE="Ps.date_value"/>
+	</IF>
+	<ELSE>
+		<GROUP>
+			<LABEL TITLE-EXPR="Ps.title + ':'"/>
+			<ITEM TYPE="date_selector" SOURCE="Ps.date_value" WIDTH="14zr"/>
+		</GROUP>
+	</ELSE>
+</IF>
+
+
+<INHERIT TYPE="dlg_footer"/>
+
+</SPXML-SCREEN>

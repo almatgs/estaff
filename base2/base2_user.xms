@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="Ps.PrimaryDispName" WIDTH="160zr" HEIGHT="100zr" RESIZE="1" BEFORE-INIT-ACTION="
+		Ps.view.prev_data.AssignElem( Ps );
+" BEFORE-SAVE-ACTION="
+		Ps.handle_before_ui_save();
+" SAVE-ACTION="
+		Ps.on_ui_save();
+">
+
+
+<ITEM TYPE="card_menus"/>
+<ITEM TYPE="card_toolbar"/>
+
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="38zr" STD-MARGINS="0">
+	<PANEL HEIGHT-EXPR="lib_base.card_left_prop_panel_height" SUNKEN="1">
+		<TREE SUNKEN="0" SWITCH-TYPE="selector" TARGET="main_selector">
+		</TREE>
+	</PANEL>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.objects.user##" SUNKEN="1" EXPANDED="1" IMAGE-URL-EXPR="Ps.ImageUrl">
+
+
+
+<PAGE TITLE="##UiText.sections.general##" SUNKEN="1" IMAGE-URL="//base_pict/common.ico" lang-en:TITLE="General">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="20zr"/>
+			<COL WIDTH="16zr"/>
+			<COL WIDTH="5zr"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.login" AUTO-LABEL="1"/>
+		<EDIT SOURCE="Ps.password_hash.HasValue ? Ps.password_hash : Ps.password" LABEL-TITLE="##UiText.fields.password##:" PASSWORD="1" SET-VALUE-ACTION="
+				if ( System.IsWebClient )
+				{
+					Ps.password = NewValue;
+				}
+				else
+				{
+					Ps.password_hash = PasswordHash( NewValue );
+					Ps.password.Clear();
+				}
+
+				Ps.last_password_change_date = CurDate;
+				Ps.Doc.SetChanged( true );
+		" PASSIVE="1"/>
+		<LABEL/>
+	
+		<PANEL LABEL-TITLE=" ">
+			<CHECK SOURCE="Ps.is_active" AUTO-LABEL="1"/>
+		</PANEL>
+	</TABLE>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<INHERIT TYPE="person_names_core_columns"/>
+			<COL WIDTH="4zr"/>
+			<COL WIDTH="45zr"/>
+		</COLUMNS>
+
+		<INHERIT TYPE="person_names_core"/>
+		<LABEL/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.person_id" AUTO-LABEL="1"/>
+	</TABLE>
+	<DELIM/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="50%"/>
+			<COL WIDTH="50%"/>
+		</COLUMNS>
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.access_role_id" AUTO-LABEL="1"/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.main_group_id" AUTO-LABEL="1"/>
+	</TABLE>
+
+	<IF EXPR="base1_config.use_security_admin_role">
+		<CHECK SOURCE="Ps.need_approval" AUTO-LABEL="1" ENABLE-EXPR="lib_user.is_security_admin"/>
+	</IF>
+	<DELIM/>
+
+	<IF EXPR="AppModuleUsed( 'staff' )">
+		<IF EXPR="global_settings.use_divisions">
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="100%"/>
+					<COL WIDTH="16px"/>
+				</COLUMNS>
+			
+				<LABEL TITLE="Подразделения в зоне ответственности:" lang-en:TITLE="Target divisions:" lang-ua:TITLE="Підрозділи в зоні відповідальності:"/>
+				<IMAGE URL="//base_pict/select.ico" TIP-TEXT="Выбрать подразделения" lang-en:TIP-TEXT="Select divisions" ACTION="
+						Ps.handle_select_base_divisions();
+				" lang-ua:TIP-TEXT="Вибрати підрозділи"/>
+			</TABLE>
+			<LIST HEIGHT="20zr" SUNKEN="1" LOOP-EXPR="Ps.base_divisions">
+				<ROW IMAGE-URL-EXPR="ListElem.division_id.ForeignElem.ImageUrl" OPEN-ACTION="ObtainDocScreen( ListElem.division_id.ForeignObjectUrl )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );">
+					<COL WIDTH="100%" COL-TITLE="##UiText.objects.division##" TITLE-EXPR="ListElem.division_id.ForeignDispName"/>
+				</ROW>
+			</LIST>
+			<BR/>
+		</IF>		
+	</IF>		
+
+	<CHECK SOURCE="Ps.send_email_notif" AUTO-LABEL="1"/>
+	<DELIM/>
+
+	<IF EXPR="base1_config.sn_owner == 'nomos' || base1_config.sn_owner == 'test'">
+		<GROUP>
+			<EDIT SOURCE="Ps.last_password_change_date" AUTO-LABEL="1" WIDTH="20zr" READ-ONLY="1"/>
+			<EDIT SOURCE="Ps.last_is_active_change_date" AUTO-LABEL="1" WIDTH="20zr" READ-ONLY="1"/>
+		</GROUP>
+		<DELIM/>
+	</IF>
+
+	<EDIT SOURCE="Ps.comment" MULTILINE="1" HEIGHT="auto" VERT-SCROLL_="1" AUTO-LABEL="1"/>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+</PAGE>
+
+
+<ITEM TYPE="card_attachments"/>
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+</LINE>
+
+
+
+
+<COMMAND-HANDLER CMD="Help" HREF-EXPR="lib_base.build_help_article_url( 'intro.htm' )" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+</SPXML-SCREEN>

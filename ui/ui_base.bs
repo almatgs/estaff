@@ -1,0 +1,121 @@
+namespace ui_base {
+
+function BuildSectionViewUrl( viewID, extQuery ? )
+{
+	viewUrl = 'x-app://ui_auto/section/' + viewID + '.xml';
+	if ( extQuery != undefined )
+		viewUrl += '&' + extQuery;
+
+	//DebugMsg( viewUrl );
+	return viewUrl;
+}
+
+
+function BuildObjectPreviewScreenFormUrl( objectTypeID )
+{
+	viewUrl = 'x-app://ui_auto/object_preview/' + objectTypeID + '.xms';
+	return viewUrl;
+}
+
+
+function BuildUiFragmentSampleScreenFormUrl( templateID )
+{
+	return 'x-app://ui_auto/ui_template.xms?id=' + templateID;
+}
+
+
+function BuildCardAttachmentPreviewImageUrl( attachment, basePart, allowDownload ? )
+{
+	if ( System.IsWebClient )
+	{
+		reqParam = new Object;
+		reqParam.DocUrl = attachment.Doc.Url;
+		reqParam.FieldID = basePart.data.ExtObjectID;
+		reqParam.Size = basePart.data.Size;
+		reqParam.ContentType = UrlPathSuffix( basePart.file_name );
+		reqParam.FileName = basePart.file_name;
+		
+		if ( allowDownload )
+			reqParam.ContentDisposition = 'attachment';
+
+		targetUrl = AbsoluteUrl( "/api/spxml/GetLargeField?" + UrlEncodeQueryExt( reqParam ), System.WebClientUrl );
+		return targetUrl;
+	}
+	else
+	{
+		attcSuffix = StrLowerCase( UrlPathSuffix( basePart.file_name ) );
+		tempFileUrl = ObtainSessionTempFile( attcSuffix );
+		PutUrlData( tempFileUrl, basePart.data );
+		return tempFileUrl;
+	}
+}
+
+
+function BuildObjectWebUrl( objectUrl )
+{
+	reqParam = new Object();
+	reqParam.object_type = ObjectNameFromUrl( objectUrl );
+	reqParam.object_id = '0x' + StrLowerCase( StrHexInt( ObjectIDFromUrl( objectUrl ), 16 ) );
+
+	return Url( GetServerProtocol(), GetServerHostName(), '/spxml_web/main.htm', UrlEncodeQuery( reqParam ) );
+}
+
+
+function BuildWebClientUrl( reqParam )
+{
+	return Url( GetServerProtocol(), GetServerHostName(), '/spxml_web/main.htm', UrlEncodeQuery( reqParam ) );
+}
+
+
+
+function GetServerProtocol()
+{
+	if ( AppConfig.GetOptProperty( 'LDS-HTTPS' ) == '1' || AppConfig.GetOptProperty( 'ALT-PORT-HTTPS' ) == '1' )
+		return 'https';
+
+	return 'http';
+}
+
+
+function GetServerHostName()
+{
+	if ( global_settings.web.hostname.HasValue )
+		return global_settings.web.hostname;
+
+	if ( UseLds )
+		return spxml_settings.lds.address;
+	else
+		return StrLowerCase( GuessServerHostName() );
+}
+
+
+function GuessServerHostName()
+{
+	if ( UseLds )
+		return '';
+
+	name = System.ComputerName;
+	if ( name == '' )
+		return '';
+
+	port = OptInt( AppServerConfig.GetOptProperty( 'WEB-PORT' ) );
+	if ( port == undefined )
+		port = OptInt( AppServerConfig.GetOptProperty( 'PORT' ) );
+	
+	if ( port == undefined )
+	{
+		if ( LdsIsClient )
+			port = 7000;
+		else
+			port = 9000;
+	}
+
+	if ( port != 80 )
+		name += ':' + port;
+
+	return name;
+}
+
+
+
+}

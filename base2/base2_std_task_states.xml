@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_task_states SPXML-FORM="base2_std_task_states.xmd">
+	<std_task_state>
+		<id>tentative</id>
+		<name VALUE="Предполагаемая" lang-en:VALUE="Tentative" lang-ua:VALUE="Передбачувана"/>
+	</std_task_state>
+
+	<std_task_state>
+		<id>assigned</id>
+		<name VALUE="Назначена" lang-en:VALUE="Assigned" lang-ua:VALUE="Призначено"/>
+	</std_task_state>
+
+	<std_task_state>
+		<id>scheduled</id>
+		<name VALUE="Запланирована" lang-en:VALUE="Scheduled" lang-ua:VALUE="Запланована"/>
+	</std_task_state>
+
+	<std_task_state>
+		<id>started</id>
+		<name VALUE="Выполняется" lang-en:VALUE="Started" lang-ua:VALUE="Виконується"/>
+	</std_task_state>
+
+	<std_task_state>
+		<id>succeeded</id>
+		<name VALUE="Выполнена" lang-en:VALUE="Completed" lang-ua:VALUE="Виконана"/>
+		<deactivate_object>1</deactivate_object>
+	</std_task_state>
+
+	<std_task_state>
+		<id>failed</id>
+		<name VALUE="Не выполнена" lang-en:VALUE="Failed" lang-ua:VALUE="Не виконана"/>
+		<deactivate_object>1</deactivate_object>
+	</std_task_state>
+
+	<std_task_state>
+		<id>cancelled</id>
+		<name VALUE="##UiText.titles.cancelled##"/>
+		<text_color>128,0,0</text_color>
+		<deactivate_object>1</deactivate_object>
+	</std_task_state>
+</std_task_states>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

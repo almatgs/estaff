@@ -1,0 +1,12 @@
+{
+	"name": "estaff",
+	"description": "E-Staff Рекрутер",
+	"path": "C:\\Program Files\\EStaff_Demo\\dtx_native_host.exe",
+	"type": "stdio",
+	"allowed_origins":
+	[
+		"chrome-extension://gdbckgdmdgdhiadmdkbghnhdiciikiil/",
+		"chrome-extension://gaolpkcngbcniddcdpnckedbemhkdjan/",
+		"chrome-extension://nfklcmeiblddnbchecmjkhobdeplnogh/"
+	]
+}

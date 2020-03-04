@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base1_ui_text xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<titles>
+		<phone_search_in_database VALUE="Поиск номера телефона в E-Staff" lang-en:VALUE="Search phone number in E-Staff" lang-ua:VALUE="Пошук номера телефону в E-Staff"/>
+		<add_contact VALUE="Добавление контакта" lang-en:VALUE="Add Contact" lang-ua:VALUE="Додавання контакту"/>
+	</titles>
+	<messages>
+		<contact_added VALUE="Контакт добавлен" lang-en:VALUE="Contact added" lang-ua:VALUE="Контакт доданий"/>
+	</messages>
+	<errors>
+		<phone_not_found_in_database VALUE="Номер телефона не найден в Вашей базе E-Staff" lang-en:VALUE="The phone number has not been found in your E-Staff database" lang-ua:VALUE="Номер телефону не знайдений в Вашій базі E-Staff"/>
+	</errors>
+</base1_ui_text>

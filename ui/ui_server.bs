@@ -1,0 +1,241 @@
+namespace ui_server {
+
+"META:ALLOW-CALL-FROM-CLIENT:1"
+function GetUiStartInfo()
+{
+	startInfo = ui_builder_server.GetUiTemplate( 'Main' );
+	return startInfo;
+}
+
+
+"META:ALLOW-CALL-FROM-CLIENT:1"
+function GetUiSections()// : ui_base.ui_section[]
+{
+	template = ui_builder_server.GetOptUiTemplate( 'Main' );
+	if ( template == undefined )
+		return [];
+
+	ui_builder_server.PrepareTemplate( template );
+
+	rootSection = new ui_base.ui_section;
+	BuildUiSectionsFromTemplate( template, template, rootSection, 0 );
+
+	return rootSection.ui_sections;
+}
+
+
+function BuildUiSectionsFromTemplate( template, baseItem, parentSection, level )
+{
+	if ( baseItem.type == 'Section' )
+	{
+		parentSection = BuildUiSectionFromTemplate( template, baseItem, parentSection, level );
+	}
+
+	if ( baseItem.items != undefined )
+	{
+		for ( item in baseItem.items )
+			BuildUiSectionsFromTemplate( template, item, parentSection, level + 1 );
+	}
+}
+
+
+function BuildUiSectionFromTemplate( template, item, parentSection, level )
+{
+	section = new ui_base.ui_section;
+	if ( parentSection.ui_sections == undefined )
+		parentSection.ui_sections = new Array;
+	parentSection.ui_sections.push( section );
+
+	/*if ( item.showCondition != undefined )
+	{
+		baseNode = baseNode.AddChild( 'IF' );
+		baseNode.AddAttr( 'EXPR', ui_builder_server.BuildItemAttrCode( template, item, item.showCondition ) );
+		baseNode.AddAttr( 'IGNORE-ERRORS', '0' );
+	}*/
+
+	if ( item.title != undefined )
+		section.title = item.title;
+
+	if ( level == 1 )
+		section.icon_url = '//app_ui/theme/pict/icon_folder.svg';
+
+	//entry.AddAttr( 'EXPANDED', '1' );
+		
+	if ( item.templateID != undefined )
+		templateID = item.templateID;
+	else if ( item.catalogName != undefined )
+		templateID = ui_builder_server.GetCatalogDefaultTemplateID( item.catalogName );
+	else
+		return section;
+
+	section.url = ui_base.BuildSectionViewUrl( templateID );
+	if ( template.defaultSection == undefined )
+	{
+		template.defaultSection = item;
+		template.defaultSectionTemplateID = templateID;
+	}
+
+	return section;
+}
+
+
+"META:ALLOW-CALL-FROM-CLIENT:1"
+function CreateNewObjectCore( objectTypeID )
+{
+	doc = DefaultDb.OpenNewObjectDoc( objectTypeID );
+	doc.Save();
+	return doc.TopElem.id;
+}
+
+
+var			gAutoCompleteCache;
+
+
+"META:ALLOW-CALL-FROM-CLIENT:1"
+"META:ALLOW-IN-RESTRICTED-ZONE:1";
+function BuildAutoCompleteSourceForCatalogCore( prefixStr, catalogName, options )
+{
+	options.SetStrictMode( false );
+
+	vocInfo = lib_voc.get_opt_voc_info( catalogName );
+	if ( vocInfo == undefined )
+		throw UserError( 'Catalog access denied' );
+	
+	primaryDispName = 'name';
+
+	if ( options.use_index )
+	{
+		array = ObtainAutoCompleteCachedArray( catalogName, options );
+		subArray = ArraySelectBySortedKeyPrefix( array, prefixStr, primaryDispName, true );
+		return ArrayExtract( subArray, primaryDispName );
+	}
+	else
+	{
+		voc = lib_voc.get_voc_by_id( catalogName );
+		array = lib_voc.get_sorted_voc( voc );
+	
+		subArray = ArraySelect( array, 'StrBegins( This.' + primaryDispName + ', prefixStr, true )' );
+		return ArrayExtract( subArray, primaryDispName );
+	}
+}
+
+
+"META:CRITICAL-SECTION:1"
+function ObtainAutoCompleteCachedArray( catalogName, options )
+{
+	if ( gAutoCompleteCache == undefined )
+	{
+		gAutoCompleteCache = new Object;
+		gAutoCompleteCache.SetStrictMode( false );
+	}
+
+	cacheEntry = gAutoCompleteCache[catalogName];
+	if ( cacheEntry != undefined )
+		return cacheEntry.array;
+
+	cacheEntry = new Object;
+	cacheEntry.array = BuildAutoCompleteIndexedArray( catalogName, options );
+	
+	gAutoCompleteCache[catalogName] = cacheEntry;
+	return cacheEntry.array;
+}
+
+
+function BuildAutoCompleteIndexedArray( catalogName, options )
+{
+	vocInfo = lib_voc.get_opt_voc_info( catalogName );
+	voc = lib_voc.get_voc_by_id( catalogName );
+	array = lib_voc.get_sorted_voc( voc );
+
+	if ( vocInfo.is_hier )
+	{
+		array = ArraySort( array, 'parent_id', '+' );
+		destArray = new Array;
+
+		BuildAutoCompleteIndexedArrayPart( destArray, array, undefined, '', undefined );
+		return ArraySort( destArray, 'name', '+i' );
+	}
+	else
+	{
+		return ArraySort( array, 'name', '+i' );
+	}
+}
+
+
+function BuildAutoCompleteIndexedArrayPart( destArray, array, baseElem, baseID, baseDispName )
+{
+	if ( baseElem == undefined || baseElem.hce )
+	{
+		subArray = ArraySelectBySortedKey( array, baseID, 'parent_id' );
+
+		for ( elem in subArray )
+			BuildAutoCompleteIndexedArrayPart( destArray, array, elem, elem.id, elem.name + ( baseDispName != undefined ? ', ' + baseDispName : '' ) );
+	}
+	else
+	{
+		destElem = new Object;
+		destElem.name = baseDispName;
+
+		destArray.push( destElem );
+	}
+}
+
+
+function ScanElemForErrors( elem, templateElem, errorsArray )
+{
+	if ( StrBegins( templateElem.Name, 'UI:' ) )
+		return;
+
+	if ( templateElem.GetOptAttr( 'OPTIONAL' ) == '1' )
+		return;
+
+	if ( ( showConditionExpr = templateElem.GetOptAttr( 'SHOW-CONDITION' ) ) != undefined )
+	{
+		if ( StrContains( showConditionExpr, 'WebPageData' ) ) // !!! Temp solution
+			return;
+
+		with ( elem.Parent )
+		{
+			match = eval( showConditionExpr );
+		}
+
+		if ( ! match )
+			return;
+	}
+
+	typeStr = templateElem.GetOptAttr( 'TYPE' );
+	if ( typeStr != undefined )
+	{
+		if ( templateElem.GetOptAttr( 'ARRAY' ) == '1' )
+			hasError = ( elem.ChildNum == 0 );
+		else
+			hasError = ! elem.HasValue;
+
+		if ( hasError )
+		{
+			errorInfo = new Object;
+			//errorInfo.elem = elem;
+		
+			errorInfo.title = templateElem.GetOptAttr( 'TITLE' );
+			if ( errorInfo.title == undefined )
+				errorInfo.title = elem.Name;
+
+			errorsArray.push( errorInfo );
+		}
+	}
+	else
+	{
+		for ( childTemplateElem in templateElem )
+		{
+			childElem = elem.OptChild( childTemplateElem.Name );
+			if ( childElem == undefined )
+				continue;
+
+			ScanElemForErrors( childElem, childTemplateElem, errorsArray )
+		}
+	}
+}
+
+
+
+}

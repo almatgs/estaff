@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<lib_calendar>
+	<annual_day_masks>
+		<annual_day_mask MULTIPLE="1" PRIMARY-KEY="year">
+			<year TYPE="integer"/>
+			<mask_array_ref TYPE="variant"/>
+
+			<month_stats>
+				<month_stat MULTIPLE="1">
+					<wdays_num TYPE="integer"/>
+				</month_stat>
+			</month_stats>
+		</annual_day_mask>
+	</annual_day_masks>
+</lib_calendar>
+
+
+
+
+</SPXML-INLINE-FORM>

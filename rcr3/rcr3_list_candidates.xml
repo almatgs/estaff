@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="List.candidates" ObjectList="1" ObjectType="candidate" Title="##UiText.titles.candidates##" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<UI:Filter Field="user_id"/>
+
+<UI:Column Field="fullname"/>
+<UI:Column Field="state_id"/>
+<UI:Column Field="state_date"/>
+<UI:Column Field="main_vacancy_id"/>
+<UI:Column Field="last_job_org_name"/>
+<UI:Column Field="user_id"/>
+
+
+</UiTemplate>

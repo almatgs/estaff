@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<SPXML-FORM>
+
+<agents>
+	<agent MULTIPLE="1" PRIMARY-KEY="id">
+		<id TYPE="string"/>
+
+		<code_url TYPE="string"/>
+		<entry_point TYPE="string"/>
+
+		<time_limit TYPE="integer"/>
+		<max_instances TYPE="integer" NOT-NULL="1" DEFAULT="1"/>
+
+		<schedule>
+			<launch_on_start TYPE="bool" NOT-NULL="1"/>
+
+			<entries>
+				<entry MULTIPLE="1">
+					<time TYPE="date" MULTIPLE="1" USE-TIME="1"/>
+				</entry>
+			</entries>
+		</schedule>
+	</agent>
+</agents>
+
+</SPXML-FORM>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<locations>
+	<items FAILED-ELEM="Parent.failed_item">
+		<item MULTIPLE="1" PRIMARY-KEY="id">
+			<name TYPE="string"/>
+			<id TYPE="string" EXPR="name"/>
+			<is_std TYPE="bool" NOT-NULL="1"/>
+		</item>
+	</items>
+</locations>
+
+
+</SPXML-FORM>

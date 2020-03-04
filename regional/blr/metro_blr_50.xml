@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<metro_map xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<location_name>Минск</location_name>
+	<lines/>
+	<stations>
+		<station>
+			<id>422</id>
+			<name VALUE="Автозаводская" lang-en:VALUE="Avtozavodskaya"/>
+		</station>
+		<station>
+			<id>415</id>
+			<name VALUE="Академия наук" lang-en:VALUE="Akademiya nauk"/>
+		</station>
+		<station>
+			<id>411</id>
+			<name VALUE="Борисовский тракт" lang-en:VALUE="Borisovskij trakt"/>
+		</station>
+		<station>
+			<id>412</id>
+			<name VALUE="Восток" lang-en:VALUE="Vostok"/>
+		</station>
+		<station>
+			<id>420</id>
+			<name VALUE="Институт культуры" lang-en:VALUE="Institut kultury"/>
+		</station>
+		<station>
+			<id>427</id>
+			<name VALUE="Купаловская" lang-en:VALUE="Kupalovskaya"/>
+		</station>
+		<station>
+			<id>421</id>
+			<name VALUE="Могилевская" lang-en:VALUE="Mogilevskaya"/>
+		</station>
+		<station>
+			<id>430</id>
+			<name VALUE="Молодежная" lang-en:VALUE="Molodezhnaya"/>
+		</station>
+		<station>
+			<id>413</id>
+			<name VALUE="Московская" lang-en:VALUE="Moskovskaya"/>
+		</station>
+		<station>
+			<id>428</id>
+			<name VALUE="Немига" lang-en:VALUE="Nemiga"/>
+		</station>
+		<station>
+			<id>418</id>
+			<name VALUE="Октябрьская" lang-en:VALUE="Oktyabrskaya"/>
+		</station>
+		<station>
+			<id>414</id>
+			<name VALUE="Парк Челюскинцев" lang-en:VALUE="Park Chelyuskincev"/>
+		</station>
+		<station>
+			<id>423</id>
+			<name VALUE="Партизанская" lang-en:VALUE="Partizanskaya"/>
+		</station>
+		<station>
+			<id>426</id>
+			<name VALUE="Первомайская" lang-en:VALUE="Pervomajskaya"/>
+		</station>
+		<station>
+			<id>419</id>
+			<name VALUE="Площадь Ленина" lang-en:VALUE="Ploschad Lenina"/>
+		</station>
+		<station>
+			<id>417</id>
+			<name VALUE="Площадь Победы" lang-en:VALUE="Ploschad Pobedy"/>
+		</station>
+		<station>
+			<id>416</id>
+			<name VALUE="Площадь Якуба Коласа" lang-en:VALUE="Ploschad Yakuba Kolasa"/>
+		</station>
+		<station>
+			<id>425</id>
+			<name VALUE="Пролетарская" lang-en:VALUE="Proletarskaya"/>
+		</station>
+		<station>
+			<id>431</id>
+			<name VALUE="Пушкинская" lang-en:VALUE="Pushkinskaya"/>
+		</station>
+		<station>
+			<id>424</id>
+			<name VALUE="Тракторный завод" lang-en:VALUE="Traktornyj zavod"/>
+		</station>
+		<station>
+			<id>410</id>
+			<name VALUE="Уручье" lang-en:VALUE="Uruche"/>
+		</station>
+		<station>
+			<id>429</id>
+			<name VALUE="Фрунзенская" lang-en:VALUE="Frunzenskaya"/>
+		</station>
+	</stations>
+</metro_map>

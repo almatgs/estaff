@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>vacancies_active</id>
+	<parent_id>vacancies</parent_id>
+	<name VALUE="##UiText.titles.active_vacancies##"/>
+
+	<static_filters>
+		<static_filter>
+			<id>is_active</id>
+			<value>true</value>
+		</static_filter>
+		<static_filter>
+			<id>is_tentative</id>
+			<value>false</value>
+		</static_filter>
+	</static_filters>
+
+	<drop_all_dyn_filters>1</drop_all_dyn_filters>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>state_id</id>
+		</dyn_filter>
+		<dyn_filter>
+			<id>final_candidate_state_id</id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>is_of_my_divisions</id>
+			<title VALUE="##UiText.titles.of_my_divisions##"/>
+			<xquery_qual_expr>is_of_my_divisions ? 'MatchSome( $elem/division_id, (' + ArrayMerge( lib_user.GetCurrentUserIdataBaseDivisions(), 'XQueryLiteral( This )', ',' ) + ') )' : ''</xquery_qual_expr>
+			<exist_req_expr>global_settings.use_divisions</exist_req_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}</view_filter_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+			<use_store>1</use_store>
+			<width>14zr</width>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>name</id>
+			<width>60%</width>
+		</field>
+		<field>
+			<id>org_id</id>
+			<exist_req_expr>global_settings.is_agency</exist_req_expr>
+			<width>40%</width>
+		</field>
+		<field>
+			<id>division_id</id>
+			<exist_req_expr>! global_settings.is_agency</exist_req_expr>
+			<width>40%</width>
+		</field>
+		<field>
+			<id>req_quantity</id>
+			<exist_req_expr>global_settings.use_mp_vacancies</exist_req_expr>
+			<width>4zr</width>
+			<align>center</align>
+		</field>
+		<field>
+			<id>active_req_quantity</id>
+			<exist_req_expr>global_settings.use_mp_vacancies</exist_req_expr>
+			<width>4zr</width>
+			<align>center</align>
+		</field>
+		<field>
+			<id>start_date</id>
+			<use_time>0</use_time>
+			<col_title VALUE="##UiText.titles.opened##"/>
+			<width>12zr</width>
+		</field>
+		<field>
+			<id>cur_work_days_num</id>
+			<data_type>integer</data_type>
+			<show_zeroes>0</show_zeroes>
+			<width>5zr</width>
+			<align>center</align>
+			<bk_color_expr>cur_work_wdays_num_bk_color</bk_color_expr>
+			<exist_req_expr>! global_settings.use_vacancy_work_wdays</exist_req_expr>
+		</field>
+		<field>
+			<id>cur_work_wdays_num</id>
+			<data_type>integer</data_type>
+			<show_zeroes>0</show_zeroes>
+			<width>5zr</width>
+			<align>center</align>
+			<bk_color_expr>cur_work_wdays_num_bk_color</bk_color_expr>
+			<exist_req_expr>global_settings.use_vacancy_work_wdays</exist_req_expr>
+		</field>
+		<field>
+			<id>left_work_days_num</id>
+			<data_type>integer</data_type>
+			<title_expr>StrSignedInt( left_work_days_num )</title_expr>
+			<width>6zr</width>
+			<align>center</align>
+		</field>
+		<field>
+			<id>recruit_phase_id</id>
+		</field>
+		<field>
+			<id>multi_final_candidate_id</id>
+		</field>
+		<field>
+			<id>final_candidate_state_id</id>
+			<col_title VALUE="Статус фин. канд." lang-en:VALUE="Final cand. status" lang-ua:VALUE="Статус фін. канд."/>
+		</field>
+		<field>
+			<id>user_id</id>
+		</field>
+	</fields>
+</std_view>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM IMAGE-URL="//base_pict/generic_item.ico">
+
+<person_struct_role>
+	<id TYPE="integer"/>
+	<person_id TYPE="integer" FOREIGN-ARRAY="persons" INDEXED="1" TITLE="##UiText.objects.employee##"/>
+	<type_id TYPE="string" TITLE="Тип роли" FOREIGN-ARRAY="person_struct_role_types" lang-en:TITLE="Role Type" lang-ua:TITLE="Тип ролі"/>
+	<division_id TYPE="integer" FOREIGN-ARRAY="divisions" INDEXED="1" TITLE="##UiText.objects.division##"/>
+	<priority_id TYPE="integer" TITLE="##UiText.fields.priority##" NOT-NULL="1" DEFAULT="1"/>
+	<eid TYPE="string" TITLE="##UiText.fields.eid##" INDEXED="1"/>
+</person_struct_role>
+
+
+</SPXML-FORM>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<UNIT NAME="card_title_bar" SAMPLE="1">
+	<IF EXPR="Screen.ParentScreen == undefined">
+		<PANEL STD-MARGINS="1" FULL-WIDTH="1">
+			<LINE FULL-WIDTH="1">
+				<LABEL TITLE-EXPR="Ps.PrimaryDispName" FONT-CLASS="large-bold"/>
+
+				<PrimaryActionImage IMAGE-URL="//app_ui/theme/pict/close.svg" ALIGN="right" ACTION="Screen.Close()" PASSIVE="1"/>
+			</LINE>
+		</PANEL>
+		<PANEL WIDTH="100%" HEIGHT="1px" BK-COLOR-EXPR="AppUi.themeColors.edit_border"/>
+	</IF>
+</UNIT>
+
+
+
+<UNIT NAME="ui_card_attachment_content" PARAM-editMode="optional=1;default=''" HEIGHT="100%" STD-MARGINS="0" SUNKEN="0" VERT-SCROLL="0" SAMPLE="1">
+	<IF EXPR="Ps.allow_access">
+		<IF EXPR="Ps.is_plain_text">
+			<PANEL STD-MARGINS="1">
+				<EDIT NAME="CardAttachmentEdit" SOURCE="Ps.plain_text" READ-ONLY-EXPR="GetSampleParam( 'editMode' ) != '1'" MULTILINE="1" BORDER="0" DEFAULT-COLORS="1" VERT-SCROLL="1"/>
+			</PANEL>
+		</IF>
+		<IF EXPR="Ps.is_text">
+			<WITH VAR="_dummy" EXPR="
+					if ( System.IsWebClient )
+						return;
+
+					if ( AppCharset != 'utf-8' )
+						return;
+
+					//if ( ! base1_config.detect_broken_charset_encoding )
+						//return;
+
+					newStr = RestoreBrokenCharsetEncoding( Ps.text );
+					if ( newStr == undefined )
+						return;
+
+					Ps.text = newStr;
+			" IGNORE-ERRORS="1">
+			</WITH>
+			
+			<IF EXPR="GetSampleParam( 'editMode' ) == '1'">
+				<HYPER NAME="CardAttachmentEdit" EDITABLE="1" SOURCE="Ps.text"/>
+			</IF>
+			<ELSE>
+				<HYPER NAME="CardAttachmentEdit" SOURCE="Ps.text"/>
+			</ELSE>
+		</IF>
+		<IF EXPR="Ps.is_binary">
+			<IF EXPR="Ps.files.ChildNum != 0">
+				<PANEL STD-MARGINS="1" VERT-SCROLL="1" STD_MARGINS="0">
+					<LOOP EXPR="Ps.files" VAR="_file">
+						<LINE>
+							<LOOP EXPR="[Ps]" VAR="ListElem">
+								<IMAGE URL-EXPR="'x-sys-image://shell-icon/' + UrlPathSuffix( _file.file_name )" WIDTH="16px" HEIGHT="16px" ACTION="
+										lib_base.execute_card_attachment( Ps, Screen, _file );
+								" PASSIVE="1">
+									<MENU RIGHT-CLICK="1">
+										<MENU-ENTRY TITLE="##UiText.actions.open##" ACTION="
+												lib_base.execute_card_attachment( Ps, Screen, _file );
+										" PASSIVE="1"/>
+
+										<MENU-ENTRY TITLE="##UiText.actions.save##..." ACTION="
+												lib_base.HandleSaveCardAttachment( Ps, _file );
+										" PASSIVE="1"/>
+									</MENU>
+								</IMAGE>
+							</LOOP>
+
+							<LINK TITLE-EXPR="_file.file_name" ACTION="
+									lib_base.execute_card_attachment( Ps, Screen, _file );
+							" UNDERLINE="0" TEXT-COLOR="black">
+								<MENU RIGHT-CLICK="1">
+									<MENU-ENTRY TITLE="##UiText.actions.open##" ACTION="
+											lib_base.execute_card_attachment( Ps, Screen, _file );
+									" PASSIVE="1"/>
+
+									<MENU-ENTRY TITLE="##UiText.actions.save##..." ACTION="
+											lib_base.HandleSaveCardAttachment( Ps, _file );
+									" PASSIVE="1"/>
+									
+									<MENU-ENTRY SEPARATOR="1"/>
+
+									<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+											_file.Delete();
+											Ps.Doc.SetChanged( true );
+									" ENABLE-EXPR="Ps.files.ChildNum > 1"/>
+								</MENU>
+							</LINK>
+						</LINE>
+
+						<IF EXPR="
+							attcSuffix = StrLowerCase( UrlPathSuffix( _file.file_name ) );
+							return ( attcSuffix == '.bmp' || attcSuffix == '.gif' || attcSuffix == '.jpg' || attcSuffix == '.jpeg' || attcSuffix == '.png' );
+						">
+							<BR/>
+							<LOOP VAR="_dummy" EXPR="array = Array(); array[0] = Random( 0, 1000 ); return array;">
+								<IMAGE SOURCE="_file.data"/>
+							</LOOP>
+						</IF>
+						<BR/>
+						<BR/>
+					</LOOP>
+				</PANEL>
+			</IF>
+			<ELSE>
+				<PANEL WIDTH="100%" HEIGHT-EXPR="Ps.allow_file_preview || Ps.plain_text.HasValue ? '7zr' : '100%'" SUNKEN="1" STD-MARGINS="1" VERT-SCROLL="1">
+					<BR/>
+
+					<GROUP>
+						<LOOP EXPR="[Ps]" VAR="ListElem">
+							<IMAGE URL-EXPR="'x-sys-image://shell-icon/' + UrlPathSuffix( Ps.file_name )" WIDTH="16px" HEIGHT="16px"/>
+						</LOOP>
+
+						<LINK TITLE-EXPR="Ps.file_name" ACTION="
+								ui_client.HandleOpenCardAttachmentFile( Ps, Ps );
+						" UNDERLINE="0" TEXT-COLOR="black"/>
+
+						<IMAGE URL="//base_pict/more_actions_3.ico" KEEP-RIGHT="1">
+							<MENU>
+								<MENU-ENTRY TITLE="##UiText.actions.open##" ACTION="
+										ui_client.HandleOpenCardAttachmentFile( Ps, Ps );
+								" PASSIVE="1"/>
+
+								<MENU-ENTRY TITLE="##UiText.actions.save##..." ACTION="
+										ui_client.HandleSaveCardAttachmentFile( Ps, Ps );
+								" PASSIVE="1"/>
+							</MENU>
+						</IMAGE>
+					</GROUP>
+
+					<IF EXPR="
+						attcSuffix = StrLowerCase( UrlPathSuffix( Ps.file_name ) );
+						return ( attcSuffix == '.bmp' || attcSuffix == '.gif' || attcSuffix == '.jpg' || attcSuffix == '.jpeg' || attcSuffix == '.png' );
+					">
+						<BR/>
+						<BR/>
+						<IMAGE URL-EXPR="ui_base.BuildCardAttachmentPreviewImageUrl( Ps, Ps, true )"/>
+					</IF>
+				</PANEL>
+
+				<IF EXPR="Ps.allow_file_preview">
+					<SPLIT FIXED="1"/>
+
+					<LOOP VAR="_dummy" EXPR="array = Array(); array[0] = Random( 0, 1000 ); return array;">
+						<FILE-PREVIEW URL-EXPR="
+								tempFileUrl = ObtainSessionTempFile( UrlPathSuffix( Ps.file_name ) );
+								Ps.data.SaveToFile( tempFileUrl );
+								return tempFileUrl;
+						"/>
+					</LOOP>
+				</IF>
+				<ELSE>
+					<IF EXPR="Ps.plain_text.HasValue">
+						<EDIT SOURCE="Ps.plain_text" MULTILINE="1" DEFAULT-COLORS="1" VERT-SCROLL="1" READ-ONLY="1"/>
+					</IF>
+				</ELSE>
+			</ELSE>
+		</IF>
+	</IF>
+	<ELSE>
+		<PANEL SUNKEN="1" STD-MARGINS="1" HEIGHT="100%">
+			<PANEL HEIGHT="30%">
+			</PANEL>
+			<LABEL TITLE="##UiText.errors.permission_denied##" ALIGN="center" TEXT-COLOR="200,0,0"/>
+		</PANEL>
+	</ELSE>
+</UNIT>
+
+
+
+
+</SPXML-SCREEN>
+
+

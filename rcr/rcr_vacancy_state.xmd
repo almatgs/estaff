@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml">
+
+
+<vacancy_state>
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<text_color TYPE="string"/>
+	<bk_color TYPE="string"/>
+
+	<INHERIT TYPE="state_core_attr_base"/>
+
+	<set_object_tentative TYPE="bool" NOT-NULL="1" TITLE="Обозначает потенциальную вакансию" lang-en:TITLE="Tentative status of vacancy" lang-ua:TITLE="Позначає потенційну вакансію"/>
+
+	<close_object TYPE="bool" NOT-NULL="1"/>
+	<failed_candidate_state_id TYPE="string" FOREIGN-ARRAY="event_types"/>
+	<confirm_failed_candidate_state TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Спрашивать подтверждение на смену статуса не прошедшим на вакансию кандидатам" lang-en:TITLE="Confirm changing state of failed candidates" lang-ua:TITLE="Питати підтвердження на зміну статусу не пройшли на вакансію кандидатам"/>
+	<failed_candidate_notif_template_id TYPE="string" FOREIGN-ARRAY="mail_templates" TITLE="Шаблон уведомления не прошедшим на вакансию кандидатам:" lang-en:TITLE="E-mail template for failed candidates:" lang-ua:TITLE="Шаблон повідомлення кандидатам які не пройшли на вакансію:"/>
+	<confirm_failed_candidate_notif TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Спрашивать подтверждение на отправку уведомления не прошедшим на вакансию кандидатам" lang-en:TITLE="Confirm notification of failed candidates" lang-ua:TITLE="Питати підтвердження на відправку повідомлення не прошедшим на вакансію кандидатам"/>
+
+	<allow_candidate_selection TYPE="bool" EXPR-INIT="! deactivate_object" TITLE="Возможно добавление кандидатов" lang-en:TITLE="Allow adding candidates" lang-ua:TITLE="Можливе додавання кандидатів"/>
+
+	<prohibit_unfinished_candidates TYPE="bool" NOT-NULL="1" TITLE="Запрещено наличие кандидатов с незавершенными статусами" lang-en:TITLE="Prohibit candidates with unfinished statuses" lang-ua:TITLE="Заборонено наявність кандидатів з незавершеними статусами"/>
+
+	<target_group_id TYPE="integer" MULTIPLE="1" FOREIGN-ARRAY="groups" TITLE="##UiText.titles.target_group##"/>
+
+	<INHERIT TYPE="state_core_actions_base"/>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</vacancy_state>
+
+
+</SPXML-FORM>

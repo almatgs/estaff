@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" HIER="1" IMAGE-URL="//base_pict/generic_item.ico">
+
+<skill_type>
+	<INHERIT TYPE="skill_type_base"/>
+	<parent_id TYPE="string" FOREIGN-ARRAY="skill_types"/>
+	<is_std TYPE="bool" NOT-NULL="1"/>
+
+	<t1 TYPE="bool" TEMP="1" EXPR="
+			if ( ! use_levels && ! use_parent_levels && parent_id.HasValue && parent_id.ForeignElem.use_levels )
+			{
+				use_levels = true;
+				use_parent_levels = true;
+			}
+	" EXPR-SHOW-ERRORS="1"/>
+
+
+	<implicit_levels PROPERTY="1" EXPR="
+			if ( ! use_levels )
+				return Array();
+
+			if ( ! use_parent_levels )
+				return levels;
+
+			if ( parent_id.HasValue )
+			{
+				type = parent_id.ForeignElem;
+
+				if ( type.levels.ChildNum != 0 )
+					return type.levels;
+			}
+
+			return Array();
+	"/>
+
+
+	<get_unique_level_id PROPERTY="1" EXPR="
+			return ArrayMax( levels, 'id' ).id + 1;
+	"/>
+</skill_type>
+
+
+</SPXML-FORM>

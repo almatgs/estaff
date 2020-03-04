@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.fields.empl_start_date##" BEFORE-INIT-ACTION="Ps.Init()" WIDTH="50zr" HEIGHT="25zr">
+
+
+<GROUP>
+	<ITEM TYPE="date_selector" SOURCE="Ps.empl_start_date" AUTO-LABEL="1" WIDTH="14zr"/>
+	<SEPARATOR/>
+
+	<ITEM TYPE="dm_period" SOURCE="Ps.probation_period" AUTO-LABEL="1" READ-ONLY-EXPR="! global_settings.use_candidate_probation_period &amp;&amp; global_settings.probation_period.length.HasValue"/>
+</GROUP>
+
+
+<INHERIT TYPE="dlg_footer"/>
+
+</SPXML-SCREEN>

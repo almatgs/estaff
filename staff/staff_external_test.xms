@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="120zr" HEIGHT="85zr" SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" RESIZE="1" WINDOW-ICON-URL-EXPR="Ps.ImageUrl">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<IF EXPR="AppModuleUsed( 'module_sanofi' )">
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.testing_system_id" AUTO-LABEL="1" WIDTH="30zr"/>
+		<BR/>
+	</IF>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="11zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.max_score" AUTO-LABEL="1"/>
+	</TABLE>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+
+
+

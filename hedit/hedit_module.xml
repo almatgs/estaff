@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<spxml_module>
+	<sample_forms>
+		<sample_form>
+			<url>hedit_general.xmd</url>
+		</sample_form>
+	</sample_forms>
+
+	<sample_screen_forms>
+		<sample_screen_form>
+			<url>hedit_general.xms</url>
+		</sample_screen_form>
+	</sample_screen_forms>
+
+	<shared_docs>
+		<shared_doc>
+			<url>hedit_lib_hedit.js</url>
+		</shared_doc>
+	</shared_docs>
+</spxml_module>
+
+
+

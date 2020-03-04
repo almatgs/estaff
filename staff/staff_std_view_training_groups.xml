@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>training_groups</id>
+	<name VALUE="##UiText.titles.training_groups##"/>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>start_date</id>
+			<use_range>1</use_range>
+		</dyn_filter>
+		<dyn_filter>
+			<id>group_id</id>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+			<use_store>1</use_store>
+			<width>22zr</width>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>creation_date</id>
+			<use_time>0</use_time>
+		</field>
+		<field>
+			<id>code</id>
+		</field>
+		<field>
+			<id>training_program_id</id>
+			<width>40zr</width>
+		</field>
+		<field>
+			<id>start_date</id>
+		</field>
+		<field>
+			<id>end_date</id>
+		</field>
+		<field>
+			<id>location_id</id>
+		</field>
+		<field>
+			<id>participants_num</id>
+		</field>
+	</fields>
+</std_view>
+

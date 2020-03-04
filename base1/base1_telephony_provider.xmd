@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml">
+
+<telephony_provider>
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+
+	<std_telephony_provider_id TYPE="string" FOREIGN-ARRAY="base1_common.std_telephony_providers" TITLE="##UiText.titles.std_provider##"/>
+	<outgoing_call_code TYPE="string" SUBTYPE="code" TITLE="Скрипт для исходящего вызова" lang-en:TITLE="Calling script" lang-ua:TITLE="Скрипт для вихідного дзвінка"/>
+	<recording_retrieval_code TYPE="string" SUBTYPE="code" TITLE="Скрипт для получения записи разговора" lang-en:TITLE="Script for call recording retrieval" lang-ua:TITLE="Скрипт для отримання запису розмови"/>
+
+	<server_address TYPE="string" TITLE="##UiText.titles.server_address##"/>
+
+	<login TYPE="string" TITLE="##UiText.fields.login##"/>
+	<password_ed TYPE="string" TITLE="##UiText.fields.password##"/>
+
+	<access_token TYPE="string" LARGE="1" FT-IGNORE="1"/>
+	<refresh_token TYPE="string" LARGE="1" FT-IGNORE="1"/>
+	<line_prefix TYPE="string" FT-IGNORE="1"  TITLE="Префикс станции" lang-en:TITLE="Line Prefix" lang-ua:TITLE="Префікс станції"/>
+
+	<phone_numbers TITLE="##UiText.titles.phone_numbers##">
+		<phone_number MULTIPLE="1" PRIMARY-KEY="phone">
+			<phone TYPE="string"/>
+		</phone_number>
+	</phone_numbers>
+	
+	<test_phone TYPE="string"/>
+	<test_local_phone_extension TYPE="integer"/>
+
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</telephony_provider>
+
+
+
+</SPXML-FORM>

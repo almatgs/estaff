@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM AUTO-SAVE="1">
+
+<subst_views>
+	<views>
+		<view MULTIPLE="1" PRIMARY-KEY="id">
+			<INHERIT TYPE="view_base"/>
+		</view>
+	</views>
+</subst_views>
+
+
+
+</SPXML-FORM>

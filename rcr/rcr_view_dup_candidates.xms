@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN TITLE="##UiText.messages.searching_for_duplicates##" STD-MARGINS="1" WIDTH="165zr" HEIGHT="114zr" SOURCE="TopElem" RESIZE="1">
+
+<PANEL HEIGHT="-8zr">
+	<LOOP EXPR="[Random( 1, 1000000)]" VAR="_dummy">
+	<LIST SUNKEN="1" HIER="1" HEIGHT="50%" NAME="MainList">
+		<COLUMNS>
+			<COL WIDTH="40zr" TITLE="##UiText.fields.fullname##"/>
+			<COL WIDTH="25zr" TITLE="##UiText.fields.fullname_en##"/>
+			<COL WIDTH="11zr" TITLE="##UiText.fields.birth_date_short##" ALIGN="center"/>
+			<COL WIDTH="25zr" TITLE="E-mail"/>
+			<COL WIDTH="100%" TITLE="##UiText.fields.state##" ALIGN="center"/>
+			<COL WIDTH="11zr" TITLE="##UiText.fields.date##" ALIGN="center"/>
+			<COL WIDTH="18zr" TITLE="##UiText.fields.recruiter##"/>
+		</COLUMNS>
+
+		<LOOP EXPR="Ps.dup_sets" VAR="_set">
+			<LOOP EXPR="_set.target_candidates" VAR="ListElem">
+				<WITH VAR="_candidate" EXPR="ListElem.candidate" IGNORE-ERRORS="1">
+					<ROW HIER-LEVEL-EXPR="
+							ListElem.is_primary ? 0 : 1
+					" HAS-HIER-CHILDREN-EXPR="
+							ListElem.is_primary
+					" OPEN-ACTION="
+							ObtainDocScreen( ObjectDocUrl( 'data', 'candidate', _candidate.id ) )
+					" DELETE-ACTION="
+					" SET-SEL-ACTION="
+							//Ps.dest_candidate_id = _candidate.id;
+
+							screen = FindScreen( 'FrameDupCandidatesPreview' );
+
+							try
+							{
+								selector = screen.Doc.TopElem.preview.selector;
+							}
+							catch ( e )
+							{
+								selector = 'common';
+							}
+
+							doc = DefaultDb.OpenObjectDoc( 'candidate', _candidate.id );
+							doc.TopElem.preview.selector = selector;
+
+							screen.EditMode = false;
+							screen.SetDoc( doc, '//rcr/rcr_candidate_preview.xms' );
+
+							Cancel();
+					" IMAGE-URL-EXPR="_candidate.ImageUrl">
+						<LABEL TITLE-EXPR="_candidate.fullname" FLAT="1"/>
+						<LABEL TITLE-EXPR="_candidate.fullname_en" FLAT="1"/>
+						<LABEL TITLE-EXPR="_candidate.birth_date.HasValue ? _candidate.birth_date : _candidate.birth_year" ALIGN="center" FLAT="1"/>
+						<LABEL TITLE-EXPR="_candidate.email" FLAT="1"/>
+						<LABEL TITLE-EXPR="_candidate.state_id.ForeignDispName" FLAT="1" TEXT-COLOR-EXPR="_candidate.state_id.ForeignElem.text_color" BK-COLOR-EXPR="_candidate.state_id.ForeignElem.bk_color" ALIGN="center"/>
+						<LABEL TITLE-EXPR="StrDate( _candidate.state_date, false )" ALIGN="center" FLAT="1"/>
+						<LABEL TITLE-EXPR="_candidate.user_id.ForeignDispName" ALIGN="center" FLAT="1"/>
+					</ROW>
+				</WITH>
+			</LOOP>
+		</LOOP>
+
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="Выбрать в качестве первичного" lang-en:TITLE="Set as primary" ACTION="
+					selTargetCandidate = List.SelRow.Env.ListElem;
+					selTargetCandidate.is_primary = true;
+					selTargetCandidate.SetChildIndex( 0 );
+
+					for ( targetCandidate in List.SelRow.Env._set.target_candidates )
+					{
+						if ( targetCandidate.candidate_id != selTargetCandidate.candidate_id )
+							targetCandidate.is_primary = false;
+					}
+			" lang-ua:TITLE="Вибрати в якості первинного"/>
+		</MENU>
+	</LIST>
+	</LOOP>
+
+	<SPLIT/>
+	<FRAME NAME="FrameDupCandidatesPreview" HREF="//base1/base1_blank.xms"/>
+</PANEL>
+
+<BR/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="40zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<BUTTON TITLE="Объединить выделенные дубликаты" ACTION="
+			selRows = Screen.FindItem( 'MainList' ).SelRows;
+			selTargetCandidatesArray = ArrayExtract( selRows, 'Env.ListElem' );
+
+			lib_candidate_dup.handle_merge_dup_candidates( Ps, selTargetCandidatesArray );
+
+			Screen.Close();
+			UpdateScreens( '*', '*candidates*' );
+	" PASSIVE="1" ENABLE-EXPR="
+			selRows = Screen.FindItem( 'MainList' ).SelRows;
+			selTargetCandidatesArray = ArrayExtract( selRows, 'Env.ListElem' );
+			//selSetsArray = ArraySelectDistinct( selTargetCandidatesArray, 'Parent.Parent' );
+
+			return ( ArrayCount( selTargetCandidatesArray ) >= 2 );
+	" lang-en:TITLE="Join selected duplicates" lang-ua:TITLE="Об'єднати виділені дублікати"/>
+</TABLE>
+
+
+</SPXML-SCREEN>

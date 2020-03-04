@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>users_with_workload</id>
+	<name VALUE="Рекрутеры с текущей загрузкой" lang-en:VALUE="Recruiters with workload" lang-ua:VALUE="Рекрутери до поточного завантаження"/>
+	<catalog_name>users</catalog_name>
+
+	<static_filters>
+		<static_filter>
+			<id>is_active</id>
+			<value>true</value>
+		</static_filter>
+	</static_filters>
+	
+	<dyn_filters>
+		<dyn_filter>
+			<id>main_group_id</id>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>login</id>
+		</field>
+		<field>
+			<id>fullname</id>
+		</field>
+		<field>
+			<id>access_role_id</id>
+		</field>
+		<field>
+			<id>main_group_id</id>
+		</field>
+		<field>
+			<id>active_vacancy_count</id>
+			<width>20zr</width>
+			<use_local_sort>1</use_local_sort>
+		</field>
+		<field>
+			<id>cur_workload</id>
+			<bk_color_expr>lib_recruit.GetUserCurWorkloadBkColor( ListElem )</bk_color_expr>
+			<width>20zr</width>
+			<use_local_sort>1</use_local_sort>
+		</field>
+	</fields>
+</std_view>
+

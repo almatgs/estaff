@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_candidate_states>
+	<std_candidate_state MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT TYPE="object_state_base"/>
+
+		<use_separate_button TYPE="bool" NULL-FALSE="1"/>
+		<separate_button_title TYPE="string"/>
+	</std_candidate_state>
+</std_candidate_states>
+
+
+</SPXML-FORM>

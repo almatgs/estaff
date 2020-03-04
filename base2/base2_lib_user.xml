@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<lib_user>
+	<active_user_doc_ref TYPE="variant"/>
+	<active_user_access_ref TYPE="variant"/>
+
+	<use_groups TYPE="bool" NULL-FALSE="1"/>
+
+	<active_user_info PROPERTY="1" EXPR="
+			if ( LdsIsServer )
+			{
+				return GetForeignElem( users, LdsCurUserID );
+			}
+			else
+			{
+				return active_user_doc_ref.Object.TopElem;
+			}
+	"/>
+
+	<active_user_access PROPERTY="1" EXPR="active_user_access_ref.Object"/>
+	<active_user_person PROPERTY="1" EXPR="active_user_info.person_id.ForeignElem"/>
+
+	<is_person_login TYPE="bool" NULL-FALSE="1"/>
+	<is_security_admin TYPE="bool" NULL-FALSE="1"/>
+</lib_user>
+
+
+
+</SPXML-INLINE-FORM>

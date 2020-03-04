@@ -1,0 +1,30 @@
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR__="Ps.view.title" BEFORE-INIT-ACTION="
+		Ps.init();
+">
+
+<PANEL SUNKEN="1">
+	<SUBST FORM-DATA-EXPR="lib_view.build_filter_screen_form( Ps.param )"/>
+
+	<MENU RIGHT-CLICK="1">
+		<MENU-ENTRY TITLE="##UiText.actions.clear_form##" ACTION="
+				Ps.filter.Clear();
+				lib_view.clear_stored_filters( Ps.view_id );
+				lib_view.adjust_filters( Ps.view_id, Ps );
+
+				if ( Ps.param.view.use_manual_update )
+					Screen.UpdateExcpt( Screen.FindItem( 'MainList' ) );
+				else
+					Screen.Update();
+		" PASSIVE="1"/>
+	</MENU>
+</PANEL>
+
+<PANEL BK-COLOR-EXPR="" HEIGHT="100%">
+
+<SUBST FORM-DATA-EXPR="lib_view.build_list_screen_form( Ps.param )"/>
+
+</PANEL>
+
+<INHERIT TYPE="view_commands"/>
+
+</SPXML-SCREEN>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<gate_config>
+	<id>EStaffGate</id>
+	<master_app_id>EStaff</master_app_id>
+	<master_app_name>E-Staff</master_app_name>
+
+	<email_plugin_config_url>x-app://rcr/rcr_email_plugin_config.xml</email_plugin_config_url>
+	<browser_plugin_config_url>x-app://rcr/rcr_browser_plugin_config.xml</browser_plugin_config_url>
+
+	<explorer_plugin>
+		<clsid>{2960C44B-1DB7-4c24-9E9C-882D7B81B962}</clsid>
+	</explorer_plugin>
+
+	<outlook_plugin>
+		<clsid>{D1729C6B-66A1-453e-84FB-E4519530BC0B}</clsid>
+	</outlook_plugin>
+
+	<chrome_plugin>
+		<!--<plugin_uid>icebdekglepmmohgnelpphfbonigmfgp</plugin_uid>-->
+		<plugin_uid>gdbckgdmdgdhiadmdkbghnhdiciikiil</plugin_uid>
+	</chrome_plugin>
+
+	<thunderbird_plugin>
+		<plugin_uid>{46D1B3C0-DB7A-4b1a-863A-6EE6F77ECB58}</plugin_uid>
+	</thunderbird_plugin>
+</gate_config>

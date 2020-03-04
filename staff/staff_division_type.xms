@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="130zr" HEIGHT="90zr" SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" RESIZE="1" WINDOW-ICON-URL-EXPR="Ps.ImageUrl">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+	<DELIM/>
+
+	<IF EXPR="lib_app2.AppFeatureEnabled( 'mass_recruit' )">
+		<CHECK SOURCE="Ps.is_mass_recruit_division" AUTO-LABEL="1"/>
+		<DELIM/>
+	</IF>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+
+
+

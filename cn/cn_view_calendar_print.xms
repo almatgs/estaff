@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.calendar##" WIDTH="100%" HEIGHT="100%" STD-MARGINS="0">
+<GRID HEIGHT-EXPR="Ps.ref.Object.local_settings.show_calendar_workload ? '-6zrc' : '100%'" NO-MARKS="1" SOLID-ROWS="1" FIXED-WORK-ROW-HEIGHT="1" ROW-HEIGHT-EXPR="'18px'" VERT-SCROLL="1" EXT-CLIENT-AREA="1">
+	
+<COLUMNS>
+		<COL WIDTH="10zr"/>
+		<COL WIDTH="7zr"/>
+		<COL WIDTH="27%"/>
+		<COL WIDTH="26%"/>
+		<COL WIDTH="20%"/>
+		<IF EXPR="AppModuleUsed( 'rcr' )">
+			<COL WIDTH="24zr"/>
+		</IF>
+		<COL WIDTH="27%"/>
+		<COL WIDTH="10zr"/>
+		<IF EXPR="ArrayCount( rooms ) != 0">
+			<COL WIDTH="8zr"/>
+		</IF>
+	</COLUMNS>
+	<ROW HEADER="1">
+		<LABEL TITLE="##UiText.fields.date##" ALIGN="center"/>
+		<LABEL TITLE="##UiText.titles.time##" ALIGN="center"/>
+		<LABEL TITLE="##UiText.objects.event##" ALIGN="center"/>
+		<LABEL TITLE="##UiText.titles.contact##" ALIGN="center"/>
+		<LABEL TITLE="##UiText.fields.phone##" ALIGN="center"/>
+		<IF EXPR="AppModuleUsed( 'rcr' )">
+			<LABEL TITLE="##UiText.objects.vacancy##" ALIGN="center"/>
+		</IF>
+		<LABEL TITLE="##UiText.fields.comment##" ALIGN="center"/>		
+		<LABEL TITLE="##UiText.objects.user##" ALIGN="center"/>		
+		<IF EXPR="ArrayCount( rooms ) != 0">
+			<LABEL TITLE="##UiText.objects.room##" ALIGN="center"/>
+		</IF>
+	</ROW>
+	<LOOP EXPR="Ps.ref.Object.entries" VAR="_entry" BK-COLOR="255,255,255" FLAT="1">
+		<ROW BK-COLOR="255,255,255" FLAT="1">
+			<LABEL TITLE-EXPR="StrDate( _entry.date, false )" TOP-MARGIN="1" FLAT="1"/>
+			<LABEL TITLE-EXPR="StrTime( _entry.date )" TOP-MARGIN="1" FLAT="1"/>
+			<IF EXPR="_entry.is_road_time">
+				<LABEL TITLE-EXPR="_entry.src_entry.road_time.Title" TOP-MARGIN="1" FLAT="1"/>	
+			</IF>			
+			<ELSE>				
+				<LABEL TITLE-EXPR="
+					str = _entry.src_entry.type_id.ForeignDispName;
+					if ( _entry.is_tail )
+					str = '>> ' + str;
+					if ( _entry.has_tail )
+					str += ' >>';
+					return str;
+				" TOP-MARGIN="1" MULTILINE="0" FLAT="1"/>
+			</ELSE>
+			<IF EXPR="! _entry.is_road_time">
+				<LABEL TITLE-EXPR="_entry.src_entry.contacts_desc" TOP-MARGIN="1" FLAT="1"/>
+				<LABEL TITLE-EXPR="_entry.src_entry.contact_phones_desc" TOP-MARGIN="1" FLAT="1"/>
+				<IF EXPR="AppModuleUsed( 'rcr' )">
+					<LABEL TITLE-EXPR="_entry.src_entry.vacancy_id.ForeignElem.name" TOP-MARGIN="1" MULTILINE="0" FLAT="1"/>
+				</IF>
+					<LABEL TITLE-EXPR="_entry.src_entry.comment" TOP-MARGIN="1" FLAT="1"/>
+					<LABEL TITLE-EXPR="_entry.src_entry.user_id.ForeignDispName" TOP-MARGIN="1" FLAT="1"/>
+				<IF EXPR="ArrayCount( rooms ) != 0">
+					<LABEL TITLE-EXPR="_entry.src_entry.room_id.ForeignDispName" TOP-MARGIN="1" FLAT="1"/>
+				</IF>
+			</IF>
+			<ELSE>
+				<LABEL TITLE="" TOP-MARGIN="1" FLAT="1"/>
+				<LABEL TITLE="" TOP-MARGIN="1" FLAT="1"/>
+				<IF EXPR="AppModuleUsed( 'rcr' )">
+					<LABEL TITLE="" TOP-MARGIN="1" MULTILINE="0" FLAT="1"/>
+				</IF>
+				<LABEL TITLE="" TOP-MARGIN="1" FLAT="1"/>
+				<LABEL TITLE="" TOP-MARGIN="1" FLAT="1"/>
+				<IF EXPR="ArrayCount( rooms ) != 0">
+					<LABEL TITLE="" TOP-MARGIN="1" FLAT="1"/>
+				</IF>
+			</ELSE>
+		</ROW>
+	</LOOP>
+</GRID>
+</SPXML-SCREEN>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" IMAGE-URL="//base_pict/generic_item.ico">
+
+<workflow_document_type>
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<data_screen_form_url TYPE="string"/>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</workflow_document_type>
+
+
+
+</SPXML-FORM>

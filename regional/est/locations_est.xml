@@ -1,0 +1,1591 @@
+<?xml version="1.0" encoding="utf-8"?>
+<std_locations SPXML-FORM="x-app://base2/base2_std_locations.xmd">
+	<std_location>
+		<id>est.hr</id>
+		<name>Harjumaa</name>
+		<type_id>2</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hi</id>
+		<name>Hiiumaa</name>
+		<type_id>2</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv</id>
+		<name>Ida-Virumaa</name>
+		<type_id>2</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jg</id>
+		<name>Jõgevamaa</name>
+		<type_id>2</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jä</id>
+		<name>Järvamaa</name>
+		<type_id>2</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lä</id>
+		<name>Läänemaa</name>
+		<type_id>2</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lv</id>
+		<name>Lääne-Virumaa</name>
+		<type_id>2</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.põ</id>
+		<name>Põlvamaa</name>
+		<type_id>2</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä</id>
+		<name>Pärnumaa</name>
+		<type_id>2</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.rp</id>
+		<name>Raplamaa</name>
+		<type_id>2</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.sa</id>
+		<name>Saaremaa</name>
+		<type_id>2</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta</id>
+		<name>Tartumaa</name>
+		<type_id>2</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.va</id>
+		<name>Valgamaa</name>
+		<type_id>2</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.vd</id>
+		<name>Viljandimaa</name>
+		<type_id>2</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.võ</id>
+		<name>Võrumaa</name>
+		<type_id>2</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.vd.abj</id>
+		<parent_id>est.vd</parent_id>
+		<name>Abja v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.aeg</id>
+		<parent_id>est.hr</parent_id>
+		<name>Aegviidu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.põ.ahj</id>
+		<parent_id>est.põ</parent_id>
+		<name>Ahja v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.alj</id>
+		<parent_id>est.iv</parent_id>
+		<name>Alajõe v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.alt</id>
+		<parent_id>est.ta</parent_id>
+		<name>Alatskivi v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jä.alb</id>
+		<parent_id>est.jä</parent_id>
+		<name>Albu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jä.amb</id>
+		<parent_id>est.jä</parent_id>
+		<name>Ambla v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.ani</id>
+		<parent_id>est.hr</parent_id>
+		<name>Anija v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.võ.ant</id>
+		<parent_id>est.võ</parent_id>
+		<name>Antsla v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.are</id>
+		<parent_id>est.pä</parent_id>
+		<name>Are v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.ase</id>
+		<parent_id>est.iv</parent_id>
+		<name>Aseri v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.aud</id>
+		<parent_id>est.pä</parent_id>
+		<name>Audru v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.avi</id>
+		<parent_id>est.iv</parent_id>
+		<name>Avinurme v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.evl</id>
+		<parent_id>est.ta</parent_id>
+		<name>Elva linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hi.emm</id>
+		<parent_id>est.hi</parent_id>
+		<name>Emmaste v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.võ.hnj</id>
+		<parent_id>est.võ</parent_id>
+		<name>Haanja v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lä.hps</id>
+		<parent_id>est.lä</parent_id>
+		<name>Haapsalu linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.hsl</id>
+		<parent_id>est.ta</parent_id>
+		<name>Haaslava v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.hln</id>
+		<parent_id>est.pä</parent_id>
+		<name>Halinga v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lv.hlj</id>
+		<parent_id>est.lv</parent_id>
+		<name>Haljala v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.vd.hls</id>
+		<parent_id>est.vd</parent_id>
+		<name>Halliste v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lä.han</id>
+		<parent_id>est.lä</parent_id>
+		<name>Hanila v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.hrk</id>
+		<parent_id>est.hr</parent_id>
+		<name>Harku v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.va.hel</id>
+		<parent_id>est.va</parent_id>
+		<name>Helme v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hi.hii</id>
+		<parent_id>est.hi</parent_id>
+		<name>Hiiu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.va.hum</id>
+		<parent_id>est.va</parent_id>
+		<name>Hummuli v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.hää</id>
+		<parent_id>est.pä</parent_id>
+		<name>Häädemeeste v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.iis</id>
+		<parent_id>est.iv</parent_id>
+		<name>Iisaku v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.ilk</id>
+		<parent_id>est.iv</parent_id>
+		<name>Illuka v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jä.ima</id>
+		<parent_id>est.jä</parent_id>
+		<name>Imavere v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.rp.juu</id>
+		<parent_id>est.rp</parent_id>
+		<name>Juuru v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.jõe</id>
+		<parent_id>est.hr</parent_id>
+		<name>Jõelähtme v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jg.jgv</id>
+		<parent_id>est.jg</parent_id>
+		<name>Jõgeva linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jg.jõg</id>
+		<parent_id>est.jg</parent_id>
+		<name>Jõgeva v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.jõh</id>
+		<parent_id>est.iv</parent_id>
+		<name>Jõhvi v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jä.jjn</id>
+		<parent_id>est.jä</parent_id>
+		<name>Järva-Jaani v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.rp.jkn</id>
+		<parent_id>est.rp</parent_id>
+		<name>Järvakandi v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lv.kad</id>
+		<parent_id>est.lv</parent_id>
+		<name>Kadrina v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.kai</id>
+		<parent_id>est.pä</parent_id>
+		<name>Kaisma v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.rp.kau</id>
+		<parent_id>est.rp</parent_id>
+		<name>Kaiu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.kll</id>
+		<parent_id>est.ta</parent_id>
+		<name>Kallaste linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.kam</id>
+		<parent_id>est.ta</parent_id>
+		<name>Kambja v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.põ.kan</id>
+		<parent_id>est.põ</parent_id>
+		<name>Kanepi v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jä.krd</id>
+		<parent_id>est.jä</parent_id>
+		<name>Kareda v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.vd.krk</id>
+		<parent_id>est.vd</parent_id>
+		<name>Karksi v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.va.krl</id>
+		<parent_id>est.va</parent_id>
+		<name>Karula v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jg.ksp</id>
+		<parent_id>est.jg</parent_id>
+		<name>Kasepää v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.rp.keh</id>
+		<parent_id>est.rp</parent_id>
+		<name>Kehtna v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.kel</id>
+		<parent_id>est.hr</parent_id>
+		<name>Keila linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.kei</id>
+		<parent_id>est.hr</parent_id>
+		<name>Keila v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.ker</id>
+		<parent_id>est.hr</parent_id>
+		<name>Kernu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.sa.khk</id>
+		<parent_id>est.sa</parent_id>
+		<name>Kihelkonna v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.khn</id>
+		<parent_id>est.pä</parent_id>
+		<name>Kihnu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.kil</id>
+		<parent_id>est.hr</parent_id>
+		<name>Kiili v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.kiv</id>
+		<parent_id>est.iv</parent_id>
+		<name>Kiviõli linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jä.koe</id>
+		<parent_id>est.jä</parent_id>
+		<name>Koeru v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.rp.khl</id>
+		<parent_id>est.rp</parent_id>
+		<name>Kohila v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.kht</id>
+		<parent_id>est.iv</parent_id>
+		<name>Kohtla v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.kjv</id>
+		<parent_id>est.iv</parent_id>
+		<name>Kohtla-Järve linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.knõ</id>
+		<parent_id>est.iv</parent_id>
+		<name>Kohtla-Nõmme v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jä.koi</id>
+		<parent_id>est.jä</parent_id>
+		<name>Koigi v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.vd.kjn</id>
+		<parent_id>est.vd</parent_id>
+		<name>Kolga-Jaani v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.kon</id>
+		<parent_id>est.ta</parent_id>
+		<name>Konguta v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.kga</id>
+		<parent_id>est.pä</parent_id>
+		<name>Koonga</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.kos</id>
+		<parent_id>est.hr</parent_id>
+		<name>Kose v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lä.kul</id>
+		<parent_id>est.lä</parent_id>
+		<name>Kullamaa v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lv.knd</id>
+		<parent_id>est.lv</parent_id>
+		<name>Kunda linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.sa.krs</id>
+		<parent_id>est.sa</parent_id>
+		<name>Kuressaare linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.kuu</id>
+		<parent_id>est.hr</parent_id>
+		<name>Kuusalu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.põ.kõl</id>
+		<parent_id>est.põ</parent_id>
+		<name>Kõlleste v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.vd.kõo</id>
+		<parent_id>est.vd</parent_id>
+		<name>Kõo v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.vd.kõp</id>
+		<parent_id>est.vd</parent_id>
+		<name>Kõpu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hi.käi</id>
+		<parent_id>est.hi</parent_id>
+		<name>Käina v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.rp.kru</id>
+		<parent_id>est.rp</parent_id>
+		<name>Käru v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lv.lkv</id>
+		<parent_id>est.lv</parent_id>
+		<name>Laekvere v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.lae</id>
+		<parent_id>est.ta</parent_id>
+		<name>Laeva v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.võ.lah</id>
+		<parent_id>est.võ</parent_id>
+		<name>Laheda v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.sa.lmj</id>
+		<parent_id>est.sa</parent_id>
+		<name>Laimjala v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.võ.las</id>
+		<parent_id>est.võ</parent_id>
+		<name>Lasva v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.sa.lsi</id>
+		<parent_id>est.sa</parent_id>
+		<name>Leisi v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lä.lih</id>
+		<parent_id>est.lä</parent_id>
+		<name>Lihula v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.loh</id>
+		<parent_id>est.iv</parent_id>
+		<name>Lohusuu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.lsa</id>
+		<parent_id>est.hr</parent_id>
+		<name>Loksa linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.luu</id>
+		<parent_id>est.ta</parent_id>
+		<name>Luunja v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lä.lng</id>
+		<parent_id>est.lä</parent_id>
+		<name>Lääne-Nigula v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.sa.lsr</id>
+		<parent_id>est.sa</parent_id>
+		<name>Lääne-Saare v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.lüg</id>
+		<parent_id>est.iv</parent_id>
+		<name>Lüganuse v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.mrd</id>
+		<parent_id>est.hr</parent_id>
+		<name>Maardu linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lä.mar</id>
+		<parent_id>est.lä</parent_id>
+		<name>Martna v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.mee</id>
+		<parent_id>est.ta</parent_id>
+		<name>Meeksi v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.võ.mer</id>
+		<parent_id>est.võ</parent_id>
+		<name>Meremäe v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.põ.mik</id>
+		<parent_id>est.põ</parent_id>
+		<name>Mikitamäe v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.võ.mis</id>
+		<parent_id>est.võ</parent_id>
+		<name>Misso v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.põ.moo</id>
+		<parent_id>est.põ</parent_id>
+		<name>Mooste v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.sa.muh</id>
+		<parent_id>est.sa</parent_id>
+		<name>Muhu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.sa.mus</id>
+		<parent_id>est.sa</parent_id>
+		<name>Mustjala v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jg.mtv</id>
+		<parent_id>est.jg</parent_id>
+		<name>Mustvee linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.vd.msk</id>
+		<parent_id>est.vd</parent_id>
+		<name>Mõisaküla linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.võ.mõn</id>
+		<parent_id>est.võ</parent_id>
+		<name>Mõniste v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.mtg</id>
+		<parent_id>est.iv</parent_id>
+		<name>Mäetaguse v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.mäk</id>
+		<parent_id>est.ta</parent_id>
+		<name>Mäksa v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.rp.mär</id>
+		<parent_id>est.rp</parent_id>
+		<name>Märjamaa v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.nrv</id>
+		<parent_id>est.iv</parent_id>
+		<name>Narva linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.njs</id>
+		<parent_id>est.iv</parent_id>
+		<name>Narva-Jõesuu linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.nis</id>
+		<parent_id>est.hr</parent_id>
+		<name>Nissi v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lä.noa</id>
+		<parent_id>est.lä</parent_id>
+		<name>Noarootsi v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.nõo</id>
+		<parent_id>est.ta</parent_id>
+		<name>Nõo v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lä.nõv</id>
+		<parent_id>est.lä</parent_id>
+		<name>Nõva v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.põ.orv</id>
+		<parent_id>est.põ</parent_id>
+		<name>Orava v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.sa.ori</id>
+		<parent_id>est.sa</parent_id>
+		<name>Orissaare v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.va.ote</id>
+		<parent_id>est.va</parent_id>
+		<name>Otepää v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.pad</id>
+		<parent_id>est.hr</parent_id>
+		<name>Padise v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jä.pde</id>
+		<parent_id>est.jä</parent_id>
+		<name>Paide linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jä.pai</id>
+		<parent_id>est.jä</parent_id>
+		<name>Paide v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.pks</id>
+		<parent_id>est.pä</parent_id>
+		<name>Paikuse v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jg.paj</id>
+		<parent_id>est.jg</parent_id>
+		<name>Pajusi v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jg.pla</id>
+		<parent_id>est.jg</parent_id>
+		<name>Pala v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jg.pal</id>
+		<parent_id>est.jg</parent_id>
+		<name>Palamuse v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.pld</id>
+		<parent_id>est.hr</parent_id>
+		<name>Paldiski linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.va.plp</id>
+		<parent_id>est.va</parent_id>
+		<name>Palupera v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.pei</id>
+		<parent_id>est.ta</parent_id>
+		<name>Peipsiääre v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.sa.pih</id>
+		<parent_id>est.sa</parent_id>
+		<name>Pihtla v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.pre</id>
+		<parent_id>est.ta</parent_id>
+		<name>Piirissaare v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.puh</id>
+		<parent_id>est.ta</parent_id>
+		<name>Puhja v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.va.puk</id>
+		<parent_id>est.va</parent_id>
+		<name>Puka v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jg.puu</id>
+		<parent_id>est.jg</parent_id>
+		<name>Puurmani v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.va.põd</id>
+		<parent_id>est.va</parent_id>
+		<name>Põdrala v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jg.pml</id>
+		<parent_id>est.jg</parent_id>
+		<name>Põltsamaa linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jg.plt</id>
+		<parent_id>est.jg</parent_id>
+		<name>Põltsamaa v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.põ.plv</id>
+		<parent_id>est.põ</parent_id>
+		<name>Põlva v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.prn</id>
+		<parent_id>est.pä</parent_id>
+		<name>Pärnu linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.sa.pöi</id>
+		<parent_id>est.sa</parent_id>
+		<name>Pöide v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hi.phl</id>
+		<parent_id>est.hi</parent_id>
+		<name>Pühalepa v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.raa</id>
+		<parent_id>est.hr</parent_id>
+		<name>Raasiku v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.rae</id>
+		<parent_id>est.hr</parent_id>
+		<name>Rae v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.rp.rai</id>
+		<parent_id>est.rp</parent_id>
+		<name>Raikküla v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lv.rkk</id>
+		<parent_id>est.lv</parent_id>
+		<name>Rakke v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lv.rkv</id>
+		<parent_id>est.lv</parent_id>
+		<name>Rakvere linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lv.rak</id>
+		<parent_id>est.lv</parent_id>
+		<name>Rakvere v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.ran</id>
+		<parent_id>est.ta</parent_id>
+		<name>Rannu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.rp.rap</id>
+		<parent_id>est.rp</parent_id>
+		<name>Rapla v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lä.rid</id>
+		<parent_id>est.lä</parent_id>
+		<name>Ridala v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jä.ral</id>
+		<parent_id>est.jä</parent_id>
+		<name>Roosna-Alliku v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.sa.ruh</id>
+		<parent_id>est.sa</parent_id>
+		<name>Ruhnu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.rõn</id>
+		<parent_id>est.ta</parent_id>
+		<name>Rõngu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.võ.rõu</id>
+		<parent_id>est.võ</parent_id>
+		<name>Rõuge v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lv.räg</id>
+		<parent_id>est.lv</parent_id>
+		<name>Rägavere v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.põ.räp</id>
+		<parent_id>est.põ</parent_id>
+		<name>Räpina v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.saa</id>
+		<parent_id>est.pä</parent_id>
+		<name>Saarde v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jg.sre</id>
+		<parent_id>est.jg</parent_id>
+		<name>Saare v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.sak</id>
+		<parent_id>est.hr</parent_id>
+		<name>Saku v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.sa.sme</id>
+		<parent_id>est.sa</parent_id>
+		<name>Salme v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.va.san</id>
+		<parent_id>est.va</parent_id>
+		<name>Sangaste v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.sue</id>
+		<parent_id>est.hr</parent_id>
+		<name>Saue linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.sau</id>
+		<parent_id>est.hr</parent_id>
+		<name>Saue v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.sga</id>
+		<parent_id>est.pä</parent_id>
+		<name>Sauga v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.slm</id>
+		<parent_id>est.iv</parent_id>
+		<name>Sillamäe linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.snd</id>
+		<parent_id>est.pä</parent_id>
+		<name>Sindi linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.son</id>
+		<parent_id>est.iv</parent_id>
+		<name>Sonda v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.sur</id>
+		<parent_id>est.pä</parent_id>
+		<name>Surju v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.vd.sjn</id>
+		<parent_id>est.vd</parent_id>
+		<name>Suure-Jaani v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.võ.spa</id>
+		<parent_id>est.võ</parent_id>
+		<name>Sõmerpalu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lv.sru</id>
+		<parent_id>est.lv</parent_id>
+		<name>Sõmeru v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jg.tab</id>
+		<parent_id>est.jg</parent_id>
+		<name>Tabivere v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.va.thv</id>
+		<parent_id>est.va</parent_id>
+		<name>Taheva v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.thk</id>
+		<parent_id>est.pä</parent_id>
+		<name>Tahkuranna v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.tln</id>
+		<parent_id>est.hr</parent_id>
+		<name>Tallinn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lv.tam</id>
+		<parent_id>est.lv</parent_id>
+		<name>Tamsalu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lv.tap</id>
+		<parent_id>est.lv</parent_id>
+		<name>Tapa v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.trt</id>
+		<parent_id>est.ta</parent_id>
+		<name>Tartu linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.tar</id>
+		<parent_id>est.ta</parent_id>
+		<name>Tartu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.vd.trv</id>
+		<parent_id>est.vd</parent_id>
+		<name>Tarvastu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.toi</id>
+		<parent_id>est.iv</parent_id>
+		<name>Toila v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.tts</id>
+		<parent_id>est.pä</parent_id>
+		<name>Tootsi v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.sa.trg</id>
+		<parent_id>est.sa</parent_id>
+		<name>Torgu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.tor</id>
+		<parent_id>est.pä</parent_id>
+		<name>Tori v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jg.trm</id>
+		<parent_id>est.jg</parent_id>
+		<name>Torma v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.tud</id>
+		<parent_id>est.iv</parent_id>
+		<name>Tudulinna v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.va.tõl</id>
+		<parent_id>est.va</parent_id>
+		<name>Tõlliste v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.va.tva</id>
+		<parent_id>est.va</parent_id>
+		<name>Tõrva linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.tõs</id>
+		<parent_id>est.pä</parent_id>
+		<name>Tõstamaa v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.täh</id>
+		<parent_id>est.ta</parent_id>
+		<name>Tähtvere v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jä.tür</id>
+		<parent_id>est.jä</parent_id>
+		<name>Türi v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.võ.urv</id>
+		<parent_id>est.võ</parent_id>
+		<name>Urvaste v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.iv.vai</id>
+		<parent_id>est.iv</parent_id>
+		<name>Vaivara v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.va.vlg</id>
+		<parent_id>est.va</parent_id>
+		<name>Valga linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.põ.vjä</id>
+		<parent_id>est.põ</parent_id>
+		<name>Valgjärve v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.sa.vll</id>
+		<parent_id>est.sa</parent_id>
+		<name>Valjala v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.vra</id>
+		<parent_id>est.ta</parent_id>
+		<name>Vara v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.var</id>
+		<parent_id>est.pä</parent_id>
+		<name>Varbla v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.võ.vrs</id>
+		<parent_id>est.võ</parent_id>
+		<name>Varstu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.vsl</id>
+		<parent_id>est.hr</parent_id>
+		<name>Vasalemma v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.põ.vku</id>
+		<parent_id>est.põ</parent_id>
+		<name>Vastse-Kuuste v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.võ.vas</id>
+		<parent_id>est.võ</parent_id>
+		<name>Vastseliina v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.põ.ver</id>
+		<parent_id>est.põ</parent_id>
+		<name>Veriora v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.rp.vig</id>
+		<parent_id>est.rp</parent_id>
+		<name>Vigala v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lv.vih</id>
+		<parent_id>est.lv</parent_id>
+		<name>Vihula v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.hr.vms</id>
+		<parent_id>est.hr</parent_id>
+		<name>Viimsi v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.vd.vjd</id>
+		<parent_id>est.vd</parent_id>
+		<name>Viljandi linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.vd.vil</id>
+		<parent_id>est.vd</parent_id>
+		<name>Viljandi v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lv.vin</id>
+		<parent_id>est.lv</parent_id>
+		<name>Vinni v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lv.vng</id>
+		<parent_id>est.lv</parent_id>
+		<name>Viru-Nigula v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lä.vor</id>
+		<parent_id>est.lä</parent_id>
+		<name>Vormsi v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.vd.vhm</id>
+		<parent_id>est.vd</parent_id>
+		<name>Võhma linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.võn</id>
+		<parent_id>est.ta</parent_id>
+		<name>Võnnu v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.võ.vru</id>
+		<parent_id>est.võ</parent_id>
+		<name>Võru linn</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.võ.võr</id>
+		<parent_id>est.võ</parent_id>
+		<name>Võru v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.lv.vmr</id>
+		<parent_id>est.lv</parent_id>
+		<name>Väike-Maarja v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.vnd</id>
+		<parent_id>est.pä</parent_id>
+		<name>Vändra alev</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.pä.vän</id>
+		<parent_id>est.pä</parent_id>
+		<name>Vändra v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.põ.vär</id>
+		<parent_id>est.põ</parent_id>
+		<name>Värska v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.jä.vää</id>
+		<parent_id>est.jä</parent_id>
+		<name>Väätsa v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.va.õru</id>
+		<parent_id>est.va</parent_id>
+		<name>Õru v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+	<std_location>
+		<id>est.ta.üle</id>
+		<parent_id>est.ta</parent_id>
+		<name>Ülenurme v</name>
+		<type_id>10</type_id>
+		<is_std>0</is_std>
+	</std_location>
+</std_locations>

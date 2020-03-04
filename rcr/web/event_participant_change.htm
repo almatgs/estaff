@@ -1,0 +1,172 @@
+<%
+function AssignEventDataFromSession( event )
+{
+	//event.AssignElem( Session.editEvent );
+	event.participants.AssignElem( Session.editEvent.participants );
+
+	event.cs_is_boss_competence = ( Request.Query.GetOptProperty( 'cs_is_boss_competence' ) == 'on' );
+}
+
+
+Server.Execute( 'include/std_head.htm' );
+
+eventID = Int( Request.Query.event_id );
+event = GetOptForeignElem( events, eventID );
+if ( event == undefined )
+	throw 'Event not found';
+
+eventDoc = OpenDoc( DefaultDb.GetRecordPrimaryObjectUrl( event ) );
+event = eventDoc.TopElem;
+
+if ( Session.editEvent.id != event.id )
+	throw UserError( 'Stored event mismatch' );
+
+action = Request.Query.action;
+
+if ( action == 'save' )
+{
+	oldNextParticipant = ArrayOptFind( event.participants, '( participantPollResult = event.participant_poll_results.GetOptChildByKey( person_id ) ) == undefined || ! participantPollResult.completion_id.HasValue' );
+
+	//event.participants.AssignElem( Session.editEvent.participants );
+	AssignEventDataFromSession( event );
+
+	if ( event.participants.ChildNum == 0 )
+		HandlePostError( UiText.errors.participants_not_specified );
+	
+	event.cs_is_boss_competence = ( Request.Query.GetOptProperty( 'cs_is_boss_competence' ) == 'on' );
+	eventDoc.Save();
+
+	if ( event.occurrence_id == 'started' )
+	{
+		nextParticipant = ArrayOptFind( event.participants, '( participantPollResult = event.participant_poll_results.GetOptChildByKey( person_id ) ) == undefined || ! participantPollResult.completion_id.HasValue' );
+
+		if ( nextParticipant != undefined && ( oldNextParticipant == undefined || oldNextParticipant.person_id != nextParticipant.person_id ) )
+		{
+			lib = OpenCodeLib( 'x-app://module_rgs/rgs_lib_rgs.js' );
+			lib.activate_poll_participant( event, nextParticipant );
+			eventDoc.Save();
+		}
+	}
+}
+else if ( action == 'discard' )
+{
+	Session.editEvent.AssignElem( event );
+}
+else if ( action == 'add' )
+{
+	for ( personEid in Request.Query.person_eid.split( ';' ) )
+	{
+		person = lib_base.query_opt_record_by_key( persons, '0x' + StrHexInt( Int( personEid ) ), 'eid' );
+		if ( person == undefined )
+			HandlePostError( 'Сотрудник не выбран' );
+
+		participant = Session.editEvent.participants.GetOptChildByKey( person.id );
+		if ( participant != undefined )
+			continue;
+
+		participant = Session.editEvent.participants.AddChild();
+		participant.person_id = person.id;
+
+		/*
+		if ( event.occurrence_id == 'started' && AppModuleUsed( 'module_rgs' ) )
+		{
+			lib = OpenCodeLib( 'x-app://module_rgs/rgs_lib_rgs.js' );
+			lib.send_poll_next_participant_notif( event, person );
+		}
+		*/
+	}
+}
+else if ( action == 'activate_poll' )
+{
+	AssignEventDataFromSession( event );
+
+	if ( event.participants.ChildNum == 0 )
+		HandlePostError( UiText.errors.participants_not_specified );
+	
+	event.cs_is_boss_competence = ( Request.Query.GetOptProperty( 'cs_is_boss_competence' ) == 'on' );
+
+	event.occurrence_id = 'started';
+	event.resp_person_id = curPerson.id;
+
+	lib = OpenCodeLib( 'x-app://module_rgs/rgs_lib_rgs.js' );
+	lib.activate_next_poll_participant( event );
+	eventDoc.Save();
+
+	Session.editEvent.AssignElem( event );
+}
+else
+{
+	personID = Int( Request.Query.person_id );
+	participant = Session.editEvent.participants.GetChildByKey( personID );
+
+	if ( action == 'delete' )
+	{
+		participant.Delete();
+	}
+	else if ( action == 'move_up' )
+	{
+		if ( participant.ChildIndex != 0 )
+			participant.SetChildIndex( participant.ChildIndex - 1 );
+	}
+	else if ( action == 'move_down' )
+	{
+		if ( participant.ChildIndex != participant.Parent.ChildNum - 1 )
+			participant.SetChildIndex( participant.ChildIndex + 1 );
+	}
+	else if ( action == 'set_max_approval_date' )
+	{
+		try
+		{
+			date = Date( Request.Form.max_approval_date );
+		}
+		catch ( e )
+		{
+			HandlePostError( 'Неверная дата' );
+		}
+
+		if ( date < DateNewTime( CurDate ) )
+			HandlePostError( 'Дата меньше текущей' );
+
+		participant.max_approval_date = date;
+	}
+	else if ( action == 'restart_result' )
+	{
+		participantResult = event.participant_poll_results.GetOptChildByKey( participant.person_id );
+		participantResult.completion_id.Clear();
+		participantResult.start_date = CurDate;
+		participantResult.end_date.Clear();
+
+		questionAnswer = participantResult.question_answers.GetOptChildByKey( 'q_rating' );
+		if ( questionAnswer != undefined )
+			questionAnswer.score.Clear();
+
+		questionAnswer = participantResult.question_answers.GetOptChildByKey( 'q_sum' );
+		if ( questionAnswer != undefined )
+			questionAnswer.score.Clear();
+
+		eventDoc.Save();
+
+		nextParticipant = ArrayOptFind( event.participants, '( participantPollResult = event.participant_poll_results.GetOptChildByKey( person_id ) ) == undefined || ! participantPollResult.completion_id.HasValue' );
+		lib = OpenCodeLib( 'x-app://module_rgs/rgs_lib_rgs.js' );
+		lib.activate_poll_participant( event, nextParticipant );
+	}
+	else if ( action == 'resend_notif' )
+	{
+		nextParticipant = ArrayOptFind( event.participants, '( participantPollResult = event.participant_poll_results.GetOptChildByKey( person_id ) ) == undefined || ! participantPollResult.completion_id.HasValue' );
+
+		lib = OpenCodeLib( 'x-app://module_rgs/rgs_lib_rgs.js' );
+		lib.activate_poll_participant( event, nextParticipant );
+	}
+	else
+	{
+		throw 'Unknown action';
+	}
+}
+
+
+
+
+//if ( outerEnv == undefined )
+	//Response.Redirect( outer_link( 'event.htm', {id:eventID} ) );
+
+%>

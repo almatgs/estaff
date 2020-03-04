@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="80zr" HEIGHT="50zr" SOURCE="TopElem" TITLE="##UiText.sections.settings_replica##" RESIZE="1" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="17zr"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<LABEL TITLE="##UiText.fields.server##:" ALIGN="right"/>
+		<EDIT SOURCE="Ps.server_address" WIDTH="30zr"/>
+		<BR HSPAN="2"/>
+
+		<LABEL TITLE="##UiText.fields.user_name##:" ALIGN="right" lang-en:TITLE="User name:"/>
+		<EDIT SOURCE="Ps.login" WIDTH="20zr"/>
+		<LABEL TITLE="##UiText.fields.password##:" ALIGN="right" lang-en:TITLE="Password:"/>
+		<EDIT SOURCE="Ps.password" PASSWORD="1" WIDTH="20zr"/>
+
+		<BR/>
+		<CHECK SOURCE="Ps.compress" TITLE="Сжатие данных" lang-en:TITLE="Use compression" lang-ua:TITLE="Стиснення даних"/>
+	</TABLE>
+	<DELIM/>
+
+	<LABEL TITLE="##UiText.fields.last_mod_date##:"/>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="20zr"/>
+			<COL WIDTH="20zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.local_last_mod_date" LABEL-TITLE="Локальная:" lang-en:LABEL-TITLE="Local:" lang-ua:LABEL-TITLE="Локальна:"/>
+		<EDIT SOURCE="Ps.remote_last_mod_date" LABEL-TITLE="На сервере:" lang-en:LABEL-TITLE="On server:" lang-ua:LABEL-TITLE="На сервері:"/>
+	</TABLE>
+	<DELIM/>
+</PANEL>
+
+
+</SPXML-SCREEN>

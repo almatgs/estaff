@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="130zr" HEIGHT="100zr" SOURCE="TopElem" TITLE="Персональные настройки - Календарь" RESIZE="1" WINDOW-ICON-URL="//base_pict/settings.ico" lang-en:TITLE="Personal settings - Calendar" lang-ua:TITLE="Персональні налаштування - Календар">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<GROUP>
+		<LABEL TITLE="Начальный диапазон времени:" lang-en:TITLE="Initial time range:" lang-ua:TITLE="Початковий діапазон часу:"/>
+		<COMBO SOURCE="Ps.calendar_start_minutes" WIDTH="9zr">
+			<LOOP EXPR="PlainSeq( 10 )" VAR="_hour">
+				<COMBO-ENTRY TITLE-EXPR="StrInt( _hour, 2 ) + ':00'" VALUE-EXPR="_hour * 60"/>
+			</LOOP>
+		</COMBO>
+		
+		<LABEL TITLE="-" KEEP-WITH-PREV="1"/>
+		
+		<COMBO SOURCE="Ps.calendar_end_minutes" WIDTH="9zr">
+			<LOOP EXPR="[18,19,20,21,22,23,24]" VAR="_hour">
+				<COMBO-ENTRY TITLE-EXPR="StrInt( _hour, 2 ) + ':00'" VALUE-EXPR="_hour * 60"/>
+			</LOOP>
+		</COMBO>
+
+		<COMBO SOURCE="Ps.calendar_step_length" WIDTH="15zr" LABEL-TITLE="##UiText.titles.step##:">
+			<LOOP EXPR="[10,15,20,30,60]" VAR="ListElem">
+				<COMBO-ENTRY TITLE-EXPR="ListElem + ' ' + IntModSelector( ListElem, base1_common.period_units.GetChildByKey( 'minute' ).mod2_name )" VALUE-EXPR="ListElem"/>
+			</LOOP>
+		</COMBO>
+
+		<CHECK SOURCE="Ps.use_calendar_time_coloring" TITLE="Цветовая подсветка времени суток" lang-en:TITLE="Daytime coloring" lang-ua:TITLE="Колірна підсвічування часу доби" KEEP-RIGHT="1"/>
+	</GROUP>
+	<DELIM/>
+
+	<IF EXPR="base1_config.is_int_version">
+		<LABEL TITLE="##UiText.sections.global_settings_region##:"/>
+		<BR/>
+		<GROUP>
+			<ITEM TYPE="elem_selector" SOURCE="Ps.first_week_day" foreign-array="base1_common.week_days" foreign-elem-qual="id == 0 || id == 1" WIDTH="19zr" AUTO-LABEL="1"/>
+			<ITEM TYPE="elem_selector" SOURCE="Ps.weekend_day1" foreign-array="base1_common.week_days" WIDTH="19zr" AUTO-LABEL="1" KEEP-RIGHT="1"/>
+			<ITEM TYPE="elem_selector" SOURCE="Ps.weekend_day2" foreign-array="base1_common.week_days" WIDTH="19zr" AUTO-LABEL="1" KEEP-RIGHT="1"/>
+		</GROUP>
+		<DELIM/>
+	</IF>
+	
+	<BR/>
+
+	<ITEM TYPE="elem_selector" SOURCE="Ps.ext_calendar_type_id" WIDTH="35zr" LABEL-TITLE="##UiText.titles.external_calendar_integration##:"/>
+	<DELIM/>
+
+	<ITEM TYPE="agent_control" SOURCE="GetForeignElem( agents, 'load_from_ext_calendar' )"/>
+	<DELIM/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="23zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.load_from_ext_calendar.entry_min_last_mod_date" LABEL-TITLE="Мин. дата модификации:" lang-en:LABEL-TITLE="Min, modification date:" lang-ua:LABEL-TITLE="Мін. дата модифікації:"/>
+	</TABLE>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.load_from_ext_calendar.load_unknown_entries" TITLE="Загружать во встроенный календарь записи, заведенные напрямую во внешнем календаре" lang-en:TITLE="Load entries that were created in external calendar into built-in calendar" lang-ua:TITLE="Завантажувати у вбудований календар записи, заведені безпосередньо в зовнішньому календарі"/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="30zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.load_from_ext_calendar.unknown_entry_type_id" LABEL-TITLE="Использовать тип записи:" lang-en:LABEL-TITLE="Use entry type:" ENABLE-EXPR="Ps.load_from_ext_calendar.load_unknown_entries" lang-ua:LABEL-TITLE="Використовувати тип запису:"/>
+	</TABLE>
+	<DELIM/>
+</PANEL>
+
+
+</SPXML-SCREEN>

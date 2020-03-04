@@ -1,0 +1,78 @@
+<%
+Request.RespWriteMode = 'single';
+Request.RespContentType = 'text/html; charset=utf-8';
+
+reqArg = UrlQuery( Request.Url );
+lib_mcaller.CheckMobileUiAuth( Request, reqArg );
+
+phone = reqArg.GetOptProperty( 'phone', '' );
+if ( phone == '' )
+	throw UserError( 'Argument is required: phone' );
+
+queryStr = 'for $elem in candidates where $elem/mobile_phone = ' + XQueryLiteral( phone ) + ' return $elem';
+array1 = XQuery( queryStr );
+
+queryStr = 'for $elem in persons where $elem/mobile_phone = ' + XQueryLiteral( phone ) + ' and $elem/is_candidate = false() return $elem';
+array2 = XQuery( queryStr );
+
+array = ArrayUnion( array1, array2 );
+array = ArraySort( array, 'last_mod_date', '-' );
+
+lib_mcaller.ExportPageHeader( Request.RespStream, UiText.titles.add_contact )
+
+Response.Write( '<p>' );
+Response.Write( lib_phone_details.FormatPhone( phone ) );
+Response.Write( '</p>' );
+
+if ( ArrayCount( array ) != 0 )
+{
+	hasAllowedEntries = false;
+	hasProhibitedEntries = false;
+
+	for ( person in array )
+	{
+		if ( ! person.CheckAccessForCurrentUser() )
+		{
+			hasProhibitedEntries = true;
+			continue;
+		}
+
+		hasAllowedEntries = true;
+
+		Response.Write( '<p>' );
+		Response.Write( '<span style="font-size:larger;">' );
+		Response.Write( EncodeCharset( person.fullname, 'utf-8' ) );
+		Response.Write( '</span>' );
+
+		if ( person.is_candidate )
+			personTypeName = UiText.objects.candidate;
+		else if ( person.is_own_person )
+			personTypeName = UiText.objects.employee;
+		else
+			personTypeName = person.org_id.ForeignDispName;
+
+		Response.Write( '<br/>' );
+		Response.Write( EncodeCharset( personTypeName, 'utf-8' ) );
+		
+		if ( ! person.is_candidate && person.position_name.HasValue )
+			Response.Write( '<br/><span style="font-size:smaller;">' + EncodeCharset( person.position_name, 'utf-8' ) + '</span>' );
+
+		Response.Write( '</p>' );
+	}
+
+	if ( hasProhibitedEntries && ! hasAllowedEntries )
+	{
+		Response.Write( '<p>' );
+		Response.Write( EncodeCharset( UiText.errors.permission_denied, 'utf-8' ) );
+		Response.Write( '</p>' );
+	}
+}
+else
+{
+	Response.Write( '<p>' );
+	Response.Write( EncodeCharset( UiText.errors.phone_not_found_in_database, 'utf-8' ) );
+	Response.Write( '</p>' );
+}
+
+lib_mcaller.ExportPageFooter( Request.RespStream )
+%>

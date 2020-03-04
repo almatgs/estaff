@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<public_holiday_map SPXML-FORM="//cn/cn_public_holiday_map.xmd" LANG="ru">
+	<id>blr_01</id>
+	<country_id>BLR</country_id>
+	<items>
+		<item>
+			<name VALUE="Новый год" lang-en:VALUE="New Year Holidays"/>
+			<month>1</month>
+			<day>1</day>
+		</item>
+		<item>
+			<name VALUE="Новый год" lang-en:VALUE="New Year Holidays"/>
+			<month>1</month>
+			<day>2</day>
+		</item>
+		<item>
+			<id>7</id>
+			<name VALUE="Рождество Христово (православное Рождество)" lang-en:VALUE="Christmas"/>
+			<month>1</month>
+			<day>7</day>
+		</item>
+		<item>
+			<name VALUE="День женщин" lang-en:VALUE="Women's Day"/>
+			<month>3</month>
+			<day>8</day>
+		</item>
+		<item>
+			<name VALUE="Радуница" lang-en:VALUE="Radonitsa"/>
+			<month>4</month>
+			<day>21</day>
+		</item>
+		<item>
+			<name VALUE="Праздник труда" lang-en:VALUE="May 1"/>
+			<month>5</month>
+			<day>1</day>
+		</item>
+		<item>
+			<name VALUE="День Победы" lang-en:VALUE="May 9"/>
+			<month>5</month>
+			<day>9</day>
+		</item>
+		<item>
+			<name VALUE="День Независимости Республики Беларусь" lang-en:VALUE="Independence Day of Belarus"/>
+			<month>7</month>
+			<day>3</day>
+		</item>
+		<item>
+			<name VALUE="День Октябрьской революции" lang-en:VALUE="Revolution Day"/>
+			<month>11</month>
+			<day>7</day>
+		</item>
+		<item>
+			<id>7</id>
+			<name VALUE="Рождество Христово (католическое Рождество)" lang-en:VALUE="Christmas"/>
+			<month>12</month>
+			<day>25</day>
+		</item>
+	</items>
+
+	<observance_policy_id></observance_policy_id>
+</public_holiday_map>

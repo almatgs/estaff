@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM HIER="1" OWN-ID-SPACE="1" STORAGE-TYPE="single-xml">
+
+
+<view>
+	<INHERIT TYPE="view_base"/>
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</view>
+
+
+
+</SPXML-FORM>

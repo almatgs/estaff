@@ -1,0 +1,1040 @@
+namespace ui_builder_server {
+
+
+function BuildUiTemplateDataForm( template, options )
+{
+	ui_builder_server.PrepareTemplate( template );
+
+	rootElem = CreateDynamicElem( 'SPXML-FORM' );
+	topElem = rootElem.AddChild( 'section_view' );
+
+	if ( template.useObjectPreview )
+	{
+		elem = topElem.AddChild( 'preview_activated' );
+		elem.AddAttr( 'TYPE', 'bool' );
+		elem.AddAttr( 'NULL-FALSE', '1' );
+	}
+
+	if ( template.isObjectList )
+	{
+		ui_builder_server.BuildListViewDataForm( template, options, topElem );
+	}
+
+	//BuildPartChildTemplates( template, options, template, topElem );
+
+	formData = rootElem.Xml;
+	PutUrlData( 'x-local://Logs/view_forms_1/' + template.id + '.xmd', formData );
+	return formData;
+}
+
+
+function BuildUiTemplateScreenForm( template, options )
+{
+	ui_builder_server.PrepareTemplate( template );
+
+	//if ( template.id == 'Main' )
+		//return BuildMainScreenForm( template );
+
+	rootNode = OpenDocFromStr( '<SPXML-SCREEN></SPXML-SCREEN>' ).TopElem;
+
+	if ( ! options.isFragment )
+		rootNode.AddAttr( 'SOURCE', 'TopElem' );
+
+	rootNode.AddAttr( 'MAXIMIZED', '1' );
+	rootNode.AddAttr( 'CUSTOM-FRAME', '1' );
+
+	item = rootNode.AddChild( 'INHERIT' );
+	item.AddAttr( 'TYPE', 'card_title_bar' );
+
+	baseNode = rootNode;
+
+	if ( template.hasPages )
+	{
+		baseNode = BuildPageOuterLayout( template, options, rootNode );
+	}
+
+	param = new Object;
+	param.SetStrictMode( false );
+
+	BuildTemplateScreen( template, options, baseNode, param );
+
+	screenFormData = rootNode.Xml;
+	PutUrlData( 'x-local://Logs/view_forms_1/' + template.id + '.xms', screenFormData );
+	return screenFormData;
+}
+
+
+function BuildTemplateScreen( template, options, rootNode, param )
+{
+	baseNode = rootNode;
+
+	if ( template.useObjectPreview )
+	{
+		baseNode = rootNode.AddChild( 'PANEL' );
+		baseNode.AddAttr( 'BK-COLOR-EXPR', '' );	// !!! for splittter
+		//baseNode.AddAttr( 'SUNKEN', 1 );
+			
+		//baseNode.AddAttr( 'HEIGHT-EXPR', 'Ps.preview_activated ? \'40%\' : \'100%\'' );
+		baseNode.AddAttr( 'HEIGHT', '40%' );
+	}
+
+	if ( template.isObjectList )
+	{
+		//ui_builder_server.PrepareListView( template );
+
+		ui_builder_server.BuildListViewScreenForm( template, baseNode );
+	}
+	else
+	{
+		BuildItemScreen( template, options, template, baseNode, param );
+	}
+
+
+	if ( template.useObjectPreview )
+	{
+		//condItem = rootNode.AddChild( 'IF' );
+		//condItem.AddAttr( 'EXPR', 'Ps.preview_activated' );
+		//split = condItem.AddChild( 'SPLIT' );
+
+		split = rootNode.AddChild( 'SPLIT' );
+
+		frame = rootNode.AddChild( 'FRAME' );
+		frame.AddAttr( 'NAME', 'FrameObjectPreview' );
+	}
+}
+
+
+
+
+
+
+
+function BuildSectionTreeEntries( template, baseItem, baseNode )
+{
+	if ( baseItem.type == 'Section' )
+		baseNode = BuildSectionTreeEntry( template, baseItem, baseNode );
+
+	if ( baseItem.items != undefined )
+	{
+		for ( item in baseItem.items )
+			BuildSectionTreeEntries( template, item, baseNode );
+	}
+}
+
+
+function BuildSectionTreeEntry( template, item, baseNode )
+{
+	if ( item.showCondition != undefined )
+	{
+		baseNode = baseNode.AddChild( 'IF' );
+		baseNode.AddAttr( 'EXPR', ui_builder_server.BuildItemAttrCode( template, item, item.showCondition ) );
+		baseNode.AddAttr( 'IGNORE-ERRORS', '0' );
+	}
+
+	entry = baseNode.AddChild( 'TREE-ENTRY' );
+	entry.AddAttr( 'TITLE', item.title );
+	//entry.AddAttr( 'IMAGE-URL', '//base_pict/folder.ico' );
+	entry.AddAttr( 'EXPANDED', '1' );
+		
+	if ( item.templateID != undefined )
+		templateID = item.templateID;
+	else if ( item.catalogName != undefined )
+		templateID = ui_builder_server.GetCatalogDefaultTemplateID( item.catalogName );
+	else
+		return entry;
+
+	entry.AddAttr( 'HREF', ui_base.BuildSectionViewUrl( templateID ) );
+	//entry.AddAttr( 'HREF-EXPR', 'ui_builder.GetSectionViewUrl( ' + CodeLiteral( item.id ) + ' )' );
+	if ( template.defaultSection == undefined )
+	{
+		template.defaultSection = item;
+		template.defaultSectionTemplateID = templateID;
+	}
+
+	return entry;
+}
+
+
+function BuildPageOuterLayout( template, options, rootNode )
+{
+	if ( false )
+		return BuildTreePageOuterLayout( template, options, rootNode );
+	else
+		return BuildTabPageOuterLayout( template, options, rootNode );
+}
+
+
+function BuildTreePageOuterLayout( template, options, baseNode )
+{
+	line = baseNode.AddChild( 'LINE' );
+
+	tree = line.AddChild( 'TREE' );
+	tree.AddAttr( 'WIDTH', '38zr' );
+	tree.AddAttr( 'SWITCH-TYPE', 'selector' );
+	tree.AddAttr( 'TARGET', 'MainSelector' );
+
+	//line.AddChild( 'SPLIT' );
+
+	selector = line.AddChild( 'SELECTOR' );
+	selector.AddAttr( 'NAME', 'MainSelector' );
+
+	return selector;
+}
+
+
+function BuildTabPageOuterLayout( template, options, baseNode )
+{
+	//baseNode.AddChild( 'BR' );
+
+	tabBar = baseNode.AddChild( 'TAB' );
+	tabBar.AddAttr( 'SWITCH-TYPE', 'selector' );
+	tabBar.AddAttr( 'TARGET', 'MainSelector' );
+
+	selector = baseNode.AddChild( 'SELECTOR' );
+	selector.AddAttr( 'NAME', 'MainSelector' );
+
+	return selector;
+}
+
+
+
+function BuildSubSectionFormElemName( subTemplate )
+{
+	name = lib_base.VarNameToFieldName( subTemplate.id );
+	name = StrReplace( name, '.', '' );
+	return name;
+}
+
+
+function BuildItemScreen( template, options, item, baseNode, param )
+{
+	if ( item.allowEditConditions != undefined )
+	{
+		newOptions = new Object;
+
+		metaNode = baseNode.AddChild( 'IF' );
+		metaNode.AddAttr( 'EXPR', 'object = Ps, field = Ps.' + item.fieldID + ', ' + ui_builder_server.BuildConditionsArrayCode( item.allowEditConditions ) );
+		metaNode.AddAttr( 'IGNORE-ERRORS', '0' );
+
+		newOptions.editMode = true;
+		BuildItemScreenCore( template, newOptions, item, metaNode, param );
+
+		metaNode = baseNode.AddChild( 'ELSE' );
+
+		newOptions.editMode = false;
+		BuildItemScreenCore( template, newOptions, item, metaNode, param );
+	}
+	else
+	{
+		BuildItemScreenCore( template, options, item, baseNode, param );
+	}
+}
+
+
+function BuildItemScreenCore( template, options, item, baseNode, param )
+{
+	if ( item === template && template.layout == undefined ) // !!! ???
+	{
+		BuildTransparentLayoutScreen( template, options, item, baseNode, param );
+		return;
+	}
+
+	baseNode2 = baseNode;
+
+	if ( item.showCondition != undefined )
+	{
+		baseNode2 = baseNode.AddChild( 'IF' );
+		baseNode2.AddAttr( 'EXPR', ui_builder_server.BuildItemAttrCode( template, item, item.showCondition ) );
+		baseNode2.AddAttr( 'IGNORE-ERRORS', '0' );
+	}
+
+	if ( item.type == 'Page' )
+	{
+		BuildPageItemScreen( template, options, item, baseNode2 );
+	}
+	else if ( item.type == 'Action' )
+	{
+		BuildActionItemScreen( template, options, item, baseNode2 );
+	}
+	else if ( item.type == 'ObjectList' )
+	{
+		BuildListItemScreen( template, options, item, baseNode2 );
+	}
+	else if ( item.type == 'Attachment' )
+	{
+		BuildAttachmentItemScreen( template, options, item, baseNode2 );
+	}
+	else if ( item.type == 'Attachments' )
+	{
+		BuildAttachmentsItemScreen( template, options, item, baseNode2 );
+	}
+	else if ( item.type == 'XMS' )
+	{
+		BuildXmsItemScreen( template, options, item, baseNode2 );
+	}
+	else if ( item.type == 'Split' )
+	{
+		delim = baseNode2.AddChild( 'SPLIT' );
+		delim.AddAttr( 'FIXED', '1' );
+	}
+	else if ( item.items == undefined )
+	{
+		//if ( item.fieldName != undefined )
+			ui_builder_server.BuildBasicItemScreen( template, options, item, baseNode2, param );
+	}
+	else
+	{
+		if ( item.type == 'Group' && item.layout != undefined && item.layout != 'line' )
+		{
+			baseNode2 = baseNode2.AddChild( 'PANEL' );
+			baseNode2.AddAttr( 'BK-COLOR-EXPR', '' );
+		}
+
+		BuildChildItemsScreen( template, options, item, baseNode2, param );
+	}
+}
+
+
+function BuildChildItemsScreen( template, options, item, baseNode, param ? )
+{
+	if ( item.layout == 'table1' )
+	{
+		BuildTable1LayoutScreen( template, options, item, baseNode, param );
+	}
+	else if ( item.layout == 'line' )
+	{
+		BuildLineLayoutScreen( template, options, item, baseNode, param );
+	}
+	else
+	{
+		BuildDefaultLayoutScreen( template, options, item, baseNode, param );
+	}
+}
+
+
+function BuildPageItemScreen( template, options, item, baseNode )
+{
+	node = baseNode.AddChild( 'PAGE' );
+
+	title = undefined;
+
+	if ( item.title != undefined )
+		title = item.title;
+	else if ( item.id == 'Common' )
+		title = UiText.sections.general;
+	else if ( item.id == 'AddInfo' )
+		title = UiText.sections.aux_info;
+	else if ( item.id != undefined )
+		title = item.id;
+
+	if ( title != undefined )
+		node.AddAttr( 'TITLE', title );
+		
+	if ( false )
+	{
+		imageUrl = undefined;
+
+		if ( item.imageUrl != undefined )
+			imageUrl = item.imageUrl;
+		else if ( item.id == 'Common' )
+			imageUrl = 'x-app://base_pict/common.ico';
+		else if ( item.id == 'AddInfo' )
+			imageUrl = 'x-app://base_pict/aux_info.ico';
+
+		if ( imageUrl != undefined )
+			node.AddAttr( 'IMAGE-URL', imageUrl );
+	}
+
+	if ( item.items != undefined && ArrayOptFind( item.items, 'This.fullSpace' ) != undefined )
+		item.hasFullSpaceItems = true;
+
+	if ( item.hasFullSpaceItems )
+	{
+		node.AddAttr( 'STD-MARGINS', '0' );
+
+		if ( item.items != undefined )
+		{
+			for ( subItem in item.items )
+				subItem.stdMargins = true;
+		}
+	}
+	else
+	{
+		node.AddAttr( 'VERT-SCROLL', '1' );
+	}
+
+	BuildChildItemsScreen( template, options, item, node );
+}
+
+
+function BuildActionItemScreen( template, options, item, baseNode )
+{
+	node = baseNode.AddChild( 'BUTTON' );
+
+	if ( item.title != undefined )
+		node.AddAttr( 'TITLE', item.title );
+		
+	if ( item.actionCode != undefined )
+	{
+		node.AddAttr( 'ACTION', 'object = Ps; ' + item.actionCode );
+	}
+
+	node.AddAttr( 'WIDTH', 'auto' );
+}
+
+
+function BuildListItemScreen( template, options, item, baseNode )
+{
+	item.listTemplate.useObjectPreview = false;
+	
+	if ( item.showAllDescendants )
+		item.listTemplate.hierRootIDExpr = 'Ps.id';
+	
+	item.listTemplate.holderCardObjectTypeID = template.objectTypeID;
+
+	if ( item.isPage )
+	{
+		node = baseNode.AddChild( 'PAGE' );
+		if ( item.title != undefined )
+			node.AddAttr( 'TITLE', item.title );
+	}
+	else
+	{
+		node = baseNode.AddChild( 'PANEL' );
+	}
+
+	//ui_builder_server.PrepareTemplate( item.listTemplate );
+	ui_builder_server.BuildListViewScreenForm( item.listTemplate, node );
+}
+
+
+function BuildAttachmentItemScreen( template, options, item, baseNode )
+{
+	sourceExprStr = ui_builder_server.BuildPartSourceExpr( item );
+
+	metaNode = baseNode.AddChild( 'IF' );
+	metaNode.AddAttr( 'EXPR', sourceExprStr + ' != undefined' );
+
+	node = metaNode.AddChild( 'ITEM' );
+	node.AddAttr( 'TYPE', 'ui_card_attachment_content' );
+	node.AddAttr( 'SOURCE', sourceExprStr );
+}
+
+
+function BuildAttachmentsItemScreen( template, options, item, baseNode )
+{
+	loopNode = baseNode.AddChild( 'LOOP' );
+	loopNode.AddAttr( 'EXPR', 'Ps.sorted_attachments' );
+	loopNode.AddAttr( 'VAR', 'ListElem' );
+
+	pageNode = loopNode.AddChild( 'PAGE' );
+	pageNode.AddAttr( 'TITLE-EXPR', 'ListElem.name_desc' );
+	pageNode.AddAttr( 'SOURCE', 'ListElem' );
+
+	node = pageNode.AddChild( 'ITEM' );
+	node.AddAttr( 'TYPE', 'ui_card_attachment_content' );
+}
+
+
+function BuildXmsItemScreen( template, options, item, baseNode )
+{
+	ParseScreenForm( item.url ); // !!! Temp solution to check form syntax
+
+	srcRootNode = OpenDoc( item.url ).TopElem;
+
+	for ( srcNode in srcRootNode )
+		baseNode.AddChildElem( srcNode );
+}
+
+
+function BuildTransparentLayoutScreen( template, options, item, baseNode, param )
+{
+	if ( item.items == undefined )
+		return;
+
+	for ( subItem in item.items )
+	{
+		if ( subItem.title != undefined && ! subItem.isPage )
+		{
+			label = baseNode.AddChild( 'LABEL' );
+			label.AddAttr( 'TITLE', AdjustPreTitle( subItem.title ) );
+			ui_builder_server.SetTitleLabelStyle( label );
+		}
+
+		BuildItemScreen( template, options, subItem, baseNode, param );
+	}
+}
+
+
+function BuildDefaultLayoutScreen( template, options, item, baseNode, param ? )
+{
+	if ( item.items == undefined )
+		return;
+
+	if ( item.type == 'Page' )
+		baseNode2 = baseNode;
+	else
+		baseNode2 = baseNode.AddChild( 'PANEL' );
+
+	if ( item.heightMeasure != undefined )
+		baseNode2.AddAttr( 'HEIGHT', item.heightMeasure );
+
+	if ( item.vertScroll )
+		baseNode2.AddAttr( 'VERT-SCROLL', '1' );
+
+	if ( item.stdMargins )
+		baseNode2.AddAttr( 'STD-MARGINS', '1' );
+
+	i = 0;
+
+	for ( subItem in item.items )
+	{
+		if ( i != 0 && subItem.subTemplate != undefined )
+		{
+			delim = baseNode2.AddChild( 'BR' );
+			delim.AddAttr( 'HEIGHT', '3zr' );
+		}
+
+		title = subItem.title; 
+		if ( title != undefined && ! subItem.isPage )
+		{
+			label = baseNode2.AddChild( 'LABEL' );
+			label.AddAttr( 'TITLE', AdjustPreTitle( title ) );
+			ui_builder_server.SetTitleLabelStyle( label );
+
+			if ( subItem.subTemplate != undefined )
+			{
+				delim = baseNode2.AddChild( 'BR' );
+				delim.AddAttr( 'HEIGHT', '3px' );
+			}
+		}
+
+		BuildItemScreen( template, options, subItem, baseNode2, param );
+		i++;
+	}
+}
+
+
+function BuildTable1LayoutScreen( template, options, item, baseNode, param ? )
+{
+	maxTitleLen = 0;
+
+	for ( subItem in item.items )
+	{
+		if ( subItem.title != undefined && subItem.type != 'Action' )
+		{
+			subItem.labelTitle = AdjustPreTitle( subItem.title );
+		}
+		else if ( subItem.items != undefined && subItem.items.length != 0 )
+		{
+			subItem1 = subItem.items[0];
+			if ( subItem1.title != undefined && ! ui_builder_server.ItemContainsTitle( subItem1 ) )
+			{
+				subItem.labelTitle = AdjustPreTitle( subItem1.title );
+				subItem1.titleWithdrawn = true;
+			}
+
+			if ( subItem1.startNewGroup )
+				subItem.startNewGroup = true;
+		}
+
+		titleLen = StrCharCount( subItem.labelTitle );
+		if ( titleLen > maxTitleLen )
+		{
+			//DebugMsg( subItem.labelTitle );
+			maxTitleLen = titleLen;
+		}
+	}
+
+	if ( maxTitleLen > 100 )
+		maxTitleLen = 100;
+
+	table = baseNode.AddChild( 'TABLE' );
+	columns = table.AddChild( 'COLUMNS' );
+	col = columns.AddChild( 'COL' );
+	col.AddAttr( 'WIDTH', ( maxTitleLen + 2 ) + 'zr' );
+	col = columns.AddChild( 'COL' );
+	col.AddAttr( 'WIDTH', '100%' );
+
+	for ( subItem in item.items )
+	{
+		if ( subItem.type == 'Break' )
+		{
+			delim = table.AddChild( 'BR' );
+			delim.AddAttr( 'HSPAN', '2' );
+			continue;
+		}
+		else if ( subItem.type == 'Separator' )
+		{
+			delim = table.AddChild( 'BR' );
+			delim.AddAttr( 'HSPAN', '2' );
+			delim = table.AddChild( 'DELIM' );
+			delim.AddAttr( 'HSPAN', '2' );
+			delim = table.AddChild( 'BR' );
+			delim.AddAttr( 'HSPAN', '2' );
+			continue;
+		}
+	
+		if ( subItem.startNewGroup )
+		{
+			//delim = table.AddChild( 'BR' );
+			delim = table.AddChild( 'DELIM' );
+			delim.AddAttr( 'HSPAN', '2' );
+			//delim.AddAttr( 'HEIGHT', '2zr' );
+		}
+
+		baseNode2 = table;
+		if ( subItem.showCondition != undefined )
+		{
+			baseNode2 = table.AddChild( 'IF' );
+			baseNode2.AddAttr( 'EXPR', ui_builder_server.BuildItemAttrCode( template, subItem, subItem.showCondition ) );
+			baseNode2.AddAttr( 'IGNORE-ERRORS', '0' );
+		}
+
+		label = baseNode2.AddChild( 'LABEL' );
+		if ( subItem.labelTitle != undefined )
+		{
+			label.AddAttr( 'TITLE', subItem.labelTitle );
+			label.AddAttr( 'ALIGN', 'right' );
+			ui_builder_server.SetTitleLabelStyle( label );
+		}
+
+		BuildItemScreen( template, options, subItem, table, param );
+	}
+}
+
+
+function BuildLineLayoutScreen( template, options, item, baseNode, param ? )
+{
+	line = baseNode.AddChild( 'LINE' );
+
+	i = 0;
+
+	for ( subItem in item.items )
+	{
+		if ( i != 0 )
+		{
+			label = line.AddChild( 'PANEL' );
+			label.AddAttr( 'WIDTH', '1zr' );
+		}
+
+		if ( subItem.title != undefined && ! subItem.titleWithdrawn && ! ui_builder_server.ItemContainsTitle( subItem ) )
+		{
+			label = line.AddChild( 'LABEL' );
+			label.AddAttr( 'TITLE', AdjustPreTitle( subItem.title ) );
+			ui_builder_server.SetTitleLabelStyle( label );
+		}
+
+		BuildItemScreen( template, options, subItem, line, param );
+		i++;
+	}
+}
+
+
+function BuildInlineArrayScreen( param, item, baseNode, param )
+{
+	fieldID = GetFragmentSingleFieldID( item );
+	formElem = GetFragmentFieldFormElem( param, item, fieldID );
+
+	if ( ArrayCount( formElem ) != 1 || ! formElem[0].IsMultiple )
+		throw BuildFragmentError( 'Field is not an array', item );
+	
+	elemFormElem = formElem[0];
+
+	BuildArrayHeader( param, item, baseNode, formElem );
+
+	loopItem = baseNode.AddChild( 'LOOP' );
+	loopItem.AddAttr( 'EXPR', 'Ps.' + formElem.Name );
+	loopItem.AddAttr( 'VAR', 'ListElem' );
+	
+	for ( srcElem in item )
+	{
+		if ( srcElem.Name != 'Col' )
+			throw UserError( 'Unknown element: <' + srcElem.Name + '>' );
+
+		fieldID = srcElem.GetAttr( 'Field' );
+
+		fieldFormElem = elemFormElem.OptChild( fieldID );
+		if ( fieldFormElem == undefined )
+			throw BuildFragmentError( 'Unknown field: ' + fieldID, srcElem );
+
+		BuildFieldScreen( param, item, loopItem, fieldFormElem );
+	}
+}
+
+
+function BuildIdListFragmentScreen( param, item, baseNode )
+{
+	InsertSeparator( param, item, baseNode );
+
+	fieldID = GetFragmentSingleFieldID( item );
+	formElem = GetFragmentFieldFormElem( param, item, fieldID );
+	
+	keyFormElem = formElem[0][0];
+	if ( keyFormElem.ForeignArrayExpr == '' )
+		throw BuildFragmentError( 'Array primary key has no foreign array', item );
+
+	foreignCatalog = DefaultDb.GetOptCatalog( keyFormElem.ForeignArrayExpr );
+	if ( foreignCatalog == undefined )
+		throw BuildFragmentError( 'Foreign array is not a catalog', item );
+
+	foreignRecordFormElem = foreignCatalog.Form.TopElem[0];
+	
+	tableItem = baseNode.AddChild( 'TABLE' );
+	colSetItem = tableItem.AddChild( 'COLUMNS' );
+	colItem = colSetItem.AddChild( 'COL' );
+	colItem.AddAttr( 'WIDTH', '100%' );
+	colItem = colSetItem.AddChild( 'COL' );
+	colItem.AddAttr( 'WIDTH', '16px' );
+
+	item = tableItem.AddChild( 'LABEL' );
+	item.AddAttr( 'TITLE', AdjustPreTitle( formElem.Title ) );
+
+	item = tableItem.AddChild( 'IMAGE' );
+	item.AddAttr( 'URL', '//base_pict/select.ico' );
+	item.AddAttr( 'TIP-TEXT', UiText.actions.add );
+	
+	addActionID = item.OptAttrValue( 'AddActionId' );
+	item.AddAttr( 'ACTION', 'lib_app3.run_object_action( Ps.Doc.TopElem, ' + CodeLiteral( addActionID ) + ' )' );
+
+	listItem = baseNode.AddChild( 'LIST' );
+	listItem.AddAttr( 'LOOP-EXPR', 'Ps.' + formElem.Name );
+	listItem.AddAttr( 'SUNKEN', '1' );
+	listItem.AddAttr( 'HEIGHT', '13zr' );
+	
+	rowItem = listItem.AddChild( 'ROW' );
+
+	for ( srcElem in item )
+	{
+		if ( srcElem.Name != 'Col' )
+			throw UserError( 'Unknown element: <' + srcElem.Name + '>' );
+
+		fieldID = srcElem.GetAttr( 'Field' );
+
+		formElem = foreignRecordFormElem.OptChild( fieldID );
+		if ( formElem == undefined )
+			throw BuildFragmentError( 'Unknown field: ' + fieldID, srcElem );
+
+		colTitle = srcElem.GetOptAttr( 'Title' );
+		if ( colTitle == undefined )
+			colTitle = formElem.Title;
+
+		colItem = rowItem.AddChild( 'COL' );
+		colItem.AddAttr( 'WIDTH', '30zr' );
+		colItem.AddAttr( 'COL-TITLE', colTitle );
+		colItem.AddAttr( 'TITLE', srcElem.OptAttrValue( 'ListElem.' + keyFormElem.Name + '.ForeignElem.' + fieldID ) );
+	}
+
+	baseNode.AddChild( 'BR' );
+}
+
+
+function BuildRelObjectsListFragmentScreen( param, item, baseNode )
+{
+	relObjectID = item.GetAttr( 'RelObject' );
+	relCatalogName = lib_base.object_name_to_catalog_name( relObjectID );
+
+	view = ArrayOptFind( app3_config.listViews, 'ID == ' + CodeLiteral( relCatalogName ) );
+	if ( view == undefined )
+		throw UserError( 'List view not found: ' + relCatalogName );
+
+	param = lib_list_view.BuildViewParam( view.ID );
+	//fieldID = GetFragmentSingleFieldID( item );
+	//formElem = GetFragmentFieldFormElem( param, item, fieldID );
+
+	InsertSeparator( param, item, baseNode );
+
+	title = item.GetOptAttr( 'Title' );
+	if ( title == undefined )
+		title = view.GetOptAttr( 'Title' );
+	if ( title == undefined )
+		title = item.GetOptAttr( 'ID' );
+
+	item = baseNode.AddChild( 'LABEL' );
+	item.AddAttr( 'TITLE', AdjustPreTitle( title ) );
+
+	list = baseNode.AddChild( 'LIST' );
+	list.AddAttr( 'LOOP-CATALOG', param.catalogName );
+	list.AddAttr( 'SUNKEN', '1' );
+	list.AddAttr( 'HEIGHT', '16zr' );
+
+	row = list.AddChild( 'ROW' );
+	row.AddAttr( 'IMAGE-URL-EXPR', 'ListElem.ImageUrl' );
+
+	lib_list_view.BuildListCore( param, list, row );
+}
+
+
+function BuildInlineRelObjectsListFragmentScreen( param, item, baseNode )
+{
+	relObjectID = item.GetAttr( 'RelObject' );
+	relCatalogName = lib_base.object_name_to_catalog_name( relObjectID );
+	//fieldID = GetFragmentSingleFieldID( item );
+	//formElem = GetFragmentFieldFormElem( param, item, fieldID );
+
+	BuildArrayHeader( param, item, baseNode, undefined );
+	
+	withItem = baseNode.AddChild( 'WITH' );
+	withItem.AddAttr( 'VAR', '_array' );
+	withItem.AddAttr( 'EXPR', 'lib_base.query_rel_objects( ' + relCatalogName + ', Ps.Doc.TopElem )' );
+	withItem.AddAttr( 'IGNORE-ERRORS', '0' );
+	
+	ifItem = withItem.AddChild( 'IF' );
+	ifItem.AddAttr( 'EXPR', 'ArrayCount( _array ) == 0' );
+	ifItem.AddAttr( 'IGNORE-ERRORS', '0' );
+
+	panelItem = ifItem.AddChild( 'PANEL' );
+	panelItem.AddAttr( 'HEIGHT', '2px' );
+
+	panelItem = ifItem.AddChild( 'PANEL' );
+	panelItem.AddAttr( 'BK-COLOR', '252,252,252' );
+	panelItem.AddAttr( 'STD-MARGINS', '0' );
+
+	item = panelItem.AddChild( 'PANEL' );
+	item.AddAttr( 'HEIGHT', '2px' );
+
+	item = panelItem.AddChild( 'LABEL' );
+	item.AddAttr( 'TITLE', StrLowerCase( UiText.titles.list_empty ) );
+	item.AddAttr( 'ALIGN', 'center' );
+	item.AddAttr( 'TEXT-COLOR', '100,100,100' );
+
+	item = panelItem.AddChild( 'PANEL' );
+	item.AddAttr( 'HEIGHT', '2px' );
+
+
+	baseNode.AddChild( 'DELIM' );
+	return;
+
+	
+	keyFormElem = formElem[0][0];
+	if ( keyFormElem.ForeignArrayExpr == '' )
+		throw BuildFragmentError( 'Array primary key has no foreign array', item );
+
+	foreignCatalog = DefaultDb.GetOptCatalog( keyFormElem.ForeignArrayExpr );
+	if ( foreignCatalog == undefined )
+		throw BuildFragmentError( 'Foreign array is not a catalog', item );
+
+	foreignRecordFormElem = foreignCatalog.Form.TopElem[0];
+	
+	tableItem = baseNode.AddChild( 'TABLE' );
+	colSetItem = tableItem.AddChild( 'COLUMNS' );
+	colItem = colSetItem.AddChild( 'COL' );
+	colItem.AddAttr( 'WIDTH', '100%' );
+	colItem = colSetItem.AddChild( 'COL' );
+	colItem.AddAttr( 'WIDTH', '16px' );
+
+	item = tableItem.AddChild( 'LABEL' );
+	item.AddAttr( 'TITLE', AdjustPreTitle( formElem.Title ) );
+
+	item = tableItem.AddChild( 'IMAGE' );
+	item.AddAttr( 'URL', '//base_pict/select.ico' );
+	item.AddAttr( 'TIP-TEXT', UiText.actions.add );
+	
+	addActionID = item.OptAttrValue( 'AddActionId' );
+	item.AddAttr( 'ACTION', 'lib_app3.run_object_action( Ps.Doc.TopElem, ' + CodeLiteral( addActionID ) + ' )' );
+
+	listItem = baseNode.AddChild( 'LIST' );
+	listItem.AddAttr( 'LOOP-EXPR', 'Ps.' + formElem.Name );
+	listItem.AddAttr( 'SUNKEN', '1' );
+	listItem.AddAttr( 'HEIGHT', '13zr' );
+	
+	rowItem = listItem.AddChild( 'ROW' );
+
+	for ( srcElem in item )
+	{
+		if ( srcElem.Name != 'Col' )
+			throw UserError( 'Unknown element: <' + srcElem.Name + '>' );
+
+		fieldID = srcElem.GetAttr( 'Field' );
+
+		formElem = foreignRecordFormElem.OptChild( fieldID );
+		if ( formElem == undefined )
+			throw BuildFragmentError( 'Unknown field: ' + fieldID, srcElem );
+
+		colTitle = srcElem.GetOptAttr( 'Title' );
+		if ( colTitle == undefined )
+			colTitle = formElem.Title;
+
+		colItem = rowItem.AddChild( 'COL' );
+		colItem.AddAttr( 'WIDTH', '30zr' );
+		colItem.AddAttr( 'COL-TITLE', colTitle );
+		colItem.AddAttr( 'TITLE', srcElem.OptAttrValue( 'ListElem.' + keyFormElem.Name + '.ForeignElem.' + fieldID ) );
+	}
+}
+
+
+function BuildArrayHeader( param, item, baseNode, formElem )
+{
+	InsertSeparator( param, item, baseNode );
+
+	title = item.GetOptAttr( 'Title' );
+	if ( title == undefined )
+		title = formElem.Title;
+
+	tableItem = baseNode.AddChild( 'TABLE' );
+	colSetItem = tableItem.AddChild( 'COLUMNS' );
+	colItem = colSetItem.AddChild( 'COL' );
+	colItem.AddAttr( 'WIDTH', '100%' );
+	colItem = colSetItem.AddChild( 'COL' );
+	colItem.AddAttr( 'WIDTH', '16px' );
+
+	item = tableItem.AddChild( 'LABEL' );
+	item.AddAttr( 'TITLE', AdjustPreTitle( title ) );
+
+	item = tableItem.AddChild( 'IMAGE' );
+	item.AddAttr( 'URL', '//base_pict/select.ico' );
+	item.AddAttr( 'TIP-TEXT', UiText.actions.add );
+	
+	addActionID = item.OptAttrValue( 'AddActionId' );
+	item.AddAttr( 'ACTION', 'lib_app3.run_object_action( Ps.Doc.TopElem, ' + CodeLiteral( addActionID ) + ' )' );
+}
+
+
+function GetPartFieldFormElem( template, options, item )
+{
+	if ( ! uiModel.objectFormElem.PathExists( item.fieldName ) )
+		throw BuildFragmentError( 'Unknown field: ' + item.fieldName, item );
+
+	formElem = uiModel.objectFormElem.EvalPath( item.fieldName );
+	return formElem;
+}
+
+
+
+
+
+
+
+
+
+function InsertSeparator( param, item, baseNode )
+{
+	if ( baseNode.ChildNum == 0 )
+		return;
+
+	if ( item.GetBoolAttr( 'StartNewGroup' ) )
+		baseNode.AddChild( 'DELIM' );
+	else
+		baseNode.AddChild( 'BR' );
+}
+
+
+function RegisterFragmentStat( param, item, baseNode2 )
+{
+	param.statObj.SetProperty( item.GetAttr( 'ID' ), baseNode2 );
+}
+
+
+function GetFragmentStat( param, partID )
+{
+	return param.statObj.GetOptProperty( partID );
+}
+
+
+function GetFragmentFieldIDArray( item )
+{
+	return item.OptAttrValue( 'Fields' ).split( ',' );
+}
+
+
+function GetFragmentSingleFieldID( item )
+{
+	fieldIDArray = GetFragmentFieldIDArray( item );
+	if ( fieldIDArray.length != 1 )
+		throw BuildFragmentError( 'Single field required', item );
+
+	return fieldIDArray[0];
+}
+
+
+function AdjustPreTitle( title )
+{
+	if ( StrEnds( title, ':' ) )
+		return title;
+
+	return title + ':';
+}
+
+
+function BuildFragmentError( errText, item )
+{
+	return UserError( errText + '\r\n' + item.SourceDesc );
+}
+
+
+
+function GetRecChildElemByName( baseElem, childName )
+{
+	if ( baseElem.OptAttrValue( 'NAME' ) == childName )
+		return baseElem;
+
+	for ( subElem in baseElem )
+	{
+		subElem2 = GetRecChildElemByName( subElem, childName );
+		if ( subElem2 != undefined )
+			return subElem2;
+	}
+
+	return undefined;
+}
+
+
+
+
+function ObtainUiSpec( uiSpecID )
+{
+	return EvalCs( 'ObtainUiSpecCore( uiSpecID )' );
+}
+
+
+function ObtainUiSpecCore( uiSpecID )
+{
+	uiSpec = ui_builder_server_config.ui_specs.GetOptChildByKey( uiSpecID );
+	if ( uiSpec != undefined )
+		return uiSpec;
+
+	uiSpec = CreateElemByFormElem( ui_builder_server_config.ui_specs.FormElem[0] );
+	uiSpec.id = uiSpecID;
+	uiSpec.sections = new Array;
+
+	uiSpec.viewForms = new SafeObject;
+	uiSpec.viewForms.SetStrictMode( false );
+
+	uiSpec.uiModels = new SafeObject;
+	uiSpec.uiModels.SetStrictMode( false );
+
+	BuildUiSpec( uiSpec );
+
+	ui_builder_server_config.ui_specs.AddChildElem( uiSpec );
+	return uiSpec;
+}
+
+
+function BuildUiSpec( uiSpec )
+{
+	section = new Object;
+	section.SetStrictMode( false );
+	section.Title = UiText.sections.main_page;
+	uiSpec.sections.push( section );
+
+	section = new Object;
+	section.SetStrictMode( false );
+	section.Title = UiText.sections.my_requests;
+	section.listID = 'workflow_documents';
+	uiSpec.sections.push( section );
+
+	section = new Object;
+	section.SetStrictMode( false );
+	section.Title = UiText.sections.my_vacancies;
+	section.listID = 'vacancies';
+	uiSpec.sections.push( section );
+
+	section = new Object;
+	section.SetStrictMode( false );
+	section.Title = UiText.sections.todo_requests;
+	section.listID = 'workflow_documents';
+	uiSpec.sections.push( section );
+}
+
+
+}

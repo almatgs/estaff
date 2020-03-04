@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>persons_own</id>
+	<name VALUE="##UiText.sections.employees##"/>
+	<parent_id>persons</parent_id>
+
+	<static_filters>
+		<static_filter>
+			<id>is_own_person</id>
+			<value>true</value>
+		</static_filter>
+	</static_filters>
+
+	<drop_all_dyn_filters>1</drop_all_dyn_filters>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>is_active</id>
+			<title VALUE="##UiText.fields.active__employee##"/>
+			<use_store>1</use_store>
+		</dyn_filter>
+		<dyn_filter>
+			<id>user_id</id>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}</view_filter_expr>
+		</dyn_filter>
+		<dyn_filter>
+			<id>group_id</id>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+	</dyn_filters>
+
+	<drop_all_fields>1</drop_all_fields>
+
+	<fields>
+		<field>
+			<id>fullname</id>
+		</field>
+		<field>
+			<id>division_id</id>
+			<width>60%</width>
+		</field>
+		<field>
+			<id>position_name</id>
+			<width>40%</width>
+		</field>
+		<field>
+			<id>disp_phone</id>
+		</field>
+	</fields>
+</std_view>
+

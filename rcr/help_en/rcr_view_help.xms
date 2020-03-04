@@ -1,0 +1,50 @@
+<SPXML-SCREEN TITLE="##UiText.sections.help##" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/help.ico">
+	<LINE>
+		<TREE SWITCH-TYPE="frame" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1" WIDTH="custom" SUNKEN="1">
+			<TREE-ENTRY TITLE="Introduction" HREF="x-app://rcr/help/intro.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Application Features" HREF="x-app://rcr/help/4AB390737FAB0204.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Single-User and Multi-User Versions" HREF="x-app://rcr/help/4AB390737FAB0238.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Hardware and Software Requirements" HREF="x-app://rcr/help/4AB390737FAB0205.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Installation" HREF="x-app://rcr/help/setup.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Setting up the Personal version" HREF="x-app://rcr/help/4AB390737FAB0206.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Setting up the Network version" HREF="x-app://rcr/help/4AB390737FAB020A.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Getting Started" HREF="x-app://rcr/help/start.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			<TREE-ENTRY TITLE="General Guidelines" HREF="x-app://rcr/help/view_general.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			<TREE-ENTRY TITLE="Using Object Cards" HREF="x-app://rcr/help/card_general.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			<TREE-ENTRY TITLE="Content Search" HREF="x-app://rcr/help/ft_search.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			<TREE-ENTRY TITLE="Managing Clients" HREF="x-app://rcr/help/4AB390737FAB022F.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Adding a client" HREF="x-app://rcr/help/4AB390737FAB0230.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Client Card" HREF="x-app://rcr/help/org_card.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Managing organizational structure" HREF="x-app://rcr/help/4AB390737FAB0235.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Division Card" HREF="x-app://rcr/help/4AB390737FAB023C.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Employee Card" HREF="x-app://rcr/help/4AB390737FAB023D.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Managing Vacancies" HREF="x-app://rcr/help/4AB390737FAB0233.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Adding a vacancy manually" HREF="x-app://rcr/help/4AB390737FAB0234.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Managing candidates" HREF="x-app://rcr/help/4AB390737FAB0211.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Adding candidates" HREF="x-app://rcr/help/4AB390737FAB0212.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Adding a candidate manually" HREF="x-app://rcr/help/4AB390737FAB0213.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Pasting Resumes from Clipboard" HREF="x-app://rcr/help/4AB390737FAB0214.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Importing Candidates using Internet Explorer toolbar button" HREF="x-app://rcr/help/4AB390737FAB0236.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Importing Candidates using Microsoft Outlook toolbar button" HREF="x-app://rcr/help/4AB390737FAB0237.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Importing Candidates from Microsoft Word or OpenOffice Writer" HREF="x-app://rcr/help/4AB390737FAB0215.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Importing Candidates from mailboxes" HREF="x-app://rcr/help/candidate_mail_import.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Batch Import of Resumes" HREF="x-app://rcr/help/candidate_batch_import.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Candidate card" HREF="x-app://rcr/help/candidate_card.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Managing Candidates in the Database" HREF="x-app://rcr/help/candidate_work.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Selecting candidates for vacancies" HREF="x-app://rcr/help/4AB390737FAB021A.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Statistics" HREF="x-app://rcr/help/4AB390737FAB023E.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+		</TREE>
+		<SPLIT WIDTH="2px"/>
+		<PANEL HEIGHT="100%">
+			<FRAME NAME="FrameHelp" HREF-EXPR="lib_base.build_help_article_url( 'intro.htm' )"/>
+		</PANEL>
+	</LINE>
+</SPXML-SCREEN>

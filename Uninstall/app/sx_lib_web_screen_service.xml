@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<SPXML-INLINE-FORM WEB-SERVICE-PATH="/services/WebScreenService">
+
+<lib_web_screen_service>
+	<METHOD NAME="OpenDocScreen" EXPR="">
+		<PARAM NAME="DocUrl" TYPE="string"/>
+		<PARAM NAME="TryLock" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+
+		<RESULT NAME="ScreenID" TYPE="integer"/>
+		<RESULT NAME="LockFailed" TYPE="bool" OPTIONAL="1" NULL-FALSE="1"/>
+		<RESULT NAME="OtherLockerLogin" TYPE="string" OPTIONAL="1" DEFAULT=""/>
+		<RESULT NAME="ScreenData" ANY-CHILDREN="1" STREAM-ACCESS="1"/>
+	</METHOD>
+
+	<METHOD NAME="ReleaseScreen" EXPR="">
+		<PARAM NAME="ScreenID" TYPE="integer"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+	</METHOD>
+
+	<METHOD NAME="SetItemSourceValue" EXPR="">
+		<PARAM NAME="ScreenID" TYPE="integer"/>
+		<PARAM NAME="ItemID" TYPE="integer"/>
+		<PARAM NAME="SourceValue" TYPE="string"/>
+		<PARAM NAME="SessionID" TYPE="integer" OPTIONAL="1"/>
+
+		<RESULT NAME="ScreenData" ANY-CHILDREN="1" STREAM-ACCESS="1"/>
+	</METHOD>
+</lib_web_screen_service>
+
+</SPXML-INLINE-FORM>

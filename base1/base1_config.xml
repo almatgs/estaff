@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SPXML-INLINE-FORM>
+
+<base1_config>
+	<is_int_version TYPE="bool" EXPR-INIT="AppConfig.HasProperty( 'int-version' ) && AppConfig.GetProperty( 'int-version' ) == '1'" EXPR-SHOW-ERRORS="1"/>
+	<is_daemon_control TYPE="bool" EXPR-INIT="AppConfig.HasProperty( 'daemon-control' ) && AppConfig.GetProperty( 'daemon-control' ) == '1'" EXPR-SHOW-ERRORS="1"/>
+
+	<use_person_middlename TYPE="bool" EXPR-INIT="! is_int_version || AppServerConfig.GetOptProperty( 'use-person-middlename' ) == '1'" EXPR-SHOW-ERRORS="1"/>
+
+	<allow_hide_pd TYPE="bool" NULL-FALSE="1"/>
+
+	<use_security_admin_role TYPE="bool" NULL-FALSE="1"/>
+	<log_ext_security_events TYPE="bool" NULL-FALSE="1"/>
+
+	
+	<use_sql_storage TYPE="bool" NULL-FALSE="1"/>
+	<use_ft_v2 TYPE="bool" NULL-FALSE="1"/>
+
+	<empty_filter_str TYPE="string" DEFAULT=" ---"/>
+
+
+	<use_backup TYPE="bool" EXPR-INIT="AppConfig.GetOptProperty( 'backup' ) == '1'" EXPR-SHOW-ERRORS="1"/>
+
+	<use_sms PROPERTY="1" EXPR="ArrayCount( lib_voc.get_sorted_voc( sms_gates ) ) != 0 || AppServerConfig.GetOptProperty( 'sms-provider-lib-url' ) != undefined" EXPR-SHOW-ERRORS="1"/>
+	<use_phone_api PROPERTY="1" EXPR="AppServerConfig.GetOptProperty( 'phone-api-lib-url' ) != undefined" EXPR-SHOW-ERRORS="1"/>
+
+	<detect_broken_charset_encoding TYPE="bool" EXPR-INIT="AppServerConfig.GetOptProperty( 'detect-broken-charset-encoding' ) == '1'" EXPR-SHOW-ERRORS="1"/>
+	
+	<use_legacy_excel_export TYPE="bool" EXPR-INIT="AppServerConfig.GetOptProperty( 'legacy-excel-export' ) == '1' || AppConfig.GetOptProperty( 'legacy-excel-export' ) == '1'" EXPR-SHOW-ERRORS="1"/>
+
+	<use_xquery_fields TYPE="bool" EXPR-INIT="true" EXPR-SHOW-ERRORS="1"/>
+
+	<sn_owner TYPE="string"/>
+
+	<dummy_date TYPE="date"/>
+
+	<is_setup TYPE="bool" NULL-FALSE="1"/>
+	<app_setup_dir TYPE="string" EXPR-INIT="AppDirectoryPath()"/>
+
+	<allow_admin_section TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<app_promo_title TYPE="string" EXPR-INIT="
+			if ( ! AppConfig.HasProperty( 'app-promo-title' ) )
+				return '';
+
+			str = AppConfig.GetProperty( 'app-promo-title' );
+			return str;
+	" EXPR-SHOW-ERRORS="1"/>
+
+	<app_instance_sub_title TYPE="string" EXPR-INIT="AppServerConfig.GetOptProperty( 'app-instance-sub-title', '' )" EXPR-SHOW-ERRORS="1"/>
+
+	<serverApiQueryCache TYPE="variant" STRICT="1"/>
+
+
+	<voc_sections>
+		<voc_section MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</voc_section>
+	</voc_sections>
+
+	<global_custom_actions>
+		<global_custom_action MULTIPLE="1">
+			<name TYPE="string"/>
+			<group_name TYPE="string"/>
+			<code TYPE="string"/>
+		</global_custom_action>
+	</global_custom_actions>
+
+	<card_custom_actions>
+		<card_custom_action MULTIPLE="1">
+			<name TYPE="string"/>
+			<object_type_id TYPE="string"/>
+			<enable_expr TYPE="string" SUBTYPE="code"/>
+			<menu_id TYPE="string"/>
+			<lib_url TYPE="string"/>
+			<method_name TYPE="string"/>
+		</card_custom_action>
+	</card_custom_actions>
+
+	<std_mail_template_entries>
+		<std_mail_template_entry MULTIPLE="1">
+			<name TYPE="string"/>
+			<value TYPE="string"/>
+			<is_separator TYPE="bool" NULL-FALSE="1"/>
+		</std_mail_template_entry>
+	</std_mail_template_entries>
+
+
+	<catalog_filter_constraints>
+		<catalog_filter_constraint MULTIPLE="1" PRIMARY-KEY="catalog_name">
+			<catalog_name TYPE="string"/>
+
+			<filter_constraints>
+				<filter_constraint MULTIPLE="1" PRIMARY-KEY="field_id">
+					<field_id TYPE="string"/>
+					<value TYPE="integer" MULTIPLE="1"/>
+					<values TYPE="variant" STRICT="1"/>
+				</filter_constraint>
+			</filter_constraints>
+		</catalog_filter_constraint>
+	</catalog_filter_constraints>
+
+	<field_usage_fragments>
+		<field_usage_fragment MULTIPLE="1" PRIMARY-KEY="object_type_id">
+			<object_type_id TYPE="string"/>
+			<name TYPE="string"/>
+			<form_url TYPE="string"/>
+		</field_usage_fragment>
+	</field_usage_fragments>
+
+	<csd_anchors>
+		<csd_anchor MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<target_object_type_id TYPE="string" MULTIPLE="1"/>
+		</csd_anchor>
+	</csd_anchors>
+
+	<web_handlers>
+		<web_handler MULTIPLE="1" PRIMARY-KEY="base_url_path">
+			<base_url_path TYPE="string"/>
+			<handler_url TYPE="string"/>
+		</web_handler>
+	</web_handlers>
+
+
+	<security_admins>
+		<security_admin MULTIPLE="1" PRIMARY-KEY="login">
+			<login TYPE="string"/>
+		</security_admin>
+	</security_admins>
+
+
+
+	<csd_form_fragments TYPE="variant" STRICT="1" EXPR-INIT="[]"/>
+	<csd_screen_form_fragments TYPE="variant" STRICT="1" EXPR-INIT="[]"/>
+</base1_config>
+
+</SPXML-INLINE-FORM>

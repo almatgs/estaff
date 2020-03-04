@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN TITLE="##UiText.titles.mass_mailing##" WIDTH="94zr" HEIGHT="70zr" SOURCE="TopElem">
+
+<IF EXPR="Ps.target_type == 'candidate'">
+	<LABEL TITLE="Внимание! По выделенным кандидатам будет произведена массовая рассылка." lang-en:TITLE="Warning: This will send mass mailing for selected candidates." lang-ua:TITLE="Увага! По виділеним кандидатам буде виконана масова розсилка."/>
+</IF>
+<ELSE>
+	<LABEL TITLE="Внимание! По выделенным контактным лицам будет произведена массовая рассылка." lang-en:TITLE="Warning: This will send mass mailing for selected contact persons." lang-ua:TITLE="Увага! По виділеним контактним особам буде виконана масова розсилка."/>
+</ELSE>
+
+<DELIM/>
+
+<LABEL TITLE="##UiText.titles.message_sample##:"/>
+<BR/>
+
+
+<LABEL TITLE="##UiText.titles.message_subject##:"/>
+<EDIT SOURCE="Ps.sample_letter.subject" READ-ONLY="1"/>
+
+<LABEL TITLE="##UiText.titles.message_text##:"/>
+<EDIT SOURCE="Ps.sample_letter.body" MULTILINE="1" READ-ONLY="1" HEIGHT="-20zr"/>
+<DELIM/>
+
+<LINE>
+	<LABEL TITLE="##UiText.titles.recipients_num##:"/>
+	<EDIT SOURCE="Ps.count" WIDTH="10zr" READ-ONLY="1" VERT-SCROLL="1"/>
+</LINE>
+<DELIM/>
+
+<LABEL TITLE="##UiText.messages.start_sending##" ALIGN="center"/>
+
+<PANEL HEIGHT="3px">
+</PANEL>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+	<LABEL/>
+	<BUTTON TITLE="OK" CMD="1"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2"/>
+</TABLE>
+
+
+</SPXML-SCREEN>

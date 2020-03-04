@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_agents SPXML-FORM="//base1/base1_std_agents.xmd">
+	<std_agent>
+		<id>end_date_checker</id>
+		<name VALUE="Проверка даты окончания событий" lang-en:VALUE="End date check" lang-ua:VALUE="Перегляд дати закінчення подій"/>
+		<is_active>1</is_active>
+		<code>lib_event.end_date_checker_task()</code>
+
+		<schedule>
+			<time_entries>
+				<time_entry>
+					<hour>1</hour>
+					<minute>0</minute>
+				</time_entry>
+			</time_entries>
+		</schedule>
+	</std_agent>
+
+	<std_agent>
+		<id>event_auto_creator</id>
+		<name VALUE="Автоматическое создание событий" lang-en:VALUE="Automatic creation of events" lang-ua:VALUE="Автоматичне створення подій"/>
+		<is_active>1</is_active>
+		<code>lib_event.RunAgentEventAutoCreator()</code>
+
+		<schedule>
+			<time_entries>
+				<time_entry>
+					<hour>2</hour>
+					<minute>0</minute>
+				</time_entry>
+			</time_entries>
+		</schedule>
+	</std_agent>
+
+	<std_agent>
+		<id>auto_reminder</id>
+		<name VALUE="Внешние напоминания" lang-en:VALUE="External reminder" lang-ua:VALUE="Зовнішні нагадування"/>
+		<is_active>1</is_active>
+		<code>lib_reminder.RunAgentAutoReminder()</code>
+
+		<schedule>
+			<use_term>1</use_term>
+			<term>
+				<length>30</length>
+				<unit_id>minute</unit_id>
+			</term>
+		</schedule>
+	</std_agent>
+
+	<std_agent>
+		<id>process_custom_actions</id>
+		<name VALUE="Обработка настраиваемых действий" lang-en:VALUE="Custom Actions Processing" lang-ua:VALUE="Обработка настраиваемых действий"/>
+		<is_active>1</is_active>
+		<code>lib_custom_action.RunAgentProcessCustomActions()</code>
+
+		<schedule>
+			<time_entries>
+				<time_entry>
+					<hour>11</hour>
+					<minute>0</minute>
+				</time_entry>
+			</time_entries>
+		</schedule>
+	</std_agent>
+
+	<std_agent>
+		<id>notifications_updater</id>
+		<name VALUE="Проверка уведомлений" lang-en:VALUE="Notifications check" lang-ua:VALUE="Перевірка сповіщень"/>
+		<is_active>1</is_active>
+		<code>lib_notif.notifications_updater_task()</code>
+		<run_on_client>1</run_on_client>
+
+		<schedule>
+			<use_term>1</use_term>
+			<term>
+				<length>5</length>
+				<unit_id>minute</unit_id>
+			</term>
+		</schedule>
+	</std_agent>
+
+	<std_agent>
+		<id>birthday_month_day_updater</id>
+		<name VALUE="Индексирование дней рождений" lang-en:VALUE="Birthday indexing" lang-ua:VALUE="Індексування днів народження"/>
+		<is_active>1</is_active>
+		<code>lib_person.RunAgentBirthdayMonthDayUpdater()</code>
+	</std_agent>
+
+	<std_agent>
+		<id>update_phone_call_records</id>
+		<name VALUE="##UiText.titles.call_history##: ##UiText.actions.rebuild##"/>
+		<is_active>0</is_active>
+		<code>OpenCodeLib( 'x-app://base2/base2_agent_update_phone_call_records.js' ).UpdatePhoneCallRecords()</code>
+	</std_agent>
+
+	<std_agent>
+		<id>mailbox_scanner</id>
+		<name VALUE="Сканирование почтовых ящиков" lang-en:VALUE="Scanning mailboxes" lang-ua:VALUE="Сканування поштових скриньок"/>		
+		<is_active>1</is_active>
+		<code>OpenCodeLib( 'x-app://base2/base2_agent_mailbox_scanner.js' ).RunAgentMailboxScanner()</code>
+	</std_agent>
+</std_agents>

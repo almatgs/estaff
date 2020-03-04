@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<lib_reminder>
+	<task TYPE="variant" STRICT="1"/>
+
+	<entriesBuildDate TYPE="date"/>
+
+	<entries>
+		<entry MULTIPLE="1">
+			<event TYPE="variant" STRICT="1"/>
+			<isCalendarEntry TYPE="bool" NULL-FALSE="1"/>
+
+			<date TYPE="date"/>
+			<name TYPE="string"/>
+		</entry>
+	</entries>
+
+
+	<reminderSettings TYPE="variant" STRICT="1"/>
+
+	<reminderPoints>
+		<reminderPoint MULTIPLE="1" PRIMARY-KEY="date">
+			<date TYPE="date"/>
+		</reminderPoint>
+	</reminderPoints>
+
+	<hasDateOnlyReminders TYPE="bool" NULL-FALSE="1"/>
+
+	<lastDateOnlyReminderDate TYPE="date"/>
+	<nextReminderDate TYPE="date"/>
+</lib_reminder>
+
+
+
+
+</SPXML-INLINE-FORM>

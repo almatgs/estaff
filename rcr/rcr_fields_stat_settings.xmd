@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<stat_settings_base SAMPLE="1">
+	<default_filter_period TYPE="stat_filter_period_settings" TITLE="##UiText.fields.default_period##"/>
+	
+	<multi_event_type_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="event_types" TITLE="##UiText.titles.event_types##"/>
+</stat_settings_base>
+
+
+</SPXML-FORM>

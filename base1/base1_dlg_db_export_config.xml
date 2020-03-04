@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_db_export_config>
+	<dest_dir_path TYPE="string" TITLE="Директория для экспорта" lang-en:TITLE="Destination folder" lang-ua:TITLE="Директорія для експорту"/>
+
+	<export_static_data TYPE="bool" NOT-NULL="1" TITLE="Выгружать общие настройки" lang-en:TITLE="Export global settings" lang-ua:TITLE="Вивантажувати загальні налаштування"/>
+	<export_csd TYPE="bool" NOT-NULL="1" TITLE="Выгружать настройки дополнительных полей" lang-en:TITLE="Export custom fields configuration" lang-ua:TITLE="Вивантажувати налаштування додаткових полів"/>
+	<export_vocs TYPE="bool" NOT-NULL="1" TITLE="Выгружать справочники" lang-en:TITLE="Export reference lists" lang-ua:TITLE="Вивантажувати довідники"/>
+</dlg_db_export_config>
+
+
+
+</SPXML-INLINE-FORM>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<object_coding>
+	<prefix TYPE="string"/>
+
+	<digits_num TYPE="integer" EXPR-INIT="
+			try
+			{
+				return default_digits_num;
+			}
+			catch ( e )
+			{
+				return 4;
+			}
+	"/>
+
+	<next_index TYPE="integer" NOT-NULL="1" DEFAULT="1"/>
+</object_coding>
+
+
+
+
+
+</SPXML-FORM>

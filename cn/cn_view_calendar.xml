@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+
+<view_calendar>
+	<small_calendar TYPE="small_calendar_base"/>
+
+	<is_dlg TYPE="bool" NOT-NULL="1"/>
+	<select_multi_rows TYPE="bool" NOT-NULL="1"/>
+	<check_rooms TYPE="bool" NOT-NULL="1"/>
+	<auto_select_room TYPE="bool" NOT-NULL="1"/>
+	<req_duration_minutes TYPE="integer" DEFAULT="30"/>
+
+	<start_date TYPE="date" TIME="0"/>
+	<end_date TYPE="date" TIME="0"/>
+
+	<cur_query TYPE="string"/>
+	
+	<last_single_date TYPE="date" TIME="0"/>
+	<last_start_date TYPE="date" TIME="0"/>
+
+	<filter>
+		<user_id TYPE="integer" FOREIGN-ARRAY="users"/>
+		<group_id TYPE="integer" FOREIGN-ARRAY="groups"/>
+		<room_id TYPE="integer" FOREIGN-ARRAY="rooms"/>
+	</filter>
+
+	<sel_date TYPE="date" SECONDS="0"/>
+	<sel_room_id TYPE="integer" FOREIGN-ARRAY="rooms"/>
+	<selTimeRows TYPE="variant" STRICT="1"/>
+
+	<target_dates>
+		<target_date MULTIPLE="1" PRIMARY-KEY="date">
+			<date TYPE="date" TIME="0"/>
+			<week_day TYPE="integer" FOREIGN-ARRAY="base1_common.week_days"/>
+
+			<entries_num TYPE="integer" NOT-NULL="1"/>
+			<sum_entry_seconds TYPE="integer" NOT-NULL="1"/>
+
+			<tasks_num TYPE="integer" NOT-NULL="1"/>
+			<sum_task_seconds TYPE="integer" NOT-NULL="1"/>
+		</target_date>
+	</target_dates>
+
+	<target_rooms>
+		<target_room MULTIPLE="1" PRIMARY-KEY="room_id">
+			<room_id TYPE="integer" FOREIGN-ARRAY="rooms"/>
+		</target_room>
+	</target_rooms>
+
+	<time_rows>
+		<time_row MULTIPLE="1" PRIMARY-KEY="comb_minute">
+			<comb_minute TYPE="integer"/>
+
+			<busy_rooms>
+				<busy_room MULTIPLE="1">
+					<date TYPE="date" TIME="0"/>
+					<room_id TYPE="integer" FOREIGN-ARRAY="rooms"/>
+				</busy_room>
+			</busy_rooms>
+
+			<date_entries>
+				<date_entry MULTIPLE="1" PRIMARY-KEY="date">
+					<date TYPE="date" TIME="0"/>
+
+					<grouped_entries>
+						<grouped_entry MULTIPLE="1">
+							<event TYPE="variant" STRICT="1"/>
+						</grouped_entry>
+					</grouped_entries>
+				</date_entry>
+			</date_entries>
+
+			<hour PROPERTY="1" EXPR="comb_minute / 60"/>
+			<minute PROPERTY="1" EXPR="comb_minute % 60"/>
+
+			<bk_color PROPERTY="1" EXPR="
+					if ( ! local_settings.use_calendar_time_coloring )
+						return '';
+
+					if ( hour < 9 )
+						return 'white';
+					else if ( hour < 12 )
+						return '240,255,240';
+					else if ( hour < 15 )
+						return '255,255,230';
+					else if ( hour < 18 )
+						return '235,255,255';
+					else
+						return '235,235,255';
+			"/>
+
+			<today_bk_color PROPERTY="1" EXPR="
+					if ( ! local_settings.use_calendar_time_coloring )
+						return '';
+
+					if ( hour < 9 )
+						return 'white';
+					else if ( hour < 12 )
+						return '220,255,220';
+					else if ( hour < 15 )
+						return '255,255,220';
+					else if ( hour < 18 )
+						return '220,255,255';
+					else
+						return '225,225,255';
+			"/>
+
+			<other_day_bk_color PROPERTY="1" EXPR="
+					if ( ! local_settings.use_calendar_time_coloring )
+						return '250,250,250';
+					
+					return bk_color;
+			"/>
+
+			<get_opt_busy_room PROPERTY="1" PARAM="roomID" PARAM="date" EXPR="
+					reqDate = date;
+					return ArrayOptFind( busy_rooms, 'room_id == roomID && date == reqDate' );
+			"/>
+
+			<show_sel_room_as_busy PROPERTY="1" PARAM="date" EXPR="
+					if ( Parent.Parent.target_rooms.ChildNum == 0 )
+						return false;
+					
+					busyRooms = ArraySelectByKey( busy_rooms, date, 'date' );
+
+					if ( Parent.Parent.filter.room_id.HasValue )
+						return ( ArrayOptFindByKey( busyRooms, Parent.Parent.filter.room_id, 'room_id' ) != undefined );
+
+					return ( ArrayCount( busyRooms ) >= Parent.Parent.target_rooms.ChildNum );
+			"/>
+		</time_row>		
+	</time_rows>
+
+
+	<entries>
+		<entry MULTIPLE="1" PRIMARY-KEY="comb_minute">
+			<src_entry_ref TYPE="variant"/>
+			<src_entry PROPERTY="1" EXPR="src_entry_ref.HasValue ? src_entry_ref.Object : undefined"/>
+
+			<target_date_index TYPE="integer"/>
+
+			<date TYPE="date"/>
+			<end_date TYPE="date"/>
+
+			<is_tail TYPE="bool" NULL-FALSE="1"/>
+			<has_tail TYPE="bool" NULL-FALSE="1"/>
+			<is_road_time TYPE="bool" NULL-FALSE="1"/>
+			<is_return_road_time TYPE="bool" NULL-FALSE="1"/>
+
+			<comb_minute TYPE="integer"/>
+			<end_comb_minute TYPE="integer"/>
+			
+			<row_index TYPE="integer"/>
+			<end_row_index TYPE="integer"/>
+
+
+			<has_conflicts TYPE="bool" NULL-FALSE="1"/>
+
+
+			<id TYPE="integer"/>
+
+
+			<other_rooms>
+				<other_room MULTIPLE="1" PRIMARY-KEY="room_id">
+					<room_id TYPE="integer" FOREIGN-ARRAY="rooms"/>
+					<event_id TYPE="integer"/>
+				</other_room>
+			</other_rooms>
+
+			<hour PROPERTY="1" EXPR="comb_minute / 60"/>
+			<minute PROPERTY="1" EXPR="id != null ? Minute( date ) : comb_minute % 60"/>
+
+			<desc PROPERTY="1" EXPR="
+					if ( is_road_time )
+						return '--->';
+
+					str = src_entry.type_id.ForeignDispName;
+
+					if ( is_tail )
+						str = '>> ' + str;
+					
+					if ( has_tail )
+						str += ' >>';
+
+					if ( src_entry.org_id.HasValue )
+						str += ', ' + src_entry.org_id.ForeignDispName;
+					else if ( ( contactsDesc = src_entry.contacts_desc ) != '' )
+						str += ', ' + contactsDesc;
+					else if ( src_entry.comment.HasValue )
+						str += ', ' + src_entry.comment;
+
+					//alert( str );
+					return str;
+			"/>
+		</entry>		
+	</entries>
+
+	<view>
+		<dummy_rooms>
+			<dummy_room MULTIPLE="1" PRIMARY-KEY="id">
+				<id TYPE="integer"/>
+				<name TYPE="string" DEFAULT="- ##UiText.titles.all## -"/>
+			</dummy_room>
+		</dummy_rooms>
+	</view>
+
+
+	<load_stored_filters PROPERTY="1" EXPR="
+			storeDoc = FetchDoc( 'x-local://data_local/base1_views_stored_data.xml' );
+
+			storedView = storeDoc.TopElem.views.GetOptChildByKey( 'calendar' );
+			if ( storedView == undefined )
+				return;
+
+			storedElem = storedView.filter.OptChild( 'user_id' );
+			if ( storedElem != undefined )
+				filter.user_id = storedElem.Value;
+
+			storedElem = storedView.filter.OptChild( 'group_id' );
+			if ( storedElem != undefined )
+				filter.group_id = storedElem.Value;
+	"/>
+</view_calendar>
+
+
+</SPXML-INLINE-FORM>
+
+
+

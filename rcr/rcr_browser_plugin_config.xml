@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<browser_plugin_config xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<description VALUE="Позволяет переносить в базу E-Staff резюме найденных в Интернет кандидатов" lang-en:VALUE="Enables fast copying of Internet CVs to E-Staff database"/>/>
+	<handler_method>lib_recruit.handle_browser_plugin_action</handler_method>
+
+	<actions>
+		<action>
+			<id>LoadResume</id>
+			<name VALUE="Импорт резюме в E-Staff" lang-en:VALUE="Import CV to E-Staff"/>
+			<image_url>x-app://base_pict/estaff.ico</image_url>
+			<sel_required>0</sel_required>
+			<no_sel_error_text VALUE="Текст резюме не выделен" lang-en:VALUE="CV text is not selected"/>
+		</action>
+	</actions>
+</browser_plugin_config>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.sections.global_settings_staff_connector##" WINDOW-ICON-URL="//base_pict/settings.ico" MAXIMIZED="1">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" SUNKEN="1" VERT-SCROLL="1">
+	<LABEL TITLE="Параметры взаимодействия с внешней системой кадрового учета:" lang-en:TITLE="External staff management system connector:" lang-ua:TITLE="Параметри взаємодії із зовнішньою системою кадрового обліку:"/>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="22zr"/>
+		</COLUMNS>
+
+		<COMBO SOURCE="Ps.method_id" LABEL-TITLE="Интерфейс:" lang-en:LABEL-TITLE="Interface:" lang-ua:LABEL-TITLE="Інтерфейс:">
+			<COMBO-ENTRY VALUE="service" TITLE="Web-service"/>
+			<COMBO-ENTRY VALUE="files" TITLE="Обмен файлами" lang-en:TITLE="File exchange" lang-ua:TITLE="Обмін файлами"/>
+		</COMBO>
+	</TABLE>
+
+	<IF EXPR="Ps.method_id == 'files'">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+			<LABEL TITLE="Исходная директория для импорта:" lang-en:TITLE="Source folder:" lang-ua:TITLE="Вихідна директорія для імпорту:"/>
+			<ITEM TYPE="dir_path_selector" SOURCE="Ps.src_dir_path"/>
+		</TABLE>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+			<LABEL TITLE="Директория для обработанных файлов:" lang-en:TITLE="Processed files folder:" lang-ua:TITLE="Директорія для оброблених файлів:"/>
+			<ITEM TYPE="dir_path_selector" SOURCE="Ps.processed_dir_path"/>
+		</TABLE>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="22zr"/>
+			</COLUMNS>
+
+			<COMBO SOURCE="Ps.file_format" LABEL-TITLE="Формат файла:" lang-en:LABEL-TITLE="File format:" lang-ua:LABEL-TITLE="Формат файлу:">
+				<COMBO-ENTRY VALUE="xml" TITLE="XML"/>
+				<COMBO-ENTRY VALUE="csv" TITLE="CSV"/>
+			</COMBO>
+		</TABLE>
+		<DELIM/>
+
+		<LABEL TITLE="Имена файлов:" lang-en:LABEL-TITLE="File names:" lang-en:TITLE="File names:" lang-ua:TITLE="Імена файлів:"/>
+		<BR/>
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="32zr"/>
+				<COL WIDTH="32zr"/>
+				<COL WIDTH="32zr"/>
+				<COL WIDTH="32zr"/>
+			</COLUMNS>
+
+			<EDIT SOURCE="Ps.divisions_file_name_mask" LABEL-TITLE="##UiText.titles.divisions##:"/>
+			<EDIT SOURCE="Ps.positions_file_name_mask" LABEL-TITLE="##UiText.fields.positions##:"/>
+			<EDIT SOURCE="Ps.persons_file_name_mask" LABEL-TITLE="##UiText.sections.employees##:"/>
+			<EDIT SOURCE="Ps.vacancies_file_name_mask" LABEL-TITLE="##UiText.titles.vacancies##:"/>
+		</TABLE>
+	</IF>
+
+	<IF EXPR="Ps.method_id == 'service'">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="30%"/>
+				<COL WIDTH="70%"/>
+				<COL WIDTH="25zr"/>
+				<COL WIDTH="25zr"/>
+			</COLUMNS>
+
+			<EDIT SOURCE="Ps.service_host" LABEL-TITLE="Адрес сервера обработчика:" UPDATE-ACTION="
+					if ( Ps.service_host == '' )
+						return;
+
+					if ( Ps.service_url == '' )
+						Ps.service_url = 'http://' + Ps.service_host + '/estaff_soap.html';
+					else
+						Ps.service_url = StrReplace( Ps.service_url, UrlHost( Ps.service_url ), Ps.service_host );
+			" lang-en:LABEL-TITLE="Server address:" lang-ua:LABEL-TITLE="Адреса сервера обробника:"/>
+			
+			<EDIT SOURCE="Ps.service_url" LABEL-TITLE="URL обработчика:" lang-en:LABEL-TITLE="Handler URL:" lang-ua:LABEL-TITLE="URL обробника:"/>
+
+			<EDIT SOURCE="Ps.auth.login" LABEL-TITLE="##UiText.fields.login##:"/>
+			<EDIT SOURCE="StrStdDecrypt( Ps.auth.password_ed )" SET-VALUE-ACTION="
+					Ps.auth.password_ed = StrStdEncrypt( NewValue );
+					Ps.Doc.SetChanged( true );
+			" LABEL-TITLE="##UiText.fields.password##:" PASSWORD="1"/>
+		</TABLE>
+	</IF>
+	<DELIM/>
+
+	<LABEL TITLE="Загрузка структурных подразделений:" lang-en:TITLE="Divisions import:" BOLD="1" lang-ua:TITLE="Завантаження структурних підрозділів:"/>
+	<BR/>
+
+	<CHECK SOURCE="Ps.drop_single_root_division" TITLE="Не загружать корневое подразделение, соответствующее единственной организации" WIDTH="auto" lang-en:TITLE="Drop single root division" lang-ua:TITLE="Не завантажувати кореневий підрозділ, відповідний до єдиної організації"/>
+	<BR/>
+
+	<ITEM TYPE="agent_control" SOURCE="GetForeignElem( agents, 'staff_loader' )"/>
+	<DELIM/>
+
+
+	<LABEL TITLE="Загрузка штатных должностей:" lang-en:TITLE="Positions import:" BOLD="1" lang-ua:TITLE="Завантаження штатних посад:"/>
+	<BR/>
+
+	<GROUP>
+		<LABEL/>
+		<EDIT SOURCE="Ps.position_import.last_run_date" WIDTH="20zr" LABEL-TITLE="##UiText.titles.last_load_date##:" KEEP-RIGHT="1"/>
+	</GROUP>
+	<BR/>
+
+	<ITEM TYPE="agent_control" SOURCE="GetForeignElem( agents, 'staff_positions_loader' )"/>
+	<DELIM/>
+
+	<LABEL TITLE="Загрузка сотрудников:" lang-en:TITLE="Employees import:" BOLD="1" lang-ua:TITLE="Завантаження співробітників:"/>
+	<BR/>
+
+	<GROUP>
+		<CHECK TITLE="Удалять из E-Staff сотрудников, удаленных из системы кадрового учета" SOURCE="Ps.delete_old_persons" WIDTH="auto" lang-en:TITLE="Delete employees deleted from staffing system" lang-ua:TITLE="Видаляти з E-Staff співробітників, видалених з системи кадрового обліку"/>
+		<EDIT SOURCE="Ps.person_import.last_run_date" WIDTH="20zr" LABEL-TITLE="##UiText.titles.last_load_date##:" KEEP-RIGHT="1"/>
+	</GROUP>
+	<BR/>
+
+	<ITEM TYPE="agent_control" SOURCE="GetForeignElem( agents, 'staff_persons_loader' )"/>
+	<DELIM/>
+
+
+	<LABEL TITLE="Загрузка вакансий:" lang-en:TITLE="Vacancy import:" BOLD="1" lang-ua:TITLE="Завантаження вакансій:"/>
+	<BR/>
+
+	<LABEL TITLE="Автоматически заполнять для загруженных вакансий:" lang-en:TITLE="Automatically set for loaded vacancies:" lang-ua:TITLE="Автоматично заповнювати для завантажених вакансій:"/>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="25zr"/>
+			<COL WIDTH="20zr"/>
+			<COL WIDTH="30zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="object_selector" SOURCE="Ps.default_vacancy_user_id" LABEL-TITLE="##UiText.objects.user##:"/>		
+		<ITEM TYPE="object_selector" SOURCE="Ps.default_vacancy_group_id" LABEL-TITLE="##UiText.objects.group##:"/>		
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.default_vacancy_state_id" LABEL-TITLE="##UiText.fields.state##:"/>		
+	</TABLE>
+	<BR/>
+
+	<CHECK TITLE="Отправлять уведомление о подаче новой заявки на вакансию" SOURCE="Ps.vacancy_import.send_create_notif" WIDTH="auto" lang-en:TITLE="Send notification on new vacancy request" lang-ua:TITLE="Відправляти повідомлення про подання нової заявки на вакансію"/>
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="32zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.vacancy_import.create_notif_template_id" LABEL-TITLE="##UiText.titles.mail_template##:"/>
+		<EDIT SOURCE="Ps.vacancy_import.create_notif_email" LABEL-TITLE="E-Mail:"/>
+	</TABLE>
+	<BR/>
+
+	<GROUP>
+		<LABEL/>
+		<EDIT SOURCE="Ps.vacancy_import.last_run_date" WIDTH="20zr" LABEL-TITLE="##UiText.titles.last_load_date##:" KEEP-RIGHT="1"/>
+	</GROUP>
+	<BR/>
+
+	<ITEM TYPE="agent_control" SOURCE="GetForeignElem( agents, 'staff_vacancies_loader' )"/>
+	<DELIM/>
+</PANEL>
+
+
+<COMMAND-HANDLER CMD="Help1" HREF="help/settings_numbering.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1" TARGET-NEW-WINDOW="1"/>
+
+
+</SPXML-SCREEN>

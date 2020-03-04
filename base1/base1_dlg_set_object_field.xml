@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_object_select>
+	<object_type_id TYPE="string" FOREIGN-ARRAY="card_object_types"/>
+	<object_data_ref TYPE="variant"/>
+
+	<object_form PROPERTY="1" EXPR="DefaultDb.GetObjectForm( object_type_id )"/>
+	<object_data PROPERTY="1" EXPR="object_data_ref.Object"/>
+
+	<field_id TYPE="string" FOREIGN-ARRAY="fields"/>
+	<field PROPERTY="1" EXPR="field_id.ForeignElem"/>
+	<field_form_elem PROPERTY="1" EXPR="object_form.TopElem.Child( field_id )"/>
+
+	<field_value PROPERTY="1" EXPR="GetObjectProperty( object_data, field_id )"/>
+	<append TYPE="bool" NULL-FALSE="1"/>
+
+	<fields>
+		<field MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</field>
+	</fields>
+
+
+	<init PROPERTY="1" EXPR="
+			object_data_ref = OpenNewDoc( object_form.Url, 'separate=1' ).TopElem;
+
+			for ( formElem in object_form.TopElem )
+			{
+				if ( formElem.Type == 'record' )
+					continue;
+
+				if ( formElem.Name == 'id' || StrBegins( formElem.Name, 'idata_' ) )
+					continue;
+
+				if ( formElem.Title == '' )
+					continue;
+
+				if ( formElem.Expr != '' )
+					continue;
+
+				newField = fields.AddChild();
+				newField.id = formElem.Name;
+				newField.name = formElem.Title;
+			}
+	"/>
+</dlg_object_select>
+
+
+
+</SPXML-INLINE-FORM>

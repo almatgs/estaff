@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<UNIT NAME="state_core_actions_base" SAMPLE="1">
+	<BUTTON IMAGE-URL="//base_pict/plus.ico" TITLE="Добавить действие" lang-en:TITLE="Add Action" ACTION="
+			coreAction = Ps.core_actions.AddChild();
+
+			Screen.Update();
+			Screen.ExposeItemBySource( coreAction.type_id );
+	" PASSIVE="1" WIDTH="24zr" lang-ua:TITLE="Додати дію"/>
+
+
+	<IF EXPR="Ps.core_actions.ChildNum != 0">
+
+	<PAGE TITLE="##UiText.titles.actions##" IMAGE-URL="//base_pict/folder.ico" EXPANDED="1" HEIGHT="100%" SUNKEN="1">
+		<LIST>
+			<COLUMNS>
+				<COL WIDTH="100%" TITLE-EXPR="Ps.core_actions.FormElem[0].type_id.Title"/>
+			</COLUMNS>
+
+			<LOOP EXPR="Ps.core_actions" VAR="ListElem">
+				<ROW OPEN-ACTION="Screen.ExposeItemBySource( ListElem.type_id )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );" IMAGE-URL="//base_pict/generic_item.ico">
+					<COL TITLE-EXPR="ListElem.type_id.ForeignDispName"/>
+				</ROW>
+
+				<PAGE TITLE-EXPR="ListElem.type_id.ForeignDispName" IMAGE-URL="//base_pict/generic_item.ico" SOURCE="ListElem" SUNKEN="1" VERT-SCROLL="1">
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="40zr"/>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<ITEM TYPE="elem_selector" SOURCE="Ps.type_id" AUTO-LABEL="1"/>
+						<EDIT SOURCE="Ps.exist_req_expr" AUTO-LABEL="1"/>
+					</TABLE>
+					<DELIM/>
+
+					<IF EXPR="Ps.type_id == 'send_mail'">
+						<WITH VAR="_dummy" EXPR="
+							if ( Ps.mail_template_id.HasValue )
+							{
+								Ps.templates.ObtainChildByKey( Ps.mail_template_id, 'mail_template_id' );
+								Ps.mail_template_id.Clear();
+							}
+						" IGNORE-ERRORS="0"/>
+						
+						<TABLE>
+							<COLUMNS>
+								<COL WIDTH="100%"/>
+								<COL WIDTH="16px"/>
+							</COLUMNS>
+
+							<LABEL TITLE="##UiText.titles.mail_template##:"/>
+
+							<IMAGE URL="//base_pict/select.ico" TIP-TEXT="##UiText.titles.voc_elem_selection##" ACTION="
+									Ps.templates.ObtainChildByKey( lib_voc.select_voc_elem( mail_templates ), 'mail_template_id' );
+									Ps.Doc.SetChanged( true );
+							"/>
+						</TABLE>
+
+						<TABLE>
+							<COLUMNS>
+								<COL WIDTH="100%"/>
+								<COL WIDTH="16px"/>
+							</COLUMNS>
+
+							<LOOP EXPR="Ps.templates" VAR="ListElem">
+								<ITEM TYPE="voc_elem_selector" SOURCE="ListElem.mail_template_id"/>
+								<IMAGE URL="//base_pict/delete.ico" ACTION="
+										ListElem.Delete();
+										Ps.Doc.SetChanged( true );
+								"/>
+							</LOOP>
+						</TABLE>
+					</IF>
+
+					<IF EXPR="Ps.type_id == 'send_sms'">
+						<TABLE>
+							<COLUMNS>
+								<COL WIDTH="100%"/>
+							</COLUMNS>
+
+							<ITEM TYPE="voc_elem_selector" SOURCE="Ps.sms_template_id" AUTO-LABEL="1"/>
+						</TABLE>
+					</IF>
+
+					<IF EXPR="Ps.type_id == 'send_mail' || Ps.type_id == 'send_sms' || Ps.type_id == 'request_entry_pass'">
+						<DELIM/>
+						<CHECK SOURCE="Ps.ask_to_do" AUTO-LABEL="1"/>
+					</IF>
+
+					<IF EXPR="Ps.type_id == 'send_mail' || Ps.type_id == 'send_sms'">
+						<IF EXPR="Ps.Doc.TopElem.Name == 'vacancy_state'">
+							<LINE>
+								<CHECK SOURCE="Ps.send_to_orig_rr_person" AUTO-LABEL="1"/>
+								<CHECK SOURCE="Ps.send_to_rr_persons" AUTO-LABEL="1"/>
+							</LINE>
+						</IF>
+						<ELSE>
+							<CHECK SOURCE="Ps.send_to_participants" AUTO-LABEL="1" ENABLE-EXPR="Ps.Doc.TopElem.use_participants"/>
+
+							<IF EXPR="AppModuleUsed( 'rcr' )">
+								<CHECK SOURCE="Ps.send_to_vacancy_user" AUTO-LABEL="1" ENABLE-EXPR="! Ps.Doc.TopElem.use_participants || ! Ps.send_to_participants"/>
+							</IF>
+						</ELSE>
+
+						<CHECK SOURCE="Ps.use_mass_mail" AUTO-LABEL="1"/>
+					</IF>
+
+					<IF EXPR="Ps.type_id == 'send_mail' || Ps.type_id == 'send_sms' || Ps.type_id == 'request_entry_pass'">
+						<DELIM/>
+					</IF>
+
+					<IF EXPR="Ps.type_id == 'request_aux_documents'">
+						<ITEM TYPE="voc_elem_selector" SOURCE="Ps.recruit_provider_id" AUTO-LABEL="1" WIDTH="30zr"/>
+						<DELIM/>
+					</IF>
+
+					<IF EXPR="Ps.type_id == 'run_code'">
+						<CODE-EDIT SOURCE="Ps.code" AUTO-LABEL="1" HEIGHT="20zr"/>
+						<BR/>
+					</IF>
+
+					<LINE>
+						<RADIO-BUTTON SOURCE="Ps.phase_id" SWITCH-VALUE="0" TITLE="Выполнять до перехода в статус" lang-en:TITLE="Run before state change" WIDTH="auto" lang-ua:TITLE="Виконувати до переходу в статус"/>
+						<RADIO-BUTTON SOURCE="Ps.phase_id" SWITCH-VALUE="1" TITLE="Выполнять после перехода в статус" lang-en:TITLE="Run after state change" WIDTH="auto" lang-ua:TITLE="Виконувати після переходу в статус"/>
+					</LINE>
+					<DELIM/>
+				</PAGE>
+			</LOOP>
+		</LIST>
+	</PAGE>
+
+	</IF>
+</UNIT>
+
+
+
+<UNIT NAME="state_attr_base" SAMPLE="1">
+	<IF EXPR="Ps.Parent.Parent.is_state">
+		<BR/>
+		<LINE>
+			<CHECK SOURCE="Ps.deactivate_object" AUTO-LABEL="1"/>
+			<CHECK SOURCE="Ps.is_user_duty" AUTO-LABEL="1"/>
+		</LINE>
+		<DELIM/>
+
+		<IF EXPR="Ps.ChildExists( 'id' ) || TopElem.target_object_type_id.ByValueExists( 'candidate' )" IGNORE-ERRORS="0">
+			<CHECK SOURCE="Ps.build_state_view" AUTO-LABEL="1" WIDTH="auto"/>
+			<DELIM/>
+		</IF>
+	</IF>
+
+
+	<CHECK SOURCE="Ps.show_init_warning" AUTO-LABEL="1"/>
+	<CHECK SOURCE="Ps.show_init_dlg" AUTO-LABEL="1"/>
+	<CHECK SOURCE="Ps.create_with_open" AUTO-LABEL="1"/>
+	<CHECK SOURCE="Ps.require_comment" AUTO-LABEL="1"/>
+	<BR/>
+
+	<GROUP>
+		<LABEL TITLE-EXPR="Ps.min_comment_len.Title + ':'"/>
+		<EDIT SOURCE="Ps.min_comment_len" WIDTH="6zr" ENABLE-EXPR="Ps.require_comment"/>
+		<EDIT SOURCE="Ps.default_comment" MULTILINE="1" AUTO-LABEL="1" HEIGHT="10zr"/>
+	</GROUP>
+	<DELIM/>
+
+	<IF EXPR="lib_event.IsRejectOccurrence( TopElem, Ps.id )">
+		<CHECK SOURCE="Ps.require_reject_reason" AUTO-LABEL="1"/>
+		<DELIM/>
+	</IF>
+	<IF EXPR="lib_event.IsWithdrawalOccurrence( TopElem, Ps.id )">
+		<CHECK SOURCE="Ps.require_withdrawal_reason" AUTO-LABEL="1"/>
+		<DELIM/>
+	</IF>
+
+	<GROUP>
+		<ITEM TYPE="period" SOURCE="Ps.max_duration" AUTO-LABEL="1" WIDTH="40zr"/>
+	</GROUP>
+	<BR/>
+	<LABEL TITLE="По истечение предельного срока нахождения изменить:" lang-en:TITLE="When maximum duration reached, change:" lang-ua:TITLE="По закінчення граничного терміну перебування змінити"/>
+	<GROUP SOURCE="Ps.max_duration_reach_result">
+		<ITEM TYPE="elem_selector" SOURCE="Ps.occurrence_id" AUTO-LABEL="1" WIDTH="40zr" foreign-array="Ps.Doc.TopElem.occurrences" foreign-elem-qual="is_active" foreign-disp-name="get_name()"/>
+	</GROUP>
+	
+	<DELIM/>
+
+	<IF EXPR="Ps.ChildExists( 'id' ) || TopElem.target_object_type_id.ByValueExists( 'candidate' )" IGNORE-ERRORS="0">
+		<LINE>
+			<CHECK SOURCE="Ps.require_vacancy" AUTO-LABEL="1"/>
+			
+			<IF EXPR="! global_settings.is_agency &amp;&amp; global_settings.allow_bind_candidates_to_position">
+				<CHECK SOURCE="Ps.require_position" AUTO-LABEL="1"/>
+			</IF>
+		</LINE>
+					
+		<LINE>
+			<CHECK SOURCE="Ps.make_candidate_final" AUTO-LABEL="1"/>
+			<CHECK SOURCE="Ps.remove_candidate_from_final" AUTO-LABEL="1"/>
+		</LINE>
+		<CHECK SOURCE="Ps.require_empl_start_date" AUTO-LABEL="1"/>
+		<BR/>
+
+		<GROUP>
+			<CHECK SOURCE="Ps.change_vacancy_state" AUTO-LABEL="1" ENABLE-EXPR="Ps.make_candidate_final"/>
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.next_vacancy_state_id" WIDTH="30zr" ENABLE-EXPR="Ps.make_candidate_final && Ps.change_vacancy_state"/>
+		</GROUP>
+		<DELIM/>
+
+		<CHECK SOURCE="Ps.create_notification" AUTO-LABEL="1"/>
+		<DELIM/>
+	</IF>
+
+
+	<IF EXPR="false">
+		<CHECK TITLE="Автоматически удалять признак 'запланировано' при наступлении запланированной даты" SOURCE="Ps.use_auto_reach" ENABLE-EXPR="Ps.has_occurrence( 'scheduled' )" lang-en:TITLE="Automatically remove 'Scheduled' flag on event's occurrence" lang-ua:TITLE="Автоматично видаляти ознаку 'заплановано' при настанні запланованої дати"/>
+		<CHECK TITLE="Автоматически удалять признак 'в процессе' при наступлении запланированной даты" SOURCE="Ps.use_auto_finish" ENABLE-EXPR="Ps.occurrences.started.is_enabled" lang-en:TITLE="Automatically remove 'Started' flag on event's occurrence" lang-ua:TITLE="Автоматично видаляти ознаку 'в процесі' при настанні запланованої дати"/>
+
+		<DELIM/>
+
+		<CHECK TITLE="Генерировать автоматически" SOURCE="Ps.use_auto_create" WIDTH="auto" lang-en:TITLE="Create automatically" lang-ua:TITLE="Генерувати автоматично"/>
+		<IF EXPR="Ps.use_auto_create">
+			<LINE>
+				<LABEL TITLE="Интервал от предыдущего статуса:" lang-en:TITLE="Duration from previous state:" lang-ua:TITLE="Інтервал від попереднього статусу:"/>
+				<ITEM TYPE="term" SOURCE="Ps.auto_create.offset" WIDTH="25zr"/>
+
+				<LABEL TITLE="Предыдущий статус:" lang-en:TITLE="Previous state:" lang-ua:TITLE="Попередній статус:"/>
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.auto_create.base_state_id" WIDTH="25zr"/>
+			</LINE>
+		</IF>
+		<DELIM/>
+	</IF>
+
+	<INHERIT TYPE="state_core_actions_base"/>
+	<DELIM/>
+
+
+
+	<IF EXPR="TopElem.target_object_type_id.ByValueExists( 'candidate' )">
+		<GROUP>
+			<CHECK SOURCE="Ps.use_auto_next_state" AUTO-LABEL="1"/>
+
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.next_state_id" ENABLE-EXPR="Ps.use_auto_next_state" WIDTH="45zr"/>
+		</GROUP>
+		<DELIM/>
+
+
+		<GROUP>
+			<LABEL TITLE-EXPR="Ps.typical_next_states.Title + ':'"/>
+			<IMAGE URL="//base_pict/plus.ico" ACTION="Ps.typical_next_states.AddChild()" WIDTH="16px" HEIGHT="16px" KEEP-RIGHT="1"/>
+		</GROUP>
+		<BR/>
+
+		<LOOP EXPR="Ps.typical_next_states" VAR="ListElem">
+			<GROUP>
+				<ITEM TYPE="voc_elem_selector" SOURCE="ListElem.event_type_id" LABEL-TITLE="##UiText.fields.state##:" WIDTH="70%"/>
+				<ITEM TYPE="elem_selector" SOURCE="ListElem.event_occurrence_id" LABEL-TITLE=" " WIDTH="-22px" foreign-array="ListElem.event_type_id.ForeignElem.occurrences" foreign-elem-qual="is_active" foreign-disp-name="get_name()"/>
+
+				<IMAGE URL="//base_pict/more_actions.ico" WIDTH="16px" HEIGHT="16px" KEEP-RIGHT="1">
+					<MENU>
+						<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+								ListElem.Delete();
+								Ps.Doc.SetChanged( true );
+						"/>
+					</MENU>
+				</IMAGE>
+			</GROUP>
+		</LOOP>
+		<DELIM/>
+
+		<CHECK SOURCE="Ps.show_object_on_portal" AUTO-LABEL="1" WIDTH="auto"/>
+		<LINE>
+			<CHECK SOURCE="Ps.is_rr_duty_portal_state" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="Ps.show_object_on_portal"/>
+			<CHECK SOURCE="Ps.show_to_rr" AUTO-LABEL="1" WIDTH="auto" ENABLE-EXPR="Ps.show_object_on_portal"/>
+		</LINE>
+		<CHECK SOURCE="Ps.is_participant_duty_state" AUTO-LABEL="1" WIDTH="auto"/>
+		<DELIM/>
+
+		<GROUP>
+			<CHECK SOURCE="Ps.restrict_by_access_role" AUTO-LABEL="1" WIDTH="auto"/>
+			
+			<IF EXPR="Ps.restrict_by_access_role">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.allowed_multi_access_role_id"/>
+			</IF>
+			<ELSE>
+				<PANEL WIDTH="1zr" HEIGHT="edit"/>
+			</ELSE>
+		</GROUP>
+	</IF>
+</UNIT>
+
+
+
+<UNIT NAME="occurrence_base" SAMPLE="1">
+	<TABLE>
+		<COLUMNS>
+			<IF EXPR="Ps.is_std">
+				<IF EXPR="Ps.use_custom_name || Ps.name.HasValue">
+					<COL WIDTH="30zr"/>
+					<COL WIDTH="100%"/>
+					<COL WIDTH="22px"/>
+				</IF>
+				<ELSE>
+					<COL WIDTH="100%"/>
+					<IF EXPR="Ps.Parent.Parent.use_occurrences">
+						<COL WIDTH="16zr"/>
+					</IF>
+				</ELSE>
+			</IF>
+			<ELSE>
+				<COL WIDTH="100%"/>
+			</ELSE>
+
+			<COL WIDTH="35zr"/>
+
+			<COL WIDTH="14zr"/>
+			<COL WIDTH="13zr"/>
+		</COLUMNS>
+
+		<IF EXPR="Ps.is_std">
+			<EDIT SOURCE="Ps.std_name" LABEL-TITLE="##UiText.fields.std_name##:" READ-ONLY="1"/>
+
+			<IF EXPR="Ps.use_custom_name || Ps.name.HasValue">
+				<EDIT SOURCE="Ps.name" LABEL-TITLE="##UiText.fields.custom_name##:"/>
+
+				<BUTTON IMAGE-URL="//base_pict/clear.ico" TIP-TEXT="##UiText.actions.clear_field##" LABEL-TITLE=" " ACTION="
+						Ps.name.Clear();
+						Ps.use_custom_name = false;
+						Ps.Doc.SetChanged( true );
+				"/>
+			</IF>
+			<ELSE>
+				<IF EXPR="Ps.Parent.Parent.use_occurrences">
+					<BUTTON IMAGE-URL="//base_pict/edit.ico" TITLE="##UiText.actions.modify##" LABEL-TITLE=" " ACTION="
+							lib_base.ask_warning_to_continue( ActiveScreen, UiText.messages.occurrence_name_will_be_changed );
+							Ps.use_custom_name = true;
+					"/>
+				</IF>
+			</ELSE>
+		</IF>
+		<ELSE>
+			<EDIT SOURCE="Ps.name" LABEL-TITLE="##UiText.titles.action_name##:"/>
+		</ELSE>
+
+		<EDIT SOURCE="Ps.action_name" LABEL-TITLE="##UiText.fields.name##:"/>
+	
+		<ITEM TYPE="color_selector" SOURCE="Ps.text_color" LABEL-TITLE="##UiText.titles.text_color##:"/>
+		<ITEM TYPE="color_selector" SOURCE="Ps.bk_color" LABEL-TITLE="##UiText.fields.bk_color##:"/>
+	</TABLE>
+
+	<CHECK SOURCE="Ps.is_active" TITLE="##UiText.titles.active_element##" ENABLE-EXPR="
+			if ( Ps.is_active &amp;&amp; Ps.id == '' &amp;&amp; Ps.Doc.TopElem.view.stdElem != undefined &amp;&amp; Ps.Doc.TopElem.view.stdElem.has_occurrence( Ps.id ) )
+				return false;
+			
+			return ( Ps.id != '' || Ps.Doc.TopElem.get_sorted_occurrences().length > 1 );
+	"/>
+	<DELIM/>
+
+	<IF EXPR="Ps.is_active">
+		<TABLE>
+			<COLUMNS>
+				<IF EXPR="Ps.use_custom_state_name || Ps.state_name.HasValue">
+					<COL WIDTH="40zr"/>
+					<COL WIDTH="100%"/>
+					<COL WIDTH="22px"/>
+				</IF>
+				<ELSE>
+					<COL WIDTH="100%"/>
+					<IF EXPR="Ps.Parent.Parent.use_occurrences">
+						<COL WIDTH="16zr"/>
+					</IF>
+				</ELSE>
+			</COLUMNS>
+
+			<EDIT SOURCE="Ps.std_state_name" LABEL-TITLE="##UiText.fields.std_state_name##:" READ-ONLY="1"/>
+
+			<IF EXPR="Ps.use_custom_state_name || Ps.state_name.HasValue">
+				<EDIT SOURCE="Ps.state_name" LABEL-TITLE="##UiText.fields.custom_state_name##:"/>
+
+				<BUTTON IMAGE-URL="//base_pict/clear.ico" TIP-TEXT="##UiText.actions.clear_field##" LABEL-TITLE=" " ACTION="
+						Ps.state_name.Clear();
+						Ps.use_custom_state_name = false;
+						Ps.Doc.SetChanged( true );
+				"/>
+			</IF>
+			<ELSE>
+				<IF EXPR="Ps.Parent.Parent.use_occurrences">
+					<BUTTON IMAGE-URL="//base_pict/edit.ico" TITLE="##UiText.actions.modify##" LABEL-TITLE=" " ACTION="
+							lib_base.ask_warning_to_continue( ActiveScreen, UiText.messages.occurrence_name_will_be_changed );
+							Ps.use_custom_state_name = true;
+					"/>
+				</IF>
+			</ELSE>
+		</TABLE>
+		<DELIM/>
+
+		<INHERIT TYPE="state_attr_base"/>
+	</IF>
+</UNIT>
+
+
+
+
+</SPXML-SCREEN>

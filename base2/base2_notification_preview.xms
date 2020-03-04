@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem">
+
+<PANEL  SUNKEN="1" STD-MARGINS="1" HEIGHT="100%">
+	<EDIT SOURCE="StrDate( Ps.date, true, false )" WIDTH="18zr" LABEL-TITLE="##UiText.fields.date##:"/>
+
+	<EDIT SOURCE="Ps.get_subject()" LABEL-TITLE="##UiText.fields.subject##:"/>
+
+	<IF EXPR="Ps.candidate_id.HasValue">
+		<ITEM TYPE="object_selector" SOURCE="Ps.candidate_id" AUTO-LABEL="1"/>
+	</IF>
+
+	<IF EXPR="Ps.vacancy_id.HasValue">
+		<ITEM TYPE="object_selector" SOURCE="Ps.vacancy_id" AUTO-LABEL="1"/>
+	</IF>
+
+	<IF EXPR="Ps.comment.HasValue">
+		<EDIT SOURCE="Ps.comment" HEIGHT="100%" MULTILINE="1" AUTO-LABEL="1"/>
+	</IF>
+</PANEL>
+
+
+</SPXML-SCREEN>
+
+

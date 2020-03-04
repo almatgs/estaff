@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<std_professions RECURSIVE-ARRAY="1">
+	<std_profession MULTIPLE="1" PRIMARY-KEY="id">
+		<id TYPE="integer"/>
+		<name TYPE="string"/>
+	</std_profession>
+</std_professions>
+
+
+</SPXML-FORM>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>vacancies_of_division</id>
+	<parent_id>vacancies</parent_id>
+	<name VALUE="##UiText.titles.vacancies##"></name>
+	<image_url>x-app://base_pict/vacancy.ico</image_url>
+	<order_index>1</order_index>
+
+	<is_card_page>1</is_card_page>
+	<card_object_type_id>division</card_object_type_id>
+
+	<drop_all_dyn_filters>1</drop_all_dyn_filters>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>division_id</id>
+			<is_auto>1</is_auto>
+		</dyn_filter>
+	</dyn_filters>
+</std_view>
+

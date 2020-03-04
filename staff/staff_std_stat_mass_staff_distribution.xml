@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>mass_staff_distribution</id>
+	<name VALUE="Штатное наполнение" lang-en:VALUE="Distribution of staff" lang-ua:VALUE="Штатний наповнення"/>
+	<section_id>mass_recruit</section_id>
+
+	<is_v2>1</is_v2>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>division_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.objects.division##"/>
+			<foreign_array>divisions</foreign_array>
+			<use_idata>1</use_idata>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}</view_filter_expr>
+			<width>50zr</width>
+		</dyn_filter>
+	</dyn_filters>
+
+	<groups>
+		<group>
+			<id>division_id</id>
+			<foreign_array>divisions</foreign_array>
+			<is_hier>1</is_hier>
+			<show_full_range>0</show_full_range>
+		</group>
+	</groups>
+
+	<fields>
+		<field>
+			<id>division_id</id>
+			<foreign_array>divisions</foreign_array>
+			<col_title VALUE="##UiText.objects.division##"/>
+			<width>100%</width>
+		</field>
+		<field>
+			<id>employee_count</id>
+			<col_title VALUE="##UiText.sections.employees##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>person</src_object_type_id>
+		</field>
+		<field>
+			<id>position_count</id>
+			<col_title VALUE="##UiText.fields.positions##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>position</src_object_type_id>
+		</field>
+		<field>
+			<id>free_position_count</id>
+			<col_title VALUE="Незанятые штатные должности" lang-en:VALUE="Free positions" lang-ua:VALUE="Незайняті штатні посади"/>
+			<stat_func>count</stat_func>
+		</field>
+	</fields>
+
+	<show_total>1</show_total>
+	<show_chart>0</show_chart>
+
+	<code_lib_url>x-app://staff/staff_std_stat_mass_staff_distribution.js</code_lib_url>
+</std_stat>
+

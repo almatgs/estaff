@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" IMAGE-URL="//base_pict/generic_item.ico">
+
+<export_scenario>
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+
+	<method_id TYPE="string" DEFAULT="dir"/>
+	<dest_dir_path TYPE="string"/>
+
+	<filter>
+		<object_type_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="card_object_types"/>
+		<min_date TYPE="date"/>
+	</filter>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</export_scenario>
+
+
+</SPXML-FORM>

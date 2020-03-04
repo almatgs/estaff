@@ -1,0 +1,1018 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_languages SPXML-FORM="base1_std_languages.xmd" xmlns:lang-en="http://www.datex-soft.com/ns/lang-en" xmlns:lang-ua="http://www.datex-soft.com/ns/lang-ua">
+	<std_language>
+		<id>aa</id>
+		<id2>aar</id2>
+		<name lang-en:VALUE="Afar"/>
+	</std_language>
+	<std_language>
+		<id>ab</id>
+		<id2>abk</id2>
+		<name lang-en:VALUE="Abkhaz" VALUE="Абхазский"/>
+	</std_language>
+	<std_language>
+		<id>af</id>
+		<id2>afr</id2>
+		<name lang-en:VALUE="Afrikaans" VALUE="Африкаанс"/>
+	</std_language>
+	<std_language>
+		<id>ak</id>
+		<id2>aka</id2>
+		<name lang-en:VALUE="Akan"/>
+	</std_language>
+	<std_language>
+		<id>am</id>
+		<id2>amh</id2>
+		<name lang-en:VALUE="Amharic" VALUE="Амхарский"/>
+	</std_language>
+	<std_language>
+		<id>ar</id>
+		<id2>ara</id2>
+		<name lang-en:VALUE="Arabic" VALUE="Арабский"/>
+	</std_language>
+	<std_language>
+		<id>an</id>
+		<id2>arg</id2>
+		<name lang-en:VALUE="Aragonese" VALUE="Арагонский"/>
+	</std_language>
+	<std_language>
+		<id>as</id>
+		<id2>asm</id2>
+		<name lang-en:VALUE="Assamese"/>
+	</std_language>
+	<std_language>
+		<id>av</id>
+		<id2>ava</id2>
+		<name lang-en:VALUE="Avar" VALUE="Аварский"/>
+	</std_language>
+	<std_language>
+		<id>ae</id>
+		<id2>ave</id2>
+		<name lang-en:VALUE="Avestan"/>
+	</std_language>
+	<std_language>
+		<id>ay</id>
+		<id2>aym</id2>
+		<name lang-en:VALUE="Aymara"/>
+	</std_language>
+	<std_language>
+		<id>az</id>
+		<id2>aze</id2>
+		<name lang-en:VALUE="Azerbaijani" VALUE="Азербайджанский"/>
+	</std_language>
+	<std_language>
+		<id>ba</id>
+		<id2>bak</id2>
+		<name lang-en:VALUE="Bashkir" VALUE="Башкирский"/>
+	</std_language>
+	<std_language>
+		<id>bm</id>
+		<id2>bam</id2>
+		<name lang-en:VALUE="Bambara"/>
+	</std_language>
+	<std_language>
+		<id>be</id>
+		<id2>bel</id2>
+		<name lang-en:VALUE="Belarusian" VALUE="Белорусский"/>
+	</std_language>
+	<std_language>
+		<id>bn</id>
+		<id2>ben</id2>
+		<name lang-en:VALUE="Bengali" VALUE="Бенгальский"/>
+	</std_language>
+	<std_language>
+		<id>bi</id>
+		<id2>bis</id2>
+		<name lang-en:VALUE="Bislama"/>
+	</std_language>
+	<std_language>
+		<id>bo</id>
+		<id2>bod</id2>
+		<name lang-en:VALUE="Tibetan" VALUE="Тибетский"/>
+	</std_language>
+	<std_language>
+		<id>bs</id>
+		<id2>bos</id2>
+		<name lang-en:VALUE="Bosnian" VALUE="Боснийский"/>
+	</std_language>
+	<std_language>
+		<id>br</id>
+		<id2>bre</id2>
+		<name lang-en:VALUE="Breton"/>
+	</std_language>
+	<std_language>
+		<id>bg</id>
+		<id2>bul</id2>
+		<name lang-en:VALUE="Bulgarian" VALUE="Болгарский"/>
+	</std_language>
+	<std_language>
+		<id>ca</id>
+		<id2>cat</id2>
+		<name lang-en:VALUE="Catalan" VALUE="Каталанский"/>
+	</std_language>
+	<std_language>
+		<id>cs</id>
+		<id2>ces</id2>
+		<name lang-en:VALUE="Czech" VALUE="Чешский"/>
+	</std_language>
+	<std_language>
+		<id>ch</id>
+		<id2>cha</id2>
+		<name lang-en:VALUE="Chamorro"/>
+	</std_language>
+	<std_language>
+		<id>ce</id>
+		<id2>che</id2>
+		<name lang-en:VALUE="Chechen" VALUE="Чеченский"/>
+	</std_language>
+	<std_language>
+		<id>cu</id>
+		<id2>chu</id2>
+		<name lang-en:VALUE="Church Slavic"/>
+	</std_language>
+	<std_language>
+		<id>cv</id>
+		<id2>chv</id2>
+		<name lang-en:VALUE="Chuvash" VALUE="Чувашский"/>
+	</std_language>
+	<std_language>
+		<id>kw</id>
+		<id2>cor</id2>
+		<name lang-en:VALUE="Cornish"/>
+	</std_language>
+	<std_language>
+		<id>co</id>
+		<id2>cos</id2>
+		<name lang-en:VALUE="Corsican"/>
+	</std_language>
+	<std_language>
+		<id>cr</id>
+		<id2>cre</id2>
+		<name lang-en:VALUE="Cree"/>
+	</std_language>
+	<std_language>
+		<id>cy</id>
+		<id2>cym</id2>
+		<name lang-en:VALUE="Welsh"/>
+	</std_language>
+	<std_language>
+		<id>da</id>
+		<id2>dan</id2>
+		<name lang-en:VALUE="Danish" VALUE="Датский"/>
+	</std_language>
+	<std_language>
+		<id>de</id>
+		<id2>deu</id2>
+		<name lang-en:VALUE="German" VALUE="Немецкий"/>
+	</std_language>
+	<std_language>
+		<id>dv</id>
+		<id2>div</id2>
+		<name lang-en:VALUE="Dhivehi"/>
+	</std_language>
+	<std_language>
+		<id>dz</id>
+		<id2>dzo</id2>
+		<name lang-en:VALUE="Dzongkha"/>
+	</std_language>
+	<std_language>
+		<id>el</id>
+		<id2>ell</id2>
+		<name lang-en:VALUE="Greek" VALUE="Греческий"/>
+	</std_language>
+	<std_language>
+		<id>en</id>
+		<id2>eng</id2>
+		<name lang-en:VALUE="English" VALUE="Английский"/>
+	</std_language>
+	<std_language>
+		<id>eo</id>
+		<id2>epo</id2>
+		<name lang-en:VALUE="Esperanto" VALUE="Эсперанто"/>
+	</std_language>
+	<std_language>
+		<id>et</id>
+		<id2>est</id2>
+		<name lang-en:VALUE="Estonian" VALUE="Эстонский"/>
+	</std_language>
+	<std_language>
+		<id>eu</id>
+		<id2>eus</id2>
+		<name lang-en:VALUE="Basque" VALUE="Баскский"/>
+	</std_language>
+	<std_language>
+		<id>ee</id>
+		<id2>ewe</id2>
+		<name lang-en:VALUE="Ewe"/>
+	</std_language>
+	<std_language>
+		<id>fo</id>
+		<id2>fao</id2>
+		<name lang-en:VALUE="Faroese"/>
+	</std_language>
+	<std_language>
+		<id>fa</id>
+		<id2>fas</id2>
+		<name lang-en:VALUE="Persian" VALUE="Персидский"/>
+	</std_language>
+	<std_language>
+		<id>fj</id>
+		<id2>fij</id2>
+		<name lang-en:VALUE="Fijian"/>
+	</std_language>
+	<std_language>
+		<id>fi</id>
+		<id2>fin</id2>
+		<name lang-en:VALUE="Finnish" VALUE="Финский"/>
+	</std_language>
+	<std_language>
+		<id>fr</id>
+		<id2>fra</id2>
+		<name lang-en:VALUE="French" VALUE="Французский"/>
+	</std_language>
+	<std_language>
+		<id>fy</id>
+		<id2>fry</id2>
+		<name lang-en:VALUE="Western Frisian"/>
+	</std_language>
+	<std_language>
+		<id>ff</id>
+		<id2>ful</id2>
+		<name lang-en:VALUE="Fulah"/>
+	</std_language>
+	<std_language>
+		<id>gd</id>
+		<id2>gla</id2>
+		<name lang-en:VALUE="Scottish Gaelic"/>
+	</std_language>
+	<std_language>
+		<id>ga</id>
+		<id2>gle</id2>
+		<name lang-en:VALUE="Irish" VALUE="Ирландский"/>
+	</std_language>
+	<std_language>
+		<id>gl</id>
+		<id2>glg</id2>
+		<name lang-en:VALUE="Galician"/>
+	</std_language>
+	<std_language>
+		<id>gv</id>
+		<id2>glv</id2>
+		<name lang-en:VALUE="Manx"/>
+	</std_language>
+	<std_language>
+		<id>gn</id>
+		<id2>grn</id2>
+		<name lang-en:VALUE="Guarani"/>
+	</std_language>
+	<std_language>
+		<id>gu</id>
+		<id2>guj</id2>
+		<name lang-en:VALUE="Gujarati"/>
+	</std_language>
+	<std_language>
+		<id>ht</id>
+		<id2>hat</id2>
+		<name lang-en:VALUE="Haitian"/>
+	</std_language>
+	<std_language>
+		<id>ha</id>
+		<id2>hau</id2>
+		<name lang-en:VALUE="Hausa"/>
+	</std_language>
+	<std_language>
+		<id>sh</id>
+		<id2>hbs</id2>
+		<name lang-en:VALUE="Serbo-Croatian"/>
+	</std_language>
+	<std_language>
+		<id>he</id>
+		<id2>heb</id2>
+		<name lang-en:VALUE="Hebrew" VALUE="Иврит"/>
+	</std_language>
+	<std_language>
+		<id>hz</id>
+		<id2>her</id2>
+		<name lang-en:VALUE="Herero"/>
+	</std_language>
+	<std_language>
+		<id>hi</id>
+		<id2>hin</id2>
+		<name lang-en:VALUE="Hindi" VALUE="Хинди"/>
+	</std_language>
+	<std_language>
+		<id>ho</id>
+		<id2>hmo</id2>
+		<name lang-en:VALUE="Hiri Motu"/>
+	</std_language>
+	<std_language>
+		<id>hr</id>
+		<id2>hrv</id2>
+		<name lang-en:VALUE="Croatian" VALUE="Хорватский"/>
+	</std_language>
+	<std_language>
+		<id>hu</id>
+		<id2>hun</id2>
+		<name lang-en:VALUE="Hungarian" VALUE="Венгерский"/>
+	</std_language>
+	<std_language>
+		<id>hy</id>
+		<id2>hye</id2>
+		<name lang-en:VALUE="Armenian" VALUE="Армянский"/>
+	</std_language>
+	<std_language>
+		<id>ig</id>
+		<id2>ibo</id2>
+		<name lang-en:VALUE="Igbo"/>
+	</std_language>
+	<std_language>
+		<id>io</id>
+		<id2>ido</id2>
+		<name lang-en:VALUE="Ido"/>
+	</std_language>
+	<std_language>
+		<id>ii</id>
+		<id2>iii</id2>
+		<name lang-en:VALUE="Sichuan Yi"/>
+	</std_language>
+	<std_language>
+		<id>iu</id>
+		<id2>iku</id2>
+		<name lang-en:VALUE="Inuktitut"/>
+	</std_language>
+	<std_language>
+		<id>id</id>
+		<id2>ind</id2>
+		<name lang-en:VALUE="Indonesian" VALUE="Индонезийский"/>
+	</std_language>
+	<std_language>
+		<id>ik</id>
+		<id2>ipk</id2>
+		<name lang-en:VALUE="Inupiaq"/>
+	</std_language>
+	<std_language>
+		<id>is</id>
+		<id2>isl</id2>
+		<name lang-en:VALUE="Icelandic" VALUE="Исландский"/>
+	</std_language>
+	<std_language>
+		<id>it</id>
+		<id2>ita</id2>
+		<name lang-en:VALUE="Italian" VALUE="Итальянский"/>
+	</std_language>
+	<std_language>
+		<id>jv</id>
+		<id2>jav</id2>
+		<name lang-en:VALUE="Javanese"/>
+	</std_language>
+	<std_language>
+		<id>ja</id>
+		<id2>jpn</id2>
+		<name lang-en:VALUE="Japanese" VALUE="Японский"/>
+	</std_language>
+	<std_language>
+		<id>kl</id>
+		<id2>kal</id2>
+		<name lang-en:VALUE="Kalaallisut"/>
+	</std_language>
+	<std_language>
+		<id>kn</id>
+		<id2>kan</id2>
+		<name lang-en:VALUE="Kannada"/>
+	</std_language>
+	<std_language>
+		<id>ks</id>
+		<id2>kas</id2>
+		<name lang-en:VALUE="Kashmiri" VALUE="Кашмирский"/>
+	</std_language>
+	<std_language>
+		<id>ka</id>
+		<id2>kat</id2>
+		<name lang-en:VALUE="Georgian" VALUE="Грузинский"/>
+	</std_language>
+	<std_language>
+		<id>kr</id>
+		<id2>kau</id2>
+		<name lang-en:VALUE="Kanuri"/>
+	</std_language>
+	<std_language>
+		<id>kk</id>
+		<id2>kaz</id2>
+		<name lang-en:VALUE="Kazakh" VALUE="Казахский"/>
+	</std_language>
+	<std_language>
+		<id>km</id>
+		<id2>khm</id2>
+		<name lang-en:VALUE="Khmer (Cambodian)" VALUE="Кхмерский (Камбоджийский)"/>
+	</std_language>
+	<std_language>
+		<id>ki</id>
+		<id2>kik</id2>
+		<name lang-en:VALUE="Kikuyu"/>
+	</std_language>
+	<std_language>
+		<id>rw</id>
+		<id2>kin</id2>
+		<name lang-en:VALUE="Kinyarwanda"/>
+	</std_language>
+	<std_language>
+		<id>ky</id>
+		<id2>kir</id2>
+		<name lang-en:VALUE="Kyrgyz" VALUE="Кыргызский"/>
+	</std_language>
+	<std_language>
+		<id>kv</id>
+		<id2>kom</id2>
+		<name lang-en:VALUE="Komi" VALUE="Коми"/>
+	</std_language>
+	<std_language>
+		<id>kg</id>
+		<id2>kon</id2>
+		<name lang-en:VALUE="Kongo"/>
+	</std_language>
+	<std_language>
+		<id>ko</id>
+		<id2>kor</id2>
+		<name lang-en:VALUE="Korean" VALUE="Корейский"/>
+	</std_language>
+	<std_language>
+		<id>kj</id>
+		<id2>kua</id2>
+		<name lang-en:VALUE="Kuanyama"/>
+	</std_language>
+	<std_language>
+		<id>ku</id>
+		<id2>kur</id2>
+		<name lang-en:VALUE="Kurdish" VALUE="Курдский"/>
+	</std_language>
+	<std_language>
+		<id>lo</id>
+		<id2>lao</id2>
+		<name lang-en:VALUE="Lao" VALUE="Лаосский"/>
+	</std_language>
+	<std_language>
+		<id>la</id>
+		<id2>lat</id2>
+		<name lang-en:VALUE="Latin" VALUE="Латинский"/>
+	</std_language>
+	<std_language>
+		<id>lv</id>
+		<id2>lav</id2>
+		<name lang-en:VALUE="Latvian" VALUE="Латышский"/>
+	</std_language>
+	<std_language>
+		<id>li</id>
+		<id2>lim</id2>
+		<name lang-en:VALUE="Limburgan"/>
+	</std_language>
+	<std_language>
+		<id>ln</id>
+		<id2>lin</id2>
+		<name lang-en:VALUE="Lingala"/>
+	</std_language>
+	<std_language>
+		<id>lt</id>
+		<id2>lit</id2>
+		<name lang-en:VALUE="Lithuanian" VALUE="Литовский"/>
+	</std_language>
+	<std_language>
+		<id>lb</id>
+		<id2>ltz</id2>
+		<name lang-en:VALUE="Luxembourgish"/>
+	</std_language>
+	<std_language>
+		<id>lu</id>
+		<id2>lub</id2>
+		<name lang-en:VALUE="Luba-Katanga"/>
+	</std_language>
+	<std_language>
+		<id>lg</id>
+		<id2>lug</id2>
+		<name lang-en:VALUE="Ganda"/>
+	</std_language>
+	<std_language>
+		<id>mh</id>
+		<id2>mah</id2>
+		<name lang-en:VALUE="Marshallese"/>
+	</std_language>
+	<std_language>
+		<id>ml</id>
+		<id2>mal</id2>
+		<name lang-en:VALUE="Malayalam"/>
+	</std_language>
+	<std_language>
+		<id>mr</id>
+		<id2>mar</id2>
+		<name lang-en:VALUE="Marathi"/>
+	</std_language>
+	<std_language>
+		<id>mk</id>
+		<id2>mkd</id2>
+		<name lang-en:VALUE="Macedonian"/>
+	</std_language>
+	<std_language>
+		<id>mg</id>
+		<id2>mlg</id2>
+		<name lang-en:VALUE="Malagasy"/>
+	</std_language>
+	<std_language>
+		<id>mt</id>
+		<id2>mlt</id2>
+		<name lang-en:VALUE="Maltese"/>
+	</std_language>
+	<std_language>
+		<id>mn</id>
+		<id2>mon</id2>
+		<name lang-en:VALUE="Mongolian" VALUE="Монгольский"/>
+	</std_language>
+	<std_language>
+		<id>mi</id>
+		<id2>mri</id2>
+		<name lang-en:VALUE="Maori"/>
+	</std_language>
+	<std_language>
+		<id>ms</id>
+		<id2>msa</id2>
+		<name lang-en:VALUE="Malay (macrolanguage)"/>
+	</std_language>
+	<std_language>
+		<id>my</id>
+		<id2>mya</id2>
+		<name lang-en:VALUE="Burmese" VALUE="Бирманский"/>
+	</std_language>
+	<std_language>
+		<id>na</id>
+		<id2>nau</id2>
+		<name lang-en:VALUE="Nauru"/>
+	</std_language>
+	<std_language>
+		<id>nv</id>
+		<id2>nav</id2>
+		<name lang-en:VALUE="Navajo"/>
+	</std_language>
+	<std_language>
+		<id>nr</id>
+		<id2>nbl</id2>
+		<name lang-en:VALUE="South Ndebele"/>
+	</std_language>
+	<std_language>
+		<id>nd</id>
+		<id2>nde</id2>
+		<name lang-en:VALUE="North Ndebele"/>
+	</std_language>
+	<std_language>
+		<id>ng</id>
+		<id2>ndo</id2>
+		<name lang-en:VALUE="Ndonga"/>
+	</std_language>
+	<std_language>
+		<id>ne</id>
+		<id2>nep</id2>
+		<name lang-en:VALUE="Nepali" VALUE="Непальский"/>
+	</std_language>
+	<std_language>
+		<id>nl</id>
+		<id2>nld</id2>
+		<name lang-en:VALUE="Dutch" VALUE="Голландский"/>
+	</std_language>
+	<std_language>
+		<id>nn</id>
+		<id2>nno</id2>
+		<name lang-en:VALUE="Norwegian Nynorsk"/>
+	</std_language>
+	<std_language>
+		<id>nb</id>
+		<id2>nob</id2>
+		<name lang-en:VALUE="Norwegian BokmГҐl"/>
+	</std_language>
+	<std_language>
+		<id>no</id>
+		<id2>nor</id2>
+		<name lang-en:VALUE="Norwegian" VALUE="Норвежский"/>
+	</std_language>
+	<std_language>
+		<id>ny</id>
+		<id2>nya</id2>
+		<name lang-en:VALUE="Nyanja"/>
+	</std_language>
+	<std_language>
+		<id>oc</id>
+		<id2>oci</id2>
+		<name lang-en:VALUE="Occitan (post 1500)"/>
+	</std_language>
+	<std_language>
+		<id>oj</id>
+		<id2>oji</id2>
+		<name lang-en:VALUE="Ojibwa"/>
+	</std_language>
+	<std_language>
+		<id>or</id>
+		<id2>ori</id2>
+		<name lang-en:VALUE="Oriya (macrolanguage)"/>
+	</std_language>
+	<std_language>
+		<id>om</id>
+		<id2>orm</id2>
+		<name lang-en:VALUE="Oromo"/>
+	</std_language>
+	<std_language>
+		<id>os</id>
+		<id2>oss</id2>
+		<name lang-en:VALUE="Ossetian" VALUE="Осетинский"/>
+	</std_language>
+	<std_language>
+		<id>pa</id>
+		<id2>pan</id2>
+		<name lang-en:VALUE="Punjabi" VALUE="Панджаби"/>
+	</std_language>
+	<std_language>
+		<id>pi</id>
+		<id2>pli</id2>
+		<name lang-en:VALUE="Pali"/>
+	</std_language>
+	<std_language>
+		<id>pl</id>
+		<id2>pol</id2>
+		<name lang-en:VALUE="Polish" VALUE="Польский"/>
+	</std_language>
+	<std_language>
+		<id>pt</id>
+		<id2>por</id2>
+		<name lang-en:VALUE="Portuguese" VALUE="Португальский"/>
+	</std_language>
+	<std_language>
+		<id>ps</id>
+		<id2>pus</id2>
+		<name lang-en:VALUE="Pashto" VALUE="Пушту"/>
+	</std_language>
+	<std_language>
+		<id>qu</id>
+		<id2>que</id2>
+		<name lang-en:VALUE="Quechua"/>
+	</std_language>
+	<std_language>
+		<id>rm</id>
+		<id2>roh</id2>
+		<name lang-en:VALUE="Romansh"/>
+	</std_language>
+	<std_language>
+		<id>ro</id>
+		<id2>ron</id2>
+		<name lang-en:VALUE="Romanian" VALUE="Румынский"/>
+	</std_language>
+	<std_language>
+		<id>rn</id>
+		<id2>run</id2>
+		<name lang-en:VALUE="Rundi"/>
+	</std_language>
+	<std_language>
+		<id>ru</id>
+		<id2>rus</id2>
+		<name lang-en:VALUE="Russian" VALUE="Русский"/>
+	</std_language>
+	<std_language>
+		<id>sg</id>
+		<id2>sag</id2>
+		<name lang-en:VALUE="Sango"/>
+	</std_language>
+	<std_language>
+		<id>sa</id>
+		<id2>san</id2>
+		<name lang-en:VALUE="Sanskrit" VALUE="Санскрит"/>
+	</std_language>
+	<std_language>
+		<id>si</id>
+		<id2>sin</id2>
+		<name lang-en:VALUE="Sinhala"/>
+	</std_language>
+	<std_language>
+		<id>sk</id>
+		<id2>slk</id2>
+		<name lang-en:VALUE="Slovak" VALUE="Словацкий"/>
+	</std_language>
+	<std_language>
+		<id>sl</id>
+		<id2>slv</id2>
+		<name lang-en:VALUE="Slovenian" VALUE="Словенский"/>
+	</std_language>
+	<std_language>
+		<id>se</id>
+		<id2>sme</id2>
+		<name lang-en:VALUE="Northern Sami"/>
+	</std_language>
+	<std_language>
+		<id>sm</id>
+		<id2>smo</id2>
+		<name lang-en:VALUE="Samoan"/>
+	</std_language>
+	<std_language>
+		<id>sn</id>
+		<id2>sna</id2>
+		<name lang-en:VALUE="Shona"/>
+	</std_language>
+	<std_language>
+		<id>sd</id>
+		<id2>snd</id2>
+		<name lang-en:VALUE="Sindhi"/>
+	</std_language>
+	<std_language>
+		<id>so</id>
+		<id2>som</id2>
+		<name lang-en:VALUE="Somalian" VALUE="Сомалийский"/>
+	</std_language>
+	<std_language>
+		<id>st</id>
+		<id2>sot</id2>
+		<name lang-en:VALUE="Southern Sotho"/>
+	</std_language>
+	<std_language>
+		<id>es</id>
+		<id2>spa</id2>
+		<name lang-en:VALUE="Spanish" VALUE="Испанский"/>
+	</std_language>
+	<std_language>
+		<id>sq</id>
+		<id2>sqi</id2>
+		<name lang-en:VALUE="Albanian" VALUE="Албанский"/>
+	</std_language>
+	<std_language>
+		<id>sc</id>
+		<id2>srd</id2>
+		<name lang-en:VALUE="Sardinian"/>
+	</std_language>
+	<std_language>
+		<id>sr</id>
+		<id2>srp</id2>
+		<name lang-en:VALUE="Serbian" VALUE="Сербский"/>
+	</std_language>
+	<std_language>
+		<id>ss</id>
+		<id2>ssw</id2>
+		<name lang-en:VALUE="Swati"/>
+	</std_language>
+	<std_language>
+		<id>su</id>
+		<id2>sun</id2>
+		<name lang-en:VALUE="Sundanese"/>
+	</std_language>
+	<std_language>
+		<id>sw</id>
+		<id2>swa</id2>
+		<name lang-en:VALUE="Swahili" VALUE="Суахили"/>
+	</std_language>
+	<std_language>
+		<id>sv</id>
+		<id2>swe</id2>
+		<name lang-en:VALUE="Swedish" VALUE="Шведский"/>
+	</std_language>
+	<std_language>
+		<id>ty</id>
+		<id2>tah</id2>
+		<name lang-en:VALUE="Tahitian"/>
+	</std_language>
+	<std_language>
+		<id>ta</id>
+		<id2>tam</id2>
+		<name lang-en:VALUE="Tamil" VALUE="Тамильский"/>
+	</std_language>
+	<std_language>
+		<id>tt</id>
+		<id2>tat</id2>
+		<name lang-en:VALUE="Tatar" VALUE="Татарский"/>
+	</std_language>
+	<std_language>
+		<id>te</id>
+		<id2>tel</id2>
+		<name lang-en:VALUE="Telugu"/>
+	</std_language>
+	<std_language>
+		<id>tg</id>
+		<id2>tgk</id2>
+		<name lang-en:VALUE="Tajik" VALUE="Таджикский"/>
+	</std_language>
+	<std_language>
+		<id>tl</id>
+		<id2>tgl</id2>
+		<name lang-en:VALUE="Tagalog" VALUE="Тагальский"/>
+	</std_language>
+	<std_language>
+		<id>th</id>
+		<id2>tha</id2>
+		<name lang-en:VALUE="Thai" VALUE="Тайский"/>
+	</std_language>
+	<std_language>
+		<id>ti</id>
+		<id2>tir</id2>
+		<name lang-en:VALUE="Tigrinya"/>
+	</std_language>
+	<std_language>
+		<id>to</id>
+		<id2>ton</id2>
+		<name lang-en:VALUE="Tonga (Tonga Islands)"/>
+	</std_language>
+	<std_language>
+		<id>tn</id>
+		<id2>tsn</id2>
+		<name lang-en:VALUE="Tswana"/>
+	</std_language>
+	<std_language>
+		<id>ts</id>
+		<id2>tso</id2>
+		<name lang-en:VALUE="Tsonga"/>
+	</std_language>
+	<std_language>
+		<id>tk</id>
+		<id2>tuk</id2>
+		<name lang-en:VALUE="Turkmen" VALUE="Туркменский"/>
+	</std_language>
+	<std_language>
+		<id>tr</id>
+		<id2>tur</id2>
+		<name lang-en:VALUE="Turkish" VALUE="Турецкий"/>
+	</std_language>
+	<std_language>
+		<id>tw</id>
+		<id2>twi</id2>
+		<name lang-en:VALUE="Twi"/>
+	</std_language>
+	<std_language>
+		<id>ug</id>
+		<id2>uig</id2>
+		<name lang-en:VALUE="Uyghur" VALUE="Уйгурский"/>
+	</std_language>
+	<std_language>
+		<id>uk</id>
+		<id2>ukr</id2>
+		<name lang-en:VALUE="Ukrainian" VALUE="Украинский"/>
+	</std_language>
+	<std_language>
+		<id>ur</id>
+		<id2>urd</id2>
+		<name lang-en:VALUE="Urdu" VALUE="Урду"/>
+	</std_language>
+	<std_language>
+		<id>uz</id>
+		<id2>uzb</id2>
+		<name lang-en:VALUE="Uzbek" VALUE="Узбекский"/>
+	</std_language>
+	<std_language>
+		<id>ve</id>
+		<id2>ven</id2>
+		<name lang-en:VALUE="Venda"/>
+	</std_language>
+	<std_language>
+		<id>vi</id>
+		<id2>vie</id2>
+		<name lang-en:VALUE="Vietnamese" VALUE="Вьетнамский"/>
+	</std_language>
+	<std_language>
+		<id>wa</id>
+		<id2>wln</id2>
+		<name lang-en:VALUE="Walloon"/>
+	</std_language>
+	<std_language>
+		<id>wo</id>
+		<id2>wol</id2>
+		<name lang-en:VALUE="Wolof"/>
+	</std_language>
+	<std_language>
+		<id>xh</id>
+		<id2>xho</id2>
+		<name lang-en:VALUE="Xhosa"/>
+	</std_language>
+	<std_language>
+		<id>yi</id>
+		<id2>yid</id2>
+		<name lang-en:VALUE="Yiddish"/>
+	</std_language>
+	<std_language>
+		<id>yo</id>
+		<id2>yor</id2>
+		<name lang-en:VALUE="Yoruba"/>
+	</std_language>
+	<std_language>
+		<id>za</id>
+		<id2>zha</id2>
+		<name lang-en:VALUE="Zhuang"/>
+	</std_language>
+	<std_language>
+		<id>zh</id>
+		<id2>zho</id2>
+		<name lang-en:VALUE="Chinese" VALUE="Китайский"/>
+	</std_language>
+	<std_language>
+		<id>zu</id>
+		<id2>zul</id2>
+		<name lang-en:VALUE="Zulu"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>mns</id2>
+		<name VALUE="Мансийский" lang-en:VALUE="Mansi"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>kbd</id2>
+		<name VALUE="Кабардино-черкесский" lang-en:VALUE="Kabardino-Cherkessian"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>dag</id2>
+		<name VALUE="Дагестанский" lang-en:VALUE="Dagestanian"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>nog</id2>
+		<name VALUE="Ногайский" lang-en:VALUE="Nogai"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>dar</id2>
+		<name VALUE="Даргинский" lang-en:VALUE="Dargwa"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>vls</id2>
+		<name VALUE="Фламандский" lang-en:VALUE="Flemish"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>crs</id2>
+		<name VALUE="Креольский (Сейшельские острова)" lang-en:VALUE="Creole (Seychelles)"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>zlm</id2>
+		<name VALUE="Малазийский" lang-en:VALUE="Malaysian"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>abq</id2>
+		<name VALUE="Абазинский" lang-en:VALUE="Abaza"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>kum</id2>
+		<name VALUE="Кумыкский" lang-en:VALUE="Kumyk"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>lez</id2>
+		<name VALUE="Лезгинский" lang-en:VALUE="Lezgian"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>tly</id2>
+		<name VALUE="Талышский" lang-en:VALUE="Talysh"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>krl</id2>
+		<name VALUE="Карельский" lang-en:VALUE="Karelian"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>krc</id2>
+		<name VALUE="Карачаево-балкарский" lang-en:VALUE="Karachayevo-Balkarian"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>chm</id2>
+		<name VALUE="Марийский" lang-en:VALUE="Mari"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>tyv</id2>
+		<name VALUE="Тувинский" lang-en:VALUE="Tuvan"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>mke</id2>
+		<name VALUE="Македонский" lang-en:VALUE="Macedonian"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>bua</id2>
+		<name VALUE="Бурятский" lang-en:VALUE="Buryat"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>udm</id2>
+		<name VALUE="Удмуртский" lang-en:VALUE="Udmurt"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>lbe</id2>
+		<name VALUE="Лакский" lang-en:VALUE="Lak"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>sah</id2>
+		<name VALUE="Якутский" lang-en:VALUE="Yakut"/>
+	</std_language>
+	<std_language>
+		<id/>
+		<id2>inh</id2>
+		<name VALUE="Ингушский" lang-en:VALUE="Ingush"/>
+	</std_language>
+</std_languages>

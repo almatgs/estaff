@@ -1,0 +1,10 @@
+{
+	"name": "##HOST_APP_ID##",
+	"description": "##HOST_APP_DESC##",
+	"path": "##HOST_APP_PATH##",
+	"type": "stdio",
+	"allowed_extensions":
+	[
+		"##PLUGIN_ID##"
+	]
+}

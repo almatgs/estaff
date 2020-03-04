@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM TITLE="##UiText.titles.external_vacancy##" IMAGE-URL="//base_pict/generic_item.ico">
+
+<external_vacancy>
+	<id TYPE="integer"/>	
+	<name TYPE="string" TITLE="##UiText.fields.name##"/>
+
+	<recruit_provider_id TYPE="string" FOREIGN-ARRAY="recruit_providers" TITLE="##UiText.titles.provider##"/>
+	<recruit_provider_eid TYPE="string"/>
+	<eid TYPE="string" TITLE="##UiText.fields.eid##"/>
+	<uid TYPE="string"/>
+
+	<user_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="users" TITLE="##UiText.fields.recruiter##" EXP-MAX-LEN="13" COL-ALIGN="center" INDEXED="1"/>
+</external_vacancy>
+
+
+
+</SPXML-FORM>

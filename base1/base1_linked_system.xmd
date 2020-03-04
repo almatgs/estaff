@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml">
+
+
+<linked_system>
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<server_address TYPE="string" TITLE="##UiText.titles.server_address##"/>
+
+	<use_auth TYPE="bool" NOT-NULL="1"/>
+	<login TYPE="string"/>
+	<password TYPE="string"/>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</linked_system>
+
+
+
+</SPXML-FORM>

@@ -1,0 +1,23 @@
+<%
+	//objectTypeID = Request.QueryString.object_type_id;
+	viewID = Request.QueryString.view_id;
+	isDlg= true;
+%>
+
+<%Server.Execute( 'include/std_head.htm' )%>
+
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta http-equiv="Pragma" content="no-cache"/>
+
+
+<form id="MainForm">
+	<input type="hidden" id="object_id"/>
+	<input type="hidden" id="object_primary_disp_name"/>
+</form>
+
+<%
+	CallCodeUrlFunction( 'x-app://base1/base1_lib_web.js', 'build_web_view', Response, viewID, Request.QueryString.view_filter );
+%>
+
+
+<%Server.Execute( 'include/std_tail.htm' )%>

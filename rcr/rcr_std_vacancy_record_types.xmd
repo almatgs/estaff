@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_vacancy_record_types>
+	<std_vacancy_record_type MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT TYPE="vacancy_record_type_base"/>
+	</std_vacancy_record_type>
+</std_vacancy_record_types>
+
+
+
+</SPXML-FORM>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>persons_of_org</id>
+	<name VALUE="Контактные лица по организации" lang-en:VALUE="Contact persons by company" lang-ua:VALUE="Контактні особи по організації"/>
+	<parent_id>persons</parent_id>
+
+	<drop_all_dyn_filters>1</drop_all_dyn_filters>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>org_id</id>
+			<is_auto>1</is_auto>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>fullname</id>
+		</field>
+		<field>
+			<id>position_name</id>
+		</field>
+		<field>
+			<id>disp_phone</id>
+		</field>
+		<field_>
+			<id>org_person_priority</id>
+			<col_title>!</col_title>
+			<title_expr>org_person_priority.HasValue ? '+' : ''</title_expr>
+			<order>org_person_priority</order>
+			<order_dir>-</order_dir>
+			<order1>roles.order_index</order1>
+			<order_dir1>+</order_dir1>
+			<is_default_sort>1</is_default_sort>
+			<width>3zr</width>
+			<align>center</align>
+		</field_>
+		<field_>
+			<id>roles.desc</id>
+			<title_expr>roles.order_index</title_expr>
+			<order>roles.order_index</order>
+		</field_>
+		<field>
+			<id>last_contact_date</id>
+			<use_time>0</use_time>
+			<col_title VALUE="##UiText.fields.last_contact##"/>
+		</field>
+		<field>
+			<id>user_id</id>
+		</field>
+	</fields>
+</std_view>
+

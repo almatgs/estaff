@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM CATALOG="1" LARGE="1">
+
+<trash_docs>
+	<trash_doc MULTIPLE="1" PRIMARY-KEY="id">
+		<id TYPE="integer" INDEXED="1"/>
+		<object_name TYPE="string"/>
+		<del_date TYPE="date" INDEXED="1"/>
+
+		<desc TYPE="string"/>
+
+
+		<OnBuild PROPERTY="1" EXPR="
+				try
+				{
+					del_date = SrcDoc.TopElem.doc_info.modification.date;
+					if ( del_date == null )
+						del_date = Date();
+				}
+				catch ( e )
+				{
+					del_date = Date();
+				}
+
+				try
+				{
+					desc = SrcDoc.DocDesc();
+				}
+				catch ( e )
+				{
+					desc = '';
+				}
+
+				object_name = SrcDoc.TopElem.Name;
+		"/>
+	</trash_doc>
+</trash_docs>
+
+
+<MatchDocType PROPERTY="1" EXPR="
+		true
+"/>
+
+
+
+</SPXML-FORM>
+
+
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_agents SPXML-FORM="//base1/base1_std_agents.xmd">
+	<std_agent>
+		<id>load_from_ext_calendar</id>
+		<name VALUE="##UiText.titles.load_from_external_calendar##"/>
+		<is_active>1</is_active>
+		<code>lib_ext_calendar.load_mod_entries()</code>
+		<run_on_client>1</run_on_client>
+
+		<show_in_main_menu>1</show_in_main_menu>
+
+		<schedule>
+			<use_term>0</use_term>
+			<term>
+				<length>10</length>
+				<unit_id>minute</unit_id>
+			</term>
+		</schedule>
+	</std_agent>
+</std_agents>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="88zr" HEIGHT="75zr" TITLE="##UiText.sections.global_settings_auto_mailing##" WINDOW-ICON-URL="//base_pict/settings.ico" RESIZE="1">
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" SUNKEN="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="50zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.smtp.server_address" LABEL-TITLE="##UiText.titles.smtp_server##:" UPDATE-ACTION="
+				if ( StrEnds( Ps.smtp.server_address, ':465' ) )
+				{
+					Ps.smtp.use_ssl_port = true;
+					Ps.smtp.use_ssl = false;
+				}
+		"/>
+	</TABLE>
+	<BR/>
+
+	<LINE>
+		<CHECK TITLE="##UiText.titles.server_requires_auth##" SOURCE="Ps.smtp.use_auth"/>
+		<CHECK SOURCE="Ps.smtp.use_ssl" AUTO-LABEL="1" UPDATE-ACTION="
+				if ( Ps.smtp.use_ssl )
+					Ps.smtp.use_ssl_port = false;
+		"/>
+		
+		<CHECK SOURCE="Ps.smtp.use_ssl_port" AUTO-LABEL="1" UPDATE-ACTION="
+				if ( Ps.smtp.use_ssl_port )
+					Ps.smtp.use_ssl = false;
+		"/>
+	</LINE>
+
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="25zr"/>
+			<COL WIDTH="20zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.smtp.login" LABEL-TITLE="##UiText.fields.login##:" ENABLE-EXPR="Ps.smtp.use_auth" lang-en:LABEL-TITLE="Login:"/>
+		<EDIT SOURCE="Ps.smtp.password" LABEL-TITLE="##UiText.fields.password##:" PASSWORD="1" ENABLE-EXPR="Ps.smtp.use_auth" lang-en:LABEL-TITLE="Password:"/>
+	</TABLE>
+
+	<DELIM/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="25zr"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.default_sender.address" LABEL-TITLE="##UiText.fields.sender_address##:"/>
+		<EDIT SOURCE="Ps.default_sender.name" LABEL-TITLE="##UiText.fields.sender_name##:" lang-en:LABEL-TITLE="Sender name:"/>
+	</TABLE>
+	<BR/>
+
+	<CHECK SOURCE="Ps.run_on_server" AUTO-LABEL="1" ENABLE-EXPR="UseLds"/>
+	<DELIM/>
+
+	<BR/>
+
+	<LINE>
+		<BUTTON TITLE="##UiText.actions.send_test_message##" IMAGE-URL="//base_pict/email.ico" WIDTH="35zr" ACTION="
+				if ( Ps.test_email == '' )
+					throw UserError( UiText.errors.test_email_not_specified );
+
+				if ( Screen.Doc.IsChanged )
+					Screen.SaveDoc();
+
+				lib_mail.send_test_mail_message( Ps.test_email, {UseGlobalSettings:true} );
+		"/>
+
+		<LABEL TITLE="##UiText.titles.test_email##:"/>
+		<EDIT SOURCE="Ps.test_email" WIDTH="30zr"/>
+	</LINE>
+</PANEL>
+
+
+<COMMAND-HANDLER CMD="Help1" HREF="help/settings_numbering.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1" TARGET-NEW-WINDOW="1"/>
+
+
+</SPXML-SCREEN>

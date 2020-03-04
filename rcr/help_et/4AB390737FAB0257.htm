@@ -1,0 +1,110 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<title></title>
+<style>
+<!--
+*
+{
+	font-family: Calibri,Arial,sans-serif;
+	font-size: 12pt;
+	__margin: 2px;
+}
+
+
+p, li
+{
+	__margin: 0px;
+}
+
+-->
+</style>
+</head>
+<body>
+<h1>Integratsioon välise personaliarvestuse süsteemiga (failide vahetus)</h1>
+<p>Integratsioon
+v&auml;lise personaliarvestuse s&uuml;steemiga kasutatakse andmete automaatse impordi
+jaoks ettev&otilde;tte struktuur&uuml;ksuste, ametikohtade, t&ouml;&ouml;tajate
+ning vakantside kohta.</p>
+<p>Andmete impordiks
+v&auml;lisest personaliarvestuse s&uuml;steemist Datex Recruit-sse, tuleb neid
+eelnevalt eksportida spetsiaalselt loodud kataloogi (l&auml;htekataloog impordi
+jaoks) CSV failide formaadi kujul, mille nimetused peavad algama
+s&otilde;nadega:</p>
+<ul type="disc">
+ <li><b>division</b>&nbsp;(ametistruktuuri
+     andmed),</li>
+ <li><b>position</b>&nbsp;(ametikohtade
+     andmed)<b>,</b></li>
+ <li><b>person</b>&nbsp;(t&ouml;&ouml;tajate
+     andmed),</li>
+ <li><b>vacanc</b>&nbsp;(vakantside
+     andmed).</li>
+</ul>
+<p>Peale
+selliste andmete importi ning t&ouml;&ouml;tlemist, t&otilde;stab Datex Recruit
+neid kataloogi t&ouml;&ouml;deldud failide jaoks. T&ouml;&ouml;tlemise
+korrektse l&otilde;petamise kontrollimiseks on soovituslik seadistada laadimist
+v&auml;lisest s&uuml;steemist sellisel viisil, et &uuml;lespool toodud failide
+nimetused l&otilde;ppeksid ekspordi kuup&auml;evaga, selleks, et t&ouml;&ouml;deldud
+failide jaoks m&otilde;eldud kataloogis oleks failide kuup&auml;eva j&auml;rgi
+arusaadav, millal on t&ouml;&ouml;tlemine edukalt teostatud.</p>
+<p>Vajamineva
+vahetusformaadi v&otilde;tmeparameetriks on identifikaator<b> id</b>. V&auml;lisest
+s&uuml;steemist esmase ekspordi korral antakse igale objektile teatud id, mis
+peab j&auml;&auml;ma muutmatuks edaspidistel eksportimistel.</p>
+<p>&nbsp;</p>
+<p><b>V&auml;lise
+personaliarvestuse s&uuml;steemiga koost&ouml;&ouml; parameetrite seadistamine </b></p>
+<ul type="disc">
+ <li>Sisenege
+     Datex Recruit sektsiooni&nbsp;<b>Administreerimine-&gt; &Uuml;ldised seadistused
+     -&gt; V&auml;line personaliarvestuse s&uuml;steem</b>.</li>
+ <li>Seadistustes
+     valige veebiliides&nbsp;<b>Failide vahetus</b>,&nbsp;<b>Faili formaat </b>–&nbsp;<b>CSV</b>,
+     nuppudega <b>&Uuml;levaade</b> m&auml;&auml;rake
+     impordi l&auml;htekataloog ning kataloog t&ouml;&ouml;deldud failide jaoks.</li>
+</ul>
+<p>Juhul,
+kui teine rida struktuur&uuml;ksuste CSV failis sisaldab organisatsiooni enda,
+mitte esimese &uuml;ksuse nimetust, siis paigaldage seadistustes lipp <b>Mitte
+importida juur&uuml;ksus, mis vastab ainsale organisatsioonile</b>.</p>
+<p>&nbsp;</p>
+<p>Manuaalses
+re&#382;iimis toimub andmete laadimise k&auml;ivitus vastava k&auml;su valikuga
+tarkvara peamen&uuml;&uuml;s:&nbsp;<b>Servis-&gt; Manuaalne tausta&uuml;lesande
+k&auml;ivitus</b>.<b>&nbsp;</b>Andmete<b>
+</b>impordi jaoks struktuur&uuml;ksustest, ametikohtadest ning
+t&ouml;&ouml;tajatest on olemas k&auml;sk <b>Ametistruktuuri ning
+t&ouml;&ouml;tajate import v&auml;lisest s&uuml;steemist</b> ning vakantside
+andmete laadimiseks – <b>Vakantside import v&auml;lisest s&uuml;steemist</b>.</p>
+<p>Andmete
+laadimiseks v&auml;lisest s&uuml;steemist ajakava j&auml;rgi (igap&auml;evaselt
+v&otilde;i muu ajavahemiku p&auml;rast) sisenege sektsiooni <b>Administreerimine
+-&gt; Servis-&gt; Tausta&uuml;lesanded</b>&nbsp;ning vastava
+tausta&uuml;lesande seadistustes m&auml;&auml;rake vajaminevad
+v&auml;&auml;rtused.</p>
+<p>&Uuml;ksuste
+hierarhilise keti olulise pikkuse puhul, ei pruugi ta mahtuma sellele
+m&otilde;eldud kaardi ning nimekirjade v&auml;ljasse, mille tulemusena ei ole
+siht&uuml;ksuse nimetus n&auml;htav. Kuid antud probleemile on olemas kaks
+teineteist t&auml;iendavat lahendust.&nbsp;Vt.&nbsp;<a href="long_div_row.htm">Soovitused s&uuml;steemi
+seadistamiseks t&ouml;&ouml; jaoks ametistruktuuriga suurtes (holding)
+ettev&otilde;tetes</a>.</p>
+<p>Juhul,
+kui v&auml;lisest personaliarvestuse s&uuml;steemist andmete impordi hetkeks
+olid &uuml;ksuste, ametikohtade, t&ouml;&ouml;tajate ning vakantside kaardid
+eelnevalt k&auml;sitsi sisestatud, siis tekkivad andmebaasis selliste kaartide
+dublikaadid. Nende eemaldamise juhend asub sektsioonis<b> Dublikaatide
+eemaldamine peale andmete importi v&auml;lisest s&uuml;steemist</b>.</p>
+<p>V&auml;lise
+s&uuml;steemiga integratsiooni kasutamise korral t&ouml;&ouml;tajate andmete
+impordiks Datex Recruit-sse, saab seadistada automaatset seose tekkimist
+t&ouml;&ouml;lev&otilde;etud kandidaadi ning vastava t&ouml;&ouml;taja vahel, mis
+lubab kiiresti liikuda nende vahel ning muuta kandidaadi staatust automaatselt
+t&ouml;&ouml;tajaga lepingu l&otilde;petamise korral. Vt.&nbsp;<a href="candidate_employee_auto_bind.htm">Automaatne seose
+loomine kandidaadi ning t&ouml;&ouml;taja vahel</a>.</p><br/>
+<br/>
+<p><a href="4AB390737FAB0258.htm">Dublikaatide eemaldamine peale andmete importi välisest süsteemist</a></p>
+</body>
+</html>

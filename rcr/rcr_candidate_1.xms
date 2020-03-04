@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<UNIT NAME="candidate_menus" SAMPLE="1">
+	<MENU TITLE="##UiText.titles.file##" GLOBAL="1">
+		<MENU-ENTRY TITLE="##UiText.actions.save##&#09;Ctrl+S" CMD="Save"/>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<IF EXPR="AppModuleUsed( 'module_pm' )">
+			<MENU-ENTRY TITLE="##UiText.actions.print_profile_for_recruiter##&#09;Ctrl+P" CMD="Print"/>
+		</IF>
+		<ELSE>
+			<MENU-ENTRY TITLE="##UiText.actions.print_profile##&#09;Ctrl+P" CMD="Print" lang-en:TITLE="Print profile&#09;Ctrl+P"/>
+		</ELSE>
+
+		<MENU-ENTRY TITLE="##UiText.actions.print_profile_for_client##" ACTION="
+				if ( AppModuleUsed( 'module_pm' ) )
+				{
+					reportStr = EvalCodePageUrl( '//module_pm/pm_candidate_rr.xmp', 'strict-errors=1' );
+					lib_base.print_report( reportStr );
+					return;
+				}
+
+				lib_candidate.HandlePrintCandidateExtProfile( Ps );
+		" PASSIVE="1"/>
+
+		<MENU-ENTRY TITLE="##UiText.actions.print_attachment##" CMD="PrintDocument" ENABLE-EXPR="Ps.active_attachment != undefined && ( Ps.active_attachment.is_text || Ps.active_attachment.is_plain_text )"/>
+
+		<INHERIT TYPE="card_file_menu_end_entries"/>
+	</MENU>
+
+	<INHERIT TYPE="card_edit_menu"/>
+	<INHERIT TYPE="view_menu"/>
+
+
+	<MENU TITLE="##UiText.sections.service##" GLOBAL="1">
+		<MENU TITLE="##UiText.actions.add_event##">
+			<LOOP EXPR="lib_event.build_object_sorted_event_types( Ps )" VAR="_event_type">
+				<MENU-ENTRY TITLE-EXPR="_event_type.name" ACTION="
+						lib_candidate.HandleAddCandidateEvent( Ps, _event_type.id, undefined )
+				" PASSIVE="1"/>
+			</LOOP>
+		</MENU>
+		<MENU-ENTRY TITLE="##UiText.actions.add_past_event_manually##" ACTION="
+				lib_candidate.HandleAddCandidatePastEvent( Ps );
+		" PASSIVE="1" ENABLE-EXPR="! lib_user.active_user_access.prohibit_add_past_events"/>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU TITLE="Отправить письмо контактным лицам по вакансии" lang-en:TITLE="Send email to contact persons of the vacancy" lang-ua:TITLE="Відправити лист контактним особам по вакансії">
+			<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( mail_templates ), '! is_notif && dest_type == \'person\'' )" VAR="_template">
+				<IF EXPR="_template.is_group_starter">
+					<MENU-ENTRY VERT-SEPARATOR="1"/>
+				</IF>
+
+				<MENU-ENTRY TITLE-EXPR="_template.name" ACTION="
+						person = undefined;
+						email = '';
+
+						vacancyID = Ps.get_screen_target_vacancy_id();
+						if ( vacancyID != null )
+						{
+							vacancy = GetForeignElem( vacancies, vacancyID );
+							destPersonsArray = ArrayExtract( vacancy.rr_persons, 'person_id.ForeignElem' );
+							destPersonsArray = ArraySelect( destPersonsArray, 'This.email.HasValue' );
+
+							person = ArrayOptFirstElem( destPersonsArray );
+							email = ArrayMerge( destPersonsArray, 'This.email', ';' );
+						}
+
+						if ( person == undefined )
+							person = GetFailedForeignElem( persons );
+
+						mailMessage = lib_mail.build_mail_message( _template, email, person, Ps.build_mail_env_object( vacancyID ) );
+						lib_mail.show_mail_message( mailMessage );
+
+						TopElem.register_mail_message_event( _template, vacancyID );
+				" ENABLE-EXPR_="_template.may_use_for_plain_object( Ps )"/>
+			</LOOP>
+		</MENU>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="Привязать к физическому лицу..." ACTION="
+				Ps.handle_link_to_person();
+		" lang-en:TITLE="Bind to a person..." lang-ua:TITLE="Прив'язати до фізичної особи..."/>
+
+		<MENU-ENTRY TITLE="Открепить от физического лица..." ACTION="
+				Ps.unlink_from_person();
+				Ps.Doc.SetChanged( true );
+		" ENABLE-EXPR="Ps.person_id.HasValue" lang-en:TITLE="Unlink from person..." lang-ua:TITLE="Відкріпити від фізичної особи..."/>
+
+		<IF EXPR="rcr_config.use_ext_duplicates_search">
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE="Найти дубликаты в другой базе..." ACTION="
+					lib_candidate_dup.handle_check_external_dup_candidates( Ps );
+			"/>
+
+			<MENU-ENTRY TITLE="Запросить статус в другой базе..." ACTION="
+					lib_candidate_dup.handle_check_external_pair( Ps );
+			" ENABLE-EXPR="Ps.external_storage_eid.HasValue"/>
+		</IF>
+
+		<IF EXPR="! System.IsWebClient">
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE-EXPR="StrReplace( UiText.actions.edit_attachment_in_xxx, '%s', lib_office.active_editor_name )" ACTION="
+					lib_base.execute_card_attachment( Ps.active_attachment, Screen );
+			" ENABLE-EXPR="Ps.active_attachment != undefined && Ps.active_attachment.is_text"/>
+		</IF>
+
+		<IF EXPR="AppModuleUsed( 'module_efko' ) &amp;&amp;! System.IsWebClient">
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE="Отчет о переписке с кандидатом" ACTION="
+					OpenCodeLib( 'x-app://module_efko/efko_lib_efko_report.js' ).HandleBuildReport1( Ps.id, Ps.get_screen_target_vacancy_id );
+			" PASSIVE="1"/>
+		</IF>
+
+		<IF EXPR="AppModuleUsed( 'module_rekadro' ) &amp;&amp; ! System.IsWebClient">
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE="Создать профиль кандидата (Рекадро)" ACTION="
+					OpenCodeLib( 'x-app://module_rekadro/rekadro_lib_profile.js' ).HandleBuildCandidateProfile( Ps );
+			"/>
+		</IF>
+
+		<WITH VAR="_custom_actions" EXPR="ArraySelectByKey( ArraySelectByKey( base1_config.card_custom_actions, Ps.Name, 'object_type_id' ), 'service', 'menu_id' )">
+			<IF EXPR="_custom_actions.length != 0">
+				<MENU-ENTRY SEPARATOR="1"/>
+			</IF>
+
+			<LOOP EXPR="_custom_actions" VAR="_action">
+				<MENU-ENTRY TITLE-EXPR="_action.name" ACTION="lib_base.RunCardCustomAction( _action, Ps )" PASSIVE="1" ENABLE-EXPR="
+						if ( ! _action.enable_expr.HasValue )
+							return true;
+					
+						with ( Ps.Doc )
+						{
+							match = eval( _action.enable_expr );
+						}
+
+						return match;
+				"/>
+			</LOOP>
+		</WITH>
+	</MENU>
+
+	<IF EXPR="base1_config.allow_hide_pd /*&amp;&amp; lib_user.active_user_access.allow_all*/">
+		<MENU TITLE="##UiText.titles.actions##" GLOBAL="1">
+			<IF EXPR="Ps.cs_pd_hidden">
+				<MENU-ENTRY TITLE="##UiText.actions.restore_pd##" ACTION="
+						lib_ingbank.HandleRestoreCandidatePd( Ps );
+				"/>
+			</IF>
+			<ELSE>
+				<MENU-ENTRY TITLE="##UiText.actions.hide_pd##" ACTION="
+						lib_ingbank.HandleHideCandidatePd( Ps );
+				"/>
+			</ELSE>
+		</MENU>
+	</IF>
+</UNIT>
+
+
+
+<UNIT NAME="candidate_toolbar" SAMPLE="1">
+	<TOOLBAR GLOBA="1" RIGHT-LABELS="1">
+		<INHERIT TYPE="save_toolbar_entries"/>
+
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/print.ico" CMD="Print" TIP-TEXT="##UiText.actions.print##" lang-en:TIP-TEXT="Print">
+			<MENU>
+				<IF EXPR="AppModuleUsed( 'module_pm' )">
+					<MENU-ENTRY TITLE="##UiText.actions.print_profile_for_recruiter##&#09;Ctrl+P" ACTION="Screen.RunCommand( 'Print' )" PASSIVE="1"/>
+				</IF>
+				<ELSE>
+					<MENU-ENTRY TITLE="##UiText.actions.print_profile##" ACTION="Screen.RunCommand( 'Print' )" PASSIVE="1"/>
+				</ELSE>
+
+				<MENU-ENTRY TITLE="##UiText.actions.print_profile_for_client##" ACTION="
+						lib_candidate.HandlePrintCandidateExtProfile( Ps );
+				" PASSIVE="1"/>
+
+				<MENU-ENTRY SEPARATOR="1"/>
+
+				<IF EXPR="AppModuleUsed( 'module_lukoil' )">
+					<MENU-ENTRY TITLE="Печать направления от заказчика (Лукойл)" ACTION="
+							CallCodeUrlFunction( '//module_lukoil/lukoil_lib_lukoil.js', 'print_candidate_profile_med', Ps );
+					" PASSIVE="1" lang-en:TITLE="-" lang-ua:TITLE="Друк напрямку від замовника (Лукойл)"/>
+				</IF>
+
+				<MENU-ENTRY TITLE="##UiText.actions.print_attachment##" ACTION="Screen.RunCommand( 'PrintDocument' )" ENABLE-EXPR__="Ps.active_attachment.is_text || Ps.active_attachment.is_plain_text"/>
+			</MENU>
+		</TOOLBAR-ENTRY>
+		
+		<INHERIT TYPE="edit_toolbar_entries"/>
+
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/spelling.ico" CMD="CheckSpelling" TIP-TEXT="##UiText.actions.check_spelling##"/>
+
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+		<TOOLBAR-ENTRY TIP-TEXT="Добавить предыдущее место учебы" IMAGE-URL="//base_pict/education.ico" CMD="AddPrevEducation" lang-en:TIP-TEXT="Add previous education" lang-ua:TIP-TEXT="Додати попереднє місце навчання"/>
+		<TOOLBAR-ENTRY TIP-TEXT="Добавить предыдущее место работы" IMAGE-URL="//base_pict/org.ico" CMD="AddPrevJob" lang-en:TIP-TEXT="Add previous job" lang-ua:TIP-TEXT="Додати попереднє місце роботи"/>
+
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+		<TOOLBAR-ENTRY TIP-TEXT="Добавить навык" IMAGE-URL="//base_pict/skill.ico" CMD="AddSkill" lang-en:TIP-TEXT="Add Skill" lang-ua:TIP-TEXT="Додати навик"/>
+
+		<IF EXPR="! Ps.spots_prohibited()">
+			<TOOLBAR-ENTRY SEPARATOR="1"/>
+			<TOOLBAR-ENTRY TITLE="##UiText.actions.select_for_vacancy##" IMAGE-URL="//base_pict/select.ico" CMD="SelectToVacancy"/>
+		</IF>
+
+		<ITEM TYPE="card_toolbar_end_entries"/>
+	</TOOLBAR>
+</UNIT>
+
+
+
+<LIST NAME="candidate_spots" SAMPLE="1" SUNKEN="1" LOOP-EXPR="
+			sortInfo = List.GetCurCodeSortInfo();
+			
+			if ( sortInfo == '\'start_date\', \'-\'' )
+				sortInfo = '\'is_active\', \'-\', ' + sortInfo;
+
+			//alert( sortInfo );
+			
+			return eval( 'ArraySort( Ps.spots, ' + sortInfo + ' )' );
+	" LABEL-TITLE-EXPR="Ps.spots.Title + ':'">
+	<ROW KEY="ListElem.vacancy_id" OPEN-ACTION="ObtainObjectDocScreen( DefaultDb, 'vacancy', ListElem.vacancy_id )" DELETE-ACTION="Ps.handle_delete_spot( ListElem )" IMAGE-URL-EXPR="ListElem.is_active ? ListElem.vacancy_id.ForeignElem.ImageUrl : '//base_pict/unavail.ico'">
+		<COL WIDTH="50%" COL-TITLE="##UiText.objects.vacancy##" TITLE-EXPR="ListElem.vacancy_id.ForeignElem.name" TEXT-COLOR-EXPR="ListElem.is_active ? '' : '128,128,128'"/>
+
+		<IF EXPR="global_settings.is_agency">
+			<COL WIDTH="30%" COL-TITLE="##UiText.objects.client##" TITLE-EXPR="ListElem.vacancy_id.ForeignElem.org_id.ForeignDispName" lang-en:COL-TITLE="Client"/>
+		</IF>
+		<ELSE>
+			<COL WIDTH="30%" COL-TITLE="##UiText.objects.division##" TITLE-EXPR="ListElem.vacancy_id.ForeignElem.division_id.ForeignDispName"/>
+		</ELSE>
+
+
+		<COL WIDTH="20%" COL-TITLE="##UiText.objects.contact_person##" TITLE-EXPR="ListElem.vacancy_id.ForeignElem.rr_persons_desc" lang-en:COL-TITLE="Contact Person"/>
+		<COL WIDTH="15zr" COL-TITLE="##UiText.fields.phone##" TITLE-EXPR="ListElem.vacancy_id.ForeignElem.rr_persons_phone_desc"/>
+		<COL WIDTH="13zr" COL-TITLE="##UiText.fields.spot_start_date##" TITLE-EXPR="StrDate( ListElem.start_date, false )" ORDER="start_date" ORDER-DIR="-" DEFAULT-SORT="1"/>
+		<COL WIDTH="25zr" COL-TITLE="##UiText.fields.state##" TITLE-EXPR="GetForeignElem( candidate_states, ListElem.state_id ).name" ORDER="ListElem.state_id.ForeignElem.order_index" TEXT-COLOR-EXPR="GetForeignElem( candidate_states, ListElem.state_id ).text_color" BK-COLOR-EXPR="GetForeignElem( candidate_states, ListElem.state_id ).bk_color"/>
+		<IF EXPR="global_settings.use_candidate_spot_source">
+			<COL WIDTH="20zr" COL-TITLE="##UiText.fields.entrance_type##" TITLE-EXPR="ListElem.entrance_type_id.ForeignDispName" ORDER="ListElem.entrance_type_id.ForeignElem.order_index" ALIGN="center"/>
+			<COL WIDTH="15zr" COL-TITLE="##UiText.fields.source##" TITLE-EXPR="ListElem.source_id.ForeignDispName" ORDER="ListElem.source_id.ForeignElem.order_index" ALIGN="center"/>
+		</IF>
+	</ROW>
+	<MENU RIGHT-CLICK="1">
+		<MENU-ENTRY TITLE="##UiText.actions.open##" CMD="OpenSel" lang-en:TITLE="Open"/>
+		<MENU-ENTRY SEPARATOR="1"/>
+		<MENU-ENTRY TITLE="##UiText.actions.detach_from_vacancy##&#09;Del" CMD="Clear"/>
+
+		<IF EXPR="global_settings.use_candidate_spot_source">
+			<MENU-ENTRY SEPARATOR="1"/>
+			<MENU-ENTRY TITLE="##UiText.titles.details__parameters##..." ACTION="lib_candidate.AskCandidateSpotDetails( Ps, List.SelRow.Env.ListElem )"/>
+		</IF>
+	</MENU>
+</LIST>
+
+
+</SPXML-SCREEN>

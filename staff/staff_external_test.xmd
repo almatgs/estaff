@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" HIER="1" IMAGE-URL="//base_pict/generic_item.ico">
+
+
+<external_test>
+	<id TYPE="string"/>
+	<parent_id TYPE="string" FOREIGN-ARRAY="external_tests"/>
+	<name TYPE="string"/>
+	<testing_system_id TYPE="string" FOREIGN-ARRAY="testing_systems" TITLE="Система тестирования" lang-en:TITLE="Testing system" lang-ua:TITLE="Система тестування"/>
+
+	<eid TYPE="string" FT-IGNORE="1"/>
+	<max_score TYPE="integer" TITLE="##UiText.titles.max_score__s##"/>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</external_test>
+
+
+
+</SPXML-FORM>

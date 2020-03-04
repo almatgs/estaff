@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_load_locations>
+	<country_id TYPE="string" FOREIGN-ARRAY="lib_location.get_std_countries()"/>
+	<load_depth_id TYPE="string" DEFAULT="region_main_cities"/>
+
+	<sel_location_id TYPE="string" MULTIPLE="1"/>
+</dlg_load_locations>
+
+
+</SPXML-INLINE-FORM>
+

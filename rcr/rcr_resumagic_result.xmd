@@ -1,0 +1,70 @@
+<SPXML-FORM>
+
+<resume>
+	<lastName TYPE="string"/>
+	<firstName TYPE="string"/>
+	<middleName TYPE="string"/>
+
+	<gender TYPE="string"/>
+
+	<yearOfBirth TYPE="integer"/>
+	<monthOfBirth TYPE="integer"/>
+	<dayOfBirth TYPE="integer"/>
+
+	<phone MULTIPLE="1">
+		<countryCode TYPE="string"/>
+		<areaCode TYPE="string"/>
+		<number TYPE="string"/>
+		<type TYPE="string"/>
+	</phone>
+
+	<email TYPE="string" MULTIPLE="1"/>
+
+	<addressRegion>
+		<name TYPE="string"/>
+	</addressRegion>
+
+	<addressCity TYPE="string"/>
+	<addressStreet TYPE="string"/>
+	<addressBuilding TYPE="string"/>
+	<addressApartment TYPE="string"/>
+
+	<maritalStatus TYPE="string"/>
+
+	<employment MULTIPLE="1">
+		<fromYear TYPE="integer"/>
+		<fromMonth TYPE="integer"/>
+
+		<toYear TYPE="integer"/>
+		<toMonth TYPE="integer"/>
+
+		<companyName TYPE="string"/>
+		<companyField TYPE="string"/>
+
+		<position>
+			<originalName TYPE="string"/>
+			<normalizedName TYPE="string"/>
+		</position>
+
+		<duties TYPE="string"/>
+	</employment>
+
+	<primaryEducation MULTIPLE="1">
+		<graduationYear TYPE="integer"/>
+		
+		<fromYear TYPE="integer"/>
+		<fromMonth TYPE="integer"/>
+
+		<institution TYPE="string"/>
+		<faculty TYPE="string"/>
+		<speciality TYPE="string"/>
+	</primaryEducation>
+
+	<other TYPE="string"/>
+
+	<resumagicRank TYPE="integer"/>
+</resume>
+
+
+
+</SPXML-FORM>

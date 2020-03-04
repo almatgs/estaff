@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<tests>
+	<test MULTIPLE="1" PRIMARY-KEY="code">
+		<code TYPE="string"/>
+		<lastname TYPE="string"/>
+		<firstname TYPE="string"/>
+		<middlename TYPE="string"/>
+
+		<birth_date TYPE="date" TIME="0"/>
+
+		<subdivision_code TYPE="string"/>
+		<position_name TYPE="string"/>
+
+		<phone TYPE="string"/>
+		<fax TYPE="string"/>
+		<mobile_phone TYPE="string"/>
+		<email TYPE="string"/>
+		<email2 TYPE="string"/>
+	</test>
+</tests>
+
+
+</SPXML-FORM>
+
+
+

@@ -1,0 +1,57 @@
+"META:NAMESPACE:ui_builder2_server"
+
+
+function BuildTemplate2DataForm( template, options )
+{
+	rootNode = OpenDocFromStr( '<SPXML-FORM></SPXML-FORM>' ).TopElem;
+
+	//DebugMsg( template.Xml );
+	BuildTemplate2ItemDataNode( template, options, rootNode );
+
+	formData = rootNode.Xml;
+	PutUrlData( 'x-local://Logs/view_forms_2/' + template.Name + '.xmd', formData );
+	return formData;
+}
+
+
+function BuildTemplate2ItemDataNode( item, options, baseNode )
+{
+	if ( StrContains( item.Name, ':' ) )
+		return;
+
+	isArray = ( item.GetOptAttr( 'ARRAY') == '1' );
+	
+	node = baseNode.AddChild( item.Name );
+	if ( isArray )
+	{
+		innerNode = node.AddChild( 'value' );
+		innerNode.AddAttr( 'MULTIPLE', '1' );
+	}
+	else
+	{
+		innerNode = node;
+	}
+
+	typeStr = item.GetOptAttr( 'TYPE' );
+	if ( typeStr != undefined )
+	{
+		if ( typeStr == 'select' )
+		{
+			innerNode.AddAttr( 'TYPE', 'string' );
+
+			foreigArrayExpStr = item.GetOptAttr( 'FOREIGN-ARRAY' );
+			if ( foreigArrayExpStr != undefined )
+				innerNode.AddAttr( 'FOREIGN-ARRAY', foreigArrayExpStr );
+		}
+		else
+		{
+			innerNode.AddAttr( 'TYPE', typeStr );
+		}
+	}
+	else
+	{
+		for ( subItem in item )
+			BuildTemplate2ItemDataNode( subItem, options, innerNode );
+	}
+}
+

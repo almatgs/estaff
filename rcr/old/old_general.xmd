@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<au_person_name IGNORE-SPELLING="1" SAMPLE="1">
+	<lastname TYPE="string"/>
+	<firstname TYPE="string"/>
+	<middlename TYPE="string"/>
+
+	<fullname PROPERTY="1" EXPR="
+			if ( au_config.is_int_version )
+			{
+				str = ( lastname != '' ? lastname + ', ' + firstname : firstname );
+			}
+			else
+			{
+				str = lastname + ' ' + firstname + ' ' + middlename;
+			}
+
+			return Trim( UnifySpaces( str ) );
+	"/>
+
+	<shortname PROPERTY="1" EXPR="PersonShortName( lastname, firstname, middlename )"/>
+</au_person_name>
+
+
+
+<au_currency SAMPLE="1">
+	<id TYPE="string"/>
+	<name TYPE="string" EXPR-INIT_="id"/>
+	<full_name TYPE="string"/>
+	<text_color TYPE="string"/>
+	<bk_color TYPE="string"/>
+	<exchange_rate TYPE="real"/>
+</au_currency>
+
+
+<au_card_attachment SAMPLE="1">
+	<type_id TYPE="string" FOREIGN-ARRAY="card_attachment_types.items"/>
+	<name TYPE="string"/>
+	
+	<date TYPE="date" EXPR-INIT="Date()"/>
+	<content_type TYPE="string" DEFAULT="text/html"/>
+
+	<plain_text TYPE="string"/>
+	<text TYPE="string" RICH-TEXT="1"/>
+	<data TYPE="binary"/>
+	<file_name TYPE="string"/>
+
+
+	<name_desc PROPERTY="1" EXPR="
+			str = '';
+
+			try
+			{
+				str = str + type_id.ForeignElem.name;
+			}
+			catch ( e )
+			{
+			}
+			
+			if ( name != '' )
+			{
+				if ( str != '' )
+					str = str + ' - ';
+
+				str = str + name;
+			}
+
+			if ( ! is_text && name == '' && file_name != '' )
+			{
+				if ( str != '' )
+					str = str + ' - ';
+
+				str = str + file_name;
+			}
+
+			return str;
+	"/>
+
+
+	<is_plain_text PROPERTY="1" EXPR="
+			content_type == 'text/plain';
+	"/>
+
+	<is_text PROPERTY="1" EXPR="
+			StrBegins( content_type, 'text/' ) && ! is_plain_text;
+	"/>
+
+	<is_binary PROPERTY="1" EXPR="
+			! StrBegins( content_type, 'text/' );
+	"/>
+
+
+	<resolve_plain_text PROPERTY="1" EXPR="
+			if ( is_plain_text )
+				return plain_text;
+			else if ( is_text )
+				return HtmlToPlainText( text );
+			else
+				return '';
+	"/>
+
+
+	<image_url PROPERTY="1" EXPR="
+			try
+			{
+				typeInfo = type_id.ForeignElem;
+				if ( typeInfo.image_url != '' )
+					return typeInfo.image_url;
+			}
+			catch ( e )
+			{
+			}
+
+			return ( is_binary ? 'x-sys-image://shell-icon/' + UrlPathSuffix( file_name ) : '//au/pict/text_attachment.ico' )
+	"/>
+</au_card_attachment>
+
+
+
+<au_card_attachments SAMPLE="1">
+	<attachments>
+		<attachment MULTIPLE="1" PRIMARY-KEY="type_id">
+			<INHERIT TYPE="au_card_attachment"/>
+		</attachment>
+	</attachments>
+
+
+	<sorted_attachments PROPERTY="1" EXPR="
+			ArraySort( attachments, 'type_id.HasValue', '-', 'type_id.ForeignElem.ChildIndex', '+', 'date', '-', 'file_name', '+' );
+	"/>
+
+	<active_attachment PROPERTY="1" EXPR="
+			return Screen.FindItem( 'CardAttachmentEdit' ).Source.Parent;
+	"/>
+</au_card_attachments>
+
+
+
+<au_doc_info IGNORE-SPELLING="1" SAMPLE="1">
+	<creation>
+		<user_login TYPE="string"/>
+		<date TYPE="date"/>
+	</creation>
+
+	<modification>
+		<user_login TYPE="string"/>
+		<date TYPE="date"/>
+	</modification>
+</au_doc_info>
+
+
+
+<au_voc_info SAMPLE="1">
+	<id TYPE="string"/>
+	<file_name TYPE="string"/>
+	<name TYPE="string"/>
+
+	<form_url TYPE="string"/>
+	<elem_screen_form_url TYPE="string" DEFAULT="x-local://au/au_voc_elem.xms"/>
+	<view_qual TYPE="string"/>
+
+	<key_type TYPE="string" DEFAULT="integer"/>
+	<key_synonym TYPE="string"/>
+	<key_numeric_base TYPE="integer"/>
+	<use_random_key TYPE="bool"/>
+	<is_hier TYPE="bool" NOT-NULL="1"/>
+	<auto_order TYPE="string"/>
+	<selector_type TYPE="string"/>
+	<ext_load_code TYPE="string"/>
+
+	<use_text_color TYPE="bool" NOT-NULL="1"/>
+	<use_bk_color TYPE="bool" NOT-NULL="1"/>
+	<use_keywords TYPE="bool" NOT-NULL="1"/>
+
+	<no_edit TYPE="bool" NOT-NULL="1"/>
+	<is_optional_std_elems TYPE="bool" NOT-NULL="1"/>
+
+	<edit_std_prohibit TYPE="bool" NOT-NULL="1"/>
+	<edit_std_prohibit_fields>
+		<field TYPE="string" MULTIPLE="1"/>
+	</edit_std_prohibit_fields>
+	<edit_std_allow_fields>
+		<field TYPE="string" MULTIPLE="1"/>
+	</edit_std_allow_fields>
+
+
+	<std_field_editable PROPERTY="1" PARAM="vocElem" PARAM="fieldName" EXPR="
+			if ( ! vocElem.is_std )
+				return true;
+
+			if ( edit_std_prohibit )
+				return edit_std_allow_fields.ChildByValueExists( fieldName );
+			else
+				return ! edit_std_prohibit_fields.ChildByValueExists( fieldName );
+	"/>
+</au_voc_info>
+
+
+<au_term SAMPLE="1">
+	<length TYPE="integer"/>
+</au_term>
+
+
+
+
+<bs_user_ref SAMPLE="1">
+	<user_id TYPE="integer" FOREIGN-ARRAY="users">
+		<sd SECONDARY="1">
+			<disp_name TYPE="string"/>
+			<group_id TYPE="integer" DOC-ID="1" FOREGN-ARRAY="user_groups"/>
+		</sd>
+	</user_id>
+</bs_user_ref>
+
+
+<bs_emails SAMPLE="1">
+	<email TYPE="string" IGNORE-SPELLING="1" FT-SOLID="1"/>
+	<email2 TYPE="string" IGNORE-SPELLING="1" FT-SOLID="1"/>
+
+	<show_email2 TYPE="bool" TEMP="1" EXPR-INIT="email2 != ''"/>
+</bs_emails>
+
+
+</SPXML-FORM>

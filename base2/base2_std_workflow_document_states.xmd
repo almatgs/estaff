@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_workflow_document_states>
+	<std_workflow_document_state MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT FORM="base2_workflow_document_state.xmd" TYPE="workflow_document_state"/>
+	</std_workflow_document_state>
+</std_workflow_document_states>
+
+
+</SPXML-FORM>
+

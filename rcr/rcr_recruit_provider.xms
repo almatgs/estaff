@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-INIT-ACTION="
+		if ( Ps.std_provider_id == 'wts' &amp;&amp; wts_global_settings.access_token.HasValue )
+			Ps.access_token = wts_global_settings.access_token;
+" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		Ps.on_ui_save();
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<IF EXPR="! base1_config.is_int_version">
+		<GROUP>
+			<ITEM TYPE="elem_selector" SOURCE="Ps.std_provider_id" AUTO-LABEL="1" WIDTH="40zr" UPDATE-ACTION="
+					if ( Ps.std_provider_id == 'wts' )
+						Ps.access_token = wts_global_settings.access_token;
+					else if ( Ps.std_provider_id.HasValue )
+						Ps.AssignElem( Ps.std_provider_id.ForeignElem );
+			" READ-ONLY="1"/>
+		</GROUP>
+		<DELIM/>
+	</IF>
+
+	<IF EXPR="Ps.std_provider_id.HasValue">
+		<GROUP>
+			<IF EXPR="Ps.std_provider_id.ForeignElem.use_server_address">
+				<EDIT SOURCE="Ps.server_address" WIDTH="40zr" AUTO-LABEL="1"/>
+			</IF>
+
+			<IF EXPR="Ps.use_login">
+				<EDIT SOURCE="Ps.login" WIDTH="40zr" AUTO-LABEL="1"/>
+
+				<EDIT SOURCE="StrStdDecrypt( Ps.password_ed )" SET-VALUE-ACTION="
+						Ps.password_ed = StrStdEncrypt( NewValue );
+						Ps.Doc.SetChanged( true );
+				" LABEL-TITLE="##UiText.fields.password##:" WIDTH="20zr" PASSWORD="1"/>
+			</IF>
+
+			<IF EXPR="Ps.std_provider_id.ForeignElem.use_access_token">
+				<SEPARATOR/>
+				<EDIT SOURCE="Ps.access_token" LABEL-TITLE="##UiText.fields.access_token##:"/>
+			</IF>
+		
+			<IF EXPR="Ps.std_provider_id.ForeignElem.use_access_token_2">
+				<SEPARATOR/>
+				<EDIT SOURCE="Ps.refresh_token" LABEL-TITLE="##UiText.fields.access_token## 2:" DELETE-ACTION="
+						Ps.refresh_token.Clear();
+						Ps.Doc.SetChanged( true );
+				"/>
+			</IF>
+		</GROUP>
+		<DELIM/>
+
+		<IF EXPR="Ps.use_aux_document_types">
+			<GROUP>
+				<LABEL TITLE="Типы запрашиваемых документов" lang-en:TITLE="Types of requested documents" lang-ua:TITLE="Типи запитуваних документів"/>
+				<IF EXPR="Ps.allow_load_aux_document_types">
+					<BUTTON TITLE="##UiText.actions.load##" IMAGE-URL="//base_pict/load.ico" WIDTH="15zr" ACTION="lib_recruit_provider.HandleLoadProviderAuxDocumentTypes( Ps )" PASSIVE="1" KEEP-RIGHT="1"/>
+				</IF>
+			</GROUP>
+
+			<LIST LOOP-EXPR="Ps.aux_document_types" HEIGHT="8gr" SUNKEN="1">
+				<ROW>
+					<COL WIDTH="20zr" COL-TITLE="ID" TITLE-EXPR="ListElem.id"/>
+					<COL WIDTH="100%" COL-TITLE="##UiText.fields.name##" TITLE-EXPR="ListElem.name"/>
+				</ROW>
+			</LIST>
+			<DELIM/>
+		</IF>
+
+		<GROUP>
+			<BUTTON IMAGE-URL="//base_pict/load.ico" TITLE="##UiText.actions.check_account##" WIDTH="30zr" ACTION="lib_recruit_provider.HandleCheckProvider( Ps )" PASSIVE="1"/>
+
+			<IF EXPR="Ps.use_external_vacancies">
+				<PANEL WIDTH="2zr"/>
+
+				<BUTTON TITLE="##UiText.actions.load_vacancies##" IMAGE-URL="//base_pict/load.ico" WIDTH="35zr" ACTION="lib_recruit_provider.HandleLoadProviderExternalVacancies( Ps )" PASSIVE="1"/>
+			</IF>
+
+			<IF EXPR="Ps.features.testing">
+				<PANEL WIDTH="2zr"/>
+
+				<BUTTON TITLE="##UiText.actions.load_tests##" IMAGE-URL="//base_pict/load.ico" WIDTH="35zr" ACTION="lib_recruit_provider.HandleLoadProviderExternalTests( Ps )" PASSIVE="1"/>
+			</IF>
+		</GROUP>
+		<DELIM/>
+
+		<IF EXPR="Ps.std_provider_id.ForeignElem.features.new_candidates">
+			<LABEL TITLE="##UiText.titles.set_for_loaded_candidates##:"/>
+			<BR/>
+			<GROUP SOURCE="Ps.dest_candidate_fields">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.source_id" WIDTH="35zr" LABEL-TITLE="##UiText.fields.entrance_source##:"/>
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.state_id" WIDTH="40zr" LABEL-TITLE="##UiText.fields.state##:"/>
+			</GROUP>
+		</IF>
+	</IF>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+

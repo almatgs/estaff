@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN TITLE="##UiText.sections.help##" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/help.ico">
+	<LINE>
+		<TREE SWITCH-TYPE="frame" TARGET="FrameHelp" WIDTH="custom" SUNKEN="1">
+			<TREE-ENTRY TITLE="Введение" HREF-EXPR="lib_base.build_help_article_url( 'intro.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Функциональные возможности программного продукта" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0204.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Однопользовательская и сетевая версии" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0237.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Аппаратно-программные требования" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0205.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Установка программы" HREF-EXPR="lib_base.build_help_article_url( 'setup.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Установка однопользовательской версии" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0206.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Установка сетевой версии" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB020A.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Начало работы" HREF-EXPR="lib_base.build_help_article_url( 'start.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			<TREE-ENTRY TITLE="Общие принципы работы с разделами программы" HREF-EXPR="lib_base.build_help_article_url( 'view_general.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			<TREE-ENTRY TITLE="Общие принципы работы с карточками" HREF-EXPR="lib_base.build_help_article_url( 'card_general.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			<TREE-ENTRY TITLE="Поиск по ключевым словам" HREF-EXPR="lib_base.build_help_article_url( 'ft_search.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			<TREE-ENTRY TITLE="Работа с контрагентами (клиентами)" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB022F.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Добавление контрагента (клиента)" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0230.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Карточка организации" HREF-EXPR="lib_base.build_help_article_url( 'org_card.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Учет затрат на подбор персонала" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0262.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Карточка договора" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0263.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Карточка затраты" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0264.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Карточка квартального бюджета" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0265.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Списки контактов" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0288.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Работа со штатной структурой" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0234.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Карточка структурного подразделения" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0239.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Карточка сотрудника (контактного лица)" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB023A.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Карточка штатной должности" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB023D.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Рекомендации по настройке системы для работы со штатной структурой в крупных (холдинговых) компаниях" HREF-EXPR="lib_base.build_help_article_url( 'long_div_row.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Работа с вакансиями" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB020E.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Добавление вакансии" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0233.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Карточка вакансии" HREF-EXPR="lib_base.build_help_article_url( 'vacancy_card.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Размещение вакансии в Интернет" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0284.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Работа с кандидатами" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0211.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Занесение кандидатов в базу" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0212.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Добавление кандидата вручную" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0213.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Вставка резюме из буфера" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0214.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Импорт резюме из документов Microsoft Word или OpenOffice" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0215.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Импорт резюме из документов Adobe Reader" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0246.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Импорт резюме с использованием Интернет-модуля" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0297.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Импорт резюме с использованием кнопки в Microsoft Outlook или Mozilla Thunderbird" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0236.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Пакетный импорт резюме из документов Microsoft Word, OpenOffice или Adobe Reader" HREF-EXPR="lib_base.build_help_article_url( 'candidate_batch_import.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Пакетный импорт резюме из почтовых ящиков" HREF-EXPR="lib_base.build_help_article_url( 'candidate_mail_import.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Карточка кандидата" HREF-EXPR="lib_base.build_help_article_url( 'candidate_card.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Работа с внесенными в базу кандидатами" HREF-EXPR="lib_base.build_help_article_url( 'candidate_work.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Формирование плана работы по кандидатам" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0266.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Отбор кандидата на вакансию" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB021A.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Действия над кандидатами" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB021B.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Планирование нового интервью" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB021C.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Планирование группового интервью" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB024E.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Поиск кандидатов" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0268.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Поиск дубликатов кандидатов" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB026E.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Использование Интернет-модуля" HREF-EXPR="lib_base.build_help_article_url( 'imod.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Размещение вакансии в Интернет" HREF-EXPR="lib_base.build_help_article_url( 'vacancy_publish.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Просмотр информации о размещенных в Интернет вакансиях" HREF-EXPR="lib_base.build_help_article_url( 'view_publications.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Сбор откликов с сайтов" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0241.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Поиск резюме в Интернет" HREF-EXPR="lib_base.build_help_article_url( 'inet_search.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Импорт резюме с использованием кнопки в Internet Explorer, Mozilla Firefox или Google Chrome" HREF-EXPR="lib_base.build_help_article_url( 'browser_import.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Модуль &quot;Массовый подбор&quot;" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB028A.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Первоначальная настройка системы" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0299.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Настройка раздела Колл-центр" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB029A.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Настройка функции учета групповых тренингов" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB029B.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Формирование учебных программ" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB029C.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Настройка работы с вакантными позициями" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB029D.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Направления подбора" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0293.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Использование модуля" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB029E.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Заполнение штатной структуры" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB029F.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Публикация вакансий и сбор откликов" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB028E.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Работа с кандидатами" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB02A0.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Отбор кандидатов" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB028C.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Групповые интервью" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0291.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Колл-центр" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB028F.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Прием кандидатов на работу" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB02A7.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+					<TREE-ENTRY TITLE="Календарь" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0290.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Обучение кандидатов" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB02A1.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Создание учебных групп" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB02A2.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Набор кандидатов в учебную группу" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB02A3.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Проведение групповых тренингов" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB02A4.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Учет посещаемости занятий" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB02A5.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Ввод результатов прохождения обучения" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB02A6.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+					<TREE-ENTRY TITLE="Отчеты" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0292.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Отправка единичных писем" HREF-EXPR="lib_base.build_help_article_url( 'mail_sending.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			<TREE-ENTRY TITLE="Массовая рассылка писем" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB024F.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			<TREE-ENTRY TITLE="Календарь" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0248.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Напоминания и отображение событий в календаре" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0259.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Интеграция с внешним календарем" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0247.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Интеграция с календарем Microsoft Outlook" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB024B.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Интеграция с календарем Lotus Notes" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB024C.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Интеграция с календарем Google" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB024D.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Учет занятости комнат (бронирование переговорных) во внешнем календаре" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB026C.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Статистика" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0250.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			<TREE-ENTRY TITLE="Интеграция с внешними системами" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0287.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Интеграция с корпоративным порталом" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0220.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Интеграция с системой тестирования" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0221.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Интеграция с внешней системой кадрового учета (обмен файлами)" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0257.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Удаление дубликатов после загрузки данных из внешней системы" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0258.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Автоматическое формирование связки кандидата и сотрудника" HREF-EXPR="lib_base.build_help_article_url( 'candidate_employee_auto_bind.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Администрирование и общие настройки" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0222.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Политика использования" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0223.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Работа с вакансиями" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB023E.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Региональные настройки" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0295.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Автоматическая отправка почты" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0272.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Доступ" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB027B.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Пользователи" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB027C.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Группы" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB027D.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Нумерация" HREF-EXPR="lib_base.build_help_article_url( 'settings_coding.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Дополнительные поля" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0225.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Внешние учетные записи" HREF-EXPR="lib_base.build_help_article_url( 'external_account.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Справочники" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0224.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Общие" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB025E.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Приложения к карточкам" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB025C.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Шаблоны писем" HREF-EXPR="lib_base.build_help_article_url( 'settings_mail_templates.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Шаблоны SMS" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0279.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Регионы" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0242.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Уровни доступа" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB022C.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Станции метро" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0243.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Типы событий" HREF-EXPR="lib_base.build_help_article_url( 'event_types.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Специальности" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB025D.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Направления подбора" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0271.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Навыки" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB025A.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+					<TREE-ENTRY TITLE="Вакансии" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB026F.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Основания появления вакансий" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0270.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Статусы вакансий" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0296.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Шаблоны вакансий" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0275.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+					<TREE-ENTRY TITLE="Кандидаты" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB025F.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Источники импорта резюме" HREF-EXPR="lib_base.build_help_article_url( 'raw_storages.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Источники кандидатов" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0277.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+					<TREE-ENTRY TITLE="Интеграция" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0281.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="SMS-шлюзы" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB027A.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Сценарии импорта" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0261.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Сценарии экспорта" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB026B.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Наборы тестов" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0276.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Корпоративные дизайны для публикации" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0282.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+					<TREE-ENTRY TITLE="Прочие" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0260.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Собственные справочники" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB026D.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+				</TREE-ENTRY>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Персональные настройки" HREF-EXPR="lib_base.build_help_article_url( 'local_settings.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Подпись" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0240.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Доступ в Интернет" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0269.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Отправка почты" HREF-EXPR="lib_base.build_help_article_url( 'settings_mail_send.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Интернет-модуль (учетные записи)" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0283.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+			</TREE-ENTRY>
+			<TREE-ENTRY TITLE="Администрирование системы (для IT-специалистов)" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0249.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Настройка NTLM-авторизации" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB024A.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Обслуживание и сопровождение системы" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB026A.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Создание резервных копий" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB022D.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Перенос программы на другой компьютер" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0251.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Перенос рабочего места сетевой версии E-Staff на другой компьютер" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0252.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Перенос серверной части E-Staff на другой компьютер" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0253.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Каталоги и индексы" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0254.htm' )" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Перестройка файлов каталога" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0255.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Перестройка индексных файлов" HREF-EXPR="lib_base.build_help_article_url( '4AB390737FAB0256.htm' )" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+			</TREE-ENTRY>
+		</TREE>
+		<SPLIT WIDTH="2px"/>
+		<PANEL HEIGHT="100%">
+			<FRAME NAME="FrameHelp" HREF-EXPR="lib_base.build_help_article_url( 'intro.htm' )"/>
+		</PANEL>
+	</LINE>
+</SPXML-SCREEN>

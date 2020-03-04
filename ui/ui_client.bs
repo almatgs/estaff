@@ -1,0 +1,383 @@
+namespace ui_client {
+
+function StartClient()
+{
+	if ( System.ClientMajorVersion < 2 )
+		return;
+
+	//ui_client.ui_start_info = CallServerMethod( 'ui_server', 'GetUiStartInfo' );
+	ui_client.ui_sections = CallServerMethod( 'ui_server', 'GetUiSections' );
+}
+
+
+function OnHomePageLoaded()
+{
+	if ( ! System.IsWebClient )
+		return;
+
+	webQuery = UrlQuery( System.WebClientUrl );
+	objectTypeID = webQuery.GetOptProperty( 'object_type' );
+	objectID = webQuery.GetOptProperty( 'object_id' );
+
+	if ( objectTypeID != undefined && objectID != undefined )
+	{
+		objectUrl = ObjectDocUrl( 'data', objectTypeID, objectID );
+		HandleOpenObjectCard( objectUrl );
+	}
+}
+
+
+function GetMdiSelectorScreens()
+{
+	screensArray = ArraySelect( TopScreens, '! IsDlg && This !== MainScreen && ! IsMain1Screen( This )' );
+	return screensArray;
+}
+
+
+function IsMain1Screen( screen )
+{
+	return ( screen.Doc.Url == 'x-app://ui/ui_view_main1.xml' );
+}
+
+
+function BringMain1ScreenToFront()
+{
+	screen = FindOptScreenByDocUrl( 'x-app://ui/ui_view_main1.xml' );
+	screen.BringToFront();
+}
+
+
+function GetScreenObjectTypeDesc( screen )
+{
+	objectType = GetOptForeignElem( card_object_types, screen.Doc.TopElem.Name );
+	return ( objectType != undefined ? objectType.name : '' );
+}
+
+
+function ObtainSectionViewUrl( viewID, extQuery ? )
+{
+	viewUrl = ui_base.BuildSectionViewUrl( viewID, extQuery );
+	if ( GetOptCachedDoc( viewUrl ) != undefined )
+		return viewUrl;
+
+	respObj = CallServerMethod( 'ui_builder_server', 'GetUiTemplateForms', [viewID] );
+
+	RegisterFormFromStr( viewUrl, respObj.formData );
+	RegisterScreenFormFromStr( ReplaceUrlPathSuffix( viewUrl, '.xml', '.xms' ), respObj.screenFormData );
+
+	doc = OpenNewDoc( viewUrl );
+	doc.Url = viewUrl;
+	doc.SetCached();
+
+	return viewUrl;
+}
+
+
+function PrepareSectionViewUrl( viewUrl )
+{
+	if ( GetOptCachedDoc( viewUrl ) != undefined )
+		return;
+
+	viewID = GetViewIDFromViewUrl( viewUrl );
+
+	respObj = CallServerMethod( 'ui_builder_server', 'GetUiTemplateForms', [viewID] );
+
+	RegisterFormFromStr( viewUrl, respObj.formData );
+	RegisterScreenFormFromStr( ReplaceUrlPathSuffix( viewUrl, '.xml', '.xms' ), respObj.screenFormData );
+
+	doc = OpenNewDoc( viewUrl );
+	doc.Url = viewUrl;
+	doc.SetCached();
+}
+
+
+function GetViewIDFromViewUrl( viewUrl )
+{
+	obj = StrOptScan( viewUrl, "x-app://ui_auto/section/%s.xml%*s" );
+	if ( obj == undefined )
+		throw UserError( "Unsupported view url: " + viewUrl );
+	
+	return obj[0];
+}
+
+
+function HandleOpenObjectCard( objectUrl, options ? )
+{
+	/*if ( StrContains( MainScreen.Doc.Url, 'view_main.xml' ) )
+	{
+		ObtainDocScreen( objectUrl );
+		return;
+	}*/
+
+	if ( options == undefined )
+		options = new Object;
+
+	//ObtainDocScreen( objectUrl, undefined, {ShowInMainWindow:true} );
+	//return;
+
+	initAction = options.GetOptProperty( 'initAction' );
+
+	screen = FindObjectCardScreen( objectUrl );
+	if ( screen != undefined )
+	{
+		screen.BringWindowToFront();
+
+		if ( initAction != undefined )
+		{
+			with ( topView.doc.TopElem )
+			{
+				eval( initAction );
+			}
+		}
+
+		return;
+	}
+	
+	doc = OpenDoc( objectUrl );
+	objectTypeID = doc.TopElem.Name;
+	screenFormUrl = PrepareObjectPreviewScreenFormUrl( objectTypeID );
+
+	ObtainDocScreen( objectUrl, screenFormUrl, {ShowInMainWindow:true} );
+
+	if ( initAction != undefined )
+	{
+		with ( doc.TopElem )
+		{
+			eval( initAction );
+		}
+	}
+}
+
+
+function HandleOpenCardAttachmentFile( attachment, basePart )
+{
+	targetUrl = ui_base.BuildCardAttachmentPreviewImageUrl( attachment, basePart, false );
+	ShellExecute( 'open', targetUrl );
+	//EvalBrowserScript( 'window.location.href = ' + CodeLiteral( url ) );
+}
+
+
+function HandleSaveCardAttachmentFile( attachment, basePart )
+{
+	targetUrl = ui_base.BuildCardAttachmentPreviewImageUrl( attachment, basePart, true );
+	ShellExecute( 'open', targetUrl );
+}
+
+
+function HandleCreateNewObject( objectTypeID )
+{
+	id = CallServerMethod( 'ui_server', 'CreateNewObjectCore', [objectTypeID] );
+	objectUrl = ObjectDocUrl( 'data', objectTypeID, id );
+	HandleOpenObjectCard( objectUrl );
+}
+
+
+function FindObjectCardScreen( objectUrl )
+{
+	for ( screen in TopScreens )
+	{
+		if ( screen.Doc.Url == objectUrl )
+			return screen;
+	}
+
+	return undefined;
+}
+
+
+function PrepareObjectPreviewScreenFormUrl( objectTypeID )
+{
+	screenFormUrl = ui_base.BuildObjectPreviewScreenFormUrl( objectTypeID );
+	if ( IsScreenFormRegistered( screenFormUrl ) )
+		return screenFormUrl;
+
+	templateID = 'Object.' + objectTypeID;
+	options = undefined;
+
+	respObj = CallServerMethod( 'ui_builder_server', 'GetUiTemplateScreenForm', [templateID, options] );
+	//PutUrlData( 'x-local://Logs/view_forms_1/' + objectTypeID + '.xms', respObj.screenFormData );
+	RegisterScreenFormFromStr( screenFormUrl, respObj.screenFormData );
+
+	return screenFormUrl;
+}
+
+
+function PrepareUiFragmentSampleScreenFormUrl( templateID )
+{
+	screenFormUrl = ui_base.BuildUiFragmentSampleScreenFormUrl( templateID );
+	if ( IsScreenFormRegistered( screenFormUrl ) )
+		return screenFormUrl;
+
+	respObj = CallServerMethod( 'ui_builder_server', 'GetUiTemplateScreenForm', [templateID, {mode:'edit', isFragment:true}] );
+	//PutUrlData( 'x-local://Logs/view_forms_1/' + templateID + '.xms', respObj.screenFormData );
+	RegisterScreenFormFromStr( screenFormUrl, respObj.screenFormData );
+
+	return screenFormUrl;
+}
+
+
+function ReloadObjectPreviewScreen( screen )
+{
+	screenFormUrl = ui_base.BuildObjectPreviewScreenFormUrl( screen.Doc.TopElem.Name );
+	screen.SetDoc( OpenDoc( screen.Doc.Url ), screenFormUrl );
+}
+
+
+function CloseObjectCardScreen( screen )
+{
+	screen.Close();
+}
+
+
+function IsObjectCardOpened( objectUrl )
+{
+	return ( FindScreenByDocUrl( objectUrl ) != undefined );
+}
+
+
+function CloseObjectCard( objectUrl )
+{
+	screen = FindScreenByDocUrl( objectUrl );
+	screen.Close();
+}
+
+
+function AdjustObjectDocForm( object )
+{
+	if ( object.FormElem.OptChild( 'ui_view' ) != undefined )
+		return;
+
+	formElem = object.FormElem.AddChild( 'ui_view', '' );
+	formElem.IsTemp = true;
+	formElem1 = formElem.AddChild( 'selector', 'string' );
+	formElem1.IsTemp = true;
+
+	elem = CreateElemByFormElem( formElem, object );
+	object.AddChildElem(elem);
+}
+
+
+function HandleLogout()
+{
+	reqParam = new Object;
+	reqParam.cur_user_id = LdsCurUserID;
+
+	url = '/spxml_web/logout.htm?' + UrlEncodeQuery( reqParam );
+
+	EvalBrowserScript( 'window.location.href = ' + CodeLiteral( url ) );
+}
+
+
+function PrepareHelpView()
+{
+	//if ( System.IsWebClient )
+		//Cancel();
+
+	screen = FindOptScreen( 'SeFrameHelp' );
+	if ( screen != undefined )
+		return;
+
+	MainScreen.Navigate( 'x-app://rcr/help/rcr_view_help.xms', 'SeFrameHelp' );
+}
+
+
+function GetOrderedMultiValueSelectFlag( arrayElem, value, pos )
+{
+	if ( pos >= arrayElem.ChildNum )
+		return false;
+	
+	return ( arrayElem[pos].Value == value );
+}
+
+
+function IsOrderedMultiValueSelectEnabled( arrayElem, value, pos )
+{
+	if ( pos > arrayElem.ChildNum )
+		return false;
+	
+	childIndex = arrayElem.GetChildIndexByValue( value );
+	if ( childIndex >= 0 && childIndex < pos )
+		return false;
+
+	return true;
+}
+
+
+function ToggleOrderedMultiValueSelectFlag( arrayElem, value, pos, flag )
+{
+	if ( flag )
+	{
+		childIndex = arrayElem.GetChildIndexByValue( value );
+		if ( childIndex < 0 )
+		{
+			if ( pos < arrayElem.ChildNum )
+				elem = arrayElem[pos];
+			else
+				elem = arrayElem.InsertChild( Min( pos, arrayElem.ChildNum ) );
+
+			elem.Value = value;
+		}
+		else
+		{
+			elem = arrayElem[childIndex];
+			elem.SetChildIndex( Min( pos, arrayElem.ChildNum ) );
+		}
+	}
+	else
+	{
+		arrayElem.DeleteChildrenByValue( value );
+	}
+}
+
+
+function BuildEditAutoCompleteSourceForCatalog( edit, catalogName, options )
+{
+	str = edit.Text;
+	if ( StrCharCount( str ) < 3 )
+		return undefined;
+
+	/*primaryDispName = 'name';
+
+	queryStr = 'for $elem in ' + catalogName;
+	queryStr += ' where doc-contains( $elem/id, \'data\', ' + XQueryLiteral( str ) + ', \'' + CatalogNameToObjectName( catalogName ) + '\' )';
+	queryStr += ' order by $elem/' + primaryDispName;
+	queryStr += ' return $elem/Fields( "name" )';
+	
+	array = XQuery( queryStr );
+	return ArrayExtract( array, primaryDispName );*/
+
+	return CallServerMethod( 'ui_server', 'BuildAutoCompleteSourceForCatalogCore', [str, catalogName, options] );
+}
+
+
+function ShowListInExcel( list )
+{
+	worksheetData = ui_client_worksheet_utils.GetWorksheetDataFromListItem( list );
+
+	task = new BackgroundTask;
+	task.RunOnServer = true;
+	task.ShowProgress = true;
+
+	respInfo = task.CallMethod( 'ui_server_excel_utils', 'BuildExcelFileFromWorksheetData', [worksheetData] );
+
+	ShellExecute( 'open', respInfo.fileUrl );
+}
+
+
+function ShowListInRtf( list )
+{
+	options = new ui_base.worksheet_data_build_options;
+	options.export_for_xmp = true;
+
+	worksheetData = ui_client_worksheet_utils.GetWorksheetDataFromListItem( list, options );
+
+	task = new BackgroundTask;
+	task.RunOnServer = true;
+	task.ShowProgress = true;
+
+	respInfo = task.CallMethod( 'ui_server_print_utils', 'BuildPrintableFileFromWorksheetData', [worksheetData] );
+
+	ShellExecute( 'open', respInfo.fileUrl );
+}
+
+
+}

@@ -1,0 +1,84 @@
+<html>
+<meta http-equiv="content-type" content="text/html; charset=windows-1251"/>
+<body>
+<h1>Інтеграція із зовнішньою системою кадрового обліку (обмін файлами)</h1>
+
+<P><SPAN lang="UK" style="mso-ansi-language: UK;">Інтеграція із зовнішньою 
+системою кадрового обліку використовується для автоматичного завантаження даних 
+про структурні підрозділи, штатні посади, співробітників та вакансіях 
+компанії.</SPAN></P>
+<P><SPAN lang="UK" style="mso-ansi-language: UK;">Для завантаження даних із
+ зовнішньої системи кадрового обліку до </SPAN><SPAN style="mso-ansi-language: RU;">E</SPAN><SPAN lang="UK" style="mso-ansi-language: UK;">-</SPAN><SPAN style="mso-ansi-language: RU;">Staff</SPAN><SPAN lang="UK" style="mso-ansi-language: UK;"> – ці дані спочатку повинні бути 
+вивантажені до спеціально створеної директорії (вихідну директорію для імпорту) 
+у вигляді файлів формату </SPAN><SPAN style="mso-ansi-language: RU;">CSV</SPAN><SPAN lang="UK" style="mso-ansi-language: UK;">. 
+Імена даних файлів повинні розпочинатися зі слів:</SPAN></P>
+<UL type="disc">
+  <LI style="margin: 0cm 0cm 0pt; color: rgb(0, 0, 0); font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" font-style:="" normal="" font-weight:="" normal="" mso-margin-top-alt:="" auto="" mso-margin-bottom-alt:="" auto="" mso-list:="" l0="" level1="" lfo1="" tab-stops:="" list="" 36="" 0pt=""><STRONG>division</STRONG> 
+  (<SPAN lang="UK" style="mso-ansi-language: UK;">дані за штатною 
+  структурою</SPAN>), </LI>
+  <LI style="margin: 0cm 0cm 0pt; color: rgb(0, 0, 0); font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" font-style:="" normal="" font-weight:="" normal="" mso-margin-top-alt:="" auto="" mso-margin-bottom-alt:="" auto="" mso-list:="" l0="" level1="" lfo1="" tab-stops:="" list="" 36="" 0pt=""><B>position</B> 
+  (<SPAN lang="UK" style="mso-ansi-language: UK;">дані за штатними 
+  посадами)</SPAN><STRONG>,      </STRONG></LI>
+  <LI style="margin: 0cm 0cm 0pt; color: rgb(0, 0, 0); font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" font-style:="" normal="" font-weight:="" normal="" mso-margin-top-alt:="" auto="" mso-margin-bottom-alt:="" auto="" mso-list:="" l0="" level1="" lfo1="" tab-stops:="" list="" 36="" 0pt=""><STRONG>person</STRONG> 
+  (<SPAN lang="UK" style="mso-ansi-language: UK;">дані за 
+  співробітникам</SPAN>), </LI>
+  <LI style="margin: 0cm 0cm 0pt; color: rgb(0, 0, 0); font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" font-style:="" normal="" font-weight:="" normal="" mso-margin-top-alt:="" auto="" mso-margin-bottom-alt:="" auto="" mso-list:="" l0="" level1="" lfo1="" tab-stops:="" list="" 36="" 0pt=""><B>vacanc</B> 
+  (<SPAN lang="UK" style="mso-ansi-language: UK;">дані за вакансіями</SPAN>). 
+  </LI></UL>
+<P><SPAN lang="UK" style="mso-ansi-language: UK;">Після завантаження та обробки
+ даних файлів, </SPAN><SPAN style="mso-ansi-language: RU;">E</SPAN><SPAN lang="UK" style="mso-ansi-language: UK;">-</SPAN><SPAN style="mso-ansi-language: RU;">Staff</SPAN><SPAN lang="UK" style="mso-ansi-language: UK;"> 
+розмістить їх до директорії для оброблених файлів. Для контролю коректного 
+завершення обробки рекомендується налаштувати вивантаження із зовнішньої системи 
+таким чином, щоб вказані вище імена файлів закінчувалися тією датою 
+вивантаження, щоб в директорії для оброблених файлів за наявністю файлів з тією 
+чи іншою датою було зрозуміло, коли саме обробка пройшла успішно.</SPAN></P>
+<P><SPAN lang="UK" style="mso-ansi-language: UK;">Ключовим параметром потрібного
+ формату обміну є ідентифікатор </SPAN><STRONG><SPAN style="mso-ansi-language: RU;">id. 
+</SPAN></STRONG><STRONG><SPAN lang="UK" style="mso-ansi-language: UK;">Під час 
+першого вивантаження із зовнішньої системи кожному 
+об</SPAN></STRONG><STRONG><SPAN style="mso-ansi-language: RU;">’</SPAN></STRONG><STRONG><SPAN lang="UK" style="mso-ansi-language: UK;">єкту 
+надається відповідний </SPAN></STRONG><STRONG><SPAN style="mso-ansi-language: RU;">id</SPAN></STRONG><STRONG><SPAN lang="UK" style="mso-ansi-language: UK;">, який при наступних вивантаженням 
+повинен залишатися без змін.</SPAN></STRONG></P>
+<P><SPAN lang="UK" style="mso-ansi-language: UK;">&nbsp;</SPAN></P>
+<P><B><SPAN lang="UK" style="mso-ansi-language: UK;">Налаштування параметрів
+ взаємодії із зовнішньою системою кадрового обліку. </SPAN></B></P>
+<UL type="disc">
+  <LI style="margin: 0cm 0cm 0pt; color: rgb(0, 0, 0); font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" font-style:="" normal="" font-weight:="" normal="" mso-margin-top-alt:="" auto="" mso-margin-bottom-alt:="" auto="" mso-list:="" l1="" level1="" lfo2="" tab-stops:="" list="" 36="" 0pt=""><SPAN lang="UK" style="mso-ansi-language: UK;">Перейдіть до </SPAN>E-Staff<SPAN lang="UK" style="mso-ansi-language: UK;"> до розділу <B style="mso-bidi-font-weight: normal;">Адміністрування</B></SPAN>-&gt;<B style="mso-bidi-font-weight: normal;"><SPAN lang="UK" style="mso-ansi-language: UK;">Загальні 
+  налаштування</SPAN></B>-&gt;<B style="mso-bidi-font-weight: normal;"><SPAN lang="UK" style="mso-ansi-language: UK;">Зовнішня система кадрового 
+  обліку.</SPAN></B></LI>
+  <LI style="margin: 0cm 0cm 0pt; color: rgb(0, 0, 0); font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" font-style:="" normal="" font-weight:="" normal="" mso-margin-top-alt:="" auto="" mso-margin-bottom-alt:="" auto="" mso-list:="" l1="" level1="" lfo2="" tab-stops:="" list="" 36="" 0pt=""><SPAN lang="UK" style="mso-ansi-language: UK;">В налаштуваннях оберіть інтерфейс <B style="mso-bidi-font-weight: normal;">Обмін файлами, Формат файлу – 
+  </B></SPAN><STRONG>CSV</STRONG><STRONG><SPAN lang="UK" style="mso-ansi-language: UK;">. 
+  За допомогою кнопок Перегляд     оберіть вихідну директорію для імпорту та 
+  директорію для оброблених     файлів.</SPAN></STRONG></LI></UL>
+<P><SPAN lang="UK" style="mso-ansi-language: UK;">Якщо другий рядок в 
+</SPAN><SPAN style="mso-ansi-language: RU;">CSV-файлі </SPAN><SPAN lang="UK" style="mso-ansi-language: UK;">структурних підрозділів містить назву організації 
+(але не першого підрозділу), в налаштуваннях встановіть перемикач <B style="mso-bidi-font-weight: normal;">Не 
+завантажувати кореневий підрозділ, який відповідає єдиній
+ організації.</B></SPAN></P>
+<P><SPAN lang="UK" style="mso-ansi-language: UK;">Якщо необхідно, щоб
+ співробітники, яких було видалено у зовнішній системі, автоматично видалялись
+ після завантаження із списку співробітників в програмі </SPAN><SPAN style="mso-ansi-language: RU;">E</SPAN><SPAN lang="UK" style="mso-ansi-language: UK;">-</SPAN><SPAN style="mso-ansi-language: RU;">Staff</SPAN><SPAN style="mso-ansi-language: UK;"> <SPAN lang="UK">– встановіть перемикач <B style="mso-bidi-font-weight: normal;">Видаляти 
+з </B></SPAN></SPAN><B style="mso-bidi-font-weight: normal;"><SPAN style="mso-ansi-language: RU;">E</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="UK" style="mso-ansi-language: UK;">-</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN style="mso-ansi-language: RU;">Staff</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="UK" style="mso-ansi-language: UK;"> співробітників, видалених із системи 
+кадрового обліку.</SPAN></B></P>
+<P><SPAN lang="UK" style="mso-ansi-language: UK;">В ручному режимі запуск
+ завантаження даних відбувається вибором відповідної команди з головного меню
+ програми: <B style="mso-bidi-font-weight: normal;">Сервіс</B></SPAN><STRONG><SPAN style="mso-ansi-language: RU;">-&gt;</SPAN></STRONG><B style="mso-bidi-font-weight: normal;"><SPAN lang="UK" style="mso-ansi-language: UK;">Ручний 
+запуск фонової задачі.</SPAN></B></P>
+<P><SPAN lang="UK" style="mso-ansi-language: UK;">Для того, щоб завантаження
+ співробітників відбувалось у відповідності з вказаною у </SPAN><SPAN style="mso-ansi-language: RU;">CSV</SPAN><SPAN lang="UK" style="mso-ansi-language: UK;">-файлах прив’язкою, запуск фонової 
+задачі <B style="mso-bidi-font-weight: normal;">Завантаження структурних 
+підрозділів із зовнішньої системи </B>повинен відбуватися першим.</SPAN></P>
+<P><SPAN lang="UK" style="mso-ansi-language: UK;">Для завантаження даних із
+ зовнішньої системи за розкладом (кожен день або через певний проміжок часу) 
+перейдіть до розділу <B style="mso-bidi-font-weight: normal;">Адміністрування<STRONG>-&gt;</STRONG>Сервіс<STRONG>-&gt;</STRONG>Фонові
+ задачі</B> та в налаштуваннях відповідної фонової задачі вкажіть необхідні
+ значення.</SPAN></P><SPAN lang="UK" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" UK="" mso-fareast-font-family:="" Times="" New="" Roman="" mso-fareast-language:="" RU="" mso-bidi-language:="" AR-SA="">Якщо 
+на момент завантаження даних із зовнішньої системи кадрового обліку картки 
+підрозділів, штатних посад, співробітників та вакансій було заведено раніше 
+вручну, то в базі з’являться дублікати цих карток. Інструкція по їх видаленню 
+знаходиться у розділі </SPAN><SPAN lang="UK" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" UK="" mso-fareast-font-family:="" Times="" New="" Roman="" mso-fareast-language:="" RU="" mso-bidi-language:="" AR-SA="">Видалення 
+дублікатів після завантаження даних із зовнішньої системи </SPAN><SPAN lang="UK" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" UK="" mso-fareast-font-family:="" Times="" New="" Roman="" mso-fareast-language:="" RU="" mso-bidi-language:="" AR-SA="">.</SPAN><br/>
+<br/>
+<p><a href="4AB390737FAB0258.htm">Видалення дублікатів після завантаження даних із зовнішньої системи</a></p>
+</body>
+</html>

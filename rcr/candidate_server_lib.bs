@@ -1,0 +1,77 @@
+"META:NAMESPACE:candidate_server_lib"
+
+"META:ALLOW-CALL-FROM-CLIENT:1";
+function CreateCandidateFromResumeFile( srcUrl )
+{
+	if ( ! StrBegins( srcUrl, 'x-local://share/uploaded_files/' ) )
+		throw UserError( "Source url is forbidden" );
+
+	lib_base.CheckAllowedAttcFileSuffix( srcUrl );
+
+	candidateDoc = DefaultDb.OpenNewObjectDoc( 'candidate' );
+	candidate = candidateDoc.TopElem;
+
+	if ( CurAuthObject != undefined && CurAuthObject.Name == "user" )
+	{
+		candidate.user_id = CurAuthObject.id;
+	}
+
+	attachment = candidate.attachments.AddChild();
+	attachment.type_id = 'resume';
+
+	suffix = StrLowerCase( UrlPathSuffix( srcUrl ) );
+	if ( converter_lib.IsFileSuffixSupported( suffix ) )
+	{
+		htmlStr = converter_lib.ConvertFileToHtml( UrlToFilePath( srcUrl ) );
+
+		attachment.content_type = 'text/html';
+		attachment.text = htmlStr;
+
+		lib_resume.parse_resume( candidate, srcUrl, htmlStr, 'text/html' );
+	}
+	else
+	{
+		attachment.content_type = 'application/binary';
+		attachment.data.LoadFromFile( srcUrl );
+	}
+
+	attachment.file_name = UrlFileName( srcUrl );
+
+	candidateDoc.Save();
+
+	respInfo = new Object;
+	respInfo.candidate_id = candidate.id;
+	return respInfo;
+}
+
+
+"META:ALLOW-CALL-FROM-CLIENT:1";
+function CreateCandidateFromResumeText( resumeText, resumeContentType, srcUrl )
+{
+	candidateDoc = DefaultDb.OpenNewObjectDoc( 'candidate' );
+	candidate = candidateDoc.TopElem;
+
+	if ( CurAuthObject != undefined && CurAuthObject.Name == "user" )
+	{
+		candidate.user_id = CurAuthObject.id;
+	}
+
+	attachment = candidate.attachments.AddChild();
+	attachment.type_id = 'resume';
+	//attachment.content_type = UrlStdContentType( srcUrl );
+	attachment.content_type = resumeContentType;
+	if ( resumeContentType == 'text/plain' )
+		attachment.plain_text = resumeText;
+	else if ( resumeContentType == 'text/html' )
+		attachment.text = resumeText;
+	else
+		attachment.data = resumeText;
+
+	lib_resume.parse_resume( candidate, srcUrl, resumeText, resumeContentType );
+
+	candidateDoc.Save();
+
+	respInfo = new Object;
+	respInfo.candidate_id = candidate.id;
+	return respInfo;
+}

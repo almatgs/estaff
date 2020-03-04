@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="110zr" HEIGHT="50zr" SOURCE="TopElem.reminder" TITLE="Персональные настройки - Напоминания" SAVE-ACTION="
+		lib_reminder.OnReminderLocalSettingsChanged();
+" WINDOW-ICON-URL="//base_pict/settings.ico" lang-en:TITLE="Personal settings - Reminder" lang-ua:TITLE="Персональні налаштування - Нагадування">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<CHECK TITLE="Напоминать о событиях в календаре" SOURCE="Ps.use_calendar_entries" lang-en:TITLE="Remind me of my calendar events" lang-ua:TITLE="Нагадувати про події в календарі"/>
+	<BR HEIGHT="2px"/>
+
+	<GROUP>
+		<LABEL TITLE="##UiText.fields.reminder_time##:"/>
+		<EDIT SOURCE="Ps.calendar_entry_minute_offset" WIDTH="6zr" ENABLE-EXPR="Ps.use_calendar_entries"/>
+		<ITEM TYPE="minutes_suffix_label" SOURCE="Ps.calendar_entry_minute_offset" KEEP-WITH-PREV="1"/>
+		<LABEL TITLE="  "/>
+
+		<LABEL TITLE="##UiText.fields.extra_reminder_time##:"/>
+		<EDIT SOURCE="Ps.calendar_entry_extra_minute_offset" WIDTH="6zr" ENABLE-EXPR="Ps.use_calendar_entries"/>
+		<ITEM TYPE="minutes_suffix_label" SOURCE="Ps.calendar_entry_extra_minute_offset" KEEP-WITH-PREV="1"/>
+	</GROUP>
+	<DELIM/>
+	<BR/>
+
+	<CHECK TITLE="Напоминать о задачах" SOURCE="Ps.use_reminder_events" lang-en:TITLE="Remind me of my tasks" lang-ua:TITLE="Нагадувати про завдання"/>
+	<BR HEIGHT="2px"/>
+
+	<GROUP>
+		<LABEL TITLE="##UiText.fields.reminder_time##:"/>
+		<EDIT SOURCE="Ps.reminder_event_minute_offset" WIDTH="6zr" ENABLE-EXPR="Ps.use_reminder_events"/>
+		<ITEM TYPE="minutes_suffix_label" SOURCE="Ps.reminder_event_minute_offset" KEEP-WITH-PREV="1"/>
+		<LABEL TITLE="  "/>
+
+		<LABEL TITLE="##UiText.fields.extra_reminder_time##:"/>
+		<EDIT SOURCE="Ps.reminder_event_extra_minute_offset" WIDTH="6zr" ENABLE-EXPR="Ps.use_reminder_events"/>
+		<ITEM TYPE="minutes_suffix_label" SOURCE="Ps.reminder_event_extra_minute_offset" KEEP-WITH-PREV="1"/>
+	</GROUP>
+	<DELIM/>
+	<BR/>
+
+	<CHECK TITLE="Напоминать о задачах, для которых указана только дата" SOURCE="Ps.use_date_only_reminder_events" lang-en:TITLE="Remind me of the tasks which are not bound to a specific time of day" lang-ua:TITLE="Нагадувати про завдання, для яких вказана тільки дата" ENABLE-EXPR="Ps.use_reminder_events"/>
+	<BR HEIGHT="2px"/>
+
+	<GROUP>
+		<EDIT SOURCE="Ps.date_only_reminder_minute_interval" WIDTH="6zr" ENABLE-EXPR="Ps.use_reminder_events &amp;&amp; Ps.use_date_only_reminder_events" LABEL-TITLE="Каждые" lang-en:LABEL-TITLE="Every" lang-ua:LABEL-TITLE="Кожні"/>
+		<ITEM TYPE="minutes_suffix_label" SOURCE="Ps.date_only_reminder_minute_interval" KEEP-WITH-PREV="1"/>
+	</GROUP>
+</PANEL>
+
+
+</SPXML-SCREEN>

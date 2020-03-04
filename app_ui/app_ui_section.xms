@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem">
+
+<PANEL STD-MARGINS="0" HEIGHT="4em">
+	<LINE>
+		<PANEL WIDTH="50zr">
+			<LINE>
+				<EDIT SOURCE="Ps.filter.used_fulltext" SUNKEN="0" BORDER-WIDTH="0" WIDTH="45zr"/>
+				<!--<IMAGE URL="//app_ui/pict/search.png"/>-->
+			</LINE>
+		</PANEL>
+
+		<SPLIT FIXED="1" BK-COLOR-EXPR="AppUi.gThemeData.colors.separator"/>
+		<PANEL>
+		</PANEL>
+	</LINE>
+</PANEL>
+<SPLIT FIXED="1" BK-COLOR-EXPR="AppUi.gThemeData.colors.separator"/>
+
+<LIST>
+	<COLUMNS>
+		<COL/>
+	</COLUMNS>
+</LIST>
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+

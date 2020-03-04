@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="145zr" HEIGHT="116zr" SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" RESIZE="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<GROUP>
+		<ITEM TYPE="elem_selector" SOURCE="Ps.type_id" ELEM="ListElem.name" WIDTH="30zr" LABEL-TITLE="##UiText.fields.source_type##:"/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.user_id" AUTO-LABEL="1" WIDTH="30zr" KEEP-RIGHT="1"/>
+	</GROUP>
+	<DELIM/>
+
+	<IF EXPR="Ps.type_id == 'mailbox'">
+		<ITEM TYPE="elem_selector" SOURCE="Ps.access_method_id" ELEM="ListElem.name" WIDTH="45zr" LABEL-TITLE="Метод доступа:" lang-en:LABEL-TITLE="Access Method:" lang-ua:LABEL-TITLE="Метод доступу:"/>
+
+		<IF EXPR="Ps.access_method_id == 'pop' || Ps.access_method_id == 'imap' || Ps.access_method_id == 'lotus'">
+			<EDIT SOURCE="Ps.server_address" WIDTH="45zr" LABEL-TITLE="Почтовый сервер:" lang-en:LABEL-TITLE="Mail server:" UPDATE-ACTION="lib_base.adjust_account_ssl_attr_by_server_address( Ps, Ps.access_method_id )" lang-ua:LABEL-TITLE="Поштовий сервер:"/>
+		</IF>
+
+		<IF EXPR="Ps.access_method_id == 'pop' || Ps.access_method_id == 'imap'">
+			<BR/>
+			<LINE>
+				<CHECK SOURCE="Ps.use_ssl" AUTO-LABEL="1" UPDATE-ACTION="
+						if ( Ps.use_ssl )
+							Ps.use_ssl_port = false;
+				"/>
+				
+				<CHECK SOURCE="Ps.use_ssl_port" AUTO-LABEL="1" UPDATE-ACTION="
+						if ( Ps.use_ssl_port )
+							Ps.use_ssl = false;
+				"/>
+			</LINE>
+
+			<LINE>
+				<EDIT SOURCE="Ps.login" WIDTH="25zr" LABEL-TITLE="##UiText.fields.login##:" lang-en:LABEL-TITLE="Login:"/>
+				<EDIT SOURCE="Ps.password" PASSWORD="1" WIDTH="16zr" LABEL-TITLE="##UiText.fields.password##:" lang-en:LABEL-TITLE="Password:"/>
+			</LINE>
+		</IF>
+
+		<LINE>
+			<IF EXPR="Ps.access_method_id.ForeignElem.has_stores">
+				<EDIT SOURCE="Ps.store_name" WIDTH="30zr" LABEL-TITLE="Почтовая база (сервер):" EMPTY-TEXT-EXPR="UiText.titles.default_mail_store_title" lang-en:LABEL-TITLE="Store (mail server):" lang-ua:LABEL-TITLE="Поштова база (сервер):"/>
+			</IF>
+
+			<IF EXPR="Ps.access_method_id.ForeignElem.has_folders">
+				<EDIT SOURCE="Ps.folder_path" WIDTH="30zr" LABEL-TITLE="##UiText.fields.folder##:" EMPTY-TEXT-EXPR="UiText.titles.inbox"/>
+
+				<IF EXPR="Ps.access_method_id != 'imap'">
+					<PANEL>
+						<LABEL TITLE=" "/>
+						<CHECK SOURCE="Ps.scan_sub_folders" AUTO-LABEL="1"/>
+					</PANEL>
+				</IF>
+			</IF>
+		</LINE>
+
+		<IF EXPR="Ps.access_method_id.ForeignElem.has_force_download">
+			<BR/>
+			<CHECK SOURCE="Ps.force_download" TITLE="Обновлять почтовый ящик перед началом загрузки" lang-en:TITLE="Download messages before import" lang-ua:TITLE="Оновлювати поштовий ящик перед початком завантаження"/>
+		</IF>
+
+		<DELIM/>
+
+		<IF EXPR="Ps.access_method_id.ForeignElem.has_read_flags">
+			<BR/>
+			<CHECK SOURCE="Ps.scan_unread_only" TITLE="Проверять только непрочитанные письма" lang-en:TITLE="Process unread messages only" lang-ua:TITLE="Перевіряти тільки непрочитані листи"/>
+			<LINE>
+				<CHECK SOURCE="Ps.mark_as_read" TITLE="Помечать все проверенные письма как прочитанные" lang-en:TITLE="Mark all checked messages as read" lang-ua:TITLE="Позначати всі перевірені листи як прочитані"/>
+				<CHECK SOURCE="Ps.mark_matched_as_read" TITLE="Помечать как прочитанные обработанные письма, содержащие резюме" ENABLE-EXPR="! Ps.mark_as_read" lang-en:TITLE="Mark loaded resume messages as read" lang-ua:TITLE="Позначати як прочитані оброблені листи, що містять резюме"/>
+			</LINE>
+		</IF>
+
+		<IF EXPR="Ps.access_method_id == 'pop' || Ps.access_method_id == 'imap'">
+			<BR/>
+			<LINE>
+				<CHECK SOURCE="Ps.mark_as_deleted" TITLE="Удалять из ящика все проверенные письма" lang-en:TITLE="Delete all checked messages" lang-ua:TITLE="Видаляти з ящика всі перевірені письма"/>
+				<CHECK SOURCE="Ps.mark_matched_as_deleted" TITLE="Удалять из ящика обработанные письма, содержащие резюме" ENABLE-EXPR="! Ps.mark_as_deleted" lang-en:TITLE="Delete resume messages from mailbox after processing" lang-ua:TITLE="Видаляти з ящика оброблені листи, що містять резюме"/>
+			</LINE>
+		</IF>
+		<BR/>
+	</IF>
+	<ELSE>
+		<ITEM TYPE="dir_path_selector" SOURCE="Ps.src_dir" LABEL-TITLE="Исходная папка:" lang-en:LABEL-TITLE="Source folder:" lang-ua:LABEL-TITLE="Вихідна папка:"/>
+		<CHECK SOURCE="Ps.scan_sub_folders" AUTO-LABEL="1"/>
+		<BR/>
+	</ELSE>
+
+	<LABEL TITLE="Уровень проверки на резюме:" lang-en:TITLE="Resume filtering level:" lang-ua:TITLE="Рівень перевірки на резюме:"/>
+
+	<LINE>
+		<RADIO-BUTTON TITLE="0 (загружать все)" SOURCE="Ps.min_req_rating" SWITCH-VALUE="0" WIDTH="auto" lang-en:TITLE="0 (load all)" lang-ua:TITLE="0 (завантажувати всі)"/>
+		<RADIO-BUTTON TITLE="1" SOURCE="Ps.min_req_rating" SWITCH-VALUE="1" WIDTH="auto"/>
+		<RADIO-BUTTON TITLE="2" SOURCE="Ps.min_req_rating" SWITCH-VALUE="2" WIDTH="auto"/>
+		<RADIO-BUTTON TITLE="3" SOURCE="Ps.min_req_rating" SWITCH-VALUE="3" WIDTH="auto"/>
+		<RADIO-BUTTON TITLE="4 (максимально строгая проверка)" SOURCE="Ps.min_req_rating" SWITCH-VALUE="4" WIDTH="auto" lang-en:TITLE="4 (most stringent)" lang-ua:TITLE="4 (максимально сувора перевірка)"/>
+	</LINE>
+	<DELIM/>
+
+	<IF EXPR="Ps.type_id == 'folder' || Ps.access_method_id == 'mapi2'">
+		<CHECK SOURCE="Ps.guess_profession_by_folder_name" TITLE="Определять специальность по имени папки" lang-en:TITLE="Guess profession by folder name" lang-ua:TITLE="Визначати спеціальність за ім'ям папки"/>
+		<DELIM/>
+	</IF>
+
+	<LABEL TITLE="##UiText.titles.set_for_loaded_candidates##:"/>
+	<BR/>
+
+	<TABLE SOURCE="Ps.dest_candidate_fields">
+		<COLUMNS>
+			<COL WIDTH="26zr"/>
+			<COL WIDTH="30zr"/>
+			<COL WIDTH="35zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.entrance_type_id" AUTO-LABEL="1"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.source_id" LABEL-TITLE="##UiText.fields.entrance_source##:"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.state_id" LABEL-TITLE="##UiText.fields.state##:"/>
+	</TABLE>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.skip_duplicates_check" AUTO-LABEL="1"/>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+
+
+

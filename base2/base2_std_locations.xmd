@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<std_locations>
+	<std_location MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT FORM="//base2/base2_location.xmd" TYPE="location"/>
+	</std_location>
+</std_locations>
+
+
+</SPXML-FORM>

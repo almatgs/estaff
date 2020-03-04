@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml">
+
+<office_access_system>
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+
+	<std_office_access_system_id TYPE="string" FOREIGN-ARRAY="base2_common.std_office_access_systems" TITLE="Система из списка" lang-en:TITLE="Built-in System" lang-ua:TITLE="Система зі списку"/>
+	<code TYPE="string" SUBTYPE="code" TITLE="##UiText.titles.script__code##"/>
+
+	<server_address TYPE="string" TITLE="##UiText.titles.server_address##"/>
+	<run_on_server TYPE="bool" NULL-FALSE="1" TITLE="##UiText.titles.send_via_lds_server##"/>
+
+	<login TYPE="string" TITLE="##UiText.fields.login##"/>
+	<password_ed TYPE="string" TITLE="##UiText.fields.password##"/>
+
+	<test_request>
+		<INHERIT TYPE="person_name_base"/>
+		<date TYPE="date" TIME="0" TITLE="##UiText.fields.date##"/>
+	</test_request>
+
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</office_access_system>
+
+
+
+</SPXML-FORM>

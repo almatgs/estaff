@@ -1,0 +1,21 @@
+namespace ui_builder_client {
+
+
+var	templates = new Array;
+
+
+function CreateTemplateEditor( baseElem, screen )
+{
+	templateEditor = new template_editor;
+	templateEditor.base_elem = baseElem;
+	templateEditor.screen = screen;
+	return templateEditor;
+}
+
+
+
+
+
+
+
+}

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" BEFORE-INIT-ACTION="
+		Ps.init();
+">
+
+<INHERIT TYPE="view_voc_elems_header"/>
+
+
+<PANEL HEIGHT="100%" SUNKEN="1">
+	<LIST NAME="ListElems" LOOP-CATALOG-EXPR="Ps.voc_id" HIER="1" FT-FILTER="Ps.filter">
+		<ROW OPEN-ACTION="
+				screen = ObtainObjectDocScreen( DefaultDb, Ps.voc_info.object_name, ListElem.id, Ps.voc_info.object_screen_form_url );
+
+				if ( ListElem.is_std && Ps.voc_info.edit_std_prohibit && Ps.voc_info.edit_std_allow_fields.ChildNum == 0 )
+					screen.EditMode = false;
+		" DELETE-ACTION="
+				if ( ListElem.is_std && ! Ps.voc_info.is_optional_std_elems )
+					throw UserError( UiText.errors.std_voc_elem_delete_prohibited );
+				
+				DeleteDoc( ObjectDocUrl( DefaultDb, Ps.voc_info.object_name, ListElem.id ) );
+		" IMAGE-URL-EXPR="( imageUrl = ListElem.ImageUrl ) != '' ? imageUrl : ( ListElem.ChildExists( 'is_active' ) && ! ListElem.is_active ? '//base_pict/generic_item_inactive.ico' : '//base_pict/generic_item.ico' )">
+			<COL WIDTH="100%" COL-TITLE="##UiText.fields.name##" TITLE-EXPR="ListElem.name" TEXT-COLOR-EXPR="! ListElem.ChildExists( 'is_active' ) || ListElem.is_active ? ( Ps.voc_id.ForeignElem.use_text_color ? ListElem.text_color : '' ) : base1_common.std_colors.inactive_voc_elem" BK-COLOR-EXPR="Ps.voc_id.ForeignElem.use_bk_color ? ListElem.bk_color : ''" lang-en:COL-TITLE="Name"/>
+			<COL WIDTH="20zr" COL-TITLE="##UiText.fields.id_of_voc_elem##" TITLE-EXPR="ListElem.id" lang-en:COL-TITLE="#"/>
+			<COL WIDTH="19zr" COL-TITLE="##UiText.fields.elem_type##" ALIGN="center" TITLE-EXPR="ListElem.is_std ? UiText.titles.standard + ( ListElem.was_customized ? '  (*)' : '' ) : UiText.titles.custom"/>
+			
+			<IF EXPR="! Ps.voc_info.auto_order">
+				<COL WIDTH="9zr" COL-TITLE="№" ALIGN="center" TITLE-EXPR="ListElem.order_index" DEFAULT-SORT="1"/>
+			</IF>
+		</ROW>
+
+		<MENU RIGHT-MENU="1">
+			<INHERIT TYPE="list_menu_entries"/>
+
+			<IF EXPR="! Ps.voc_info.auto_order">
+				<MENU-ENTRY SEPARATOR="1"/>
+
+				<MENU-ENTRY TITLE="##UiText.actions.move_up##" ACTION="
+						lib_voc.adjust_voc_order( Ps.voc, '' );
+
+						elem = List.SelRow.Env.ListElem;
+						query = 'for $elem in ' + Ps.voc_id + ' where $elem/parent_id = ' + elem.parent_id.XQueryLiteral + ' and $elem/order_index < ' + elem.order_index.XQueryLiteral + ' order by $elem/order_index descending return $elem';
+						//alert( query );
+						array = XQuery( query );
+
+						if ( ArrayCount( array ) == 0 )
+							return;
+
+						prevElem = ArrayFirstElem( array );
+
+						doc = DefaultDb.OpenObjectDoc( Ps.voc_info.object_name, elem.id );
+						prevDoc = DefaultDb.OpenObjectDoc( Ps.voc_info.object_name, prevElem.id );
+
+						curOrderIndex = Int( doc.TopElem.order_index );
+						doc.TopElem.order_index = prevDoc.TopElem.order_index;
+						prevDoc.TopElem.order_index = curOrderIndex;
+
+						doc.Save();
+						prevDoc.Save();
+				" ENABLE-EXPR="List.HasSingleSel" lang-en:TITLE="Move Up"/>
+
+				<MENU-ENTRY TITLE="##UiText.actions.move_down##" ACTION="
+						lib_voc.adjust_voc_order( Ps.voc, '' );
+
+						elem = List.SelRow.Env.ListElem;
+						query = 'for $elem in ' + Ps.voc_id + ' where $elem/parent_id = ' + elem.parent_id.XQueryLiteral + ' and $elem/order_index > ' + elem.order_index.XQueryLiteral + ' order by $elem/order_index ascending return $elem';
+						//alert( query );
+						array = XQuery( query );
+						
+						if ( ArrayCount( array ) == 0 )
+							return;
+
+						prevElem = ArrayFirstElem( array );
+
+						doc = lib_voc.get_voc_db( Ps.voc_info ).OpenObjectDoc( Ps.voc_info.object_name, elem.id );
+						prevDoc = lib_voc.get_voc_db( Ps.voc_info ).OpenObjectDoc( Ps.voc_info.object_name, prevElem.id );
+
+						curOrderIndex = Int( doc.TopElem.order_index );
+						doc.TopElem.order_index = prevDoc.TopElem.order_index;
+						prevDoc.TopElem.order_index = curOrderIndex;
+
+						doc.Save();
+						prevDoc.Save();
+				" ENABLE-EXPR="List.HasSingleSel" lang-en:TITLE="Move Down"/>
+			</IF>
+
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<INHERIT TYPE="voc_elems_list_menu_entries"/>
+		</MENU>
+
+	</LIST>
+</PANEL>
+
+
+<INHERIT TYPE="view_commands"/>
+
+
+</SPXML-SCREEN>
+
+

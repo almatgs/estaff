@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<staff_ui_text>
+	<objects>
+		<position VALUE="##UiText.objects.position##"/>
+		<position_type VALUE="Типовая должность" lang-en:VALUE="Standard Position" lang-ua:VALUE="Типова посаду"/>
+		<testing VALUE="Тестирование" lang-en:VALUE="Testing" lang-ua:VALUE="Тестування"/>
+		<testing_sample VALUE="Набор тестов" lang-en:VALUE="Tests Set" lang-ua:VALUE="Набір тестів"/>
+		<test VALUE="Тест" lang-en:VALUE="Test" lang-ua:VALUE="Тест"/>
+		<training_program VALUE="Учебная программа" lang-en:VALUE="Training Program" lang-ua:VALUE="Навчальна програма"/>
+		<training_program_part VALUE="Элемент учебной программы" lang-en:VALUE="Part of Training Program" lang-ua:VALUE="Елемент навчальної програми"/>
+		<training_group VALUE="Учебная группа" lang-en:VALUE="Training Group" lang-ua:VALUE="Навчальна група"/>
+	</objects>
+	<fields>
+		<parent_division VALUE="Головное подразделение" lang-en:VALUE="Parent Division" lang-ua:VALUE="Головний підрозділ"/>
+		<child_divisions VALUE="Дочерние подразделения" lang-en:VALUE="Child Divisions" lang-ua:VALUE="Дочірні підрозділи"/>
+		<salary VALUE="Оклад" lang-en:VALUE="Salary" lang-ua:VALUE="Оклад"/>
+		<min_salary VALUE="Уровень оклада, мин." lang-en:VALUE="Salary level, min." lang-ua:VALUE="Рівень окладу, мін."/>
+		<max_salary VALUE="Уровень оклада, макс." lang-en:VALUE="Salary level, max." lang-ua:VALUE="Рівень окладу, макс."/>
+		<position_start_date VALUE="Дата ввода" lang-en:VALUE="Creation Date" lang-ua:VALUE="Дата введення"/>
+		<position_end_date VALUE="Дата закрытия" lang-en:VALUE="Closed" lang-ua:VALUE="Дата закриття"/>
+		<position_is_active VALUE="Действующее" lang-en:VALUE="Active" lang-ua:VALUE="Активне"/>
+		<positions VALUE="Штатные должности" lang-en:VALUE="Positions" lang-ua:VALUE="Штатні посади"/>
+		<salary_level VALUE="Уровень з/п" lang-en:VALUE="Salary" lang-ua:VALUE="Рівень з/п"/>
+		<cost_center VALUE="Центр затрат" lang-en:VALUE="Cost Center" lang-ua:VALUE="Центр витрат"/>
+		<staff_category VALUE="Категория персонала" lang-en:VALUE="Staff Category" lang-ua:VALUE="Категорія складності"/>
+	</fields>
+	<titles>
+		<struct_roles VALUE="Роли в орг. структуре" lang-en:VALUE="Employee roles" lang-ua:VALUE="Ролі в орг. структурі"/>
+		<testing_link VALUE="Ссылка для прохождения теста" lang-en:VALUE="Testing link" lang-ua:VALUE="Посилання для проходження тесту"/>
+		<not_received_yet VALUE="ожидаем получения" lang-en:VALUE="not received yet" lang-ua:VALUE="чекаємо на отримання"/>
+		<staff_categories VALUE="Категории персонала" lang-en:VALUE="Staff categories" lang-ua:VALUE="Категорії персоналу"/>
+		<training_programs VALUE="Учебные программы" lang-en:VALUE="Training programs" lang-ua:VALUE="Навчальні програми"/>
+		<training_groups VALUE="Учебные группы" lang-en:VALUE="Training groups" lang-ua:VALUE="Навчальні групи"/>
+		<for_different_staff_categories VALUE="Для разных категорий персонала" lang-en:VALUE="For different categories of staff" lang-ua:VALUE="Для різних категорій персоналу"/>
+		<teacher VALUE="Преподаватель" lang-en:VALUE="Teacher" lang-ua:VALUE="Викладач"/>
+		<training__state VALUE="Обучение" lang-en:VALUE="Training" lang-ua:VALUE="Навчання"/>
+		<dismissed_employee VALUE="Сотрудник, который увольняется" lang-en:VALUE="Dismissed Employee" lang-ua:VALUE="Співробітник, який звільняється"/>
+	</titles>
+	<actions>
+		<new_division VALUE="Новое структурное подразделение" lang-en:VALUE="New Division" lang-ua:VALUE="Новий структурний підрозділ"/>
+		<add_tests VALUE="Добавить тесты" lang-en:VALUE="Add Tests" lang-ua:VALUE="Додати тести"/>
+		<load_tests VALUE="Загрузить список тестов" lang-en:VALUE="Load Tests" lang-ua:VALUE="Завантажити список тестів"/>
+		<request_testing_report VALUE="Запросить отчет о тестировании" lang-en:VALUE="Request testing report" lang-ua:VALUE="Запросити звіт про тестування"/>
+	</actions>
+	<sections>
+		<org_structure VALUE="Орг. структура" lang-en:VALUE="Org. Structure" lang-ua:VALUE="Орг. структура"/>
+		<vocs_staff VALUE="Орг. структура" lang-en:VALUE="Organization Structure" lang-ua:VALUE="Орг. структура"/>
+		<settings_target_testing_systems VALUE="Доступ к внешним системам тестирования" lang-en:VALUE="Access to external testing systems" lang-ua:VALUE="Доступ до зовнішніх систем тестування"/>
+	</sections>
+	<messages>
+		<division_already_exists VALUE="Подразделение с таким именем уже существует в базе. Продолжить?" lang-en:VALUE="Division with the same name already exists. Continue?" lang-ua:VALUE="Підрозділ з таким ім'ям вже існує в базі. Продовжити?"/>
+	</messages>
+	<errors>
+		<unable_to_add_skill_group VALUE="Вы не можете добавить группу навыков. Необходимо выбрать конкретный навык внутри группы." lang-en:VALUE="You may not add a group of skills. Please select a skill within the group." lang-ua:VALUE="Ви не можете додати групу навичок. Необхідно вибрати конкретний навик всередині групи."/>
+		<skill_already_added VALUE="Выбранный навык уже добавлен." lang-en:VALUE="Selected skill is already specified." lang-ua:VALUE="Обраний навик вже доданий."/>
+		<skill_level_already_exists VALUE="Такой уровень уже существует" lang-en:VALUE="The level already exists" lang-ua:VALUE="Такий рівень вже існує"/>
+		<external_tests_not_selected VALUE="Тесты не выбраны" lang-en:VALUE="Tests have not been selected" lang-ua:VALUE="Тести не вибрані"/>
+		<no_testing_systems_specified VALUE="В разделе 'Администрирование' не задана ни одна внешняя система тестирования" lang-en:VALUE="No external testing system has been specified in Administration section" lang-ua:VALUE="У розділі 'Адміністрування' не задана жодна зовнішня система тестування"/>
+		<testing_systems_xxx_auth_data_not_specified VALUE="В настройках не заданы логин/пароль для системы тестирования '%s'" lang-en:VALUE="Login and password have not been specified for '%s' testing system" lang-ua:VALUE="В налаштуваннях не задані логін/пароль для системи тестування '%s'"/>
+		<upper_division_for_xxx_of_type_xxx_not_found VALUE="Для подразделения '%s1' не найдено вышестоящее подразделение категории '%s2'" lang-en:VALUE="Upper division of type '%s2' is not found for '%s1'" lang-ua:VALUE="Для підрозділу '%s1' не знайдено вищестояще підрозділ з типом '%s2'"/>
+		<division_not_specified_for_person_xxx VALUE="Для сотрудника %s не указано структурное подразделение" lang-en:VALUE="No division has been specified for %s" lang-ua:VALUE="Для співробітника %s не вказано структурний підрозділ"/>
+		<division_xxx_head_not_found VALUE="Не найден руководитель подразделения '%s'" lang-en:VALUE="No head of division '%s' has been found" lang-ua:VALUE="Не найден керівник підрозділу '%s', або одного з головних підрозділів"/>
+		<division_xxx_head_rec_not_found VALUE="Не найден руководитель подразделения '%s', либо одного из головных подразделений" lang-en:VALUE="No head of division '%s' or upper division has been found" lang-ua:VALUE="Не найден керівник підрозділу '%s'"/>
+		<employee_xxx_email_not_specified VALUE="Не указан email для сотрудника %s" lang-en:VALUE="E-mail is not specified for employee: %s" lang-ua:VALUE="Не вказаний email для співробітника %s"/>
+		<person_with_role_xxx_for_division_xxx_rec_not_found VALUE="Отсутствует сотрудник с ролью '%s' для подразделения '%s' или одного из вышестоящих подразделений" lang-en:VALUE="There is no employee with role '%s' for division '%s' or upper divisions" lang-ua:VALUE="Відсутня співробітник з роллю '%s' для підрозділу '%s' або одного з вищестоящих підрозділів"/>
+		<position_already_filled_with_another_employee_xxx VALUE="Штатная должность занята другим сотрудником: %s" lang-en:VALUE="The position has already been filled with another employee: %s" lang-ua:VALUE="Штатна посада зайнята іншим співробітником: %s"/>
+	</errors>
+</staff_ui_text>

@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_mail_templates SPXML-FORM="rcr_std_mail_templates.xmd" LANG="en">
+	<std_mail_template>
+		<id>first_call_arrange</id>
+		<name VALUE="Arrange an initial call (active candidate)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject><![CDATA[Vacancy of <%=vacancy.name%>]]></subject>
+		<text><![CDATA[Dear <%=candidate.firstname%> <%=candidate.middlename%>,
+
+Thank you for your interest in the position of <%=vacancy.name%>. We do appreciate the time that you invested in this application.
+Would you be available for a short introductory phone call? Please would you indicate a suitable time for you?
+
+<%=signature%>
+
+
+--------------------------------
+Vacancy description:
+<%=vacancy.public_job_desc%>
+
+]]></text>
+	</std_mail_template>
+
+
+
+	<std_mail_template>
+		<id>first_call_arrange_2</id>
+		<name VALUE="Arrange an initial call (passive candidate)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject><![CDATA[Vacancy of <%=vacancy.name%>]]></subject>
+		<text><![CDATA[Dear <%=candidate.firstname%> <%=candidate.middlename%>,
+
+We are currently looking to hire a <%=vacancy.name%>.
+I came across your profile on <%=env.candidateSourceName%> and would like to talk to you further. Would you be available for a short introductory phone call? Please would you indicate a suitable time for you?
+
+<%=signature%>
+
+
+--------------------------------
+Vacancy description:
+<%=vacancy.public_job_desc%>
+
+]]></text>
+	</std_mail_template>
+
+
+
+	<std_mail_template>
+		<id>interview_invite</id>
+		<name VALUE="Arrange an interview (active candidate)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject><![CDATA[Vacancy of <%=vacancy.name%>]]></subject>
+		<text><![CDATA[Dear <%=candidate.firstname%> <%=candidate.middlename%>,
+
+Thank you for your interest in the position of <%=vacancy.name%>. We do appreciate the time that you invested in this application.
+We would like to invite you to interview to tell you more about the position and get to know you better.
+Please would you indicate a suitable time for you?
+
+<%=signature%>
+
+
+--------------------------------
+Vacancy description:
+<%=vacancy.public_job_desc%>
+
+]]></text>
+	
+		<register_event>1</register_event>
+		<event_type_id>invitation</event_type_id>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>interview_invite_2</id>
+		<name VALUE="Arrange an interview (passive candidate)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject><![CDATA[Vacancy of <%=vacancy.name%>]]></subject>
+		<text><![CDATA[Dear <%=candidate.firstname%> <%=candidate.middlename%>,
+
+Thank you for your interest in the position of <%=vacancy.name%>. We do appreciate the time that you invested in this application.
+We would like to invite you to interview to tell you more about the position and get to know you better.
+Please would you indicate a suitable time for you?
+
+<%=signature%>
+
+
+--------------------------------
+Vacancy description:
+<%=vacancy.public_job_desc%>
+
+]]></text>
+	
+		<register_event>1</register_event>
+		<event_type_id>invitation</event_type_id>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>interview_date_notif</id>
+		<name VALUE="Scheduled Interview Notification"/>
+		<dest_type>candidate</dest_type>
+
+		<subject>Interview</subject>
+		<text><![CDATA[Dear Mr./Mrs., <%=candidate.firstname%> <%=candidate.middlename%>!
+
+We have assigned interview on "<%=StrDate( event.date, true, false )%>".
+
+Please find enclosed our location description.
+
+<%=signature%>
+]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>rr_interview_date_notif</id>
+		<name VALUE="Scheduled Managerial Interview Notification"/>
+		<dest_type>candidate</dest_type>
+
+		<subject>Interview</subject>
+		<text><![CDATA[Dear Mr./Mrs., <%=candidate.firstname%> <%=candidate.middlename%>!
+
+We have assigned managerial interview on "<%=StrDate( event.date, true, false )%>".
+
+Please find enclosed office location description.
+
+<%=signature%>
+]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>org_rr_interview_date_notif</id>
+		<name VALUE="Scheduled Client Interview Notification"/>
+		<dest_type>candidate</dest_type>
+
+		<subject>Interview</subject>
+		<text><![CDATA[Dear Mr./Mrs., <%=candidate.firstname%> <%=candidate.middlename%>!
+
+We have assigned interview on "<%=StrDate( event.date, true, false )%>".
+
+Please find enclosed office location description for <%=org.name%> company.
+
+<%=signature%>
+]]></text>
+
+		<card_attachments>
+			<card_attachment>
+				<card_attachment_type_id>location_desc</card_attachment_type_id>
+				<src_object_type_id>org</src_object_type_id>
+			</card_attachment>
+		</card_attachments>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>add_notify</id>
+		<name VALUE="Add Notification"/>
+		<dest_type>candidate</dest_type>
+
+		<subject></subject>
+		<text>Dear Mr./Mrs. &lt;%=lastname%>!&#10;&#10;Thank you for submitting your resume to our company.&#10;	Your resume has been included in our database. When a position matching your skills opens, you'll be contacted by our HR manager.&#10;&#10;Best regards,&#10;&lt;%=signature%></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>reject</id>
+		<name>Reject Notification (after an interview)</name>
+		<dest_type>candidate</dest_type>
+
+		<subject></subject>
+		<text>Dear Mr./Mrs. &lt;%=lastname%>&#10;&#10;The position of &lt;%=vacancy.name%> is closed. Thank you for your participation. When a position matching your skills opens again, you'll be contacted by our HR manager.&#10;&#10;Best regards,&#10;&lt;%=signature%></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>vacancy_close</id>
+		<name>Reject Notification</name>
+		<dest_type>candidate</dest_type>
+
+		<subject></subject>
+		<text>Dear Mr./Mrs. &lt;%=lastname%>&#10;&#10;The position of &lt;%=vacancy.name%> is closed. Thank you for your participation. When a position matching your skills opens again, you'll be contacted by our HR manager.&#10;&#10;Best regards,&#10;&lt;%=signature%></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>client_resume</id>
+		<name VALUE="Candidate's Resume"/>
+		<dest_type>person</dest_type>
+
+		<subject>Resume</subject>
+		<text>I've attached the resume of a candidate I think is qualified for your open position of "&lt;%=vacancy.name%>"&#10;&#10;Best regards,&#10;&lt;%=signature%></text>
+
+		<card_attachments>
+			<card_attachment>
+				<name>&lt;%=candidate.fullname%>.doc</name>
+				<card_attachment_type_id>resume</card_attachment_type_id>
+				<src_object_type_id>candidate</src_object_type_id>
+			</card_attachment>
+		</card_attachments>
+
+		<register_event>1</register_event>
+		<event_type_id>rr_resume_review</event_type_id>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>candidate_form_request_link</id>
+		<name>##UiText.titles.qform_request##</name>
+		<dest_type>candidate</dest_type>
+		<is_notif>1</is_notif>
+
+		<subject>##UiText.titles.qform_request##</subject>
+
+		<text><![CDATA[Dear Mr./Mrs. <%=firstname%> <%=middlename%>!
+
+Please fill in the form using the link
+<%=event.participant_web_url%>
+
+]]></text>
+	</std_mail_template>
+</std_mail_templates>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>candidates_by_sources_2</id>
+	<name VALUE="##UiText.titles.by_sources## - 2"/>
+	<section_id>candidates</section_id>
+
+	<is_v2>1</is_v2>
+	<default_catalog_name>candidates</default_catalog_name>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>state_date</id>
+			<use_range>1</use_range>
+			<use_period_quick_selector>1</use_period_quick_selector>
+			<default_period>
+				<unit_id>m</unit_id>
+				<unit_specifier_id>cur</unit_specifier_id>
+			</default_period>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>state_id</id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>vacancy_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.objects.vacancy##"/>
+			<foreign_array>vacancies</foreign_array>
+			<width>50zr</width>
+			<use_new_line>1</use_new_line>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+		</dyn_filter>
+	</dyn_filters>
+
+	<groups>
+		<group>
+			<id>entrance_type_id</id>
+			<show_full_range>1</show_full_range>
+			<foreign_array>candidate_entrance_types</foreign_array>
+			<disp_name_field_id>fullname</disp_name_field_id>
+		</group>
+		<group>
+			<id>source_id</id>
+			<is_hier>1</is_hier>
+			<show_full_range>1</show_full_range>
+			<foreign_array>candidate_sources</foreign_array>
+			<disp_name_field_id>fullname</disp_name_field_id>
+		</group>
+		<group>
+			<id>candidate_id</id>
+			<foreign_array>candidates</foreign_array>
+			<disp_name_field_id>fullname</disp_name_field_id>
+		</group>
+	</groups>
+
+	<fields>
+		<field>
+			<id>fullname</id>
+			<col_title VALUE="##UiText.objects.candidate##"/>
+			<auto_calc>1</auto_calc>
+			<width>44zr</width>
+		</field>
+		<field>
+			<id>vacancy_name</id>
+			<col_title VALUE="##UiText.objects.vacancy##"/>
+			<width>60zr</width>
+		</field>
+		<field>
+			<id>count</id>
+			<col_title VALUE="##UiText.titles.quantity__short##"/>
+			<stat_func>sum</stat_func>
+		</field>
+		<field>
+			<id>percent</id>
+			<col_title VALUE="%"/>
+			<is_percent>1</is_percent>
+		</field>
+	</fields>
+
+	<show_total>1</show_total>
+	<show_chart>1</show_chart>
+
+	<use_group_bk_colors>1</use_group_bk_colors>
+
+	<code_lib_url>x-app://rcr/rcr_std_stat_candidates_by_sources_2.js</code_lib_url>
+</std_stat>
+

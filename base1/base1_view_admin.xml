@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<view_admin>
+	<OnInit PROPERTY="1" EXPR="
+			for ( voc in vocs )
+			{
+				if ( voc.section_id.HasValue && voc.section_id != 'hidden' && voc.section_id != 'service' && voc.section_id.OptForeignElem == undefined )
+					throw UserError( 'Invalid voc section: ' + voc.id + ' ' + voc.section_id );
+			}
+	"/>
+</view_admin>
+
+
+
+</SPXML-INLINE-FORM>

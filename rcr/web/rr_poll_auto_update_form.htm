@@ -1,0 +1,82 @@
+<%
+Server.Execute( 'include/std_head.htm' );
+
+eventID = Int( Request.Form.id );
+event = GetOptForeignElem( events, eventID );
+if ( event == undefined )
+	throw 'Event not found';
+
+eventDoc = OpenDoc( DefaultDb.GetRecordPrimaryObjectUrl( event ) );
+event = eventDoc.TopElem;
+
+participant = event.participants.GetChildByKey( curPerson.id );
+
+pollResult = event.participant_poll_results.GetChildByKey( curPerson.id );
+
+spec = pollResult.spec_id.ForeignElem;
+
+for ( question in spec.questions )
+{
+	if ( question.is_separator )
+		continue;
+
+	questionAnswer = pollResult.question_answers.ObtainChildByKey( question.id );
+	questionAnswer.answer_id.Clear();
+
+	if ( question.expr.HasValue )
+	{
+		with ( pollResult )
+		{
+			score = eval( question.expr );
+		}
+
+		questionAnswer.score = score;
+		//DebugMsg( questionAnswer.score + '-----' );
+	}
+
+	if ( question.use_comment )
+	{
+		value = Request.Query.GetOptProperty( question.id + '__comment', '' );
+		questionAnswer.comment = value;
+	}
+
+	if ( question.expr.HasValue )
+		continue;
+
+	if ( question.is_multi_answer )
+	{
+		for ( value in Request.Query.GetProperties( question.id, '' ) )
+		{
+			questionAnswer.answer_id.ObtainByValue( value );
+		}
+	}
+	else if ( question.type != 'undefined' )
+	{
+		value = Request.Query.GetOptProperty( question.id, '' );
+		if ( value == '' )
+		{
+			continue;
+		}
+
+		try
+		{
+			score = Int( Request.Query.GetProperty( question.id ) );
+		}
+		catch ( e )
+		{
+			//HandlePostError( 'Недопустимое значение поля: "' + question.name + '"' );
+		}
+
+		questionAnswer.answer_id.ObtainByValue( score );
+	}
+}
+
+questionAnswer = pollResult.question_answers.ObtainChildByKey( 'q_rating' );
+respBody = 'q_rating=' + questionAnswer.score;
+
+questionAnswer = pollResult.question_answers.ObtainChildByKey( 'q_sum' );
+respBody += '&q_sum=' + questionAnswer.score;
+
+Response.Write( respBody );
+
+%>

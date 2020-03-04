@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>current_users_workload</id>
+	<name VALUE="Текущая загрузка рекрутеров" lang-en:VALUE="Recruiters Current Workload" lang-ua:VALUE="Поточна завантаження рекрутерів"/>
+	<section_id>current_status</section_id>
+
+	<is_v2>1</is_v2>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>recruit_type_id</id>
+			<source_id>vacancies</source_id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<is_multiple>1</is_multiple>
+			<is_hier>1</is_hier>
+			<source_id>vacancies</source_id>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+		</dyn_filter>
+	</dyn_filters>
+
+	<groups>
+		<group>
+			<id>group_id</id>
+			<foreign_array>groups</foreign_array>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+		</group>
+		<group>
+			<id>user_id</id>
+			<foreign_array>users</foreign_array>
+		</group>
+	</groups>
+
+	<fields>
+		<field>
+			<id>name</id>
+			<col_title VALUE="##UiText.objects.vacancy##"/>
+			<width>100%</width>
+		</field>
+		<field>
+			<id>vacancy_count</id>
+			<col_title VALUE="##UiText.titles.active_vacancy_count##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>vacancy</src_object_type_id>
+		</field>
+		<field>
+			<id>cur_workload</id>
+			<col_title VALUE="##UiText.titles.cur_workload##"/>
+			<stat_func>sum</stat_func>
+		</field>
+		<field>
+			<id>overdue_vacancy_count</id>
+			<col_title VALUE="##UiText.titles.overdue##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>vacancy</src_object_type_id>
+			<chart_bk_color>red</chart_bk_color>
+		</field>
+	</fields>
+
+	<hide_zero_stat_values>1</hide_zero_stat_values>
+	<show_total>1</show_total>
+	<show_chart>1</show_chart>
+
+	<use_group_bk_colors>1</use_group_bk_colors>
+
+	<settings>
+		<default_filter_period>
+			<unit_id>m</unit_id>
+			<unit_specifier_id>cur</unit_specifier_id>
+		</default_filter_period>
+	</settings>
+
+	<code_lib_url>x-app://rcr/rcr_std_stat_current_users_workload.js</code_lib_url>
+</std_stat>
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<active_positions>
+	<active_position MULTIPLE="1" PRIMARY-KEY="eid">
+		<eid TYPE="integer"/>
+		<portal_eid TYPE="string"/>
+
+		<code TYPE="string"/>
+		<name TYPE="string"/>
+
+		<subdivision_eid TYPE="integer"/>
+		<subdivision_data>
+			<portal_eid TYPE="string"/>
+			<disp_name TYPE="string"/>
+			<name TYPE="string"/>
+		</subdivision_data>
+
+		<person_eid TYPE="integer"/>
+		<person_data>
+			<portal_eid TYPE="string"/>
+			<fullname TYPE="string"/>
+		</person_data>
+
+		<state_name TYPE="string"/>
+
+		<user_data>
+			<disp_name TYPE="string"/>
+		</user_data>
+	</active_position>
+</active_positions>
+
+
+</SPXML-FORM>
+
+
+

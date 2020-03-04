@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<group_base SAMPLE="1">
+	<recruit_type_id TYPE="string" FOREIGN-ARRAY="recruit_types" TITLE="##UiText.objects.recruit_type##" EXP-MAX-LEN="11" base1:allow-hide="1"/>
+
+	<vacancy_import>
+		<create_notif_email TYPE="string"/>
+	</vacancy_import>
+</group_base>
+
+
+</SPXML-FORM>

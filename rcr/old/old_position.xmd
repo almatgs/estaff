@@ -1,0 +1,211 @@
+<SPXML-FORM>
+
+<USE FORM="old_general.xmd"/>
+
+
+<position>
+	<code TYPE="string"/>
+	<name TYPE="string"/>
+	<eid TYPE="string"/>
+
+	<org_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="orgs">
+	</org_id>
+			
+	<person_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="persons">
+	</person_id>
+
+	<priority_id TYPE="integer"/>
+
+	<profession_id TYPE="integer" FOREIGN-ARRAY="professions.items" IDATA="1"/>
+	<min_salary TYPE="integer"/>
+	<max_salary TYPE="integer"/>
+	<salary_currency_id TYPE="string" FOREIGN-ARRAY="currencies.items"/>
+
+	<revenue TYPE="integer"/>
+	<payment_date TYPE="date"/>
+
+	<manager_fee_planned TYPE="integer"/>
+	<manager_fee TYPE="integer"/>
+
+	<job_desc TYPE="string" MULTILINE="1"/>
+
+	<base_deal_code TYPE="string"/>
+
+	<orders>
+		<order MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer" EXPR-INIT="Random( 8589934591, 36028797018963967 )"/>
+			<eid TYPE="string"/>
+			<date TYPE="date" EXPR-INIT="CurDate"/>
+			<code TYPE="string"/>
+			<end_date TYPE="date"/>
+
+			<req_end_date TYPE="date" TIME="0"/>
+
+			<reason_id TYPE="string" FOREIGN-ARRAY="rc_common.order_reasons"/>
+
+			<dismissed_person_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="candidates">
+				<sd SECONDARY="1">
+					<fullname TYPE="string"/>
+				</sd>
+			</dismissed_person_id>
+
+			<state_id TYPE="string" FOREIGN-ARRAY="order_states.items"/>
+
+			<candidate_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="candidates">
+				<sd SECONDARY="1">
+					<fullname TYPE="string"/>
+				</sd>
+			</candidate_id>
+
+			<comment TYPE="string" MULTILINE="1"/>
+
+
+			<is_active PROPERTY="1" EXPR="! state_id.ForeignElem.stop_active"/>
+
+			<init PROPERTY="1" EXPR="
+					state_id = 'order_open';
+
+					if ( rc_global_settings.order_req_close_term.length != null )
+						req_end_date = DateOffset( date, rc_global_settings.order_req_close_term.length * 86400 );
+			"/>
+		</order>
+	</orders>
+
+	<max_hired_persons TYPE="integer"/>
+
+	<publish_on_portal TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+
+
+	<records OBSOLETE="1">
+		<record MULTIPLE="1">
+			<type_id TYPE="string"/>
+			<date TYPE="date"/>
+			<comment TYPE="string" MULTILINE="1"/>
+
+			<candidate_id TYPE="integer" FOREIGN-ARRAY="candidates">
+				<sd SECONDARY="1">
+					<fullname TYPE="string"/>
+				</sd>
+			</candidate_id>
+		</record>
+	</records>
+
+	<req_close_date TYPE="date" OBSOLETE="1"/>
+
+	<csd DYN-CHILDREN="1">
+	</csd>
+
+
+	<INHERIT TYPE="au_card_attachments">
+
+	<INHERIT TYPE="bs_user_ref"/>
+
+	<resp_user_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="users">
+		<sd SECONDARY="">
+			<disp_name TYPE="string"/>
+		</sd>
+	</resp_user_id>
+
+	<is_exclusive TYPE="bool" NOT-NULL="1"/>
+
+	<doc_info TYPE="au_doc_info"/>
+
+
+
+
+	<last_order PROPERTY="1" EXPR="
+			ArrayMax( orders, 'date' )
+	"/>
+
+
+	<last_inactive_order PROPERTY="1" EXPR="
+			ArrayMax( orders, 'end_date' )
+	"/>
+
+
+	<state_id PROPERTY="1" EXPR="
+			try
+			{
+				return last_order.state_id;
+			}
+			catch ( e )
+			{
+				return '';
+			}
+	"/>
+
+
+	<state_date PROPERTY="1" EXPR="
+			try
+			{
+				return ( last_order.end_date != null ? last_order.end_date : last_order.date );
+			}
+			catch ( e )
+			{
+				//alert( e );
+				return doc_info.creation.date;
+			}
+	"/>
+
+
+	<open_date PROPERTY="1" EXPR="
+			try
+			{
+				return ArrayMin( orders, 'date' ).date;
+			}
+			catch ( e )
+			{
+				return doc_info.creation.date;
+			}
+	"/>
+
+
+	<close_date PROPERTY="1" EXPR="
+			if ( is_active )
+				return null;
+
+			var			stateOrder;
+
+			if ( rc_global_settings.use_orders )
+			{
+				try
+				{
+					return ArrayMax( ArraySelect( orders, 'state_id == \'order_close\' || state_id == \'order_cancel\'' ), 'end_date' ).end_date;
+				}
+				catch ( e )
+				{
+					return null;
+				}
+			}
+			else
+			{
+				if ( main_order.state_id == 'order_close' || main_order.state_id == 'order_cancel' )
+					return main_order.end_date;
+				else
+					return null;
+			}
+	"/>
+
+
+	<main_order PROPERTY="1" EXPR="
+			if ( orders.ChildNum != 0 )
+				return last_order;
+			
+			var			order;
+
+			order = orders.AddChild();
+			order.state_id = 'order_open';
+			return order;
+	"/>
+
+</position>
+
+
+</SPXML-FORM>
+
+
+
+
+
+	

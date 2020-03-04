@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<PANEL NAME="list_view_used_filter" SAMPLE="1" STD-MARGINS="0" PADDING="4vpx 7vpx" FLEX-SHRINK="1" BK-COLOR-EXPR="AppUi.themeColors.used_filter" BORDER-RADIUS="4px">
+	<ATTRIBUTE NAME="filter-value" TYPE="expr"/>
+
+	<LINE>
+		<LABEL TITLE-EXPR="filterSpec.title + ': ' + BaseSampleItem.EvalAttr( 'filter-value' )" MULTILINE="0" END-ELLIPSIS="1" TIP-DEFAULT="1" FONT-CLASS="small" TEXT-COLOR-EXPR="AppUi.themeColors.gray_text"/>
+		<PANEL WIDTH="7vpx" ALIGN="right"/>
+		<CompactActionImage IMAGE-URL="//app_ui/theme/pict/close_small.svg" ALIGN="right" ACTION="ui_client.ClearListViewFilterInstance( _dest, _dest.filter, filterSpec, filterElemInstance )"/>
+	</LINE>
+</PANEL>
+
+
+
+<PANEL NAME="list_view_header" SAMPLE="1">
+	<PANEL STD-MARGINS="0" BK-COLOR-EXPR="0">
+		<LINE>
+			<PANEL STD-MARGINS="0" FULL-HEIGHT="1" PADDING="0 0 0 4epx">
+				<LINE HORIZ-SPACING="4vpx" VERT-ALIGN="center">
+					<EDIT SOURCE="_dest.filter.used_fulltext" BORDER="0" WIDTH="35zr"/>
+					<ActionImage IMAGE-URL="//app_ui/theme/pict/icon_search.svg" ACTION=""/>
+				</LINE>
+			</PANEL>
+			<SPLIT FIXED="1" FULL-HEIGHT="1"/>
+			<PANEL STD-MARGINS="1">
+				<LINE WIDTH="100%" CHILD-VERT-ALIGN="top">
+					<LINE MULTILINE="0">
+						<LOOP EXPR="ArraySelect( _dest.spec.filters, 'This.is_fixed != true &amp;&amp; ui_client.ListViewFilterHasValue( _dest.filter, This )' )" VAR="filterSpec">
+							<IF EXPR="filterSpec.is_multiple">
+								<LOOP EXPR="GetObjectProperty( _dest.filter, filterSpec.field_id )" VAR="filterElemInstance">
+									<list_view_used_filter filter-value="
+											if ( filterSpec.foreign_array_expr != undefined )
+												return filterElemInstance.ForeignDispName;
+											else if ( filterSpec.data_type == 'bool' )
+												return ( filterElemInstance.Value ? UiText.titles.yes : UiText.titles.no );
+											else
+												return filterElemInstance.Value;
+									"/>
+								</LOOP>
+							</IF>
+							<ELSE>
+								<WITH VAR="filterElemInstance" EXPR="undefined">
+									<list_view_used_filter filter-value="
+											if ( filterSpec.use_range )
+											{
+												return _dest.filter.Child( 'min_' + filterSpec.field_id ) + ' — ' + _dest.filter.Child( 'max_' + filterSpec.field_id );
+											}
+											else
+											{
+												filterElem = _dest.filter.Child( filterSpec.field_id );
+												if ( filterSpec.foreign_array_expr != undefined )
+													return filterElem.ForeignDispName;
+												else if ( filterSpec.data_type == 'bool' )
+													return ( filterElem.Value ? UiText.titles.yes : UiText.titles.no );
+												else
+													return filterElem.Value;
+											}
+									"/>
+								</WITH>
+							</ELSE>
+						</LOOP>
+					</LINE>
+					<LINE ALIGN="right" OnMouseDown="ui_client.OnViewFiltersMouseDown( Item )">
+						<PANEL WIDTH="8vpx">
+						</PANEL>
+						<LABEL TITLE="##UiText.fields.filter##" TEXT-COLOR-EXPR="AppUi.themeColors.button_gray_text"/>
+						<PrimaryActionImage IMAGE-URL="//app_ui/theme/pict/icon_filter.svg"/>
+					</LINE>
+				</LINE>
+			</PANEL>
+		</LINE>
+
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="##UiText.actions.clear_form##" ACTION="ui_client.OnListViewClearFilters( _dest, Screen )"/>
+		</MENU>
+	</PANEL>
+</PANEL>
+
+
+
+
+</SPXML-SCREEN>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_locations SPXML-FORM="x-app://base2/base2_std_locations.xmd" xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<std_location>
+		<name VALUE="Брестская область" lang-en:VALUE="Brestskaya oblast"/>
+		<id>blr.12</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Брест" lang-en:VALUE="Brest"/>
+		<id>blr.14.01</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>blr.12</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Витебская область" lang-en:VALUE="Vitebskaya oblast"/>
+		<id>blr.22</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Витебск" lang-en:VALUE="Vitebsk"/>
+		<id>blr.24.01</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>blr.22</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Гомельская область" lang-en:VALUE="Gomelskaya oblast"/>
+		<id>blr.32</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Гомель" lang-en:VALUE="Gomel"/>
+		<id>blr.34.01</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>blr.32</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Гродненская область" lang-en:VALUE="Grodnenskaya oblast"/>
+		<id>blr.42</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Гродно" lang-en:VALUE="Grodno"/>
+		<id>blr.44.01</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>blr.42</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Минск" lang-en:VALUE="Minsk"/>
+		<id>blr.50</id>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<has_metro>1</has_metro>
+	</std_location>
+	<std_location>
+		<name VALUE="Минская область" lang-en:VALUE="Minskaya oblast"/>
+		<id>blr.62</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+		<has_metro>1</has_metro>
+	</std_location>
+	<std_location>
+		<name VALUE="Могилевская область" lang-en:VALUE="Mogilevskaya oblast"/>
+		<id>blr.72</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Могилев" lang-en:VALUE="Mogilev"/>
+		<id>blr.74.01</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>blr.72</parent_id>
+	</std_location>
+</std_locations>

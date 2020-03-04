@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="List.vacancies.hm" ObjectList="1" ObjectType="vacancy" Title="##UiText.titles.active_vacancies##" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<UI:Column Field="name"/>
+<UI:Column Field="start_date"/>
+<UI:Column Field="state_id"/>
+<UI:Column Field="req_close_date"/>
+<UI:Column Field="division_id"/>
+<UI:Column Field="cur_work_days_num"/>
+<UI:Column Field="user_id"/>
+
+</UiTemplate>

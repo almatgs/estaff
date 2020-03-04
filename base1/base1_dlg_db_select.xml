@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_db_select>
+	<base_name TYPE="string"/>
+	
+	<host_dir_name TYPE="string"/>
+
+	<db_items>
+		<db_item MULTIPLE="1">
+			<dir_name TYPE="string"/>
+		</db_item>
+	</db_items>
+
+
+	<init PROPERTY="1" EXPR="
+			for ( dir in ReadDirectoryByPath( AppDirectoryPath() ) )
+			{
+				if ( ! IsDirectory( dir ) )
+					continue;
+
+				if ( ! StrBegins( FileName( dir ), base_name ) )
+					continue;
+
+				item = db_items.AddChild();
+				item.dir_name = FileName( dir );
+			}
+	
+	"/>
+</dlg_db_select>
+
+
+
+</SPXML-INLINE-FORM>

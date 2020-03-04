@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_object_actions>
+	<std_object_action MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT TYPE="object_action_base"/>
+	</std_object_action>
+</std_object_actions>
+
+
+</SPXML-FORM>
+

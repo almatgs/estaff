@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" STD-MARGINS="0" FREQUENT-UPDATE="1" BK-COLOR="sys-bk-ctrl">
+
+
+<WITH VAR="_dummy" EXPR="
+		try
+		{
+			Ps.cur_date = Date();
+
+			query = 'for $elem in calendar_entries';
+			query = query + ' where $elem/date >= ' + XQueryLiteral( DateNewTime( Ps.cur_date ) ) + ' and $elem/date <= ' + XQueryLiteral( DateNewTime( Ps.cur_date, 23, 59, 59 ) );
+			
+			if ( LdsCurUserID != null )
+				query = query + ' and $elem/user_id = ' + LdsCurUserID;
+
+			query = query + ' order by $elem/date';
+			query = query + ' return $elem';
+
+			Ps.cur_xquery_str = query;
+
+			//DebugMsg( query );
+			array = XQuery( query );
+
+			array = ArraySelect( array, '( date > ' + CodeLiteral( Ps.cur_date ) + ' || ( occurrence_id == \'scheduled\' ) )' );
+
+			Ps.found_events = array;
+		}
+		catch ( e )
+		{
+			alert( e );
+		}
+">
+
+
+<IF EXPR="ArrayOptFirstElem( Ps.found_events.Object ) == undefined">
+	<PANEL WIDTH="100%" HEIGHT="100%" SUNKEN="1" BK-COLOR="sys-bk-ctrl">
+		<PANEL HEIGHT="35%">
+		</PANEL>
+		<LABEL TITLE="Событий на сегодня нет" ITALIC="1" ALIGN="center" lang-en:TITLE="No events scheduled for today" lang-ua:TITLE="Подій на сьогодні немає"/>
+	</PANEL>
+</IF>
+<ELSE>
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<LIST LOOP-EXPR="
+				List.CurXQueryStr = Ps.cur_xquery_str;
+				return Ps.found_events.Object
+		" SUNKEN="0">
+			<ROW OPEN-ACTION="lib_calendar.open_calendar_entry_ext( ListElem )" DELETE-ACTION="lib_calendar.delete_calendar_entry( ListElem ); UpdateScreens( '*', '*' )" IMAGE-URL-EXPR="ListElem.ImageUrl">
+				<COL WIDTH="10zr" COL-TITLE="##UiText.titles.today##" TITLE-EXPR="Hour( ListElem.date ) != undefined ? StrTime( ListElem.date, false ) : '    --'" ORDER="" BK-COLOR-EXPR="ListElem.dyn_state_bk_color"/>
+				<COL WIDTH="100%" TITLE-EXPR="desc = ListElem.contacts_desc, ( desc + ( desc != '' ? ' ' : '' ) + ListElem.comment )" END-ELLIPSIS="1" BK-COLOR-EXPR="ListElem.dyn_state_bk_color"/>
+			</ROW>
+		</LIST>
+	</PANEL>
+</ELSE>
+
+
+</WITH>
+
+<COMMAND-HANDLER CMD="Help" HREF="//rcr/help/intro.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+</SPXML-SCREEN>

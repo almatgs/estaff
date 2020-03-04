@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_locations SPXML-FORM="x-app://base2/base2_std_locations.xmd" xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<std_location>
+		<name VALUE="Акмолинская область" lang-en:VALUE="Akmolinskaya oblast"/>
+		<id>kaz.11</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Кокшетау" lang-en:VALUE="Kokshetau"/>
+		<id>kaz.11.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>kaz.11</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Актюбинская область" lang-en:VALUE="Aktyubinskaya oblast"/>
+		<id>kaz.15</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Актобе" lang-en:VALUE="Aktobe"/>
+		<id>kaz.15.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>kaz.15</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Алматинская область" lang-en:VALUE="Almatinskaya oblast"/>
+		<id>kaz.19</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Талдыкорган" lang-en:VALUE="Taldykorgan"/>
+		<id>kaz.19.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>kaz.19</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Атырауская область" lang-en:VALUE="Atyrauskaya oblast"/>
+		<id>kaz.23</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Атырау" lang-en:VALUE="Atyrau"/>
+		<id>kaz.23.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>kaz.23</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Западно-Казахстанская область" lang-en:VALUE="Zapadno-Kazahstanskaya oblast"/>
+		<id>kaz.27</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Уральск" lang-en:VALUE="Uralsk"/>
+		<id>kaz.27.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>kaz.27</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Жамбылская область" lang-en:VALUE="Zhambylskaya oblast"/>
+		<id>kaz.31</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Тараз" lang-en:VALUE="Taraz"/>
+		<id>kaz.31.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>kaz.31</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Карагандинская область" lang-en:VALUE="Karagandinskaya oblast"/>
+		<id>kaz.35</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Караганда" lang-en:VALUE="Karaganda"/>
+		<id>kaz.35.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>kaz.35</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Костанайская область" lang-en:VALUE="Kostanayskaya oblast"/>
+		<id>kaz.39</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Костанай" lang-en:VALUE="Kostanay"/>
+		<id>kaz.39.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>kaz.39</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Кызылординская область" lang-en:VALUE="Kyzylordinskaya oblast"/>
+		<id>kaz.43</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Кызылорда" lang-en:VALUE="Kyzylorda"/>
+		<id>kaz.43.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>kaz.43</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Байконыр" lang-en:VALUE="Baykonyr"/>
+		<id>kaz.43.191</id>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>kaz.43</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Мангистауская область" lang-en:VALUE="Mangistauskaya oblast"/>
+		<id>kaz.47</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Актау" lang-en:VALUE="Aktau"/>
+		<id>kaz.47.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>kaz.47</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Южно-Казахстанская область" lang-en:VALUE="Yuzhno-Kazahstanskaya oblast"/>
+		<id>kaz.51</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Шымкент" lang-en:VALUE="Shymkent"/>
+		<id>kaz.51.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>kaz.51</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Павлодарская область" lang-en:VALUE="Pavlodarskaya oblast"/>
+		<id>kaz.55</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Павлодар" lang-en:VALUE="Pavlodar"/>
+		<id>kaz.55.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>kaz.55</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Северо-Казахстанская область" lang-en:VALUE="Severo-Kazahstanskaya oblast"/>
+		<id>kaz.59</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Петропавловск" lang-en:VALUE="Petropavlovsk"/>
+		<id>kaz.59.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>kaz.59</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Восточно-Казахстанская область" lang-en:VALUE="Vostochno-Kazahstanskaya oblast"/>
+		<id>kaz.63</id>
+		<type_id>2</type_id>
+		<name_suffix_id>2</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Усть-Каменогорск" lang-en:VALUE="Ust-Kamenogorsk"/>
+		<id>kaz.63.101</id>
+		<is_main_city>1</is_main_city>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<parent_id>kaz.63</parent_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Астана" lang-en:VALUE="Astana"/>
+		<id>kaz.71</id>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+	</std_location>
+	<std_location>
+		<name VALUE="Алматы" lang-en:VALUE="Almaty"/>
+		<id>kaz.75</id>
+		<type_id>10</type_id>
+		<name_suffix_id>10</name_suffix_id>
+		<has_metro>0</has_metro>
+	</std_location>
+</std_locations>

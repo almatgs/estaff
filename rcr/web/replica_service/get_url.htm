@@ -1,0 +1,17 @@
+<%
+	Request.UseSoapFault = true;
+	url = Request.QueryString.url;
+
+	Request.CheckLdsAuth();
+
+	//alert( url );
+
+	if ( UrlSchema( url ) != 'x-app' && UrlSchema( url ) != 'x-local' )
+		throw 'Invalid url schema';
+
+	dataStr = LoadUrlData( url );
+
+	Response.WriteMode = 'single';
+	//Response.ContentType = contentType + '; charset=' + AppCharset;
+	Response.Write( dataStr );
+%>

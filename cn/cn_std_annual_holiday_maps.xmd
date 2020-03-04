@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_annual_holiday_maps>
+	<std_annual_holiday_map MULTIPLE="1">
+		<country_id TYPE="string"/>
+		<year TYPE="integer"/>
+		<holidays>
+			<holiday TYPE="integer" MULTIPLE="1"/>
+		</holidays>
+		<working_days>
+			<working_day TYPE="integer" MULTIPLE="1"/>
+		</working_days>
+	</std_annual_holiday_map>
+</std_annual_holiday_maps>
+
+
+</SPXML-FORM>

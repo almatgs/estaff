@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_calendar_entry_types>
+	<std_calendar_entry_type MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT TYPE="calendar_entry_type_base"/>
+	</std_calendar_entry_type>
+</std_calendar_entry_types>
+
+
+</SPXML-FORM>

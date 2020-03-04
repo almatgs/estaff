@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_agents SPXML-FORM="//base1/base1_std_agents.xmd">
+	<std_agent>
+		<id>staff_loader</id>
+		<name VALUE="Загрузка структурных подразделений из внешней системы" lang-en:VALUE="Load organizational structure" lang-ua:VALUE="Завантаження структурних підрозділів з зовнішньої системи"/>
+		<is_active>0</is_active>
+		<code>lib_staff_connector.load_divisions()</code>
+		<run_on_server>0</run_on_server>
+		<show_in_main_menu>1</show_in_main_menu>
+
+		<settings_section>
+			<holder>global_settings.staff_connector</holder>
+			<screen_form>//rcr/rcr_global_settings_staff_connector.xms</screen_form>
+		</settings_section>
+	</std_agent>
+
+	<std_agent>
+		<id>staff_positions_loader</id>
+		<name VALUE="Загрузка штатных должностей из внешней системы" lang-en:VALUE="Load positions" lang-ua:VALUE="Завантаження штатних посад з зовнішньої системи"/>
+		<is_active>0</is_active>
+		<code>lib_staff_connector.load_positions()</code>
+		<run_on_server>0</run_on_server>
+		<show_in_main_menu>1</show_in_main_menu>
+
+		<settings_section>
+			<holder>global_settings.staff_connector</holder>
+			<screen_form>//rcr/rcr_global_settings_staff_connector.xms</screen_form>
+		</settings_section>
+	</std_agent>
+
+	<std_agent>
+		<id>staff_persons_loader</id>
+		<name VALUE="Загрузка сотрудников из внешней системы" lang-en:VALUE="Load employees" lang-ua:VALUE="Завантаження співробітників з зовнішньої системи"/>
+		<is_active>0</is_active>
+		<code>lib_staff_connector.load_persons()</code>
+		<run_on_server>0</run_on_server>
+		<show_in_main_menu>1</show_in_main_menu>
+
+		<settings_section>
+			<holder>global_settings.staff_connector</holder>
+			<screen_form>//rcr/rcr_global_settings_staff_connector.xms</screen_form>
+		</settings_section>
+	</std_agent>
+
+	<std_agent>
+		<id>staff_full_loader</id>
+		<name VALUE="Загрузка штатной структуры и сотрудников из внешней системы" lang-en:VALUE="Load divisions, position and employees" lang-ua:VALUE="Завантаження штатної структури і співробітників з зовнішньої системи"/>
+		<is_active>1</is_active>
+		<code>
+			lib_staff_connector.load_divisions();
+if ( global_settings.use_positions )
+	lib_staff_connector.load_positions();
+lib_staff_connector.load_persons();
+		</code>
+		<run_on_server>0</run_on_server>
+		<show_in_main_menu>1</show_in_main_menu>
+
+		<settings_section>
+			<holder>global_settings.staff_connector</holder>
+			<screen_form>//rcr/rcr_global_settings_staff_connector.xms</screen_form>
+		</settings_section>
+	</std_agent>
+
+	<std_agent>
+		<id>staff_vacancies_loader</id>
+		<name VALUE="Загрузка вакансий из внешней системы" lang-en:VALUE="Load vacancies" lang-ua:VALUE="Завантаження вакансій з зовнішньої системи"/>
+		<is_active>1</is_active>
+		<code>lib_staff_connector.load_vacancies()</code>
+		<run_on_server>0</run_on_server>
+		<show_in_main_menu>1</show_in_main_menu>
+
+		<settings_section>
+			<holder>global_settings.staff_connector</holder>
+			<screen_form>//rcr/rcr_global_settings_staff_connector.xms</screen_form>
+		</settings_section>
+	</std_agent>
+
+	<std_agent>
+		<id>candidate_state_checker</id>
+		<name VALUE="Проверка предельного срока нахождения кандидата в статусе" lang-en:VALUE="Candidate status duration check" lang-ua:VALUE="Перевірка граничного строку перебування кандидата в статусі"/>
+		<is_active>1</is_active>
+		<code>OpenCodeLib( 'x-app://rcr/rcr_agent_candidate_state_checker.js' ).RunAgentCandidateStateChecker()</code>
+		<run_on_server>1</run_on_server>
+  
+		<schedule>
+			<time_entries>
+				<time_entry>
+					<hour>2</hour>
+					<minute>0</minute>
+				</time_entry>
+			</time_entries>
+		</schedule>
+	</std_agent>
+
+	<std_agent>
+		<id>candidate_user_duty_checker</id>
+		<name VALUE="Проверка нахождения кандидата в работе" lang-en:VALUE="Candidate to-do state check" lang-ua:VALUE="Перевірка знаходження кандидата в роботі"/>
+		<is_active>0</is_active>
+		<code>OpenCodeLib( 'x-app://rcr/rcr_agent_candidate_user_duty_checker.js' ).run_candidate_user_duty_checker()</code>
+	</std_agent>
+
+
+	<std_agent>
+		<id>check_external_event_states</id>
+		<name VALUE="Проверка статусов событий во внешних системах" lang-en:VALUE="External event status checker" lang-ua:VALUE="Проверка статусов событий во внешних системах"/>
+		<is_active>1</is_active>
+		<code>lib_recruit.RunAgentCheckExternalEventStates()</code>
+	</std_agent>
+
+
+	<std_agent>
+		<id>unused_candidates_checker</id>
+		<name VALUE="Проверка неиспользованных кандидатов" lang-en:VALUE="Unused candidates check" lang-ua:VALUE="Перевірка невикористаних кандидатів"/>
+		<is_active>1</is_active>
+		<code><![CDATA[
+if ( ! global_settings.use_candidate_unused_state || ! global_settings.unused_candidate_start_period.length.HasValue )
+	return;
+
+query = 'for $elem in candidates where $elem/state_id = \'new\' and $elem/creation_date < ' + XQueryLiteral( lib_base.get_term_date_neg_offset( CurDate, global_settings.unused_candidate_start_period ) ) + ' return $elem';
+
+idArray = ArrayExtract( XQuery( query ), 'id' );
+StartModalTask( 'Checking...' );
+
+for ( id in idArray )
+{
+	candidateDoc = OpenDoc( ObjectDocUrl( 'data', 'candidate', id ) );
+	candidate = candidateDoc.TopElem;
+
+	ModalTaskMsg( candidate.fullname );
+
+	candidate.update_state();
+	candidateDoc.WriteDocInfo = false;
+	candidateDoc.Save();
+}
+		]]></code>
+	</std_agent>
+
+
+	<std_agent>
+		<id>bind_candidates_to_employees</id>
+		<name VALUE="Привязка принятых на работу кандидатов к сотрудникам" lang-en:VALUE="Link hired candidates to employees" lang-ua:VALUE="Прив'язка прийнятих на роботу кандидатів до співробітників"/>
+		<is_active>0</is_active>
+		<code>lib_candidate.RunAgentBindCandidatesToEmployees()</code>
+	</std_agent>
+
+
+	<std_agent>
+		<id>build_calendar_entries</id>
+		<name VALUE="Обновление календарных записей" lang-en:VALUE="Rebuild calendar entries" lang-ua:VALUE="Оновлення календарних записів"/>
+		<is_active>1</is_active>
+		<code><![CDATA[
+query = 'for $elem in events where $elem/date >= ' + XQueryLiteral( DateOffset( CurDate, 0 - 30 * 86400 ) ) + ' return $elem';
+
+array = ArraySelect( XQuery( query ), 'type.is_calendar_entry' );
+StartModalTask( 'Updating...' );
+
+for ( event in array )
+{
+	ModalTaskMsg( event.date );
+
+	//LogEvent( '', event.ObjectUrl );
+	eventDoc = OpenDoc( event.ObjectUrl );
+
+	entryDocUrl = ObjectDocUrl( 'data', 'calendar_entry', event.id );
+
+	try
+	{
+		calendarEntryDoc = OpenDoc( entryDocUrl );
+		continue;
+	}
+	catch ( e )
+	{
+	}
+
+	calendarEntryDoc = OpenNewDoc( 'x-app://cn/cn_calendar_entry.xmd', 'separate=1' );
+	calendarEntryDoc.Url = entryDocUrl;
+	calendarEntryDoc.TopElem.AssignElem( eventDoc.TopElem );
+
+	calendarEntryDoc.RunActionOnSave = false;
+	calendarEntryDoc.WriteDocInfo = false;
+	calendarEntryDoc.IsSeparated = false;
+	calendarEntryDoc.Save();
+}
+		]]></code>
+		<run_on_server>1</run_on_server>
+		<show_in_main_menu>0</show_in_main_menu>
+	</std_agent>
+
+
+	<std_agent>
+		<id>clean_up_calendar_entries</id>
+		<name VALUE="Удаление отключенных календарных записей" lang-en:VALUE="Delete disabled calendar entries" lang-ua:VALUE="Видалення відключених календарних записів"/>
+		<is_active>1</is_active>
+		<code><![CDATA[
+query = 'for $elem in calendar_entries order by $elem/date descending return $elem';
+array = XQuery( query );
+
+idArray = new Array;
+
+StartModalTask( 'Scanning calendar entries...' );
+
+for ( calendarEntry in array )
+{
+	ModalTaskMsg( calendarEntry.date );
+
+	if ( calendarEntry.type.is_calendar_entry )
+		continue;
+
+	idArray.push( calendarEntry.id );
+}
+
+if ( idArray.length == 0 )
+	return;
+
+
+StartModalTask( 'Deleting calendar entries...' );
+
+
+for ( id in idArray )
+{
+	ModalTaskMsg( id );
+
+	eventDoc = OpenDoc( ObjectDocUrl( 'data', 'event', id ), 'separate=1' );
+
+	DeleteDoc( ObjectDocUrl( 'data', 'calendar_entry', id ), true );
+
+	eventDoc.WriteDocInfo = false;
+	eventDoc.Save();
+}
+		]]></code>
+		<run_on_server>1</run_on_server>
+		<show_in_main_menu>0</show_in_main_menu>
+	</std_agent>
+
+
+	<std_agent>
+		<id>update_candidate_states</id>
+		<name VALUE="Обновление статусов кандидатов" lang-en:VALUE="Rebuild candidate states" lang-ua:VALUE="Оновлення статусів кандидатів"/>
+		<is_active>1</is_active>
+		<code><![CDATA[
+for ( candidateID in ArrayExtract( candidates, 'id' ) )
+{
+	try
+	{
+		candidateDoc = DefaultDb.OpenObjectDoc( 'candidate', candidateID );
+	}
+	catch ( e )
+	{
+		alert( e );
+		continue;
+	}
+	
+	candidate = candidateDoc.TopElem;
+	needUpdate = false;
+
+	if ( ! candidate.state_date.HasValue || ! candidate.state_id.HasValue )
+	{
+		needUpdate = true;
+	}
+	else
+	{
+		for ( spot in candidate.spots )
+		{
+			if ( ! spot.state_date.HasValue || ! spot.state_id.HasValue )
+			{
+				needUpdate = true;
+				break;
+			}
+		}
+	}
+
+	if ( ! needUpdate )
+		continue;
+
+	candidate.update_state();
+
+	candidateDoc.WriteDocInfo = false;
+	candidateDoc.RunActionOnSave = false;
+
+	try
+	{
+		candidateDoc.Save();
+	}
+	catch ( e )
+	{
+	}
+}
+		]]></code>
+		<run_on_server>1</run_on_server>
+		<show_in_main_menu>0</show_in_main_menu>
+	</std_agent>
+
+	<std_agent>
+		<id>update_vacancies_work_days_num</id>
+		<name VALUE="Пересчет фактических сроков поиска по вакансиям" lang-en:VALUE="Vacancy Search Times Updater" lang-ua:VALUE="Перерахунок фактичних термінів пошуку по вакансіях"/>
+		<is_active>1</is_active>
+		<code>OpenCodeLib( 'x-app://rcr/rcr_agent_update_vacancies_work_days_num.js' ).RunAgentUpdateVacanciesWorkDaysNum()</code>
+	</std_agent>
+</std_agents>

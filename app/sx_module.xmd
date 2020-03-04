@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<spxml_module>
+	<title TYPE="string"/>
+
+	<ui_texts>
+		<ui_text MULTIPLE="1">
+			<url TYPE="string"/>
+		</ui_text>
+	</ui_texts>
+
+	<sample_forms>
+		<sample_form MULTIPLE="1" PRIMARY-KEY="url">
+			<url TYPE="string"/>
+		</sample_form>
+	</sample_forms>
+
+	<sample_screen_forms>
+		<sample_screen_form MULTIPLE="1" PRIMARY-KEY="url">
+			<url TYPE="string"/>
+		</sample_screen_form>
+	</sample_screen_forms>
+
+	<shared_docs>
+		<shared_doc MULTIPLE="1">
+			<url TYPE="string"/>
+			<form_url TYPE="string"/>
+			<exist_req_expr TYPE="string" SUBTYPE="code"/>
+			<server_only TYPE="bool" NULL-FALSE="1"/>
+		</shared_doc>
+	</shared_docs>
+
+	<object_types>
+		<object_type MULTIPLE="1">
+			<form_url TYPE="string"/>
+			<db_name TYPE="string"/>
+		</object_type>
+	</object_types>
+
+	<code_source_files>
+		<code_source_file MULTIPLE="1">
+			<url TYPE="string"/>
+			<server_only TYPE="bool" NULL-FALSE="1"/>
+			<client_only TYPE="bool" NULL-FALSE="1"/>
+		</code_source_file>
+	</code_source_files>
+
+	<client_start>
+		<lib_name TYPE="string"/>
+		<method_name TYPE="string"/>
+		<skip_for_restricted_zones TYPE="bool" NULL-FALSE="1"/>
+	</client_start>
+</spxml_module>
+
+
+
+</SPXML-FORM>

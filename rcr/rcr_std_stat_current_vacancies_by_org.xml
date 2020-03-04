@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>current_vacancies_by_org</id>
+	<name VALUE="Текущие вакансии по клиентам" lang-en:VALUE="Current Vacancies by Client" lang-ua:VALUE="Поточні вакансії по клієнтам"/>
+	<section_id>current_status</section_id>
+
+	<is_v2>1</is_v2>
+	<default_catalog_name>vacancies</default_catalog_name>
+	<auto_calc_all_fields>1</auto_calc_all_fields>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>recruit_type_id</id>
+			<source_id>vacancies</source_id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>org_id</id>
+			<source_id>vacancies</source_id>
+			<width>40zr</width>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<source_id>vacancies</source_id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<is_multiple>1</is_multiple>
+			<is_hier>1</is_hier>
+			<source_id>vacancies</source_id>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+		</dyn_filter>
+	</dyn_filters>
+
+	<groups>
+		<group>
+			<id>org_id</id>
+			<foreign_array>orgs</foreign_array>
+		</group>
+		<group>
+			<id>vacancy_id</id>
+			<foreign_array>vacancies</foreign_array>
+		</group>
+	</groups>
+
+	<fields>
+		<field>
+			<id>name</id>
+			<col_title VALUE="##UiText.objects.vacancy##"/>
+			<width>100%</width>
+		</field>
+		<field>
+			<id>req_quantity</id>
+			<exist_req_expr>global_settings.use_mp_vacancies</exist_req_expr>
+			<width>5zr</width>
+			<align>center</align>
+			<stat_func>sum</stat_func>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>active_req_quantity</id>
+			<exist_req_expr>global_settings.use_mp_vacancies</exist_req_expr>
+			<width>6zr</width>
+			<align>center</align>
+			<stat_func>sum</stat_func>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>start_date</id>
+		</field>
+		<field>
+			<id>cur_work_days_num</id>
+			<width>5zr</width>
+			<align>center</align>
+			<bk_color_expr>cur_work_wdays_num_bk_color</bk_color_expr>
+			<exist_req_expr>! global_settings.use_vacancy_work_wdays</exist_req_expr>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>cur_work_wdays_num</id>
+			<width>5zr</width>
+			<align>center</align>
+			<bk_color_expr>cur_work_wdays_num_bk_color</bk_color_expr>
+			<exist_req_expr>global_settings.use_vacancy_work_wdays</exist_req_expr>
+			<rotation>90</rotation>
+		</field>
+	</fields>
+
+	<hide_zero_stat_values>0</hide_zero_stat_values>
+	<show_total>1</show_total>
+	<show_chart>0</show_chart>
+
+	<use_group_bk_colors>1</use_group_bk_colors>
+
+	<build_phases>
+		<build_phase>
+			<catalog_name>vacancies</catalog_name>
+			<filters_json>{is_active:true}</filters_json>
+		</build_phase>
+	</build_phases>
+
+	<settings>
+		<default_filter_period>
+			<unit_id>m</unit_id>
+			<unit_specifier_id>cur</unit_specifier_id>
+		</default_filter_period>
+	</settings>
+</std_stat>
+

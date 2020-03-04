@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="person.fullname + ' - ' + Ps.object_title" WIDTH="160zr" HEIGHT="93zr" BEFORE-INIT-ACTION="
+		if ( lib_base.object_change_prohibited( Ps ) )
+			Screen.EditMode = false;
+" BEFORE-SAVE-ACTION="
+		fields_usage.check_object_required_fields( Ps );
+		lib_app2.OnPersonBeforeUiSave( Ps );
+
+		if ( Ps.Doc.NeverSaved )
+			Ps.check_duplicates();
+" WINDOW-ICON-URL-EXPR="Ps.image_url" RESIZE="1">
+
+
+<INHERIT TYPE="card_menu_start"/>
+
+
+<MENU TITLE="##UiText.sections.service##" GLOBAL="1">
+	<IF EXPR="DefaultDb.GetOptCatalog( 'person_struct_roles' ) != undefined">
+		<MENU-ENTRY TITLE="Новая роль в орг. структуре" ACTION="
+				doc = DefaultDb.OpenNewObjectDoc( 'person_struct_role' );
+				doc.TopElem.person_id = Ps.id;
+				doc.TopElem.division_id = Ps.division_id;
+				CreateDocScreen( doc );
+		" ENABLE-EXPR="Ps.is_own_person" PASSIVE="1" lang-en:TITLE="New Employee Role" lang-ua:TITLE="Нова роль в орг. структурі"/>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+	</IF>
+
+	<MENU-ENTRY TITLE="Преобразовать в карточку кандидата" ACTION="
+			lib_candidate.HandleChangePersonToCandidate( Ps );
+	" lang-en:TITLE="Change to candidate" lang-ua:TITLE="Перетворити в картку кандидата" PASSIVE="1" ENABLE-EXPR="! Ps.Doc.NeverSaved &amp;&amp; ! Ps.candidate_id.HasValue &amp;&amp; global_settings.allow_candidates_as_contact_persons"/>
+</MENU>
+
+
+<MENU TITLE="##UiText.titles.actions##" GLOBAL="1">
+	<MENU-ENTRY TITLE="##UiText.actions.add_to_contact_list##..." ACTION="
+			lib_person.handle_add_person_to_contact_list( Ps.id );
+	" PASSIVE="1"/>
+</MENU>
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="card_toolbar_start_entries"/>
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/org.ico" CMD="QQQ1">
+		<MENU>
+			<MENU-ENTRY TITLE="Изменить место работы" ACTION="
+					orgID = lib_base.select_object( 'org' );
+
+
+					prevJob = Ps.prev_jobs.AddChild();
+
+					prevJob.start_date = ArrayMax( Ps.prev_jobs, 'end_date' ).end_date;
+					prevJob.end_date = CurDate;
+					prevJob.org_id = Ps.org_id;
+					prevJob.position_name = Ps.position_name;
+
+					Ps.org_id = orgID;
+					Ps.position_name = '';
+
+					Ps.Doc.SetChanged( true );
+					Screen.Update();
+					
+					try
+					{
+						Screen.ExposeItemBySource( Ps.position_name );
+					}
+					catch ( e )
+					{
+					}
+			" PASSIVE="1" lang-en:TITLE="Change current job" lang-ua:TITLE="Змінити місце роботи"/>
+
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE="Добавить предыдущую должность" ACTION="
+					prevJob = Ps.prev_jobs.AddChild();
+					Ps.Doc.SetChanged( true );
+					Screen.Update();
+					Screen.ExposeItemBySource( prevJob.start_date );
+			" PASSIVE="1" lang-en:TITLE="Add previous job" lang-ua:TITLE="Додати попередню посаду"/>
+		</MENU>
+	</TOOLBAR-ENTRY>
+
+	<IF EXPR="AppModuleUsed( 'rcr' )">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+		<TOOLBAR-ENTRY TIP-TEXT="##UiText.actions.new_vacancy##" IMAGE-URL="//base_pict/vacancy.ico" CMD="NewPersonVacancy"/>
+	</IF>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY TIP-TEXT="##UiText.actions.add_event##" IMAGE-URL="//base_pict/event.ico" CMD="QQQ">
+		<MENU>
+			<LOOP EXPR="ArraySelect( event_types, '! target_object_type_id.HasValue || target_object_type_id.ByValueExists( \'org\' )' )" VAR="_event_type">
+				<MENU-ENTRY TITLE-EXPR="_event_type.name" ACTION="
+						eventDoc = DefaultDb.OpenNewObjectDoc( _event_type.get_object_name() );
+						eventDoc.TopElem.type_id = _event_type.id;
+						eventDoc.TopElem.date = CurDate;
+						
+						eventDoc.TopElem.org_id = Ps.org_id;
+
+						if ( _event_type.use_participants )
+							eventDoc.TopElem.participants.ObtainChildByKey( Ps.id );
+
+						eventDoc.TopElem.init();
+
+						if ( _event_type.has_occurrence( 'scheduled' ) )
+							eventDoc.TopElem.occurrence_id = 'scheduled';
+
+						CreateDocScreen( eventDoc );
+				" PASSIVE="1"/>
+			</LOOP>
+		</MENU>
+	</TOOLBAR-ENTRY>
+
+	<ITEM TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="38zr" STD-MARGINS="0">
+	<PANEL HEIGHT="28zr" SUNKEN="1">
+		<TREE SUNKEN="0" SWITCH-TYPE="selector" TARGET="main_selector">
+		</TREE>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+
+	<PANEL SUNKEN="1" STD-MARGINS="1" WIDTH="100%" HEIGHT-EXPR="lib_base.card_left_prop_panel_height" BK-COLOR="sys-bk-ctrl">
+		<CHECK SOURCE="Ps.is_pp" AUTO-LABEL="1" ENABLE-EXPR="! Ps.is_own_person"/>
+		<CHECK SOURCE="Ps.is_own_person" AUTO-LABEL="1" ENABLE-EXPR="! Ps.is_pp"/>
+		<CHECK SOURCE="Ps.is_private" TITLE="Личный контакт" lang-en:TITLE="Private" lang-ua:TITLE="Особистий контакт"/>
+
+		<IF EXPR="Ps.ChildExists( 'candidate_id' ) &amp;&amp; Ps.candidate_id.HasValue">
+			<DELIM/>
+			<LINE>
+				<IMAGE URL="1.ico" URL-EXPR="Ps.candidate_id.ForeignElem.ImageUrl"/>
+				<LINK TITLE="Карточка кандидата" ACTION="ObtainDocScreen( Ps.candidate_id.ForeignObjectUrl )" lang-en:TITLE="Candidate card" lang-ua:TITLE="Картка кандидата"/>
+			</LINE>
+			<DELIM/>
+		</IF>
+
+		<PANEL NAME="AnchorLeftProperties">
+		</PANEL>
+
+		<IF EXPR="! Ps.is_own_person">
+			<PANEL HEIGHT="-10zrc">
+			</PANEL>
+
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="13zrc"/>
+					<COL WIDTH="100%"/>
+				</COLUMNS>
+
+
+				<ITEM TYPE="object_preview" SOURCE="Ps.user_id"/>
+				
+				<IF EXPR="ArrayCount( groups ) != 0">
+					<ITEM TYPE="object_preview" SOURCE="Ps.group_id"/>
+				</IF>
+			</TABLE>
+			<BR/>
+			<CHECK SOURCE="Ps.use_exclusive_access" AUTO-LABEL="1"/>
+		</IF>
+	</PANEL>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE-EXPR="Ps.object_title" SUNKEN="1" EXPANDED="1" IMAGE-URL-EXPR="Ps.image_url">
+
+
+
+<PAGE TITLE="##UiText.sections.general##" IMAGE-URL="//base_pict/common.ico" lang-en:TITLE="General">
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="10zr"/>
+			<COL WIDTH="1zr"/>
+
+			<INHERIT TYPE="person_names_core_columns"/>
+
+			<COL WIDTH="100%"/>
+
+			<COL WIDTH="9zr"/>
+			<COL WIDTH="11zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.code" AUTO-LABEL="1"/>
+		<LABEL/>
+		<INHERIT TYPE="person_names_core"/>
+
+		<LABEL/>
+
+		<ITEM TYPE="elem_selector" SOURCE="Ps.gender_id" ELEM="ListElem.name" AUTO-LABEL="1"/>
+		<ITEM TYPE="birth_date_edit" AUTO-LABEL="1"/>
+	</TABLE>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="35%"/>
+			<COL WIDTH="29%"/>
+			<COL WIDTH="1px"/>
+			
+			<COL WIDTH="36%"/>
+
+			<IF EXPR="fields_usage.use_object_field( 'person', 'email2' )">
+				<COL WIDTH="20zr"/>
+			</IF>
+
+			<IF EXPR="fields_usage.use_object_field( 'person', 'skype' )">
+				<COL WIDTH="19zr"/>
+			</IF>
+		</COLUMNS>
+
+		<ITEM TYPE="phone_edit_ext" destType="person" SOURCE="Ps.work_phone" TITLE-EXPR="Ps.work_phone.Title + ':'"/>
+
+		<ITEM TYPE="phone_edit_ext" destType="person" SOURCE="Ps.mobile_phone" TITLE-EXPR="Ps.mobile_phone.Title + ':'"/>
+
+		<LABEL/>
+
+		<ITEM TYPE="email_edit" destType="person" templateAction="
+				message = lib_mail.build_mail_message( _template, Ps, Ps.Parent, lib_mail.build_default_env( Ps.Parent ) );
+				lib_mail.show_mail_message( message );
+		" SOURCE="Ps.email" TITLE="E-Mail:"/>
+
+		<IF EXPR="fields_usage.use_object_field( 'person', 'email2' )">
+			<ITEM TYPE="email_edit" destType="person" templateAction="
+					message = lib_mail.build_mail_message( _template, Ps, Ps.Parent, lib_mail.build_default_env( Ps.Parent ) );
+					lib_mail.show_mail_message( message );
+			" SOURCE="Ps.email2" TITLE="E-Mail 2:"/>
+		</IF>
+
+		<IF EXPR="fields_usage.use_object_field( 'person', 'skype' )">
+			<ITEM TYPE="skype_edit" SOURCE="Ps.skype" TITLE-EXPR="Ps.skype.Title + ':'"/>
+		</IF>
+	</TABLE>
+	<DELIM/>
+
+	<IF EXPR="! Ps.is_own_person">
+		<TABLE SPACING="short">
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="30zr"/>
+			</COLUMNS>
+
+			<LABEL TITLE="##UiText.objects.org##:"/>
+			<CHECK TITLE="##UiText.fields.primary_contact##" SOURCE="Ps.org_person_priority == 1" SET-VALUE-ACTION="
+					if ( NewValue )
+						Ps.org_person_priority = 1;
+					else
+						Ps.org_person_priority = null;
+
+					Ps.Doc.SetChanged( true );
+			" lang-en:TITLE="Primary contact"/>
+		</TABLE>
+
+		<ITEM TYPE="object_selector" SOURCE="Ps.org_id"/>
+	</IF>
+
+	<IF EXPR="Ps.is_own_person && global_settings.use_divisions">
+		<ITEM TYPE="object_selector" SOURCE="Ps.division_id" AUTO-LABEL="1"/>
+	</IF>
+
+	<IF EXPR="Ps.is_own_person && global_settings.use_positions">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="80%"/>
+				<COL WIDTH="15zr"/>
+				<COL WIDTH="20%"/>
+			</COLUMNS>
+
+			<ITEM TYPE="object_selector" SOURCE="Ps.position_id" AUTO-LABEL="1" SET-VALUE-ACTION="
+					if ( NewValue != null &amp;&amp; ! global_settings.allow_multi_employee_positions )
+					{
+						array = lib_base.query_records_by_key( persons, NewValue, 'position_id' );
+						otherPerson = ArrayOptFind( array, 'This.id != Ps.id' );
+						if ( otherPerson != undefined )
+							throw UiError( lib_base.BuildUiParamEntry( UiText.errors.position_already_filled_with_another_employee_xxx, otherPerson.fullname ) );
+					}
+
+					Ps.position_id = NewValue;
+					Ps.Doc.SetChanged( true );
+			" UPDATE-ACTION="Ps.update_position_secondary_data()"/>
+			
+			<COMBO EDITABLE="1" SOURCE="Ps.employment_percent" AUTO-LABEL="1">
+				<COMBO-ENTRY VALUE="50"/>
+			</COMBO>
+		</TABLE>
+	</IF>
+	<ELSE>
+		<EDIT SOURCE="Ps.position_name" AUTO-LABEL="1" WIDTH="70%"/>
+	</ELSE>
+
+	<IF EXPR="Ps.is_own_person">
+		<BR/>
+		<LINE>
+			<IF EXPR="global_settings.use_position_division_head_flag">
+				<CHECK SOURCE="Ps.is_division_head" AUTO-LABEL="1" READ-ONLY-EXPR="global_settings.use_positions && ( global_settings.require_employee_positions || Ps.position_id.HasValue )" WIDTH="auto"/>
+			</IF>
+
+			<IF EXPR="lib_app2.AppFeatureEnabled( 'rr_recruit' )">
+				<LABEL/>
+				<CHECK SOURCE="Ps.is_hiring_manager" AUTO-LABEL="1" WIDTH="auto"/>
+			</IF>
+
+			<IF EXPR="Ps.ChildExists( 'is_rr_person' ) && global_settings.use_rr_person_flag">
+				<LABEL/>
+				<CHECK SOURCE="Ps.is_rr_person" AUTO-LABEL="1" WIDTH="auto"/>
+			</IF>
+
+			<IF EXPR="Ps.is_own_person && AppModuleUsed( 'module_rgs' )">
+				<LABEL/>
+				<CHECK SOURCE="Ps.is_rr_viewer" AUTO-LABEL="1" WIDTH="auto"/>
+			</IF>
+		</LINE>
+	</IF>
+
+	<IF EXPR="lib_app2.AppFeatureEnabled( 'rr_recruit' ) &amp;&amp; ! Ps.is_own_person">
+		<LABEL/>
+		<CHECK SOURCE="Ps.is_hiring_manager" AUTO-LABEL="1" WIDTH="auto"/>
+	</IF>
+
+	<DELIM/>
+
+
+	<IF EXPR="global_settings.use_person_roles && ! Ps.is_own_person">
+		<ITEM TYPE="attr_csd" SOURCE="Ps.roles" templateArray="person_roles" AUTO-LABEL="1"/>
+		<DELIM/>
+	</IF>
+
+	<IF EXPR="Ps.is_own_person && AppModuleUsed( 'rcr' )">
+		<LABEL TITLE="Включать в состав участников событий:" lang-en:TITLE="Attendee/recipient for the following events:" lang-ua:TITLE="Включати до складу учасників подій:"/>
+		<BR/>
+
+		<LINE MULTILINE="1">
+			<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( event_types ), 'use_participants && target_object_type_id.ByValueExists( \'candidate\' )' )" VAR="ListElem">
+				<WITH VAR="_target_event" EXPR="Ps.participant_events.GetOptChildByKey( ListElem.id )"> 
+
+					<CHECK TITLE-EXPR="ListElem.name" SOURCE="_target_event != undefined" SET-VALUE-ACTION="
+							if ( NewValue )
+							{
+								Ps.participant_events.ObtainChildByKey( ListElem.id );
+							}
+							else
+							{
+								if ( _target_event != undefined )
+									_target_event.Delete();
+							}
+
+							Ps.Doc.SetChanged( true )
+					" WIDTH="auto"/>
+				</WITH>
+			</LOOP>
+		</LINE>
+
+	
+		<IF EXPR="Ps.participant_events.ChildNum != 0 && ArrayCount( groups ) != 0 && AppModuleUsed( 'module_rgs' )">
+			<BR/>
+
+			<GROUP>
+				<ITEM TYPE="object_selector" SOURCE="Ps.participant_event_group_id" LABEL-TITLE="Только для группы:" lang-en:LABEL-TITLE="Only for group:" WIDTH="60%" lang-ua:LABEL-TITLE="Тільки для групи:"/>
+			</GROUP>
+		</IF>
+		<DELIM/>
+	</IF>
+
+	<IF EXPR="fields_usage.UseSomeOfObjectFields( 'person', 'country_id,location_id', 'common' )">
+		<TABLE>
+			<COLUMNS>
+				<IF EXPR="fields_usage.use_object_field( 'person', 'country_id' )">
+					<COL WIDTH="30zr"/>
+				</IF>
+				<IF EXPR="fields_usage.use_object_field( 'person', 'location_id' )">
+					<COL WIDTH="40zr"/>
+				</IF>
+			</COLUMNS>
+
+			<IF EXPR="fields_usage.use_object_field( 'person', 'country_id', 'common' )">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.country_id" AUTO-LABEL="1"/>
+			</IF>
+			<IF EXPR="fields_usage.use_object_field( 'person', 'location_id', 'common' )">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.location_id" AUTO-LABEL="1"/>
+			</IF>
+		</TABLE>
+		<DELIM/>
+	</IF>
+
+	<IF EXPR="! Ps.is_own_person && fields_usage.use_object_field( 'person', 'last_contact_date' )">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="24zr"/>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="24zr"/>
+			</COLUMNS>
+
+			<ITEM TYPE="date_time_selector" SOURCE="Ps.last_contact_date" AUTO-LABEL="1"/>
+			<LABEL/>
+
+			<CHECK SOURCE="Ps.contact_is_lost" AUTO-LABEL="1" ALIGN="right"/>
+		</TABLE>
+		<BR/>
+	</IF>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+
+	<EDIT SOURCE="Ps.comment" MULTILINE="1" HEIGHT="100%" VERT-SCROLL="1" AUTO-LABEL="1"/>
+</PANEL>
+
+</PAGE>
+
+
+
+<PAGE TITLE="##UiText.sections.add_info##" IMAGE-URL="//base_pict/aux_info.ico" SUNKEN="1" VERT-SCROLL="1">
+
+<LINE>
+	<IF EXPR="fields_usage.use_object_field( 'person', 'country_id', 'add_info' )">
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.country_id" AUTO-LABEL="1" WIDTH="28zr"/>
+	</IF>
+	<IF EXPR="fields_usage.use_object_field( 'person', 'location_id', 'add_info' )">
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.location_id" AUTO-LABEL="1" WIDTH="35zr"/>
+	</IF>
+
+	<EDIT SOURCE="Ps.address" AUTO-LABEL="1"/>
+</LINE>
+<DELIM/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="27zr"/>
+		<COL WIDTH="8zr"/>
+
+		<IF EXPR="fields_usage.use_object_field( 'person', 'citizenship_id', 'add_info' )">
+			<COL WIDTH="4zr"/>
+			<COL WIDTH="100%"/>
+		</IF>
+
+		<COL WIDTH="4zr"/>
+		<COL WIDTH="26zr"/>
+	</COLUMNS>
+
+	<ITEM TYPE="elem_selector" SOURCE="Ps.marital_status_id" foreign-disp-name="person.gender_id == 0 ? name_male : ( person.gender_id == 1 ? name_female : name )" AUTO-LABEL="1" PASSIVE="1"/>
+	<EDIT SOURCE="Ps.children_num" AUTO-LABEL="1"/>
+	<IF EXPR="fields_usage.use_object_field( 'person', 'citizenship_id', 'add_info' )">
+		<LABEL/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.citizenship_id" AUTO-LABEL="1" PASSIVE="1"/>
+	</IF>
+	<LABEL/>
+
+	<ITEM TYPE="elem_selector" SOURCE="Ps.educ_type_id" ELEM="ListElem.name" AUTO-LABEL="1"/>
+</TABLE>
+<DELIM/>
+
+<IF EXPR="Ps.is_own_person">
+	<GROUP>
+		<ITEM TYPE="date_selector" SOURCE="Ps.hire_date" AUTO-LABEL="1"/>
+		<ITEM TYPE="date_selector" SOURCE="Ps.dismissal_date" AUTO-LABEL="1"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.employee_state_id" AUTO-LABEL="1"/>
+	</GROUP>
+	<DELIM/>
+</IF>
+
+<BR/>
+<BR/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+	</COLUMNS>
+
+	<EDIT SOURCE="Ps.eid" LABEL-TITLE="##UiText.fields.eid##:"/>
+</TABLE>
+
+<BR/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="35zr"/>
+		<COL WIDTH="50%"/>
+		<COL WIDTH="50%"/>
+	</COLUMNS>
+
+	<EDIT SOURCE="Ps.sys_login" AUTO-LABEL="1"/>
+	<EDIT SOURCE="Ps.outlook_name" AUTO-LABEL="1"/>
+	<EDIT SOURCE="Ps.lotus_name" AUTO-LABEL="1"/>
+</TABLE>
+<DELIM/>
+
+<IF EXPR="lib_app2.AppFeatureEnabled( 'rr_recruit' ) &amp;&amp; ! AppModuleUsed( 'module_hoff' )">
+	<GROUP>
+		<EDIT SOURCE="Ps.password_hash" LABEL-TITLE="##UiText.fields.password##:" PASSWORD="1" SET-VALUE-ACTION="
+				Ps.password_hash = lib_base.BuildPasswordHash( NewValue );
+				Ps.Doc.SetChanged( true );
+		" PASSIVE="1" WIDTH="25zr"/>
+
+		<CHECK SOURCE="Ps.account_disabled" AUTO-LABEL="1" PASSIVE="1"/>
+	</GROUP>
+	<BR/>
+	<DELIM/>
+</IF>
+<ELSE>
+	<IF EXPR="lib_app2.AppFeatureEnabled( 'rr_recruit' ) || AppServerConfig.GetOptProperty( 'rcr-web-auth' ) == '1' || AppModuleUsed( 'module_hoff' )">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="30zr"/>
+				<COL WIDTH="20zr"/>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+			<EDIT SOURCE="Ps.login" LABEL-TITLE="##UiText.fields.login##:" PASSIVE="1"/>
+
+			<EDIT SOURCE="Ps.password_hash" LABEL-TITLE="##UiText.fields.password##:" PASSWORD="1" SET-VALUE-ACTION="
+					Ps.password_hash = PasswordHash( NewValue );
+					Ps.Doc.SetChanged( true );
+			" PASSIVE="1"/>
+		</TABLE>
+		<BR/>
+		<CHECK SOURCE="Ps.account_disabled" AUTO-LABEL="1" PASSIVE="1"/>
+		<DELIM/>
+	</IF>
+</ELSE>
+
+<IF EXPR="Ps.is_own_person">
+	<GROUP>
+		<EDIT SOURCE="Ps.phone_extension" AUTO-LABEL="1" WIDTH="8zr"/>
+	</GROUP>
+	<DELIM/>
+</IF>
+
+
+<IF EXPR="! Ps.is_own_person">
+	<INHERIT TYPE="object_access"/>
+</IF>
+
+</PAGE>
+
+
+
+
+
+
+
+<PAGE TITLE-EXPR="UiText.fields.prev_jobs + ( Ps.prev_jobs.ChildNum != 0 ? ' (' + Ps.prev_jobs.ChildNum + ')' : '' )" IMAGE-URL="//base_pict/org.ico" SUNKEN="1">
+	<LABEL TITLE="##UiText.fields.prev_jobs##:"/>
+
+	<LIST SUNKEN="1" HEIGHT="-1zr">
+		<COLUMNS>
+			<COL WIDTH="14zr" TITLE="##UiText.fields.start_date##" lang-en:TITLE="Start Date"/>
+			<COL WIDTH="12zr" TITLE="##UiText.fields.end_date##" lang-en:TITLE="End date"/>
+			<COL WIDTH="50%" TITLE="##UiText.objects.company##" lang-en:TITLE="Company"/>
+			<COL WIDTH="50%" TITLE="##UiText.fields.position##" lang-en:TITLE="Position"/>
+		</COLUMNS>
+
+		<LOOP EXPR="ArraySort( Ps.prev_jobs, 'start_date', '-' )" VAR="ListElem">
+			<ROW OPEN-ACTION="Screen.ExposeItemBySource( ListElem.start_date )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );" IMAGE-URL-EXPR="ListElem.end_date != '' ? '//base_pict/org.ico' : '//base_pict/org_inactive.ico'">
+				<COL TITLE-EXPR="StrDate( ListElem.start_date, false )"/>
+				<COL TITLE-EXPR="StrDate( ListElem.end_date, false )"/>
+				<COL TITLE-EXPR="ListElem.org_id.ForeignDispName"/>
+				<COL TITLE-EXPR="ListElem.position_name"/>
+			</ROW>
+
+			<PAGE TITLE-EXPR="ListElem.org_id.ForeignDispName" SOURCE="ListElem" IMAGE-URL-EXPR="ListElem.end_date != '' ? '//base_pict/org.ico' : '//base_pict/org_inactive.ico'" SUNKEN="1">
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="14zr"/>
+						<COL WIDTH="15zr"/>
+						<COL WIDTH="100%"/>
+					</COLUMNS>
+
+					<LABEL TITLE="##UiText.fields.start_date##:" lang-en:TITLE="Start Date:"/>
+					<LABEL TITLE="##UiText.fields.end_date##:" lang-en:TITLE="End date:"/>
+					<LABEL TITLE="##UiText.objects.company##:" lang-en:TITLE="Company:"/>
+
+					<ITEM TYPE="date_selector" SOURCE="Ps.start_date"/>
+					<ITEM TYPE="date_selector" SOURCE="Ps.end_date"/>
+					<ITEM TYPE="object_selector" SOURCE="Ps.org_id"/>
+				</TABLE>
+
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="100%"/>
+					</COLUMNS>
+
+					<LABEL TITLE="##UiText.fields.position##:" lang-en:TITLE="Position:"/>
+					<EDIT SOURCE="Ps.position_name"/>
+				</TABLE>
+			</PAGE>
+		</LOOP>
+	</LIST>
+</PAGE>
+
+
+<ITEM FORM-DATA-EXPR="lib_base.get_card_pages_form( 'person' )"/>
+
+
+
+
+<ITEM TYPE="card_attachments"/>
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+</LINE>
+
+<COMMAND-HANDLER CMD="NewPersonVacancy" ACTION="						
+		if ( lib_user.active_user_access.prohibit_create_vacancies )
+			throw UiError( UiText.errors.permission_denied );
+
+		if ( Screen.Doc.NeverSaved )
+			Screen.SaveDoc();
+
+		vacancyDoc = DefaultDb.OpenNewObjectDoc( 'vacancy' );
+		vacancy = vacancyDoc.TopElem;
+
+		if ( global_settings.is_agency )
+		{
+			vacancy.org_id = Ps.org_id;
+			//vacancy.handle_org_selected();
+		}
+		else
+		{
+			vacancy.division_id = Ps.division_id;
+		}
+
+		vacancy.rr_persons.AddChild().person_id = Ps.id;
+
+		CreateDocScreen( vacancyDoc );
+" PASSIVE="1"/>
+
+
+<COMMAND-HANDLER CMD="QQQ" ACTION="
+			CreateDocScreen( doc );
+"/>
+
+<COMMAND-HANDLER CMD="QQQ1" ACTION="
+			CreateDocScreen( doc );
+"/>
+
+<COMMAND-HANDLER CMD="Print" ACTION="
+		attachmentTypeDoc = OpenDoc( Ps.active_attachment.type_id.ForeignObjectUrl );
+		attachmentType = attachmentTypeDoc.TopElem;
+
+		if ( attachmentType.use_msword_template && attachmentType.msword_template.data.HasValue )
+		{
+			tempUrl = ObtainSessionTempFile( '.doc' );
+			attachmentType.msword_template.data.SaveToFile( tempUrl );
+
+			WordExecute( 'open', ( Ps.active_attachment.is_text ? Ps.active_attachment.text : Ps.active_attachment.plain_text ), Ps.active_attachment.content_type, tempUrl );
+		}
+		else
+		{
+			WordExecute( 'open', ( Ps.active_attachment.is_text ? Ps.active_attachment.text : Ps.active_attachment.plain_text ), Ps.active_attachment.content_type );
+		}
+" PASSIVE="1" ENABLE-EXPR="Ps.active_attachment !=  undefined &amp;&amp; Ps.active_attachment.is_text"/>
+
+
+<COMMAND-HANDLER CMD="Help" HREF-EXPR="lib_base.build_help_article_url( 'intro.htm' )" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+
+</SPXML-SCREEN>

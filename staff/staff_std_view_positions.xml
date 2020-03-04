@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>positions</id>
+	<name VALUE="##UiText.fields.positions##"/>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>is_active</id>
+			<title VALUE="Действующие" lang-en:VALUE="Active" lang-ua:VALUE="Діючі"/>
+			<default_value></default_value>
+		</dyn_filter>
+		<dyn_filter>
+			<id>division_id</id>
+			<width>60zr</width>
+		</dyn_filter>
+		<dyn_filter>
+			<id>type_id</id>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>name</id>
+			<width>50%</width>
+		</field>
+		<field>
+			<id>code</id>
+			<width>8zr</width>
+			<align>center</align>
+		</field>
+		<field>
+			<id>division_id</id>
+			<width>50%</width>
+		</field>
+		<field>
+			<col_title>+</col_title>
+			<title_expr>ArrayCount( multi_employee_id ) != 0 ? ArrayCount( multi_employee_id ) : ''</title_expr>
+			<align>center</align>
+			<data_type>integer</data_type>
+			<width>3zr</width>
+		</field>
+		<field>
+			<id>multi_employee_id</id>
+		</field>
+	</fields>
+</std_view>
+

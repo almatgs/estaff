@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" IMAGE-URL="//base_pict/generic_item.ico">
+
+<object_action>
+	<INHERIT TYPE="object_action_base"/>
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</object_action>
+
+
+
+</SPXML-FORM>

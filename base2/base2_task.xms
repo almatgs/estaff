@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="155zr" HEIGHT="110zr" SOURCE="TopElem" TITLE-EXPR="Ps.desc + ' - ' + UiText.objects.task" RESIZE="1" WINDOW-ICON-URL="//base_pict/task.ico">
+
+
+<ITEM TYPE="card_menu_start"/>
+<ITEM TYPE="card_toolbar"/>
+
+
+<LINE>
+
+<PANEL WIDTH="32zr" STD-MARGINS="0">
+	<PANEL SUNKEN="1" HEIGHT="30zr">
+		<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="0">
+		</TREE>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+
+	<PANEL SUNKEN="1" STD-MARGINS="1" HEIGHT-EXPR="lib_base.card_left_prop_panel_height" BK-COLOR="sys-bk-ctrl">
+		<CHECK SOURCE="Ps.is_tentative" AUTO-LABEL="1"/>
+
+		<PANEL NAME="AnchorLeftProperties">
+		</PANEL>
+
+		<PANEL HEIGHT="-7zr">
+		</PANEL>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="13zr"/>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+			<ITEM TYPE="object_preview" SOURCE="Ps.user_id"/>
+			<ITEM TYPE="object_preview" SOURCE="Ps.group_id"/>
+		</TABLE>
+	</PANEL>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.objects.task##" SUNKEN="1" EXPANDED="1" lang-en:TITLE="Task" IMAGE-URL-EXPR="Ps.ImageUrl">
+
+
+
+<PAGE TITLE="##UiText.sections.general##" STD-MARGINS="1" SUNKEN="1" IMAGE-URL="//base_pict/common.ico">
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="10zr"/>
+		<COL WIDTH="100%"/>
+	</COLUMNS>
+
+	<EDIT SOURCE="Ps.code" AUTO-LABEL="1"/>
+	<EDIT SOURCE="Ps.name" AUTO-LABEL="1"/>
+</TABLE>
+<BR/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="25zr"/>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="10zr"/>
+	</COLUMNS>
+
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.state_id" AUTO-LABEL="1"/>
+	<LABEL/>
+	<ITEM TYPE="voc_elem_selector" SOURCE="Ps.priority_id" AUTO-LABEL="1"/>
+</TABLE>
+<DELIM/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="9zr"/>
+		<COL WIDTH="23zr"/>
+		<COL WIDTH="21zr"/>
+		<COL WIDTH="21zr"/>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="20zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+	<LABEL TITLE="##UiText.fields.start_date##:"/>
+	<LABEL TITLE="##UiText.titles.deadline__short##:"/>
+	<LABEL TITLE="Дата завершения:" lang-en:TITLE="End Date:" lang-ua:TITLE="Дата завершення:"/>
+	<LABEL/>
+	<LABEL TITLE="Трудозатраты:" lang-en:TITLE="Time of Effort:" lang-ua:TITLE="Трудовитрати:"/>
+
+	<LABEL TITLE="##UiText.titles.planned__date##:" ALIGN="right"/>
+	<ITEM TYPE="date_time_selector_new" SOURCE="Ps.req_start_date"/>
+	<ITEM TYPE="term" SOURCE="Ps.req_duration" UPDATE-ACTION="Ps.update_req_end_date_by_req_duration()"/>
+	<ITEM TYPE="date_time_selector_new" SOURCE="Ps.req_end_date" UPDATE-ACTION="Ps.update_req_duration_by_req_end_date()"/>
+	<LABEL/>
+	<ITEM TYPE="term" SOURCE="Ps.req_effort"/>
+
+	<LABEL TITLE="##UiText.titles.actual__fact##:"/>
+	<ITEM TYPE="date_time_selector_new" SOURCE="Ps.start_date" ENABLE-EXPR="! Ps.is_tentative"/>
+	<ITEM TYPE="term" SOURCE="Ps.duration" ENABLE-EXPR="! Ps.is_tentative" UPDATE-ACTION="Ps.update_end_date_by_duration()"/>
+	<ITEM TYPE="date_time_selector_new" SOURCE="Ps.end_date" ENABLE-EXPR="! Ps.is_tentative" UPDATE-ACTION="Ps.update_duration_by_end_date()"/>
+	<LABEL/>
+	<ITEM TYPE="term" SOURCE="Ps.effort" ENABLE-EXPR="! Ps.is_tentative"/>
+</TABLE>
+<DELIM/>
+
+
+
+
+
+<PANEL NAME="DefaultCsdAnchor">
+</PANEL>
+
+<BR/>
+
+<EDIT SOURCE="Ps.comment" MULTILINE="1" AUTO-LABEL="1" HEIGHT-EXPR="'-25zr'" VERT-SCROLL="1"/>
+<BR/>
+
+
+<IF EXPR="Ps.ChildExists( 'candidate_id' ) && ( Ps.target_object_type_id.ByValueExists( 'candidate' ) || Ps.candidate_id.HasValue )">
+	<ITEM TYPE="object_selector" SOURCE="Ps.vacancy_id" AUTO-LABEL="1"/>
+	<ITEM TYPE="object_selector" SOURCE="Ps.candidate_id" AUTO-LABEL="1" WIDTH="50zr"/>
+</IF>
+<ELSE>
+	<ITEM TYPE="object_selector" SOURCE="Ps.org_id" AUTO-LABEL="1"/>
+	<ITEM TYPE="object_selector" SOURCE="Ps.person_id" AUTO-LABEL="1" WIDTH="50zr"/>
+</ELSE>
+
+
+
+</PAGE>
+
+
+
+
+
+<PAGE TITLE="##UiText.sections.add_info##" SUNKEN="1" STD-MARGINS="1" IMAGE-URL="//base_pict/aux_info.ico" EXPANDED="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="80%"/>
+		</COLUMNS>
+
+		<ITEM TYPE="date_time_selector_new" SOURCE="Ps.creation_date" AUTO-LABEL="1"/>
+	</TABLE>
+</PAGE>
+
+
+
+
+
+
+<ITEM TYPE="card_attachments"/>
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+
+</LINE>
+
+<COMMAND-HANDLER CMD="Help" HREF-EXPR="lib_base.build_help_article_url( 'intro.htm' )" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+
+</SPXML-SCREEN>
+

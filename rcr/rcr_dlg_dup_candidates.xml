@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_dup_candidates>
+	<dup_array TYPE="variant"/>
+	<candidate_info_ref TYPE="variant"/>
+	<candidate_info PROPERTY="1" EXPR="candidate_info_ref.Object"/>
+	<allow_save_as_new TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<dest_candidate_id TYPE="integer"/>
+	<dest_external_candidate_ref TYPE="variant"/>
+	<dest_external_candidate PROPERTY="1" EXPR="dest_external_candidate_ref.Object"/>
+
+	<match_color TYPE="string" DEFAULT="150,255,150"/>
+	<mismatch_color TYPE="string" DEFAULT="255,150,150"/>
+
+	
+	<set_dest_candidate PROPERTY="1" PARAM="candidate" EXPR="
+			screen = FindScreen( 'FrameDupCandidatesPreview' );
+
+			if ( candidate.ChildExists( 'state_id' ) )
+			{
+				dest_candidate_id = candidate.id;
+				dest_external_candidate_ref.Clear();
+
+				try
+				{
+					selector = screen.Doc.TopElem.preview.selector;
+				}
+				catch ( e )
+				{
+					selector = 'common';
+				}
+
+				doc = DefaultDb.OpenObjectDoc( 'candidate', candidate.id );
+				doc.TopElem.preview.selector = selector;
+
+				screen.EditMode = false;
+				screen.SetDoc( doc, '//rcr/rcr_candidate_preview.xms' );
+			}
+			else
+			{
+				dest_candidate_id.Clear();
+				dest_external_candidate_ref = candidate;
+
+				doc = FetchDoc( 'rcr_external_candidate_preview.xml' );
+				doc.TopElem.external_candidate_ref = candidate;
+
+				screen.EditMode = false;
+				screen.SetDoc( doc );
+			}
+	"/>
+
+</dlg_dup_candidates>
+
+
+</SPXML-INLINE-FORM>

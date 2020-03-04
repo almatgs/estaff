@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<%=AppCharset%>"/>
+<title>Chart</title>
+<script src="<%=env.scriptUrl%>"></script>
+</head>
+<body>
+
+<canvas id="myChart" width_="400" height_="400"></canvas>
+
+
+<script>
+var chartConfig = <%=EncodeJson( env.chartConfig )%>;
+
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, chartConfig );
+
+
+</script>
+</body>
+</html>

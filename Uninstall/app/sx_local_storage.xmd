@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM AUTO-SAVE="1">
+
+<spxml_local_storage>
+	<entries>
+		<entry MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<data TYPE="string" LARGE="1"/>
+		</entry>
+	</entries>
+</spxml_local_storage>
+
+
+</SPXML-FORM>

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<contact_types SPXML-FORM="x-app://base1/base2_contact_types.xmd"><contact_type><id>phone</id><name>Телефон</name><order_index>0</order_index><is_folder>0</is_folder><is_std>1</is_std></contact_type><contact_type><id>email</id><name>E-mail</name><order_index>1</order_index><is_folder>0</is_folder><is_std>1</is_std></contact_type><contact_type><id>skype</id><name>Skype</name><order_index>2</order_index><is_folder>0</is_folder><is_std>1</is_std></contact_type></contact_types>

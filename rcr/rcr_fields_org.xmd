@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<org_base SAMPLE="1">
+	<is_recruiting_agency TYPE="bool" NULL-FALSE="1" TITLE="##UiText.titles.recruiting_agency##"/>
+	<is_candidate_source TYPE="bool" NULL-FALSE="1" TITLE="Источник поступления кандидатов" lang-en:TITLE="Candidate source" lang-ua:TITLE="Джерело надходження кандидатів"/>
+
+	<vacancies_num TYPE="integer" SECONDARY="1" TITLE="Количество вакансий" lang-en:TITLE="Number of vacancies" lang-ua:TITLE="кількість вакансій"/>
+	<active_vacancies_num TYPE="integer" SECONDARY="1" TITLE="Количество активных вакансий" lang-en:TITLE="Number of active vacancies" lang-ua:TITLE="Кількість активних вакансій"/>
+</org_base>
+
+
+</SPXML-FORM>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd" xmlns:lang-en="http://www.datex-soft.com/schema">
+	<id>vacancies_with_close_terms</id>
+	<name VALUE="Сроки поиска" lang-en:VALUE="Search KPI" lang-ua:VALUE="Терміни пошуку"/>
+	<section_id>vacancies</section_id>
+
+	<catalog_name>vacancy_instances</catalog_name>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>start_date</id>
+			<source_id>vacancies</source_id>
+			<use_range>1</use_range>
+			<use_period_quick_selector>1</use_period_quick_selector>
+		</dyn_filter>
+		<dyn_filter>
+			<id>is_active</id>
+			<source_id>vacancies</source_id>
+			<title VALUE="##UiText.titles.active_only##"/>
+		</dyn_filter>
+		<dyn_filter>
+			<id>state_id</id>
+			<source_id>vacancies</source_id>
+			<is_multiple>1</is_multiple>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<source_id>vacancies</source_id>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}</view_filter_expr>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<source_id>vacancies</source_id>
+			<exist_req_expr>ArrayCount( groups ) != 0</exist_req_expr>
+		</dyn_filter>
+	</dyn_filters>
+
+	<sources>
+		<source>
+			<id>vacancies</id>
+
+			<add_field>
+				<id>req_days_in_work</id>
+				<expr>max_work_term.days_num</expr>
+			</add_field>
+		</source>
+	</sources>
+
+	<groups>
+		<group>
+			<id>user_id</id>
+			<bk_color>240,240,240</bk_color>
+			<bold>1</bold>
+		</group>
+	</groups>
+
+	<fields>
+		<field>
+			<id>name</id>
+			<col_title VALUE="##UiText.objects.vacancy##"/>
+			<width>60%</width>
+		</field>
+
+		<field>
+			<id>code</id>
+			<col_title>#</col_title>
+			<align>center</align>
+		</field>
+
+		<field>
+			<id>start_date</id>
+		</field>
+
+		<field>
+			<id>close_date</id>
+		</field>
+
+		<field>
+			<id>org_id</id>
+			<width>40%</width>
+			<exist_req_expr>global_settings.is_agency</exist_req_expr>
+		</field>
+
+		<field>
+			<id>revenue</id>
+			<exist_req_expr>global_settings.is_agency &amp;&amp; ! lib_user.active_user_access.prohibit_view_vacancy_revenue</exist_req_expr>
+			<stat_func>sum</stat_func>
+		</field>
+
+		<field>
+			<id>division_id</id>
+			<width>40%</width>
+			<exist_req_expr>! global_settings.is_agency</exist_req_expr>
+		</field>
+
+		<field>
+			<id>state_id</id>
+			<width>12zr</width>
+			<align>center</align>
+			<stat_func>count</stat_func>
+		</field>
+
+		<field>
+			<id>cur_work_days_num</id>
+			<col_title VALUE="##UiText.vacancy_fields.cur_work_days_num##"/>
+			<align>center</align>
+			<stat_func>average</stat_func>
+		</field>
+
+		<field>
+			<width>7zr</width>
+			<col_title VALUE="##UiText.titles.max_term__norm##"/>
+			<elem_expr>req_days_in_work</elem_expr>
+			<data_type>integer</data_type>
+			<align>center</align>
+			<text_color>92,92,92</text_color>
+		</field>
+
+		<field>
+			<width>3zr</width>
+			<col_title>+</col_title>
+			<tip_text VALUE="##UiText.titles.closed_in_time##"/>
+			<elem_expr>cur_work_days_num &lt;= req_days_in_work</elem_expr>
+			<data_type>bool</data_type>
+			<align>center</align>
+			<stat_func>sum</stat_func>
+		</field>
+
+		<field>
+			<width>6zr</width>
+			<col_title>%</col_title>
+			<tip_text VALUE="##UiText.titles.closed_in_time##, %"/>
+			<elem>cur_work_days_num &lt;= req_days_in_work</elem>
+			<data_type>bool</data_type>
+			<stat_only>1</stat_only>
+			<align>center</align>
+			<stat_func>match_percent</stat_func>
+		</field>
+
+		<field>
+			<id>multi_final_candidate_id</id>
+			<width>25zr</width>
+			<col_title VALUE="##UiText.fields.final_candidate##"/>
+		</field>
+
+		<field>
+			<id>comment</id>
+			<width>10zr</width>
+			<col_title VALUE="##UiText.fields.card_comment__s##"/>
+		</field>
+	</fields>
+
+	<show_total>1</show_total>
+</std_stat>
+

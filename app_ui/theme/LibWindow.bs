@@ -1,0 +1,14 @@
+namespace LibWindow {
+
+
+function OnWindowTitleBarMove( window, event )
+{
+	if ( window.IsMaximized )
+		return;
+
+	window.SetOrigin( window.OriginX + event.DeltaX, window.OriginY + event.DeltaY );
+}
+
+
+
+}

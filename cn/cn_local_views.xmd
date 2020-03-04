@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM AUTO-SAVE="1">
+
+<cn_local_views>
+	<calendar_type_id TYPE="string" NOT-NULL="1" DEFAULT="day"/>
+	<show_delegate_entries TYPE="bool" NOT-NULL="1"/>
+	<group_entries_by_time TYPE="bool" NOT-NULL="1"/>
+</cn_local_views>
+
+
+
+</SPXML-FORM>

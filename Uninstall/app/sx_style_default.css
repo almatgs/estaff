@@ -1,0 +1,52 @@
+body, table
+{
+	font-family: Verdana;
+	font-size: 11px;
+}
+
+
+h1
+{
+	font-family: Verdana;
+	font-size: 11px;
+	font-weight: bold;
+	margin-top: 18px;
+	margin-bottom: 6px;
+}
+
+
+p
+{
+	margin-top: 6px;
+	margin-bottom: 6px;
+}
+
+
+table
+{
+	border-style: solid;
+	border-width: 1px;
+	border-collapse: collapse;
+	padding: 3px;
+	width: 100%;
+}
+
+
+td
+{
+	border-style: solid;
+	border-width: 1px;
+}
+
+
+tr.TableHeader
+{
+	font-weight: bold;
+	background-color: #EEEEEE;
+}
+
+
+tr.TableFooter
+{
+	font-weight: bold;
+}

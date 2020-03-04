@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM CODE-LIB="1" TITLE="##UiText.objects.external_account##" IMAGE-URL="//base_pict/generic_item.ico" IMAGE-URL-EXPR="is_active ? '//base_pict/generic_item.ico' : '//base_pict/generic_item_inactive.ico'">
+
+<external_account>
+	<id TYPE="integer"/>
+	<name TYPE="string" EXPR="login" ALL-ACCESS="1"/>
+
+	<type_id TYPE="string" FOREIGN-ARRAY="base2_common.external_account_types" TITLE="##UiText.titles.type##" ALL-ACCESS="1"/>
+	
+	<server_address TYPE="string" TITLE="##UiText.titles.server_address##"/>
+	<use_ssl TYPE="bool" NOT-NULL="1" TITLE="##UiText.titles.use_ssl##"/>
+	<use_ssl_port TYPE="bool" NOT-NULL="1" TITLE="##UiText.titles.dedicated_ssl_port##"/>
+
+	<imod_site_id TYPE="string" FOREIGN-ARRAY="imod_config.sites" TITLE="##UiText.titles.imod_site##" ALL-ACCESS="1"/>
+	<recruit_provider_id TYPE="string" FOREIGN-ARRAY="recruit_providers" TITLE="##UiText.titles.provider##"/>
+
+	<auth_method_id TYPE="string" FOREIGN-ARRAY="base2_common.auth_methods" TITLE="Метод авторизации" lang-en:TITLE="Authentication method" lang-ua:TITLE="Метод авторизації" EXPR="
+			if ( type_id == 'imod_site' &amp;&amp; imod_site_id.HasValue )
+				return imod_site_id.ForeignElem.auth_method_id;
+
+			if ( type_id.ForeignElem.auth_method_id.HasValue )
+				return type_id.ForeignElem.auth_method_id;
+
+			return auth_method_id;
+	"/>
+
+	<login TYPE="string" TITLE="##UiText.fields.login##" INDEXED="1"/>
+	<password_ed TYPE="string"/>
+
+	<access_token TYPE="string" LARGE="1" TITLE="##UiText.fields.access_token##" FT-IGNORE="1"/>
+	<access_token_expire_date TYPE="date"/>
+	<refresh_token TYPE="string" LARGE="1" FT-IGNORE="1"/>
+
+	<person_id TYPE="integer" FOREIGN-ARRAY="persons" TITLE="Владелец учетной записи" lang-en:TITLE="Owner of the account" lang-ua:TITLE="Власник облікового запису"/>
+	<user_id TYPE="integer" FOREIGN-ARRAY="users" TITLE="##UiText.objects.user##" EXP-MAX-LEN="13" COL-ALIGN="center" INDEXED="1"/>
+
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Действующий" lang-en:TITLE="Enabled" lang-ua:TITLE="Активний"/>
+	<is_std TYPE="bool" NOT-NULL="1"/>
+
+
+	<password PROPERTY="1" EXPR="StrStdDecrypt( password_ed )"/>
+	<SetPassword PROPERTY="1" PARAM="newPassword" EXPR="password_ed = StrStdEncrypt( newPassword )"/>
+
+	<auth_data_specified PROPERTY="1" EXPR="
+			if ( auth_method_id == 'oauth' )
+				return access_token.HasValue;
+
+			return login.HasValue &amp;&amp; password_ed.HasValue;
+	"/>
+
+	<OnCheckReadAccess PROPERTY="1" DEPENDS="user_id"/>
+</external_account>
+
+
+
+</SPXML-FORM>

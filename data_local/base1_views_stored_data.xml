@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<views_local_data SPXML-FORM="x-app://base1/base1_views_stored_data.xmd"><views><view><view_id>persons_base</view_id><filter><is_candidate TYPE="bool">0</is_candidate></filter></view><view><view_id>candidates_with_state_all</view_id></view><view><view_id>candidates_search</view_id></view></views></views_local_data>

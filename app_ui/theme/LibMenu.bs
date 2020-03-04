@@ -1,0 +1,106 @@
+namespace LibMenu {
+
+
+function OnMenuEntryVisualStateChange( menuView, entryView )
+{
+	if ( entryView.State == 'hover' || entryView.State == 'pressed' )
+	{
+		menuView.AuxData.curHoverEntryView = entryView;
+		EvalAfterDelay( 'LibMenu.CheckHoverMenuEntry( menuView, entryView )', AppUi.metrics.menuAutoOpenDelay, {menuView:menuView,entryView:entryView} );
+	}
+}
+
+
+function CheckHoverMenuEntry( menuView, entryView )
+{
+	if ( entryView.State != 'hover' && entryView.State != 'pressed' )
+		return;
+
+	if ( menuView.AuxData.curHoverEntryView !== entryView )
+		return;
+
+	menuView.AuxData.curHoverEntryView = undefined;
+
+	if ( entryView.MasterItem.Type == 'MENU' )
+	{
+		if ( entryView.MasterItem.IsDisplayed )
+			return;
+
+		OpenMenuEntry( menuView, entryView );
+	}
+	else
+	{
+		entryView.CloseSubDropDownItems();
+	}
+}
+
+
+function OnMenuEntryMouseDown( menuView, entryView )
+{
+	if ( entryView.MasterItem.Type != 'MENU' )
+		return;
+
+	if ( entryView.MasterItem.IsDisplayed )
+		return;
+
+	OpenMenuEntry( menuView, entryView );
+}
+
+
+function OpenMenuEntry( menuView, entryView )
+{
+	menuView.AuxData.curHoverEntryView = undefined;
+	entryView.AuxData.hoverDelayStarted = false;
+
+	entryView.MasterItem.OpenDropDown( entryView, 'top-right', -4, -2 );
+	return;
+
+
+	menuView = entryView.Env.CreateItemBySample( 'MenuView' );
+	menuView.MasterItem = entryView.MasterItem;
+	menuView.OpenDropDown( entryView, 'top-right', -4, -2 );
+
+	entryView.AuxData.subMenuView = menuView;
+}
+
+
+
+function OnMenuBarEntryMouseDown( menuBarView, entryView )
+{
+	if ( entryView.MasterItem == FirstActiveDropDownItem )
+		CloseAllDropDownItems();
+	else
+		OpenMenuBarEntry( menuBarView, entryView );
+}
+
+
+function OpenMenuBarEntry( menuBarView, entryView )
+{
+	entryView.MasterItem.OpenDropDown( entryView, 'bottom-left', 2, -2 );
+	return;
+
+	menuView = entryView.Env.CreateItemBySample( 'MenuView' );
+	menuView.MasterItem = entryView.MasterItem;
+	menuView.OpenDropDown( entryView, 'bottom-left', 2, 0 );
+
+	entryView.AuxData.menuView = menuView;
+}
+
+
+function OnMenuBarEntryVisualStateChange( menuBarView, entryView )
+{
+	if ( entryView.State == 'hover' || entryView.State == 'pressed' )
+	{
+		curEntryView = CurrentDropDownBaseItem;
+		if ( curEntryView == undefined || curEntryView === entryView )// || ! curEntryView.IsDescendantOf( menuBarView ) )
+			return;
+
+		OpenMenuBarEntry( menuBarView, entryView );
+	}
+}
+
+
+
+
+
+}

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<recruit_user_group_base SAMPLE="1">
+	<user_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="users" TITLE="##UiText.fields.recruiter##" EXP-MAX-LEN="13" COL-ALIGN="center" INDEXED="1"/>
+	<group_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="groups" TITLE="##UiText.objects.group##" EXP-MAX-LEN="10" COL-ALIGN="center"/>
+</recruit_user_group_base>
+
+
+<vacancy_term_attr_base SAMPLE="1">
+	<max_term_to_job_offer TYPE="term" DOC-ONLY="1" TITLE="##UiText.fields.max_term_to_job_offer##:"/>
+	<max_term_to_job_offer_acceptance TYPE="term" DOC-ONLY="1" TITLE="##UiText.fields.max_term_to_job_offer_acceptance##:"/>
+	<max_term_to_vacancy_close TYPE="term" DOC-ONLY="1" TITLE="##UiText.fields.max_term_to_vacancy_close##:"/>
+
+	<max_work_term TYPE="term" TITLE="##UiText.titles.planned_duration##"/>
+
+	<req_job_offer_date TYPE="date" TITLE="Плановая дата оффера" lang-en:TITLE="Planned Date of Job Offer" lang-ua:TITLE="Планова дата оффера" base1:allow-hide="1"/>
+	<req_job_offer_acceptance_date TYPE="date" TITLE="Плановая дата принятия оффера" lang-en:TITLE="Planned Date of Job Offer Acceptance" lang-ua:TITLE="Планова дата прийнятого оффера" base1:allow-hide="1"/>
+	<req_close_date TYPE="date" TITLE="##UiText.fields.req_close_date##" base1:allow-hide="1"/>
+
+	<work_start_date TYPE="date" TIME="0" TITLE="Начало поиска" lang-en:TITLE="Recruitment Started" lang-ua:TITLE="Початок пошуку"/>
+
+	<job_offer_date TYPE="date" SECONDARY="1" TITLE="##UiText.fields.job_offer_date##"/>
+	<job_offer_acceptance_date TYPE="date" SECONDARY="1" TITLE="##UiText.fields.job_offer_acceptance_date##"/>
+	<work_end_date TYPE="date" SECONDARY="1" TITLE="##UiText.fields.vacancy_work_end_date##"/>
+	<close_date TYPE="date" SECONDARY="1" TITLE="##UiText.fields.vacancy_close_date##"/>
+
+	<deactivate_date PROPERTY="1" TITLE="Дата перехода в неактивное состояние" lang-en:TITLE="Deactivation Date" EXPR="
+			if ( state_id.ForeignElem.deactivate_object )
+				return state_date;
+			else
+				return null;
+	" lang-ua:TITLE="Дата переходу в неактивний стан" DEPENDS="state_id,state_date"/>
+
+	<close_date_overdue_days_num PROPERTY="1" TYPE="integer" TITLE="##UiText.fields.overdue_days_num##" EXPR="lib_vacancy.GetVacancyCloseDateOverdueDaysNum( this )" DEPENDS="req_close_date,close_date,deactivate_date"/>
+</vacancy_term_attr_base>
+
+
+
+<vacancy_instance_base SAMPLE="1">
+	<start_date TYPE="date" TITLE="##UiText.titles.date_of_opening##"/>
+	<reason_id TYPE="string" FOREIGN-ARRAY="vacancy_reasons" TITLE="##UiText.fields.reason_of_vacancy##" base1:allow-hide="1"/>
+	<req_quantity TYPE="integer" NOT-NULL="1" DEFAULT="1" TITLE="##UiText.vacancy_fields.req_quantity##"/>
+
+	<INHERIT TYPE="vacancy_term_attr_base"/>
+
+	<state_id TYPE="string" FOREIGN-ARRAY="vacancy_states" TITLE="##UiText.fields.cur_state##" COL-TITLE="##UiText.fields.cur_state##" DEFAULT="vacancy_opened" EXP-MAX-LEN="11"/>
+	<state_date TYPE="date" TITLE="##UiText.fields.date##" COL-TITLE="##UiText.fields.date##" lang-en:TITLE="Date" lang-en:COL-TITLE="Date"/>
+	<recruit_phase_id TYPE="string" FOREIGN-ARRAY="vacancy_recruit_phases" TITLE="##UiText.fields.recruit_phase##" EXP-MAX-LEN="15"/>
+
+	<priority_id TYPE="integer" FOREIGN-ARRAY="vacancy_priorities" TITLE="##UiText.fields.priority##" EXP-MAX-LEN="1" base1:allow-hide="1"/>
+
+	<final_candidate_id TYPE="integer" FOREIGN-ARRAY="candidates" TITLE="##UiText.fields.final_candidate##"/>
+
+	<final_candidate_source_id TYPE="string" SECONDARY="1" FOREIGN-ARRAY="candidate_sources" SECONDARY="1" IDATA="1" TITLE="##UiText.fields.final_candidate_source_id##" EXP-MAX-LEN="9"/>
+	<final_candidate_state_id TYPE="string" SECONDARY="1" FOREIGN-ARRAY="candidate_states" SECONDARY="1" TITLE="##UiText.fields.final_candidate_state##" EXP-MAX-LEN="11"/>
+
+
+	<suspended_days_num TYPE="integer" TITLE="##UiText.vacancy_fields.suspended_days_num##" base1:allow-hide="1"/>
+	<suspended_wdays_num TYPE="integer" TITLE="##UiText.vacancy_fields.suspended_wdays_num##"/>
+	
+	<work_days_num TYPE="integer" TITLE="##UiText.vacancy_fields.work_days_num##" SECONDARY="1"/>
+	<work_wdays_num TYPE="integer" TITLE="##UiText.vacancy_fields.work_wdays_num##" SECONDARY="1"/>
+
+
+
+	<check_active PROPERTY="1" EXPR="
+			return ! state_id.ForeignElem.deactivate_object;
+	"/>
+
+
+	<update_req_close_date_by_max_work_term PROPERTY="1" EXPR="
+			if ( ! max_work_term.length.HasValue || ! start_date.HasValue )
+				return;
+
+			req_close_date = lib_vacancy.GetWorkTermDateOffset( DateNewTime( start_date ), max_work_term );
+	"/>
+
+
+	<update_max_work_term_by_req_close_date PROPERTY="1" EXPR="
+			if ( ! req_close_date.HasValue || ! start_date.HasValue || req_close_date < DateNewTime( start_date ) )
+				return;
+
+			if ( max_work_term.unit_id == 'wd' )
+			{
+				max_work_term.length = lib_calendar.get_date_wdays_diff( req_close_date, DateNewTime( start_date ) );
+			}
+			else
+			{
+				max_work_term.length = DateDiff( req_close_date, DateNewTime( start_date ) ) / 86400;
+				max_work_term.unit_id = 'd';
+			}
+	"/>
+
+
+	<set_new_state PROPERTY="1" PARAM="newStateID" EXPR="
+			if ( lib_user.active_user_access.prohibit_change_vacancy_state )
+				throw UiError( UiText.errors.permission_denied );
+
+			if ( newStateID == state_id )
+				return;
+
+			if ( state_id == 'vacancy_suspended' && CurDate >= state_date )
+			{
+				addSuspenedDaysNum = lib_base.get_date_days_diff( CurDate, state_date );
+				if ( suspended_days_num != null )
+					suspended_days_num += addSuspenedDaysNum;
+				else
+					suspended_days_num = addSuspenedDaysNum;
+
+				addSuspenedWDaysNum = lib_calendar.get_date_wdays_diff( CurDate, state_date );
+				if ( suspended_wdays_num != null )
+					suspended_wdays_num += addSuspenedWDaysNum;
+				else
+					suspended_wdays_num = addSuspenedWDaysNum;
+			}
+
+			state_id = newStateID;
+			state_date = CurDate;
+
+			if ( this.Name == 'vacancy' )
+			{
+				record = records.AddChild();
+				record.date = state_date;
+				record.type_id = 'state_change';
+				record.state_id = newStateID;
+			}
+
+			is_active = check_active();
+	"/>
+
+
+
+
+
+	<cur_work_days_num PROPERTY="1" TYPE="integer" TITLE="##UiText.vacancy_fields.cur_work_days_num##" EXPR="lib_vacancy.GetVacancyCurWorkDaysNum( this )" DEPENDS="start_date,state_id,state_date,work_start_date,work_days_num,suspended_days_num"/>
+	<cur_work_wdays_num PROPERTY="1" TYPE="integer" TITLE="##UiText.vacancy_fields.cur_work_wdays_num##" EXPR="lib_vacancy.GetVacancyCurWorkWDaysNum( this )" DEPENDS="start_date,state_id,state_date,work_start_date,work_wdays_num,suspended_wdays_num"/>
+	<left_work_days_num PROPERTY="1" TITLE="##UiText.titles.days_left##" EXPR="lib_vacancy.GetVacancyLeftWorkDaysNum( this )" DEPENDS="req_close_date,state_id"/>
+	<cur_work_wdays_num_bk_color PROPERTY="1" EXPR="lib_vacancy.GetVacancyCurWorkDaysNumBkColor( this )"/>
+	
+	
+	
+	<req_quantity_f TYPE="real" PRECISION="2" TITLE="Количество ставок" lang-en:TITLE="Sum rates" DEFAULT="1" lang-ua:TITLE="Кількість ставок"/>
+
+	<is_active TYPE="bool" NULL-FALSE="1"/>
+
+	<comment TYPE="string" LARGE="1" TITLE="##UiText.fields.card_comment##"/>
+</vacancy_instance_base>
+
+
+
+<vacancy_record_base SAMPLE="1">
+	<date TYPE="date" TITLE="##UiText.fields.date##"/>
+	<type_id TYPE="string" FOREIGN-ARRAY="rcr_common.vacancy_record_types" TITLE="##UiText.titles.record_type##"/>
+	<code TYPE="string" TITLE="Номер заявки" lang-en:TITLE="Request No." lang-ua:TITLE="Номер заявки"/>
+	<state_id TYPE="string" FOREIGN-ARRAY="vacancy_states" TITLE="##UiText.fields.state##"/>
+	<quantity TYPE="integer" TITLE="##UiText.fields.quantity##" lang-en:TITLE="Required quantity"/>
+	<candidate_id TYPE="integer" FOREIGN-ARRAY="candidates" TITLE="##UiText.objects.candidate##"/>
+	<comment TYPE="string" LARGE="1" TITLE="##UiText.fields.card_comment##"/>
+</vacancy_record_base>
+
+
+<candidate_source_base SAMPLE="1">
+	<id TYPE="string" MAX-LEN="24"/>
+	<name TYPE="string"/>
+
+	<is_site TYPE="bool" NULL-FALSE="1"/>
+	<org_id TYPE="integer" FOREIGN-ARRAY="orgs"/>
+
+	<keywords>
+		<keyword TYPE="string" MULTIPLE="1"/>
+	</keywords>
+
+	<ad_response_url_pattern TYPE="string"/>
+</candidate_source_base>
+
+
+
+<parsed_candidate_base SAMPLE="1">
+	<INHERIT TYPE="person_name_base"/>
+	<INHERIT TYPE="person_name_en_core"/>
+	<gender_id TYPE="integer" FOREIGN-ARRAY="base1_common.person_genders"/>
+	<birth_date TYPE="date" TIME="0"/>
+	<birth_year TYPE="integer" TITLE="##UiText.fields.birth_year##" EXPR="birth_date.HasValue ? Year( birth_date ) : birth_year"/>
+
+	<citizenship_id TYPE="string" FOREIGN-ARRAY="countries"/>
+	<location_id TYPE="string"/>
+	<address TYPE="string"/>
+	<home_phone TYPE="string"/>
+	<work_phone TYPE="string"/>
+	<mobile_phone TYPE="string"/>
+	<email TYPE="string"/>
+	<email2 TYPE="string"/>
+	<skype TYPE="string"/>
+
+	<salary TYPE="integer"/>
+	<salary_currency_id TYPE="string" FOREIGN-ARRAY="currencies"/>
+
+	<source_id TYPE="string" FOREIGN-ARRAY="candidate_sources" IDATA="1" TITLE="##UiText.fields.entrance_source##" EXP-MAX-LEN="9" lang-en:TITLE="Source"/>
+</parsed_candidate_base>
+
+
+
+<records_filter SAMPLE="1">
+	<all_record_types TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<record_type_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="record_types.items"/>
+
+	<min_date TYPE="date" TIME_="0"/>
+	<max_date TYPE="date" TIME="0"/>
+</records_filter>
+
+
+
+<vacancy_obsolete_fields SAMPLE="1">
+	<hot_events SECONDARY="1">
+		<hot_event MULTIPLE="1">
+			<type_id TYPE="string" NOT-NULL="1" FOREIGN-ARRAY="event_types"/>
+			<occurrence_id TYPE="string" FOREIGN-ARRAY="base2_common.event_occurrences"/>
+			<events_num TYPE="integer" NOT-NULL="1"/>
+
+			<get_text_color PROPERTY="1" EXPR="
+					return type_id.ForeignElem.get_occurrence( occurrence_id ).get_text_color();
+			"/>
+
+			<get_bk_color PROPERTY="1" EXPR="
+					return lib_event.build_state_bk_color( type_id.ForeignElem, occurrence_id );
+			"/>
+		</hot_event>
+	</hot_events>
+</vacancy_obsolete_fields>
+
+
+
+</SPXML-FORM>

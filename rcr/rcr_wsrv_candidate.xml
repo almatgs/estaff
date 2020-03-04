@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SPXML-INLINE-FORM CODE-LIB="1" WEB-SERVICE="1">
+
+<CandidateService>
+	<METHOD NAME="AddCandidate">
+		<PARAM NAME="candidate">
+			<lastname TYPE="string" TITLE="##UiText.fields.lastname##"/>
+			<firstname TYPE="string" TITLE="##UiText.fields.firstname##"/>
+			<middlename TYPE="string" TITLE="##UiText.fields.middlename##" OPTIONAL="1"/>
+
+			<birth_date TYPE="date" TIME="0" TITLE="##UiText.fields.birth_date##" OPTIONAL="1"/>
+			<gender_id TYPE="integer" FOREIGN-ARRAY="base1_common.person_genders" TITLE="##UiText.fields.gender##" EXP-MAX-LEN="3" OPTIONAL="1"/>
+
+			<citizenship_id TYPE="string" FOREIGN-ARRAY="countries" OPTIONAL="1"/>
+
+			<location_name TYPE="string" OPTIONAL="1"/>
+			<location_id TYPE="string" FOREIGN-ARRAY="locations" TITLE="##UiText.fields.location##" OPTIONAL="1"/>
+			<metro_station_name TYPE="string" OPTIONAL="1"/>
+			<metro_station_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="metro_stations" OPTIONAL="1"/>
+
+			<address TYPE="string" OPTIONAL="1"/>
+
+			<mobile_phone TYPE="phone" TITLE="##UiText.fields.mob_phone__s##" OPTIONAL="1"/>
+			<home_phone TYPE="phone" TITLE="##UiText.fields.home_phone__s##" OPTIONAL="1"/>
+			<work_phone TYPE="phone" TITLE="##UiText.fields.work_phone__s##" OPTIONAL="1"/>
+
+			<email TYPE="string" TITLE="E-Mail" OPTIONAL="1"/>
+			<skype TYPE="string" TITLE="Skype" OPTIONAL="1"/>
+
+			<profession_id TYPE="integer" MULTIPLE="1" OPTIONAL="1"/>
+			<desired_position_name TYPE="string" TITLE="##UiText.fields.desired_position_name##" OPTIONAL="1"/>
+			<experience_months_num TYPE="integer" OPTIONAL="1"/>
+			<work_type_id TYPE="integer" FOREIGN-ARRAY="work_types" OPTIONAL="1"/>
+			<work_schedule_type_id TYPE="integer" OPTIONAL="1"/>
+			<salary TYPE="integer" OPTIONAL="1"/>
+			<salary_currency_id TYPE="string" FOREIGN-ARRAY="currencies" OPTIONAL="1"/>
+
+			<marital_status_id TYPE="integer" FOREIGN-ARRAY="base1_common.marital_statuses" TITLE="##UiText.fields.marital_status##" OPTIONAL="1"/>
+			<educ_type_id TYPE="integer" FOREIGN-ARRAY="base2_common.educ_types" OPTIONAL="1"/>
+
+			<prev_jobs OPTIONAL="1">
+				<prev_job MULTIPLE="1">
+					<start_year TYPE="integer" OPTIONAL="1"/>
+					<start_month TYPE="integer" OPTIONAL="1"/>
+					<end_year TYPE="integer" OPTIONAL="1"/>
+					<end_month TYPE="integer" OPTIONAL="1"/>
+
+					<start_date TYPE="date" TIME="0" OPTIONAL="1"/>
+					<end_date TYPE="date" TIME="0" OPTIONAL="1"/>
+
+					<org_name TYPE="string" OPTIONAL="1"/>
+					<org_location_name TYPE="string" OPTIONAL="1"/>
+					<org_industry_name TYPE="string" OPTIONAL="1"/>
+					<org_web TYPE="string" OPTIONAL="1"/>
+
+					<position_name TYPE="string" OPTIONAL="1"/>
+
+					<salary TYPE="integer" OPTIONAL="1"/>
+					<comment TYPE="string" MULTILINE="1" OPTIONAL="1"/>
+				</prev_job>
+			</prev_jobs>
+
+			<prev_educations OPTIONAL="1">
+				<prev_education MULTIPLE="1">
+					<start_date TYPE="date" TIME="0" OPTIONAL="1"/>
+					<end_date TYPE="date" TIME="0" OPTIONAL="1"/>
+					<end_year TYPE="integer" OPTIONAL="1"/>
+
+					<org_name TYPE="string" OPTIONAL="1"/>
+					<org_location_name TYPE="string" OPTIONAL="1"/>
+					<department_name TYPE="string" OPTIONAL="1"/>
+					<speciality_name TYPE="string" OPTIONAL="1"/>
+
+					<is_secondary TYPE="bool" NULL-FALSE="1" OPTIONAL="1"/>
+					<comment TYPE="string" MULTILINE="1" OPTIONAL="1"/>
+				</prev_education>
+			</prev_educations>
+
+			<skills_desc TYPE="string" MULTILINE="1" DOC-ONLY="1" OPTIONAL="1"/>
+
+			<photo OPTIONAL="1">
+				<data TYPE="binary" CONTENT-TYPE-EXPR="content_type"/>
+				<content_type TYPE="string"/>
+				<full_size_url TYPE="string"/>
+			</photo>
+
+			<multi_vacancy_info_source_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="vacancy_info_sources" TITLE="Источник информирования о вакансии" OPTIONAL="1"/>
+			<vacancy_info_source_other_desc TYPE="string" OPTIONAL="1"/>
+
+			<csd DYN-CHILDREN="1" OPTIONAL="1">
+			</csd>
+		</PARAM>
+
+		<RESULT NAME="candidate">
+			<id TYPE="string"/>
+		</RESULT>
+	</METHOD>
+	
+
+	<METHOD NAME="AddCandidateAttachment">
+		<PARAM NAME="candidate">
+			<id TYPE="integer"/>
+		</PARAM>
+
+		<PARAM NAME="attachment">
+			<content_type TYPE="string" OPTIONAL="1"/>
+			<data TYPE="binary"/>
+			<type_id TYPE="string" OPTIONAL="1"/>
+			<name TYPE="string" OPTIONAL="1"/>
+		</PARAM>
+
+		<RESULT NAME="attachment">
+			<id TYPE="integer"/>
+		</RESULT>
+	</METHOD>
+
+
+	<METHOD NAME="GetCandidateAttachments">
+		<PARAM NAME="candidate">
+			<id TYPE="integer"/>
+		</PARAM>
+
+		<PARAM NAME="attachment">
+			<id TYPE="integer" OPTIONAL="1"/>
+			<type_id TYPE="string" OPTIONAL="1"/>
+		</PARAM>
+
+		<RESULT NAME="attachments">
+			<attachment MULTIPLE="1">
+				<id TYPE="integer"/>
+				<content_type TYPE="string" OPTIONAL="1"/>
+				<data TYPE="binary"/>
+				<type_id TYPE="string" OPTIONAL="1"/>
+				<name TYPE="string" OPTIONAL="1"/>
+			</attachment>
+		</RESULT>
+	</METHOD>
+
+
+	<METHOD NAME="SearchCandidates">
+		<PARAM NAME="filter">
+			<id TYPE="integer" OPTIONAL="1"/>
+			<lastname TYPE="string" OPTIONAL="1"/>
+			<firstname TYPE="string" OPTIONAL="1"/>
+			<middlename TYPE="string" OPTIONAL="1"/>
+			<email TYPE="string" OPTIONAL="1"/>
+		</PARAM>
+
+		<PARAM NAME="options" OPTIONAL="1">
+			<search_mode TYPE="string" OPTIONAL="1"/>
+		</PARAM>
+
+		<RESULT NAME="candidates">
+			<candidate MULTIPLE="1">
+				<id TYPE="integer"/>
+
+				<lastname TYPE="string" OPTIONAL="1"/>
+				<firstname TYPE="string" OPTIONAL="1"/>
+				<middlename TYPE="string" OPTIONAL="1"/>
+				<fullname TYPE="string" OPTIONAL="1"/>
+				<birth_date TYPE="date" TIME="0" OPTIONAL="1"/>
+				<birth_year TYPE="integer" OPTIONAL="1"/>
+				<email TYPE="string" OPTIONAL="1"/>
+				<email2 TYPE="string" OPTIONAL="1"/>
+				<skype TYPE="string" OPTIONAL="1"/>
+				<location_id TYPE="string" FOREIGN-ARRAY="locations" OPTIONAL="1"/>
+				<state_name TYPE="string"/>
+				<user_name TYPE="string" OPTIONAL="1"/>
+				<group_name TYPE="string" OPTIONAL="1"/>
+
+				<records>
+					<record MULTIPLE="1">
+						<id TYPE="integer"/>
+						<date TYPE="date"/>
+						<state_name TYPE="string"/>
+						<user_name TYPE="string"/>
+					</record>
+				</records>
+			</candidate>
+		</RESULT>
+	</METHOD>
+</CandidateService>
+
+
+</SPXML-INLINE-FORM>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>phone_call_records_of_candidate</id>
+	<parent_id>phone_call_records</parent_id>
+	<name VALUE="##UiText.titles.call_history## (##UiText.objects.candidate##)"/>
+	<order_index>5</order_index>
+
+	<is_card_page>0</is_card_page>
+	<card_object_type_id>candidate</card_object_type_id>
+	<card_page_title VALUE="##UiText.titles.call_history##"/>
+
+	<drop_all_dyn_filters>1</drop_all_dyn_filters>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>candidate_id</id>
+			<is_auto>1</is_auto>
+		</dyn_filter>
+	</dyn_filters>
+</std_view>
+

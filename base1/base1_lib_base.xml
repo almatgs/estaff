@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<lib_base>
+	<select_date PROPERTY="1" PARAM="initDate" CALLER-ENV="1" EXPR="
+			dlgDoc = OpenDoc( 'dlg_date.xml' );
+			dlgDoc.TopElem.date = initDate;
+			Screen.ModalDlg( dlgDoc );
+
+			return dlgDoc.TopElem.date;
+	"/>
+
+
+	<build_ext_name PROPERTY="1" PARAM="elem" PARAM="catalogName" PARAM="coreName" PARAM="delim" EXPR="
+			str = elem.Child( coreName );
+			curElem = elem;
+
+			while ( curElem.parent_id != null )
+			{
+				array = XQuery( 'for $elem in ' + catalogName + ' where $elem/id = ' + curElem.parent_id + ' return $elem' );
+				try
+				{
+					curElem = ArrayFirstElem( array );
+				}
+				catch ( e )
+				{
+					alert( StrHexInt( curElem.parent_id, 16 ) );
+				}
+
+				str = curElem.Child( coreName ) + delim + str;
+			}
+
+			return str;
+	"/>
+
+
+	<update_object_secondary_data PROPERTY="1" PARAM="objectType" PARAM="objectID" EXPR="
+			if ( objectID == null )
+				return;
+
+			try
+			{
+				doc = DefaultDb.OpenObjectDoc( objectType, objectID );
+			}
+			catch ( e )
+			{
+				return;
+			}
+
+			doc.WriteDocInfo = false;
+			doc.Save();
+	"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<dlg_body_height PROPERTY="1" EXPR="'-' + ( System.ClientMajorVersion >= 2 ? ( AppUi.metrics.buttonHeight * 1.92 ) + 'px' : '8zr' )"/>
+	<card_left_prop_panel_height PROPERTY="1" EXPR="'-14zrc'"/>
+
+
+	<METHOD NAME="is_sql_storage" RUN-ON-SERVER="1" ALLOW-CALL-FROM-CLIENT="1">
+	</METHOD>
+
+	<METHOD NAME="use_ft_v2" RUN-ON-SERVER="1" ALLOW-CALL-FROM-CLIENT="1">
+	</METHOD>
+</lib_base>
+
+
+</SPXML-INLINE-FORM>

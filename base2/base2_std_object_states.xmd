@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_object_states>
+	<std_object_state MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT TYPE="object_state_base"/>
+	</std_object_state>
+</std_object_states>
+
+
+</SPXML-FORM>

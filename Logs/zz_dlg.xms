@@ -1,0 +1,54 @@
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Выбор объекта: Пользователь" WIDTH="164zr" HEIGHT="96zr" OK-ACTION="list = Screen.FindItem( 'MainList' );&#10;for ( row in list.SelRows ) { Ps.object_id.Add().Value = row.Env.ListElem.id; }&#10;if ( ! Ps.object_id.HasValue ) { Cancel(); }&#10;">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="38zr"/>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="28zr"/>
+			<COL WIDTH="30zr"/>
+		</COLUMNS>
+		<ITEM TYPE="ft_filter" SOURCE="Ps.filter"/>
+		<PANEL/>
+		<PANEL>
+			<LABEL TITLE="Разрешен доступ в систему:"/>
+			<ITEM TYPE="tri_state_selector" usage="filter" SOURCE="Ps.filter.is_active"/>
+		</PANEL>
+		<PANEL>
+			<LABEL TITLE="Основная группа:"/>
+			<ITEM TYPE="object_selector" usage="filter" SOURCE="Ps.filter.main_group_id"/>
+		</PANEL>
+	</TABLE>
+	<PANEL HEIGHT="2px"/>
+	<TABLE>
+		<COLUMNS/>
+	</TABLE>
+	<MENU RIGHT-CLICK="1">
+		<MENU-ENTRY TITLE="Очистить форму" ACTION="lib_view.clear_filters( 'users', Ps ); lib_view.clear_stored_filters( 'users' ); lib_view.adjust_filters( 'users', Ps );Screen.Update()" PASSIVE="1"/>
+	</MENU>
+	<ITEM TYPE="dlg_header_end"/>
+	<LIST NAME="MainList" USE-KEY-SEL="1" SUNKEN="1" HEIGHT-EXPR="lib_base.dlg_body_height" LOOP-CATALOG="users" FT-FILTER="Ps.filter" XQUERY-QUAL-EXPR="lib_view.build_xquery_qual( 'users', Ps )" XQUERY-FIELDS-EXPR="['id','is_active','image_url','login','fullname','access_role_id','main_group_id']" AFTER-BUILD-ASYNC-ACTION="if ( StrContains( Screen.FrameName, 'Sub' ) ) return; size = ArrayOptSize( MainArray ); if ( size == undefined ) { StatusMsg( '' ); return; }; StatusMsg( UiText.titles.items_in_list + ': ' + StrInt( size, 0, true ) + ( lib_view.is_some_filter_applied( 'users', Ps ) ? '  (с учетом фильтра)' : '' ) )">
+		<ROW IMAGE-URL-EXPR="ListElem.ImageUrl" OPEN-ACTION="Screen.RunCommand( 'Ok' )">
+			<COL COL-TITLE="Логин" WIDTH="50%" TITLE-EXPR="ListElem.login" ORDER="login"/>
+			<COL COL-TITLE="ФИО" WIDTH="36zr" TITLE-EXPR="ListElem.fullname" ORDER="fullname"/>
+			<COL COL-TITLE="Уровень доступа" WIDTH="50%" TITLE-EXPR="ListElem.access_role_id.ForeignDispName" ORDER="access_role_id.ForeignDispName" ALIGN="center"/>
+			<COL COL-TITLE="Основная группа" WIDTH="18zr" TITLE-EXPR="ListElem.main_group_id.ForeignDispName" ORDER="main_group_id.ForeignDispName" ALIGN="left"/>
+		</ROW>
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="Открыть" CMD="OpenSel"/>
+			<MENU-ENTRY SEPARATOR="1"/>
+			<MENU-ENTRY TITLE="Удалить" CMD="Clear"/>
+			<MENU-ENTRY SEPARATOR="1"/>
+			<MENU-ENTRY TITLE-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name" ACTION="lib_view.ShowScreenInExcel( Screen, List )" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+		</MENU>
+	</LIST>
+	<ITEM TYPE="dlg_footer_start"/>
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="14zr"/>
+			<COL WIDTH="14zr"/>
+		</COLUMNS>
+		<LABEL/>
+		<BUTTON TITLE="OK" CMD="Ok"/>
+		<BUTTON TITLE="Отмена" CMD="Cancel"/>
+	</TABLE>
+</SPXML-SCREEN>

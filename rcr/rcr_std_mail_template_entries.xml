@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_mail_template_entries SPXML-FORM="//base1/base1_std_mail_template_entries.xmd">
+	<std_mail_template_entry>
+		<name VALUE="##UiText.titles.recipient##: ##UiText.fields.fullname##"/>
+		<value>fullname</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.titles.recipient##: ##UiText.fields.first_and_middle_name##"/>
+		<value>firstname + ' ' + middlename</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<is_separator>1</is_separator>
+	</std_mail_template_entry>
+
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.titles.client__rr##: ##UiText.fields.name##"/>
+		<value>org.name</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.titles.client__rr##: ##UiText.fields.address##"/>
+		<value>org.address</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.titles.client__rr##: ##UiText.fields.location_desc##"/>
+		<value>org.opt_attachment_plain_text( 'location_desc' )</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<is_separator>1</is_separator>
+	</std_mail_template_entry>
+
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.objects.contact_person##: ##UiText.fields.fullname##"/>
+		<value>person.fullname</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.objects.contact_person##: ##UiText.fields.first_and_middle_name##"/>
+		<value>person.firstname + ' ' + person.middlename</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.objects.contact_person##: ##UiText.fields.work_phone##"/>
+		<value>person.work_phone</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.objects.contact_person##: E-mail"/>
+		<value>person.email</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<is_separator>1</is_separator>
+	</std_mail_template_entry>
+
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.objects.vacancy##: ##UiText.fields.name##"/>
+		<value>vacancy.name</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.objects.vacancy##: ##UiText.vacancy_fields.internal_desc##"/>
+		<value>vacancy.job_desc</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.objects.vacancy##: ##UiText.vacancy_fields.public_desc##"/>
+		<value>vacancy.public_job_desc</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<is_separator>1</is_separator>
+	</std_mail_template_entry>
+
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.objects.candidate##: ##UiText.fields.fullname##"/>
+		<value>candidate.fullname</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.objects.candidate##: ##UiText.fields.first_and_middle_name##"/>
+		<value>candidate.firstname + ' ' + candidate.middlename</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.objects.candidate##: ##UiText.fields.phone##"/>
+		<value>candidate.disp_phone</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.objects.candidate##: ##UiText.titles.scheduled_interview##: ##UiText.titles.date_time##"/>
+		<value>StrDate( candidate.find_scheduled_event( 'interview', vacancy_id ).date, true, false )</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.objects.candidate##: ##UiText.titles.scheduled_interview##: ##UiText.fields.date##"/>
+		<value>StrDate( candidate.find_scheduled_event( 'interview', vacancy_id ).date, false )</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.objects.candidate##: ##UiText.titles.scheduled_interview##: ##UiText.titles.time##"/>
+		<value>StrTime( candidate.find_scheduled_event( 'interview', vacancy_id ).date )</value>
+	</std_mail_template_entry>
+
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.objects.candidate##: ##UiText.titles.scheduled_rr_interview##: ##UiText.titles.date_time##"/>
+		<value>StrDate( candidate.find_scheduled_event( 'rr_interview', vacancy_id ).date, true, false )</value>
+	</std_mail_template_entry>
+	<std_mail_template_entry>
+		<name VALUE="##UiText.objects.candidate##: ##UiText.titles.scheduled_rr_interview##: ##UiText.fields.date##"/>
+		<value>StrDate( candidate.find_scheduled_event( 'rr_interview', vacancy_id ).date, false )</value>
+	</std_mail_template_entry>
+
+	<std_mail_template_entry>
+		<name VALUE="##UiText.objects.candidate##: ##UiText.titles.scheduled_rr_interview##: ##UiText.titles.time##"/>
+		<value>StrTime( candidate.find_scheduled_event( 'rr_interview', vacancy_id ).date )</value>
+	</std_mail_template_entry>
+</std_mail_template_entries>

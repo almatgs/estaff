@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>external_vacancies</id>
+	<name VALUE="##UiText.titles.external_vacancies##"></name>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>recruit_provider_id</id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}</view_filter_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+	</dyn_filters>
+
+
+	<fields>
+		<field>
+			<id>name</id>
+			<width>100%</width>
+		</field>
+		<field>
+			<id>recruit_provider_id</id>
+			<width>18zr</width>
+		</field>
+		<field>
+			<id>eid</id>
+			<width>25zr</width>
+		</field>
+		<field>
+			<id>user_id</id>
+			<width>22zr</width>
+		</field>
+	</fields>
+
+	<action>
+		<title VALUE="##UiText.actions.load##"/>
+		<image_url>//base_pict/load.ico</image_url>
+		<code>lib_recruit_provider.OnBeforeExternalVacancySelect();Screen.Update();</code>
+	</action>
+</std_view>
+

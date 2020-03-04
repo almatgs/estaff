@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<task_progress>
+	<runner TYPE="variant" STRICT="1"/>
+
+	<is_dlg TYPE="bool" NOT-NULL="1"/>
+	<show_inner TYPE="bool" NOT-NULL="1"/>
+	<show_completion_message TYPE="bool" NOT-NULL="1"/>
+
+	<timer_finished TYPE="bool" NULL-FALSE="1"/>
+
+
+	<timer_action PROPERTY="1" EXPR="
+			if ( timer_finished )
+				return;
+
+			if ( runner.IsRunning )
+			{
+				Screen.Update();
+				return;
+			}
+
+			timer_finished = true;
+
+			if ( runner.Error != undefined )
+			{
+				if ( is_dlg )
+				{
+					Screen.RunCommand( 'Ok' );
+				}
+				else
+				{
+					if ( ! IsCancelError( runner.Error ) )
+						Screen.ShowErrorMsg( runner.Error )
+
+					Screen.Close();
+				}
+				
+				return;
+			}
+
+			if ( show_completion_message )
+			{
+				Screen.Update();
+				return;
+			}
+
+			if ( is_dlg )
+			{
+				Screen.RunCommand( 'Ok' );
+			}
+			else
+			{
+				Screen.Close();
+			}
+	"/>
+</task_progress>
+
+
+</SPXML-FORM>
+
+
+
+

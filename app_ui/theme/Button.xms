@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+<PANEL NAME="BUTTON" SAMPLE="1" INNER-ALIAS="button" BORDER="1" FULL-CELL-WIDTH="1" HEIGHT-EXPR="AppUi.metrics.buttonHeightMeasure"
+PADDING-EXPR="AppUi.useCompatMode1 ? '0 0.4em 0 0.4em' : '0 9vpx 0 9vpx'"
+STD-MARGINS="0" STATES="hover,pressed" BK-COLOR-EXPR="
+		switch ( Item.State )
+		{
+			case 'normal':
+				return '';//AppUi.gThemeData.colors.background;
+
+			case 'hover':
+				return AppUi.gThemeData.colors.primary;
+
+			case 'pressed':
+				//return AppUi.gThemeData.colors.dark;
+				return AppUi.gThemeData.colors.primary;
+		}
+" BORDER-COLOR-EXPR="
+		switch ( Item.State )
+		{
+			case 'normal':
+				return AppUi.gThemeData.colors.button_border;
+
+			case 'hover':
+				return AppUi.gThemeData.colors.primary;
+
+			case 'pressed':
+				//return AppUi.gThemeData.colors.dark;
+				return AppUi.gThemeData.colors.primary;
+
+			case 'focused':
+				return AppUi.gThemeData.colors.button_border;
+		}
+" BORDER-RADIUS="3px" OnMouseDown__="
+		if ( button.DropDownItem != undefined )
+		{
+			if ( button.DropDownItem.IsDisplayed )
+				button.DropDownItem.CloseDropDown();
+			else
+				button.DropDownItem.OpenDropDown( button, 'bottom-left', 0, -1 );
+		}
+">
+	<LINE HEIGHT="100%">
+		<!--<IMAGE URL-EXPR="
+			colorMapping = new Object;
+
+			switch ( Button.State )
+			{
+				case 'hover':
+				case 'pressed':
+					colorMapping[AppUi.gThemeData.colors.primary] = AppUi.gThemeData.colors.background;
+					break;
+			}
+
+			return AppUi.GetStateImageUrl( Button.ImageUrl, Button.State, colorMapping );
+	"/>-->
+
+		<IF EXPR="button.ImageUrl != ''">
+			<IMAGE URL-EXPR="button.ImageUrl"/>
+			
+			<IF EXPR="BaseSampleItem.Title != ''">
+				<PANEL WIDTH="0.2em">
+				</PANEL>
+			</IF>
+		</IF>
+		
+		<LABEL TITLE-EXPR="BaseSampleItem.Title" MULTILINE="0" ALIGN-EXPR="button.ImageUrl != '' ? 'left' : 'center'" TEXT-COLOR-EXPR="
+				switch ( button.State )
+				{
+					case 'normal':
+						return AppUi.gThemeData.colors.text;
+
+					case 'hover':
+						return 'white';
+
+					case 'pressed':
+						return AppUi.gThemeData.colors.button_pressed_text;
+				}
+		"/>
+	</LINE>
+
+	<!--<PANEL WIDTH="200px" HEIGHT="600px" BK-COLOR="255,100,100" BORDER="1" DROP-DOWN="1">
+	</PANEL>-->
+</PANEL>
+
+
+
+
+<PANEL NAME="PrimaryButton" SAMPLE="1" INNER-ALIAS="button" BORDER="1" FULL-CELL-WIDTH="1" HEIGHT-EXPR="AppUi.metrics.buttonHeightMeasure" PADDING="0 0.4em 0 0.4em" STD-MARGINS="0" STATES="hover,pressed" BK-COLOR-EXPR="
+		switch ( Item.State )
+		{
+			case 'normal':
+				return '';
+
+			case 'hover':
+				return AppUi.gThemeData.colors.primary;
+
+			case 'pressed':
+				return AppUi.gThemeData.colors.dark;
+		}
+" BORDER-COLOR-EXPR="
+		switch ( Item.State )
+		{
+			case 'normal':
+				return AppUi.gThemeData.colors.primary;
+
+			case 'hover':
+				return AppUi.gThemeData.colors.primary;
+
+			case 'pressed':
+				return AppUi.gThemeData.colors.dark;
+		}
+" BORDER-RADIUS="3px" OnMouseDown__="
+		if ( button.DropDownItem != undefined )
+		{
+			if ( button.DropDownItem.IsDisplayed )
+				button.DropDownItem.CloseDropDown();
+			else
+				button.DropDownItem.OpenDropDown( button, 'bottom-left', 0, -1 );
+		}
+">
+	<LABEL TITLE-EXPR="BaseSampleItem.Title" ALIGN="center" VERT-ALIGN="center" TEXT-COLOR-EXPR="
+			switch ( button.State )
+			{
+				case 'normal':
+					return AppUi.gThemeData.colors.primary;
+
+				case 'hover':
+					return 'white';
+
+				case 'pressed':
+					return AppUi.gThemeData.colors.button_pressed_text;
+			}
+	"/>
+</PANEL>
+
+
+
+<PANEL NAME="PrimaryImageButton" SAMPLE="1" INNER-ALIAS="button" BORDER="1" WIDTH-EXPR="AppUi.metrics.buttonHeightMeasure" HEIGHT-EXPR="AppUi.metrics.buttonHeightMeasure" STD-MARGINS="0" STATES="hover,pressed" BK-COLOR-EXPR="
+		switch ( Item.State )
+		{
+			case 'normal':
+				return '';
+
+			case 'hover':
+				return AppUi.gThemeData.colors.primary;
+
+			case 'pressed':
+				return AppUi.gThemeData.colors.dark;
+		}
+" BORDER-COLOR-EXPR="
+		switch ( Item.State )
+		{
+			case 'normal':
+				return AppUi.gThemeData.colors.button_border;
+
+			case 'hover':
+				return AppUi.gThemeData.colors.primary;
+
+			case 'pressed':
+				return AppUi.gThemeData.colors.dark;
+		}
+" BORDER-RADIUS="3px">
+	<IMAGE URL-EXPR="BaseSampleItem.ImageUrl" EFFECTS-EXPR="
+			switch ( BaseSampleItem.State )
+			{
+				case 'hover':
+				case 'pressed':
+					return {primary_color:AppUi.gThemeData.colors.background};
+			}
+	" ALIGN="center" VERT-ALIGN="center"/>
+</PANEL>
+
+
+<PANEL NAME="FlatButton" SAMPLE="1" STATES="hover,pressed" border-radius="4px">
+	<LINE>
+		<IMAGE URL-EXPR="
+			colorMapping = new Object;
+
+			switch ( FlatButton.State )
+			{
+				case 'hover':
+				case 'pressed':
+					colorMapping[AppUi.gThemeData.colors.primary] = AppUi.gThemeData.colors.text;
+					break;
+			}
+
+			return AppUi.GetStateImageUrl( FlatButton.ImageUrl, FlatButton.State, colorMapping );
+		"/>
+
+		<PANEL WIDTH="0.7em"/>
+		
+		<LABEL TITLE-EXPR="FlatButton.Title" TEXT-COLOR-EXPR="
+				switch ( FlatButton.State )
+				{
+					case 'normal':
+						return AppUi.gThemeData.colors.button_gray_text;
+
+					case 'hover':
+						return AppUi.gThemeData.colors.primary;
+
+					case 'pressed':
+						return AppUi.gThemeData.colors.dark;
+				}
+		"/>
+	</LINE>
+</PANEL>
+
+
+
+
+<COMPLEX-ITEM NAME="FlatButton2" SAMPLE="1" VIEW="FlatButton2View">
+</COMPLEX-ITEM>
+
+
+
+<PANEL NAME="FlatButton2View" SAMPLE="1" STD-MARGINS="0" PADDING="8epx" STATES="hover,pressed" BORDER-WIDTH="0" border-radius="4px" BK-COLOR-EXPR="
+		switch ( Item.State )
+		{
+			case 'normal':
+				return '';//AppUi.gThemeData.colors.background;
+
+			case 'hover':
+				return AppUi.gThemeData.colors.gray_hover;
+
+			case 'pressed':
+				return AppUi.gThemeData.colors.gray_pressed;
+		}
+" ACTION="MasterItem.RunActions()" PASSIVE="1">
+	<LINE STD-MARGINS="0">
+		<IMAGE URL-EXPR="
+			colorMapping = new Object;
+
+			switch ( BaseSampleItem.State )
+			{
+				case 'hover':
+					colorMapping[AppUi.gThemeData.colors.gray_fill] = AppUi.gThemeData.colors.primary;
+					break;
+
+				case 'pressed':
+					colorMapping[AppUi.gThemeData.colors.gray_fill] = AppUi.gThemeData.colors.dark;
+					break;
+			}
+
+			return AppUi.GetStateImageUrl( BaseSampleItem.MasterItem.ImageUrl, BaseSampleItem.State, colorMapping );
+		"/>
+
+
+		<IF EXPR="false">
+			<PANEL WIDTH="0.7em"/>
+
+			<LABEL TITLE-EXPR="BaseSampleItem.MasterItem.Title" TEXT-COLOR-EXPR="
+					switch ( FlatButton2View.State )
+					{
+						case 'normal':
+							return AppUi.gThemeData.colors.button_gray_text;
+
+						case 'hover':
+							return AppUi.gThemeData.colors.primary;
+
+						case 'pressed':
+							return AppUi.gThemeData.colors.dark;
+					}
+			"/>
+		</IF>
+	</LINE>
+</PANEL>
+
+
+
+
+<PANEL NAME="ActionImage" SAMPLE="1" STD-MARGINS="0" PADDING="2px" STATES="hover,pressed">
+	<IMAGE URL-EXPR="BaseSampleItem.ImageUrl" EFFECTS-EXPR="
+			switch ( BaseSampleItem.State )
+			{
+				case 'hover':
+					return {primary_color:AppUi.gThemeData.colors.primary};
+
+				case 'pressed':
+					return {primary_color:AppUi.gThemeData.colors.dark};
+			}
+	" ALIGN="center" VERT-ALIGN="center"/>
+</PANEL>
+
+
+
+<PANEL NAME="PrimaryActionImage" SAMPLE="1" STD-MARGINS="0" PADDING="2px" STATES="hover,pressed">
+	<IMAGE URL-EXPR="BaseSampleItem.ImageUrl" EFFECTS-EXPR="
+			switch ( BaseSampleItem.State )
+			{
+				case 'hover':
+					return {primary_color:AppUi.gThemeData.colors.text};
+
+				case 'pressed':
+					return {primary_color:AppUi.gThemeData.colors.dark};
+
+				default:
+					return {primary_color:AppUi.gThemeData.colors.primary};
+			}
+	" ALIGN="center" VERT-ALIGN="center"/>
+</PANEL>
+
+
+
+<PANEL NAME="CompactActionImage" SAMPLE="1" STD-MARGINS="0" STATES="hover,pressed">
+	<IMAGE URL-EXPR="BaseSampleItem.ImageUrl" EFFECTS-EXPR="
+			switch ( BaseSampleItem.State )
+			{
+				case 'hover':
+					return {primary_color:AppUi.gThemeData.colors.primary};
+
+				case 'pressed':
+					return {primary_color:AppUi.gThemeData.colors.dark};
+
+				//default:
+					//return {primary_color:AppUi.gThemeData.colors.primary};
+			}
+	" ALIGN="center" VERT-ALIGN="center"/>
+</PANEL>
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+

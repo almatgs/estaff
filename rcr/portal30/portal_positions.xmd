@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<positions>
+	<position MULTIPLE="1">
+		<eid TYPE="string"/>
+		<code TYPE="string"/>
+		<name TYPE="string"/>
+
+		<subdivision_eid TYPE="string"/>
+		<person_eid TYPE="string"/>
+
+		<profession_id TYPE="integer"/>
+		<min_salary TYPE="integer"/>
+		<max_salary TYPE="integer"/>
+
+		<comment TYPE="string"/>
+	</position>
+</positions>
+
+
+</SPXML-FORM>
+
+
+

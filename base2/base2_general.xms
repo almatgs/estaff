@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<UNIT NAME="person_names_core_columns" SAMPLE="1">
+	<COL WIDTH="22zr"/>
+	<COL WIDTH="15zr"/>
+
+	<IF EXPR="base1_config.use_person_middlename">
+		<COL WIDTH="20zr"/>
+	</IF>
+</UNIT>
+
+
+<UNIT NAME="person_names_core" SAMPLE="1">
+	<EDIT SOURCE="Ps.lastname" LABEL-TITLE-EXPR="fields_usage.get_field_ext_title( Ps.lastname ) + ':'" UPDATE-ACTION="
+			if ( Ps.ChildExists( 'gender_id' ) && Ps.gender_id == null )
+				Ps.guess_gender_by_names();
+	"/>
+
+	<EDIT SOURCE="Ps.firstname" LABEL-TITLE-EXPR="fields_usage.get_field_ext_title( Ps.firstname ) + ':'" UPDATE-ACTION="
+			if ( Ps.ChildExists( 'gender_id' ) && Ps.gender_id == null )
+				Ps.guess_gender_by_names();
+	"/>
+
+	<IF EXPR="base1_config.use_person_middlename">
+		<EDIT SOURCE="Ps.middlename" LABEL-TITLE-EXPR="fields_usage.get_field_ext_title( Ps.middlename ) + ':'" UPDATE-ACTION="
+				if ( Ps.ChildExists( 'gender_id' ) && Ps.gender_id == null )
+					Ps.guess_gender_by_names();
+		"/>
+	</IF>
+</UNIT>
+
+
+
+<TABLE NAME="person_names_edit" SPACING="short" SAMPLE="1">
+	<COLUMNS>
+		<IF EXPR="base1_config.is_int_version">
+			<COL WIDTH="55%"/>
+			<COL WIDTH="45%"/>
+		</IF>
+		<ELSE>
+			<COL WIDTH="40%"/>
+			<COL WIDTH="25%"/>
+			<COL WIDTH="35%"/>
+		</ELSE>
+	</COLUMNS>
+
+	<EDIT SOURCE="Ps.lastname"/>
+	<EDIT SOURCE="Ps.firstname"/>
+
+	<IF EXPR="base1_config.use_person_middlename">
+		<EDIT SOURCE="Ps.middlename"/>
+	</IF>
+</TABLE>
+
+
+
+<LINE NAME="person_fullname" SAMPLE="1">
+	<LABEL TITLE-EXPR="Ps.lastname.Title + ':'"/>
+	<EDIT SOURCE="Ps.lastname" WIDTH="24zr"/>
+	<LABEL/>
+
+	<LABEL TITLE-EXPR="Ps.firstname.Title + ':'"/>
+	<EDIT SOURCE="Ps.firstname" WIDTH="15zr"/>
+
+	<IF EXPR="base1_config.use_person_middlename">
+		<LABEL WIDTH="2zr"/>
+		<LABEL TITLE-EXPR="Ps.middlename.Title + ':'"/>
+		<EDIT SOURCE="Ps.middlename" WIDTH="19zr"/>
+	</IF>
+</LINE>
+
+
+
+<COMBO NAME="time_zone_edit" SAMPLE="1" WIDTH="10zr">
+	<LOOP EXPR="ArrayUnion( ArrayExtract( PlainSeq( 12 ), 'This - 12' ), ArrayExtract( PlainSeq( 15 ), 'This' ) )" VAR="_time_zone">
+		<COMBO-ENTRY TITLE-EXPR="
+				if ( _time_zone > 0 )
+				{
+					str = '+';
+					val = _time_zone;
+				}
+				else if ( _time_zone &lt; 0 )
+				{
+					str = '-';
+					val = 0 - _time_zone;
+				}
+				else
+				{
+					return 'UTC';
+				}
+
+				str += StrInt( val, 2 );
+				str += ':' + StrInt( ( val * 100 ) % 100, 2 );
+
+				return str;
+		" VALUE-EXPR="_time_zone"/>
+	</LOOP>
+</COMBO>
+
+
+
+
+<UNIT NAME="object_access" SAMPLE="1">
+	<IF EXPR="Ps.use_exclusive_access">
+		<BR/>
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="16px"/>
+			</COLUMNS>
+
+			<LABEL TITLE="Разрешить доступ для пользователей:" lang-en:TITLE="Allow access for users:" lang-ua:TITLE="Дозволити доступ для користувачів:"/>
+
+			<IMAGE URL="//base_pict/select.ico" TIP-TEXT="Выбрать пользователей" lang-en:TIP-TEXT="Select users" ACTION="
+					userID = lib_base.select_object_from_view( 'users' );
+					Ps.exclusive_access.user_id.ObtainByValue( userID );
+					Ps.Doc.SetChanged( true );
+			" lang-ua:TIP-TEXT="Вибрати користувачів"/>
+		</TABLE>
+
+		<LIST SUNKEN="1" LOOP-CATALOG="users" XQUERY-QUAL-EXPR="
+				return 'MatchSome( $elem/id, ( ' + ArrayMerge( Ps.exclusive_access.user_id, 'This', ',' ) + ' ) )';
+		" HEIGHT="16zr">
+			<ROW IMAGE-URL-EXPR="ListElem.ImageUrl" DELETE-ACTION="Ps.exclusive_access.user_id.DeleteByValue( ListElem.id ); Ps.Doc.SetChanged( true );">
+				<COL WIDTH="40%" COL-TITLE="##UiText.fields.login##" TITLE-EXPR="ListElem.login"/>
+			</ROW>
+		</LIST>
+		<DELIM/>
+	</IF>
+</UNIT>
+
+
+
+
+
+
+<PANEL NAME="percentage_cell_panel" SAMPLE="1" PARAM-left-title-expr="subtype=code" PARAM-max-range-expr="subtype=code" PARAM-fill-color-expr="subtype=code">
+	<LINE>
+		<PANEL HEIGHT="100%" BK-COLOR="white" WIDTH="-1px" STD-MARGINS="0">
+			<LINE>
+				<PANEL BK-COLOR-EXPR="EvalSampleParam( 'fill-color-expr' )" BK-GRADIENT-BASE="bottom" WIDTH-EXPR="
+						maxRange = EvalSampleParam( 'max-range-expr' );
+
+						if ( Ps <= maxRange )
+							ratio = ( Ps * 100 ) / maxRange;
+						else
+							ration = 100;
+
+						return ratio + '%';
+				" HEIGHT="100%" STD-MARGINS="0" LEFT-MARGIN="2" TOP-MARGIN="1">
+					<LINE>
+						<LABEL TITLE-EXPR="EvalSampleParam( 'left-title-expr' )"/>
+
+						<IF EXPR="Ps > EvalSampleParam( 'max-range-expr' ) || ( Ps * 100 ) / ( EvalSampleParam( 'max-range-expr' ) ) > 80">
+							<LABEL TITLE-EXPR="GetSampleItem().Title + '  '" ALIGN="right"/>
+						</IF>
+					</LINE>
+				</PANEL>
+
+				<IF EXPR="Ps <= EvalSampleParam( 'max-range-expr' ) && ( Ps * 100 ) / ( EvalSampleParam( 'max-range-expr' ) ) <= 80">
+					<LABEL TITLE-EXPR="GetSampleItem().Title + '  '" ALIGN="right"/>
+				</IF>
+			</LINE>
+		</PANEL>
+
+		<PANEL HEIGHT="100%" BK-COLOR="black">
+		</PANEL>
+	</LINE>
+</PANEL>
+
+
+
+</SPXML-SCREEN>

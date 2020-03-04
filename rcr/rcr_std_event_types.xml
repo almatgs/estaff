@@ -1,0 +1,1600 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_event_types SPXML-FORM="//base2/base2_std_event_types.xmd" xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<std_event_type>
+		<id>note</id>
+		<name VALUE="Пометка" lang-en:VALUE="Note" lang-ua:VALUE="Позначка"/>
+		<target_object_type_id>candidate</target_object_type_id>
+		<is_state>0</is_state>
+		<image_url>//base_pict/note.ico</image_url>
+		<text_color>90,90,0</text_color>
+		<use_separate_button>1</use_separate_button>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<show_init_dlg>1</show_init_dlg>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>comment</id>
+		<name VALUE="##UiText.fields.comment##"/>
+		<target_object_type_id>candidate</target_object_type_id>
+		<is_state>0</is_state>
+		<image_url>//base_pict/note.ico</image_url>
+		<text_color>21,106,147</text_color>
+		<use_separate_button>0</use_separate_button>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<show_init_dlg>1</show_init_dlg>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>vacancy_response</id>
+		<name VALUE="##UiText.titles.vacancy_response##"/>
+		<text_color>255,128,0</text_color>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<show_creation_date>1</show_creation_date>
+		<creation_date_title VALUE="Подан" lang-en:VALUE="Submitted on" lang-ua:VALUE="Поданий"/>
+
+		<is_automatic>1</is_automatic>
+
+		<occurrences>
+			<occurrence>
+				<is_user_duty>1</is_user_duty>
+
+				<build_state_view>1</build_state_view>
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+
+				<require_vacancy>1</require_vacancy>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>found_with_ras</id>
+		<name VALUE="Найден роботом" lang-en:VALUE="Found by Bot" lang-ua:VALUE="Знайдений роботом"/>
+		<text_color>255,128,0</text_color>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<is_automatic>1</is_automatic>
+
+		<occurrences>
+			<occurrence>
+				<is_user_duty>1</is_user_duty>
+
+				<build_state_view>1</build_state_view>
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>cbot_first_contact</id>
+		<name VALUE="Роботизированный обзвон" lang-en:VALUE="Сalling via bot" lang-ua:VALUE="Роботизований дзвінки"/>
+
+		<target_object_type_id>candidate</target_object_type_id>
+		<show_target_object_on_open>1</show_target_object_on_open>
+		<use_for_inet_search_result>1</use_for_inet_search_result>
+
+		<use_end_date>1</use_end_date>
+		<has_long_duration>1</has_long_duration>
+		<is_automatic_occurrence>1</is_automatic_occurrence>
+
+		<occurrences>
+			<occurrence>
+				<id></id>
+				<state_name VALUE="Отправлен на роботизированный обзвон" lang-en:VALUE="To call via bot" lang-ua:VALUE="Відправлений на роботизований дзвінки"/>
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+				<core_actions>
+					<core_action>
+						<type_id>run_code</type_id>
+						<code>lib_cbot_ui.HandleAssignCandidateCbotFirstContact( candidate, event )</code>
+					</core_action>
+				</core_actions>
+				<require_vacancy>1</require_vacancy>
+			</occurrence>
+
+			<occurrence>
+				<id>succeeded</id>
+				<is_user_duty>1</is_user_duty>
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+			</occurrence>
+
+			<occurrence>
+				<id>failed</id>
+				<is_user_duty>1</is_user_duty>
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+	
+
+	<std_event_type>
+		<id>candidate_phone_call</id>
+		<name VALUE="Первый звонок" lang-en:VALUE="First call" lang-ua:VALUE="Перший дзвоник"/>
+		<text_color>0,120,200</text_color>
+		<image_url>x-app://base_pict/phone_call_outgoing.ico</image_url>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_separate_button>1</use_separate_button>
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<id></id>
+				<name VALUE="##UiText.titles.completed__m##"/>
+				<show_init_dlg>1</show_init_dlg>
+				<is_user_duty>1</is_user_duty>
+				<max_duration>
+					<length>5</length>
+				</max_duration>
+
+				<typical_next_states>
+					<typical_next_state>
+						<event_type_id>interview</event_type_id>
+						<event_occurrence_id>scheduled</event_occurrence_id>
+						<action_name VALUE="##UiText.actions.schedule_interview##"/>
+					</typical_next_state>
+					<typical_next_state>
+						<event_type_id>phone_interview</event_type_id>
+						<event_occurrence_id>scheduled</event_occurrence_id>
+						<action_name VALUE="##UiText.actions.schedule_phone_interview##"/>
+					</typical_next_state>
+				</typical_next_states>
+			</occurrence>
+
+			<occurrence>
+				<id>failed</id>
+				<name VALUE="##UiText.titles.rejected_by_recruiter##"/>
+				<related_state_id>reject</related_state_id>
+				<deactivate_object>1</deactivate_object>
+			</occurrence>
+			<occurrence>
+				<id>withdrawn</id>
+				<name VALUE="##UiText.titles.candidate_not_interested##"/>
+				<related_state_id>self_reject</related_state_id>
+				<deactivate_object>1</deactivate_object>
+			</occurrence>
+			<occurrence>
+				<id>peer_undecided</id>
+				<name VALUE="##UiText.titles.candidate_undecided##"/>
+				<is_user_duty>1</is_user_duty>
+			</occurrence>
+
+			<occurrence>
+				<id>call_failed</id>
+				<not_occurred>1</not_occurred>
+				<is_user_duty>1</is_user_duty>
+			</occurrence>
+			<occurrence>
+				<id>call_later</id>
+				<not_occurred>1</not_occurred>
+				<is_user_duty>1</is_user_duty>
+			</occurrence>
+			<occurrence>
+				<id>alt_email_sent</id>
+				<action_name VALUE="Недозвон, отправить email" lang-en:VALUE="Cannot get through, send email" lang-ua:VALUE="Недозвон, відправити email"/>
+				<not_occurred>1</not_occurred>
+				<core_actions>
+					<core_action>
+						<type_id>send_mail</type_id>
+						<templates>
+							<template>
+								<mail_template_id>first_call_arrange</mail_template_id>
+							</template>
+							<template>
+								<mail_template_id>first_call_arrange_2</mail_template_id>
+							</template>
+							<template>
+								<mail_template_id>interview_invite</mail_template_id>
+							</template>
+							<template>
+								<mail_template_id>interview_invite_2</mail_template_id>
+							</template>
+						</templates>
+					</core_action>
+				</core_actions>
+			</occurrence>
+		</occurrences>
+	
+
+		<use_decide_later>1</use_decide_later>
+	</std_event_type>
+
+
+
+	<std_event_type>
+		<id>invitation</id>
+		<name VALUE="Начальный email" lang-en:VALUE="Initial email" lang-ua:VALUE="Початковий email"/>
+		<text_color>0,128,255</text_color>
+		<image_url>//base_pict/email_message.ico</image_url>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_separate_button>1</use_separate_button>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<core_actions>
+					<core_action>
+						<type_id>send_mail</type_id>
+						<templates>
+							<template>
+								<mail_template_id>first_call_arrange</mail_template_id>
+							</template>
+							<template>
+								<mail_template_id>first_call_arrange_2</mail_template_id>
+							</template>
+							<template>
+								<mail_template_id>interview_invite</mail_template_id>
+							</template>
+							<template>
+								<mail_template_id>interview_invite_2</mail_template_id>
+							</template>
+						</templates>
+					</core_action>
+				</core_actions>
+
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>video_interview_poll</id>
+		<name VALUE="##UiText.titles.video_interview##"/>
+
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_end_date>1</use_end_date>
+		<has_long_duration>1</has_long_duration>
+		<is_automatic_occurrence>1</is_automatic_occurrence>
+
+		<occurrences>
+			<occurrence>
+				<id>assigned</id>
+				<name VALUE="Отправлена ссылка" lang-en:VALUE="Link sent" lang-ua:VALUE="Надіслане посилання"/>
+
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+
+				<core_actions>
+					<core_action>
+						<type_id>run_code</type_id>
+						<code>lib_recruit_provider.HandleAssignCandidateVideoInterview( candidate, event )</code>
+					</core_action>
+					<core_action>
+						<type_id>send_mail</type_id>
+						<mail_template_id>notify_video_interview_poll_assigned</mail_template_id>
+						<use_mass_mail>0</use_mass_mail>
+					</core_action>
+				</core_actions>
+			</occurrence>
+
+			<occurrence>
+				<id>started</id>
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+				<create_notification>1</create_notification>
+			</occurrence>
+
+			<occurrence>
+				<id>succeeded</id>
+				<is_user_duty>1</is_user_duty>
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+				<create_notification>1</create_notification>
+			</occurrence>
+
+			<occurrence>
+				<id>failed</id>
+				<is_user_duty>1</is_user_duty>
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+				<create_notification>1</create_notification>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+
+	<std_event_type>
+		<id>phone_interview</id>
+		<name VALUE="##UiText.titles.phone_interview##"/>
+		<text_color>0,150,150</text_color>
+		<is_calendar_entry>1</is_calendar_entry>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_end_date>1</use_end_date>
+		<default_duration>
+			<length>30</length>
+			<unit_id>minute</unit_id>
+		</default_duration>
+
+		<use_ext_calendar>1</use_ext_calendar>
+		<create_with_calendar>1</create_with_calendar>
+
+		<use_separate_button>1</use_separate_button>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<id>scheduled</id>
+				<state_name VALUE="Тел. интервью запланировано" lang-en:VALUE="Phone Interview Scheduled" lang-ua:VALUE="Тел. інтерв'ю заплановано"/>
+			</occurrence>
+			<occurrence>
+				<id></id>
+				<state_name VALUE="Тел. интервью состоялось" lang-en:VALUE="Phone Interview Completed" lang-ua:VALUE="Тел. інтерв'ю відбулося"/>
+				<is_user_duty>1</is_user_duty>
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+			</occurrence>
+			<occurrence>
+				<id>succeeded</id>
+				<name VALUE="##UiText.titles.approved__passed__m##"/>
+				<state_name VALUE="Одобрен после тел. интервью" lang-en:VALUE="Passed Phone Interview" lang-ua:VALUE="Схвалено після тел. інтерв'ю"/>
+				<is_user_duty>1</is_user_duty>
+				<max_duration>
+					<length>5</length>
+				</max_duration>
+			</occurrence>
+			<occurrence>
+				<id>reserve</id>
+				<state_name VALUE="Резерв после тел. интервью" lang-en:VALUE="Reserve after Phone Interview" lang-ua:VALUE="Резерв після тел. інтерв'ю"/>
+			</occurrence>
+			<occurrence>
+				<id>failed</id>
+				<name VALUE="##UiText.titles.rejected_by_recruiter##"/>
+				<state_name VALUE="Отклонен после тел. интервью" lang-en:VALUE="Rejected after Phone Interview" lang-ua:VALUE="Відхилений після тел. інтерв'ю"/>
+				<deactivate_object>1</deactivate_object>
+			</occurrence>
+			<occurrence>
+				<id>withdrawn</id>
+				<state_name VALUE="Самоотказ после тел. интервью" lang-en:VALUE="Withdrawn after Phone Interview" lang-ua:VALUE="Самовідмова після тел. інтерв'ю"/>
+				<deactivate_object>1</deactivate_object>
+			</occurrence>
+			<occurrence>
+				<id>peer_undecided</id>
+				<name VALUE="##UiText.titles.candidate_undecided##"/>
+				<is_user_duty>1</is_user_duty>
+			</occurrence>
+			<occurrence>
+				<id>cancelled</id>
+				<is_user_duty>1</is_user_duty>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+
+	<std_event_type>
+		<id>interview</id>
+		<name VALUE="##UiText.titles.interview##"/>
+		<text_color>0,0,200</text_color>
+		<is_calendar_entry>1</is_calendar_entry>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_end_date>1</use_end_date>
+		<default_duration>
+			<length>30</length>
+			<unit_id>minute</unit_id>
+		</default_duration>
+
+		<use_room>1</use_room>
+
+		<use_ext_calendar>1</use_ext_calendar>
+		<create_with_calendar>1</create_with_calendar>
+
+		<use_separate_button>1</use_separate_button>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<id>scheduled</id>
+				<state_name VALUE="##UiText.titles.interview_scheduled##"/>
+				<core_actions>
+					<core_action>
+						<type_id>send_mail</type_id>
+						<mail_template_id>interview_date_notif</mail_template_id>
+						<ask_to_do>1</ask_to_do>
+						<phase_id>1</phase_id>
+					</core_action>
+				</core_actions>
+			</occurrence>
+			<occurrence>
+				<id></id>
+				<state_name VALUE="##UiText.titles.interview_completed##"/>
+				<is_user_duty>1</is_user_duty>
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+			</occurrence>
+			<occurrence>
+				<id>succeeded</id>
+				<name VALUE="##UiText.titles.approved__passed__m##"/>
+				<state_name VALUE="##UiText.titles.interview_succeeded##"/>
+				<is_user_duty>1</is_user_duty>
+				<max_duration>
+					<length>5</length>
+				</max_duration>
+			</occurrence>
+			<occurrence>
+				<id>reserve</id>
+				<state_name VALUE="##UiText.titles.interview_reserve##"/>
+			</occurrence>
+			<occurrence>
+				<id>failed</id>
+				<name VALUE="##UiText.titles.rejected_by_recruiter##"/>
+				<state_name VALUE="Отклонен после интервью" lang-en:VALUE="Rejected after Interview" lang-ua:VALUE="Відхилений після інтерв'ю"/>
+				<deactivate_object>1</deactivate_object>
+			</occurrence>
+			<occurrence>
+				<id>withdrawn</id>
+				<state_name VALUE="Самоотказ после интервью" lang-en:VALUE="Withdrawn after Interview" lang-ua:VALUE="Самовідмова після інтерв'ю"/>
+				<deactivate_object>1</deactivate_object>
+			</occurrence>
+			<occurrence>
+				<id>peer_undecided</id>
+				<name VALUE="##UiText.titles.candidate_undecided##"/>
+				<is_user_duty>1</is_user_duty>
+			</occurrence>
+			<occurrence>
+				<id>cancelled</id>
+				<is_user_duty>1</is_user_duty>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+
+	<std_event_type>
+		<id>group_interview_reg</id>
+		<name VALUE="Запись на групповое интервью" lang-en:VALUE="Group Interview Participation" lang-ua:VALUE="Запис на групове інтерв'ю"/>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_end_date>1</use_end_date>
+
+		<is_group_event_reg>1</is_group_event_reg>
+		<group_event_type_id>group_interview</group_event_type_id>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<id></id>
+				<name VALUE="Записан" lang-en:VALUE="Registered" lang-ua:VALUE="Записаний"/>
+				<state_name VALUE="Записан на групповое интервью" lang-en:VALUE="Registered For Group Interview" lang-ua:VALUE="Записаний на групове інтерв'ю"/>
+			</occurrence>
+			<occurrence>
+				<id>cancelled</id>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+
+	<std_event_type>
+		<id>group_interview_result</id>
+		<name VALUE="Результат группового интервью" lang-en:VALUE="Group Interview Result" lang-ua:VALUE="Результат групового інтерв'ю"/>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<is_group_event_result>1</is_group_event_result>
+		<group_event_type_id>group_interview</group_event_type_id>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<id>succeeded</id>
+				<name VALUE="##UiText.fields.passed_n##"/>
+				<state_name VALUE="Групповое интервью - пройдено" lang-en:VALUE="Group Interview - passed" lang-ua:VALUE="Групове інтерв'ю - пройдено"/>
+			</occurrence>
+
+			<occurrence>
+				<id>failed</id>
+				<name VALUE="##UiText.titles.not_passed_n##"/>
+				<state_name VALUE="Групповое интервью - НЕ пройдено" lang-en:VALUE="Group Interview - failed" lang-ua:VALUE="Групове інтерв'ю - НЕ пройдено"/>
+			</occurrence>
+
+			<occurrence>
+				<id>withdrawn</id>
+				<state_name VALUE="Групповое интервью - самоотказ" lang-en:VALUE="Group Interview - application withdrawn" lang-ua:VALUE="Групове інтерв'ю - самовідмова"/>
+			</occurrence>
+
+			<occurrence>
+				<id>not_attended</id>
+				<state_name VALUE="Групповое интервью - не пришел" lang-en:VALUE="Group Interview - did not attend" lang-ua:VALUE="Групове інтерв'ю - не прийшов"/>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+
+	<std_event_type>
+		<id>testing</id>
+		<name VALUE="##UiText.objects.testing##"/>
+
+		<is_derived>1</is_derived>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_end_date>1</use_end_date>
+		<has_long_duration>1</has_long_duration>
+		<is_automatic_occurrence>1</is_automatic_occurrence>
+
+		<occurrences>
+			<occurrence>
+				<id></id>
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+				<create_with_open>1</create_with_open>
+
+				<!--<core_actions>
+					<core_action>
+						<type_id>run_code</type_id>
+						<phase_id>0</phase_id>
+						<code>lib_recruit_provider.HandleAssignCandidateTesting( candidate, event, vacancyID );</code>
+					</core_action>
+				</core_actions>-->
+			</occurrence>
+
+			<occurrence>
+				<id>succeeded</id>
+				<state_name VALUE="Тестирование пройдено" lang-en:VALUE="Testing finished" lang-ua:VALUE="Тестування пройдено"/>
+				<is_user_duty>1</is_user_duty>
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+				<create_notification>1</create_notification>
+			</occurrence>
+
+			<occurrence>
+				<id>failed</id>
+				<state_name VALUE="Тестирование не пройдено" lang-en:VALUE="Testing failed" lang-ua:VALUE="Тестування не пройдене"/>
+				<is_user_duty>1</is_user_duty>
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+				<create_notification>1</create_notification>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+
+	<std_event_type>
+		<id>online_interview</id>
+		<name VALUE="##UiText.fields.online_interview##"/>
+		<text_color>80,0,190</text_color>
+		<is_active>0</is_active>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<is_calendar_entry>1</is_calendar_entry>
+		<use_end_date>1</use_end_date>
+
+		<default_duration>
+			<length>30</length>
+			<unit_id>minute</unit_id>
+		</default_duration>
+
+		<occurrences>
+			<occurrence>
+				<id></id>
+				<state_name VALUE="Онлайн-интервью состоялось" lang-en:VALUE="Online interview completed" lang-ua:VALUE="Онлайн-інтерв'ю відбулося"/>
+				<is_user_duty>1</is_user_duty>
+
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+
+				<show_init_dlg>1</show_init_dlg>
+				<build_state_view>1</build_state_view>
+			</occurrence>
+
+			<occurrence>
+				<id>scheduled</id>
+				<state_name VALUE="Онлайн-интервью запланировано" lang-en:VALUE="Online interview scheduled" lang-ua:VALUE="Онлайн-інтерв'ю заплановано"/>
+				<create_with_open>1</create_with_open>
+				<build_state_view>1</build_state_view>
+			</occurrence>
+
+			<occurrence>
+				<id>cancelled</id>
+				<state_name VALUE="Онлайн-интервью отменено" lang-en:VALUE="Online interview cancelled" lang-ua:VALUE="Онлайн-інтерв'ю скасовано"/>
+				<is_user_duty>1</is_user_duty>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+
+	<std_event_type>
+		<id>rr_resume_review</id>
+		<name VALUE="##UiText.titles.rr_resume_review##"/>
+		<text_color>100,0,100</text_color>
+
+		<target_object_type_id>candidate</target_object_type_id>
+		<use_end_date>1</use_end_date>
+		<has_long_duration>1</has_long_duration>
+
+		<use_separate_button>1</use_separate_button>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<id></id>
+				
+				<max_duration>
+					<length>5</length>
+				</max_duration>
+
+				<show_object_on_portal>1</show_object_on_portal>
+				<show_to_rr>1</show_to_rr>
+				<is_rr_duty_portal_state>1</is_rr_duty_portal_state>
+
+				<core_actions>
+					<core_action>
+						<type_id>send_mail</type_id>
+						<mail_template_id>client_resume</mail_template_id>
+					</core_action>
+				</core_actions>
+
+				<require_vacancy>1</require_vacancy>
+				<use_separate_button>1</use_separate_button>
+			</occurrence>
+
+			<occurrence>
+				<id>succeeded</id>
+				<name VALUE="##UiText.titles.approved__passed__m##"/>
+				<state_name VALUE="Резюме одобрено заказчиком" lang-en:VALUE="Passed Hiring Manager Review" lang-ua:VALUE="Резюме схвалено замовником"/>
+				<is_user_duty>1</is_user_duty>
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+
+				<require_vacancy>1</require_vacancy>
+				<show_object_on_portal>1</show_object_on_portal>
+			</occurrence>
+
+			<occurrence>
+				<id>reserve</id>
+				<state_name VALUE="##UiText.titles.rr_resume_review_reserve##"/>
+
+				<require_vacancy>1</require_vacancy>
+				<show_object_on_portal>1</show_object_on_portal>
+			</occurrence>
+
+			<occurrence>
+				<id>failed</id>
+				<name VALUE="##UiText.titles.rejected__m##"/>
+				<state_name VALUE="Резюме отклонено заказчиком" lang-en:VALUE="Resume Rejected by Hiring Manager" lang-ua:VALUE="Резюме відхилено замовником"/>
+
+				<require_vacancy>1</require_vacancy>
+				<show_object_on_portal>1</show_object_on_portal>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+
+	<std_event_type>
+		<id>rr_interview</id>
+		<name VALUE="##UiText.titles.client_interview##"/>
+		<text_color>192,0,192</text_color>
+		<is_calendar_entry>1</is_calendar_entry>
+		<is_delegate>1</is_delegate>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_end_date>1</use_end_date>
+
+		<default_duration>
+			<length>30</length>
+			<unit_id>minute</unit_id>
+		</default_duration>
+
+		<use_room>1</use_room>
+		<use_participants>1</use_participants>
+		<use_participants_auto_load>1</use_participants_auto_load>
+
+		<use_separate_button>1</use_separate_button>
+		<build_view>1</build_view>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<id>scheduled</id>
+				<state_name VALUE="##UiText.titles.rr_interview_scheduled##"/>
+				<require_vacancy>1</require_vacancy>
+				<show_object_on_portal>1</show_object_on_portal>
+
+				<core_actions>
+					<core_action>
+						<type_id>send_mail</type_id>
+						<mail_template_id>rr_interview_date_notif</mail_template_id>
+						<ask_to_do>1</ask_to_do>
+						<phase_id>1</phase_id>
+						<exist_req_expr>! global_settings.is_agency</exist_req_expr>
+					</core_action>
+
+					<core_action>
+						<type_id>send_mail</type_id>
+						<mail_template_id>org_rr_interview_date_notif</mail_template_id>
+						<ask_to_do>1</ask_to_do>
+						<phase_id>1</phase_id>
+						<exist_req_expr>global_settings.is_agency</exist_req_expr>
+					</core_action>
+				</core_actions>
+			</occurrence>
+
+			<occurrence>
+				<id></id>
+				<state_name VALUE="##UiText.titles.rr_interview_completed##"/>
+				<is_user_duty>1</is_user_duty>
+
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+
+				<require_vacancy>1</require_vacancy>
+			</occurrence>
+
+			<occurrence>
+				<id>succeeded</id>
+				<name VALUE="##UiText.titles.approved__passed__m##"/>
+				<state_name VALUE="##UiText.titles.rr_interview_succeeded##"/>
+				<is_user_duty>1</is_user_duty>
+				<max_duration>
+					<length>5</length>
+				</max_duration>
+			</occurrence>
+			<occurrence>
+				<id>reserve</id>
+				<state_name VALUE="##UiText.titles.rr_interview_reserve##"/>
+			</occurrence>
+			<occurrence>
+				<id>failed</id>
+				<name VALUE="##UiText.titles.rejected__m##"/>
+				<state_name VALUE="Отклонен после интервью с заказчиком" lang-en:VALUE="Rejected after Interview with Hiring Manager" lang-ua:VALUE="Відхилений після інтерв'ю з замовником"/>
+				<deactivate_object>1</deactivate_object>
+			</occurrence>
+			<occurrence>
+				<id>withdrawn</id>
+				<state_name VALUE="Самоотказ после интервью с заказчиком" lang-en:VALUE="Withdrawn after Interview with Hiring Manager" lang-ua:VALUE="Самовідмова після інтерв'ю з замовником"/>
+				<deactivate_object>1</deactivate_object>
+			</occurrence>
+			<occurrence>
+				<id>cancelled</id>
+				<is_user_duty>1</is_user_duty>
+			</occurrence>
+		</occurrences>
+
+		<use_ext_calendar>1</use_ext_calendar>
+		<create_with_calendar>1</create_with_calendar>
+		<create_with_ext_calendar>1</create_with_ext_calendar>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>rr_approve</id>
+		<name VALUE="Утверждение руководителями" lang-en:VALUE="Managerial Approval" lang-ua:VALUE="Затвердження керівниками"/>
+		<is_active>0</is_active>
+
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<is_approval>1</is_approval>
+		<use_end_date>1</use_end_date>
+		<has_long_duration>1</has_long_duration>
+		<is_automatic_occurrence>1</is_automatic_occurrence>
+		<use_participants>1</use_participants>
+		<use_participants_auto_load>1</use_participants_auto_load>
+
+		<use_separate_button>1</use_separate_button>
+
+		<show_to_rr>1</show_to_rr>
+
+		<occurrences>
+			<occurrence>
+				<id></id>
+
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+				<create_with_open>1</create_with_open>
+				<require_vacancy>1</require_vacancy>
+				<build_state_view>1</build_state_view>
+				<show_object_on_portal>1</show_object_on_portal>
+			</occurrence>
+
+			<occurrence>
+				<id>succeeded</id>
+				<state_name VALUE="Утверждение руководителями - пройдено" lang-en:VALUE="Managerial Approval - passed" lang-ua:VALUE="Затвердження керівниками - пройдено"/>
+
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+				<show_object_on_portal>1</show_object_on_portal>
+
+				<build_state_view>1</build_state_view>
+			</occurrence>
+
+			<occurrence>
+				<id>failed</id>
+				<state_name VALUE="Утверждение руководителями не пройдено" lang-en:VALUE="Managerial Approval - failed" lang-ua:VALUE="Затвердження керівниками не пройдене"/>
+				<is_user_duty>1</is_user_duty>
+
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+				<show_object_on_portal>1</show_object_on_portal>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>rr_poll</id>
+		<name VALUE="##UiText.objects.rr_poll##"/>
+		<is_active>0</is_active>
+		<is_derived>1</is_derived>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_end_date>1</use_end_date>
+		<has_long_duration>1</has_long_duration>
+		<use_participants>1</use_participants>
+		<is_automatic_occurrence>1</is_automatic_occurrence>
+		<use_participants>1</use_participants>
+		<use_participants_auto_load>1</use_participants_auto_load>
+
+		<use_separate_button>1</use_separate_button>
+
+		<is_poll>1</is_poll>
+
+		<occurrences>
+			<occurrence>
+				<id></id>
+
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+				<create_with_open>1</create_with_open>
+				<require_vacancy>1</require_vacancy>
+				<build_state_view>1</build_state_view>
+				<show_object_on_portal>1</show_object_on_portal>
+			</occurrence>
+
+			<occurrence>
+				<id>succeeded</id>
+				<name VALUE="завершена" lang-en:VALUE="completed" lang-ua:VALUE="завершена"/>
+				<state_name VALUE="Оценка руководителями заверш." lang-en:VALUE="Client assessment completed" lang-ua:VALUE="Оцінка керівниками заверш."/>
+				<is_user_duty>1</is_user_duty>
+
+				<build_state_view>1</build_state_view>
+
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+				<show_object_on_portal>1</show_object_on_portal>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>rr_interview2</id>
+		<name  VALUE="2-е интервью с заказчиком" lang-en:VALUE="2nd Interview with Hiring Manager" lang-ua:VALUE="Друге інтерв'ю з замовником"/>
+		<is_active>0</is_active>
+		<text_color>192,0,192</text_color>
+		<is_calendar_entry>1</is_calendar_entry>
+		<is_delegate>1</is_delegate>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_end_date>1</use_end_date>
+
+		<default_duration>
+			<length>30</length>
+			<unit_id>minute</unit_id>
+		</default_duration>
+
+		<use_room>1</use_room>
+		<use_participants>1</use_participants>
+		<use_participants_auto_load>1</use_participants_auto_load>
+
+		<use_separate_button>1</use_separate_button>
+		<build_view>1</build_view>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<id>scheduled</id>
+				<state_name VALUE="2-е интервью с заказчиком запланировано" lang-en:VALUE="2nd Interview with Hiring Manager Scheduled" lang-ua:VALUE="Друге інтерв'ю з замовником запл."/>
+				<require_vacancy>1</require_vacancy>
+				<show_object_on_portal>1</show_object_on_portal>
+
+				<build_state_view>1</build_state_view>
+
+				<core_actions>
+					<core_action>
+						<type_id>send_mail</type_id>
+						<mail_template_id>rr_interview_date_notif</mail_template_id>
+						<ask_to_do>1</ask_to_do>
+						<phase_id>1</phase_id>
+						<exist_req_expr>! global_settings.is_agency</exist_req_expr>
+					</core_action>
+
+					<core_action>
+						<type_id>send_mail</type_id>
+						<mail_template_id>org_rr_interview_date_notif</mail_template_id>
+						<ask_to_do>1</ask_to_do>
+						<phase_id>1</phase_id>
+						<exist_req_expr>global_settings.is_agency</exist_req_expr>
+					</core_action>
+				</core_actions>
+			</occurrence>
+
+			<occurrence>
+				<id></id>
+				<state_name VALUE="2-е интервью с заказчиком состоялось" lang-en:VALUE="2nd Interview with Hiring Manager Completed" lang-ua:VALUE="Друге інтерв'ю з замовником відб."/>
+				<is_user_duty>1</is_user_duty>
+
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+
+				<build_state_view>1</build_state_view>
+				<require_vacancy>1</require_vacancy>
+			</occurrence>
+
+			<occurrence>
+				<id>succeeded</id>
+				<name VALUE="##UiText.titles.approved__passed__m##"/>
+				<state_name VALUE="Одобрен после 2-го интервью с заказчиком" lang-en:VALUE="Passed 2nd Interview with Hiring Manager" lang-ua:VALUE="Схвалено після другого інтерв'ю з замовником"/>
+				<is_user_duty>1</is_user_duty>
+				<max_duration>
+					<length>5</length>
+				</max_duration>
+			</occurrence>
+			<occurrence>
+				<id>reserve</id>
+				<state_name VALUE="Резерв после 2-го интервью с заказчиком" lang-en:VALUE="Reserve after 2nd Interview with Hiring Manager" lang-ua:VALUE="Резерв після другого інтерв'ю з замовником"/>
+			</occurrence>
+			<occurrence>
+				<id>failed</id>
+				<name VALUE="##UiText.titles.rejected__m##"/>
+				<state_name VALUE="Отклонен после 2-го интервью с заказчиком" lang-en:VALUE="Rejected after 2nd Interview with Hiring Manager" lang-ua:VALUE="Відхилений після другого інтерв'ю з замовником"/>
+				<deactivate_object>1</deactivate_object>
+			</occurrence>
+			<occurrence>
+				<id>withdrawn</id>
+				<state_name VALUE="Самоотказ после 2-го интервью с заказчиком" lang-en:VALUE="Withdrawn after 2nd Interview with Hiring Manager" lang-ua:VALUE="Самовідмова після другого інтерв'ю з замовником"/>
+				<deactivate_object>1</deactivate_object>
+			</occurrence>
+			<occurrence>
+				<id>cancelled</id>
+				<is_user_duty>1</is_user_duty>
+			</occurrence>
+		</occurrences>
+
+		<use_ext_calendar>1</use_ext_calendar>
+		<create_with_calendar>1</create_with_calendar>
+		<create_with_ext_calendar>1</create_with_ext_calendar>
+	</std_event_type>
+	
+	
+	<std_event_type>
+		<id>training</id>
+		<name VALUE="##UiText.titles.training__state##"/>
+		<target_object_type_id>candidate</target_object_type_id>
+		<use_end_date>1</use_end_date>
+		<has_long_duration>1</has_long_duration>
+
+		<use_training_group>1</use_training_group>
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<id></id>
+			</occurrence>
+
+			<occurrence>
+				<id>succeeded</id>
+				<is_user_duty>1</is_user_duty>
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+			</occurrence>
+
+			<occurrence>
+				<id>failed</id>
+				<deactivate_object>1</deactivate_object>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+	
+	
+	<std_event_type>
+		<id>job_offer</id>
+		<name VALUE="##UiText.titles.job_offer##"/>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_end_date>1</use_end_date>
+		<has_long_duration>1</has_long_duration>
+
+		<use_separate_button>1</use_separate_button>
+
+		<max_duration>
+			<length>10</length>
+		</max_duration>
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<id></id>
+				<state_name VALUE="##UiText.titles.job_offer_made##"/>
+				<require_vacancy>1</require_vacancy>
+				<make_candidate_final>1</make_candidate_final>
+				<show_object_on_portal>1</show_object_on_portal>
+				<build_state_view>1</build_state_view>
+			</occurrence>
+			<occurrence>
+				<id>succeeded</id>
+				<name VALUE="##UiText.titles.accepted##"/>
+				<state_name VALUE="##UiText.titles.job_offer_accepted##"/>
+				<is_user_duty>1</is_user_duty>
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+
+				<build_state_view>1</build_state_view>
+				<require_vacancy>1</require_vacancy>
+				<make_candidate_final>1</make_candidate_final>
+				<show_object_on_portal>1</show_object_on_portal>
+			</occurrence>
+			<occurrence>
+				<id>failed</id>
+				<name VALUE="##UiText.titles.declined##"/>
+				<state_name VALUE="Оффер отклонен" lang-en:VALUE="Job Offer Declined" lang-ua:VALUE="Оффер відхилений"/>
+				<require_vacancy>1</require_vacancy>
+				<deactivate_object>1</deactivate_object>
+				<remove_candidate_from_final>1</remove_candidate_from_final>
+				<show_object_on_portal>1</show_object_on_portal>
+			</occurrence>
+			<occurrence>
+				<id>suspended</id>
+				<require_vacancy>1</require_vacancy>
+				<show_object_on_portal>1</show_object_on_portal>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>candidate_form_request</id>
+		<name VALUE="##UiText.titles.qform_request##"/>
+		<is_active>0</is_active>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_end_date>1</use_end_date>
+		<has_long_duration>1</has_long_duration>
+		<is_automatic_occurrence>1</is_automatic_occurrence>
+
+		<use_separate_button>1</use_separate_button>
+
+		<max_duration>
+			<length>3</length>
+		</max_duration>
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<id></id>
+				<require_vacancy>1</require_vacancy>
+				<show_object_on_portal>1</show_object_on_portal>
+
+				<core_actions>
+					<core_action>
+						<type_id>request_aux_documents</type_id>
+						<recruit_provider_id>eos</recruit_provider_id>
+						<ask_to_do>1</ask_to_do>
+					</core_action>
+					<core_action>
+						<type_id>send_mail</type_id>
+						<mail_template_id>candidate_form_request_link</mail_template_id>
+					</core_action>
+				</core_actions>
+		</occurrence>
+			<occurrence>
+				<id>finished</id>
+				<is_user_duty>1</is_user_duty>
+
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+
+				<show_object_on_portal>1</show_object_on_portal>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+	
+	<std_event_type>
+		<id>security_check</id>
+		<name VALUE="##UiText.titles.security_check##"/>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_end_date>1</use_end_date>
+		<has_long_duration>1</has_long_duration>
+
+		<use_separate_button>1</use_separate_button>
+
+		<max_duration>
+			<length>7</length>
+		</max_duration>
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<id></id>
+				<require_vacancy>1</require_vacancy>
+				<make_candidate_final>1</make_candidate_final>
+				<show_object_on_portal>1</show_object_on_portal>
+			</occurrence>
+			<occurrence>
+				<id>succeeded</id>
+				<name VALUE="##UiText.fields.passed__f##"/>
+				<state_name VALUE="Проверка СБ пройдена" lang-en:VALUE="Background Check Passed" lang-ua:VALUE="Перевірка СБ пройдена"/>
+				<is_user_duty>1</is_user_duty>
+
+				<max_duration>
+					<length>3</length>
+				</max_duration>
+
+				<require_vacancy>1</require_vacancy>
+				<make_candidate_final>1</make_candidate_final>
+				<show_object_on_portal>1</show_object_on_portal>
+			</occurrence>
+			<occurrence>
+				<id>failed</id>
+				<name VALUE="##UiText.fields.not_passed__f##"/>
+				<state_name VALUE="Проверка СБ не пройдена" lang-en:VALUE="Background Check Failed" lang-ua:VALUE="Перевірка СБ не пройдена"/>
+				<require_vacancy>1</require_vacancy>
+				<deactivate_object>1</deactivate_object>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>hire_paperwork</id>
+		<name VALUE="Оформление" lang-en:VALUE="New Hire Paperwork" lang-ua:VALUE="Оформлення"/>
+		<is_active>1</is_active>
+		<text_color>0,120,60</text_color>
+
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_separate_button>1</use_separate_button>
+
+		<use_separate_button>1</use_separate_button>
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<require_vacancy>1</require_vacancy>
+				<make_candidate_final>1</make_candidate_final>
+				<require_empl_start_date>1</require_empl_start_date>
+				<max_duration>
+					<length>7</length>
+				</max_duration>
+				<show_object_on_portal>1</show_object_on_portal>
+				<show_to_rr>1</show_to_rr>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>hire</id>
+		<name VALUE="##UiText.titles.hired##"/>
+		<text_color>0,160,0</text_color>
+		<is_active>1</is_active>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_separate_button>1</use_separate_button>
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<deactivate_object>1</deactivate_object>
+				<require_vacancy>1</require_vacancy>
+				<make_candidate_final>1</make_candidate_final>
+				<require_empl_start_date>1</require_empl_start_date>
+
+				<build_state_view>1</build_state_view>
+
+				<change_vacancy_state>1</change_vacancy_state>
+				<next_vacancy_state_id>vacancy_closed</next_vacancy_state_id>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+
+	<std_event_type>
+		<id>probation_assessment</id>
+		<name VALUE="Оценка прохождения испытательного срока" lang-en:VALUE="Probationary Assessment" lang-ua:VALUE="Оцінка проходження випробувального терміну"/>
+		<is_active>1</is_active>
+		<target_object_type_id>candidate</target_object_type_id>
+		<is_state>0</is_state>
+		
+		<use_end_date>1</use_end_date>
+		<has_long_duration>1</has_long_duration>
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<id>waiting_to_start</id>
+				<is_active>1</is_active>
+				<is_user_duty>1</is_user_duty>
+				<create_notification>1</create_notification>
+			</occurrence>
+			<occurrence>
+				<is_user_duty>1</is_user_duty>
+				<core_actions>
+					<core_action>
+						<type_id>send_mail</type_id>
+						<mail_template_id>notify_probation_assessment</mail_template_id>
+						<phase_id>0</phase_id>
+						<use_mass_mail>0</use_mass_mail>
+					</core_action>
+				</core_actions>
+				<max_duration>
+					<length>3</length>
+					<unit_id>d</unit_id>
+				</max_duration>
+			</occurrence>
+			<occurrence>
+				<id>finished</id>
+				<is_active>1</is_active>
+			</occurrence>
+		</occurrences>
+
+		<use_auto_create>1</use_auto_create>
+		<auto_create>
+			<condition>
+				<candidate_state_id>hire</candidate_state_id>
+				<is_on_probation>1</is_on_probation>
+				<offset_base>probation_end_date</offset_base>
+				<is_negative_offset>1</is_negative_offset>
+				<offset>
+					<length>5</length>
+					<unit_id>wd</unit_id>
+				</offset>
+			</condition>
+			<occurrence_id>waiting_to_start</occurrence_id>
+			<create_reminder>1</create_reminder>
+		</auto_create>
+	</std_event_type>
+
+
+
+	<std_event_type>
+		<id>reject</id>
+		<name VALUE="##UiText.titles.rejected_by_recruiter##"/>
+		<text_color>255,0,0</text_color>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_separate_button>1</use_separate_button>
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<deactivate_object>1</deactivate_object>
+
+				<core_actions>
+					<core_action>
+						<type_id>send_mail</type_id>
+						<mail_template_id>reject</mail_template_id>
+						<ask_to_do>1</ask_to_do>
+						<phase_id>1</phase_id>
+					</core_action>
+				</core_actions>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>rr_reject</id>
+		<name VALUE="##UiText.titles.rejected_by_rr##"/>
+		<text_color>255,0,0</text_color>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_separate_button>1</use_separate_button>
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<deactivate_object>1</deactivate_object>
+				<require_vacancy>1</require_vacancy>
+
+				<core_actions>
+					<core_action>
+						<type_id>send_mail</type_id>
+						<mail_template_id>reject</mail_template_id>
+						<ask_to_do>1</ask_to_do>
+						<phase_id>1</phase_id>
+					</core_action>
+				</core_actions>
+			</occurrence>
+		</occurrences>
+
+		<show_object_on_portal>1</show_object_on_portal>
+		<show_to_rr>1</show_to_rr>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>self_reject</id>
+		<name VALUE="##UiText.titles.application_withdrawn##"/>
+		<text_color>255,0,0</text_color>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<use_separate_button>1</use_separate_button>
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<show_init_dlg>1</show_init_dlg>
+				<deactivate_object>1</deactivate_object>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>reserve</id>
+		<name VALUE="Кадровый резерв" lang-en:VALUE="Reserve" lang-ua:VALUE="Кадровий резерв"/>
+		<is_interview_result>1</is_interview_result>
+		<text_color>100,100,100</text_color>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<deactivate_object>1</deactivate_object>
+				<show_init_dlg>1</show_init_dlg>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>vacancy_close</id>
+		<name VALUE="Не прошел финальный отбор" lang-en:VALUE="Not Hired" lang-ua:VALUE="Не пройшов фінальний відбір"/>
+		<text_color>100,100,100</text_color>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+		<is_automatic>1</is_automatic>
+
+		<occurrences>
+			<occurrence>
+				<is_enabled>1</is_enabled>
+				<deactivate_object>1</deactivate_object>
+				<require_vacancy>1</require_vacancy>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>vacancy_cancel</id>
+		<name VALUE="Вакансия отменена" lang-en:VALUE="Vacancy cancelled" lang-ua:VALUE="Вакансія скасована"/>
+		<text_color>100,100,100</text_color>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+		<is_automatic>1</is_automatic>
+
+		<occurrences>
+			<occurrence>
+				<is_enabled>1</is_enabled>
+				<deactivate_object>1</deactivate_object>
+				<require_vacancy>1</require_vacancy>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>dismiss</id>
+		<name VALUE="##UiText.titles.dismissed##"/>
+		<text_color>255,0,0</text_color>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<deactivate_object>1</deactivate_object>
+				<require_vacancy>1</require_vacancy>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>blacklist</id>
+		<name VALUE="&quot;Черный список&quot;" lang-en:VALUE="Blacklist" lang-ua:VALUE="Чорний список"/>
+		<text_color>black</text_color>
+		<bk_color>255,64,64</bk_color>
+		<target_object_type_id>candidate</target_object_type_id>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+
+		<occurrences>
+			<occurrence>
+				<deactivate_object>1</deactivate_object>
+				<show_init_dlg>1</show_init_dlg>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>candidate_select</id>
+		<name VALUE="##UiText.titles.selected_for_vacancy##"/>
+		<target_object_type_id>candidate</target_object_type_id>
+		<is_state>0</is_state>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+		<is_automatic>1</is_automatic>
+
+		<occurrences>
+			<occurrence>
+				<require_vacancy>1</require_vacancy>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>card_update</id>
+		<name VALUE="Данные обновлены" lang-en:VALUE="Data updated" lang-ua:VALUE="Дані оновлені"/>
+		<target_object_type_id>candidate</target_object_type_id>
+		<is_state>0</is_state>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+		<is_automatic>1</is_automatic>
+
+		<occurrences>
+			<occurrence>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>candidate_letter</id>
+		<name VALUE="Отправлено письмо кандидату" lang-en:VALUE="Message sent for candidate" lang-ua:VALUE="Відправлено листа кандидату"/>
+		<target_object_type_id>candidate</target_object_type_id>
+		<is_state>0</is_state>
+		<image_url>//base_pict/email_message.ico</image_url>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+		<is_automatic>1</is_automatic>
+
+		<occurrences>
+			<occurrence>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>client_letter</id>
+		<name VALUE="Отправлено письмо заказчику" lang-en:VALUE="Message sent to client" lang-ua:VALUE="Відправлено листа замовнику"/>
+		<target_object_type_id>candidate</target_object_type_id>
+		<is_state>0</is_state>
+		<require_vacancy>1</require_vacancy>
+		<image_url>//base_pict/email_message.ico</image_url>
+
+		<show_target_object_on_open>1</show_target_object_on_open>
+		<is_automatic>1</is_automatic>
+
+		<occurrences>
+			<occurrence>
+				<require_vacancy>1</require_vacancy>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>group_interview</id>
+		<name VALUE="Групповое интервью" lang-en:VALUE="Group Interview" lang-ua:VALUE="Групове інтерв'ю"/>
+		<is_calendar_entry>1</is_calendar_entry>
+		<is_delegate>1</is_delegate>
+
+		<use_end_date>1</use_end_date>
+
+		<default_duration>
+			<length>1</length>
+			<unit_id>hour</unit_id>
+		</default_duration>
+
+		<use_room>1</use_room>
+		<use_vacancy>1</use_vacancy>
+		<use_participants>1</use_participants>
+		<register_participants>1</register_participants>
+
+		<build_view>1</build_view>
+
+		<occurrences>
+			<occurrence>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>group_training</id>
+		<name VALUE="Групповой тренинг" lang-en:VALUE="Group Training" lang-ua:VALUE="Груповий тренінг"/>
+		<is_calendar_entry>1</is_calendar_entry>
+
+		<use_end_date>1</use_end_date>
+		<default_duration>
+			<length>1</length>
+			<unit_id>hour</unit_id>
+		</default_duration>
+
+		<use_room>1</use_room>
+		<use_participants>1</use_participants>
+		<use_training_program>1</use_training_program>
+
+		<occurrences>
+			<occurrence>
+			</occurrence>
+		</occurrences>
+	</std_event_type>
+</std_event_types>

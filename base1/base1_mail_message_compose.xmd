@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" CODE-LIB="1" IMAGE-URL="//base_pict/email_message.ico">
+
+<mail_message_compose>
+	<message_ref TYPE="variant"/>
+	<message PROPERTY="1" EXPR="message_ref.Object"/>
+</mail_message_compose>
+
+
+</SPXML-FORM>

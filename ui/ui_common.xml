@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<ui_common SPXML-FORM="ui_common.xmd">
+
+
+<field_ext_types>
+	<field_ext_type>
+		<id>string</id>
+		<name VALUE="##UiText.titles.string##"/>
+	</field_ext_type>
+	<field_ext_type>
+		<id>text</id>
+		<name VALUE="##UiText.titles.text##"/>
+	</field_ext_type>
+	<field_ext_type>
+		<id>integer</id>
+		<name VALUE="##UiText.titles.integer##"/>
+	</field_ext_type>
+	<field_ext_type>
+		<id>real</id>
+		<name VALUE="##UiText.titles.real_number##"/>
+	</field_ext_type>
+	<field_ext_type>
+		<id>bool</id>
+		<name VALUE="##UiText.titles.yes##/##UiText.titles.no##"/>
+	</field_ext_type>
+	<field_ext_type>
+		<id>date</id>
+		<name VALUE="##UiText.fields.date##"/>
+	</field_ext_type>
+	<field_ext_type>
+		<id>select</id>
+		<name VALUE="Выбор из списка" lang-en:VALUE="Selector" lang-ua:VALUE="Вибір зі списку"/>
+	</field_ext_type>
+</field_ext_types>
+
+
+<template_aux_item_types>
+	<template_aux_item_type>
+		<id>LABEL</id>
+		<name VALUE="##UiText.titles.static_text##"/>
+	</template_aux_item_type>
+</template_aux_item_types>
+
+
+
+</ui_common>

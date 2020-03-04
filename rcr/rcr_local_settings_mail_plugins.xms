@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="100zr" HEIGHT="71zr" SOURCE="TopElem" TITLE="##UiText.sections.settings_mail_plugins##" RESIZE="1" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+<INHERIT TYPE="min_menus"/>
+
+<MENU TITLE="##UiText.sections.service##" GLOBAL="1">
+	<MENU-ENTRY TITLE="Установить обработчик для собственного URL-протокола" ACTION="
+			lib_base.register_url_handler( false );
+			lib_base.show_info_message( Screen, UiText.messages.operation_completed_successfully );
+	" lang-en:TITLE="Install custom URL protocol" lang-ua:TITLE="Встановити обробник для власного URL-протоколу"/>
+</MENU>
+
+<ITEM TYPE="min_toolbar"/>
+
+
+<IF NAME="plugin_state_base" SAMPLE="1" EXPR="true">
+	<IF EXPR="Ps">
+		<LABEL TITLE="Установлен" TEXT-COLOR="0,100,0" BOLD="1" ALIGN="center" lang-en:TITLE="Installed" lang-ua:TITLE="Встановлено"/>
+	</IF>		
+	<ELSE>
+		<LABEL TITLE="Не установлен" TEXT-COLOR="120,0,0" BOLD="1" ALIGN="center" lang-en:TITLE="Not installed" lang-ua:TITLE="Не встановлений"/>
+	</ELSE>		
+</IF>
+
+
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="20px"/>
+			<COL WIDTH="23zr"/>
+			<COL WIDTH="23zr"/>
+			<COL WIDTH="18zr"/>
+			<COL WIDTH="16zr"/>
+		</COLUMNS>
+
+		<IMAGE URL="//base_pict/ie.ico"/>
+		<LABEL TITLE="Internet Explorer"/>
+
+		<ITEM TYPE="plugin_state_base" SOURCE="lib_base.is_explorer_plugin_registered"/>
+
+		<BUTTON TITLE="##UiText.actions.install##" ACTION="
+				lib_base.register_explorer_plugin();
+				lib_base.show_result_message( Screen, UiText.messages.explorer_handler_installed );
+		"/>
+
+		<BUTTON TITLE="##UiText.actions.uninstall##" ACTION="
+				lib_base.unregister_explorer_plugin();
+				lib_base.show_result_message( Screen, UiText.messages.plugin_unregistered );
+		"/>
+
+
+		<IMAGE URL="//base_pict/firefox.ico"/>
+		<LABEL TITLE="Mozilla Firefox"/>
+
+		<ITEM TYPE="plugin_state_base" SOURCE="lib_firefox.is_firefox_plugin_registered"/>
+
+		<BUTTON TITLE="##UiText.actions.install##" ACTION="
+				lib_firefox.register_firefox_plugin();
+				lib_base.show_result_message( Screen, UiText.messages.firefox_plugin_installed );
+		"/>
+
+		<BUTTON TITLE="##UiText.actions.uninstall##" ACTION="
+				lib_firefox.unregister_firefox_plugin();
+				lib_base.show_result_message( Screen, UiText.messages.plugin_unregistered );
+		"/>
+
+
+		<IMAGE URL="//base_pict/chrome.ico"/>
+		<LABEL TITLE="Google Chrome"/>
+
+		<ITEM TYPE="plugin_state_base" SOURCE="lib_chrome.is_chrome_plugin_registered"/>
+
+		<BUTTON TITLE="##UiText.actions.install##" ACTION="
+				lib_chrome.register_chrome_plugin();
+				lib_base.show_result_message( Screen, UiText.messages.chrome_plugin_installed );
+		"/>
+
+		<BUTTON TITLE="##UiText.actions.uninstall##" ACTION="
+				lib_chrome.unregister_chrome_plugin();
+				lib_base.show_result_message( Screen, UiText.messages.plugin_unregistered );
+		"/>
+	</TABLE>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.browser_plugins.load_with_imod" SWITCH-VALUE="true" TITLE="При загрузке резюме по нажатию кнопки в браузере без предварительного выделения текста резюме автоматически вырезать содержимое резюме (для сайтов, поддерживаемых Интернет-модулем)" lang-en:TITLE="When handling resume from Web browser without a selection applied, extract resume automatically (for supported sites)" MULTILINE="1" lang-ua:TITLE="При завантаженні резюме після натискання кнопки в браузері без попереднього виділення тексту резюме автоматично вирізати вміст резюме (для сайтів, підтримуваних Інтернет-модулем)"/>
+	<DELIM/>
+	
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="20px"/>
+			<COL WIDTH="23zr"/>
+			<COL WIDTH="23zr"/>
+			<COL WIDTH="18zr"/>
+			<COL WIDTH="16zr"/>
+		</COLUMNS>
+
+
+		<IMAGE URL="//base_pict/outlook.ico"/>
+		<LABEL TITLE="Microsoft Outlook"/>
+
+		<ITEM TYPE="plugin_state_base" SOURCE="lib_outlook.is_outlook_plugin_registered"/>
+
+		<BUTTON TITLE="##UiText.actions.install##" ACTION="
+				lib_outlook.register_outlook_plugin();
+				lib_base.show_result_message( Screen, UiText.messages.outlook_plugin_installed );
+		"/>
+
+		<BUTTON TITLE="##UiText.actions.uninstall##" ACTION="
+				lib_outlook.unregister_outlook_plugin();
+				lib_base.show_result_message( Screen, UiText.messages.plugin_unregistered );
+		"/>
+
+
+		<IMAGE URL="//base_pict/thunderbird.ico"/>
+		<LABEL TITLE="Mozilla Thunderbird"/>
+
+		<ITEM TYPE="plugin_state_base" SOURCE="lib_thunderbird.is_thunderbird_plugin_registered"/>
+
+		<BUTTON TITLE="##UiText.actions.install##" ACTION="
+				lib_thunderbird.register_thunderbird_plugin();
+				lib_base.show_result_message( Screen, UiText.messages.thunderbird_plugin_installed );
+		"/>
+
+		<BUTTON TITLE="##UiText.actions.uninstall##" ACTION="
+				lib_thunderbird.unregister_thunderbird_plugin();
+				lib_base.show_result_message( Screen, UiText.messages.plugin_unregistered );
+		"/>
+
+
+
+		<IMAGE URL="//base_pict/lotus.ico"/>
+		<LABEL TITLE="Lotus Notes"/>
+
+		<ITEM TYPE="plugin_state_base" SOURCE="lib_lotus.is_lotus_plugin_registered"/>
+
+		<BUTTON TITLE="##UiText.actions.install##" ACTION="
+				lib_lotus.register_lotus_plugin();
+				lib_base.show_result_message( Screen, UiText.messages.lotus_handler_installed );
+		"/>
+
+		<BUTTON TITLE="##UiText.actions.uninstall##" ACTION="
+				lib_lotus.unregister_lotus_plugin();
+				lib_base.show_result_message( Screen, UiText.messages.plugin_unregistered );
+		"/>
+	</TABLE>
+	<BR/>
+	<DELIM/>	
+	
+	
+	<LABEL TITLE="При переносе единичного резюме из почтовой программы:" lang-en:TITLE="When handling single resume from E-mail client:" lang-ua:TITLE="При перенесенні одиночного резюме з поштової програми:"/>
+	<RADIO-BUTTON SOURCE="Ps.mail_plugins.open_single_candidate" SWITCH-VALUE="true" TITLE="Открывать карточку нового кандидата для последующего редактирования" lang-en:TITLE="Open candidate card for further editing" lang-ua:TITLE="Відкривати картку нового кандидата для подальшого редагування"/>
+	<RADIO-BUTTON SOURCE="Ps.mail_plugins.open_single_candidate" SWITCH-VALUE="false" TITLE="Занести резюме в базу без открытия карточки" lang-en:TITLE="Silently put candidate to the database" lang-ua:TITLE="Занести резюме в базу без відкриття картки"/>
+</PANEL>
+
+
+</SPXML-SCREEN>

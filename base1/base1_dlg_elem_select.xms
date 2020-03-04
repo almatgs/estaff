@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.elem_selection##" WIDTH="90zr" HEIGHT="60zr" STD-MARGINS="1" OK-ACTION="
+		list = Screen.FindItem( 'MainList' );
+
+		Ps.sel_array_ref = new Array;
+
+		for ( row in list.SelRows )
+		{
+			Ps.sel_array.push( row.Env.ListElem );
+			//alert( 11111 );
+			if ( ! Ps.multi_select )
+				break;
+		}
+">
+
+
+
+<ITEM TYPE="dlg_header_end"/>
+
+
+<PANEL SUNKEN="1" HEIGHT-EXPR="lib_base.dlg_body_height">
+	<LIST NAME="MainList" LOOP-EXPR="Ps.array" FT-FILTER="Ps.filter" SINGLE-SEL-EXPR="! Ps.multi_select">
+		<ROW OPEN-ACTION="Screen.RunCommand( 'Ok' )" IMAGE-URL="//base_pict/generic_item.ico">
+			<COL WIDTH="100%" COL-TITLE="##UiText.fields.name##" TITLE-EXPR="
+					if ( Ps.primary_disp_name.HasValue )
+					{
+						with ( ListElem )
+						{
+							return eval( Ps.primary_disp_name );
+						}
+					}
+					
+					return ListElem.PrimaryDispName;
+			" TEXT-COLOR-EXPR="ListElem.ChildExists( 'text_color' ) ? ListElem.text_color : ''" BK-COLOR-EXPR="ListElem.ChildExists( 'bk_color' ) ? ListElem.bk_color : ''" />
+		</ROW>
+	</LIST>
+</PANEL>
+
+
+
+
+
+<ITEM TYPE="dlg_footer_start"/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<BUTTON TITLE="OK" CMD="1" ENABLE-EXPR="Screen.FindItem( 'MainList' ).HasSel"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2"/>
+</TABLE>
+
+
+
+</SPXML-SCREEN>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="70zr" HEIGHT="50zr" STD-MARGINS="1" TITLE="##UiText.titles.call##" WINDOW-ICON-URL="//base_pict/phone_work.ico" INIT-ACTION="Screen.SetTimer( 'Ps.TimerAction()', 1000 )">
+
+<BR/>
+
+<IF EXPR="Ps.curActiveCall != undefined">
+	<TABLE>
+		<COLUMNS>
+			<IF EXPR="Ps.curActiveCall.is_incoming &amp;&amp; ! Ps.curActiveCall.is_connected">
+				<COL WIDTH="60px"/>
+			</IF>
+
+			<COL WIDTH="100%"/>
+			<COL WIDTH="60px"/>
+		</COLUMNS>
+
+		<IF EXPR="Ps.curActiveCall.is_incoming &amp;&amp; ! Ps.curActiveCall.is_connected">
+			<IMAGE URL="//base_pict/large/phone_call_accept.png" ACTION="lib_telephony.AcceptCall( Ps.curActiveCall.id )"/>
+		</IF>
+	
+		<PANEL>
+			<IF EXPR="Ps.curActiveCall.is_incoming">
+				<LABEL TITLE="##UiText.titles.incoming_call##" ALIGN="center"/>
+			</IF>
+			<ELSE>
+				<LABEL TITLE="##UiText.titles.outgoing_call##" ALIGN="center"/>
+			</ELSE>
+
+			<LABEL TITLE-EXPR="Ps.curActiveCall.phone" ALIGN="center" BOLD="1"/>
+
+			<IF EXPR="Ps.curActiveCall.is_connected">
+				<LABEL NAME="CallDurationLabel" TITLE-EXPR="Ps.GetActiveCallDurationDesc()" ALIGN="center" WIDTH="12zr"/>
+			</IF>
+			<ELSE>
+				<BR/>
+				<BR/>
+				<PROGRESS-BAR RANGE-EXPR="null" WIDTH="100%" HEIGHT="8px" UPDATE-TIMEOUT="200"/>
+			</ELSE>
+		</PANEL>
+
+		<IMAGE URL="//base_pict/large/phone_call_decline.png" ACTION="lib_telephony.HangUpCall( Ps.curActiveCall.id )"/>
+	</TABLE>
+
+	<BR/>
+	<DELIM/>
+	<BR/>
+	<BR/>
+</IF>
+
+
+<IF EXPR="Ps.curLookupThread != undefined">
+	<IF EXPR="Ps.curLookupThread.IsRunning">
+		<LABEL TITLE="Поиск кандидатов по номеру телефона..." lang-en:TITLE="Looking up candidates by phone number..." lang-ua:TITLE="Пошук кандидатів за номером телефону..."/>
+	</IF>
+	<ELSE>
+		<IF EXPR="Ps.found_persons.ChildNum == 0">
+			<LABEL TITLE="Кандидаты с данным номером телефона не найдены" lang-en:TITLE="Candidates with this phone number have not been found" lang-ua:TITLE="Кандидати з даним номером телефону не знайдені"/>
+			<BR/>
+			<BR/>
+
+			<BUTTON IMAGE-URL="//base_pict/phone_call_accept.ico" TITLE="##UiText.actions.create_new_candidate##" ACTION="
+					Ps.HandleCreateNewCandidate();
+					lib_telephony.AcceptCall( Ps.curActiveCall.id );
+			" PASSIVE="1" WIDTH="32zr"/>
+		</IF>
+	</ELSE>
+</IF>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="15zr"/>
+	</COLUMNS>
+
+	<LOOP EXPR="Ps.found_persons" VAR="_found_person">
+		<LINE>
+			<IMAGE URL="1.ico" URL-EXPR="_found_person.person_id.ForeignElem.ImageUrl"/>
+			<LINK TITLE-EXPR="_found_person.person_id.ForeignElem.fullname" ACTION="Ps.HandleOpenFoundPerson( _found_person, false )" PASSIVE="1"/>
+		</LINE>
+
+		<BUTTON IMAGE-URL="//base_pict/phone_call_accept.ico" TITLE="##UiText.actions.open##" ACTION="
+				Ps.HandleOpenFoundPerson( _found_person, true );
+				lib_telephony.AcceptCall( Ps.curActiveCall.id );
+		" PASSIVE="1"/>
+	</LOOP>
+</TABLE>
+
+</SPXML-SCREEN>
+
+
+
+
+
+

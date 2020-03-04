@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-INIT-ACTION="
+		if ( Ps.is_v2 )
+			lib_stat_v2.InitStatSettingsForm( Ps );
+" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1">
+
+
+<COMBO NAME="object_field_selector" SAMPLE="1">
+	<LOOP EXPR="
+			sourceSpec = Ps.Parent.source_id.OptForeignElem;
+			if ( sourceSpec == undefined )
+				return [];
+
+			objectForm = DefaultDb.GetObjectForm( lib_base.catalog_name_to_object_name( sourceSpec.catalog_name ) );
+			
+			return ArraySelect( objectForm.TopElem, '! IsMethod' );
+	" VAR="_elem">
+		<COMBO-ENTRY TITLE-EXPR="_elem.Title != '' ? _elem.Title : '<' + _elem.Name + '>'" VALUE-EXPR="_elem.Name"/>
+	</LOOP>
+</COMBO>
+
+
+
+<INHERIT TYPE="card_menus"/>
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="base_toolbar_start_entries"/>
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY TITLE="##UiText.actions.add##" IMAGE-URL="//base_pict/plus.ico" lang-en:TITLE="Add">
+		<MENU>
+			<MENU-ENTRY TITLE-EXPR="Ps.Doc.Form.TopElem.sources.source.Title" ACTION="
+					source = Ps.sources.AddChild();
+					Screen.Update();
+					Screen.ExposeItemBySource( source.catalog_name );
+			" PASSIVE="1" ENABLE-EXPR="! Ps.is_v2"/>
+
+			<MENU-ENTRY TITLE="##UiText.fields.static_filter##" ACTION="
+					elem = Ps.static_filters.AddChild();
+					Screen.Update();
+					Screen.ExposeItemBySource( elem.id );
+			" PASSIVE="1" ENABLE-EXPR="! Ps.is_v2"/>
+
+			<MENU-ENTRY TITLE="##UiText.fields.dynamic_filter##" ACTION="
+					elem = Ps.dyn_filters.AddChild();
+					Screen.Update();
+					Screen.ExposeItemBySource( elem.id );
+			" PASSIVE="1" ENABLE-EXPR="! Ps.is_v2"/>
+
+			<MENU-ENTRY TITLE-EXPR="Ps.Doc.Form.TopElem.groups.group.Title" ACTION="
+					group = Ps.groups.AddChild();
+					Screen.Update();
+					Screen.ExposeItemBySource( group.id );
+			" PASSIVE="1"/>
+
+			<MENU-ENTRY TITLE="##UiText.fields.column##" ACTION="
+					field = Ps.fields.AddChild();
+					Screen.Update();
+					Screen.ExposeItemBySource( field.id );
+			" PASSIVE="1" ENABLE-EXPR="! Ps.is_v2"/>
+		</MENU>
+	</TOOLBAR-ENTRY>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/stat.ico" TIP-TEXT="Запустить отчет" ACTION="
+			if ( Ps.Doc.IsChanged || Ps.Doc.NeverSaved )
+				Screen.SaveDoc();
+
+			Screen.Navigate( '//base1/base1_view_stats.xml', 'FrameStats' );
+			targetScreen = FindScreen( 'FrameStats' );
+			targetScreen.Navigate( lib_stat.obtain_stat_url( Ps.id ), 'FrameStatsMain' );
+	" PASSIVE="1" lang-en:TIP-TEXT="Run report" lang-ua:TIP-TEXT="Запустити звіт"/>
+
+	<INHERIT TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="40zr" STD-MARGINS="0">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="0">
+		</TREE>
+	</PANEL>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="Статистический отчет" SUNKEN="1" EXPANDED="1" IMAGE-URL="//base_pict/stat.ico" lang-en:TITLE="Report" lang-ua:TITLE="Статистичний звіт">
+
+
+
+<PAGE TITLE="##UiText.sections.general##" SUNKEN="1" IMAGE-URL="//base_pict/common.ico" lang-en:TITLE="General">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="30zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.section_id" LABEL-TITLE="##UiText.titles.section##:"/>
+	</TABLE>
+	<DELIM/>
+
+	<IF EXPR="! Ps.is_v2">
+		<CHECK SOURCE="Ps.stat_only" TITLE="##UiText.fields.stat_only##"/>
+		<DELIM/>
+	</IF>
+
+	<CHECK SOURCE="Ps.show_total" TITLE="Показывать строку 'Итого'" lang-en:TITLE="Show totals" lang-ua:TITLE="Показувати рядок 'Разом'"/>
+
+	<IF EXPR="! Ps.is_v2">
+		<CHECK SOURCE="Ps.show_total_average" TITLE="Показывать строку 'Среднее'" lang-en:TITLE="Show average" lang-ua:TITLE="Показувати рядок 'Середнє'"/>
+		<CHECK SOURCE="Ps.is_vert" TITLE="Вертикальное расположение" lang-en:TITLE="Vertical placement" lang-ua:TITLE="Вертикальне розташування"/>
+		<BR/>
+	
+		<ITEM TYPE="width_edit" SOURCE="Ps.width" LABEL-TITLE="##UiText.fields.width##:"/>
+		<DELIM/>
+
+		<CODE-EDIT SOURCE="Ps.build_action" LABEL-TITLE="Выполняемый код" lang-en:LABEL-TITLE="Build code" HEIGHT="9zr" lang-ua:LABEL-TITLE="Виконуваний код"/>
+	</IF>
+
+	<DELIM/>
+	<LABEL TITLE="Шаблон для выгрузки в MS Excel:" lang-en:TITLE="MS Excel Template" lang-ua:TITLE="Шаблон для вивантаження в MS Excel"/>
+	<BR/>
+
+	<ITEM TYPE="file_path_selector" SOURCE="Ps.print_template.file_path" LABEL-TITLE="Путь к файлу:" lang-en:LABEL-TITLE="File path:" lang-ua:LABEL-TITLE="Шлях файлу:"/>
+		
+	<GROUP>
+		<EDIT SOURCE="Ps.print_template.base_range" WIDTH="10zr" LABEL-TITLE="Начальная ячейка:" lang-en:LABEL-TITLE="Base cell:" lang-ua:LABEL-TITLE="Початкова осередок:"/>
+	</GROUP>
+</PAGE>
+
+
+
+
+<IF EXPR="Ps.settings_screen_form_url.HasValue">
+
+<PAGE TITLE="##UiText.titles.options##" IMAGE-URL="//base_pict/aux_info.ico" EXPANDED="1">
+	<SUBST FORM-EXPR="Ps.settings_screen_form_url" SOURCE="Ps.settings"/>
+</PAGE>
+
+</IF>
+
+
+
+<IF EXPR="! Ps.is_v2">
+
+
+
+<PAGE TITLE="Источники данных" IMAGE-URL="//base_pict/folder.ico" EXPANDED="1" lang-en:TITLE="Data sources" lang-ua:TITLE="Джерела даних">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<LIST>
+			<COLUMNS>
+				<COL WIDTH="50zr" TITLE="##UiText.fields.id##" lang-en:TITLE="ID"/>
+				<COL WIDTH="12zr" TITLE="##UiText.titles.catalog##" ALIGN="center" lang-en:TITLE="Catalog"/>
+			</COLUMNS>
+
+			<LOOP EXPR="Ps.sources" VAR="ListElem">
+				<ROW OPEN-ACTION="Screen.ExposeItemBySource( ListElem.id )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );" IMAGE-URL="//base_pict/generic_item.ico">
+					<COL TITLE-EXPR="ListElem.id"/>
+					<COL TITLE-EXPR="ListElem.catalog_name"/>
+				</ROW>
+
+				<PAGE TITLE-EXPR="ListElem.id" IMAGE-URL="//base_pict/generic_item.ico" SOURCE="ListElem" SUNKEN="1" VERT-SCROLL="1">
+					<LABEL TITLE-EXPR="Ps.FormElem.Title + ':'" BOLD="1"/>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="20zr"/>
+						</COLUMNS>
+
+						<LABEL TITLE="##UiText.fields.id##:" lang-en:TITLE="ID:"/>
+						<EDIT SOURCE="Ps.id"/>
+					</TABLE>
+					<DELIM/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="20zr"/>
+							<COL WIDTH="button"/>
+						</COLUMNS>
+
+						<LABEL TITLE="##UiText.titles.catalog##:" lang-en:TITLE="Catalog:"/>
+						<LABEL/>
+
+						<EDIT SOURCE="Ps.catalog_name"/>
+
+						<BUTTON IMAGE-URL="//base_pict/down_arrow.ico">
+							<MENU>
+								<LOOP EXPR="card_object_types" VAR="_card_object_type">
+									<MENU-ENTRY TITLE-EXPR="lib_base.get_catalog_title( DefaultDb.GetOptCatalog( lib_base.object_name_to_catalog_name( _card_object_type.id ) ) )" ACTION="
+											Ps.catalog_name = lib_base.object_name_to_catalog_name( _card_object_type.id );
+											Ps.Doc.SetChanged( true );
+									"/>
+								</LOOP>
+							</MENU>
+						</BUTTON>
+					</TABLE>
+					<BR/>
+
+					<CHECK SOURCE="Ps.is_secondary" TITLE="Вторичный источник" lang-en:TITLE="Secondary source" lang-ua:TITLE="Вторинне джерело"/>
+					<CHECK SOURCE="Ps.stat_only" TITLE="##UiText.fields.stat_only##"/>
+					<DELIM/>
+
+					<LABEL TITLE="Фильтры XQuery:" lang-en:TITLE="XQuery filters:" lang-ua:TITLE="Фільтри XQuery:"/>
+					<BR/>
+
+					<GRID HEIGHT="auto" FIXED-WORK-ROW-HEIGHT="1">
+						<COLUMNS>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<ROW HEADER_="1">
+							<LABEL TITLE="##UiText.fields.filter##" ALIGN="center"/>
+						</ROW>
+
+						<ROW MULTIPLE="1" SOURCE="Ps.xquery_qual">
+							<EDIT SOURCE="ListElem"/>
+						</ROW>
+					</GRID>
+					<DELIM/>
+
+
+					<LABEL TITLE="Вычисляемые фильтры XQuery (формулы):" lang-en:TITLE="XQuery filter formulas:" lang-ua:TITLE="Обчислювані фільтри XQuery (формули):"/>
+					<BR/>
+
+					<GRID HEIGHT="auto" FIXED-WORK-ROW-HEIGHT="1">
+						<COLUMNS>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<ROW HEADER_="1">
+							<LABEL TITLE="##UiText.fields.filter##" ALIGN="center"/>
+						</ROW>
+
+						<ROW MULTIPLE="1" SOURCE="Ps.xquery_qual_expr">
+							<EDIT SOURCE="ListElem"/>
+						</ROW>
+					</GRID>
+					<DELIM/>
+
+
+					<LABEL TITLE="Локальный фильтр (формула):" lang-en:TITLE="Local filter:" lang-ua:TITLE="Локальний фільтр (формула):"/>
+					<EDIT SOURCE="Ps.qual"/>
+					<DELIM/>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="25zr"/>
+							<COL WIDTH="35zr"/>
+							<COL WIDTH="35zr"/>
+						</COLUMNS>
+
+						<LABEL TITLE="Базовый источник:" lang-en:TITLE="Base source:" lang-ua:TITLE="Базовий джерело:"/>
+						<LABEL TITLE="Поле привязки:" lang-en:TITLE="Binding field:" lang-ua:TITLE="Поле прив'язки:"/>
+						<LABEL TITLE="Поле привязки базового источника:" lang-en:TITLE="Base source key field:" lang-ua:TITLE="Поле прив'язки базового джерела:"/>
+
+						<COMBO SOURCE="Ps.join_base" FOREIGN-ARRAY="TopElem.sources" ELEM="ListElem.id"/>
+						<EDIT SOURCE="Ps.join_key"/>
+						<EDIT SOURCE="Ps.join_base_key"/>
+					</TABLE>
+					<DELIM/>
+
+
+					<LABEL TITLE="Вычисляемые атрибуты:" lang-en:TITLE="Dynamic properties:" lang-ua:TITLE="Обчислювані атрибути:"/>
+					<BR/>
+
+					<GRID HEIGHT="auto" FIXED-WORK-ROW-HEIGHT="1">
+						<COLUMNS>
+							<COL WIDTH="15zr"/>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<ROW HEADER_="1">
+							<LABEL TITLE="##UiText.fields.id##" ALIGN="center" lang-en:TITLE="ID"/>
+							<LABEL TITLE="Выражение" ALIGN="center" lang-en:TITLE="Formula" lang-ua:TITLE="Вираз"/>
+						</ROW>
+
+						<ROW MULTIPLE="1" SOURCE="Ps.add_field">
+							<EDIT SOURCE="ListElem.id"/>
+							<EDIT SOURCE="ListElem.expr"/>
+						</ROW>
+					</GRID>
+					<DELIM/>
+
+				</PAGE>
+			</LOOP>
+		</LIST>
+	</PANEL>
+</PAGE>
+
+
+
+<PAGE TITLE="##UiText.fields.static_filters##" IMAGE-URL="//base_pict/folder.ico" EXPANDED="1">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<LIST>
+			<COLUMNS>
+				<COL WIDTH="15zr" TITLE="##UiText.titles.data_source##"/>
+				<COL WIDTH="50zr" TITLE="##UiText.fields.field##"/>
+				<COL WIDTH="12zr" TITLE="##UiText.fields.predicate##"/>
+				<COL WIDTH="12zr" TITLE="##UiText.fields.value##" ALIGN="center"/>
+				<COL WIDTH="100%" TITLE="##UiText.fields.value_expr##" ALIGN="center"/>
+			</COLUMNS>
+
+			<LOOP EXPR="Ps.static_filters" VAR="ListElem">
+				<ROW OPEN-ACTION="Screen.ExposeItemBySource( ListElem.id )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );" IMAGE-URL="//base_pict/generic_item.ico">
+					<COL TITLE-EXPR="ListElem.source_id"/>
+					<COL TITLE-EXPR="lib_base.object_field_desc( ListElem.id, lib_base.catalog_name_to_object_name( ListElem.source_id ) )"/>
+					<COL TITLE-EXPR="ListElem.cmp_pred.ForeignDispName"/>
+					<COL TITLE-EXPR="ListElem.value"/>
+					<COL TITLE-EXPR="ListElem.value_expr"/>
+				</ROW>
+
+				<PAGE TITLE-EXPR="ListElem.source_id.HasValue ? lib_base.object_field_desc( ListElem.id, lib_base.catalog_name_to_object_name( ListElem.source_id ) ) : ''" IMAGE-URL="//base_pict/generic_item.ico" SOURCE="ListElem" SUNKEN="1" VERT-SCROLL="1">
+					<LABEL TITLE="##UiText.fields.static_filter##:" BOLD="1"/>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="25zr"/>
+						</COLUMNS>
+
+						<COMBO SOURCE="Ps.source_id" ELEM="ListElem.catalog_name" LABEL-TITLE="##UiText.titles.data_source##:"/>
+					</TABLE>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="40zr"/>
+							<COL WIDTH="24zr"/>
+							<COL WIDTH="13zr"/>
+							<COL WIDTH="22zr"/>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<ITEM TYPE="object_field_selector" SOURCE="Ps.id" LABEL-TITLE="##UiText.fields.field##:"/>
+						<EDIT SOURCE="Ps.id" LABEL-TITLE="##UiText.fields.id##:"/>
+						<COMBO SOURCE="Ps.cmp_pred" ELEM="ListElem.name" LABEL-TITLE="##UiText.fields.predicate##:"/>
+						<EDIT SOURCE="Ps.value" LABEL-TITLE="##UiText.fields.value##:"/>
+						<EDIT SOURCE="Ps.value_expr" LABEL-TITLE="##UiText.fields.value_expr##:"/>
+					</TABLE>
+				</PAGE>
+			</LOOP>
+		</LIST>
+	</PANEL>
+</PAGE>
+
+
+
+<PAGE TITLE="##UiText.fields.dynamic_filters##" IMAGE-URL="//base_pict/folder.ico" EXPANDED="1">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<LIST>
+			<COLUMNS>
+				<COL WIDTH="15zr" TITLE="##UiText.titles.data_source##"/>
+				<COL WIDTH="50zr" TITLE="##UiText.fields.field##"/>
+				<COL WIDTH="100%" TITLE="##UiText.fields.name##"/>
+			</COLUMNS>
+
+			<LOOP EXPR="Ps.dyn_filters" VAR="ListElem">
+				<ROW OPEN-ACTION="Screen.ExposeItemBySource( ListElem.id )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );" IMAGE-URL="//base_pict/generic_item.ico">
+					<COL TITLE-EXPR="ListElem.source_id"/>
+					<COL TITLE-EXPR="lib_base.object_field_desc( ListElem.id, lib_base.catalog_name_to_opt_object_name( ListElem.source_id ) )"/>
+					<COL TITLE-EXPR="ListElem.title"/>
+				</ROW>
+
+				<PAGE TITLE-EXPR="lib_base.object_field_desc( ListElem.id, lib_base.catalog_name_to_opt_object_name( ListElem.source_id ) )" IMAGE-URL="//base_pict/generic_item.ico" SOURCE="ListElem" SUNKEN="1" VERT-SCROLL="1">
+					<LABEL TITLE="##UiText.fields.dynamic_filter##:" BOLD="1"/>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="25zr"/>
+						</COLUMNS>
+
+						<COMBO SOURCE="Ps.source_id" ELEM="ListElem.catalog_name" LABEL-TITLE="##UiText.titles.data_source##:"/>
+					</TABLE>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="45zr"/>
+							<COL WIDTH="25zr"/>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<ITEM TYPE="object_field_selector" SOURCE="Ps.id" LABEL-TITLE="##UiText.fields.field##:" ENABLE-EXPR="Ps.source_id.HasValue"/>
+						<EDIT SOURCE="Ps.id" LABEL-TITLE="##UiText.fields.id##:"/>
+						<EDIT SOURCE="Ps.title" LABEL-TITLE="##UiText.fields.name##:"/>
+					</TABLE>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="30zr"/>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<COMBO SOURCE="Ps.data_type" LABEL-TITLE="##UiText.fields.data_type##:">
+							<INHERIT TYPE="data_type_combo_entries"/>
+						</COMBO>
+
+						<EDIT SOURCE="Ps.exist_req_expr" LABEL-TITLE="##UiText.titles.exist_req_expr##:"/>
+					</TABLE>
+					<BR/>
+
+					<CHECK SOURCE="Ps.is_multiple" TITLE="##UiText.titles.multiple_choice##"/>
+					<BR/>
+
+					<EDIT SOURCE="Ps.view_filter_expr" LABEL-TITLE="Фильтр значений из списка (формула):" lang-en:LABEL-TITLE="List values filter formula:" lang-ua:LABEL-TITLE="Фільтр значень зі списку (формула):"/>
+					<DELIM/>
+
+					<CHECK SOURCE="Ps.use_range" TITLE="Фильтр по диапазону значений" lang-en:TITLE="Range filter" lang-ua:TITLE="Фільтр по діапазону значень"/>
+					<CHECK SOURCE="Ps.use_ft" TITLE="##UiText.titles.ft_search##"/>
+					<CHECK SOURCE="Ps.is_auto" TITLE="##UiText.titles.apply_automatically##"/>
+					<DELIM/>
+
+					<ITEM TYPE="width_edit" SOURCE="Ps.width" LABEL-TITLE="##UiText.fields.width##:"/>
+					<DELIM/>
+
+					<CHECK SOURCE="Ps.use_new_line" TITLE="##UiText.fields.use_new_line##"/>
+					<DELIM/>
+				</PAGE>
+			</LOOP>
+		</LIST>
+	</PANEL>
+</PAGE>
+
+
+
+
+<PAGE TITLE="##UiText.titles.columns##" IMAGE-URL="//base_pict/folder.ico" EXPANDED="1">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<LIST>
+			<COLUMNS>
+				<COL WIDTH="100%" TITLE="##UiText.fields.id##" lang-en:TITLE="ID"/>
+			</COLUMNS>
+
+			<LOOP EXPR="Ps.fields" VAR="ListElem">
+				<ROW OPEN-ACTION="Screen.ExposeItemBySource( ListElem.id )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );" IMAGE-URL="//base_pict/generic_item.ico">
+					<COL TITLE-EXPR="ListElem.id"/>
+				</ROW>
+
+				<PAGE TITLE-EXPR="ListElem.id" IMAGE-URL="//base_pict/generic_item.ico" SOURCE="ListElem" SUNKEN="1" VERT-SCROLL="1">
+					<LABEL TITLE="##UiText.fields.column##:" BOLD="1"/>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="25zr"/>
+						</COLUMNS>
+
+						<COMBO SOURCE="Ps.source_id" ELEM="ListElem.catalog_name" LABEL-TITLE="##UiText.titles.data_source##:"/>
+					</TABLE>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="45zr"/>
+							<COL WIDTH="25zr"/>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<ITEM TYPE="object_field_selector" SOURCE="Ps.id" LABEL-TITLE="##UiText.fields.field##:" lang-en:LABEL-TITLE="Field:" ENABLE-EXPR="Ps.source_id.HasValue"/>
+						<EDIT SOURCE="Ps.id" LABEL-TITLE="##UiText.fields.id##:" lang-en:LABEL-TITLE="ID:"/>
+						<EDIT SOURCE="Ps.col_title" LABEL-TITLE="##UiText.titles.column_titlle##:"/>
+					</TABLE>
+					<BR/>
+
+					<EDIT SOURCE="Ps.tip_text" LABEL-TITLE="##UiText.titles.column_tip_text##:"/>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="30zr"/>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<COMBO SOURCE="Ps.data_type" LABEL-TITLE="##UiText.fields.data_type##:">
+							<INHERIT TYPE="data_type_combo_entries"/>
+						</COMBO>
+
+						<EDIT SOURCE="Ps.exist_req_expr" LABEL-TITLE="##UiText.titles.exist_req_expr##:"/>
+					</TABLE>
+					<BR/>
+
+					<EDIT SOURCE="Ps.elem_expr" LABEL-TITLE="##UiText.fields.elem_expr##:"/>
+					<DELIM/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="60zr"/>
+						</COLUMNS>
+
+						<LABEL TITLE="Всплывающий текст:" lang-en:TITLE="Tip text:" lang-ua:TITLE="Вспливаючий текст:"/>
+						<EDIT SOURCE="Ps.tip_text"/>
+					</TABLE>
+					<DELIM/>
+
+					<CHECK TITLE="Объединить в группу с предыдущим столбцом" SOURCE="Ps.keep_to_prev" lang-en:TITLE="Join with previous column" lang-ua:TITLE="Об'єднати в групу з попереднім стовпцем"/>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="40%"/>
+							<COL WIDTH="60%"/>
+						</COLUMNS>
+
+						<LABEL TITLE="Групповой заголовок:" lang-en:TITLE="Group title:" lang-ua:TITLE="Груповий заголовок:"/>
+						<LABEL TITLE="Групповой всплывающий текст:" lang-en:TITLE="Group tip text:" lang-ua:TITLE="Груповий спливаючий текст:"/>
+
+						<EDIT SOURCE="Ps.span_title" ENABLE-EXPR="! Ps.keep_to_prev"/>
+						<EDIT SOURCE="Ps.span_tip_text" ENABLE-EXPR="! Ps.keep_to_prev"/>
+					</TABLE>
+					<DELIM/>
+					
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="20zr"/>
+							<COL WIDTH="20zr"/>
+						</COLUMNS>
+
+						<COMBO SOURCE="Ps.data_type" LABEL-TITLE="##UiText.fields.data_type##:">
+							<INHERIT TYPE="data_type_combo_entries"/>
+						</COMBO>
+
+						<COMBO SOURCE="Ps.data_sub_type" LABEL-TITLE="Подтип данных:" lang-en:LABEL-TITLE="Subtype:" ENABLE-EXPR="Ps.data_type == 'integer'" lang-ua:LABEL-TITLE="Підтип даних:">
+							<COMBO-ENTRY TITLE="---" VALUE=""/>
+							<COMBO-ENTRY TITLE="%" VALUE="%"/>
+						</COMBO>
+					</TABLE>
+					<DELIM/>
+
+					<CHECK SOURCE="Ps.stat_only" TITLE="##UiText.fields.stat_only##" lang-en:TITLE="Show statistical data only"/>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="30zr"/>
+						</COLUMNS>
+
+						<LABEL TITLE="Статистическая функция:" lang-en:TITLE="Statistical function:" lang-ua:TITLE="Статистична функція:"/>
+
+						<COMBO SOURCE="Ps.stat_func">
+							<COMBO-ENTRY TITLE="---" VALUE=""/>
+							<COMBO-ENTRY TITLE="##UiText.fields.quantity##" VALUE="count" lang-en:TITLE="Count"/>
+							<COMBO-ENTRY TITLE="##UiText.titles.sum##" VALUE="sum"/>
+							<COMBO-ENTRY TITLE="Среднее" VALUE="average" lang-en:TITLE="Average" lang-ua:TITLE="Середнє"/>
+							<COMBO-ENTRY TITLE="Процент соответствий" VALUE="match_percent" lang-en:TITLE="Match ratio" lang-ua:TITLE="Відсоток відповідностей"/>
+						</COMBO>
+					</TABLE>
+					<DELIM/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<LABEL TITLE="Условие соответствия:" lang-en:TITLE="Matching criteria:" lang-ua:TITLE="Умова відповідності:"/>
+						<EDIT SOURCE="Ps.stat_qual"/>
+					</TABLE>
+					<DELIM/>
+
+					<ITEM TYPE="width_edit" SOURCE="Ps.width" LABEL-TITLE="##UiText.fields.width##:"/>
+					<DELIM/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="50%"/>
+							<COL WIDTH="50%"/>
+						</COLUMNS>
+
+						<LABEL TITLE="##UiText.fields.text_color_expr##:" lang-en:TITLE="Text color formula:"/>
+						<LABEL TITLE="##UiText.fields.bk_color_expr##:" lang-en:TITLE="Background color formula:"/>
+
+						<EDIT SOURCE="Ps.text_color_expr"/>
+						<EDIT SOURCE="Ps.bk_color_expr"/>
+					</TABLE>
+					<DELIM/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="20zr"/>
+						</COLUMNS>
+
+						<ITEM TYPE="text_align" SOURCE="Ps.align"/>
+					</TABLE>
+					<DELIM/>
+				</PAGE>
+			</LOOP>
+		</LIST>
+	</PANEL>
+</PAGE>
+
+
+</IF>
+
+
+
+<PAGE TITLE="Группировки" IMAGE-URL="//base_pict/folder.ico" EXPANDED="1" lang-en:TITLE="Grouping" lang-ua:TITLE="Групування">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<LIST>
+			<COLUMNS>
+				<COL WIDTH="100%" TITLE="##UiText.titles.elem__or__field##"/>
+			</COLUMNS>
+
+			<LOOP EXPR="Ps.groups" VAR="ListElem">
+				<ROW OPEN-ACTION="Screen.ExposeItemBySource( ListElem.elem )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );" IMAGE-URL="//base_pict/generic_item.ico">
+					<COL TITLE-EXPR="ListElem.id"/>
+				</ROW>
+
+				<PAGE TITLE-EXPR="ListElem.id" IMAGE-URL="//base_pict/generic_item.ico" SOURCE="ListElem" SUNKEN="1" VERT-SCROLL="1">
+					<LABEL TITLE-EXPR="Ps.FormElem.Title + ':'" BOLD="1"/>
+					<BR/>
+				
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<LABEL TITLE="##UiText.fields.field##:" lang-en:TITLE="Field:"/>
+						<EDIT SOURCE="Ps.id"/>
+					</TABLE>
+					<DELIM/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<LABEL TITLE="Вычисляемый заголовок:" lang-en:TITLE="Title formula:" lang-ua:TITLE="Обчислюваний заголовок:"/>
+						<EDIT SOURCE="Ps.title_expr"/>
+					</TABLE>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="30zr"/>
+						</COLUMNS>
+
+						<LABEL TITLE="Группировка даты:" lang-en:TITLE="Data ranging:" lang-ua:TITLE="Групування дати:"/>
+
+						<COMBO SOURCE="Ps.range_sub_type">
+							<COMBO-ENTRY TITLE="---" VALUE=""/>
+							<COMBO-ENTRY TITLE="По дням" VALUE="day" lang-en:TITLE="By day" lang-ua:TITLE="По дням"/>
+							<COMBO-ENTRY TITLE="По месяцам" VALUE="month" lang-en:TITLE="By month" lang-ua:TITLE="По місяцям"/>
+							<COMBO-ENTRY TITLE="По годам и месяцам" VALUE="year_month" lang-en:TITLE="By year and month" lang-ua:TITLE="По рокам і місяцям"/>
+							<COMBO-ENTRY TITLE="По годам" VALUE="year" lang-en:TITLE="By year" lang-ua:TITLE="По рокам"/>
+						</COMBO>
+					</TABLE>
+					<DELIM/>
+				</PAGE>
+			</LOOP>
+		</LIST>
+	</PANEL>
+</PAGE>
+
+
+
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+
+</LINE>
+
+</SPXML-SCREEN>
+

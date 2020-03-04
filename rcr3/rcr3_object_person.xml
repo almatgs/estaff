@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="Object.person" ObjectType="person" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<Page ID="Common" Layout="table1">
+	<UI:Item Field="fullname"/>
+	<UI:Item Field="code"/>
+	<UI:Item Field="division_id"/>
+	<UI:Item Field="position_name"/>
+
+	<UI:Break/>
+
+	<UI:Item Field="mobile_phone"/>
+	<UI:Item Field="work_phone"/>
+	<UI:Item Field="email"/>
+</Page>
+
+
+<UI:Attachments/>
+
+
+</UiTemplate>
+

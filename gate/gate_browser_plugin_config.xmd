@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<browser_plugin_config>
+	<description TYPE="string"/>
+	<handler_method TYPE="string" SUBTYPE="code"/>
+
+	<actions>
+		<action MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<image_url TYPE="string"/>
+
+			<sel_required TYPE="bool" NULL-FALSE="1"/>
+			<no_sel_error_text TYPE="string"/>
+		</action>
+	</actions>
+</browser_plugin_config>
+
+
+
+</SPXML-FORM>

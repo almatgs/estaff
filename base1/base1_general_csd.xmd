@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<csd_data_def SAMPLE="1">
+	<elems RECURSIVE-ARRAY="1">
+		<elem MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<type TYPE="string" FOREIGN-ARRAY="base1_common.csd_elem_types" DEFAULT="string"/>
+			<name TYPE="string"/>
+
+			<default_value TYPE="string"/>
+			<foreign_array_expr TYPE="string"/>
+
+			<is_sample TYPE="bool" NOT-NULL="1"/>
+
+			<ext_type TYPE="string"/>
+			<instance_type TYPE="string" NOT-NULL="1" DEFAULT="fixed"/>
+
+			<is_multiline TYPE="bool" NOT-NULL="1"/>
+
+			<has_values_list TYPE="bool" NOT-NULL="1"/>
+			<values_list>
+				<value TYPE="string" MULTIPLE="1"/>
+			</values_list>
+
+			<has_value_items TYPE="bool" NOT-NULL="1"/>
+			<value_items>
+				<value_item  MULTIPLE="1" PRIMARY-KEY="id">
+					<id TYPE="string"/>
+					<name TYPE="string"/>
+					<full_name TYPE="string" EXPR-INIT="name"/>
+				</value_item>
+			</value_items>
+
+			<use_ft TYPE="bool" NOT-NULL="1"/>
+
+
+			<data_type PROPERTY="1" EXPR="
+					switch ( type )
+					{
+						case 'doc_id':
+							return 'integer';
+
+						default:
+							return type;
+					}
+			"/>
+
+
+			<base_def PROPERTY="1" EXPR="
+					curNode = id.Parent.Parent.Parent;
+
+					while ( true )
+					{
+						try
+						{
+							node = curNode.Parent.Parent;
+							if ( ! node.PropertyExists( 'base_def' ) )
+								break;
+
+							curNode = node;
+						}
+						catch ( e )
+						{
+							break;
+						}
+					}
+
+					return curNode;
+			"/>
+
+
+			<data_path PROPERTY="1" EXPR="
+					str = '';
+					curNode = id.Parent;
+
+					while ( true )
+					{
+						if ( curNode.type.ForeignElem.is_data )
+						{
+							if ( str != '' )
+								str = '.' + str;
+
+							str = curNode.id + str;
+						}
+
+						try
+						{
+							curNode = curNode.Parent.Parent;
+							curNode.type;
+						}
+						catch ( e )
+						{
+							break;
+						}
+					}
+
+					return str;
+			"/>
+
+
+			<find_sample PROPERTY="1" EXPR="
+					baseNodesArray = id.Parent.Parent;
+
+					while ( true )
+					{
+						for ( node in baseNodesArray )
+						{
+							if ( node.id == ext_type )
+								return node;
+						}
+
+						try
+						{
+							baseNodesArray = baseNodesArray.Parent.Parent;
+						}
+						catch ( e )
+						{
+							break;
+						}
+					}
+
+					return undefined;
+			"/>
+
+
+			<has_child_single_nodes PROPERTY="1" EXPR="
+					for ( node in items )
+					{
+						if ( node.instance_type == 'single' || node.has_child_single_nodes )
+							return true;
+					}
+
+					return false;
+			"/>
+		</elem>
+	</elems>
+</csd_data_def>
+
+
+
+
+<csd_screen_def SAMPLE="1">
+	<items RECURSIVE-ARRAY="1">
+		<item MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<type TYPE="string" FOREIGN-ARRAY="base1_common.csd_screen_item_types"/>
+			<name TYPE="string"/>
+
+			<is_sample TYPE="bool" NOT-NULL="1"/>
+
+			<ext_type TYPE="string"/>
+			<instance_type TYPE="string" NOT-NULL="1" DEFAULT="fixed"/>
+
+			<is_multiline TYPE="bool" NOT-NULL="1"/>
+
+			<has_values_list TYPE="bool" NOT-NULL="1"/>
+			<values_list>
+				<value TYPE="string" MULTIPLE="1"/>
+			</values_list>
+
+			<has_value_items TYPE="bool" NOT-NULL="1"/>
+			<value_items>
+				<value_item  MULTIPLE="1" PRIMARY-KEY="id">
+					<id TYPE="string"/>
+					<name TYPE="string"/>
+					<full_name TYPE="string" EXPR-INIT="name"/>
+				</value_item>
+			</value_items>
+
+			<use_ft TYPE="bool" NOT-NULL="1"/>
+
+
+			<base_def PROPERTY="1" EXPR="
+					curNode = id.Parent.Parent.Parent;
+
+					while ( true )
+					{
+						try
+						{
+							node = curNode.Parent.Parent;
+							if ( ! node.PropertyExists( 'base_def' ) )
+								break;
+
+							curNode = node;
+						}
+						catch ( e )
+						{
+							break;
+						}
+					}
+
+					return curNode;
+			"/>
+
+
+			<data_path PROPERTY="1" EXPR="
+					str = '';
+					curNode = id.Parent;
+
+					while ( true )
+					{
+						if ( curNode.type.ForeignElem.is_data )
+						{
+							if ( str != '' )
+								str = '.' + str;
+
+							str = curNode.id + str;
+						}
+
+						try
+						{
+							curNode = curNode.Parent.Parent;
+							curNode.type;
+						}
+						catch ( e )
+						{
+							break;
+						}
+					}
+
+					return str;
+			"/>
+
+
+			<find_sample PROPERTY="1" EXPR="
+					baseNodesArray = id.Parent.Parent;
+
+					while ( true )
+					{
+						for ( node in baseNodesArray )
+						{
+							if ( node.id == ext_type )
+								return node;
+						}
+
+						try
+						{
+							baseNodesArray = baseNodesArray.Parent.Parent;
+						}
+						catch ( e )
+						{
+							break;
+						}
+					}
+
+					return undefined;
+			"/>
+
+
+			<has_child_single_nodes PROPERTY="1" EXPR="
+					for ( node in items )
+					{
+						if ( node.instance_type == 'single' || node.has_child_single_nodes )
+							return true;
+					}
+
+					return false;
+			"/>
+		</item>
+	</items>
+</csd_screen_def>
+
+
+
+<csd_def SAMPLE="1">
+	<data_def TYPE="csd_data_def"/>
+	<screen_def TYPE="csd_screen_def"/>
+
+
+	<base_def PROPERTY="1" EXPR="items.Parent"/>
+
+
+	<obtain_next_elem_id PROPERTY="1" PARAM="baseElem" EXPR="
+			numericBase = 1;
+			
+			while ( true )
+			{
+				elemID = 'elem' + numericBase;
+
+				if ( ! baseElem.items.ChildByKeyExists( elemID ) )
+					break;
+
+				numericBase++;
+			}
+
+			return elemID;
+	"/>
+
+
+	<check_elem_id PROPERTY="1" PARAM="baseElem" PARAM="elemID" PARAM="excptElem" EXPR="
+			for ( elem in baseElem.items )
+			{
+				if ( elem.id == elemID && elem !== excptElem )
+					return true;
+			}
+
+			return false;
+	"/>
+
+
+
+	<get_form_data PROPERTY="1" EXPR="
+			form = OpenDocFromStr( '<SPXML-FORM></SPXML-FORM>' ).TopElem;
+
+			formElem = form.AddChild( 'main' );
+			formElem.AddAttr( 'SAMPLE', '1' );
+
+			build_sub_tags( items, formElem );
+
+			//alert( form.Xml );
+			return form.Xml;
+	"/>
+
+
+	<build_sub_tags PROPERTY="1" PARAM="nodesArray" PARAM="baseFormElem" EXPR="
+			var			node;
+
+			for ( node in nodesArray )
+				build_sub_tag( node, baseFormElem );
+	"/>
+
+
+	<build_sub_tag PROPERTY="1" PARAM="node" PARAM="baseFormElem" EXPR="
+			var			formElem;
+
+			if ( node.is_sample )
+				return;
+
+			if ( node.type == 'ELEM' )
+			{
+				sampleNode = node.find_sample();
+				if ( sampleNode == undefined )
+					return;
+				
+				newNode = sampleNode.Clone();
+				newNode.is_sample = false;
+				newNode.id = node.id;
+				newNode.name = node.name;
+
+				build_sub_tag( newNode, baseFormElem );
+				return;
+			}
+
+			if ( ! node.type.ForeignElem.is_data )
+			{
+				build_sub_tags( node.items, baseFormElem );
+				return;
+			}
+
+			formElem = baseFormElem.AddChild( node.id );
+			
+			if ( node.type != 'record' )
+				formElem.AddAttr( 'TYPE', node.type );
+
+			if ( node.instance_type == 'single' )
+				formElem.AddAttr( 'SINGLE', '1' );
+
+			if ( node.instance_type == 'multiple' )
+				formElem.AddAttr( 'MULTIPLE', '1' );
+
+			if ( node.type == 'bool' )
+				formElem.AddAttr( 'NOT-NULL', '1' );
+
+			if ( node.type != 'record' )
+				formElem.AddAttr( 'FT', '1' );
+
+			build_sub_tags( node.items, formElem );
+	"/>
+
+
+
+
+
+	<get_screen_form_data PROPERTY="1" PARAM="pageScope" EXPR="
+			form = OpenDocFromStr( '<SPXML-SCREEN></SPXML-SCREEN>' ).TopElem;
+
+			formItem = form.AddChild( 'UNIT' );
+			formItem.AddAttr( 'NAME', 'main' );
+			formItem.AddAttr( 'SAMPLE', '1' );
+
+			build_screen_sub_tags( items, formItem, pageScope );
+
+			//alert( form.Xml );
+			return form.Xml;
+	"/>
+
+
+	<build_screen_sub_tags PROPERTY="1" PARAM="nodesArray" PARAM="baseFormItem" PARAM="pageScope" EXPR="
+			var			node;
+
+			for ( node in nodesArray )
+				build_screen_sub_tag( node, baseFormItem, pageScope );
+	"/>
+
+
+	<build_screen_sub_tag PROPERTY="1" PARAM="node" PARAM="baseFormItem" PARAM="pageScope" EXPR="
+			var			formItem;
+			var			isData;
+
+			if ( node.is_sample )
+				return;
+
+			if ( pageScope != undefined )
+			{
+				if ( pageScope == 'common' && node.type == 'PAGE' )
+					return;
+
+				if ( pageScope == 'other' && node.type != 'PAGE' )
+					return;
+			}
+
+			if ( node.type == 'ELEM' )
+			{
+				sampleNode = node.find_sample();
+				
+				newNode = sampleNode.Clone();
+				newNode.is_sample = false;
+				newNode.id = node.id;
+				newNode.name = node.name;
+
+				build_screen_sub_tag( newNode, baseFormItem, undefined );
+				return;
+			}
+
+			isData = node.type.ForeignElem.is_data;
+
+			if ( node.type != 'bool' && node.type != 'PAGE' )
+			{
+				formItem = baseFormItem.AddChild( 'LABEL' );
+				formItem.AddAttr( 'TITLE', node.name + ':' );
+			}
+
+			switch ( node.type )
+			{
+				case 'string':
+					if ( node.has_values_list || node.has_value_items )
+						formItem = baseFormItem.AddChild( 'COMBO' );
+					else
+						formItem = baseFormItem.AddChild( 'EDIT' );
+					break;
+
+				case 'integer':
+				case 'real':
+				case 'date':
+					formItem = baseFormItem.AddChild( 'EDIT' );
+					break;
+
+				case 'bool':
+					formItem = baseFormItem.AddChild( 'CHECK' );
+					break;
+					
+				case 'record':
+					formItem = baseFormItem.AddChild( 'PANEL' );
+					break;
+
+				case 'PAGE':
+					formItem = baseFormItem.AddChild( 'PAGE' );
+					break;
+
+				default:
+					return;
+			}
+
+			if ( node.type == 'string' && node.is_multiline )
+			{
+				formItem.AddAttr( 'MULTILINE', '1' );
+				formItem.AddAttr( 'HEIGHT', 'auto' );
+			}
+
+			if ( node.type == 'bool' || node.type == 'PAGE' )
+				formItem.AddAttr( 'TITLE', node.name );
+
+			if ( isData )
+				formItem.AddAttr( 'SOURCE', 'Ps.' + node.id );
+
+			if ( node.type == 'PAGE' )
+			{
+				formItem.AddAttr( 'SOURCE', 'Ps' );
+				formItem.AddAttr( 'SUNKEN', '1' );
+				formItem.AddAttr( 'VERT-SCROLL', '1' );
+				formItem.AddAttr( 'IMAGE-URL', '//base_pict/csd_page.ico' );
+			}
+
+			if ( isData && node.type != 'record' && node.items.ChildNum != 0 )
+			{
+				formItem = baseFormItem.AddChild( 'PANEL' );
+				formItem.AddAttr( 'SOURCE', 'Ps.' + node.id );
+			}
+			
+			if ( node.has_values_list )
+			{
+				for ( value in node.values_list )
+				{
+					formSubItem = formItem.AddChild( 'COMBO-ENTRY' );
+					formSubItem.AddAttr( 'VALUE', value );
+				}
+			}
+
+			if ( node.has_value_items )
+			{
+				for ( valueItem in node.value_items )
+				{
+					formSubItem = formItem.AddChild( 'COMBO-ENTRY' );
+					formSubItem.AddAttr( 'VALUE', valueItem.id );
+					formSubItem.AddAttr( 'TITLE', valueItem.name );
+				}
+			}
+
+			build_screen_sub_tags( node.items, formItem, undefined );
+	"/>
+
+
+
+
+	<get_selector_form_data PROPERTY="1" PARAM="actionCode" EXPR="
+			form = OpenDocFromStr( '<SPXML-SCREEN></SPXML-SCREEN>' ).TopElem;
+
+			build_selector_sub_tags( items, form, actionCode );
+
+			//alert( form.Xml );
+			return form.Xml;
+	"/>
+
+
+	<build_selector_sub_tags PROPERTY="1" PARAM="nodesArray" PARAM="baseFormItem" PARAM="actionCode" EXPR="
+			var			node;
+
+			for ( node in nodesArray )
+				build_selector_sub_tag( node, baseFormItem, actionCode );
+	"/>
+
+
+	<build_selector_sub_tag PROPERTY="1" PARAM="node" PARAM="baseFormItem" PARAM="actionCode" EXPR="
+			var			formItem;
+			var			isData;
+
+			if ( node.is_sample )
+				return;
+
+			if ( node.type == 'ELEM' )
+			{
+				sampleNode = node.find_sample();
+				
+				newNode = sampleNode.Clone();
+				newNode.is_sample = false;
+				newNode.id = node.id;
+				newNode.instance_type = node.instance_type;
+				newNode.name = node.name;
+
+				build_selector_sub_tag( newNode, baseFormItem, actionCode );
+				return;
+			}
+
+			if ( ! node.type.ForeignElem.is_data )
+				return;
+
+			if ( node.instance_type == 'multiple' )
+				return;
+
+			if ( node.has_child_single_nodes )
+			{
+				formItem = baseFormItem.AddChild( 'MENU' );
+				formItem.AddAttr( 'TITLE', node.name );
+			}
+			else if ( node.instance_type == 'single' )
+			{
+				formItem = baseFormItem.AddChild( 'MENU-ENTRY' );
+				formItem.AddAttr( 'TITLE', node.name );
+				formItem.AddAttr( 'ACTION', actionCode );
+			}
+			else
+			{
+				return;
+			}
+			
+			build_selector_sub_tags( node.items, formItem, actionCode );
+	"/>
+</csd_def>
+
+
+
+
+</SPXML-FORM>

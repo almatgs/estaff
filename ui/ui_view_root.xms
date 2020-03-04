@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="AppName" RESIZE="1" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/estaff_wnd.ico" STD-MARGINS="0" BEFORE-INIT-ACTION="
+		AppUi.useCompatMode1 = false;
+		ui_client.PrepareSectionViewUrl( ui_client.ui_sections[0].url )
+" INIT-ACTION="
+		ObtainDocScreen( 'ui_view_main1.xml' );
+		ui_client.OnHomePageLoaded();
+		Cancel();
+">
+
+<PANEL STD-MARGINS="0" PADDING-EXPR="System.IsWebClient ? '0 14vpx 0 14vpx' : '0 14vpx 7vpx 14vpx'" WIDTH="100%" HEIGHT-EXPR="System.IsWebClient ? '54vpx' : '50vpx'" BK-COLOR-EXPR="AppUi.themeColors.root_header">
+	<LINE>
+		<PANEL STD-MARGINS="0" PADDING="10vpx 6vpx" ACTION="ui_client.BringMain1ScreenToFront()" PASSIVE="1" STATES="pressed" BK-COLOR__="255,200,200">
+			<IMAGE URL="pict/logo_estaff.svg" WIDTH="167epx" HEIGHT="17epx"/>
+		</PANEL>
+		
+		<PANEL WIDTH="25vpx"/>
+
+		<mdi_selector NAME="MdiSelector"/>
+
+		<PANEL WIDTH="2em" ALIGN="right"/>
+
+		<PrimaryImageButton IMAGE-URL="//app_ui/theme/pict/plus.svg" ALIGN="right" WIDTH="26vpx" HEIGHT="26vpx" TIP-TEXT="##UiText.actions.create__new##">
+			<MENU>
+				<MENU-ENTRY TITLE="##UiText.objects.vacancy_request##" ACTION="
+						ui_client.HandleCreateNewObject( 'vacancy_request' );
+				" PASSIVE="1"/>
+			</MENU>
+		</PrimaryImageButton>
+
+		<PANEL WIDTH="24vpx" ALIGN="right"/>
+
+		<PrimaryActionImage IMAGE-URL="//app_ui/theme/pict/all_actions.svg" ALIGN="right">
+			<MENU>
+				<MENU-ENTRY TITLE="Обновить экран" lang-en:TITLE="Refresh Screen" ACTION="
+						DropXQueryCache( ObjectDocUrl( 'data', 'candidate', 1 ) );
+						UpdateScreens( '*', '*' );
+				" lang-ua:TITLE="Оновити екран" PASSIVE="1"/>
+
+							
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="##UiText.sections.about_program##..." ACTION="Screen.ModalDlg( OpenDoc( '//rcr/rcr_dlg_about.xml' ) );" PASSIVE="1"/>
+			</MENU>
+		</PrimaryActionImage>
+
+		<PANEL WIDTH="1.8em"/>
+
+		<PANEL HEIGHT="2em" WIDTH="1px" BK-COLOR-EXPR="AppUi.themeColors.edit_border" ALIGN="right">
+		</PANEL>
+
+		<PANEL WIDTH="1.8em"/>
+
+		<PANEL ALIGN="right" STATES="hover,pressed">
+			<LINE>
+				<LABEL TITLE-EXPR="lib_user.active_user_person.fullname" TEXT-COLOR-EXPR="AppUi.themeColors.primary"/>
+				<PANEL WIDTH="6epx"/>
+				<IMAGE URL="//app_ui/theme/pict/dropdown.svg"/>
+			</LINE>
+			<MENU>
+				<MENU-ENTRY TITLE="##UiText.actions.logout##" ACTION="ui_client.HandleLogout();" PASSIVE="1"/>
+			</MENU>
+		</PANEL>
+	</LINE>
+
+	<IF EXPR="! System.IsWebClient">
+		<BR HIGHT="2vpx"/>
+	</IF>
+</PANEL>
+
+<SPLIT FIXED="1" BK-COLOR-EXPR="AppUi.themeColors.separator"/>
+
+<MDI-CONTAINER>
+</MDI-CONTAINER>
+
+
+
+
+
+<ACCELERATOR KEY="Ctrl+N" CMD="NewWindow"/>
+<ACCELERATOR KEY="Ctrl+O" CMD="Open"/>
+<ACCELERATOR KEY="Ctrl+S" CMD="Save"/>
+<ACCELERATOR KEY="Ctrl+P" CMD="Print"/>
+<ACCELERATOR KEY="Ctrl+Q" CMD="Quit"/>
+<ACCELERATOR KEY="F1" CMD="Help"/>
+
+<ACCELERATOR KEY="Ctrl+Z" CMD="Undo"/>
+<ACCELERATOR KEY="Ctrl+X" CMD="Cut"/>
+<ACCELERATOR KEY="Ctrl+C" CMD="Copy"/>
+<ACCELERATOR KEY="Ctrl+V" CMD="Paste"/>
+<ACCELERATOR KEY="Del" CMD="Clear"/>
+<ACCELERATOR KEY="Ctrl+A" CMD="SelectAll"/>
+<ACCELERATOR KEY="Ctrl+F" CMD="Find"/>
+<ACCELERATOR KEY="F3" CMD="FindNext"/>
+<ACCELERATOR KEY="F5" CMD="Refresh"/>
+<ACCELERATOR KEY="F7" CMD="CheckSpelling"/>
+
+<ACCELERATOR KEY="Ins" CMD="AddElem"/>
+
+
+<ACCELERATOR KEY="Ctrl+Shift+F8" CMD="ViewGenericCatalog"/>
+<ACCELERATOR KEY="Ctrl+Shift+L" CMD="RunDebugCode"/>
+
+
+
+<COMMAND-HANDLER CMD="Help" HREF-EXPR="lib_base.build_help_article_url( 'intro.htm' )" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+
+<PANEL NAME="AnchorEnd">
+</PANEL>
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+

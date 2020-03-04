@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<view_global_settings>
+	<sections>
+		<section MULTIPLE="1">
+			<name TYPE="string"/>
+			<holder TYPE="string"/>
+			<screen_form TYPE="string"/>
+			<sub_name TYPE="string"/>
+		</section>
+	</sections>
+</view_global_settings>
+
+
+</SPXML-INLINE-FORM>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.actions.send_sms##" WIDTH="60zr" HEIGHT="40zr" OK-ACTION="
+		if ( ! Ps.text.HasValue )
+		{
+			lib_base.show_error_message( ActiveScreen, UiText.errors.required_fields_not_set );
+			Cancel();
+		}
+">
+
+<EDIT SOURCE="Ps.dest_phone" LABEL-TITLE="##UiText.fields.phone##:"/>
+
+<EDIT SOURCE="Ps.text" LABEL-TITLE="##UiText.titles.text##:" MULTILINE="1" HEIGHT="-6zr"/>
+
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<BUTTON TITLE="OK" CMD="1"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2"/>
+</TABLE>
+
+
+
+</SPXML-SCREEN>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN TITLE="##UiText.sections.stats##" RESIZE="1" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/stat.ico">
+
+
+<MENU TITLE="##UiText.titles.file##" GLOBAL="1">
+	<MENU-ENTRY TITLE="##UiText.actions.print##&#09;Ctrl+P" CMD="Print" lang-en:TITLE="Print&#09;Ctrl+P"/>
+</MENU>
+
+<INHERIT TYPE="edit_menu"/>
+
+<MENU TITLE="##UiText.sections.service##" GLOBAL="1">
+	<MENU-ENTRY TITLE="##UiText.actions.show_chart##" CMD="ShowChart"/>
+	<MENU-ENTRY TITLE="Открыть диаграмму в Web-браузере" lang-en:TITLE="Preview chart in Web-browser" lang-ua:TITLE="Відкрити діаграму в Web-браузері" CMD="PreviewChartInBrowser"/>
+</MENU>
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/print.ico" CMD="Print" TIP-TEXT="##UiText.actions.print##" lang-en:TIP-TEXT="Print"/>
+	<INHERIT TYPE="edit_toolbar_entries"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/stat.ico" CMD="ShowChart" TIP-TEXT="##UiText.actions.show_chart##"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/excel.ico" CMD="ShowInOfficeCalc" TIP-TEXT-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/help.ico" CMD="Help" TIP-TEXT="##UiText.sections.help##"/>
+</TOOLBAR>
+
+
+<STATUS-BAR>
+	<STATUS-BAR-ENTRY WIDTH="100%"/>
+	<STATUS-BAR-ENTRY WIDTH="20zr"/>
+</STATUS-BAR>
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL SUNKEN="1" WIDTH="43zr">
+	<TREE SWITCH-TYPE="frame" TARGET="FrameStatsMain" SUNKEN="0">
+		<LOOP EXPR="
+				if ( ArrayOptFind( stats, '! section_id.HasValue && is_active' ) != undefined )
+				{
+					section = new Object;
+					section.id = '';
+					section.name = UiText.titles.reports;
+
+					coreSections = [section];
+				}
+				else
+				{
+					coreSections = Array();
+				}
+
+				return ArrayUnion( lib_voc.get_sorted_voc( stat_sections ), coreSections );
+		" VAR="_stat_section">
+			<TREE-ENTRY TITLE-EXPR="_stat_section.name" EXPANDED="1" IMAGE-URL="//base_pict/folder.ico">
+				<LOOP EXPR="ArraySelect( lib_voc.get_sorted_voc( stats ), 'section_id == ' + CodeLiteral( _stat_section.id ) )" VAR="_stat">
+					<TREE-ENTRY TITLE-EXPR="_stat.name" HREF-EXPR="lib_stat.build_stat_url( _stat.id )" SET-SEL-ACTION="lib_stat.obtain_stat_url( _stat.id )" IMAGE-URL="//base_pict/stat.ico"/>
+				</LOOP>
+			</TREE-ENTRY>
+		</LOOP>
+	</TREE>
+</PANEL>
+
+<SPLIT FIXED="1"/>
+
+<FRAME NAME="FrameStatsMain" HREF-EXPR="stat = ArrayFirstElem( lib_voc.get_sorted_voc( stats ) ), lib_stat.obtain_stat_url( stat.id )"/>
+
+</LINE>
+
+
+</SPXML-SCREEN>
+
+
+
+
+

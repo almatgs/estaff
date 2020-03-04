@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>vacancies_by_professions</id>
+	<name VALUE="##UiText.titles.by_profession##" lang-en:VALUE="By Profession"/>
+	<section_id>vacancies</section_id>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>start_date</id>
+			<source_id>vacancies</source_id>
+			<title VALUE="##UiText.fields.vacancy_start_date##"/>
+			<use_range>1</use_range>
+			<use_period_quick_selector>1</use_period_quick_selector>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>recruit_type_id</id>
+			<source_id>vacancies</source_id>
+			<width>25zr</width>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<source_id>vacancies</source_id>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}</view_filter_expr>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<source_id>vacancies</source_id>
+			<exist_req_expr>ArrayCount( groups ) != 0</exist_req_expr>
+		</dyn_filter>
+	</dyn_filters>
+
+	<sources>
+		<source>
+			<id>vacancies</id>
+			<stat_only>1</stat_only>
+		</source>
+	</sources>
+
+	<groups>
+		<group>
+			<id>profession_id</id>
+			<is_hier>1</is_hier>
+			<show_full_range>1</show_full_range>
+		</group>
+	</groups>
+
+	<fields>
+		<field>
+			<col_title VALUE="##UiText.fields.profession##"/>
+			<width>60%</width>
+		</field>
+
+		<field>
+			<col_title VALUE="##UiText.fields.quantity__short##"/>
+			<align>center</align>
+			<stat_func>count</stat_func>
+			<ref_id>opened</ref_id>
+		</field>
+
+		<field>
+			<keep_to_prev>1</keep_to_prev>
+			<col_title>%</col_title>
+			<align>center</align>
+			<data_type>real</data_type>
+			<is_percent>1</is_percent>
+			<stat_func>count_percent</stat_func>
+		</field>
+
+		<field>
+			<col_title VALUE="##UiText.titles.closed##"/>
+			<align>center</align>
+			<stat_qual>state_id == 'vacancy_closed'</stat_qual>
+			<stat_func>count</stat_func>
+			<ref_id>closed</ref_id>
+			<bk_color_expr>'220,255,220'</bk_color_expr>
+		</field>
+
+		<field>
+			<keep_to_prev>1</keep_to_prev>
+			<col_title>%</col_title>
+			<tip_text VALUE="##UiText.titles.in_percent_to_opened##"/>
+			<align>center</align>
+			<expr>opened > 0 ? ( closed * 100 ) / opened : null</expr>
+			<is_percent>1</is_percent>
+			<bk_color_expr>'220,255,220'</bk_color_expr>
+		</field>
+
+		<field>
+			<col_title VALUE="##UiText.titles.closed_in_time##"/>
+			<align>center</align>
+			<stat_qual>state_id == 'vacancy_closed' &amp;&amp; close_date &lt;= req_close_date</stat_qual>
+			<stat_func>count</stat_func>
+			<ref_id>closed_in_time</ref_id>
+			<bk_color_expr>'220,255,255'</bk_color_expr>
+		</field>
+
+		<field>
+			<keep_to_prev>1</keep_to_prev>
+			<col_title>%</col_title>
+			<tip_text VALUE="##UiText.titles.percent_to_closed##"/>
+			<align>center</align>
+			<expr>closed > 0 ? ( closed_in_time * 100 ) / closed : null</expr>
+			<is_percent>1</is_percent>
+			<bk_color_expr>'220,255,255'</bk_color_expr>
+		</field>
+
+		<field>
+			<id>work_days_num</id>
+			<col_title VALUE="##UiText.fields.average_search_term##"/>
+			<align>center</align>
+			<stat_qual>state_id == 'vacancy_closed'</stat_qual>
+			<stat_func>average</stat_func>
+		</field>
+
+		<field>
+			<col_title VALUE="##UiText.titles.cancelled__n##"/>
+			<align>center</align>
+			<stat_qual>state_id == 'vacancy_cancelled'</stat_qual>
+			<stat_func>count</stat_func>
+			<ref_id>cancelled</ref_id>
+			<bk_color_expr>'255,220,220'</bk_color_expr>
+		</field>
+
+		<field>
+			<col_title>%</col_title>
+			<tp_text>в % к числу открытых</tp_text>
+			<keep_to_prev>1</keep_to_prev>
+			<align>center</align>
+			<expr>opened > 0 ? ( cancelled * 100 ) / opened : null</expr>
+			<is_percent>1</is_percent>
+			<bk_color_expr>'255,220,220'</bk_color_expr>
+		</field>
+	</fields>
+
+	<show_total>1</show_total>
+</std_stat>
+

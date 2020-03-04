@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>persons_base_active</id>
+	<name VALUE="Активные контактные лица (база)" lang-en:VALUE="Active contacts (base)" lang-ua:VALUE="Активні контактні особи (база)"/>
+	<parent_id>persons_base</parent_id>
+
+	<catalog_name>persons</catalog_name>
+
+	<static_filters>
+		<static_filter>
+			<id>is_active</id>
+			<value>true</value>
+		</static_filter>
+	</static_filters>
+</std_view>
+

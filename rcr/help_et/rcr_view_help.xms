@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SPXML-SCREEN TITLE="##UiText.sections.help##" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/help.ico">
+	<LINE>
+		<TREE SWITCH-TYPE="frame" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1" WIDTH="custom" SUNKEN="1">
+			<TREE-ENTRY TITLE="##UiText.sections.help##" HREF="x-app://rcr/help/599EFE8A625A4702.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+				<TREE-ENTRY TITLE="Sissejuhatus" HREF="x-app://rcr/help/intro.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Tarkvara funktsionaalsed võimalused" HREF="x-app://rcr/help/4AB390737FAB0204.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Üksikkasutaja- ning võrguversioonid" HREF="x-app://rcr/help/4AB390737FAB0237.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Tehnilised nõudmised süsteemile" HREF="x-app://rcr/help/4AB390737FAB0205.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Tarkvara paigaldus" HREF="x-app://rcr/help/setup.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Üksikkasutaja versiooni paigaldus" HREF="x-app://rcr/help/4AB390737FAB0206.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Võrguversiooni paigaldus" HREF="x-app://rcr/help/4AB390737FAB020A.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Töö algus" HREF="x-app://rcr/help/start.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Tarkvara sektsioonidega töö üldised printsiibid" HREF="x-app://rcr/help/view_general.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Kaartidega töö üldised printsiibid" HREF="x-app://rcr/help/card_general.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Otsing võtmesõnade järgi" HREF="x-app://rcr/help/ft_search.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Töö vastaspooltega (klientidega)" HREF="x-app://rcr/help/4AB390737FAB022F.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Vastaspoole (kliendi) lisamine" HREF="x-app://rcr/help/4AB390737FAB0230.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Organisatsiooni kaart" HREF="x-app://rcr/help/org_card.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Personaliotsingu kulude arvestus" HREF="x-app://rcr/help/4AB390737FAB0262.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Lepingu kaart" HREF="x-app://rcr/help/4AB390737FAB0263.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Kulu kaart" HREF="x-app://rcr/help/4AB390737FAB0264.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Kvartaalse eelarve kaart" HREF="x-app://rcr/help/4AB390737FAB0265.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+					<TREE-ENTRY TITLE="Kontaktide loetelud" HREF="x-app://rcr/help/4AB390737FAB0288.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Töö ametistruktuuriga" HREF="x-app://rcr/help/4AB390737FAB0234.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Struktuurüksuse kaart" HREF="x-app://rcr/help/4AB390737FAB0239.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Töötaja (kontaktisiku) kaart" HREF="x-app://rcr/help/4AB390737FAB023A.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Ametikoha kaart" HREF="x-app://rcr/help/4AB390737FAB023D.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Soovitused süsteemi seadistamiseks ametistruktuuriga tööks suurtes (holding) ettevõtetes  " HREF="x-app://rcr/help/long_div_row.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Töö vakantsidega" HREF="x-app://rcr/help/4AB390737FAB020E.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Vakantsi lisamine" HREF="x-app://rcr/help/4AB390737FAB0233.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Vakantsi kaart" HREF="x-app://rcr/help/vacancy_card.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Vakantsi avalikustamine Internetis" HREF="x-app://rcr/help/4AB390737FAB0284.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Töö kandidaatidega" HREF="x-app://rcr/help/4AB390737FAB0211.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Kandidaatide sisestamine andmebaasi" HREF="x-app://rcr/help/4AB390737FAB0212.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Kandidaadi lisamine käsitsi" HREF="x-app://rcr/help/4AB390737FAB0213.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="CV sisestamine puhverist" HREF="x-app://rcr/help/4AB390737FAB0214.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="CV import Microsoft Word või OpenOffice dokumentidest" HREF="x-app://rcr/help/4AB390737FAB0215.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="CV import Adobe Reader dokumentidest" HREF="x-app://rcr/help/4AB390737FAB0246.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="CV import Internetimooduli kasutamisega" HREF="x-app://rcr/help/4AB390737FAB0297.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="CV import Microsoft Outlook või Mozilla Thunderbird nupu kasutamisega" HREF="x-app://rcr/help/4AB390737FAB0236.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="CV-de pakettimport Microsoft Word, OpenOffice või Adobe Reader dokumentidest" HREF="x-app://rcr/help/candidate_batch_import.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="CV-de pakettimport postkastidest" HREF="x-app://rcr/help/candidate_mail_import.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+					<TREE-ENTRY TITLE="Kandidaadi kaart" HREF="x-app://rcr/help/candidate_card.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Töö andmebaasi sisestatud kandidaatidega" HREF="x-app://rcr/help/candidate_work.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Kandidaatidega tööplaani koostamine" HREF="x-app://rcr/help/4AB390737FAB0266.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Kandidaadi valik vakantsile" HREF="x-app://rcr/help/4AB390737FAB021A.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Toimingud kandidaatidega" HREF="x-app://rcr/help/4AB390737FAB021B.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Uue töövestluse planeerimine" HREF="x-app://rcr/help/4AB390737FAB021C.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Grupitöövestluse planeerimine" HREF="x-app://rcr/help/4AB390737FAB024E.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Kandidaatide otsing" HREF="x-app://rcr/help/4AB390737FAB0268.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Kandidaatide dublikaatide otsing" HREF="x-app://rcr/help/4AB390737FAB026E.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Internetimooduli kasutamine" HREF="x-app://rcr/help/imod.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Vakantsi avalikustamine Internetis" HREF="x-app://rcr/help/vacancy_publish.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Avalikustatud vakantside informatsiooni ülevaatus Internetis" HREF="x-app://rcr/help/view_publications.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+					<TREE-ENTRY TITLE="Vastuste kogumine veebist" HREF="x-app://rcr/help/4AB390737FAB0241.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="CV otsing Internetis" HREF="x-app://rcr/help/inet_search.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="CV import Internet Explorer, Mozilla Firefox või Google Chrome nupu kasutamisega" HREF="x-app://rcr/help/browser_import.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Moodul „Massiline otsing&quot;" HREF="x-app://rcr/help/4AB390737FAB028A.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Süsteemi esmane seadistus" HREF="x-app://rcr/help/4AB390737FAB0299.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Kõnekeskuse sektsiooni seadistamine" HREF="x-app://rcr/help/4AB390737FAB029A.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Grupitreeningute arvestuse pidamise funktsiooni seadistamine" HREF="x-app://rcr/help/4AB390737FAB029B.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Õppeprogrammide koostamine" HREF="x-app://rcr/help/4AB390737FAB029C.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Vakantsete positsioonidega töö seadistamine" HREF="x-app://rcr/help/4AB390737FAB029D.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Otsingu suunad" HREF="x-app://rcr/help/4AB390737FAB0293.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Mooduli kasutamine" HREF="x-app://rcr/help/4AB390737FAB029E.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Ametistruktuuri täitmine" HREF="x-app://rcr/help/4AB390737FAB029F.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Vakantside avalikustamine ning vastuste kogumine" HREF="x-app://rcr/help/4AB390737FAB028E.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Töö kandidaatidega" HREF="x-app://rcr/help/4AB390737FAB02A0.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+							<TREE-ENTRY TITLE="Kandidaatide valik" HREF="x-app://rcr/help/4AB390737FAB028C.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Grupitöövestlused" HREF="x-app://rcr/help/4AB390737FAB0291.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Kõnekeskus" HREF="x-app://rcr/help/4AB390737FAB028F.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Kandidaatide töölevõtmine" HREF="x-app://rcr/help/4AB390737FAB02A7.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						</TREE-ENTRY>
+						<TREE-ENTRY TITLE="Kalender" HREF="x-app://rcr/help/4AB390737FAB0290.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Kandidaatide koolitus" HREF="x-app://rcr/help/4AB390737FAB02A1.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+							<TREE-ENTRY TITLE="Õppegruppide loomine" HREF="x-app://rcr/help/4AB390737FAB02A2.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Kandidaatide valimine õppegruppi" HREF="x-app://rcr/help/4AB390737FAB02A3.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Grupitreeningute läbiviimine" HREF="x-app://rcr/help/4AB390737FAB02A4.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Koolituste külastuse arvestuse pidamine" HREF="x-app://rcr/help/4AB390737FAB02A5.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Koolituse läbimise tulemuste sisestamine" HREF="x-app://rcr/help/4AB390737FAB02A6.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						</TREE-ENTRY>
+						<TREE-ENTRY TITLE="Aruanded" HREF="x-app://rcr/help/4AB390737FAB0292.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Üksikkirjade saatmine" HREF="x-app://rcr/help/mail_sending.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Kirjade massiline saatmine" HREF="x-app://rcr/help/4AB390737FAB024F.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Kalender" HREF="x-app://rcr/help/4AB390737FAB0248.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Meeldetuletused ning sündmuste kajastamine kalendris" HREF="x-app://rcr/help/4AB390737FAB0259.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Integratsioon välise kalendriga" HREF="x-app://rcr/help/4AB390737FAB0247.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Integratsioon Microsoft Outlook kalendriga" HREF="x-app://rcr/help/4AB390737FAB024B.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Integratsioon kalendriga Lotus Notes" HREF="x-app://rcr/help/4AB390737FAB024C.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Integratsioon kalendriga Google" HREF="x-app://rcr/help/4AB390737FAB024D.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Ruumide hõivatuse arvestuse pidamine (nõupidamisruumide broneerimine) välises kalendris" HREF="x-app://rcr/help/4AB390737FAB026C.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Statistika" HREF="x-app://rcr/help/4AB390737FAB0250.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				<TREE-ENTRY TITLE="Integratsioon väliste süsteemidega" HREF="x-app://rcr/help/4AB390737FAB0287.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Integratsioon korporatiivportaaliga" HREF="x-app://rcr/help/4AB390737FAB0220.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Integratsioon testimise süsteemiga" HREF="x-app://rcr/help/4AB390737FAB0221.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Integratsioon välise personaliarvestuse süsteemiga (failide vahetus)" HREF="x-app://rcr/help/4AB390737FAB0257.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Dublikaatide eemaldamine peale andmete importi välisest süsteemist" HREF="x-app://rcr/help/4AB390737FAB0258.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+					<TREE-ENTRY TITLE="Kandidaadi ning töötaja seose automaatne loomine" HREF="x-app://rcr/help/candidate_employee_auto_bind.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Administreerimine ning üldised seadistused" HREF="x-app://rcr/help/4AB390737FAB0222.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Kasutamise poliitika" HREF="x-app://rcr/help/4AB390737FAB0223.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Töö vakantsidega" HREF="x-app://rcr/help/4AB390737FAB023E.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Regionaalsed seadistused" HREF="x-app://rcr/help/4AB390737FAB0295.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Posti automaatne saatmine" HREF="x-app://rcr/help/4AB390737FAB0272.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Ligipääs" HREF="x-app://rcr/help/4AB390737FAB027B.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Kasutajad" HREF="x-app://rcr/help/4AB390737FAB027C.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Grupid" HREF="x-app://rcr/help/4AB390737FAB027D.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+					<TREE-ENTRY TITLE="Numeratsioon" HREF="x-app://rcr/help/settings_coding.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Lisaväljad" HREF="x-app://rcr/help/4AB390737FAB0225.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Välised kontod" HREF="x-app://rcr/help/external_account.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Kataloogid" HREF="x-app://rcr/help/4AB390737FAB0224.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Üldised" HREF="x-app://rcr/help/4AB390737FAB025E.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+							<TREE-ENTRY TITLE="Kaartide manused" HREF="x-app://rcr/help/4AB390737FAB025C.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Kirjade mallid" HREF="x-app://rcr/help/settings_mail_templates.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="SMS mallid" HREF="x-app://rcr/help/4AB390737FAB0279.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Regioonid" HREF="x-app://rcr/help/4AB390737FAB0242.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Ligipääsu tasemed" HREF="x-app://rcr/help/4AB390737FAB022C.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Sündmuste tüübid" HREF="x-app://rcr/help/event_types.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Erialad" HREF="x-app://rcr/help/4AB390737FAB025D.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Otsingu suunad" HREF="x-app://rcr/help/4AB390737FAB0271.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Oskused" HREF="x-app://rcr/help/4AB390737FAB025A.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						</TREE-ENTRY>
+						<TREE-ENTRY TITLE="Vakantsid" HREF="x-app://rcr/help/4AB390737FAB026F.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+							<TREE-ENTRY TITLE="Vakantside tekkimise alus" HREF="x-app://rcr/help/4AB390737FAB0270.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Vakantside staatused" HREF="x-app://rcr/help/4AB390737FAB0296.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Vakantside mallid" HREF="x-app://rcr/help/4AB390737FAB0275.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						</TREE-ENTRY>
+						<TREE-ENTRY TITLE="Kandidaadid" HREF="x-app://rcr/help/4AB390737FAB025F.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+							<TREE-ENTRY TITLE="CV impordi allikad" HREF="x-app://rcr/help/raw_storages.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Kandidaatide allikad" HREF="x-app://rcr/help/4AB390737FAB0277.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						</TREE-ENTRY>
+						<TREE-ENTRY TITLE="Integratsioon" HREF="x-app://rcr/help/4AB390737FAB0281.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+							<TREE-ENTRY TITLE="SMS-pordid" HREF="x-app://rcr/help/4AB390737FAB027A.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Impordi stsenaariumid" HREF="x-app://rcr/help/4AB390737FAB0261.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Ekspordi stsenaarium" HREF="x-app://rcr/help/4AB390737FAB026B.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Testide komplektid" HREF="x-app://rcr/help/4AB390737FAB0276.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+							<TREE-ENTRY TITLE="Korporadisainid avalikustamiseks" HREF="x-app://rcr/help/4AB390737FAB0282.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						</TREE-ENTRY>
+						<TREE-ENTRY TITLE="Muud" HREF="x-app://rcr/help/4AB390737FAB0260.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+							<TREE-ENTRY TITLE="Oma kataloogid" HREF="x-app://rcr/help/4AB390737FAB026D.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						</TREE-ENTRY>
+					</TREE-ENTRY>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Personaalsed seadistused" HREF="x-app://rcr/help/local_settings.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="Allkiri" HREF="x-app://rcr/help/4AB390737FAB0240.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Ligipääs Internetti" HREF="x-app://rcr/help/4AB390737FAB0269.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Posti saatmine" HREF="x-app://rcr/help/settings_mail_send.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Internetimoodul (kontod)" HREF="x-app://rcr/help/4AB390737FAB0283.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+				</TREE-ENTRY>
+				<TREE-ENTRY TITLE="Süsteemi administreerimine (IT spetsialistide jaoks)" HREF="x-app://rcr/help/4AB390737FAB0249.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+					<TREE-ENTRY TITLE="NTLM-autentimise seadistus" HREF="x-app://rcr/help/4AB390737FAB024A.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					<TREE-ENTRY TITLE="Süsteemi hooldus ning saatmine" HREF="x-app://rcr/help/4AB390737FAB026A.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Reservkoopiate loomine" HREF="x-app://rcr/help/4AB390737FAB022D.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+					<TREE-ENTRY TITLE="Tarkvara tõstmine teisele arvutile" HREF="x-app://rcr/help/4AB390737FAB0251.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Datex Recruit võrguversiooni töökoha tõstmine teisele arvutile" HREF="x-app://rcr/help/4AB390737FAB0252.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Datex Recruit serveriosa tõstmine teisele arvutile" HREF="x-app://rcr/help/4AB390737FAB0253.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+					<TREE-ENTRY TITLE="Kataloogid ning indeksid" HREF="x-app://rcr/help/4AB390737FAB0254.htm" EXPANDED="1" IMAGE-URL="x-app://base_pict/generic_item.ico">
+						<TREE-ENTRY TITLE="Kataloogi failide ümberehitus" HREF="x-app://rcr/help/4AB390737FAB0255.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+						<TREE-ENTRY TITLE="Indeksfailide ümberehitus" HREF="x-app://rcr/help/4AB390737FAB0256.htm" IMAGE-URL="x-app://base_pict/generic_item.ico"/>
+					</TREE-ENTRY>
+				</TREE-ENTRY>
+			</TREE-ENTRY>
+		</TREE>
+		<SPLIT WIDTH="2px"/>
+		<PANEL HEIGHT="100%">
+			<FRAME NAME="FrameHelp" HREF-EXPR="lib_base.build_help_article_url( 'intro.htm' )"/>
+		</PANEL>
+	</LINE>
+</SPXML-SCREEN>

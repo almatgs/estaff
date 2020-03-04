@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>vacancies_with_terms_2_by_division</id>
+	<name VALUE="Закрытые вакансии по подразделениям" lang-en:VALUE="Closed Vacancies by Divisions" lang-ua:VALUE="Закриті вакансії по підрозділах"/>
+	<section_id>vacancies</section_id>
+
+	<is_v2>1</is_v2>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>date</id>
+			<data_type>date</data_type>
+			<title VALUE="##UiText.titles.time_period##"/>
+			<use_range>1</use_range>
+			<use_period_quick_selector>1</use_period_quick_selector>
+			<default_period>
+				<unit_id>m</unit_id>
+				<unit_specifier_id>cur</unit_specifier_id>
+			</default_period>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>division_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.objects.division##"/>
+			<foreign_array>divisions</foreign_array>
+			<is_multiple>0</is_multiple>
+			<use_idata>1</use_idata>
+			<width>40zr</width>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>recruit_type_id</id>
+			<source_id>vacancies</source_id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.objects.group##"/>
+			<foreign_array>groups</foreign_array>
+			<is_multiple>0</is_multiple>
+		</dyn_filter>
+	</dyn_filters>
+
+	<groups>
+		<group>
+			<id>division_id</id>
+			<foreign_array>divisions</foreign_array>
+			<is_hier>1</is_hier>
+			<max_hier_level>2</max_hier_level>
+		</group>
+	</groups>
+
+	<fields>
+		<field>
+			<id>division_id</id>
+			<col_title VALUE="##UiText.objects.division##"/>
+			<width>100%</width>
+		</field>
+		<field>
+			<id>closed_vacancy_count</id>
+			<col_title VALUE="##UiText.titles.closed##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>vacancy_instance</src_object_type_id>
+			<force_final_value>1</force_final_value>
+			<width>14zr</width>
+		</field>
+		<field>
+			<id>closed_after_deadline_vacancy_count</id>
+			<col_title VALUE="Закрыто с нарушением срока" lang-en:VALUE="Closed After Deadline" lang-ua:VALUE="Закрито з порушенням терміну"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>vacancy_instance</src_object_type_id>
+			<chart_bk_color>red</chart_bk_color>
+		</field>
+		<field>
+			<id>closed_before_deadline_vacancy_percent</id>
+			<col_title VALUE="% закрытых в срок" lang-en:VALUE="% of Closed Before Deadline" lang-ua:VALUE="% закритих в термін"/>
+			<is_percent>1</is_percent>
+		</field>
+		<field>
+			<id>work_days_num</id>
+			<col_title VALUE="Среднее время поиска" lang-en:VALUE="Average Recruitment Time" lang-ua:VALUE="Середній час пошуку"/>
+			<stat_func>average</stat_func>
+		</field>
+	</fields>
+
+	<code_lib_url>x-app://rcr/rcr_std_stat_vacancies_with_terms_2_by_division.js</code_lib_url>
+
+	<show_total>1</show_total>
+	<show_chart>1</show_chart>
+	<use_group_bk_colors>1</use_group_bk_colors>
+</std_stat>

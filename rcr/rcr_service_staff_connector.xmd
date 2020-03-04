@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<GetDivisions SAMPLE="1">
+	<auth>
+		<login TYPE="string"/>
+		<password TYPE="string"/>
+	</auth>
+	<min_date TYPE="date"/>
+</GetDivisions>
+
+
+<GetDivisionsResponse SAMPLE="1">
+	<divisions>
+		<division MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<code TYPE="string"/>
+
+			<parent_id TYPE="string"/>
+			<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+			<type_id TYPE="string"/>
+			<start_date TYPE="date"/>
+			<end_date TYPE="date"/>
+
+			<location_name TYPE="string"/>
+
+			<rr_persons>
+				<rr_person MULTIPLE="1" PRIMARY-KEY="person_id">
+					<person_id TYPE="string"/>
+				</rr_person>
+			</rr_persons>
+
+			<description TYPE="string" MULTILINE="1"/>
+
+			<func_managers>
+				<func_manager MULTIPLE="1">
+					<person_id TYPE="string"/>
+					<type_id TYPE="string"/>
+					<eid TYPE="string"/>
+				</func_manager>
+			</func_managers>
+
+			<csd DYN-CHILDREN="1">
+			</csd>
+		</division>
+	</divisions>
+</GetDivisionsResponse>
+
+
+<GetDivision SAMPLE="1">
+	<auth>
+		<login TYPE="string"/>
+		<password TYPE="string"/>
+	</auth>
+	<division_id TYPE="integer"/>
+</GetDivision>
+
+
+<GetDivisionResponse SAMPLE="1">
+	<division>
+		<id TYPE="string"/>
+		<name TYPE="string"/>
+		<code TYPE="string"/>
+
+		<parent_id TYPE="string"/>
+		<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+		<rr_persons>
+			<rr_person MULTIPLE="1" PRIMARY-KEY="person_id">
+				<person_id TYPE="string"/>
+			</rr_person>
+		</rr_persons>
+
+		<description TYPE="string" MULTILINE="1"/>
+	</division>
+</GetDivisionResponse>
+
+
+
+<GetPositions SAMPLE="1">
+	<auth>
+		<login TYPE="string"/>
+		<password TYPE="string"/>
+	</auth>
+	<min_date TYPE="date"/>
+</GetPositions>
+
+
+<GetPositionsResponse SAMPLE="1">
+	<positions>
+		<position MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<code TYPE="string"/>
+			<division_id TYPE="string"/>
+			<is_division_head TYPE="bool"/>
+			<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+		</position>
+	</positions>
+</GetPositionsResponse>
+
+
+<GetPosition SAMPLE="1">
+	<auth>
+		<login TYPE="string"/>
+		<password TYPE="string"/>
+	</auth>
+	<position_id TYPE="integer"/>
+</GetPosition>
+
+
+<GetPositionResponse SAMPLE="1">
+	<position>
+		<id TYPE="string"/>
+		<code TYPE="string"/>
+		<name TYPE="string"/>
+		<division_id TYPE="string"/>
+	</position>
+</GetPositionResponse>
+
+
+
+<GetPersons SAMPLE="1">
+	<auth>
+		<login TYPE="string"/>
+		<password TYPE="string"/>
+	</auth>
+	<min_date TYPE="date"/>
+</GetPersons>
+
+
+<GetPersonsResponse SAMPLE="1">
+	<persons>
+		<person MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<lastname TYPE="string"/>
+			<firstname TYPE="string"/>
+			<middlename TYPE="string"/>
+
+			<code TYPE="string"/>
+			<gender_id TYPE="integer"/>
+			<birth_date TYPE="date" TIME="0"/>
+
+			<phone TYPE="string"/>
+			<mobile_phone TYPE="string"/>
+			<email TYPE="string"/>
+			<email2 TYPE="string"/>
+			<sys_login TYPE="string"/>
+
+			<division_id TYPE="string"/>
+			<position_id TYPE="string"/>
+			<position_name TYPE="string"/>
+			<is_division_head TYPE="bool"/>
+			<hire_date TYPE="date"/>
+			<dismissal_date TYPE="date"/>
+			<employee_state_id TYPE="string"/>
+
+			<login TYPE="string"/>
+			<password TYPE="string"/>
+		</person>
+	</persons>
+</GetPersonsResponse>
+
+
+
+<GetPerson SAMPLE="1">
+	<auth>
+		<login TYPE="string"/>
+		<password TYPE="string"/>
+	</auth>
+	<person_id TYPE="integer"/>
+</GetPerson>
+
+
+<GetPersonResponse SAMPLE="1">
+	<person>
+		<id TYPE="string"/>
+		<lastname TYPE="string"/>
+		<firstname TYPE="string"/>
+		<middlename TYPE="string"/>
+
+		<code TYPE="string"/>
+		<birth_date TYPE="date" TIME="0"/>
+
+		<phone TYPE="string"/>
+		<mobile_phone TYPE="string"/>
+		<email TYPE="string"/>
+		<email2 TYPE="string"/>
+		<sys_login TYPE="string"/>
+
+		<division_id TYPE="string"/>
+		<position_id TYPE="string"/>
+		<position_name TYPE="string"/>
+	</person>
+</GetPersonResponse>
+
+
+<GetVacantPositionsResponse SAMPLE="1">
+	<date TYPE="date"/>
+	<positions>
+		<position MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<code TYPE="string"/>
+
+			<division_id TYPE="string"/>
+
+			<rr_persons>
+				<rr_person MULTIPLE="1" PRIMARY-KEY="person_id">
+					<person_id TYPE="string"/>
+				</rr_person>
+			</rr_persons>
+
+			<open_date TYPE="date"/>
+			<req_close_date TYPE="date" TIME="0"/>
+
+			<min_salary TYPE="integer"/>
+			<max_salary TYPE="integer"/>
+			<salary_currency_id TYPE="string"/>
+
+			<description TYPE="string" MULTILINE="1"/>
+		</position>
+	</positions>
+</GetVacantPositionsResponse>
+
+
+<GetVacancies SAMPLE="1">
+	<auth>
+		<login TYPE="string"/>
+		<password TYPE="string"/>
+	</auth>
+	<min_date TYPE="date"/>
+	<is_active TYPE="bool" NOT-NULL="1"/>
+</GetVacancies>
+
+
+<GetVacanciesResponse SAMPLE="1">
+	<date TYPE="date"/>
+	<vacancies>
+		<vacancy MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<code TYPE="string"/>
+			<is_active TYPE="bool" NOT-NULL="1"/>
+
+			<position_id TYPE="string"/>
+
+			<division_id TYPE="string"/>
+
+			<location_name TYPE="string"/>
+			<idata_location_name TYPE="string" MULTIPLE="1"/>
+
+			<rr_persons>
+				<rr_person MULTIPLE="1" PRIMARY-KEY="person_id">
+					<person_id TYPE="string"/>
+				</rr_person>
+			</rr_persons>
+
+			<orig_rr_person_id TYPE="string"/>
+
+			<open_date TYPE="date"/>
+			<req_close_date TYPE="date" TIME="0"/>
+			<req_quantity TYPE="integer" NOT-NULL="1" DEFAULT="1"/>
+			<reason_id TYPE="string"/>
+
+			<min_salary TYPE="integer"/>
+			<max_salary TYPE="integer"/>
+			<salary_currency_id TYPE="string"/>
+
+			<description TYPE="string" MULTILINE="1"/>
+			<description_html TYPE="string" MULTILINE="1"/>
+
+			<comment TYPE="string" MULTILINE="1"/>
+
+			<recruiter_person_id TYPE="string"/>
+			<recruiter_email TYPE="string"/>
+
+			<inet_data>
+				<position_name TYPE="string"/>
+				<min_salary TYPE="integer" POSITIVE="1"/>
+				<max_salary TYPE="integer" POSITIVE="1"/>
+				<salary_currency_id TYPE="string" DEFAULT_="USD" FOREIGN-ARRAY="currencies"/>
+
+				<comment TYPE="string" LARGE="1"/>
+				<html_comment TYPE="string" SUBTYPE="html"/>
+
+				<comment_req TYPE="string" LARGE="1"/>
+				<comment_duty TYPE="string" LARGE="1"/>
+				<comment_cond TYPE="string" LARGE="1"/>
+			</inet_data>
+
+			<csd DYN-CHILDREN="1">
+			</csd>
+		</vacancy>
+	</vacancies>
+</GetVacanciesResponse>
+
+
+
+
+</SPXML-FORM>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_filters>
+	<list_view_spec TYPE="variant" STRICT="1"/>
+	<dest TYPE="variant" STRICT="1"/>
+	<filter TYPE="variant" STRICT="1"/>
+</dlg_filters>
+
+</SPXML-INLINE-FORM>
+

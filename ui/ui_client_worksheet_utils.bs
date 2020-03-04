@@ -1,0 +1,68 @@
+"META:NAMESPACE:ui_client_worksheet_utils"
+
+
+function GetWorksheetDataFromListItem( listItem, options ? )
+{
+	if ( options == undefined )
+		options = new ui_base.worksheet_data_build_options;
+
+	worksheetData = new ui_base.worksheet_data;
+	worksheetData.columns = new Array;
+
+	i = 1;
+
+	for ( columnItem in listItem.Columns )
+	{
+		column = new ui_base.worksheet_column;
+		worksheetData.columns.push( column );
+		column.id = "c" + StrInt( i, 2 );
+		//column.title = "Column " + i;
+
+		if ( options.export_for_xmp )
+		{
+			column.width = Int( columnItem.SizeX / ActiveScreen.ZrSize ) + 'zr';
+		}
+		else
+		{
+			column.width = columnItem.FormItem.Width;
+			if ( column.width == '' )
+				column.width = Int( columnItem.SizeX / ActiveScreen.ZrSize ) + 'zr';
+		}
+
+		i++;
+	}
+
+	worksheetData.header_rows_num = listItem.HeaderRows.length;
+
+	for ( headerRowItem in listItem.HeaderRows )
+	{
+		row = worksheetData.rows.Add();
+
+		for ( cellItem in headerRowItem.Entries )
+		{
+			cell = row.cells.Add();
+			if ( cellItem.Title != '' )
+				cell.value = cellItem.Title;
+
+			if ( cellItem.Rotation != 0 )
+				cell.rotation = cellItem.Rotation;
+		}
+	}
+
+	for ( rowItem in listItem.Rows )
+	{
+		row = worksheetData.rows.Add();
+		if ( rowItem.HierLevel > 0 )
+			row.hier_level = rowItem.HierLevel;
+
+		for ( cellItem in rowItem.Entries )
+		{
+			cell = row.cells.Add();
+			cell.value = cellItem.Title;
+			cell.bk_color = cellItem.BkColor;
+		}
+	}
+
+	return worksheetData;
+}
+

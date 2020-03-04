@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems_int.xmd">
+	<std_voc_elem>
+		<id>1</id>
+		<name VALUE="Банки" lang-en:VALUE="Banking" lang-ua:VALUE="Банки"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>2</id>
+		<name VALUE="Финансы" lang-en:VALUE="Finance" lang-ua:VALUE="Фінанси"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>3</id>
+		<name VALUE="Страхование" lang-en:VALUE="Insurance" lang-ua:VALUE="Страхування"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>4</id>
+		<name VALUE="Недвижимость" lang-en:VALUE="Realty" lang-ua:VALUE="Нерухомість"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>5</id>
+		<name VALUE="Реклама" lang-en:VALUE="Advertising" lang-ua:VALUE="Реклама"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>6</id>
+		<name VALUE="Консалтинг, тренинги" lang-en:VALUE="Consulting" lang-ua:VALUE="Консалтинг, тренінги"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>7</id>
+		<name VALUE="Связь" lang-en:VALUE="Telecommunications" lang-ua:VALUE="Зв'язок"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>8</id>
+		<name VALUE="Информационные технологии" lang-en:VALUE="IT" lang-ua:VALUE="Інформаційні технології"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>9</id>
+		<name VALUE="Производство" lang-en:VALUE="Manufacturing" lang-ua:VALUE="Виробництво"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>10</id>
+		<name VALUE="Энергетика" lang-en:VALUE="Energy" lang-ua:VALUE="Енергетика"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>11</id>
+		<name VALUE="Сельское хозяйство" lang-en:VALUE="Agricultural" lang-ua:VALUE="Сільське господарство"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>12</id>
+		<name VALUE="Оптовая торговля" lang-en:VALUE="Wholesale" lang-ua:VALUE="Оптова торгівля"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>13</id>
+		<name VALUE="Розничная торговля" lang-en:VALUE="Retail" lang-ua:VALUE="Роздрібна торгівля"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>14</id>
+		<name VALUE="Перевозки" lang-en:VALUE="Transportation" lang-ua:VALUE="Перевезення"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>15</id>
+		<name VALUE="Туризм" lang-en:VALUE="Recreation" lang-ua:VALUE="Туризм"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>16</id>
+		<name VALUE="Сфера обслуживания" lang-en:VALUE="Utilities" lang-ua:VALUE="Сфера обслуговування"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>17</id>
+		<name VALUE="Индустрия развлечений" lang-en:VALUE="Entertainment" lang-ua:VALUE="Індустрія розваг"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>18</id>
+		<name VALUE="СМИ" lang-en:VALUE="Media" lang-ua:VALUE="ЗМІ"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>19</id>
+		<name VALUE="Образование и наука" lang-en:VALUE="Education" lang-ua:VALUE="Освіта і наука"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>20</id>
+		<name VALUE="Государственная служба" lang-en:VALUE="Government" lang-ua:VALUE="Державна служба"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>21</id>
+		<name VALUE="Здравоохранение" lang-en:VALUE="Medical" lang-ua:VALUE="Охорона здоров'я"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>22</id>
+		<name VALUE="Некоммерческие организации" lang-en:VALUE="Not For Profit" lang-ua:VALUE="Некомерційні організації"/>
+	</std_voc_elem>
+</std_voc_elems>
+
+
+

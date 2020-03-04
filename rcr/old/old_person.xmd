@@ -1,0 +1,160 @@
+<SPXML-FORM>
+
+<USE FORM="old_general.xmd"/>
+
+
+<person>
+	<code TYPE="string"/>	
+	<INHERIT TYPE="au_person_name"/>
+	<eid TYPE="string"/>
+	<is_pp TYPE="bool" NOT-NULL="1"/>
+
+	<birth_date TYPE="date">
+		<no_year TYPE="bool"/>
+		<desc PROPERTY="1" EXPR="no_year ? StrInt( Day( Value ), 2 ) + ':' + StrInt( Month( Value ), 2 ) : Value"/>
+	</birth_date>
+	<birth_date_remind TYPE="bool" NOT-NULL="1"/>
+
+	<org_id TYPE="integer" FOREIGN-ARRAY="orgs">
+		<sd SECONDARY="1">
+			<disp_name TYPE="string"/>
+			<is_active TYPE="bool"/>
+		</sd>
+	</org_id>
+
+	<org_person_priority TYPE="integer"/>
+	<position_name TYPE="string"/>
+	<role_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="roles.items"/>
+
+	<prev_jobs>
+		<prev_job MULTIPLE="1">
+			<org_id TYPE="integer" FOREIGN-ARRAY="orgs">
+				<sd SECONDARY="1">
+					<disp_name TYPE="string"/>
+				</sd>
+			</org_id>
+			<position_name TYPE="string"/>
+			<start_date TYPE="date" TIME="0"/>
+			<end_date TYPE="date" TIME="0"/>
+		</prev_job>
+	</prev_jobs>
+
+
+	<phone TYPE="string"/>
+	<phone2 TYPE="string"/>
+	<mobile_phone TYPE="string"/>
+	<INHERIT TYPE="bs_emails"/>
+
+	<attend_events>
+		<attend_event MULTIPLE="1" PRIMARY-KEY="event_type_id">
+			<event_type_id TYPE="string" FOREIGN-ARRAY="event_types"/>
+			<attendee_type_id TYPE="integer" DEFAULT="1"/>
+		</attend_event>
+	</attend_events>
+	
+	<comment TYPE="string" MULTILINE="1"/>
+	<creation_date TYPE="date"/>
+
+
+	<state_event_id TYPE="integer"/>
+	<state_event_date TYPE="date" TIME="1"/>
+	<state_event_type_id TYPE="string" NOT-NULL="1" FOREIGN-ARRAY="event_types.items"/>
+
+	<desc_event_comment TYPE="string"/>
+
+
+
+	<disp_phone PROPERTY="1" EXPR="
+			dispPhone = phone;
+
+			if ( mobile_phone != '' )
+			{
+				if ( dispPhone != '' )
+					dispPhone = dispPhone + ',  ';
+
+				dispPhone = dispPhone + mobile_phone + ' (м)';
+			}
+
+			return dispPhone;
+	"/>
+
+
+	<address TYPE="string"/>
+
+	<fax TYPE="string" OBSOLETE="1"/>
+
+	<t1 TYPE="bool" EXPR="
+			if ( fax == '' )
+				return;
+
+			if ( phone == '' )
+				phone = fax;
+			else if ( mobile_phone == '' )
+				mobile_phone = fax;
+			else
+				phone += '; ' + fax;
+
+			fax = '';
+	" EXPR-SHOW-ERRORS_="1"/>
+
+	<csd>
+	</csd>
+
+
+	<INHERIT TYPE="au_card_attachments"/>
+	<INHERIT TYPE="bs_user_ref"/>
+	<is_private TYPE="bool" NOT-NULL="1"/>
+	<doc_info TYPE="au_doc_info"/>
+</person>
+
+
+
+<OnCreate PROPERTY="1" EXPR="
+		TopElem.user_id = LdsCurUserID;
+		TopElem.code = au_tools.obtain_new_object_code( TopElem.Name );
+"/>
+
+
+<OnBeforeSave PROPERTY="1" EXPR="
+		array = XQuery( 'for $event in events where $event/person_id = ' + TopElem.Doc.DocID + ' return $event' );
+		stateArray = ArraySelect( array, 'type_id.ForeignElem.is_sig' );
+		descArray = ArraySelect( array, 'comment != \'\'' );
+
+		if ( ArrayCount( stateArray ) != 0 )
+		{
+			stateEvent = ArrayMax( stateArray, 'date' );
+			TopElem.state_event_id = stateEvent.id;
+			TopElem.state_event_date = stateEvent.date;
+			TopElem.state_event_type_id = stateEvent.type_id;
+		}
+		else
+		{
+			TopElem.state_event_id = null;
+			TopElem.state_event_date = null;
+			TopElem.state_event_type_id = null;
+		}
+		
+		if ( ArrayCount( descArray ) != 0 )
+		{
+			descEvent = ArrayMax( descArray, 'date' );
+			TopElem.desc_event_comment = descEvent.comment;
+		}
+		else
+		{
+			TopElem.desc_event_comment = '';
+		}
+"/>
+
+
+
+<OnSave PROPERTY="1" EXPR="
+		au_tools.update_object_secondary_data( TopElem.org_id );
+"/>
+
+
+<DocDesc PROPERTY="1" EXPR="
+		'Контактное лицо: ' + person.fullname
+"/>
+
+
+</SPXML-FORM>

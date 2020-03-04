@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_mail_attachments_select>
+	<attachments>
+		<attachment MULTIPLE="1">
+			<file_name TYPE="string"/>
+			<data TYPE="binary"/>
+
+			<skip TYPE="bool" NULL-FALSE="1"/>
+			<dest_card_attachment_type_id TYPE="string" FOREIGN-ARRAY="card_attachment_types"/>
+		</attachment>
+	</attachments>
+</dlg_mail_attachments_select>
+
+
+</SPXML-INLINE-FORM>

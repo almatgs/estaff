@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems_int.xmd" LANG="ru">
+	<std_voc_elem>
+		<id>1001</id>
+		<name>Специалист 1-й категории</name>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>1002</id>
+		<name>Специалист 2-й категории</name>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>1003</id>
+		<name>Ведущий специалист</name>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>1004</id>
+		<name>Начальник отдела</name>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>1005</id>
+		<name>Начальник управления</name>
+	</std_voc_elem>
+</std_voc_elems>
+
+
+
+

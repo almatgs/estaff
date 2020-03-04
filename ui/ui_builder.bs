@@ -1,0 +1,63 @@
+namespace ui_builder {
+
+function ParseSectionViewUrl( viewUrl )
+{
+	obj = StrScan( viewUrl, 'x-app://ui_auto/section/%s.xml' );
+
+	destObj = new Object;
+	destObj.templateID = obj[0];
+
+	return destObj;
+}
+
+
+function GetObjectTypeFragmentID( objectTypeID )
+{
+	return objectTypeID;
+	//return lib_base.FieldNameToMethodName( objectTypeID );
+}
+
+
+function GetCardAuxUiDataFormUrl( objectTypeID )
+{
+	formUrl = BuildCardAuxUiDataFormUrl( objectTypeID );
+	if ( GetOptCachedForm( formUrl ) != undefined )
+		return formUrl;
+
+	respObj = CallServerMethod( 'ui_builder_server', 'GetCardAuxUiDataForm', [objectTypeID] );
+	//PutUrlData( 'x-local://Logs/view_forms_1/' + templateID + '.xms', respObj.screenFormData );
+	RegisterFormFromStr( formUrl, respObj.formData );
+
+	return formUrl;
+}
+
+
+function BuildCardAuxUiDataFormUrl( objectTypeID )
+{
+	return 'x-app://ui_auto/ui_card_aux_ui_data.xmd?object_type_id=' + objectTypeID;
+}
+
+
+function CreateModifiers()
+{
+	modifiers = new Object;
+
+	//if ( app1_config.ui_spec_id.HasValue )
+		//modifiers.uiSpecID = app1_config.ui_spec_id;
+
+	return modifiers;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

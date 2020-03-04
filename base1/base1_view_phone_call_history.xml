@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<view_phone_call_recods>
+	<entries_array_ref TYPE="variant"/>
+	<entriesArray PROPERTY="1" EXPR="entries_array_ref.Object"/>
+</view_phone_call_recods>
+
+
+</SPXML-INLINE-FORM>

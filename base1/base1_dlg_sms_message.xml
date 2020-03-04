@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_sms_message>
+	<dest_phone TYPE="string"/>
+	<text TYPE="string" MULTILINE="1"/>
+</dlg_sms_message>
+
+
+
+</SPXML-INLINE-FORM>

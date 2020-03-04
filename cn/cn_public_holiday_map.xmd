@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" IMAGE-URL="//base_pict/generic_item.ico">
+
+<public_holiday_map>
+	<id TYPE="string"/>
+	<name TYPE="string" EXPR="country_id.ForeignDispName"/>
+
+	<country_id TYPE="string" FOREIGN-ARRAY="lib_location.get_std_countries()" TITLE="##UiText.fields.country##"/>
+	<start_year TYPE="integer"/>
+	<end_year TYPE="integer"/>
+
+	<items>
+		<item MULTIPLE="1" PRIMARY-KEY="month_day">
+			<month TYPE="integer" FOREIGN-ARRAY="base1_common.months"/>
+			<day TYPE="integer"/>
+			<month_day TYPE="integer" EXPR="month * 100 + day"/>
+			<name TYPE="string"/>
+		</item>
+	</items>
+
+	<observance_policy_id TYPE="integer" FOREIGN-ARRAY="cn_common.holiday_observance_policies" TITLE="Политика переноса в случае попадания на выходной день" lang-en:TITLE="Policy for observances" lang-ua:TITLE="Політика перенесення в разі потрапляння на вихідний день"/>
+
+
+	<is_active TYPE="bool" NOT-NULL="1" EXPR="
+			if ( start_year.HasValue &amp;&amp; Year( CurDate ) &lt; start_year )
+				return false;
+
+			if ( end_year.HasValue &amp;&amp; Year( CurDate ) > end_year )
+				return false;
+
+			return true;
+	"/>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</public_holiday_map>
+
+
+</SPXML-FORM>

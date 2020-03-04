@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_app_activate>
+	<use_manual TYPE="bool" NOT-NULL="1"/>
+	<disable_sep_sn TYPE="bool" NOT-NULL="1"/>
+</dlg_app_activate>
+
+</SPXML-INLINE-FORM>
+

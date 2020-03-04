@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" IMAGE-URL="//base_pict/generic_item.ico" IMAGE-URL-EXPR="is_active ? '//base_pict/generic_item.ico' : '//base_pict/generic_item_inactive.ico'">
+
+
+<agent>
+	<id TYPE="string"/>
+	<name TYPE="string" TITLE="##UiText.fields.name##"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<code TYPE="string" SUBTYPE="code"/>
+	<run_on_client TYPE="bool" NULL-FALSE="1"/>
+	<run_sync_manually TYPE="bool" NULL-FALSE="1" TITLE="При запуске вручную запускать на рабочем месте, минуя диспетчер фоновых задач" lang-en:TITLE="When started manually, run on workstation, bypassing agent manager" lang-ua:TITLE="При запуску вручну запускати на робочому місці, минаючи диспетчер фонових задач"/>
+	<show_in_main_menu TYPE="bool" NULL-FALSE="1" TITLE="Показывать в меню для запуска вручную" lang-en:TITLE="Show in menu for manual start" lang-ua:TITLE="Показувати в меню для запуску вручну"/>
+
+	<scenario_object_type_id TYPE="string" FOREIGN-ARRAY="vocs"/>
+	<scenario_id TYPE="string" FOREIGN-ARRAY="eval( lib_base.object_name_to_catalog_name( scenario_object_type_id ) )"/>
+
+	<settings_section>
+		<holder TYPE="string"/>
+		<screen_form TYPE="string"/>
+	</settings_section>
+
+	<schedule base1:exclude-from-std-data="1">
+		<use_term TYPE="bool" NULL-FALSE="1"/>
+		<term TYPE="term"/>
+
+		<time_entries>
+			<time_entry MULTIPLE="1">
+				<hour TYPE="integer"/>
+				<minute TYPE="integer"/>
+			</time_entry>
+		</time_entries>
+	</schedule>
+
+	<use_schedule PROPERTY="1" EXPR="
+			if ( schedule.use_term )
+				return schedule.term.length.HasValue;
+			else
+				return schedule.time_entries.ChildNum != 0;
+	"/>
+
+	<schedule_desc PROPERTY="1" EXPR="
+			if ( schedule.use_term )
+			{
+				if ( ! schedule.term.length.HasValue )
+					return '';
+
+				return '(' + schedule.term.short_desc + ')';
+			}
+			else
+			{
+				return ArrayMerge( schedule.time_entries, 'StrInt( hour, 2 ) + \':\' + StrInt( minute, 2 )', ', ' );
+			}
+	" TITLE="##UiText.titles.schedule##" DEPENDS="schedule,run_on_client"/>
+	
+	<is_my_side PROPERTY="1" TYPE="bool" EXPR="
+			if ( run_on_client )
+				return LdsIsClient;
+			else
+				return ! UseLds;
+	"/>
+
+	<is_running PROPERTY="1" TYPE="bool" EXPR="lib_agent.is_agent_running( id )" TITLE="Запущен" lang-en:TITLE="Is running" lang-ua:TITLE="Запущено"/>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+
+	<last_run_start_date TYPE="date" base1:exclude-from-std-data="1"/>
+	<last_run_date TYPE="date" base1:exclude-from-std-data="1"/>
+	<last_error TYPE="string" base1:exclude-from-std-data="1"/>
+
+	<get_last_run_start_date PROPERTY="1" TYPE="date" TITLE="Дата последнего запуска" lang-en:TITLE="Last launch time" EXPR="lib_agent.get_agent_stat_field( this, 'last_run_start_date' )" lang-ua:TITLE="Дата останнього запуску" DEPENDS="last_run_start_date"/>
+	<get_last_run_end_date PROPERTY="1" TYPE="date" TITLE="Дата последней отработки" lang-en:TITLE="Last run time" EXPR="lib_agent.get_agent_stat_field( this, 'last_run_end_date' )" lang-ua:TITLE="Дата останнього відпрацювання" DEPENDS="last_run_date"/>
+	<get_last_run_error_str PROPERTY="1" TYPE="string" TITLE="Результат последнего запуска" MULTILINE="1" lang-en:TITLE="Result of last launch" EXPR="lib_agent.get_agent_stat_field( this, 'last_run_error_str' )" lang-ua:TITLE="Результат останнього запуску" DEPENDS="last_error"/>
+</agent>
+
+
+
+</SPXML-FORM>
+

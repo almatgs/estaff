@@ -1,0 +1,1568 @@
+namespace ui_builder_server {
+
+
+function PrepareListViewTemplate( template )
+{
+	template.filterItems = ArraySelectByKey( template.items, 'Filter', 'type' );
+	template.columnItems = ArraySelectByKey( template.items, 'Column', 'type' );
+	template.actionItems = ArraySelectByKey( template.items, 'Action', 'type' );
+
+	if ( template.useObjectPreview == undefined )
+		template.useObjectPreview = true;
+
+	template.destSpec = BuildListViewDestSpec( template );
+}
+
+
+function CreateBuildParam( template, options ? )
+{
+	if ( options == undefined )
+	{
+		options = new Object;
+		options.SetStrictMode( false );
+	}
+
+	param = new Object;
+	param.template = template;
+	
+	/*if ( template.holderCardObjectTypeID != undefined )
+		param.filtersBaseElemExpr = 'ui_builder.GetCardListFiltersBaseElem( Ps, ' + CodeLiteral( template.id ) + ' )';
+	else
+		param.filtersBaseElemExpr = 'Ps.filter';*/
+	
+	param.filtersBaseElemExpr = '_dest.filter';
+	return param;
+}
+
+
+function BuildListViewDestSpec( template, options ? )
+{
+	param = CreateBuildParam( template );
+
+	filterSpecArray = new Array;
+
+	destSpec = new ui_base.list_view_spec;
+	destSpec.id = template.id;
+	destSpec.catalog_name = template.catalogName;
+	destSpec.filters = filterSpecArray;
+	
+	if ( template.isInnerList )
+		destSpec.is_inner_list = true;
+
+	for ( filter in template.filterItems )
+	{
+		filterSpec = new ui_base.filter_spec;
+		filterSpec.field_id = filter.fieldID;
+		
+		formElem = filter.formElem;
+
+		if ( formElem != undefined )
+			filterSpec.title = formElem.Title;
+
+		if ( filter.dataType != undefined )
+			filterSpec.data_type = filter.dataType;
+		else if ( formElem != undefined )
+			filterSpec.data_type = formElem.ResultDataType;
+
+		if ( filter.multiple )
+			filterSpec.is_multiple = true;
+
+		if ( filter.foreign_array_expr != undefined )
+			filterSpec.foreign_array_expr = filter.foreign_array_expr;
+		else if ( formElem != undefined && formElem.ForeignArrayExpr != '' )
+			filterSpec.foreign_array_expr = formElem.ForeignArrayExpr;
+
+		if ( filter.withAllDescendants )
+			filterSpec.with_all_descendants = true;
+
+		if ( filter.isFixed )
+		{
+			filterSpec.is_fixed = true;
+			filterSpec.value_expr = filter.valueExpr;
+		}
+		else
+		{
+			filterSpec.is_popular = true;
+		}
+
+		if ( filter.showCondition != undefined )
+			filterSpec.show_condition = filter.showCondition;
+		
+		filterSpecArray.push( filterSpec );
+	}
+
+	catalog = DefaultDb.GetOptCatalog( template.catalogName );
+	recordFormElem = catalog.Form.TopElem[0];
+
+	for ( formElem in recordFormElem )
+	{
+		innerKeyFormElem = undefined;
+
+		if ( formElem.Name == 'id' || formElem.Name == 'parent_id' || formElem.Name == 'hce' || formElem.Name == 'hlevel' )
+			continue;
+
+		if ( formElem.Name == 'is_candidate' )
+			continue;
+
+		if ( formElem.Title == '' )
+			continue;
+
+		if ( formElem.ResultDataType == '' && ( innerKeyFormElem = lib_view.get_simple_array_inner_key_form_elem( formElem ) ) == undefined )
+			continue;
+
+		if ( formElem.ResultDataType == 'string' && formElem.ForeignArrayExpr == '' )
+			continue;
+
+		if ( innerKeyFormElem != undefined )
+		{
+			continue;
+			//array.push( innerKeyFormElem );
+		}
+
+		if ( ArrayOptFindByKey( filterSpecArray, formElem.Name, 'field_id' ) != undefined )
+			continue;
+
+		filterSpec = new ui_base.filter_spec;
+		filterSpec.field_id = formElem.Name;
+		filterSpec.title = formElem.Title;
+		filterSpec.data_type = formElem.ResultDataType;
+
+		if ( ( formElem.ResultDataType == 'integer' || formElem.ResultDataType == 'real' || formElem.ResultDataType == 'date' ) && formElem.ForeignArrayExpr == '' )
+		{
+			filterSpec.use_range = true;
+		}
+
+		if ( formElem.ForeignArrayExpr != '' )
+		{
+			filterSpec.foreign_array_expr = formElem.ForeignArrayExpr;
+			filterSpec.is_multiple = true;
+
+			if ( ( catalog = DefaultDb.GetOptCatalog( filterSpec.foreign_array_expr ) ) != undefined && catalog.Form.IsHier )
+			{
+				filterSpec.with_all_descendants = true;
+			}
+		}
+
+		filterSpecArray.push( filterSpec );
+	}
+
+	for ( filterSpec in filterSpecArray )
+	{
+		if ( filterSpec.foreign_array_expr != undefined )
+		{
+			if ( ( vocInfo = lib_voc.get_opt_voc_info( filterSpec.foreign_array_expr ) ) != undefined )
+			{
+				filterSpec.selector_type = 'voc_elem_selector';
+			}
+			else if ( ( catalog = DefaultDb.GetOptCatalog( filterSpec.foreign_array_expr ) ) != undefined )
+			{
+				filterSpec.selector_type = 'object_selector';
+			}
+			else
+			{
+				filterSpec.selector_type = 'elem_selector';
+			}
+		}
+		else if ( filterSpec.data_type == 'bool' )
+		{
+			filterSpec.selector_type = 'tri_state_selector';
+		}
+	}
+
+	return destSpec;
+}
+
+
+
+
+function BuildListViewDataForm( template, options, topElem )
+{
+	param = CreateBuildParam( template );
+
+	/*if ( template.isDlg )
+	{
+		elem = form.TopElem.AddChild( 'object_id', 'integer' );
+		elem.IsMultiple = true;
+
+		elem = form.TopElem.AddChild( 'allow_multi_select', 'bool' );
+		elem.NullFalse = true;
+	}*/
+
+	//BuildListViewDataFormCore( template, options, topElem );
+
+	/*
+
+	if ( param.view.deferred_set_sel_action != '' )
+	{
+		preview = form.TopElem.AddChild( 'preview', '' );
+		//preview.IsTemp = true;
+
+		preview.Inherit( FetchForm( 'base1_general.xmd' ).EvalPath( 'view_data_preview' ) );
+
+		elem = preview.AddChild( 'deferred_set_sel_action', 'string' );
+		elem.DefaultValue = param.view.deferred_set_sel_action;
+	}
+
+	if ( template.isDlg )
+	{
+		elem = topElem.AddChild( 't1', 'bool' );
+		elem.ExprInit = 'lib_view.adjust_filters( ' + CodeLiteral( param.view.id ) + ', filter.Parent ); return true;';
+	}
+	else
+	{
+		elem = topElem.AddChild( 'OnObjectSave', 'property' );
+		elem.Expr = 'if ( ! lib_view.is_some_filter_applied( ' + CodeLiteral( param.view.id ) + ', filter.Parent ) ) { Screen.Update(); };';
+	}
+	*/
+}
+
+
+function BuildListViewScreenForm( template, rootItem )
+{
+	param = CreateBuildParam( template );
+
+	panel = rootItem.AddChild( 'PANEL' );
+	panel.AddAttr( 'NAME', 'ListView' );
+	panel.AddAttr( 'STD-MARGINS', '0' );
+
+	metaNode = panel.AddChild( 'WITH' );
+	metaNode.AddAttr( 'VAR', '_list_view_spec' );
+	metaNode.AddAttr( 'EXPR', 'ParseJson( ' + CodeLiteral( EncodeJson( template.destSpec ) ) + ' )' );
+	metaNode.AddAttr( 'EVALUATE-ONCE', '1' );
+	metaNode.AddAttr( 'IGNORE-ERRORS', '0' );
+
+	metaNode = metaNode.AddChild( 'WITH' );
+	metaNode.AddAttr( 'VAR', '_dest' );
+	metaNode.AddAttr( 'EXPR', 'ui_client.InitListViewDestObject( _list_view_spec )' );
+	metaNode.AddAttr( 'EVALUATE-ONCE', '1' );
+	metaNode.AddAttr( 'IGNORE-ERRORS', '0' );
+
+	if ( ! template.listOnly )
+	{
+		item = metaNode.AddChild( 'ITEM' );
+		item.AddAttr( 'TYPE', 'list_view_header' );
+
+		item = metaNode.AddChild( 'SPLIT' );
+		item.AddAttr( 'FIXED', '1' );
+	}
+	
+	BuildListViewScreenFormList( template, param, metaNode );
+}
+
+
+function BuildListViewScreenAction( template, action, lineNode )
+{
+	node = lineNode.AddChild( 'BUTTON' );
+	node.AddAttr( 'TITLE', UiText.actions.create__new );
+	node.AddAttr( 'IMAGE-URL', '//base_pict/plus.ico' );
+	node.AddAttr( 'ACTION', 'ui_builder.HandleCreateNewObject( ' + CodeLiteral( template.objectTypeID ) + ' )' );
+	node.AddAttr( 'PASSIVE', '1' );
+	node.AddAttr( 'KEEP-RIGHT', '1' );
+	node.AddAttr( 'LABEL-TITLE', ' ' );
+}
+
+
+function BuildListViewScreenFormList( template, param, rootItem )
+{
+	if ( template.listOnly )
+	{
+		list = rootItem.AddChild( 'LIST' );
+		list.AddAttr( 'BORDER', 1 );
+	}
+	else
+	{
+		panel = rootItem.AddChild( 'PANEL' );
+		panel.AddAttr( 'BK-COLOR-EXPR', '' );	// !!! for splittter
+		//panel.AddAttr( 'SUNKEN', 1 );
+		panel.AddAttr( 'HEIGHT', '100%' );
+
+		list = panel.AddChild( 'LIST' );
+		list.AddAttr( 'NAME', 'MainList' );
+		list.AddAttr( 'SUNKEN', 1 );
+	}
+	
+	list.AddAttr( 'USE-KEY-SEL', '1' );
+
+	//if ( param.view.set_sel_action.HasValue )
+		//list.AddAttr( 'MOVE-SEL-ON-DELETE', '1' );
+
+
+	if ( template.isDlg )
+		list.AddAttr( 'HEIGHT-EXPR', 'lib_base.dlg_body_height' );
+
+	if ( template.isHier )
+	{
+		list.AddAttr( 'HIER', '1' );
+
+		//if ( param.view.hier_collapsed )
+			list.AddAttr( 'HIER-EXPANDED', '0' );
+	}
+
+	list.AddAttr( 'LOOP-CATALOG', template.catalogName );
+
+	if ( template.hierRootIDExpr != undefined )
+		list.AddAttr( 'LOOP-HIER-ROOT-ID-EXPR', template.hierRootIDExpr );
+	
+	//if ( template.filters != undefined )
+		list.AddAttr( 'FT-FILTER', param.filtersBaseElemExpr );
+
+	if ( template.staticFilters != undefined || template.filterItems.length != 0 )
+	{
+		//if ( template.isInnerList )
+		list.AddAttr( 'XQUERY-QUAL-EXPR', 'ui_client.BuildListViewXqueryQual( List, _dest )' );
+	}
+
+	xqueryFieldNames = BuildXQueryFieldNames( template, param );
+	list.AddAttr( 'XQUERY-FIELDS-EXPR', '[' + ArrayMerge( xqueryFieldNames, 'CodeLiteral( This )', ',' ) + ']' );
+
+	//list.AddAttr( 'AFTER-BUILD-ASYNC-ACTION', 'if ( StrContains( Screen.FrameName, \'Sub\' ) ) return; StatusMsg( UiText.titles.items_in_list + \': \' + StrInt( ArrayCount( MainArray ), 0, true ) + ( lib_view.is_some_filter_applied( ' + CodeLiteral( param.view.id ) + ', Ps ) ? \'  (' + UiText.titles.with_filter + ')\' : \'\' ) )' );
+
+	if ( ! lib_user.allow_list_copy )
+		list.AddAttr( 'OnCheckCommand', 'switch ( Command ) { case \'Copy\': return false; };' );
+	
+	row = list.AddChild( 'ROW' );
+	//row.AddAttr( 'IMAGE-URL-EXPR', 'ListElem.ImageUrl' );
+
+	if ( template.useObjectPreview )
+		row.AddAttr( 'SET-SEL-ACTION', 'ui_client.OnListViewSetRowSel( Ps, List, ListElem )' );
+	
+	row.AddAttr( 'OPEN-ACTION', 'ui_client.OnListViewOpenRow( Ps, List, ListElem )' );
+	row.AddAttr( 'DELETE-ACTION', '' ); //!!!
+
+/*	if ( template.isDlg )
+	{
+		row.AddAttr( 'OPEN-ACTION', 'Screen.RunCommand( \'Ok\' )' );
+	}
+	else if ( System.IsWebClient && StrBegins( UrlPath( System.WebClientUrl ), '/web_entry/' ) )
+	{
+		row.AddAttr( 'OPEN-ACTION', 'lib_w4_ui.open_object_card( ListElem.ObjectUrl )' );
+	}
+	else
+	{
+		if ( param.view.open_action != '' )
+			row.AddAttr( 'OPEN-ACTION', param.view.open_action );
+
+		if ( param.view.delete_action != '' )
+			row.AddAttr( 'DELETE-ACTION', param.view.delete_action );
+	}
+*/
+
+	BuildListViewScreenColumns( template, param, rootItem, list, row );
+}
+
+
+function BuildListViewScreenColumns( template, param, rootItem, list, row )
+{
+	flexFieldsNum = 0;
+
+	for ( item in template.columnItems )
+	{
+		/*if ( item.fieldID == '' )
+		{
+			flexFieldsNum++;
+			continue;
+		}*/
+
+		//if ( ! template.objectFormElem.PathExists( item.fieldID ) )
+			//throw 'No such field: ' + item.fieldID;
+
+		//elem = template.objectFormElem.EvalPath( item.fieldID );
+
+		formElem = item.formElem;
+
+		if ( lib_base.get_field_default_col_len( formElem ) == null )
+			flexFieldsNum++;
+
+		/*if ( field.width.HasValue && StrEnds( field.width, '%' ) )
+		{
+			flexFieldsNum = 0;
+			break;
+		}*/
+	}
+
+	if ( flexFieldsNum != 0 )
+	{
+		defaultPercentWidth = 100 / flexFieldsNum;
+		sumFlexFieldsNum = 0;
+		sumPercentWidth = 0;
+	}
+	
+	for ( item in template.columnItems )
+		BuildListViewScreenColumn( template, param, item, row );
+}
+
+
+function BuildListViewScreenColumn( template, param, item, row )
+{
+	formElem = item.formElem;
+
+	if ( formElem != undefined && formElem.ForeignArrayExpr != '' )
+		vocInfo = lib_voc.get_opt_voc_info( formElem.ForeignArrayExpr );
+	else
+		vocInfo = undefined;
+
+	if ( formElem != undefined )
+		coreElemExpr = item.fieldID;
+	else
+		coreElemExpr = undefined;
+	
+	col = row.AddChild( 'COL' );
+
+
+	widthMeasure = undefined;
+
+	if ( item.widthMeasure != undefined )
+	{
+		widthMeasure = item.widthMeasure;
+	}
+	else if ( formElem != undefined )
+	{
+		if ( formElem.ForeignArrayExpr != '' )
+		{
+			if ( formElem.ForeignArrayExpr == 'candidates' ) // !!!
+				widthMeasure = '30zr';
+		}
+		else if ( formElem.ResultDataType == 'integer' )
+			widthMeasure = '8zr';
+		else if ( formElem.ResultDataType == 'bool' )
+			widthMeasure = '6zr';
+		else if ( formElem.ResultDataType == 'date' )
+		{
+			if ( item.useTime == true )
+				widthMeasure = '14zr';
+			else if ( item.timeOnly )
+				widthMeasure = '8zr';
+			else
+				widthMeasure = '12zr';
+		}
+	}
+	
+	//if ( widthMeasure == undefined )
+		//widthMeasure = '20zr';
+
+	if ( widthMeasure != undefined )
+		col.AddAttr( 'WIDTH', widthMeasure );
+
+
+	if ( item.title != undefined )
+		col.AddAttr( 'COL-TITLE', item.title );
+
+	if ( item.tipText != undefined )
+		col.AddAttr( 'TIP-TEXT', item.tipText );
+
+
+	if ( item.titleExpr != undefined )
+	{
+		titleExpr = 'with ( Ps ) { with ( ListElem ) { return ' + item.titleExpr + '; }}';
+	}
+	else if ( formElem != undefined )
+	{
+		titleExpr = 'ListElem.' + formElem.Name;
+
+		if ( formElem.ForeignArrayExpr != '' )
+		{
+			//if ( titleExpr == 'ListElem.' + item.fieldID && ( newPathExpr = process_multi_path_title_expr( template.objectFormElem, item.fieldID ) ) != undefined )
+				//titleExpr = 'ArrayMerge( ListElem.' + newPathExpr + ', \'ForeignDispName\', \', \' )';
+			//else
+				titleExpr = add_attr_code_chain( titleExpr, '.ForeignDispName' );
+		}
+		else if ( formElem.ResultDataType == 'integer' )
+			titleExpr = ( item.show_zeroes ? 'StrInt( ' : 'StrIntZero( ' ) + titleExpr + ' )';
+		else if ( formElem.ResultDataType == 'bool' )
+			titleExpr = titleExpr + ' ? \'+\' : \'\'';
+		else if ( formElem.ResultDataType == 'date' )
+		{
+			if ( item.useTime == true )
+				titleExpr = 'StrDate( ' + titleExpr + ', true, false )';
+			else if ( item.timeOnly )
+				titleExpr = 'StrTime( ' + titleExpr + ', false )';
+			else
+				titleExpr = 'StrDate( ' + titleExpr + ', false )';
+		}
+			
+		//orderExpr = StrReplace( titleExpr, 'ListElem.', '' );
+
+	}
+	else
+	{
+		throw 'titleExpr or id required';
+	}
+
+	col.AddAttr( 'TITLE-EXPR', titleExpr );
+
+
+	align = undefined;
+
+	if ( item.align != undefined )
+	{
+		align = item.align;
+	}
+	else if ( formElem != undefined )
+	{
+		titleExpr = 'ListElem.' + formElem.Name;
+
+		if ( formElem.ForeignArrayExpr != '' )
+		{
+			if ( vocInfo != undefined )
+				align = 'center';
+		}
+		else if ( formElem.ResultDataType == 'integer' )
+			align = 'right';
+		else if ( formElem.ResultDataType == 'bool' )
+			align = 'center';
+		else if ( formElem.ResultDataType == 'date' )
+			align = 'center';
+			
+		//orderExpr = StrReplace( titleExpr, 'ListElem.', '' );
+
+	}
+
+	if ( align != undefined )
+		col.AddAttr( 'ALIGN', align );
+
+	if ( item.textColor != undefined )
+	{
+		col.AddAttr( 'TEXT-COLOR', item.textColor );
+	}
+	else
+	{
+		textColorExpr = undefined;
+
+		if ( item.textColorExpr != undefined )
+			textColorExpr = build_item_attr_code( item.textColorExpr, 'ListElem' );
+		else if ( vocInfo != undefined && vocInfo.use_text_color )
+			textColorExpr = add_attr_code_chain( build_item_attr_code( coreElemExpr, 'ListElem' ), '.ForeignElem.text_color' );
+
+		if ( textColorExpr != undefined )
+			col.AddAttr( 'TEXT-COLOR-EXPR', textColorExpr );
+	}
+
+	if ( item.bkColor != undefined )
+	{
+		col.AddAttr( 'BK-COLOR', item.bkColor );
+	}
+	else
+	{
+		bkColorExpr = undefined;
+
+		if ( item.bkColorExpr != undefined )
+			bkColorExpr = build_item_attr_code( item.bkColorExpr, 'ListElem' );
+		else if ( vocInfo != undefined && vocInfo.use_text_color )
+			bkColorExpr = add_attr_code_chain( build_item_attr_code( coreElemExpr, 'ListElem' ), '.ForeignElem.bk_color' );
+
+		if ( bkColorExpr != undefined )
+			col.AddAttr( 'BK-COLOR-EXPR', bkColorExpr );
+	}
+
+
+	//if (  elem != undefined && elem.ForeignArrayExpr != '' )
+		//col.AddAttr( 'ERROR-TEXT', '' );
+
+	
+	orderExpr = undefined;
+	orderDir = undefined;
+
+	if ( item.orderExpr != undefined )
+	{
+		orderExpr = item.orderExpr;
+		orderDir = item.orderDir;
+	}
+	else if ( formElem != undefined )
+	{
+		if ( formElem.ForeignArrayExpr != '' )
+		{
+			if ( vocInfo != undefined )
+				orderExpr = formElem.Name + '.ForeignElem.order_index';
+			else
+				orderExpr = formElem.Name + '.ForeignDispName';
+		}
+		else
+		{
+			orderExpr = formElem.Name;
+		}
+	}
+
+	if ( orderDir == undefined && formElem.ResultDataType == 'date' )
+		orderDir = '-';
+
+	if ( orderExpr != undefined )
+	{
+		col.AddAttr( 'ORDER', orderExpr );
+		if ( orderDir != undefined )
+			col.AddAttr( 'ORDER-DIR', orderDir );
+	}
+
+
+	/*orderStr = StrReplace( item.titleExprStr, 'ListElem.', '' );
+	
+	if ( item.orderStr != undefined )
+		col.AddAttr( 'ORDER', item.orderStr );
+		*/
+
+	/*
+	if ( item.order != undefined )
+	{
+		if ( StrContains( field.order, '?' ) && field.use_local_sort )
+			col.AddAttr( 'ORDER', 'with ( Ps ) { return ' + field.order + '; }' );
+		else
+			col.AddAttr( 'ORDER', field.order );
+			
+		if ( field.order_dir.HasValue )
+			col.AddAttr( 'ORDER-DIR', field.order_dir );
+
+		for ( i = 1; i <= 1; i++ )
+		{
+			if ( ( order = field.Child( 'order' + i ) ) != '' )
+			{
+				col.AddAttr( 'ORDER' + i, order );
+
+				if ( ( orderDir = field.Child( 'order_dir' + i ) ) != '' )
+					col.AddAttr( 'ORDER-DIR' + i, orderDir );
+			}
+		}
+	}
+	else if ( field.use_time.HasValue )
+	{
+		col.AddAttr( 'ORDER', orderExpr );
+		col.AddAttr( 'ORDER-DIR', '-' );
+	}
+	else if ( field.ChildIndex == 0 && ( voc = lib_voc.get_opt_voc_info( param.catalogName ) ) != undefined )
+	{
+		col.AddAttr( 'ORDER', 'order_index' );
+	}
+	else if ( orderExpr != '' )
+	{
+		col.AddAttr( 'ORDER', orderExpr );
+	}
+
+	if ( field.use_local_sort )
+		col.AddAttr( 'LOCAL-SORT', '1' );
+
+
+
+	if ( field.is_default_sort )
+		col.AddAttr( 'DEFAULT-SORT', '1' );
+
+	*/
+}
+
+
+function BuildXQueryFieldNames( template, param, columnItems ? )
+{
+	xqueryFieldNames = new Array;
+	
+	for ( formElem in template.objectFormElem )
+	{
+		switch ( formElem.Name )
+		{
+			case 'id':
+			case 'parent_id':
+			case 'is_active':
+			case 'is_tentative':
+			case 'image_url':
+			case 'order_index':
+			case 'is_derived':
+			case 'is_calendar_entry':
+			case 'is_rr_poll':
+			case 'is_testing':
+			case 'is_own_person':
+			case 'is_candidate':
+			case 'is_own_org':
+			//case 'raw_storage_id':
+			//case 'is_read':
+			//case 'last_event_occurrence_id':
+			//case 'completion_id':
+				xqueryFieldNames.push( formElem.Name );
+				break;
+		}
+	}
+
+	for ( item in template.columnItems )
+	{
+		if ( item.fieldID == undefined )
+			continue;
+
+		fieldID = item.fieldID;
+		if ( ( pos = String( fieldID ).indexOf( '.' ) ) >= 0 )
+			fieldID = String( fieldID ).slice( 0, pos );
+
+		if ( xqueryFieldNames.indexOf( fieldID ) < 0 )
+			xqueryFieldNames.push( fieldID );
+	}
+
+	/*for ( fieldID in param.view.extra_field_ids )
+	{
+		if ( xqueryFieldNames.indexOf( fieldID ) < 0 )
+			xqueryFieldNames.push( fieldID );
+	}*/
+
+	return xqueryFieldNames;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function process_multi_path_title_expr( recordFormElem, path )
+{
+	namesArray = String( path ).split( '.' );
+	if ( namesArray.length <= 1 )
+		return undefined;
+
+	curFormElem = recordFormElem;
+
+	for ( i = 0; i < namesArray.length; i++ )
+	{
+		formElem = curFormElem.Child( namesArray[i] );
+
+		if ( formElem.IsMultiple && i != 0 && i + 1 < namesArray.length )
+		{
+			newPath = ArrayMerge( ArrayRange( namesArray, 0, i ), 'This', '.' ) + '.EvalMultiPath( ' + CodeLiteral( ArrayMerge( ArrayRange( namesArray, i, namesArray.length - i ), 'This', '.' ) ) + ' )';
+			//DebugMsg( newPath );
+			return newPath;
+		}
+
+		curFormElem = formElem;
+	}
+
+	return undefined;
+}
+
+
+function get_multi_path_title( recordFormElem, path )
+{
+	namesArray = String( path ).split( '.' );
+	if ( namesArray.length <= 1 )
+		return '';
+
+	curFormElem = recordFormElem;
+
+	for ( i = 0; i < namesArray.length; i++ )
+	{
+		formElem = curFormElem.Child( namesArray[i] );
+
+		if ( formElem.IsMultiple && i != 0 && i + 1 < namesArray.length )
+		{
+			return curFormElem.Title;
+		}
+
+		curFormElem = formElem;
+	}
+
+	return '';
+}
+
+
+function get_multi_path_col_title( recordFormElem, path )
+{
+	namesArray = String( path ).split( '.' );
+	if ( namesArray.length <= 1 )
+		return '';
+
+	curFormElem = recordFormElem;
+
+	for ( i = 0; i < namesArray.length; i++ )
+	{
+		formElem = curFormElem.Child( namesArray[i] );
+
+		if ( formElem.IsMultiple && i != 0 && i + 1 < namesArray.length )
+		{
+			if ( curFormElem.ColTitle != '' )
+				return curFormElem.ColTitle;
+			else
+				return curFormElem.Title;
+		}
+
+		curFormElem = formElem;
+	}
+
+	return '';
+}
+
+
+function build_filter_item_common_attr( param, filter, item )
+{
+	/*updateAction = '';
+
+	if ( param.view.use_manual_update )
+	{
+		item.AddAttr( 'PASSIVE', '1' );
+		updateAction += 'Screen.UpdateExcpt( Screen.FindItem( \'MainList\' ) );';
+	}
+
+	if ( filter.use_store )
+		updateAction += 'lib_view.store_filter_elem( ' + CodeLiteral( param.view.id ) + ', Source );';
+
+	if ( updateAction != '' )
+		item.AddAttr( 'UPDATE-ACTION', updateAction );*/
+}
+
+
+function build_view_param( viewID, extQuery )
+{
+	view = subst_views.views.GetOptChildByKey( viewID );
+	if ( view == undefined )
+		view = GetOptForeignElem( views, viewID );
+	if ( view == undefined )
+		throw UserError( 'View not registered: ' + viewID );
+
+	//alert( viewID + ' ' + view.fields.ChildNum );
+	
+	param = new Object;
+
+	if ( view.parent_id.HasValue )
+	{
+		param.view = combine_views( view, view.parent_id.ForeignElem );
+	}
+	else
+	{
+		param.view = OpenNewDoc( '//base1/base1_view.xmd' ).TopElem;
+		param.view.AssignElem( view );
+	}
+
+	//alert( param.view.id );
+
+	param.catalogName = ( param.view.catalog_name != '' ? param.view.catalog_name : param.view.id );
+
+	param.objectName = lib_base.catalog_name_to_object_name( param.catalogName );
+	param.objectForm = DefaultDb.GetObjectForm( param.objectName );
+	template.objectFormElem = get_catalog_record_form_elem( param.catalogName );
+
+	template.listOnly = false;
+
+	if ( extQuery != undefined )
+	{
+		extQueryObject = UrlQuery( 'http://tempuri/a?' + extQuery );
+
+		for ( extQueryPropName in extQueryObject )
+		{
+			if ( extQueryPropName == 'id' || extQueryPropName == 'new_window' )
+				continue;
+
+			obj = decode_query_prop_name( extQueryPropName );
+
+			staticFilter = param.view.static_filters.AddChild();
+			staticFilter.id = obj.filterID;
+			staticFilter.cmp_pred = obj.cmpPred;
+			staticFilter.value = extQueryObject.GetProperty( extQueryPropName );
+
+			filter = param.view.dyn_filters.GetOptChildByKey( extQueryPropName );
+			if ( filter != undefined )
+				filter.Delete();
+		}
+	}
+
+	for ( filter in ArraySelectAll( param.view.dyn_filters ) )
+	{
+		if ( filter.exist_req_expr.HasValue && ! eval( filter.exist_req_expr ) )
+			filter.Delete();
+	}
+
+	for ( field in ArraySelectAll( param.view.fields ) )
+	{
+		if ( field.exist_req_expr.HasValue && ! eval( field.exist_req_expr ) )
+			field.Delete();
+	}
+
+	return param;
+}
+
+
+function extract_mod_ext_query( param, extQuery )
+{
+	if ( extQuery == undefined )
+		return undefined;
+
+	newQuery = '';
+	extQueryObject = UrlQuery( 'http://tempuri/a?' + extQuery );
+
+	for ( extQueryPropName in extQueryObject )
+	{
+		if ( extQueryPropName == 'id' )
+			continue;
+
+		obj = decode_query_prop_name( extQueryPropName );
+
+		filter = param.view.dyn_filters.GetOptChildByKey( obj.filterID );
+		if ( filter != undefined )
+			continue;
+
+		if ( newQuery != '' )
+			newQuery += '&';
+
+		newQuery += extQueryPropName + '=' + extQueryObject.GetProperty( extQueryPropName );
+	}
+
+	if ( newQuery == '' )
+		return undefined;
+
+	//alert( newQuery );
+	return newQuery;
+}
+
+
+function decode_query_prop_name( queryPropName )
+{
+	obj = new Object;
+	//obj.SetStrictMode( false );
+
+	if ( StrBegins( queryPropName, 'min_' ) )
+	{
+		obj.filterID = StrRightRangePos( queryPropName, 4 );
+		obj.cmpPred = 'greater_or_equal';
+	}
+	else
+	{
+		obj.filterID = queryPropName;
+		obj.cmpPred = 'equal';
+	}
+
+	return obj;
+}
+
+
+function get_catalog_record_form_elem( catalogName )
+{
+	return eval( catalogName ).Form.TopElem.Child( 0 );
+}
+
+
+function get_dyn_filter_target_elem( param, filter )
+{
+	//if ( filter.xquery_qual_expr.HasValue && ! template.objectFormElem.EvalPath( filter.fieldID ) )
+		//return undefined;
+
+	if ( filter.use_ft )
+		return param.objectForm.TopElem.EvalPath( filter.fieldID );
+	else if ( filter.is_join_switcher )
+		return template.objectFormElem.EvalPath( 'id' );
+	else if ( filter.join_catalog_name )
+		return get_catalog_record_form_elem( filter.join_catalog_name ).EvalPath( filter.fieldID );
+	else
+		return template.objectFormElem.EvalPath( filter.fieldID );
+}
+
+
+
+function combine_views( view, baseView )
+{
+	combView = OpenNewDoc( 'base1_std_view.xmd' ).TopElem;
+	combView.AssignElem( view );
+	combView.AssignExtraElem( baseView );
+
+	if ( ! combView.catalog_name.HasValue )
+		combView.catalog_name = baseView.id;
+
+	combView.static_filters.AssignElem( baseView.static_filters );
+
+	for ( elem in view.static_filters )
+		combView.static_filters.AddChild().AssignElem( elem );
+
+	if ( view.drop_all_dyn_filters )
+		combView.dyn_filters.Clear();
+	else
+		combView.dyn_filters.AssignElem( baseView.dyn_filters );
+
+	for ( elem in view.dyn_filters )
+		combView.dyn_filters.AddChild().AssignElem( elem );
+
+	if ( view.fields.ChildNum != 0 )
+		combView.fields.AssignElem( view.fields );
+
+	if ( view.action.title.HasValue )
+		combView.action.AssignElem( view.action );
+
+	combView.hier_collapsed = view.hier_collapsed;
+
+	combView.frame_sub_view_id.Clear();
+
+	for ( template in view.frame_sub_view_id.Instances )
+		combView.frame_sub_view_id.ObtainByValue( template );
+
+	return combView;
+}
+
+
+function build_item_attr_code( origCodeStr, baseObjCodeStr )
+{
+	isBlock = StrContains( origCodeStr, 'return ' );
+
+	codeStr = 'with ( Ps ) { with ( ' + baseObjCodeStr + ' ) { ';
+	
+	if ( isBlock )
+		codeStr += origCodeStr;
+	else
+		codeStr += ' return ' + origCodeStr + ';';
+
+	codeStr += ' }}';
+	return codeStr;
+}
+
+
+function add_attr_code_chain( codeStr, chain )
+{
+	if ( StrContains( codeStr, 'return ' ) )
+	{
+		codeStr = 'var _retVal; ' + StrReplace( codeStr, 'return ', '_retVal = ' );
+		codeStr += ' return _retVal' + chain;
+	}
+	else
+	{
+		codeStr += chain;
+	}
+
+	return codeStr;
+}
+
+
+function is_some_filter_applied( viewID, source )
+{
+	param = build_view_param( viewID, UrlParam( source.Doc.Url ) );
+
+	if ( ! source.ChildExists( 'filter' ) )
+		return false;
+
+	for ( filterElem in source.filter )
+	{
+		if ( ( filter = param.view.dyn_filters.GetOptChildByKey( StrReplace( filterElem.Name, '__', '.' ) ) ) != undefined && filter.is_auto )
+		{
+			continue;
+		}
+
+		if ( filterElem.HasValue )
+			return true;
+	}
+
+	return false;
+}
+
+
+
+
+
+
+
+function adjust_filters( viewID, source )
+{
+	param = build_view_param( viewID, UrlParam( source.Doc.Url ) );
+
+	for ( filter in param.view.dyn_filters )
+	{
+		if ( filter.is_auto )
+			continue;
+
+		if ( filter.is_multiple )
+		{
+			multiElem = GetObjectProperty( source.filter, ArrayFirstElem( get_dyn_filter_elem_names( filter ) ) );
+
+			if ( DefaultDb.GetOptCatalog( multiElem.FormElem.ForeignArrayExpr ) == undefined )
+				continue;
+			
+			if ( ! lib_base.has_catalog_filter_constraints( param.catalogName, filter.fieldID ) )
+				continue;
+
+			for ( elem in ArraySelectAll( multiElem ) )
+			{
+				if ( ! lib_base.match_catalog_filter_constraints( param.catalogName, filter.fieldID, elem.Value ) )
+					elem.Delete();
+			}
+
+			if ( ArrayCount( multiElem ) == 0 )
+			{
+				lib_base.adjust_catalog_filter_with_constraint( param.catalogName, filter.fieldID, multiElem );
+			}
+		}
+		else
+		{
+			elem = source.filter.Child( ArrayFirstElem( get_dyn_filter_elem_names( filter ) ) )
+
+			if ( DefaultDb.GetOptCatalog( elem.FormElem.ForeignArrayExpr ) != undefined && lib_base.has_catalog_filter_constraints( param.catalogName, filter.fieldID ) )
+			{
+				if ( ! lib_base.match_catalog_filter_constraints( param.catalogName, filter.fieldID, elem.Value ) )
+					lib_base.adjust_catalog_filter_with_constraint( param.catalogName, filter.fieldID, elem );
+			}
+		}
+	}
+}
+
+
+
+function get_store_view( viewID )
+{
+	storeDoc = FetchDoc( 'x-local://data_local/base1_views_stored_data.xml' );
+	return storeDoc.TopElem.views.ObtainChildByKey( viewID );
+}
+
+
+function load_stored_filters( viewID, filters )
+{
+	storeDoc = FetchDoc( 'x-local://data_local/base1_views_stored_data.xml' );
+
+	storedView = storeDoc.TopElem.views.GetOptChildByKey( viewID );
+	if ( storedView == undefined )
+		return;
+
+	for ( storedElem in storedView.filter )
+	{
+		filterFormElem = filters.FormElem.OptChild( storedElem.Name );
+		if ( filterFormElem == undefined )
+			continue;
+
+		if ( filterFormElem.IsMultiple )
+		{
+			filterMultiElem = GetObjectProperty( filters, storedElem.Name );
+			filterElem = filterMultiElem.Add();
+		}
+		else
+		{
+			filterElem = filters.Child( storedElem.Name );
+		}
+
+		filterElem.AssignElem( storedElem );
+	}
+
+	/*
+	for ( filterElem in filters )
+	{
+		storedElem = storedView.filter.OptChild( filterElem.Name );
+		if ( storedElem == undefined )
+			continue;
+
+		filterElem.AssignElem( storedElem );
+	}
+	*/
+}
+
+
+function load_stored_filter_elem( statID, filterElem )
+{
+	storeDoc = FetchDoc( 'x-local://data_local/base1_views_stored_data.xml' );
+
+	storedView = storeDoc.TopElem.views.GetOptChildByKey( statID );
+	if ( storedView == undefined )
+		return;
+
+	storedElem = storedView.filter.OptChild( filterElem.Name );
+	if ( storedElem == undefined )
+		return;
+
+	filterElem.AssignElem( storedElem );
+}
+
+
+function store_filter_elem( viewID, filterElem )
+{
+	/*if ( filterElem.IsMultiElem )
+	{
+		DebugMsg(filterElem.Xml);
+		return;
+	}*/
+
+	storedView = get_store_view( viewID );
+
+	for ( storedElem in ArraySelect( storedView.filter, 'Name == filterElem.Name' ) )
+		storedElem.Delete();
+
+	for ( filterElemInstance in filterElem.Instances )
+	{
+		storedElem = storedView.filter.AddDynamicChild( filterElem.Name, filterElemInstance.Type );
+		storedElem.AssignElem( filterElemInstance );
+	}
+
+	storedView.Doc.SetChanged( true );
+}
+
+
+function use_preview( viewID )
+{
+	return get_store_view( viewID ).use_preview;
+}
+
+
+function set_use_preview( viewID, usePreview )
+{
+	storedView = get_store_view( viewID );
+
+	storedView.use_preview = usePreview;
+	storedView.Doc.SetChanged( true );
+}
+
+
+function get_opt_active_view_list_item()
+{
+	list = OptFocusItem;
+	if ( list != undefined && list.Type == 'LIST' )
+		return list;
+
+	screen = FindOptScreen( 'FrameMain' );
+	if ( screen != undefined )
+	{
+		list = screen.FindOptItem( 'MainList' );
+		if ( list != undefined )
+			return list;
+	}
+
+	return undefined;
+}
+
+
+function calc_measure_hash( param )
+{
+	crc = CRC( param.view.id ) + StrLen( param.view.id );
+	return crc % 10;
+}
+
+
+function measure_to_zr_num( measure, boundLen )
+{
+	if ( ( pos = StrOptSubStrRightPos( measure, 'zr' ) ) != undefined )
+	{
+		return Int( StrLeftRange( measure, pos ) );
+	}
+	else if ( ( pos = StrOptSubStrRightPos( measure, 'zrc' ) ) != undefined )
+	{
+		return Int( StrLeftRange( measure, pos ) );
+	}
+	else if ( ( pos = StrOptSubStrRightPos( measure, '%' ) ) != undefined )
+	{
+		return ( Int( StrLeftRange( measure, pos ) ) * boundLen ) / 100;
+	}
+	else
+	{
+		DebugMsg( measure );
+		return 10;
+	}
+}
+
+
+function handle_add_new_elem_in_select_dlg( viewID, screen )
+{
+	param = build_view_param( viewID );
+
+	name = lib_base.select_string_value( param.objectForm.Title, '' );
+	if ( name == '' )
+		throw UiError( UiText.errors.name_not_specified );
+
+	doc = DefaultDb.OpenNewObjectDoc( param.objectForm.TopElem.Name );
+	doc.TopElem.name = name;
+	doc.Save();
+
+	screen.Doc.TopElem.object_id.Add().Value = doc.TopElem.id;
+	screen.RunCommand( 'Ok' );
+}
+
+
+function handle_change_view_filters( screen )
+{
+	viewID = UrlQuery( screen.Doc.Url ).id;
+	param = build_view_param( viewID, UrlParam( screen.Doc.Url ) );
+
+	dlgDoc = OpenNewDoc( 'base1_dlg_view_filters.xml' );
+	dlgDoc.TopElem.view_ref = param.view;
+	dlgDoc.TopElem.param_ref = param;
+	dlgDoc.TopElem.use_subst = UseLds;
+
+	ModalDlg( dlgDoc );
+
+	handle_change_view_from_dlg( param, dlgDoc, screen.Doc.Url );
+}
+
+
+function handle_change_view_columns( screen )
+{
+	viewID = UrlQuery( screen.Doc.Url ).id;
+	param = build_view_param( viewID, UrlParam( screen.Doc.Url ) );
+
+	dlgDoc = OpenNewDoc( 'base1_dlg_view_columns.xml' );
+	dlgDoc.TopElem.view_ref = param.view;
+	dlgDoc.TopElem.param_ref = param;
+	dlgDoc.TopElem.use_subst = UseLds;
+
+	ModalDlg( dlgDoc );
+
+	handle_change_view_from_dlg( param, dlgDoc, screen.Doc.Url );
+}
+
+
+function handle_reset_subst_view( screen )
+{
+	viewID = UrlQuery( screen.Doc.Url ).id;
+
+	view = subst_views.views.GetOptChildByKey( viewID );
+	if ( view == undefined )
+		return;
+
+	lib_base.ask_warning_to_continue( screen, UiText.messages.subst_view_will_be_reset );
+
+	view.Delete();
+	view.Doc.Save();
+
+	drop_cached_view_screens( viewID );
+}
+
+
+function has_subst_view( screen )
+{
+	viewID = UrlQuery( screen.Doc.Url ).id;
+	return ( subst_views.views.GetOptChildByKey( viewID ) != undefined );
+}
+
+
+function handle_change_view_from_dlg( param, dlgDoc, viewUrl )
+{
+	if ( dlgDoc.TopElem.use_subst )
+	{
+		view = subst_views.views.ObtainChildByKey( param.view.id );
+	}
+	else
+	{
+		viewDoc = DefaultDb.OpenObjectDoc( 'view', param.view.id );
+		view = viewDoc.TopElem;
+	}
+
+	view.AssignElem( param.view );
+	view.drop_all_dyn_filters = true;
+
+	if ( StrContains( UrlParam( viewUrl ), '&' ) )
+	{
+		extFilter = UrlQuery( viewUrl );
+
+		for ( staticFilter in ArraySelectAll( view.static_filters ) )
+		{
+			if ( extFilter.HasProperty( staticFilter.id ) )
+			{
+				staticFilter.Delete();
+			}
+		}
+	}
+
+	if ( dlgDoc.TopElem.use_subst )
+	{
+		view.Doc.Save();
+	}
+	else
+	{
+		view.was_customized = true;
+		viewDoc.Save();
+
+		view = subst_views.views.GetOptChildByKey( param.view.id );
+		if ( view != undefined )
+		{
+			view.Delete();
+			view.Doc.Save();
+		}
+	}
+
+	drop_cached_view_screens( param.view.id, viewUrl );
+}
+
+
+function drop_cached_view_screens( viewID, viewUrl )
+{
+	baseViewUrl = 'x-app://base1/base1_generic_view.xml?id=' + viewID;
+
+	for ( cachedDoc in GetAllCachedDocs() )
+	{
+		if ( cachedDoc.Url == baseViewUrl || StrBegins( cachedDoc.Url, baseViewUrl + '&' ) )
+			drop_cached_view_screen( viewID, cachedDoc, viewUrl );
+	}
+
+	for ( screen in AllScreens )
+	{
+		if ( screen.OptDoc == undefined )
+			continue;
+
+		if ( GetOptCachedDoc( screen.Doc.Url ) != undefined )
+			continue;
+
+		if ( screen.Doc.Url == baseViewUrl || StrBegins( screen.Doc.Url, baseViewUrl + '&' ) )
+			drop_cached_view_screen( viewID, screen.Doc, viewUrl );
+	}
+}
+
+
+function drop_cached_view_screen( viewID, cachedDoc, viewUrl )
+{
+	cachedDoc.RemoveFromCache();
+	DropFormsCache( cachedDoc.Url );
+	DropScreenFormsCache( ReplaceUrlPathSuffix( cachedDoc.Url, '.xml', '.xms' ) );
+
+	extQuery = UrlParam( cachedDoc.Url );
+	if ( StrContains( extQuery, '&' ) )
+		extQuery = StrReplaceOne( extQuery, 'id=' + viewID + '&', '' );
+	else
+		extQuery = undefined;
+
+	viewUrl = obtain_view_url( viewID, extQuery );
+
+	screen = FindOptScreenByDocUrl( cachedDoc.Url );
+	if ( screen == undefined )
+		return;
+
+	screen.Navigate( cachedDoc.Url );
+}
+
+
+function insert_form_elem_id( param, formElem, destArray )
+{
+	lastDestElem = undefined;
+	outerFormElem = get_outer_form_elem( formElem );
+
+	for ( otherFormElem in template.objectFormElem )
+	{
+		if ( otherFormElem === outerFormElem )
+			break;
+
+		destElem = destArray.GetOptChildByKey( otherFormElem.Name, 'id' );
+		if ( destElem != undefined )
+			lastDestElem = destElem;
+	}
+
+	if ( lastDestElem != undefined )
+		destElem = destArray.InsertChild( lastDestElem.ChildIndex + 1 );
+	else
+		destElem = destArray.InsertChild( 0 );
+	
+	destElem.id = lib_view.get_record_form_elem_relative_path( template.objectFormElem, formElem );
+	return destElem;
+}
+
+
+function get_simple_array_inner_key_form_elem( formElem )
+{
+	if ( ArrayCount( formElem ) != 1 )
+		return undefined;
+
+	subFormElem = formElem[0];
+
+	if ( ! subFormElem.IsMultiple )
+		return undefined;
+
+	if ( ArrayCount( subFormElem ) == 0 )
+		return undefined;
+
+	keyFormElem = subFormElem[0];
+	if ( keyFormElem.ForeignArrayExpr == '' )
+		return undefined;
+
+	return keyFormElem;
+}
+
+
+function get_form_elem_upper_title( formElem )
+{
+	curFormElem = formElem;
+
+	while ( true )
+	{
+		if ( curFormElem.Title != '' )
+			return curFormElem.Title;
+
+		curFormElem = curFormElem.OptParent;
+		if ( curFormElem == undefined )
+			break;
+	}
+
+	return '';
+}
+
+
+function get_outer_form_elem( formElem )
+{
+	curFormElem = formElem;
+
+	while ( true )
+	{
+		if ( curFormElem.OptParent.OptParent.OptParent == undefined )
+			return curFormElem;
+		
+		curFormElem = curFormElem.OptParent;
+	}
+}
+
+
+function get_record_form_elem_relative_path( baseFormElem, formElem )
+{
+	path = formElem.Name;
+	curFormElem = formElem.OptParent;
+
+	while ( true )
+	{
+		if ( curFormElem == undefined || curFormElem === baseFormElem )
+			break;
+
+		path = curFormElem.Name + '.' + path;
+		curFormElem = curFormElem.OptParent;
+	}
+
+	return path;
+}
+
+
+
+
+function HandleOpenSectionInNewWindow()
+{
+	srcScreen = FindScreen( 'FrameMain' );
+	url = srcScreen.Doc.Url;
+	query = UrlQuery( url );
+	query.new_window = '1';
+	
+	newUrl = Url( UrlSchema( url ), UrlHost( url ), UrlPath( url ), UrlEncodeQuery( query ) );
+
+	newDoc = OpenNewDoc( srcScreen.Doc.FormUrl );
+	newDoc.TopElem.AssignElem( srcScreen.Doc.TopElem );
+	newDoc.Url = newUrl;
+
+	if ( newDoc.TopElem.Name == 'view_resp_candidates' ) //!!!
+	{
+		//newDoc.TopElem.filter.Clear();
+		//newDoc.TopElem.BuildEntries();
+		//newDoc.TopElem.OnSetListSelection( undefined );
+	}
+
+	newScreen = CreateDocScreen( newDoc );
+}
+
+
+function ElemMatchesViewFilter( elem, viewFilter )
+{
+	if ( viewFilter == undefined )
+		return true;
+
+	for ( fieldName in viewFilter )
+	{
+		filterValue = viewFilter.GetProperty( fieldName );
+		field = GetObjectProperty( elem, fieldName );
+		
+		if ( field.IsMultiElem )
+		{
+			if ( ! field.ByValueExists( filterValue ) )
+				return false;
+		}
+		else
+		{
+			if ( field.Value != filterValue )
+				return false;
+		}
+	}
+
+	return true;
+}
+
+
+}

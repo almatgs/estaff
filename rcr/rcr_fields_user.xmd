@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<user_base SAMPLE="1">
+	<active_vacancy_count PROPERTY="1" TYPE="integer" TITLE="##UiText.titles.active_vacancy_count##" EXPR="lib_recruit.GetUserActiveVacancyCount( id )"/>
+	<cur_workload PROPERTY="1" TYPE="real" PRECISION="2" TITLE="##UiText.titles.cur_workload##" EXPR="lib_recruit.GetUserCurWorkload( id )"/>
+</user_base>
+
+
+</SPXML-FORM>

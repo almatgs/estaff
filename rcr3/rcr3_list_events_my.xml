@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="List.events.my" ObjectList="1" ObjectType="event" Title="##UiText.sections.events##" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<UI:Filter Field="participants.participant.person_id" Fixed="1" ValueExpr="lib_user.active_user_person.id"/>
+
+<UI:Column Field="date"/>
+<UI:Column Field="candidate_id"/>
+<UI:Column Field="type_id" TitleExpr="state_name" TextColorExpr="state_text_color" BkColorExpr="dyn_state_bk_color" Align="center"/>
+<UI:Column Field="vacancy_id"/>
+<UI:Column Field="comment"/>
+
+
+</UiTemplate>

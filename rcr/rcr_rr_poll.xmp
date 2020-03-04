@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-PRINT>
+
+<FORMAT FONT-NAME="Arial" FONT-SIZE="9" SPACE-BEFORE="3" SPACE-AFTER="3">
+
+<P ALIGN="center" BOLD="1">Итоговый лист согласования кандидата</P>
+
+<P BOLD="1" FOND-SIZE="12" SPACE-BEFORE="18"><%=Ps.candidate_id.ForeignElem.fullname%></P>
+
+<P SPACE-BEFORE="18">На должность <FORMAT BOLD="1"><%=Ps.vacancy_id.ForeignElem.name%></FORMAT></P>
+<P><FORMAT BOLD="1"><%=Ps.vacancy_id.ForeignElem.division_id.ForeignElem.name%></FORMAT></P>
+
+<P></P>
+
+
+<TABLE TABLE-BORDER="double" CELL-BORDER="single" FONT-SIZE="9">
+	<COLGROUP>
+		<COL WIDTH="100%"/>
+
+<%
+for ( participantResult in Ps.participant_poll_results )
+{
+%>
+		<COL WIDTH="12zr"/>
+<%
+}
+%>
+		<COL WIDTH="12zr"/>
+	</COLGROUP>
+
+	<TR SHADING="25">
+		<TD>Интервью с кандидатом провели</TD>
+
+<%
+for ( participantResult in Ps.participant_poll_results )
+{
+%>
+		<TD ALIGN="right"><%=participantResult.person_id.ForeignDispName%></TD>
+<%
+}
+%>
+
+		<TD ALIGN="right">Среднее</TD>
+	</TR>
+
+
+
+<%
+for ( question in Ps.poll_result.spec_id.ForeignElem.questions )
+{
+%>
+
+	<TR>
+<%
+if ( question.is_separator )
+{
+%>
+		<TD HSPAN="<%=Ps.participant_poll_results.ChildNum + 2%>"><%=question.name%></TD>
+<%
+}
+else
+{
+%>
+		<TD><%=question.name%></TD>
+
+<%
+for ( participantResult in Ps.participant_poll_results )
+{
+	questionAnswer = participantResult.question_answers.ObtainChildByKey( question.id );
+
+	try
+	{
+		answerID = ArrayFirstElem( questionAnswer.answer_id );
+	}
+	catch ( e )
+	{
+		answerID = null;
+	}
+%>
+		<TD ALIGN="right"><%=answerID%></TD>
+<%
+}
+%>
+
+<%
+	questionAnswer = Ps.poll_result.question_answers.ObtainChildByKey( question.id );
+
+	try
+	{
+		answerID = ArrayFirstElem( questionAnswer.answer_id );
+	}
+	catch ( e )
+	{
+		answerID = null;
+	}
+%>
+		<TD ALIGN="right"><%=answerID%></TD>
+
+
+
+<%
+}
+%>
+
+	</TR>
+<%
+}
+%>
+
+	<TR BOLD="1">
+		<TD>Средний балл</TD>
+
+<%
+for ( participantResult in Ps.participant_poll_results )
+{
+%>
+		<TD ALIGN="right"><%=participantResult.average_score%></TD>
+<%
+}
+%>
+
+		<TD ALIGN="right"><%=Ps.average_score%></TD>
+	</TR>
+
+
+</TABLE>
+
+
+
+</FORMAT>
+
+</SPXML-PRINT>
+

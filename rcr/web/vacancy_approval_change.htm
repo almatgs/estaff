@@ -1,0 +1,46 @@
+<%
+Server.Execute( 'include/std_head.htm' );
+
+vacancyID = Int( Request.Query.id );
+
+vacancyDoc = OpenDoc( ObjectDocUrl( 'data', 'vacancy', vacancyID ) );
+vacancy = vacancyDoc.TopElem;
+
+if ( Request.Form.approve == '1' )
+{
+	vacancy.state_id = global_settings.staff_connector.default_vacancy_state_id;
+
+}
+else
+{
+	vacancy.state_id = 'vacancy_not_approved';
+}
+
+vacancyDoc.Save();
+
+if ( Request.Form.approve == '1' )
+{
+	lib_recruit.create_loaded_vacancy_notif( vacancy );
+
+	if ( global_settings.staff_connector.vacancy_import.send_create_notif && global_settings.staff_connector.vacancy_import.create_notif_template_id.HasValue && global_settings.staff_connector.vacancy_import.create_notif_email.HasValue )
+	{
+		runner = new MethodRunner( lib_recruit, 'send_vacancy_create_notif' );
+		runner.SetArguments( vacancy );
+		runner.RunAsync = true;
+		runner.Run();
+	}
+}
+else
+{
+	if ( global_settings.staff_connector.vacancy_import.create_notif_email.HasValue )
+	{
+		runner = new MethodRunner( OpenCodeLib( 'x-app://module_rgs/rgs_lib_rgs.js' ), 'send_vacancy_not_approved_notif' );
+		runner.SetArguments( vacancy, curPerson );
+		runner.RunAsync = true;
+		runner.Run();
+	}
+}
+
+if ( outerEnv == undefined )
+	Response.Redirect( Request.Form.redirect_url );
+%>

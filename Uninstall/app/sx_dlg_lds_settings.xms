@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.lds##" WIDTH="60zr" HEIGHT="20zr" INIT-ACTION="
+		Screen.FindItem( 'EditSearch' ).SetFocus( true );
+">
+
+<LABEL TITLE-EXPR="
+		coreName = AppConfig.GetOptProperty( 'LDS-SERVER-CORE-NAME' );
+		return ( coreName != undefined ? StrReplaceOne( UiText.fields.lds_xxx_address, '%s', coreName ): UiText.fields.lds_address ) + ':'
+"/>
+
+<EDIT NAME="EditSearch" SOURCE="Ps.lds.address" ACTION="Screen.RunCommand( 'Ok' )"/>
+
+
+<PANEL HEIGHT="6px">
+</PANEL>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+	<BUTTON TITLE="OK" CMD="1"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2"/>
+</TABLE>
+
+
+
+</SPXML-SCREEN>

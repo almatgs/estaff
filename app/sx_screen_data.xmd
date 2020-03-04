@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM AUTO-SAVE="1">
+
+<USE FORM="sx_general.xmd"/>
+
+<spxml_screen_data>
+	<items>
+		<item MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+
+			<width TYPE="integer"/>
+			<height TYPE="integer"/>
+			<is_maximized TYPE="bool"/>
+			<width_desc TYPE="string"/>
+			<is_expanded TYPE="bool"/>
+
+			<last_usage_date TYPE="date"/>
+		</item>
+	</items>
+</spxml_screen_data>
+
+
+</SPXML-FORM>

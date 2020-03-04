@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<lib_event>
+	<bk_color_scheduled TYPE="string" DEFAULT="255,255,190"/>
+	<bk_color_started TYPE="string" DEFAULT="255,255,0"/>
+
+	<use_shared_comment_flag TYPE="bool" NULL-FALSE="1"/>
+</lib_event>
+
+
+
+
+</SPXML-INLINE-FORM>

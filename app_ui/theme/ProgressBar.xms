@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+<PANEL NAME="PROGRESS-BAR" SAMPLE="1" INNER-ALIAS="progressBar" WIDTH="100%" HEIGHT="6px" BK-COLOR-EXPR="AppUi.gThemeData.colors.progress_bar" BORDER-RADIUS="3px"
+		PADDING-EXPR="'0 0 0 ' + LibProgressBar.GetProgressBarInnerPanelOffsetMeasure( progressBar )"
+		OnBuild="LibProgressBar.OnBuildProgressBar( progressBar )">
+	<ATTRIBUTE NAME="RANGE-EXPR" TYPE="expr"/>
+	<ATTRIBUTE NAME="UPDATE-TIMEOUT" TYPE="integer"/>
+
+	<PANEL WIDTH-EXPR="LibProgressBar.GetProgressBarInnerPanelWidthMeasure( progressBar )" HEIGHT="100%" BK-COLOR-EXPR="AppUi.gThemeData.colors.primary" BORDER-RADIUS="3px">
+	</PANEL>
+</PANEL>
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+
+
+

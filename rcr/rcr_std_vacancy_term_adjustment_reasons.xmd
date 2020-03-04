@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_vacancy_term_adjustment_reasons>
+	<std_vacancy_term_adjustment_reason MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT FORM="rcr_vacancy_term_adjustment_reason.xmd" TYPE="vacancy_term_adjustment_reason"/>
+	</std_vacancy_term_adjustment_reason>
+</std_vacancy_term_adjustment_reasons>
+
+
+
+</SPXML-FORM>

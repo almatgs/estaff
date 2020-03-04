@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="115zr" HEIGHT="54zr" HEIGHT-EXPR="Ps.show_inner ? '54zr' : '30zr'" TITLE-EXPR="
+		Ps.runner.IsRunning ? UiText.method_status.operation : UiText.method_status.operation_result
+" INIT-ACTION="Screen.SetTimer( 'Ps.timer_action()', 150 )" CLOSE-ACTION="
+		if ( Ps.runner.IsRunning )
+		{
+			if ( Screen.MsgBox( UiText.messages.operation_will_be_cancelled, UiText.messages.warning_msg_title, 'question', 'yes,no' ) )
+				Ps.runner.Stop();
+			
+			Cancel();
+		}
+" FREQUENT-UPDATE="1">
+
+
+<IF EXPR="Ps.runner.IsRunning">
+
+
+<PANEL HEIGHT-EXPR="Ps.show_inner ? '22%' : '-13zr'">
+	<LABEL TITLE-EXPR="Ps.runner.Progress.TaskName + ' '" BOLD="1"/>
+	<BR/>
+	<LABEL TITLE-EXPR="Ps.runner.Progress.ActivityName + ' '"/>
+</PANEL>
+
+<LABEL TITLE-EXPR="Ps.runner.Progress.ItemName + ' '" MULTILINE="0"/>
+<BR/>
+
+<IF EXPR="Ps.runner.Progress.ItemIndex.HasValue">
+	<LABEL TITLE-EXPR="( Ps.runner.Progress.ItemIndex.Value + 1 ) + ( Ps.runner.Progress.TotalCount.HasValue ? ' ' + UiText.method_status.from + ' ' + Ps.runner.Progress.TotalCount : '' )"/>
+</IF>
+<ELSE>
+	<LABEL TITLE=" "/>
+</ELSE>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="1zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<PROGRESS-BAR SOURCE="Ps.runner.Progress.ItemIndex" RANGE-EXPR="Ps.runner.Progress.TotalCount"/>
+
+	<LABEL/>
+
+	<BUTTON TITLE="##UiText.actions.cancel##" ACTION="
+			Ps.runner.Stop();
+	" PASSIVE="1"/>
+</TABLE>
+
+
+
+<IF EXPR="Ps.show_inner">
+	<BR/>
+	<BR/>
+	<DELIM/>
+	<BR/>
+	<BR/>
+
+	<IF EXPR="Ps.runner.OptInnerProgress != undefined">
+		<LABEL TITLE-EXPR="Ps.runner.InnerProgress.TaskName" BOLD="1"/>
+		<BR/>
+
+		<LABEL TITLE-EXPR="Ps.runner.InnerProgress.ActivityName + ' '" MULTILINE="0"/>
+		<LABEL TITLE-EXPR="Ps.runner.InnerProgress.ItemName + ' '" MULTILINE="0"/>
+		
+		<PANEL HEIGHT="-7zr">
+		</PANEL>
+
+		<IF EXPR="Ps.runner.InnerProgress.ItemIndex.HasValue">
+			<LABEL TITLE-EXPR="( Ps.runner.InnerProgress.ItemIndex.Value + 1 ) + ' ' + UiText.method_status.from + ' ' + Ps.runner.InnerProgress.TotalCount"/>
+		</IF>
+		<ELSE>
+			<LABEL TITLE=" "/>
+		</ELSE>
+
+		<PANEL HEIGHT="4px">
+		</PANEL>
+
+		<IF EXPR="Ps.runner.InnerProgress.TotalCount.HasValue || Ps.runner.Progress.TotalCount.HasValue">
+			<PROGRESS-BAR SOURCE="Ps.runner.InnerProgress.ItemIndex" RANGE-EXPR="Ps.runner.InnerProgress.TotalCount" WIDTH="55%"/>
+		</IF>
+	</IF>
+</IF>
+
+
+
+
+
+
+
+</IF>
+<ELSE>
+
+
+
+<PANEL HEIGHT="6px">
+</PANEL>
+
+<TABLE CHILD-VERT-ALIGN="top">
+	<COLUMNS>
+		<COL WIDTH="1px"/>
+		<COL WIDTH="50px"/>
+		<COL WIDTH="100%"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<IF EXPR="Ps.runner.ErrorDesc == ''">
+		<IMAGE URL="x-sys-image://std-icon/info.ico" WIDTH="32px" HEIGHT="32px"/>
+		
+		<PANEL>
+			<IF EXPR="OptEval( 'Ps.runner.Statistics' ) != undefined">
+				<PANEL SUNKEN="1" VERT-SCROLL="1" HEIGHT="-10zr">
+					<TABLE CHILD-VERT-ALIGN="top">
+						<COLUMNS>
+							<COL WIDTH-EXPR="Min( StrCharCount( ArrayMax( Ps.runner.Statistics, 'StrCharCount( Title )' ).Title ) + 2, 80 ) + 'zr'"/>
+							<COL WIDTH="1px"/>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<LOOP EXPR="Ps.runner.Statistics" VAR="ListElem">
+							<LABEL TITLE-EXPR="ListElem.Title + ':'" ALIGN="right"/>
+							<LABEL/>
+							<LABEL TITLE-EXPR="ListElem.Type == 'integer' ? StrIntZero( ListElem.Value, 0, true ) : ListElem.Value"/>
+						</LOOP>
+					</TABLE>
+				</PANEL>
+			</IF>
+			<ELSE>
+				<LABEL TITLE="##UiText.messages.operation_completed_successfully##"/>
+			</ELSE>
+		</PANEL>
+	</IF>
+	<ELSE>
+		<IMAGE URL="x-sys-image://std-icon/error.ico" WIDTH="32px" HEIGHT="32px"/>
+		<LABEL TITLE-EXPR="ExtractUserError( Ps.runner.ErrorDesc )"/>
+	</ELSE>
+</TABLE>
+
+<PANEL HEIGHT="-7zr">
+</PANEL>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="50%"/>
+		<COL WIDTH="12zr"/>
+		<COL WIDTH="50%"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<IF EXPR="Ps.is_dlg">
+		<BUTTON TITLE="OK" CMD="1"/>
+	</IF>
+	<ELSE>
+		<BUTTON TITLE="##UiText.actions.close##" ACTION="
+				Screen.Close();
+		" PASSIVE="1"/>
+	</ELSE>
+
+	<LABEL/>
+</TABLE>
+
+
+
+</ELSE>
+
+
+
+
+</SPXML-SCREEN>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="Ps.name + ' - ' + UiText.objects.vacancy_instance" BEFORE-INIT-ACTION="
+		//Ps.vacancy = Ps.vacancy_id.ForeignElem;
+" BEFORE-SAVE-ACTION="
+		//Ps.handle_before_ui_save();
+" SAVE-ACTION="
+		//Ps.handle_ui_save();
+" RESIZE="1" WIDTH="160zr" HEIGHT="90zr">
+
+
+<INHERIT TYPE="card_menus"/>
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="save_toolbar_entries"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/print.ico" CMD="PrintDocument" TIP-TEXT="##UiText.actions.print##"/>
+	<INHERIT TYPE="edit_toolbar_entries"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/spelling.ico" CMD="CheckSpelling" TIP-TEXT="##UiText.actions.check_spelling##"/>
+
+	<ITEM TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+
+
+<LINE STD-MARGINS="0">
+
+
+<PANEL WIDTH="36zr" STD-MARGINS="0">
+	<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="1" HEIGHT="26zr">
+	</TREE>
+	<SPLIT FIXED="1"/>
+
+	<PANEL SUNKEN="1" STD-MARGINS="1" HEIGHT="100%" BK-COLOR="sys-bk-ctrl">
+		<PANEL HEIGHT="-7zr">
+		</PANEL>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH-EXPR="( ArrayOptMax( ArrayExtract( [Ps.user_id.Title + ':', UiText.fields.recruiter + ':', (global_settings.use_vacancy_dual_users ? Ps.resp_user_id.Title + ':' : '' )], 'CalcTextScreenWidth( This )' ) ) ) + 'px'"/>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+
+			<ITEM TYPE="object_preview" SOURCE="Ps.user_id"/>
+			<ITEM TYPE="object_preview" SOURCE="Ps.group_id"/>
+		</TABLE>
+	</PANEL>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.objects.vacancy_instance##" SUNKEN="1" EXPANDED="1" IMAGE-URL-EXPR="Ps.ImageUrl">
+
+
+<PAGE TITLE="##UiText.sections.general##" HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/common.ico">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="12zr"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.code" AUTO-LABEL="1" READ-ONLY="1"/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.vacancy_id" AUTO-LABEL="1" READ-ONLY="1"/>
+	</TABLE>
+	<BR/>
+
+	<LINE>
+		<IF EXPR="global_settings.use_vacancy_orgs">
+			<ITEM TYPE="object_selector" SOURCE="Ps.org_id" AUTO-LABEL="1" READ-ONLY="1" WIDTH-EXPR="global_settings.use_divisions ? '30%' : '100%'"/>
+		</IF>
+
+		<IF EXPR="global_settings.use_divisions">
+			<ITEM TYPE="object_selector" SOURCE="Ps.division_id" AUTO-LABEL="1" READ-ONLY="1"/>
+		</IF>
+	</LINE>
+	<DELIM/>
+
+	<GROUP>
+		<ITEM TYPE="date_selector" SOURCE="Ps.start_date" AUTO-LABEL="1" READ-ONLY-EXPR="lib_user.active_user_access.prohibit_change_vacancy_start_date" WIDTH="14zr"/>
+
+		<IF EXPR="fields_usage.use_object_field( 'vacancy', 'reason_id' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.reason_id" AUTO-LABEL="1" PASSIVE="1" WIDTH="30zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.reason_id, 30, 50 )"/>
+		</IF>
+		<EDIT SOURCE="StrIntZero( Ps.req_quantity )" READ-ONLY="1" LABEL-TITLE-EXPR="Ps.req_quantity.Title + ':'" ALIGN="right" WIDTH="4zr" KEEP-RIGHT="1"/>
+	</GROUP>
+	<DELIM/>
+
+
+	<GROUP>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.state_id" SET-VALUE-ACTION="
+				if ( AppModuleUsed( 'module_vtb24' ) &amp;&amp; GetForeignElem( vacancy_states, NewValue ).close_object )
+					throw UserError( UiText.errors.vacancy_may_be_closed_by_hire_only );
+
+				if ( lib_user.active_user_access.prohibit_change_vacancy_state )
+					throw UiError( UiText.errors.permission_denied );
+
+				lib_vacancy.handle_set_vacancy_state( Ps, NewValue );
+		" AUTO-LABEL="1" WIDTH="22zr" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.state_id, 22, 40 )"/>
+
+		<PANEL WIDTH="0px"/>
+		<ITEM TYPE="vert_delim"/>
+
+		<LABEL TITLE-EXPR="
+				str = '';
+				str += lib_base.BuildUiParamEntry( UiText.titles.since_xxx, StrDate( Ps.state_date, false ) );
+				return str;
+		" KEEP-WITH-PREV="1"/>
+
+		<ITEM TYPE="vert_delim" KEEP-WITH-PREV="1"/>
+
+		<IF EXPR="! Ps.state_id.ForeignElem.deactivate_object">
+			<LABEL TITLE-EXPR="lib_base.DaysNumDesc( Ps.days_in_state )" KEEP-WITH-PREV="1"/>
+			<ITEM TYPE="vert_delim" KEEP-WITH-PREV="1"/>
+		</IF>
+
+	</GROUP>
+	<DELIM/>
+
+	<ITEM TYPE="vacancy_planned_dates"/>
+	<BR/>
+
+	<GROUP>
+		<ITEM TYPE="object_selector" SOURCE="Ps.final_candidate_id" AUTO-LABEL="1"/>
+	</GROUP>
+	<BR/>
+	<BR/>
+
+	<EDIT SOURCE="Ps.comment" MULTILINE="1" SHORT="1" HEIGHT="-4px" VERT-SCROLL="1" AUTO-LABEL="1" PASSIVE="1"/>
+</PAGE>
+
+
+
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+
+</LINE>
+
+
+
+<COMMAND-HANDLER CMD="CheckSpelling" ACTION="
+		Screen.CheckSpelling();
+"/>
+
+
+
+<INHERIT TYPE="generic_screen_commands"/>
+
+<COMMAND-HANDLER CMD="Help" HREF="help/intro.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+
+</SPXML-SCREEN>
+
+

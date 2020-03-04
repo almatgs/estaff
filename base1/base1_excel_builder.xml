@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<lib_excel_builder>
+	<tempDirUrl TYPE="string"/>
+
+	<rowsNum TYPE="integer" DEFAULT="0"/>
+	<columnsNum TYPE="integer" DEFAULT="0"/>
+	<columnWidths TYPE="variant" STRICT="1"/>
+	
+	<curColumnIndex TYPE="integer" DEFAULT="0"/>
+
+	<sheetDataStream TYPE="variant" STRICT="1"/>
+	<mergedCells TYPE="variant" STRICT="1"/>
+	<sharedStrings TYPE="variant" STRICT="1"/>
+
+	<fonts TYPE="variant" STRICT="1"/>
+	<fills TYPE="variant" STRICT="1"/>
+	<borders TYPE="variant" STRICT="1"/>
+	<styles TYPE="variant" STRICT="1"/>
+	
+	
+	<itemsArray TYPE="variant" STRICT="1"/>
+</lib_excel_builder>
+
+
+</SPXML-INLINE-FORM>

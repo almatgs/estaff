@@ -1,0 +1,388 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<base2_common SPXML-FORM="base2_common.xmd">
+
+
+<educ_types>
+	<educ_type>
+		<id>1</id>
+		<name VALUE="среднее" lang-en:VALUE="middle" lang-ua:VALUE="середня"/>
+	</educ_type>
+	<educ_type>
+		<id>2</id>
+		<name VALUE="среднее профессиональное" lang-en:VALUE="middle professional" lang-ua:VALUE="середня спеціальна"/>
+	</educ_type>
+	<educ_type>
+		<id>3</id>
+		<name VALUE="неоконченное высшее" lang-en:VALUE="student" lang-ua:VALUE="незакінчена вища"/>
+	</educ_type>
+	<educ_type>
+		<id>4</id>
+		<name VALUE="высшее" lang-en:VALUE="higher" lang-ua:VALUE="вища"/>
+	</educ_type>
+</educ_types>
+
+
+
+<foreign_language_levels>
+	<foreign_language_level>
+		<id>1</id>
+		<name VALUE="начальный" lang-en:VALUE="basic" lang-ua:VALUE="початковий"/>
+	</foreign_language_level>
+	<foreign_language_level>
+		<id>2</id>
+		<name VALUE="средний" lang-en:VALUE="intermediate" lang-ua:VALUE="середній"/>
+	</foreign_language_level>
+	<foreign_language_level>
+		<id>3</id>
+		<name VALUE="уверенный" lang-en:VALUE="advanced" lang-ua:VALUE="впевненний"/>
+	</foreign_language_level>
+	<foreign_language_level>
+		<id>4</id>
+		<name VALUE="свободный" lang-en:VALUE="fluent" lang-ua:VALUE="вільний"/>
+	</foreign_language_level>
+	<foreign_language_level>
+		<id>5</id>
+		<name VALUE="родной" lang-en:VALUE="native" lang-ua:VALUE="рідний"/>
+	</foreign_language_level>
+</foreign_language_levels>
+
+
+
+<event_occurrences>
+	<event_occurrence>
+		<id>scheduled</id>
+		<name VALUE="##UiText.titles.scheduled##"/>
+		<image_url>x-app://base_pict/event.ico</image_url>
+		<bk_color>255,255,190</bk_color>
+	</event_occurrence>
+
+	<event_occurrence>
+		<id>waiting_to_start</id>
+		<name VALUE="##UiText.titles.waiting_to_start##"/>
+		<bk_color>255,255,190</bk_color>
+	</event_occurrence>
+
+	<event_occurrence>
+		<id>started</id>
+		<name VALUE="##UiText.titles.started##"/>
+		<image_url>//base_pict/start.ico</image_url>
+		<bk_color>255,255,0</bk_color>
+	</event_occurrence>
+
+	<event_occurrence>
+		<id>finished</id>
+		<name VALUE="##UiText.titles.finished##"/>
+	</event_occurrence>
+
+	<event_occurrence>
+		<id>succeeded</id>
+		<name VALUE="##UiText.fields.passed_n##"/>
+		<image_url>//base_pict/ok.ico</image_url>
+	</event_occurrence>
+
+	<event_occurrence>
+		<id>failed</id>
+		<name VALUE="##UiText.titles.not_passed_n##"/>
+		<image_url>//base_pict/stop.ico</image_url>
+		<text_color>255,0,0</text_color>
+	</event_occurrence>
+
+	<event_occurrence>
+		<id>cancelled</id>
+		<name VALUE="##UiText.titles.cancelled##"/>
+		<image_url>//base_pict/delete.ico</image_url>
+		<text_color>150,0,32</text_color>
+	</event_occurrence>
+
+	<event_occurrence>
+		<id>suspended</id>
+		<name VALUE="##UiText.titles.suspended##"/>
+	</event_occurrence>
+
+	<event_occurrence>
+		<id>not_attended</id>
+		<name VALUE="Не пришел" lang-en:VALUE="Did not attend" lang-ua:VALUE="Не прийшов"/>
+		<text_color>150,0,32</text_color>
+	</event_occurrence>
+
+	<event_occurrence>
+		<id>withdrawn</id>
+		<name VALUE="##UiText.titles.application_withdrawn##"/>
+		<text_color>255,0,0</text_color>
+	</event_occurrence>
+
+	<event_occurrence>
+		<id>call_failed</id>
+		<name VALUE="Недозвон" lang-en:VALUE="Cannot get through" lang-ua:VALUE="Недозвон"/>
+		<image_url>//base_pict/stop.ico</image_url>
+		<text_color>219,85,4</text_color>
+	</event_occurrence>
+
+	<event_occurrence>
+		<id>call_later</id>
+		<name VALUE="Перезвонить позже" lang-en:VALUE="Call later" lang-ua:VALUE="Передзвонити пізніше"/>
+		<image_url>//base_pict/stop.ico</image_url>
+		<text_color>219,85,4</text_color>
+	</event_occurrence>
+
+	<event_occurrence>
+		<id>alt_email_sent</id>
+		<name VALUE="Недозвон, отправлен email" lang-en:VALUE="Cannot get through, email sent" lang-ua:VALUE="Недозвон, відправлений email"/>
+		<is_user_duty>1</is_user_duty>
+	</event_occurrence>
+
+	<event_occurrence>
+		<id>reserve</id>
+		<name VALUE="##UiText.titles.reserve##"/>
+		<text_color>100,100,100</text_color>
+		<is_user_duty>1</is_user_duty>
+	</event_occurrence>
+
+	<event_occurrence>
+		<id>peer_undecided</id>
+		<name VALUE="##UiText.titles.candidate_undecided##"/>
+		<is_user_duty>1</is_user_duty>
+	</event_occurrence>
+</event_occurrences>
+
+
+
+<event_expiration_states>
+	<event_expiration_state>
+		<id>scheduled</id>
+		<name VALUE="##UiText.titles.scheduled##"/>
+		<bk_color>255,255,190</bk_color>
+	</event_expiration_state>
+
+	<event_expiration_state>
+		<id>reached</id>
+		<name VALUE="ожидается сейчас" lang-en:VALUE="reached" lang-ua:VALUE="очікується зараз"/>
+		<bk_color>255,255,0</bk_color>
+	</event_expiration_state>
+
+	<event_expiration_state>
+		<id>expired</id>
+		<name VALUE="просрочено" lang-en:VALUE="overdue" lang-ua:VALUE="прострочено"/>
+		<bk_color>255,200,200</bk_color>
+	</event_expiration_state>
+
+	<event_expiration_state>
+		<id>end_reached</id>
+		<name VALUE="заканчивается сейчас" lang-en:VALUE="finishing" lang-ua:VALUE="закінчується зараз"/>
+		<bk_color>190,255,130</bk_color>
+	</event_expiration_state>
+
+	<event_expiration_state>
+		<id>end_expired</id>
+		<name VALUE="завершение просрочено" lang-en:VALUE="finish overdue" lang-ua:VALUE="завершення прострочено"/>
+		<bk_color>255,200,200</bk_color>
+	</event_expiration_state>
+
+	<event_expiration_state>
+		<id>completed</id>
+		<name VALUE="##UiText.titles.completed##"/>
+		<bk_color>220,220,220</bk_color>
+	</event_expiration_state>
+</event_expiration_states>
+
+
+
+<activity_completions>
+	<activity_completion>
+		<id></id>
+		<name/>
+	</activity_completion>
+	<activity_completion>
+		<id>2</id>
+		<name VALUE="Выполняется" lang-en:VALUE="Running" lang-ua:VALUE="Виконується"/>
+	</activity_completion>
+	<activity_completion>
+		<id>1</id>
+		<name VALUE="OK"/>
+	</activity_completion>
+	<activity_completion>
+		<id>0</id>
+		<name VALUE="##UiText.titles.error##"/>
+		<text_color>255,0,0</text_color>
+	</activity_completion>
+</activity_completions>
+
+
+
+<generic_completions>
+	<generic_completion>
+		<id></id>
+		<name/>
+	</generic_completion>
+	<generic_completion>
+		<id>1</id>
+		<name VALUE="##UiText.titles.finished##"/>
+	</generic_completion>
+</generic_completions>
+
+
+
+<state_action_types>
+	<state_action_type>
+		<id>send_mail</id>
+		<name VALUE="##UiText.actions.send_email##"/>
+	</state_action_type>
+	<state_action_type>
+		<id>send_sms</id>
+		<name VALUE="##UiText.actions.send_sms##"/>
+	</state_action_type>
+	<state_action_type>
+		<id>request_entry_pass</id>
+		<name VALUE="Заказать пропуск" lang-en:VALUE="Request Entry Pass" lang-ua:VALUE="Замовити пропуск"/>
+	</state_action_type>
+	<state_action_type>
+		<id>request_aux_documents</id>
+		<name VALUE="Запросить дополнительные документы" lang-en:VALUE="Request Additional Documents" lang-ua:VALUE="Запросити додаткові документи"/>
+	</state_action_type>
+	<state_action_type>
+		<id>run_code</id>
+		<name VALUE="Выполнить скрипт" lang-en:VALUE="Run Script" lang-ua:VALUE="Виконати скрипт"/>
+	</state_action_type>
+</state_action_types>
+
+
+
+<location_types>
+	<location_type>
+		<id>2</id>
+		<name VALUE="Область" lang-en:VALUE="Region" lang-ua:VALUE="Область"/>
+	</location_type>
+	<location_type>
+		<id>3</id>
+		<name VALUE="Район" lang-en:VALUE="District" lang-ua:VALUE="Район"/>
+	</location_type>
+	<location_type>
+		<id>10</id>
+		<name VALUE="##UiText.fields.city##"/>
+	</location_type>
+</location_types>
+
+
+
+
+<external_account_types>
+	<external_account_type>
+		<id>smtp</id>
+		<name VALUE="SMTP"/>
+	</external_account_type>
+	<external_account_type>
+		<id>imap</id>
+		<name VALUE="IMAP"/>
+	</external_account_type>
+	<external_account_type>
+		<id>imod_site</id>
+		<name VALUE="##UiText.titles.imod_site##"/>
+	</external_account_type>
+	<external_account_type>
+		<id>recruit_provider</id>
+		<name VALUE="##UiText.titles.recruit_provider##"/>
+	</external_account_type>
+	<external_account_type>
+		<id>google</id>
+		<name VALUE="Google"/>
+		<auth_method_id>oauth</auth_method_id>
+	</external_account_type>
+</external_account_types>
+
+
+
+<auth_methods>
+	<auth_method>
+		<id>login</id>
+		<name VALUE="Логин + пароль" lang-en:VALUE="User + password" lang-ua:VALUE="Логін + пароль"/>
+	</auth_method>
+	<auth_method>
+		<id>oauth</id>
+		<name VALUE="OAuth"/>
+	</auth_method>
+	<auth_method>
+		<id>oauth_password</id>
+		<name VALUE="OAuth + пароль" lang-en:VALUE="OAuth + password" lang-ua:VALUE="OAuth + пароль"/>
+	</auth_method>
+</auth_methods>
+
+
+
+<std_office_access_systems>
+	<std_office_access_system>
+		<id>visitorcontrol</id>
+		<name VALUE="VisitorControl"/>
+		<use_server_address>1</use_server_address>
+	</std_office_access_system>
+</std_office_access_systems>
+
+
+
+<workflow_resp_person_types>
+	<workflow_resp_person_type>
+		<id>orig_person_direct_supervisor</id>
+		<name VALUE="Непосредственный руководитель инициатора" lang-en:VALUE="Requester's Immediate Supervisor" lang-ua:VALUE="Безпосередній керівник ініціатора"/>
+	</workflow_resp_person_type>
+	<workflow_resp_person_type>
+		<id>cur_resp_person_direct_supervisor</id>
+		<name VALUE="Непосредственный руководитель ответственного за текущий этап" lang-en:VALUE="Current Approver's Immediate Supervisor" lang-ua:VALUE="Безпосередній керівник відповідального за поточний етап"/>
+	</workflow_resp_person_type>
+	<workflow_resp_person_type>
+		<id>division_head</id>
+		<name VALUE="##UiText.fields.division_head##"/>
+	</workflow_resp_person_type>
+	<workflow_resp_person_type>
+		<id>upper_person_with_role</id>
+		<name VALUE="Сотрудник с заданной ролью" lang-en:VALUE="Employee with specific role" lang-ua:VALUE="Співробітник з певною роллю"/>
+	</workflow_resp_person_type>
+	<workflow_resp_person_type>
+		<id>fixed_person</id>
+		<name VALUE="Явно заданный сотрудник" lang-en:VALUE="Explicitly selected employee" lang-ua:VALUE="Явно заданий співробітник"/>
+	</workflow_resp_person_type>
+</workflow_resp_person_types>
+
+
+
+<workflow_actions>
+	<workflow_action>
+		<id>submit</id>
+		<name VALUE="##UiText.actions.submit##"/>
+		<name_pv VALUE="##UiText.titles.sent##"/>
+	</workflow_action>
+	<workflow_action>
+		<id>approve</id>
+		<name VALUE="##UiText.actions.approve##"/>
+		<name_pv VALUE="##UiText.titles.approved##"/>
+	</workflow_action>
+	<workflow_action>
+		<id>reject</id>
+		<name VALUE="##UiText.actions.reject##"/>
+		<name_pv VALUE="##UiText.titles.rejected##"/>
+	</workflow_action>
+	<workflow_action>
+		<id>return_to_orig_person</id>
+		<name VALUE="##UiText.actions.return_to_orig_person##"/>
+		<name_pv VALUE="##UiText.titles.returned_to_orig_person##"/>
+	</workflow_action>
+	<workflow_action>
+		<id>cancel</id>
+		<name VALUE="##UiText.actions.revoke##"/>
+		<name_pv VALUE="##UiText.titles.cancelled__recalled__f##"/>
+	</workflow_action>
+</workflow_actions>
+
+
+
+<custom_action_trigger_events>
+	<custom_action_trigger_event>
+		<id>candidate_selected_for_vacancy</id>
+		<name VALUE="##UiText.titles.selected_for_vacancy##"/>
+	</custom_action_trigger_event>
+	<custom_action_trigger_event__>
+		<id>vacancy_state_changed</id>
+		<name VALUE="##UiText.objects.vacancy##: ##UiText.titles.state_change##"/>
+	</custom_action_trigger_event__>
+</custom_action_trigger_events>
+
+
+</base2_common>

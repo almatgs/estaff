@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<base2_common>
+	<educ_types>
+		<educ_type MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+		</educ_type>
+	</educ_types>
+
+
+	<foreign_language_levels>
+		<foreign_language_level MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+		</foreign_language_level>
+	</foreign_language_levels>
+
+
+	<event_occurrences>
+		<event_occurrence MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<image_url TYPE="string"/>
+			<text_color TYPE="string"/>
+			<bk_color TYPE="string"/>
+		</event_occurrence>
+	</event_occurrences>
+
+
+	<event_expiration_states>
+		<event_expiration_state MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<bk_color TYPE="string"/>
+		</event_expiration_state>
+	</event_expiration_states>
+
+
+	<activity_completions>
+		<activity_completion MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+			<text_color TYPE="string"/>
+		</activity_completion>
+	</activity_completions>
+	
+	<generic_completions>
+		<generic_completion MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+			<text_color TYPE="string"/>
+		</generic_completion>
+	</generic_completions>
+
+	<state_action_types>
+		<state_action_type MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</state_action_type>
+	</state_action_types>
+
+
+	<location_types>
+		<location_type MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+		</location_type>
+	</location_types>
+
+
+	<countries_ref TYPE="variant"/>
+	
+	<countries PROPERTY="1" EXPR="
+		if ( ! countries_ref.HasValue )
+		{
+			array = lib_location.get_std_countries();
+			array.Sort( 'name', '+' );
+			countries_ref = array;
+		}
+	
+		return countries_ref.Object;
+	"/>
+
+
+	<external_account_types>
+		<external_account_type MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<auth_method_id TYPE="string" FOREIGN-ARRAY="base2_common.auth_methods"/>
+		</external_account_type>
+	</external_account_types>
+
+
+	<auth_methods>
+		<auth_method MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</auth_method>
+	</auth_methods>
+
+
+	<std_office_access_systems>
+		<std_office_access_system MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<use_server_address TYPE="bool" NULL-FALSE="1"/>
+		</std_office_access_system>
+	</std_office_access_systems>
+
+
+	<workflow_resp_person_types>
+		<workflow_resp_person_type MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</workflow_resp_person_type>
+	</workflow_resp_person_types>
+
+
+	<workflow_actions>
+		<workflow_action MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<name_pv TYPE="string"/>
+		</workflow_action>
+	</workflow_actions>
+
+
+	<custom_action_trigger_events>
+		<custom_action_trigger_event MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</custom_action_trigger_event>
+	</custom_action_trigger_events>
+</base2_common>
+
+
+</SPXML-FORM>

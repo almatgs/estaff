@@ -1,0 +1,117 @@
+namespace LibTree {
+
+
+function OnBuildTreeView( treeView )
+{
+	treeView.AuxData.switchType = treeView.MasterItem.GetAttrValue( 'SWITCH-TYPE' );
+}
+
+
+function OnBuildTreeViewCore( treeView, coreItem )
+{
+	treeView.AuxData.hasImages = false;
+	
+	treeView.AuxData.entryViews = new Array;
+	BuildSubEntries( treeView, coreItem, treeView.MasterItem, 0 );
+}
+
+
+function BuildSubEntries( treeView, coreItem, baseEntry, hierLevel )
+{
+	for ( entry in baseEntry.Entries )
+	{
+		entryView = coreItem.ObtainChildItemByMasterItem( entry, 'TreeEntryView' );
+		//entryView.MasterItem = entry;
+
+		imageUrl = entry.ImageUrl;
+		if ( imageUrl )
+		{
+			entryView.AuxData.imageUrl = entry.ImageUrl;
+			treeView.AuxData.hasImages = true;
+		}
+
+		entryView.AuxData.hierLevel = hierLevel;
+		entryView.AuxData.hasChildren = ( entry.Entries.length != 0 );
+		
+		if ( entryView.AuxData.isExpanded == undefined )
+			entryView.AuxData.isExpanded = true;
+
+		entryView.AuxData.isCurrent = ( treeView.MasterItem.CurrentEntry === entry );
+		
+		treeView.AuxData.entryViews.push( entryView );
+
+		if ( entry.Entries.length != 0 && entryView.AuxData.isExpanded )
+		{
+			entryView.AuxData.hasChildren = true;
+			
+			//if ( entryView.AuxData.isExpanded == undefined )
+				//entryView.AuxData.isExpanded = true;
+			
+			BuildSubEntries( treeView, coreItem, entry, hierLevel + 1 );
+		}
+	}
+}
+
+
+function OnTreeEntryToggle( treeView, entryView )
+{
+	entryView.AuxData.isExpanded = !entryView.AuxData.isExpanded;
+	treeView.Update();
+}
+
+
+function OnTreeEntryClick( treeView, entryView )
+{
+	treeView.MasterItem.SetCurrentEntry( entryView.MasterItem );
+
+	if ( treeView.IsDropDown )
+		treeView.CloseDropDown();
+}
+
+
+function OnTreeViewCurrentEntryChanged( treeView, entry )
+{
+	if ( treeView.AuxData.switchType == 'source' )
+	{
+		treeView.MasterItem.SetSourceValue( entry.Value );
+		treeView.Screen.Update();
+	}
+	else
+	{
+		treeView.Update();
+		treeView.MasterItem.RunSetCurrentEntryActions( entry );
+	}
+}
+
+
+function OnTreeEntryDoubleClick( treeView, entryView )
+{
+	if ( entryView.MasterItem.Entries.length == 0 )
+		return;
+
+	OnTreeEntryToggle( treeView, entryView );
+}
+
+
+function CalcTreeReqWidthMeasure( treeView )
+{
+	return '40zr';
+}
+
+
+function SetTreeViewMinimized( treeView, isMinimized )
+{
+	treeView.AuxData.isMinimized = isMinimized;
+
+	key = treeView.MasterItem.LocalStorageKey;
+
+	srcObject = AppLocalStorage.LoadEntryValue( key );
+	if ( srcObject == undefined )
+		srcObject = new Object;
+	
+	srcObject.is_minimized = isMinimized;
+	AppLocalStorage.PutEntryValue( key, srcObject );
+}
+
+
+}

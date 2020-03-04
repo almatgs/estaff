@@ -1,0 +1,675 @@
+namespace ui_builder_server {
+
+
+function RegisterUiTemplateFromFile( srcUrl )
+{
+	srcDoc = OpenDoc( srcUrl, 'ui-text=1' );
+	if ( srcDoc.TopElem.Name != 'UiTemplate' )
+		throw FragmentParseError( 'Root element is not <UiTemplate>', srcDoc.TopElem );
+
+	templateID = srcDoc.TopElem.GetAttr( 'ID' );
+	if ( GetOptUiTemplate( templateID ) != undefined )
+		throw UserError( 'UI template already registered: ' + templateID );
+
+	baseTemplateID = srcDoc.TopElem.GetOptAttr( 'BaseTemplate' );
+	if ( baseTemplateID != undefined )
+	{
+		baseTemplate = GetUiTemplate( baseTemplateID, srcDoc );
+		template = CloneUiTemplate( baseTemplate );
+		template.baseTemplateID = baseTemplateID;
+	}
+	else
+	{
+		template = CreateUiTemplate();
+	}
+
+	template.id = templateID;
+
+	LoadUiTemplate( template, srcDoc );
+	templates.push( template );
+
+	//ui_builder_server.ProcessUiTemplateRules( template );
+}
+
+
+function CreateUiTemplate()
+{
+	object = new Object;
+	object.SetStrictMode( false );
+	return object;
+}
+
+
+function GetOptUiTemplate( templateID )
+{
+	return ArrayOptFindByKey( templates, templateID, 'id' );
+}
+
+
+function GetUiTemplate( templateID, sourceDesc ? )
+{
+	template = GetOptUiTemplate( templateID );
+	if ( template == undefined )
+		throw UserError( 'Unknown UI template: ' + templateID + ( sourceDesc != undefined ? '\r\n(' + sourceDesc + ')' : '' ) );
+
+	return template;
+}
+
+
+function LoadUiTemplate( template, srcDoc )
+{
+	if ( template.baseTemplateID == undefined )
+	{
+		template.objectTypeID = srcDoc.TopElem.GetOptAttr( 'ObjectType' );
+		template.isObjectList = srcDoc.TopElem.GetBoolAttr( 'ObjectList' );
+	}
+
+	template.title = srcDoc.TopElem.OptUiAttrValue( 'Title', '' );
+	
+	template.editMode = srcDoc.TopElem.GetBoolAttr( 'EditMode', undefined );
+	template.layout = srcDoc.TopElem.GetOptAttr( 'Layout' );
+
+	//if ( templateID == 'Object.' + template.objectTypeID ) //!!!
+		//template.isObjectCard = true;
+
+	InitUiTemplate( template );
+
+	for ( srcElem in srcDoc.TopElem )
+	{
+		item = LoadUiItem( srcElem, template, template );
+	}
+}
+
+
+function InitUiTemplate( template )
+{
+	if ( template.objectTypeID != undefined )
+		template.objectFormElem = DefaultDb.GetObjectForm( template.objectTypeID ).TopElem;
+	//else
+		//throw FragmentParseError( 'Object type must be specified', srcDoc.TopElem );
+
+	if ( template.isObjectList )
+	{
+		if ( template.objectTypeID == undefined )
+			throw UserError( 'Unable to get object type for list template: ' + template.id );
+
+		//objectTypeID = lib_base.VarNameToFieldName( obj[0] );
+		objectTypeID = template.objectTypeID;
+
+		objectForm = DefaultDb.GetObjectForm( objectTypeID );
+		template.catalogName = lib_base.object_name_to_catalog_name( objectTypeID );
+
+		catalog = DefaultDb.GetOptCatalog( template.catalogName );
+		if ( catalog == undefined )
+			throw UserError( 'Unable to get catalog "' + template.catalogName + '" type for list template: ' + template.id );
+
+		template.objectFormElem = catalog.Form.TopElem[0];
+		template.isHier = objectForm.IsHier;
+	}
+}
+
+
+function GetCatalogDefaultTemplateID( catalogName, srcElem ? )
+{
+	templateID = 'ListDefault.' + catalogName;
+
+	if ( ui_builder_server.GetOptUiTemplate( templateID ) != undefined )
+		return templateID;
+		
+	template = ui_builder_server.CreateUiTemplate();
+	template.id = templateID;
+	template.isObjectList = true;
+	template.objectTypeID = lib_base.catalog_name_to_object_name( catalogName );
+
+	InitUiTemplate( template );
+
+	template.items = new Array;
+
+	item = CreateUiItem();
+	item.type = 'Column';
+	
+	if ( catalogName == 'candidates' )
+		item.fieldID = 'fullname';
+	else
+		item.fieldID = 'name';
+	
+	item.formElem = template.objectFormElem.EvalOptPath( item.fieldID );
+	if ( item.formElem == undefined )
+		throw FragmentParseError( 'No such field: ' + item.fieldID, srcElem );
+
+	InitUiItemFromFormElem( template, item, item.formElem );
+	template.items.push( item );
+
+	templates.push( template );
+
+	if ( LdsIsClient && System.ClientMajorVersion >= 2 && ! System.IsWebClient ) // !!!
+		ui_client.ObtainSectionViewUrl( templateID );
+
+	return templateID;
+}
+
+
+function LoadUiItem( srcElem, template, parentItem )
+{
+	item = CreateUiItem();
+	item.type = StrReplaceOne( srcElem.Name, 'UI:', '' );
+	item.sourceDesc = srcElem.SourceDesc;
+
+	item.fieldID = srcElem.GetOptAttr( 'Field' );
+
+	hasOwnSubElems = false;
+
+	switch ( item.type )
+	{
+		case 'Item':
+			item.sampleName = srcElem.GetOptAttr( 'Sample' );
+			if ( item.sampleName != undefined )
+				item.sampleFormUrl = srcElem.GetUrlAttr( 'SampleFormUrl' );
+			
+			//rule.fragmentID = srcElem.GetOptAttr( 'Fragment' );
+			//if ( rule.fragmentID == undefined && rule.sampleName == undefined )
+				//throw FragmentParseError( 'Either "Fragment" or "Sample" attribute is required', srcElem );
+
+			if ( item.fieldID == undefined && item.sampleName == undefined )
+				throw FragmentParseError( 'Either "Field" or "Sample" attribute is required', srcElem );
+			
+			break;
+
+		case 'Group':
+			break;
+
+		case 'Page':
+			item.id = srcElem.GetOptAttr( 'ID' );
+			item.templateID = srcElem.GetOptAttr( 'Template' );
+			//item.Title = srcElem.GetUiAttr( 'Title' );
+			break;
+
+		case 'Column':
+			break;
+
+		case 'Filter':
+			item.withAllDescendants = srcElem.GetBoolAttr( 'WithAllDescendants' );
+			item.isFixed = srcElem.GetBoolAttr( 'Fixed' );
+			item.valueExpr = srcElem.GetOptAttr( 'ValueExpr' );
+
+			if ( item.isFixed && item.valueExpr == undefined )
+				throw FragmentParseError( 'Either "Value" or "ValueExpr" attribute is required', srcElem );
+
+			break;
+
+		case 'Section':
+			item.templateID = srcElem.GetOptAttr( 'Template' );
+			item.catalogName = srcElem.GetOptAttr( 'Catalog' );
+			if ( item.catalogName != undefined && DefaultDb.GetOptCatalog( item.catalogName ) == undefined )
+				throw FragmentParseError( 'No such catalog: ' + item.catalogName, srcElem );
+			//item.objectTypeID = srcElem.GetOptAttr( 'ObjectType' );
+			//if ( item.templateID == undefined )
+				//throw FragmentParseError( '"Template" attribute is required', srcElem );
+			//item.Title = srcElem.GetUiAttr( 'Title' );
+			break;
+
+		case 'ObjectList':
+			item.listTemplateID = srcElem.GetOptAttr( 'Template' );
+			item.catalogName = srcElem.GetOptAttr( 'Catalog' );
+			item.showAllDescendants = srcElem.GetBoolAttr( 'AllDescendants' );
+			
+			if ( item.listTemplateID != undefined )
+			{
+			}
+			else if ( item.showAllDescendants )
+			{
+				item.catalogName = lib_base.object_name_to_catalog_name( template.objectTypeID );
+				item.listTemplateID = ui_builder_server.GetCatalogDefaultTemplateID( item.catalogName, srcElem );
+			}
+			else if ( item.catalogName != undefined )
+			{
+				item.listTemplateID = ui_builder_server.GetCatalogDefaultTemplateID( item.catalogName, srcElem );
+			}
+			else
+			{
+				throw FragmentParseError( 'Unable to get list target object type', srcElem );
+			}
+
+			if ( template.innerLists == undefined )
+				template.innerLists = new Array;
+
+			template.innerLists.push( item );
+			hasOwnSubElems = true;
+			break;
+
+		case 'Attachment':
+			if ( item.fieldID == undefined )
+				throw FragmentParseError( '"Field" attribute is required', srcElem );
+			break;
+
+		case 'Break':
+			break;
+
+		case 'Separator':
+			break;
+
+		case 'Split':
+			break;
+
+		case 'Attachments':
+			break;
+
+		case 'CustomFields':
+			break;
+
+		case 'Action':
+			item.stdAction = srcElem.GetOptAttr( 'StdAction' );
+			ExtractElemCodeAttr( srcElem, 'Action', item, 'actionCode' );
+			break;
+
+		case 'XMS':
+			item.url = srcElem.GetUrlAttr( 'Url' );
+			break;
+
+
+		case 'Delete':
+			item.itemType = srcElem.GetAttr( 'Item' );
+			break;
+
+		case 'AllowEditField':
+			item.allFields = srcElem.GetBoolAttr( 'AllFields' );
+			item.condition = srcElem.GetAttr( 'Condition' );
+			break;
+
+
+		case 'UseFields':
+			attr = srcElem.GetAttr( 'Fields' );
+			item.fieldNames = attr.split( ',' );
+			break;
+
+		case 'PutTogether':
+			attr = srcElem.GetAttr( 'Fields' );
+			item.fieldNames = attr.split( ',' );
+			break;
+
+		case 'Set':
+			break;
+
+		default:
+			throw UserError( 'Unknown UI rule: <' + item.type + '>\r\n' + srcElem.SourceDesc );
+	}
+
+	LoadCommonUiRuleAttr( item, srcElem );
+
+	if ( parentItem.items == undefined )
+		parentItem.items = new Array;
+
+	parentItem.items.push( item );
+
+	for ( srcSubElem in srcElem )
+		LoadUiItem( srcSubElem, template, item );
+
+	return item;
+}
+
+
+function InitUiItemFromFormElem( template, item, formElem )
+{
+	if ( item.title == undefined && formElem.Title != '' )
+		item.title = formElem.Title;
+		
+	if ( ( attr = formElem.GetOptAttr( 'MaxLen' ) ) != undefined )
+		item.maxLen = Int( attr );
+	//else if ( formElem.ExpMaxLen != null )
+		//part.maxLen = formElem.ExpMaxLen;
+
+	if ( ( attr = formElem.GetOptAttr( 'PutWithField' ) ) != undefined )
+		item.putWithField = attr;
+
+	if ( formElem.Type == 'date' )
+		item.showTime = false;
+}
+
+
+function LoadCommonUiRuleAttr( item, srcElem )
+{
+	ExtractElemStrAttr( srcElem, 'Width', item, 'widthMeasure' );
+	ExtractElemStrAttr( srcElem, 'Height', item, 'heightMeasure' );
+
+	for ( attrName in srcElem.AttrNames )
+	{
+		/*switch ( attrName )
+		{
+			case 'Field':
+			case 'Fields':
+			case 'TargetField':
+			case 'TargetFields':
+			case 'TargetPage':
+			case 'Sample':
+			case 'SampleFormUrl':
+			case 'ID':
+			case 'Fragment':
+			case 'Url':
+				continue;
+		}*/
+
+		coreAttrName = StrReplaceOne( attrName, 'UI:', '' );
+		propName = StrNonTitleCase( coreAttrName );
+
+		propType = GetUiPropType( propName );
+		if ( propType == undefined )
+		{
+			//throw FragmentParseError( 'Unknown UI atribute: ' + attrName, srcElem );
+			continue;
+		}
+
+		switch ( propType )
+		{
+			case 'ui-string':
+				propVal = srcElem.OptUiAttrValue( attrName );
+				break;
+
+			case 'url':
+				propVal = srcElem.GetUrlAttr( attrName );
+				break;
+
+			case 'string':
+				propVal = srcElem.GetAttr( attrName );
+				break;
+
+			case 'integer':
+				propVal = Int( srcElem.GetAttr( attrName ) );
+				break;
+
+			case 'bool':
+				propVal = srcElem.GetBoolAttr( attrName );
+				break;
+
+			case 'code':
+				ExtractElemCodeAttr( srcElem, attrName, item, propName );
+				continue;
+
+			default:
+				throw UserError( 'Unknown UI atribute type: ' + propType + '\r\n' + srcElem.SourceDesc );
+				continue;
+		}
+
+		item[propName] = propVal;
+	}
+}
+
+
+function GetUiPropType( propName )
+{
+	switch ( propName )
+	{
+		case 'title':
+			return 'ui-string';
+
+		case 'imageUrl':
+			return 'url';
+
+		//case 'page':
+		case 'putWithField':
+		case 'selectorList':
+		case 'layout':
+		case 'preprocessMethod':
+		case 'onChangeMethod':
+			return 'string';
+
+		case 'titleExpr':
+		case 'textColorExpr':
+		case 'bkColorExpr':
+		case 'showCondition':
+		case 'enableCondition':
+		case 'filterExpr':
+			return 'code';
+
+		//case 'maxLen':
+			//return 'integer';
+
+		case 'multiple':
+		//case 'showTime':
+		case 'timeOnly':
+		case 'fullSpace':
+		case 'startNewGroup':
+		case 'vertScroll':
+		//case 'useObjectPreview':
+		//case 'showFilters':
+			return 'bool';
+	}
+
+	return undefined;
+}
+
+
+function UiPropMatchesFragment( propName, template )
+{
+	switch ( propName )
+	{
+		case 'showFilters':
+			return true;
+	}
+
+	return false;
+}
+
+
+function CreateUiItem()
+{
+	item = new Object;
+	item.SetStrictMode( false );
+	return item;
+}
+
+
+function CloneUiTemplate( template )
+{
+	newTemplate = CloneUiItem( template );
+	newTemplate.isPrepared = false;
+	return newTemplate;
+}
+
+
+function CloneUiItem( item )
+{
+	newItem = CreateUiItem();
+
+	for ( propName in item )
+	{
+		propVal = item[propName];
+		if ( propName == 'items' )
+		{
+			newItem.items = new Array;
+
+			for ( subItem in propVal )
+				newItem.items.push( CloneUiItem( subItem ) );
+		}
+		else
+		{
+			newItem[propName] = propVal;
+		}
+		
+		/*if ( DataType( propVal ) == 'object' )
+		{
+			objectType = ObjectType( propVal );
+			if ( objectType == 'Object' )
+		}
+		else
+		{
+			newItem[propName] = propVal;
+		}*/
+	}
+
+	return newItem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function RegisterUiFragment( templateID, objectFormElem )
+{
+	if ( templates.ChildByKeyExists( templateID ) )
+		throw UserError( 'UI template aleady registered: ' + templateID );
+
+	template =  templates.AddChild();
+	template.id = templateID;
+	template.objectFormElem = objectFormElem;
+	template.instances = new SafeObject;
+	template.instances.SetStrictMode( false );
+
+	return template;
+}
+
+
+function LoadUiRulesFromFile( srcUrl )
+{
+	srcDoc = OpenDoc( srcUrl, 'ui-text=1' );
+	if ( srcDoc.TopElem.Name != 'UiRules' )
+		throw UserError( 'Root element is not <UiRules>' );
+
+	templateID = srcDoc.TopElem.GetAttr( 'TargetFragment' );
+	template = GetFragment( templateID );
+
+	if ( template.rules == undefined )
+		template.rules = new Array;
+
+	for ( srcElem in srcDoc.TopElem )
+	{
+		LoadUiRule( srcElem, template );
+	}
+}
+
+
+function BuildOptionsKey( template, options )
+{
+	str = UrlEncodeQuery( options );
+	if ( str == '' )
+		return 'default';
+
+	return str;
+}
+
+
+
+function EstimateVocMaxElemLen( vocID )
+{
+	vocCatalog = DefaultDb.GetOptCatalog( vocID );
+	maxLenElem = ArrayOptMax( vocCatalog, 'StrCharCount( PrimaryDispName )' );
+	if ( maxLenElem == undefined )
+		return undefined;
+
+	return StrCharCount( maxLenElem.PrimaryDispName );
+}
+
+
+function EstimateForeignArrayMaxElemLen( foreignArrayExprStr )
+{
+	catalog = DefaultDb.GetOptCatalog( foreignArrayExprStr );
+	if ( catalog != undefined )
+	{
+		switch ( foreignArrayExprStr )
+		{
+			case 'orgs':
+			case 'divisions':
+			case 'vacancies':
+				return undefined;
+
+			case 'persons':
+			case 'candidates':
+				return 35;
+
+			case 'users':
+				if ( global_settings.user_primary_disp_name == 'login' )
+					return 16;
+				else if ( global_settings.user_primary_disp_name == 'shortname' )
+					return 25;
+				else
+					return 34;
+		}
+
+		foreignArray = catalog;
+	}
+	else
+	{
+		foreignArray = OptEval( foreignArrayExprStr );
+		if ( foreignArray == undefined )
+			return undefined;
+	}
+
+	maxLenElem = ArrayOptMax( foreignArray, 'StrCharCount( PrimaryDispName )' );
+	if ( maxLenElem == undefined )
+		return undefined;
+
+	//DebugMsg( maxLenElem.PrimaryDispName );
+	return StrCharCount( maxLenElem.PrimaryDispName );
+}
+
+
+function FragmentError( desc, template, rule )
+{
+	str = desc;
+
+	if ( rule != undefined && item.sourceDesc != undefined )
+		str += '\r\n' + item.sourceDesc;
+	else if ( template != undefined )
+		str += '\r\n\Fragment: ' + template.id;
+
+	return str;
+}
+
+
+function FragmentParseError( desc, srcElem )
+{
+	str = desc;
+	str += '\r\n' + srcElem.SourceDesc;
+	return UserError( str );
+}
+
+
+function UiItemError( desc, template, item )
+{
+	str = desc;
+	str += '\r\n' + item.sourceDesc;
+	return UserError( str );
+}
+
+
+function ExtractElemStrAttr( srcElem, attrName, destObject, destPropName )
+{
+	attrVal = srcElem.GetOptAttr( attrName );
+	if ( attrVal == undefined )
+		return;
+
+	destObject[destPropName != undefined ? destPropName : StrNonTitleCase( attrName )] = attrVal;
+}
+
+
+function ExtractElemCodeAttr( srcElem, attrName, destObject, destPropName )
+{
+	attrVal = srcElem.GetOptAttr( attrName );
+	if ( attrVal == undefined )
+		return;
+
+	if ( StrBegins( attrVal, '{' ) && StrEnds( attrVal, '}' ) && ! StrContains( attrVal, '\n' ) ) // !!! Temp workaround
+		attrVal = '(' + attrVal + ')';
+
+	try
+	{
+		CheckCodeSyntax( attrVal );
+	}
+	catch ( e )
+	{
+		throw FragmentParseError( '"' + attrName + '" syntax error', srcElem );
+	}
+
+	destObject[destPropName != undefined ? destPropName : StrNonTitleCase( attrName )] = attrVal;
+}
+
+
+}

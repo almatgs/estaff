@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="95zr" HEIGHT="40zr" SOURCE="TopElem" TITLE="Персональные настройки - Пользовательский интерфейс" SAVE-ACTION="
+		UpdateScreens( '*', '*' );
+" RESIZE="1" WINDOW-ICON-URL="//base_pict/settings.ico" lang-en:TITLE="Personal settings - User interface" lang-ua:TITLE="Персональні налаштування - Інтерфейс користувача">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<CHECK TITLE="Обновлять списки в фоновом режиме" SOURCE="Ps.use_list_async_update" lang-en:TITLE="Update lists asynchronously" lang-ua:TITLE="Оновлювати списки в фоновому режимі"/>
+	<CHECK TITLE="Отключить автоматическое обновление списков при сохранении карточек" SOURCE="Ps.disable_list_auto_update" lang-en:TITLE="Disable automatic list updates" lang-ua:TITLE="Відключити автоматичне оновлення списків при збереженні карток"/>
+</PANEL>
+
+
+</SPXML-SCREEN>

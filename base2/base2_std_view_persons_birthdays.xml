@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>persons_birthdays</id>
+	<name VALUE="##UiText.sections.birtdays##"/>
+	<parent_id>persons</parent_id>
+
+	<static_filters>
+		<static_filter>
+			<id>trace_birthday</id>
+			<value>true</value>
+		</static_filter>
+		<static_filter>
+			<xquery_qual_expr>
+				depth = 14;
+				startDate = DateNewTime( CurDate );
+				endDate = DateOffset( startDate, 86400 * depth );
+
+				startMonthDay = lib_base.MonthDayFromDate( startDate );
+				endMonthDay = lib_base.MonthDayFromDate( endDate );
+
+				if ( endMonthDay > startMonthDay )
+					return '$elem/birthday_month_day >= ' + startMonthDay + ' and $elem/birthday_month_day &lt;= ' + endMonthDay;
+				else
+					return '( $elem/birthday_month_day >= ' + startMonthDay + ' or $elem/birthday_month_day &lt;= ' + endMonthDay + ' )';
+			</xquery_qual_expr>
+		</static_filter>
+	</static_filters>
+
+	<fields>
+		<field>
+			<id>fullname</id>
+		</field>
+		<field>
+			<id>birth_date_rest_days_num</id>
+			<title_expr>birth_date_rest_days_num == 0 ? 'сегодня' : birth_date_rest_days_num</title_expr>
+			<col_title VALUE="##UiText.titles.left__days##"/>
+			<width>11zr</width>
+			<order>birth_date_rest_days_num</order>
+			<is_default_sort>1</is_default_sort>
+			<bk_color_expr>birth_date_rest_days_bk_color</bk_color_expr>
+		</field>
+		<field>
+			<id>birth_date</id>
+		</field>
+		<field>
+			<id>org_id</id>
+			<width>60%</width>
+		</field>
+		<field>
+			<id>position_name</id>
+			<width>40%</width>
+		</field>
+		<field>
+			<id>disp_phone</id>
+		</field>
+	</fields>
+</std_view>
+

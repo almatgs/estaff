@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<SPXML-FORM>
+
+<CallMethodAsyncResponse SAMPLE="1">
+	<TrackingID TYPE="integer"/>
+</CallMethodAsyncResponse>
+
+
+<GetAsyncMethodStatusResponse SAMPLE="1">
+	<IsRunning TYPE="bool" NOT-NULL="1"/>
+	<StartDate TYPE="date"/>
+	<EndDate TYPE="date"/>
+	<ErrorCode TYPE="string"/>
+	<ErrorText TYPE="string" LARGE="1"/>
+
+	<Progress>
+		<Level MULTIPLE="1">
+			<TaskName TYPE="string"/>
+			<ActivityName TYPE="string"/>
+			<ItemCount TYPE="integer"/>
+			<CurrentItemIndex TYPE="integer"/>
+			<CurrentItemName TYPE="string"/>
+		</Level>
+	</Progress>
+
+	<ResultData DYN-CHILDREN="1">
+	</ResultData>
+</GetAsyncMethodStatusResponse>
+
+
+<GetBackgroundTasksByNameResponse SAMPLE="1">
+	<Task MULTIPLE="1">
+		<TrackingID TYPE="integer"/>
+		<IsRunning TYPE="bool" NOT-NULL="1"/>
+		<StartDate TYPE="date"/>
+		<EndDate TYPE="date"/>
+		<ErrorCode TYPE="string"/>
+		<ErrorText TYPE="string" LARGE="1"/>
+
+		<Progress>
+			<Level MULTIPLE="1">
+				<TaskName TYPE="string"/>
+				<ActivityName TYPE="string"/>
+				<ItemCount TYPE="integer"/>
+				<CurrentItemIndex TYPE="integer"/>
+				<CurrentItemName TYPE="string"/>
+			</Level>
+		</Progress>
+	</Task>
+</GetBackgroundTasksByNameResponse>
+
+
+</SPXML-FORM>

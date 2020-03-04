@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="Ps.name + ' - ' + UiText.objects.division" BEFORE-INIT-ACTION="
+		if ( lib_base.object_change_prohibited( Ps ) || Ps.is_org )
+			Screen.EditMode = false;
+" BEFORE-SAVE-ACTION="
+		if ( Doc.NeverSaved && Ps.name.HasValue && Ps.has_duplicates() )
+			lib_base.ask_warning_to_continue( Screen, UiText.messages.division_already_exists );
+
+		fields_usage.check_object_required_fields( Ps );
+" MAXIMIZED="1">
+
+
+<INHERIT TYPE="card_menu_start"/>
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="card_toolbar_start_entries"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY TITLE="##UiText.actions.new_own_person##" IMAGE-URL="//base_pict/own_person.ico" CMD="NewDivisionPerson"/>
+
+	<IF EXPR="AppModuleUsed( 'rcr' )">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+		<TOOLBAR-ENTRY TIP-TEXT="##UiText.actions.new_vacancy##" IMAGE-URL="//base_pict/vacancy.ico" CMD="NewDivisionVacancy"/>
+	</IF>
+
+	<ITEM TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="38zr" STD-MARGINS="0">
+	<PANEL HEIGHT-EXPR="'-' + lib_base.GetCardInfoHeightMeasure( TopElem )" SUNKEN="1">
+		<TREE SUNKEN="0" SWITCH-TYPE="selector" TARGET="main_selector">
+		</TREE>
+	</PANEL>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.objects.division##" EXPANDED="1" SUNKEN="1" IMAGE-URL-EXPR="Ps.ImageUrl">
+
+
+<PAGE TITLE="##UiText.sections.general##" SUNKEN="1" TD-MARGINS="1" VERT-SCROLL="1" IMAGE-URL="//base_pict/common.ico" lang-en:TITLE="General">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="10zr"/>
+
+			<IF EXPR="fields_usage.use_object_field( 'division', 'full_name' )">
+				<COL WIDTH="35%"/>
+				<COL WIDTH="65%"/>
+			</IF>
+			<ELSE>
+				<COL WIDTH="100%"/>
+			</ELSE>
+			<IF EXPR="fields_usage.use_object_field( 'division', 'short_name' )">
+				<COL WIDTH="28zr"/>
+			</IF>
+		</COLUMNS>
+		
+		<EDIT SOURCE="Ps.code" AUTO-LABEL="1"/>
+		<EDIT SOURCE="Ps.name" AUTO-LABEL="1"/>
+
+		<IF EXPR="fields_usage.use_object_field( 'division', 'full_name' )">
+			<EDIT SOURCE="Ps.full_name" AUTO-LABEL="1"/>
+		</IF>
+		<IF EXPR="fields_usage.use_object_field( 'division', 'short_name' )">
+			<EDIT SOURCE="Ps.short_name" AUTO-LABEL="1"/>
+		</IF>
+	</TABLE>
+	<BR/>
+	
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<IF EXPR="fields_usage.use_object_field( 'division', 'type_id' )">
+				<COL WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.type_id, 20, 30 )"/>
+			</IF>
+		</COLUMNS>
+
+		<ITEM TYPE="object_selector" SOURCE="Ps.parent_id" AUTO-LABEL="1" UPDATE-ACTION="Ps.OnParentSelected()"/>
+
+		<IF EXPR="fields_usage.use_object_field( 'division', 'type_id' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.type_id" AUTO-LABEL="1"/>
+		</IF>
+	</TABLE>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="14zr"/>
+			<COL WIDTH="14zr"/>
+
+			<COL WIDTH="100%"/>
+
+			<IF EXPR="fields_usage.use_object_field( 'division', 'location_id' )">
+				<COL WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.location_id, 20, 40 )"/>
+			</IF>
+			<IF EXPR="fields_usage.use_object_field( 'division', 'brand_id' )">
+				<COL WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.brand_id, 20, 40 )"/>
+			</IF>
+		</COLUMNS>
+
+		<ITEM TYPE="date_selector" SOURCE="Ps.start_date" AUTO-LABEL="1"/>
+		<ITEM TYPE="date_selector" SOURCE="Ps.end_date" AUTO-LABEL="1"/>
+
+		<IF EXPR="global_settings.use_division_orgs">
+			<ITEM TYPE="object_selector" SOURCE="Ps.org_id" AUTO-LABEL="1" READ-ONLY-EXPR="Ps.parent_id.HasValue" UPDATE-ACTION="Ps.OnOrgSelected()"/>
+		</IF>
+		<ELSE>
+			<LABEL/>
+		</ELSE>
+
+		<IF EXPR="fields_usage.use_object_field( 'division', 'location_id' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.location_id" AUTO-LABEL="1"/>
+		</IF>
+		<IF EXPR="fields_usage.use_object_field( 'division', 'brand_id' ) &amp;&amp; lib_app2.AppFeatureEnabled( 'mass_recruit' )">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.brand_id" AUTO-LABEL="1"/>
+		</IF>
+	</TABLE>
+	<DELIM/>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+
+	<EDIT SOURCE="Ps.comment" MULTILINE="1" HEIGHT="8zr" VERT-SCROLL="1" AUTO-LABEL="1"/>
+	<BR/>
+	<BR/>
+
+	<LABEL TITLE="##UiText.sections.employees##:"/>
+	<ITEM FORM-DATA-EXPR="lib_view.build_card_view_list( 'persons_of_division' )" HEIGHT="51%" TYPE="MainList"/>
+	<BR/>
+
+	<IF EXPR="global_settings.use_positions &amp;&amp; lib_app2.AppFeatureEnabled( 'mass_recruit' )">
+		<LABEL TITLE="##UiText.fields.positions##:"/>
+		<ITEM FORM-DATA-EXPR="lib_view.build_card_view_list( 'positions_of_division' )" HEIGHT="51%" TYPE="MainList"/>
+		<BR/>
+	</IF>
+
+	<LABEL TITLE="##UiText.fields.child_divisions##:"/>
+	<ITEM FORM-DATA-EXPR="lib_view.build_card_view_list( 'divisions_of_division' )" HEIGHT="-1zr" TYPE="MainList"/>
+</PAGE>
+
+
+
+<PAGE TITLE="##UiText.sections.add_info##" SUNKEN="1" STD-MARGINS="1" IMAGE-URL="//base_pict/aux_info.ico" EXPANDED="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="35zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.eid" LABEL-TITLE="##UiText.fields.eid##:"/>
+	</TABLE>
+	<DELIM/>
+</PAGE>
+
+
+
+
+
+<ITEM FORM-DATA-EXPR="lib_base.get_card_pages_form( 'division' )"/>
+
+
+<ITEM TYPE="card_attachments"/>
+
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+
+
+
+</LINE>
+
+
+
+
+
+	
+<COMMAND-HANDLER CMD="NewDivisionPerson" ACTION="
+		if ( Screen.Doc.NeverSaved )
+			Screen.SaveDoc();
+
+		doc = DefaultDb.OpenNewObjectDoc( 'person' );
+		doc.TopElem.is_own_person = true;
+		doc.TopElem.division_id = Ps.id;
+		CreateDocScreen( doc );
+" PASSIVE="1"/>
+
+
+
+<COMMAND-HANDLER CMD="NewDivisionVacancy" ACTION="						
+		if ( lib_user.active_user_access.prohibit_create_vacancies )
+			throw UiError( UiText.errors.permission_denied );
+
+		if ( Screen.Doc.NeverSaved )
+			Screen.SaveDoc();
+
+		vacancyDoc = DefaultDb.OpenNewObjectDoc( 'vacancy' );
+		vacancy = vacancyDoc.TopElem;
+
+		vacancy.division_id = Screen.Doc.DocID;
+		vacancy.load_rr_persons_by_division();
+		
+		CreateDocScreen( vacancyDoc );
+" PASSIVE="1"/>
+
+
+
+<COMMAND-HANDLER CMD="CheckSpelling" ACTION="
+		Screen.CheckSpelling();
+"/>
+
+
+
+<COMMAND-HANDLER CMD="Help" HREF-EXPR="lib_base.build_help_article_url( 'intro.htm' )" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1"/>
+
+
+
+</SPXML-SCREEN>
+
+
+
+

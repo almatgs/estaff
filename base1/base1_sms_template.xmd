@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml">
+
+
+<sms_template>
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<dest_type TYPE="string" NOT-NULL="1" DEFAULT="person"/>
+
+	<is_group_starter TYPE="bool" NOT-NULL="1"/>
+	<is_notif TYPE="bool" NULL-FALSE="1"/>
+
+	<phone TYPE="string" TITLE="Телефон получателя" lang-TITLE="Recipient's phone number" lang-en:TITLE="Recipient's phone" lang-ua:TITLE="Телефон одержувача"/>
+	<text TYPE="string" MULTILINE="1" MAX-LEN="512"/>
+
+	<register_event TYPE="bool" NOT-NULL="1"/>
+	<event_type_id TYPE="string" FOREIGN-ARRAY="event_types"/>
+
+	<group_id TYPE="integer" FOREIGN-ARRAY="groups" TITLE="##UiText.objects.group##"/>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+
+
+	<may_use_for_plain_object PROPERTY="1" PARAM="object" EXPR="
+			if ( dest_type != object.Name )
+				return false;
+
+			if ( is_notif )
+				return false;
+
+			return true;
+	"/>
+</sms_template>
+
+
+
+</SPXML-FORM>

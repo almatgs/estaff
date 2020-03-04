@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+
+<view_trash>
+	<filter>
+		<INHERIT TYPE="ft_filter"/>
+	</filter>
+</view_trash>
+
+</SPXML-INLINE-FORM>

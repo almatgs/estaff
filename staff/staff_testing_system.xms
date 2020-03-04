@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="122zr" HEIGHT="85zr" SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" RESIZE="1" WINDOW-ICON-URL-EXPR="Ps.ImageUrl">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<IF EXPR="Ps.recruit_provider_id.HasValue">
+		<GROUP>
+			<EDIT SOURCE="Ps.recruit_provider_id.ForeignDispName" READ-ONLY="1" LABEL-TITLE="##UiText.titles.recruit_provider##:" WIDTH="40zr"/>
+		</GROUP>
+		<DELIM/>
+	</IF>
+	<ELSE>
+		<CHECK SOURCE="Ps.is_wt" AUTO-LABEL="1"/>
+		<CHECK SOURCE="Ps.use_own_site" AUTO-LABEL="1"/>
+
+		<IF EXPR="Ps.use_own_site">
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.own_site_id" AUTO-LABEL="1" WIDTH="40zr"/>
+		</IF>
+		<DELIM/>
+
+		<IF EXPR="Ps.is_wt && ! Ps.use_own_site">
+			<EDIT SOURCE="Ps.address" WIDTH="50%" LABEL-TITLE="##UiText.titles.server_address##:"/>
+
+			<COMBO SOURCE="Ps.protocol_version" WIDTH="20zr" LABEL-TITLE="##UiText.titles.protocol##:">
+				<COMBO-ENTRY TITLE="1.0" VALUE="1"/>
+				<COMBO-ENTRY TITLE="2.0" VALUE="2"/>
+			</COMBO>
+			<DELIM/>
+		</IF>
+	</ELSE>
+
+	<IF EXPR="Ps.id == 'talentq'">
+		<CHECK SOURCE="Ps.use_local_logins" AUTO-LABEL="1"/>
+		<BR/>
+		
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="20zr"/>
+				<COL WIDTH="15zr"/>
+			</COLUMNS>
+
+			<EDIT SOURCE="Ps.login" AUTO-LABEL="1" ENABLE-EXPR="! Ps.use_local_logins"/>
+			<EDIT SOURCE="Ps.password" AUTO-LABEL="1" PASSWORD="1" ENABLE-EXPR="! Ps.use_local_logins"/>
+		</TABLE>
+		<DELIM/>
+
+		<LINE>
+			<CHECK SOURCE="Ps.send_assign_notif" TITLE="Отправлять кандидату уведомление о назначении теста" WIDTH="auto" lang-en:TITLE="Send assignment notification to candidate" lang-ua:TITLE="Відправляти кандидату повідомлення про призначення тесту"/>
+			<LABEL TITLE="  "/>
+
+			<LABEL TITLE="##UiText.titles.mail_template##:"/>
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.assign_notif_template_id" ENABLE-EXPR="Ps.send_assign_notif"/>
+		</LINE>
+	</IF>
+
+	<IF EXPR="Ps.is_wt || Ps.recruit_provider_id.HasValue">
+		<BUTTON TITLE="##UiText.actions.load_tests##" IMAGE-URL="//base_pict/load.ico" WIDTH="29zr" ACTION="
+				if ( Screen.Doc.IsChanged )
+					Screen.SaveDoc();
+				
+				lib_testing.load_external_tests( Ps );
+		" PASSIVE="1"/>
+	</IF>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+  
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+
+
+

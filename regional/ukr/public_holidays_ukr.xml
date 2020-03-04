@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<public_holiday_map SPXML-FORM="//cn/cn_public_holiday_map.xmd" LANG="ru">
+	<id>ukr_01</id>
+	<country_id>UKR</country_id>
+	<items>
+		<item>
+			<name VALUE="Новый год" lang-en:VALUE="New Year Holidays" lang-ua:VALUE="Новий рік"/>
+			<month>1</month>
+			<day>1</day>
+		</item>
+		<item>
+			<id>7</id>
+			<name VALUE="Рождество Христово" lang-en:VALUE="Christmas" lang-ua:VALUE="Різдво Христове"/>
+			<month>1</month>
+			<day>7</day>
+		</item>
+		<item>
+			<name VALUE="Международный женский день" lang-en:VALUE="Women's Day" lang-ua:VALUE="Міжнародний жіночий день"/>
+			<month>3</month>
+			<day>8</day>
+		</item>
+		<item>
+			<name VALUE="День международной солидарности трудящихся" lang-en:VALUE="May 1" lang-ua:VALUE="День міжнародної солідарності трудящих"/>
+			<month>5</month>
+			<day>1</day>
+		</item>
+		<item>
+			<name VALUE="День международной солидарности трудящихся" lang-en:VALUE="May 1" lang-ua:VALUE="День міжнародної солідарності трудящих"/>
+			<month>5</month>
+			<day>2</day>
+		</item>
+		<item>
+			<name VALUE="День Победы" lang-en:VALUE="May 9" lang-ua:VALUE="День Перемоги"/>
+			<month>5</month>
+			<day>9</day>
+		</item>
+		<item>
+			<name VALUE="День Конституции Украины" lang-en:VALUE="Constitution Day" lang-ua:VALUE="День Конституції України"/>
+			<month>6</month>
+			<day>28</day>
+		</item>
+		<item>
+			<name VALUE="День независимости Украины" lang-en:VALUE="Independence Day" lang-ua:VALUE="День незалежності України"/>
+			<month>8</month>
+			<day>24</day>
+		</item>
+		<item>
+			<name VALUE="День защитника Украины" lang-en:VALUE="Army Day" lang-ua:VALUE="День захисника України"/>
+			<month>10</month>
+			<day>14</day>
+		</item>
+	</items>
+
+	<observance_policy_id>11</observance_policy_id>
+</public_holiday_map>

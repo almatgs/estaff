@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM CODE-LIB="1" OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" TITLE="##UiText.objects.training_program##" IMAGE-URL-EXPR="is_active ? '//base_pict/generic_item.ico' : '//base_pict/generic_item_inactive.ico'">
+
+<training_program>
+	<id TYPE="string"/>
+	<name TYPE="string" TITLE="##UiText.fields.name##"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<parts>
+		<part MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string" TITLE="##UiText.fields.name##"/>
+			<is_group TYPE="bool" NULL-FALSE="1" TITLE="Групповое занятие" lang-en:TITLE="Group Class" lan-ua:TITLE="Групове заняття"/>
+			<is_online TYPE="bool" NULL-FALSE="1" TITLE="Онлайн" lang-en:TITLE="Online" lan-ua:TITLE="Онлайн"/>
+			<is_final_test TYPE="bool" NULL-FALSE="1" TITLE="Финальное тестирование" lang-en:TITLE="Final Test" lan-ua:TITLE="Фінальне тестування"/>
+			<duration TYPE="mh_period" TITLE="##UiText.titles.duration##"/>
+		</part>
+	</parts>
+
+	<participation_event_type_id TYPE="string" FOREIGN-ARRAY="event_types" TITLE="Событие в личном деле участника" lang-en:TITLE="Participation Event" lan-ua:TITLE="Подія в особовій справі учасника"/>
+	
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</training_program>
+
+
+</SPXML-FORM>
+
+
+

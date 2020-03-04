@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<card_attachment_types>
+	<items FAILED-ELEM="CreateElem( Doc.FormUrl, 'card_attachment_types.items.item' )">
+		<item MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<dest_type TYPE="string" NOT-NULL="1" DEFAULT="person"/>
+
+			<is_std TYPE="bool" NOT-NULL="1"/>
+
+
+			<init_content_type TYPE="string" DEFAULT="text/html"/>
+			<allow_other_content_types TYPE="bool" NOT-NULL="1"/>
+
+			<use_msword_template TYPE="bool" NOT-NULL="1"/>
+			<msword_template>
+				<data TYPE="binary"/>
+				<file_name TYPE="string"/>
+			</msword_template>
+
+			<use_default_text TYPE="bool" NOT-NULL="1"/>
+			<default_text TYPE="string" RICH-TEXT="1"/>
+		</item>
+	</items>
+</card_attachment_types>
+
+
+
+</SPXML-FORM>

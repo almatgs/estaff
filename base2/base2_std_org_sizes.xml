@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems_int.xmd">
+	<std_voc_elem>
+		<id>10</id>
+		<name>1-20</name>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>100</id>
+		<name>20-100</name>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>1000</id>
+		<name>100-1000</name>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>10000</id>
+		<name>> 1000</name>
+	</std_voc_elem>
+</std_voc_elems>
+

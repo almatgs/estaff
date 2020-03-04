@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM CODE-LIB="1" OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" IMAGE-URL="//base_pict/generic_item.ico">
+
+<event_type>	
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<short_name TYPE="string"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<order_index TYPE="integer"/>
+
+	<text_color TYPE="string"/>
+	<bk_color TYPE="string"/>
+	<image_url TYPE="string"/>
+
+	<target_object_type_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="card_object_types" TITLE="##UiText.fields.target_object_type##"/>
+	<is_state TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="##UiText.fields.is_state##"/>
+
+	<is_derived TYPE="bool" NULL-FALSE="1"/>
+	<is_calendar_entry TYPE="bool" NULL-FALSE="1" TITLE="Запись в календаре" lang-en:TITLE="Calendar entry" lang-ua:TITLE="Запис у календарі"/>
+	<is_delegate TYPE="bool" NULL-FALSE="1" TITLE="Планировать для других" lang-en:TITLE="Schedule for someone else" lang-ua:TITLE="Планувати для інших"/>
+
+	<use_end_date TYPE="bool" NULL-FALSE="1" TITLE="Временной интервал" lang-en:TITLE="Use end date" lang-ua:TITLE="Часовий інтервал"/>
+	<has_long_duration TYPE="bool" NULL-FALSE="1" TITLE="Продолжительный по времени процесс" lang-en:TITLE="Long time period" lang-ua:TITLE="Тривалий за часом процес"/>
+
+	<default_duration TYPE="period" TITLE="Продолжительность по умолчанию" lang-en:TITLE="Default duration" lang-ua:TITLE="Тривалість за замовчуванням"/>
+
+	<use_road_time TYPE="bool" NOT-NULL="1" TITLE="Учитывать время на дорогу" lang-en:TITLE="Use trip time" lang-ua:TITLE="Враховувати час на дорогу"/>
+	<default_road_time TYPE="term" TITLE="Время на дорогу по умолчанию" lang-en:TITLE="Default Trip Time" lang-ua:TITLE="Час на дорогу за замовчуванням"/>
+
+	<use_location TYPE="bool" NULL-FALSE="1" TITLE="Использовать регионы" lang-en:TITLE="Use locations" lang-ua:TITLE="Використовувати регіони"/>
+	<use_room TYPE="bool" NULL-FALSE="1" TITLE="Использовать комнаты" lang-en:TITLE="Use rooms" lang-ua:TITLE="Використовувати кімнати"/>
+
+	<use_org TYPE="bool" NULL-FALSE="1" TITLE="Привязывать к контрагенту" lang-en:TITLE="Bind to a company" lang-ua:TITLE="Прив'язувати до контрагента"/>
+	<use_vacancy TYPE="bool" NULL-FALSE="1" TITLE="Привязывать к вакансии" lang-en:TITLE="Bind to a vacancy" lang-ua:TITLE="Прив'язувати до вакансії"/>
+	<use_position_type TYPE="bool" NULL-FALSE="1" TITLE="Привязывать к типовой должности" lang-en:TITLE="Bind to a position type" lang-ua:TITLE="Прив'язувати до типової посади"/>
+	
+	<use_participants TYPE="bool" NULL-FALSE="1" TITLE="Вести список участников" lang-en:TITLE="Use participants" lang-ua:TITLE="Вести список учасників"/>
+	<use_participants_order TYPE="bool" NULL-FALSE="1" TITLE="Упорядоченный список участников" lang-en:TITLE="Use ordered participants list" lang-ua:TITLE="Упорядкований список учасників"/>
+	<register_participants TYPE="bool" NULL-FALSE="1" TITLE="Записывать участников по мере поступления" lang-en:TITLE="Register participants individually" lang-ua:TITLE="Записувати учасників по мірі надходження"/>
+	<use_participants_auto_load TYPE="bool" NULL-FALSE="1" TITLE="Формировать список участников автоматически" lang-en:TITLE="Fill participants automatically" lang-ua:TITLE="Формувати список учасників автоматично"/>
+	
+	<participants_auto_load>
+		<restrict_vacancy_rr_persons TYPE="bool" NULL-FALSE="1" TITLE="Загружать всех контактных лиц по вакансии, участвующих в событиях данного типа" lang-en:TITLE="Load all vacancy contact persons selected for this type of events" lang-ua:TITLE="Завантажувати всіх контактних осіб по вакансії, що беруть участь у подіях даного типу"/>
+		<restrict_own_persons TYPE="bool" NULL-FALSE="1" TITLE="Загружать всех сотрудников, участвующих в событиях данного типа" lang-en:TITLE="Load all employees selected for this type of events" lang-ua:TITLE="Завантажувати всіх співробітників, що беруть участь у подіях даного типу"/>
+		<use_vacancy_orig_rr_person TYPE="bool" NULL-FALSE="1" TITLE="Загружать инициатора вакансии" lang-en:TITLE="Load vacancy originator" lang-ua:TITLE="Завантажувати ініціатора вакансії"/>
+		<use_persons_with_struct_role TYPE="bool" NULL-FALSE="1" TITLE="Загружать сотрудников с заданной ролью в орг. структуре" lang-en:TITLE="Load employees with role" lang-ua:TITLE="Завантажувати співробітників із заданою роллю в орг. структурі"/>
+		<person_struct_role_type_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="person_struct_role_types"/>
+	</participants_auto_load>
+
+	<use_training_program TYPE="bool" NULL-FALSE="1" TITLE="Привязывать к учебной программе" lang-en:TITLE="Bind to Training Program" lang-ua:TITLE="Прив'язувати до навчальної програми"/>
+	<use_training_group TYPE="bool" NULL-FALSE="1" TITLE="Привязывать к учебной группе" lang-en:TITLE="Bind to Training Group" lang-ua:TITLE="Прив'язувати до навчальної групи"/>
+
+	<use_contact_type TYPE="bool" NULL-FALSE="1" TITLE="Указывать тип контакта" lang-en:TITLE="Specify Contact Type" lang-ua:TITLE="Вказувати тип контакту"/>
+
+	<is_group_event_reg TYPE="bool" NULL-FALSE="1" TITLE="Запись на массовое мероприятие" lang-en:TITLE="Registration for a group event" lang-ua:TITLE="Запис на масовий захід"/>
+	<is_group_event_result TYPE="bool" NULL-FALSE="1" TITLE="Результат участия в массовом мероприятии" lang-en:TITLE="Result of participation in a group event" lang-ua:TITLE="Результат участі в масовому заході"/>
+	<group_event_type_id TYPE="string" FOREIGN-ARRAY="event_types" TITLE="Тип массового мероприятия" lang-en:TITLE="Group event type" lang-ua:TITLE="Тип масового заходу"/>
+
+	<use_separate_button TYPE="bool" NULL-FALSE="1" TITLE="Показывать отдельной кнопкой в левой части карточки кандидата" lang-en:TITLE="Show as a button in the left part of candidate's card" lang-ua:TITLE="Показувати окремою кнопкою в лівій частині картки кандидата"/>
+	<separate_button_title TYPE="string" TITLE="Заголовок кнопки" lang-en:TITLE="Button title" lang-ua:TITLE="Заголовок кнопки"/>
+	<use_for_inet_search_result TYPE="bool" NULL-FALSE="1" TITLE="Показывать как действие в результатах поиска резюме в Интернет" lang-en:TITLE="Show as an action in Internet CV search results" lang-ua:TITLE="Показувати як дію в результатах пошуку резюме в Інтернет"/>
+
+	<build_view TYPE="bool" NULL-FALSE="1" TITLE="Создать отдельный раздел программы для событий данного типа" lang-en:TITLE="Create separate program section for this type of events" lang-ua:TITLE="Створити окремий розділ програми для подій даного типу"/>
+
+	<use_object_view_column TYPE="bool" NULL-FALSE="1" TITLE="Показывать факт наличия события отдельным столбцом в списке кандидатов в работе" lang-en:TITLE="Show as a columns in the list of candidates for a vacancy" lang-ua:TITLE="Показувати факт наявності події окремим стовпцем у списку кандидатів у роботі"/>
+	<show_target_object_on_open TYPE="bool" NULL-FALSE="1" TITLE="При открытии события из списка открывать карточку базового объекта" lang-en:TITLE="When opening event from a list, switch to target object's card" lang-ua:TITLE="При відкритті події зі списку відкривати картку базового об'єкта"/>
+
+	<show_creation_date TYPE="bool" NULL-FALSE="1" TITLE="Показывать дату создания события в личном деле кандидата" lang-en:TITLE="Show event creation date in candidate records" lang-ua:TITLE="Показувати дату створення події в особовій справі кандидата"/>
+	<creation_date_title TYPE="string" TITLE="Наименование значения даты создания" lang-en:TITLE="Creation date usage" lang-ua:TITLE="Найменування значення дати створення"/>
+
+	<is_automatic TYPE="bool" NULL-FALSE="1" TITLE="Создается программно" lang-en:TITLE="Created by the program" lang-ua:TITLE="Створюється програмно"/>
+	<is_automatic_occurrence TYPE="bool" NULL-FALSE="1" TITLE="Признак завершения вычисляется программно" lang-en:TITLE="Completion status is calculated by the program" lang-ua:TITLE="Ознака завершення обчислюється програмно"/>
+
+	<is_approval TYPE="bool" NULL-FALSE="1" TITLE="Утверждение несколькими участниками" lang-en:TITLE="Approval by multiple participants" lang-ua:TITLE="Затвердження декількома учасниками"/>
+
+	<create_end_reach_notification TYPE="bool" NULL-FALSE="1" TITLE="Создавать уведомление для пользователя о наступлении даты окончания события" lang-en:TITLE="Create notification when end date is reached" lang-ua:TITLE="Створювати повідомлення для користувача про настання дати закінчення події"/>
+
+	<is_poll TYPE="bool" NULL-FALSE="1" TITLE="Заполнение участниками оценочной формы" lang-en:TITLE="Assessment form for participants" lang-ua:TITLE="Заповнення учасниками оціночної форми"/>
+	<poll_spec_id TYPE="string" FOREIGN-ARRAY="poll_specs" TITLE="##UiText.fields.poll_form##"/>
+
+	<occurrences OnParseChild="
+			if ( TagReader.TagName == 'occurrence' )
+				return false;
+
+			occurrenceID = TagReader.TagName;
+			if ( occurrenceID == 'main' )
+				occurrenceID = '';
+
+			elem = CreateElemByFormElem( FormElem.Child( 'occurrence' ) );
+			elem.LoadData( TagReader.ReadTagGroup() );
+			
+			if ( ! elem.is_enabled )
+				return true;
+
+			elem.id = occurrenceID;
+			elem.state_name = elem.name;
+			elem.name.Clear();
+			AddChildElem( elem );
+			return true;
+	">
+		<occurrence MULTIPLE="1" PRIMARY-KEY="id" PRIMARY-DISP-NAME="get_state_name()">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+			<action_name TYPE="string"/>
+			<text_color TYPE="string"/>
+			<bk_color TYPE="string"/>
+
+			<INHERIT TYPE="state_attr_base"/>
+			<state_name TYPE="string"/>
+
+			<not_occurred TYPE="bool" NULL-FALSE="1"/>
+			<related_state_id TYPE="string"/>
+
+			<is_enabled TYPE="bool" NULL-FALSE="1" OBSOLETE="1"/>
+
+
+			<is_std PROPERTY="1" EXPR="id == '' || base2_common.event_occurrences.ChildByKeyExists( id )"/>
+			
+			<std_name PROPERTY="1" EXPR="lib_event.GetOccurrenceStdName( Parent.Parent, this )"/>
+			<std_state_name PROPERTY="1" EXPR="lib_event.GetOccurrenceStdStateName( Parent.Parent, this )"/>
+
+			<use_custom_name TYPE="bool" NULL-FALSE="1" TEMP="1"/>
+			<use_custom_state_name TYPE="bool" NULL-FALSE="1" TEMP="1"/>
+
+			<get_name PROPERTY="1" EXPR="
+					if ( name.HasValue )
+						return name;
+					else
+						return std_name;
+			"/>
+
+			<get_state_name PROPERTY="1" EXPR="
+					if ( OptParent == undefined )
+						return '';
+
+					return lib_event.BuildOccurrenceStateName( Parent.Parent, this );
+			"/>
+
+			<get_occurrence_name PROPERTY="1" EXPR="
+					if ( id != '' )
+						return GetForeignElem( base2_common.event_occurrences, id ).name;
+
+					return UiText.fields.main_occurrence_name;
+			"/>
+
+
+			<get_text_color PROPERTY="1" EXPR="
+					if ( text_color.HasValue )
+						return text_color;
+
+					if ( id != '' &amp;&amp; ( stdOccurrence = GetOptForeignElem( base2_common.event_occurrences, id ) ) != undefined )
+					{
+						color = stdOccurrence.text_color;
+						if ( color != '' )
+							return color;
+					}
+
+					if ( related_state_id.HasValue &amp;&amp; ( relatedEventType = GetOptForeignElem( event_types, related_state_id ) ) != undefined )
+					{
+						//color = relatedEventType.main_occurrence.text_color;
+						color = relatedEventType.text_color;
+						if ( color != '' )
+							return color;
+					}
+
+					//if ( OptParent == undefined )
+						return '';
+
+					//return Parent.Parent.text_color;
+			"/>
+
+
+			<get_bk_color PROPERTY="1" EXPR="
+					if ( bk_color.HasValue )
+						return bk_color;
+
+					if ( id != '' &amp;&amp; ( stdOccurrence = GetOptForeignElem( base2_common.event_occurrences, id ) ) != undefined )
+					{
+						color = stdOccurrence.bk_color;
+						if ( color != '' )
+							return color;
+					}
+
+					if ( OptParent == undefined )
+						return '';
+
+					return Parent.Parent.bk_color;
+			"/>
+		</occurrence>
+	</occurrences>
+
+	<use_occurrences PROPERTY="1" EXPR="ArrayOptFind( occurrences, 'id.HasValue' ) != undefined"/>
+	<has_extra_result_occurrences PROPERTY="1" EXPR="eventType = this, ArrayOptFind( occurrences, 'lib_event.IsExtraResultOccurrence( eventType, This.id )' ) != undefined"/>
+
+	<target_group_id TYPE="integer" MULTIPLE="1" FOREIGN-ARRAY="groups" TITLE="##UiText.titles.target_group##"/>
+	<target_recruit_type_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="recruit_types" TITLE="##UiText.titles.recruit_types##"/>
+
+	<use_ext_calendar TYPE="bool" NOT-NULL="1" TITLE="Выгружать во внешний календарь" lang-en:TITLE="Export to external calendar" lang-ua:TITLE="Вивантажувати в зовнішній календар"/>
+	<create_with_calendar TYPE="bool" NOT-NULL="1" TITLE="Предварительно выбирать время, используя встроенный календарь" lang-en:TITLE="Select date and time using built-in calendar first" lang-ua:TITLE="Попередньо вибирати час, використовуючи вбудований календар"/>
+	<create_with_room_auto_selection TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Выбирать свободную комнату автоматически" lang-en:TITLE="Select free room automatically" lang-ua:TITLE="Вибирати вільну кімнату автоматично"/>
+	<create_with_ext_calendar TYPE="bool" NOT-NULL="1" TITLE="Открывать событие во внешнем календаре" lang-en:TITLE="Display event in external calendar" lang-ua:TITLE="Відкривати подію в зовнішньому календарі"/>
+	<ext_calendar_template_id TYPE="mail_template_id"/>
+
+	<use_auto_create TYPE="bool" NULL-FALSE="1" TITLE="Создавать событие автоматически" lang-en:TITLE="Create event automatically" lang-ua:TITLE="Створювати подія автоматично"/>
+	<auto_create>
+		<condition>
+			<candidate_state_id TYPE="string" FOREIGN-ARRAY="candidate_states" TITLE="##UiText.titles.candidate_state##"/>
+			<is_on_probation TYPE="bool"/>
+			
+			<offset TYPE="term" TITLE="Интервал" lang-en:TITLE="Interval" lang-ua:TITLE="Інтервал"/>
+			<is_negative_offset TYPE="bool" NULL-FALSE="1"/>
+			<offset_base TYPE="string" TITLE="Базовая дата" lang-en:TITLE="Base Date" lang-ua:TITLE="Базова дата"/>
+		</condition>
+		<occurrence_id TYPE="string" FOREIGN-ARRAY="Parent.occurrences" TITLE="Начальный статус" lang-en:TITLE="Initial Status" lang-ua:TITLE="Початковий статус"/>
+		<create_reminder TYPE="bool" NULL-FALSE="1" TITLE="Создавать напоминание" lang-en:TITLE="Create Reminder" lang-ua:TITLE="Створювати нагадування"/>
+	</auto_create>
+
+
+	<state_name TYPE="string" OBSOLETE="1"/>
+
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+
+
+	<view TEMP="1">
+		<active_occurrence_id TYPE="string"/>
+		<stdElem TYPE="variant" STRICT="1"/>
+	</view>
+</event_type>
+
+
+
+</SPXML-FORM>

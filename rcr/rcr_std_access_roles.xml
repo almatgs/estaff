@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_access_roles SPXML-FORM="//base2/base2_std_access_roles.xmd">
+	<std_access_role>
+		<id>basic</id>
+		<name VALUE="Стандартный пользователь" lang-en:VALUE="Standard user" lang-ua:VALUE="Стандартний користувач"/>
+	</std_access_role>
+
+	<std_access_role>
+		<id>full</id>
+		<name VALUE="Администратор приложения" lang-en:VALUE="Application admin" lang-ua:VALUE="Адміністратор програми"/>
+		<allow_all>1</allow_all>
+	</std_access_role>
+
+	<std_access_role>
+		<id>security_admin</id>
+		<name VALUE="Администратор безопасности" lang-en:VALUE="Security admin" lang-ua:VALUE="Адміністратор безпеки"/>
+		<allow_all>1</allow_all>
+	</std_access_role>
+</std_access_roles>

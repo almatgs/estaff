@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="List.vacancies.hm.my" BaseTemplate="List.vacancies.hm" Title="##UiText.sections.my_vacancies##" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<UI:Filter Field="rr_persons.rr_person.person_id" Fixed="1" ValueExpr="lib_user.active_user_person.id"/>
+
+</UiTemplate>

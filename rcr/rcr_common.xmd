@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<rcr_common>
+	<vacancy_term_types>
+		<vacancy_term_type MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<date_field_name TYPE="string"/>
+
+			<req_date_field_name PROPERTY="1" EXPR="'req_' + date_field_name"/>
+			<max_term_field_name PROPERTY="1" EXPR="'max_term_to_' + id"/>
+			<orig_max_term_field_name PROPERTY="1" EXPR="'orig_max_term_to_' + id"/>
+
+			<is_enabled PROPERTY="1" EXPR="global_settings.target_vacancy_terms.Child( id ).is_enabled"/>
+		</vacancy_term_type>
+	</vacancy_term_types>
+
+	<active_vacancy_term_types PROPERTY="1" EXPR="ArraySelect( vacancy_term_types, 'is_enabled' )"/>
+
+	<vacancy_record_types>
+		<vacancy_record_type MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</vacancy_record_type>
+	</vacancy_record_types>
+
+	<raw_storage_types>
+		<raw_storage_type MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</raw_storage_type>
+	</raw_storage_types>
+
+	<request_object_types>
+		<request_object_type MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</request_object_type>
+	</request_object_types>
+
+	<candidate_ratings>
+		<candidate_rating MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+		</candidate_rating>
+	</candidate_ratings>
+
+	<std_recruit_providers>
+		<std_recruit_provider MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+
+			<INHERIT FORM="rcr_recruit_provider.xmd" TYPE="recruit_provider_base"/>
+		</std_recruit_provider>
+	</std_recruit_providers>
+</rcr_common>
+
+
+</SPXML-FORM>

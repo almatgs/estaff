@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM AUTO-SAVE="1">
+
+<views_local_data>
+	<views>
+		<view MULTIPLE="1" PRIMARY-KEY="view_id">
+			<view_id TYPE="string" FOREIGN-ARRAY="views"/>
+
+			<filter DYN-CHILDREN="1">
+			</filter>
+
+			<use_preview TYPE="bool" NULL-FALSE="1"/>
+		</view>
+	</views>
+</views_local_data>
+
+
+
+</SPXML-FORM>

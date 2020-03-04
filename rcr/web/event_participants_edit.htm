@@ -1,0 +1,374 @@
+<%Server.Execute( 'include/scripts.htm' )%>
+
+<%
+	if ( ! Session.HasProperty( 'editEvent' ) || Session.editEvent.id != event.id )
+	{
+		Session.editEvent = CreateElem( 'x-app://rcr/rcr_rr_poll.xmd', 'rr_poll' );
+		Session.editEvent.ReadOnly = false;
+		Session.editEvent.AssignElem( event );
+	}
+
+	//DebugMsg( event.participant_poll_results.Xml );
+	//DebugMsg( Session.editEvent.participant_poll_results.Xml );
+
+	nextParticipant = ArrayOptFind( event.participants, '( participantPollResult = event.participant_poll_results.GetOptChildByKey( person_id ) ) == undefined || ! participantPollResult.completion_id.HasValue' );
+%>
+
+
+<hr/>
+<p>
+<b>Список согласующих лиц:</b>
+
+<%
+if ( event.occurrence_id == '' || event.occurrence_id == 'started' )
+{
+%>
+
+<form method="post" action="<%=outer_direct_link( 'event_participant_change.htm' )%>">
+	<input type="hidden" name="action" value="add"/>
+	<input type="hidden" name="event_id" value="<%=eventID%>"/>
+	<input type="hidden" name="redirect_url" value="<%=outer_link( 'event.htm', {id:eventID} )%>"/>
+
+	<input type="hidden" id="rr_person_eid" name="person_eid"/>
+	<input type="hidden" id="rr_person_name"/>
+
+	<input type="submit" value="Добавить" onclick="
+			SxSelectOuterObject( 'collaborators' );
+			if ( document.getElementById( 'rr_person_eid' ).value == '' )
+				return false;
+	"/>
+
+</form>
+
+<%
+}
+%>
+
+
+</p>
+
+<br/>
+
+<table class="SxTable">
+
+<tr>
+<td class="SxHeaderCell"><b>Согласующий</b></td>
+
+<%
+if ( event.occurrence_id == '' || event.occurrence_id == 'started' )
+{
+%>
+<td class="SxHeaderCell"><b>Удалить</b></td>
+<td class="SxHeaderCell"><b>Выше</b></td>
+<td class="SxHeaderCell"><b>Ниже</b></td>
+<td class="SxHeaderCell"><b>Крайний срок</b></td>
+<%
+}
+%>
+
+<td class="SxHeaderCell"><b>Отправлено</b></td>
+<td class="SxHeaderCell"><b>Заполнено</b></td>
+<td class="SxHeaderCell"><b>Рейтинг</b></td>
+<td class="SxHeaderCell"><b>Решение</b></td>
+<%
+if ( event.occurrence_id == '' || event.occurrence_id == 'started' )
+{
+%>
+<td class="SxHeaderCell"><b>Отправить на повторную оценку</b></td>
+<td class="SxHeaderCell"><b>Повторное уведомление</b></td>
+<%
+}
+%>
+</tr>
+
+<%
+for ( participant in Session.editEvent.participants )
+{
+	participantResult = event.participant_poll_results.GetOptChildByKey( participant.person_id );
+%>
+
+<tr <%if ( nextParticipant != undefined && participant.person_id == nextParticipant.person_id ) { %> style="background-color:rgb(246, 247, 116)"<%}%>>
+<td class="SxCell"><%=participant.person_id.ForeignElem.fullname%></td>
+
+<%
+if ( event.occurrence_id == '' || event.occurrence_id == 'started' )
+{
+%>
+<td class_="SxCell" style="text-align:center">
+	<form method="post" action="<%=outer_direct_link( 'event_participant_change.htm' )%>">
+		<input type="hidden" name="action" value="delete"/>
+		<input type="hidden" name="event_id" value="<%=eventID%>"/>
+		<input type="hidden" name="person_id" value="<%=participant.person_id%>"/>
+		<input type="hidden" name="redirect_url" value="<%=outer_link( 'event.htm', {id:eventID} )%>"/>
+
+		<input type="submit" value="x"/>
+	</form>
+</td>
+<td class1="SxCell" style="text-align:center">
+	<form method="post" action="<%=outer_direct_link( 'event_participant_change.htm' )%>">
+		<input type="hidden" name="action" value="move_up"/>
+		<input type="hidden" name="event_id" value="<%=eventID%>"/>
+		<input type="hidden" name="person_id" value="<%=participant.person_id%>"/>
+		<input type="hidden" name="redirect_url" value="<%=outer_link( 'event.htm', {id:eventID} )%>"/>
+
+		<input type="submit" value="^"/>
+	</form>
+</td>
+<td class1="SxCell" style="text-align:center">
+	<form method="post" action="<%=outer_direct_link( 'event_participant_change.htm' )%>">
+		<input type="hidden" name="action" value="move_down"/>
+		<input type="hidden" name="event_id" value="<%=eventID%>"/>
+		<input type="hidden" name="person_id" value="<%=participant.person_id%>"/>
+		<input type="hidden" name="redirect_url" value="<%=outer_link( 'event.htm', {id:eventID} )%>"/>
+
+		<input type="submit" value="v"/>
+	</form>
+</td>
+<td class1="SxCell" style="text-align:center">
+	<form method="post" action="<%=outer_direct_link( 'event_participant_change.htm' )%>">
+		<input name="max_approval_date" style="width:100px;" value="<%=participant.max_approval_date%>"/>
+		<input type="hidden" name="action" value="set_max_approval_date"/>
+		<input type="hidden" name="event_id" value="<%=eventID%>"/>
+		<input type="hidden" name="person_id" value="<%=participant.person_id%>"/>
+		<input type="hidden" name="redirect_url" value="<%=outer_link( 'event.htm', {id:eventID} )%>"/>
+
+		<input type="submit" value="Установить"/>
+	</form>
+</td>
+
+<%
+}
+%>
+
+<td class1="SxCell" style="text-align:center">
+	<%=participantResult != undefined ? StrDate( participantResult.start_date, true, false ) : ''%>
+</td>
+
+<td class1="SxCell" style="text-align:center">
+	<%=participantResult != undefined ? StrDate( participantResult.end_date, true, false ) : ''%>
+</td>
+
+<td class1="SxCell" style="text-align:center">
+	<%=participantResult != undefined && ( questionAnswer = participantResult.question_answers.GetOptChildByKey( 'q_rating' ) ) != undefined ? questionAnswer.score : ''%>
+</td>
+
+<td class1="SxCell" style="text-align:center">
+	<%=participantResult != undefined && ( questionAnswer = participantResult.question_answers.GetOptChildByKey( 'q_decision' ) ) != undefined ? ArrayOptFindByKey( event.poll_result.spec_id.ForeignElem.questions.GetChildByKey( 'q_decision' ).answers, questionAnswer.answer_id.Instances[0], 'id' ).name : ''%>
+</td>
+
+<%
+if ( event.occurrence_id == '' || event.occurrence_id == 'started' )
+{
+%>
+<td style="text-align:center">
+<%
+if ( participantResult != undefined && participantResult.completion_id == 1 )
+{
+%>
+	<form method="post" action="<%=outer_direct_link( 'event_participant_change.htm' )%>">
+		<input type="hidden" name="action" value="restart_result"/>
+		<input type="hidden" name="event_id" value="<%=eventID%>"/>
+		<input type="hidden" name="person_id" value="<%=participant.person_id%>"/>
+		<input type="hidden" name="redirect_url" value="<%=outer_link( 'event.htm', {id:eventID} )%>"/>
+
+		<input type="submit" value="*"/>
+	</form>
+<%
+}
+%>
+</td>
+
+<td style="text-align:center">
+<%
+if ( nextParticipant != undefined && participant.person_id == nextParticipant.person_id )
+{
+%>
+	<form method="post" action="<%=outer_direct_link( 'event_participant_change.htm' )%>">
+		<input type="hidden" name="action" value="resend_notif"/>
+		<input type="hidden" name="event_id" value="<%=eventID%>"/>
+		<input type="hidden" name="person_id" value="<%=participant.person_id%>"/>
+		<input type="hidden" name="redirect_url" value="<%=outer_link( 'event.htm', {id:eventID} )%>"/>
+
+		<input type="submit" value="Отправить"/>
+	</form>
+<%
+}
+%>
+</td>
+
+<%
+}
+%>
+</tr>
+
+
+
+<%
+}
+%>
+
+</table>
+
+<%
+if ( event.occurrence_id == '' || event.occurrence_id == 'started' )
+{
+%>
+
+<br/>
+
+<table>
+
+<tr>
+<td>
+<form method="post" action="<%=outer_direct_link( 'event_participant_change.htm' )%>">
+	<input type="hidden" name="action" value="save"/>
+	<input type="hidden" name="event_id" value="<%=eventID%>"/>
+	<input type="hidden" name="redirect_url" value="<%=outer_link( 'event.htm', {id:eventID} )%>"/>
+
+	<input type="checkbox" name="cs_is_boss_competence" id="cs_is_boss_competence" <%=event.cs_is_boss_competence ? 'checked="checked"' : ''%>><label for="cs_is_boss_competence">Компетенции руководителя</label></input>
+
+	<input type="submit" value="Сохранить изменения"/>
+</form>
+
+</td>
+
+<td>
+
+<form method="post" action="<%=outer_direct_link( 'event_participant_change.htm' )%>">
+	<input type="hidden" name="action" value="discard"/>
+	<input type="hidden" name="event_id" value="<%=eventID%>"/>
+	<input type="hidden" name="redirect_url" value="<%=outer_link( 'event.htm', {id:eventID} )%>"/>
+
+	<input type="submit" value="Сбросить изменения"/>
+</form>
+
+</td>
+
+<tr>
+</table>
+
+<%
+}
+%>
+
+<br/>
+<br/>
+
+
+
+
+<%
+if ( event.occurrence_id == '' )
+{
+%>
+
+
+<div>
+
+<form method="post" action="<%=outer_direct_link( 'event_participant_change.htm' )%>">
+	<input type="hidden" name="action" value="activate_poll"/>
+	<input type="hidden" name="event_id" value="<%=eventID%>"/>
+	<input type="hidden" name="redirect_url" value="<%=outer_link( 'event.htm', {id:eventID} )%>"/>
+	<input type="hidden" name="cs_is_boss_competence" id="cs_is_boss_competence_2"/>
+
+	<input type="submit" value="Запустить процедуру согласования" onclick="document.getElementById( 'cs_is_boss_competence_2' ).value = ( document.getElementById( 'cs_is_boss_competence' ).checked ? 'on' : '' )"/>
+</form>
+
+</div>
+
+<br/>
+<hr/>
+<br/>
+
+<td>
+
+<form method="post" action="<%=outer_direct_link( 'event_change.htm' )%>">
+	<input type="hidden" name="id" value="<%=eventID%>"/>
+	<input type="hidden" name="redirect_url" value="<%=outer_link( 'rr_main.htm' )%>"/>
+	<input type="hidden" name="occurrence_id" value="cancelled"/>
+
+	<textarea name="comment" cols="60" rows="6"><%=event.comment%></textarea>
+
+	<input type="submit" value="Отклонить процедуру согласования"/>
+</form>
+</td>
+
+</div>
+<%
+}
+%>
+
+
+<%
+if ( event.occurrence_id == 'started' && nextParticipant == undefined )
+{
+%>
+
+<br/>
+<hr/>
+
+<form method="post" action="<%=outer_direct_link( 'event_change.htm' )%>">
+<input type="hidden" name="redirect_url" value="<%=outer_link( 'event.htm', {id:eventID} )%>"/>
+<input type="hidden" name="id" value="<%=eventID%>"/>
+
+Окончательное решение со стороны ЦО:<br/>
+
+Итоговый рейтинг:
+<b>
+<%=( questionAnswer = event.poll_result.question_answers.GetOptChildByKey( 'q_rating' ) ) != undefined ? questionAnswer.score : ''%>
+-
+<%
+	if ( questionAnswer.score < 1.5 )
+		Response.Write( 'полностью не соответствует', true );
+	else if ( questionAnswer.score < 2.5 )
+		Response.Write( 'частично соответствует', true );
+	else if ( questionAnswer.score < 3.5 )
+		Response.Write( 'полностью соответствует', true );
+	else if ( questionAnswer.score <= 4 )
+		Response.Write( 'превосходит ожидания', true );
+%>
+</b>
+
+<br/>
+<br/>
+
+<b>
+<input type="radio" name="occurrence_id" value="succeeded" <%=event.occurrence_id == 'succeeded' ? 'checked="1"' : ''%>/>Согласован
+<input type="radio" name="occurrence_id" value="failed" <%=event.occurrence_id == 'failed' ? 'checked="1"' : ''%>/>Отклонен
+</b>
+<br/>
+
+<br/>
+<br/>
+
+Комментарии:<br/>
+<textarea name="comment" cols="80" rows="8"><%=event.comment%></textarea>
+
+<br/>
+<br/>
+
+	  
+<div align="center">
+
+<%
+if ( event.occurrence_id == 'started' && nextParticipant == undefined )
+{
+%>
+	<input type="submit" value="Отправить"/>
+<%
+}
+else
+{
+%>
+	<input type="submit" value="Отправить" disabled="1"/>
+<%
+}
+%>
+
+</div>
+</form>
+<br/>
+<%
+}
+%>
+

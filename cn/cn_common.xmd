@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<cn_common>
+	<calendar_entry_completions>
+		<calendar_entry_completion MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+		</calendar_entry_completion>
+	</calendar_entry_completions>
+
+	<participant_statuses>
+		<participant_status MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+			<text_color TYPE="string"/>
+		</participant_status>
+	</participant_statuses>
+
+	<calendar_types>
+		<calendar_type MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+		</calendar_type>
+	</calendar_types>
+
+	<ext_calendar_types>
+		<ext_calendar_type MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<image_url TYPE="string"/>
+		</ext_calendar_type>
+	</ext_calendar_types>
+
+	<holiday_observance_policies>
+		<holiday_observance_policy MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+		</holiday_observance_policy>
+	</holiday_observance_policies>
+</cn_common>
+
+
+</SPXML-FORM>

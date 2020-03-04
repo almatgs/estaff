@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<stat_filter_period_settings SAMPLE="1">
+	<unit_id TYPE="string" FOREIGN-ARRAY="base1_common.filter_period_units" TITLE="##UiText.titles.type##"/>
+	<unit_specifier_id TYPE="string" FOREIGN-ARRAY="base1_common.filter_period_specifiers" TITLE="Выбор" lang-en:VALUE="Selector" lang-ua:VALUE="Вибір"/>
+</stat_filter_period_settings>
+
+
+<stat_base SAMPLE="1">
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+
+	<section_id TYPE="string" FOREIGN-ARRAY="stat_sections"/>
+
+	<is_v2 TYPE="bool" NULL-FALSE="1"/>
+
+	<default_catalog_name TYPE="string"/>
+	<auto_calc_all_fields TYPE="bool" NULL-FALSE="1"/>
+
+	<static_filters>
+		<static_filter MULTIPLE="1">
+			<id TYPE="string"/>
+			<source_id TYPE="string" FOREIGN-ARRAY="Parent.Parent.sources"/>
+			<cmp_pred TYPE="string" DEFAULT="equal" FOREIGN-ARRAY="base1_common.cmp_predicates"/>
+			<value TYPE="string"/>
+			<value_expr TYPE="string"/>
+		</static_filter>
+	</static_filters>
+
+	<dyn_filters>
+		<dyn_filter MULTIPLE="1">
+			<id TYPE="string"/>
+			<source_id TYPE="string" FOREIGN-ARRAY="Parent.Parent.sources"/>
+
+			<data_type TYPE="string"/>
+			<is_multiple TYPE="bool" NULL-FALSE="1"/>
+
+			<target_values>
+				<target_value MULTIPLE="1" PRIMARY-KEY="id">
+					<id TYPE="string"/>
+					<name TYPE="string"/>
+				</target_value>
+			</target_values>
+
+			<xquery_qual_expr TYPE="string" MULTIPLE="1" REM="???"/>
+
+			<title TYPE="string"/>
+			<exist_req_expr TYPE="string" SUBTYPE="code"/>
+			<view_filter_expr TYPE="string" SUBTYPE="code"/>
+			<is_auto TYPE="bool" NULL-FALSE="1"/>
+			<foreign_array TYPE="string"/>
+			<use_idata TYPE="bool" NULL-FALSE="1"/>
+			<default_value TYPE="string"/>
+			<use_ft TYPE="bool" NULL-FALSE="1"/>
+			<use_range TYPE="bool" NULL-FALSE="1"/>
+			<use_range_min TYPE="bool" NULL-FALSE="1"/>
+			<use_period_quick_selector TYPE="bool" NULL-FALSE="1"/>
+			<use_foreign_rec_child TYPE="bool" NULL-FALSE="1"/>
+
+			<default_period TYPE="stat_filter_period_settings" TITLE="##UiText.fields.default_period##"/>
+
+			<is_spec_modifier TYPE="bool" NULL-FALSE="1"/>
+
+			<width TYPE="string"/>
+			<use_new_line TYPE="bool" NULL-FALSE="1"/>
+		</dyn_filter>
+	</dyn_filters>
+
+	<sources>
+		<source MULTIPLE="1" PRIMARY-KEY="id" TITLE="##UiText.titles.data_source##">
+			<id TYPE="string"/>
+			<catalog_name TYPE="string" EXPR-INIT="id"/>
+			<is_secondary TYPE="bool" NOT-NULL="1"/>
+			<stat_only TYPE="bool" NOT-NULL="1"/>
+			
+			<xquery_qual TYPE="string" MULTIPLE="1"/>
+			<xquery_qual_expr TYPE="string" MULTIPLE="1"/>
+			<qual TYPE="string"/>
+
+			<join_base TYPE="string"/>
+			<join_key TYPE="string"/>
+			<join_base_key TYPE="string"/>
+			<join_merge_single TYPE="bool" NOT-NULL="1"/>
+			<use_smart_join TYPE="bool" NOT-NULL="1"/>
+
+			<id_field TYPE="string" NOT-NULL="1" DEFAULT="id"/>
+
+			<add_field MULTIPLE="1">
+				<id TYPE="string"/>
+				<expr TYPE="string"/>
+			</add_field>
+		</source>
+	</sources>
+
+	<dyn_filter_mappings>
+		<dyn_filter_mapping MULTIPLE="1" PRIMARY-KEY="elem">
+			<elem TYPE="string"/>
+			<source_id TYPE="string"/>
+		</dyn_filter_mapping>
+	</dyn_filter_mappings>
+
+	<groups>
+		<group MULTIPLE="1" TITLE="Группировка" lang-en:TITLE="Grouping" lang-ua:TITLE="Групування">
+			<id TYPE="string"/>
+			<foreign_array TYPE="string"/>
+			<is_hier TYPE="bool" NULL-FALSE="1"/>
+			<max_hier_level TYPE="integer"/>
+			<start_hier_level TYPE="integer"/>
+			<show_full_range TYPE="bool" NULL-FALSE="1"/>
+			<use_manual_range TYPE="bool" NULL-FALSE="1"/>
+			<drop_root TYPE="bool" NULL-FALSE="1"/>
+
+			<title_expr TYPE="string"/>
+			<exist_req_expr TYPE="string" SUBTYPE="code"/>
+			<range_sub_type TYPE="string"/>
+
+			<bold TYPE="bool" NULL-FALSE="1"/>
+			<bk_color TYPE="string"/>
+
+			<group_level TYPE="integer"/>
+			<disp_name_field_id TYPE="string"/>
+			<is_range_restricted TYPE="bool" NULL-FALSE="1"/>
+		</group>
+	</groups>
+
+	<stat_only TYPE="bool" NOT-NULL="1"/>
+
+	<fields>
+		<field MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+
+			<source_id TYPE="string" FOREIGN-ARRAY="Parent.Parent.sources"/>
+			<elem_name TYPE="string"/>
+			<auto_calc TYPE="bool"/>
+
+			<foreign_array TYPE="string"/>
+			<foreign_hier_level TYPE="integer"/>
+			<auto_multiply_by_voc TYPE="string"/>
+
+			<use_time TYPE="bool"/>
+			<time_only TYPE="bool" NULL-FALSE="1"/>
+			<is_percent TYPE="bool" NULL-FALSE="1"/>
+			<float_precision TYPE="integer"/>
+			<disp_format TYPE="string"/>
+			<show_zeroes TYPE="bool" NULL-FALSE="1"/>
+
+			<value_expr TYPE="string" SUBTYPE="code"/>
+			<title_expr TYPE="string" SUBTYPE="code"/>
+			<exist_req_expr TYPE="string" SUBTYPE="code"/>
+
+			<col_title TYPE="string"/>
+			<col_title_expr TYPE="string" SUBTYPE="code"/>
+			<tip_text TYPE="string"/>
+			<width TYPE="string" NOT-NULL="1"/>
+
+			<std_scenario_id TYPE="string"/>
+
+			<stat_func TYPE="string"/>
+			<stat_only TYPE="bool" NOT-NULL="1"/>
+			<join_func TYPE="string"/>
+			<data_type TYPE="string"/>
+			<data_sub_type TYPE="string"/>
+
+			<stat_qual TYPE="string" SUBTYPE="code"/>
+			<force_final_value TYPE="bool" NULL-FALSE="1"/>
+
+			<stat_qual_part>
+				<operator TYPE="string"/>
+				<field_id TYPE="string"/>
+				<value2 TYPE="string"/>
+			</stat_qual_part>
+
+			<expr TYPE="string" SUBTYPE="code"/>
+			<unique_key TYPE="string"/>
+			<numerator_field_id TYPE="string"/>
+			<denominator_field_id TYPE="string"/>
+			<depends_on_fields>
+				<field_id TYPE="string" MULTIPLE="1"/>
+			</depends_on_fields>
+
+			<src_object_type_id TYPE="string"/>
+
+			<text_color_expr TYPE="string" SUBTYPE="code"/>
+			<bk_color TYPE="string"/>
+			<bk_color_expr TYPE="string" SUBTYPE="code"/>
+			<align TYPE="string"/>
+			<rotation TYPE="integer"/>
+
+			<span_title TYPE="string"/>
+			<span_tip_text TYPE="string"/>
+			<keep_to_prev TYPE="bool" NULL-FALSE="1"/>
+
+			<chart_title TYPE="string"/>
+			<chart_bk_color TYPE="string"/>
+
+
+			<elem_expr TYPE="string" SUBTYPE="code"/>
+			<ref_id TYPE="string"/>
+			<auto_loop_expr TYPE="string"/>
+		</field>
+	</fields>
+
+	<show_total TYPE="bool" NULL-FALSE="1"/>
+	<show_total_average TYPE="bool" NULL-FALSE="1"/>
+	<hide_zero_stat_values TYPE="bool" NULL-FALSE="1"/>
+	<is_vert TYPE="bool" NULL-FALSE="1"/>
+	
+	<show_object_actions TYPE="bool" NULL-FALSE="1"/>
+	<show_chart TYPE="bool" NULL-FALSE="1"/>
+	<is_manual_chart_build TYPE="bool" NULL-FALSE="1"/>
+
+	<use_group_bk_colors TYPE="bool" NULL-FALSE="1"/>
+
+	<width TYPE="string"/>
+	<before_init_action TYPE="string" SUBTYPE="code"/>
+	<init_action TYPE="string" SUBTYPE="code"/>
+	<finish_action TYPE="string" SUBTYPE="code"/>
+
+	<build_action TYPE="string" SUBTYPE="code"/>
+	<code_lib_url TYPE="string"/>
+
+	<build_phases>
+		<build_phase MULTIPLE="1">
+			<std_scenario_id TYPE="string"/>
+			<catalog_name TYPE="string"/>
+			<filters_json TYPE="string" LARGE="1"/>
+			<exclude_scheduled_events TYPE="bool" NULL-FALSE="1"/>
+			<exclude_cancelled_events TYPE="bool" NULL-FALSE="1"/>
+
+			<quals>
+				<qual MULTIPLE="1">
+					<predicate TYPE="string"/>
+
+					<field_id TYPE="string"/>
+					<min_field_id TYPE="string"/>
+					<max_field_id TYPE="string"/>
+
+					<dyn_filter_id TYPE="string"/>
+					<user_prev_phase_query_result TYPE="bool" NULL-FALSE="1"/>
+				</qual>
+			</quals>
+
+			<xquery_field_names>
+				<xquery_field_name TYPE="string" MULTIPLE="1"/>
+			</xquery_field_names>
+
+			<dest_stat_fields>
+				<dest_stat_field MULTIPLE="1">
+					<field_id TYPE="string"/>
+					<stat_value_prop_name TYPE="string"/>
+				</dest_stat_field>
+			</dest_stat_fields>
+		</build_phase>
+	</build_phases>
+
+
+	<open_action TYPE="string" SUBTYPE="code"/>
+	<open_link_action TYPE="string" SUBTYPE="code"/>
+
+	<settings_screen_form_url TYPE="string"/>
+
+	<settings DYN-CHILDREN__="1" base1:exclude-from-std-data="1">
+	</settings>
+
+	<print_format TYPE="print_format_base" base1:exclude-from-std-data="1"/>
+
+	<print_template base1:exclude-from-std-data="1">
+		<file_path TYPE="string"/>
+
+		<file_name TYPE="string"/>
+		<file_data TYPE="binary"/>
+
+		<base_range TYPE="string"/>
+	</print_template>
+</stat_base>
+
+
+
+
+
+<total_item_base SAMPLE="1">
+	<record_ref TYPE="variant"/>
+
+	<key_value TYPE="variant" R-VALUE="1"/>
+	<group_level TYPE="integer" NOT-NULL="1" DEFAULT="0"/>
+	<bold TYPE="bool" NULL-FALSE="1"/>
+
+	<columns>
+		<column MULTIPLE="1">
+			<value TYPE="variant"/>
+			<error_text TYPE="string"/>
+			<indent TYPE="integer" NOT-NULL="1"/>
+			<stat_count TYPE="integer" NOT-NULL="1"/>
+			<bk_color TYPE="string"/>
+			<indent_str PROPERTY="1" EXPR="''"/>
+			<is_link TYPE="bool" NULL-FALSE="1"/>
+		</column>
+	</columns>
+
+
+	<init_columns PROPERTY="1" EXPR="
+			columns.Clear();
+
+			for ( field in Doc.TopElem.spec.fields )
+				columns.AddChild().AssignElem( field );
+	"/>
+
+
+	<set_base_column_values PROPERTY="1" EXPR="
+			spec = Doc.TopElem.spec;
+
+			for ( column in columns )
+			{
+				columnSpec = spec.fields[column.ChildIndex];
+				headerColumn = Doc.TopElem.header_columns[column.ChildIndex];
+				
+				if ( columnSpec.stat_func != '' )
+					column.value = 0;
+				else if ( headerColumn.data_type == 'integer' || headerColumn.data_type == 'real' )
+					column.value = null;
+				else
+					column.value = '';
+			}
+	"/>
+
+	<build_tag_attr PROPERTY="1" EXPR="
+			str = '';
+
+			if ( bold )
+				str += ' BOLD=&quot;1&quot;'
+
+			return str;
+	"/>
+</total_item_base>
+
+
+
+
+
+
+<stat_result_base SAMPLE="1">
+	<spec TYPE="stat_base"/>
+
+	<sources>
+		<source MULTIPLE="1">
+			<id TYPE="string"/>
+			<array_ref TYPE="variant"/>
+			<blank_record_ref TYPE="variant"/>
+		</source>
+	</sources>
+
+
+	<header_columns>
+		<header_column MULTIPLE="1">
+			<elem_ref TYPE="variant"/>
+
+			<title TYPE="string"/>
+			<tip_text TYPE="string"/>
+			<width TYPE="string"/>
+			<data_type TYPE="string"/>
+			<align TYPE="string"/>
+		</header_column>
+	</header_columns>
+
+	<top_columns>
+		<top_column MULTIPLE="1">
+			<title TYPE="string"/>
+			<tip_text TYPE="string"/>
+			<span TYPE="integer" NOT-NULL="1" DEFAULT="1"/>
+		</top_column>
+	</top_columns>
+
+
+	<items RECURSIVE-ARRAY="1">
+		<item MULTIPLE="1" PRIMARY-KEY="key_value">
+			<id TYPE="integer"/>
+			<record_ref TYPE="variant"/>
+			<key_value TYPE="variant" R-VALUE="1"/>
+			<key_disp_value TYPE="string"/>
+			<group_level TYPE="integer"/>
+			<is_delim TYPE="bool" NULL-FALSE="1"/>
+			<bold TYPE="bool" NULL-FALSE="1"/>
+
+			<columns>
+				<column MULTIPLE="1">
+					<value TYPE="variant" R-VALUE="1"/>
+					<error_text TYPE="string"/>
+					<indent TYPE="integer" NOT-NULL="1"/>
+					<stat_count TYPE="integer" NOT-NULL="1"/>
+					<text_color TYPE="string"/>
+					<bk_color TYPE="string"/>
+					<is_link TYPE="bool" NULL-FALSE="1"/>
+
+					<unique_keys_ref TYPE="variant"/>
+
+
+					<indent_str PROPERTY="1" EXPR="
+							str = '';
+
+							for ( i = 0; i < indent; i++ )
+								str = str + '  ';
+
+							return str;
+					"/>
+				</column>
+			</columns>
+
+
+			<init_columns PROPERTY="1" EXPR="
+					spec = Doc.TopElem.spec;
+
+					columns.Clear();
+
+					for ( field in spec.fields )
+						columns.AddChild().AssignElem( field )
+			"/>
+
+
+			<set_base_column_values PROPERTY="1" EXPR="
+					spec = Doc.TopElem.spec;
+
+					for ( column in columns )
+					{
+						columnSpec = spec.fields[column.ChildIndex];
+						headerColumn = Doc.TopElem.header_columns[column.ChildIndex];
+						
+						if ( columnSpec.stat_func != '' )
+							column.value = 0;
+						else if ( headerColumn.data_type == 'real' )
+							column.value = null;
+						else
+							column.value = '';
+					}
+			"/>
+
+
+			<group_spec PROPERTY="1" EXPR="
+					group_level != null ? Doc.TopElem.spec.groups[group_level] : undefined
+			"/>
+
+
+			<build_tag_attr PROPERTY="1" EXPR="
+					str = '';
+
+					if ( bold )
+						str += ' BOLD=&quot;1&quot;'
+
+					return str;
+			"/>
+		</item>
+	</items>
+
+
+	<total TYPE="total_item_base"/>
+	<total_average TYPE="total_item_base"/>
+
+	<idxColRef TYPE="variant"/>
+	<idxCol PROPERTY="1" EXPR="idxColRef.Object"/>
+
+	<chart_data_ref TYPE="variant"/>
+	<chart_page_url TYPE="string"/>
+	<chart_page_html TYPE="string" LARGE="1"/>
+	<chart_page_script TYPE="string" LARGE="1"/>
+
+	<is_running_on_server TYPE="bool" NULL-FALSE="1"/>
+</stat_result_base>
+
+
+
+
+
+<stat_result_v2_base SAMPLE="1">
+	<spec TYPE="stat_base"/>
+
+	<header_columns>
+		<header_column MULTIPLE="1">
+			<elem_ref TYPE="variant"/>
+
+			<title TYPE="string"/>
+			<tip_text TYPE="string"/>
+			<width TYPE="string"/>
+			<data_type TYPE="string"/>
+			<align TYPE="string"/>
+			<use_vertical_text TYPE="bool" NOT-NULL="1"/>
+		</header_column>
+	</header_columns>
+
+	<top_columns>
+		<top_column MULTIPLE="1">
+			<title TYPE="string"/>
+			<tip_text TYPE="string"/>
+			<span TYPE="integer" NOT-NULL="1" DEFAULT="1"/>
+			<use_vertical_text TYPE="bool" NOT-NULL="1"/>
+		</top_column>
+	</top_columns>
+
+	<group_levels_num TYPE="integer"/>
+
+	<codeLib TYPE="variant" STRICT="1"/>
+
+	<postHeaderItems TYPE="variant" STRICT="1"/>
+	<rootItem TYPE="variant" STRICT="1"/>
+	<footerItems TYPE="variant" STRICT="1"/>
+	<idataKeysCache TYPE="variant" STRICT="1"/>
+	<customData TYPE="variant" STRICT="1"/>
+
+	<build_stages_num TYPE="integer"/>
+	
+	<progress TYPE="variant" STRICT="1"/>
+	<innerProgress TYPE="variant" STRICT="1"/>
+	<cur_build_stage_index TYPE="integer"/>
+
+	<phasesResults TYPE="variant" STRICT="1"/>
+
+
+	<sub_selector TYPE="string"/>
+
+	<chartConfig TYPE="variant" STRICT="1"/>
+
+	<chart_data>
+		<page_url TYPE="string"/>
+		<html_str TYPE="string"/>
+	</chart_data>
+</stat_result_v2_base>
+
+
+
+<stat_result_v2 SAMPLE="1">
+	<stat_id TYPE="string" FOREIGN-ARRAY="stats"/>
+	
+	<filter TYPE="variant" STRICT="1"/>
+
+	<INHERIT TYPE="stat_result_v2_base"/>
+</stat_result_v2>
+
+
+
+<stat_data_entry_base SAMPLE="1">
+	<stat_id TYPE="string" FOREIGN-ARRAY="stats"/>
+
+	<chart>
+		<target_fields>
+			<target_field MULTIPLE="1" PRIMARY-KEY="field_id">
+				<field_id TYPE="string"/>
+			</target_field>
+		</target_fields>
+	</chart>
+</stat_data_entry_base>
+
+</SPXML-FORM>

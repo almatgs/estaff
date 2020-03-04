@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>recruiters_with_events</id>
+	<name VALUE="Рекрутеры + события" lang-en:VALUE="Recruiters + Events" lang-ua:VALUE="Рекрутери + події"/>
+	<section_id>recruit</section_id>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>date</id>
+			<data_type>date</data_type>
+			<title VALUE="##UiText.titles.time_period##"/>
+			<use_range>1</use_range>
+			<use_period_quick_selector>1</use_period_quick_selector>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.fields.recruiter##"/>
+			<foreign_array>users</foreign_array>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue &amp;&amp; ArrayCount( filter.group_id.Instances ) == 1 ? {main_group_id:ArrayFirstElem( filter.group_id.Instances ),is_active:true}:{is_active:true}</view_filter_expr>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.objects.group##"/>
+			<foreign_array>groups</foreign_array>
+			<exist_req_expr>ArrayCount( groups ) != 0</exist_req_expr>
+			<is_multiple>1</is_multiple>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>name</id>
+			<col_title VALUE="##UiText.fields.recruiter##"/>
+			<width>100%</width>
+		</field>
+		<field>
+			<id>candidate_count</id>
+			<col_title VALUE="Новые кандидаты" lang-en:VALUE="New candidates" lang-ua:VALUE="Нові кандидати"/>
+			<data_type>integer</data_type>
+			<align>right</align>
+		</field>
+		<field>
+			<id>phone_interview_count</id>
+			<col_title VALUE="##UiText.titles.phone_interview##"/>
+			<data_type>integer</data_type>
+			<align>right</align>
+		</field>
+		<field>
+			<id>interview_count</id>
+			<col_title VALUE="##UiText.titles.interview##"/>
+			<data_type>integer</data_type>
+			<align>right</align>
+		</field>
+		<field>
+			<id>rr_resume_review_count</id>
+			<col_title VALUE="##UiText.titles.submitted_to_rr__n##"/>
+			<data_type>integer</data_type>
+			<align>right</align>
+		</field>
+		<field>
+			<id>rr_resume_review_percent</id>
+			<col_title>%</col_title>
+			<data_type>real</data_type>
+			<is_percent>1</is_percent>
+		</field>
+		<field>
+			<id>rr_interview_count</id>
+			<col_title VALUE="##UiText.titles.client_interview##"/>
+			<data_type>integer</data_type>
+			<align>right</align>
+			<bk_color_expr>MixColors( GetForeignElem( event_types, 'rr_interview' ).text_color, '#FFFFFF', Real( 1 ) / 7 )</bk_color_expr>
+		</field>
+		<field>
+			<id>rr_interview_percent</id>
+			<col_title>%</col_title>
+			<data_type>real</data_type>
+			<is_percent>1</is_percent>
+			<bk_color_expr>MixColors( GetForeignElem( event_types, 'rr_interview' ).text_color, '#FFFFFF', Real( 1 ) / 7 )</bk_color_expr>
+		</field>
+		<field>
+			<id>hire_count</id>
+			<col_title VALUE="##UiText.titles.hired__n##"/>
+			<data_type>integer</data_type>
+			<align>right</align>
+			<bk_color_expr>MixColors( GetForeignElem( event_types, 'hire' ).text_color, '#FFFFFF', Real( 1 ) / 7 )</bk_color_expr>
+		</field>
+		<field>
+			<id>hire_percent</id>
+			<is_percent>1</is_percent>
+			<col_title>%</col_title>
+			<stat_only>0</stat_only>
+			<data_type>real</data_type>
+			<bk_color_expr>MixColors( GetForeignElem( event_types, 'hire' ).text_color, '#FFFFFF', Real( 1 ) / 7 )</bk_color_expr>
+		</field>
+
+		<field>
+			<id>dismiss_count</id>
+			<col_title VALUE="##UiText.titles.dismissed__n##"/>
+			<stat_only>0</stat_only>
+			<data_type>integer</data_type>
+			<align>right</align>
+		</field>
+		<field>
+			<id>reject_count</id>
+			<col_title VALUE="##UiText.titles.rejected_by_recruiter__n##"/>
+			<data_type>integer</data_type>
+			<align>right</align>
+		</field>
+		<field>
+			<id>rr_reject_count</id>
+			<col_title VALUE="##UiText.titles.rejected_by_rr__n##"/>
+			<data_type>integer</data_type>
+			<align>right</align>
+		</field>
+		<field>
+			<id>self_reject_count</id>
+			<col_title VALUE="##UiText.titles.application_withdrawn##"/>
+			<data_type>integer</data_type>
+			<align>right</align>
+		</field>
+		<field>
+			<id>reserve_count</id>
+			<col_title VALUE="##UiText.titles.reserve##"/>
+			<data_type>integer</data_type>
+			<align>right</align>
+		</field>
+	</fields>
+
+	<show_total>1</show_total>
+	<build_action>OpenCodeLib( 'x-app://rcr/rcr_std_stat_recruiters_with_events.js' ).BuildReport( dest )</build_action>
+	<open_link_action>OpenCodeLib( 'x-app://rcr/rcr_std_stat_recruiters_with_events.js' ).OpenLink( dest, item, column )</open_link_action>
+</std_stat>
+

@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>recruit_current_progress</id>
+	<name VALUE="##UiText.titles.current_progress##"/>
+	<section_id>current_status</section_id>
+
+	<is_v2>1</is_v2>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>recruit_type_id</id>
+			<data_type>string</data_type>
+			<title VALUE="##UiText.objects.recruit_type##"/>
+			<foreign_array>recruit_types</foreign_array>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<data_type>integer</data_type>
+			<title VALUE="##UiText.fields.recruiter##"/>
+			<foreign_array>users</foreign_array>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<is_multiple>1</is_multiple>
+			<is_hier>1</is_hier>
+			<source_id>vacancies</source_id>
+		</dyn_filter>
+	</dyn_filters>
+
+	<groups>
+		<group>
+			<id>vacancy_id</id>
+			<foreign_array>vacancies</foreign_array>
+		</group>
+	</groups>
+
+	<fields>
+		<field>
+			<id>name</id>
+			<col_title VALUE="##UiText.objects.vacancy##"/>
+			<width>100%</width>
+		</field>
+		<field>
+			<id>division_id</id>
+			<col_title VALUE="##UiText.objects.division##"/>
+			<foreign_array>divisions</foreign_array>
+			<width>25zr</width>
+		</field>
+		<field>
+			<id>org_id</id>
+			<col_title VALUE="##UiText.objects.client##"/>
+			<foreign_array>orgs</foreign_array>
+			<width>25zr</width>
+		</field>
+		<field>
+			<id>cur_work_days_num</id>
+			<col_title VALUE="##UiText.vacancy_fields.cur_work_days_num##"/>
+			<data_type>integer</data_type>
+			<width>5zr</width>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>cur_work_wdays_num</id>
+			<col_title VALUE="##UiText.vacancy_fields.cur_work_wdays_num##"/>
+			<data_type>integer</data_type>
+			<width>5zr</width>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>vacancy_ad_count</id>
+			<col_title VALUE="##UiText.sections.ads##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>vacancy_ad</src_object_type_id>
+			<width>4zr</width>
+			<align>center</align>
+			<bk_color>227,243,251</bk_color>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>resp_candidate_count</id>
+			<col_title VALUE="##UiText.sections.responses##"/>
+			<stat_func>sum</stat_func>
+			<width>6zr</width>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>new_resp_candidate_count</id>
+			<col_title VALUE="Новые отклики" lang-en:VALUE="New Responses" lang-ua:VALUE="Нові відгуки"/>
+			<stat_func>sum</stat_func>
+			<width>6zr</width>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>stored_resp_candidate_count</id>
+			<col_title VALUE="Отобранные отклики" lang-en:VALUE="Selected Responses" lang-ua:VALUE="Відібрані відгукии"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<width>5zr</width>
+			<bk_color>230,255,255</bk_color>
+			<rotation>90</rotation>
+		</field>
+
+		<field>
+			<id>passive_candidate_count</id>
+			<col_title VALUE="Пассивные кандидаты" lang-en:VALUE="Passive candidates" lang-ua:VALUE="Пасивні кандидати"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<width>5zr</width>
+			<bk_color>230,255,255</bk_color>
+			<rotation>90</rotation>
+		</field>
+
+		<field>
+			<id>new_candidate_count</id>
+			<col_title VALUE="Кандидат отобран" lang-en:VALUE="Candidate selected" lang-ua:VALUE="Кандидат відібраний"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<width>5zr</width>
+			<rotation>90</rotation>
+		</field>
+
+		<field>
+			<id>interview_scheduled_count</id>
+			<col_title VALUE="##UiText.titles.interview_scheduled##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<width>6zr</width>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>interview_completed_count</id>
+			<col_title VALUE="##UiText.titles.interview_completed##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<width>6zr</width>
+			<bk_color>240,240,255</bk_color>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>interview_reserve_count</id>
+			<col_title VALUE="##UiText.titles.interview_reserve##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<width>6zr</width>
+			<bk_color>245,245,245</bk_color>
+			<rotation>90</rotation>
+		</field>
+
+		<field>
+			<id>rr_resume_review_count</id>
+			<col_title VALUE="##UiText.titles.rr_resume_review##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<width>6zr</width>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>rr_resume_review_reserve_count</id>
+			<col_title VALUE="##UiText.titles.rr_resume_review_reserve##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<width>6zr</width>
+			<bk_color>245,245,245</bk_color>
+			<rotation>90</rotation>
+		</field>
+
+		<field>
+			<id>rr_interview_scheduled_count</id>
+			<col_title VALUE="##UiText.titles.rr_interview_scheduled##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<width>6zr</width>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>rr_interview_completed_count</id>
+			<col_title VALUE="##UiText.titles.rr_interview_completed##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<width>6zr</width>
+			<bk_color>255,240,255</bk_color>
+			<rotation>90</rotation>
+		</field>
+		<field>
+			<id>rr_interview_reserve_count</id>
+			<col_title VALUE="##UiText.titles.rr_interview_reserve##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<width>6zr</width>
+			<bk_color>245,245,245</bk_color>
+			<rotation>90</rotation>
+		</field>
+
+		<field>
+			<id>final_candidate_count</id>
+			<col_title VALUE="##UiText.fields.final_candidate##"/>
+			<stat_func>count</stat_func>
+			<src_object_type_id>candidate</src_object_type_id>
+			<width>5zr</width>
+			<rotation>90</rotation>
+		</field>
+	</fields>
+
+	<hide_zero_stat_values>1</hide_zero_stat_values>
+	<show_total>1</show_total>
+	<show_chart>0</show_chart>
+
+	<use_group_bk_colors>1</use_group_bk_colors>
+
+	<code_lib_url>x-app://rcr/rcr_std_stat_recruit_current_progress.js</code_lib_url>
+
+
+	<settings>
+		<default_filter_period>
+			<unit_id>m</unit_id>
+			<unit_specifier_id>cur</unit_specifier_id>
+		</default_filter_period>
+	</settings>
+</std_stat>
+

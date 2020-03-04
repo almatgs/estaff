@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="96zr" HEIGHT="55zr" SOURCE="TopElem" TITLE="Персональные настройки - Просмотр" SAVE-ACTION="
+		UpdateScreens( '*', '*' );
+		return;
+" RESIZE="1" WINDOW-ICON-URL="//base_pict/settings.ico" lang-en:TITLE="Personal settings - View" lang-ua:TITLE="Персональні налаштування - Вигляд">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<CHECK SOURCE="Ps.show_up_events" TITLE="Показывать раздел &quot;События на сегодня&quot;" lang-en:TITLE="Show &quot;Today events&quot; section" lang-ua:TITLE="Показувати розділ &quot;Події на сьогодні&quot;"/>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.show_toolbar_entry_admin" TITLE="Отображать кнопку &quot;Администрирование&quot; на панели инструментов" lang-en:TITLE="Show &quot;Administration&quot; button on the toolbar" lang-ua:TITLE="Відображати кнопку &quot;Адміністрування&quot; на панелі інструментів"/>
+	<CHECK SOURCE="Ps.show_toolbar_entry_local" TITLE="Отображать кнопку &quot;Персональные настройки&quot; на панели инструментов" lang-en:TITLE="Show &quot;Personal settings&quot; button on the toolbar" lang-ua:TITLE="Відображати кнопку &quot;Персональні налаштування&quot; на панелі інструментів"/>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.candidate_main_page.show_events" TITLE="Отображать личное дело на главной странице карточки кандидата" lang-en:TITLE="Display records on the main page of candidate's card" lang-ua:TITLE="Відображати особисту справу на головній сторінці картки кандидата"/>
+	<CHECK SOURCE="Ps.candidate_main_page.show_resume" TITLE="Отображать резюме на главной странице карточки кандидата" lang-en:TITLE="Display resume on the main page of candidate's card" lang-ua:TITLE="Відображати резюме на головній сторінці картки кандидата"/>
+	<DELIM/>
+
+	<RADIO-BUTTON TITLE="Использовать кнопку &quot;Сохранить и закрыть&quot; на панели инструментов" SOURCE="Ps.use_save_and_close" SWITCH-VALUE="true" lang-en:TITLE="Use &quot;Save and Close&quot; toolbar button" lang-ua:TITLE="Використовувати кнопку &quot;Зберегти і закрити&quot; на панелі інструментів"/>
+	<RADIO-BUTTON TITLE="Использовать кнопку &quot;Сохранить&quot; на панели инструментов" SOURCE="Ps.use_save_and_close" SWITCH-VALUE="false" lang-en:TITLE="Use &quot;Save&quot; toolbar button" lang-ua:TITLE="Використовувати кнопку &quot;Зберегти&quot; на панелі інструментів"/>
+	<DELIM/>
+
+	<IF EXPR="rcr_config.use_imod">
+		<CHECK SOURCE="Ps.disable_imod" TITLE="Отключить использование Интернет-модуля на данном рабочем месте" lang-en:TITLE="Prohibit using E-Staff Internet Package" lang-ua:TITLE="Відключити використання Інтернет-модуля на даному робочому місці"/>
+		<DELIM/>
+	</IF>
+</PANEL>
+
+
+</SPXML-SCREEN>

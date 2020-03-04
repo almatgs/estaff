@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems.xmd">
+	<std_voc_elem>
+		<id>new</id>
+		<name VALUE="ввод новой штатной единицы" lang-en:VALUE="new hire" lang-ua:VALUE="введення нової штатної одиниці"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>dismissal</id>
+		<name VALUE="увольнение сотрудника" lang-en:VALUE="dismissal" lang-ua:VALUE="звільнення співробітника"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>replace</id>
+		<name VALUE="замена" lang-en:VALUE="replacement" lang-ua:VALUE="заміна"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>parental_leave</id>
+		<name VALUE="декрет" lang-en:VALUE="parental leave" lang-ua:VALUE="декрет"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>move</id>
+		<name VALUE="внутренний перевод" lang-en:VALUE="move" lang-ua:VALUE="внутрішній переказ"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>temp</id>
+		<name VALUE="временный договор" lang-en:VALUE="temporary hire" lang-ua:VALUE="тимчасовий договір"/>
+	</std_voc_elem>
+</std_voc_elems>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

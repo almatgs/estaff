@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<rcr_config>
+	<show_mu TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<use_inet TYPE="bool" EXPR-INIT="AppConfig.GetOptProperty( 'estaff-imod' ) == '1'"/>
+	<use_imod TYPE="bool" EXPR-INIT="AppConfig.GetOptProperty( 'estaff-imod' ) == '1'" EXPR-SHOW-ERRORS="1"/>
+
+	<use_ext_duplicates_search TYPE="bool" NULL-FALSE="1"/>
+
+	<is_converting_old_data TYPE="bool" NULL-FALSE="1"/>
+
+	<use_person_educ_institutions TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<show_educ_departments TYPE="bool" NULL-FALSE="1"/>
+
+	<trigger_on_candidate_state_changed>
+		<lib_name TYPE="string"/>
+		<method_name TYPE="string"/>
+	</trigger_on_candidate_state_changed>
+
+	<last_comment_max_len PROPERTY="1" EXPR="
+			if ( AppModuleUsed( 'module_midlandhunt' ) )
+				return 4096;
+
+			return 255;
+	"/>
+
+	<use_vacancy_recruit_phases PROPERTY="1" EXPR="ArrayOptFind( vacancy_recruit_phases, 'is_active' ) != undefined"/>
+
+	<use_low_adjusted_vacancy_max_work_terms TYPE="bool" NULL-FALSE="1"/>
+
+	<dlg_vacancy_instance>
+		<csd_zr_height TYPE="integer" NOT-NULL="1"/>
+	</dlg_vacancy_instance>
+
+	<usersStat TYPE="variant" STRICT="1"/>
+</rcr_config>
+
+
+
+</SPXML-INLINE-FORM>

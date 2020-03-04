@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM TITLE="##UiText.objects.org##" CODE-LIB="1" IMAGE-URL="//base_pict/org.ico" IMAGE-URL-EXPR="image_url()">
+
+<org>
+	<id TYPE="integer"/>
+
+	<name TYPE="string" INDEXED="1" TITLE="##UiText.fields.conventional_name##" COL-TITLE="##UiText.fields.conventional_name##"/>
+	<full_name TYPE="string" TITLE="##UiText.fields.full_official_name##"/>
+	<alt_name TYPE="string" TITLE="Альт. наименование" lang-en:TITLE="Alt. Name" lang-ua:TITLE="Альт. найменування"/>
+
+	<code TYPE="string" TITLE="##UiText.fields.code##" COL-TITLE="#" EXP-MAX-LEN="6" COL-ALIGN="center"/>
+	<eid TYPE="string" FT-IGNORE="1" INDEXED="1"/>
+
+	<country_id TYPE="string" FOREIGN-ARRAY="countries" TITLE="##UiText.fields.country##" EXPR-INIT="global_settings.country_id" base1:allow-hide="1"/>
+	<location_id TYPE="string" FOREIGN-ARRAY="locations" TITLE="##UiText.fields.location##" base1:allow-hide="1"/>
+	<metro_station_id TYPE="string" MULTIPLE="1" DOC-ID="1" FOREIGN-ARRAY="metro_stations" TITLE="##UiText.fields.metro_station##" base1:allow-hide="1" base1:hide-by-default="1"/>
+	<address TYPE="string" TITLE="##UiText.fields.address##"/>
+
+	<phone TYPE="phone" TITLE="##UiText.fields.phone##"/>
+	<fax TYPE="phone" TITLE="##UiText.fields.fax##"/>
+	<email TYPE="string" TITLE="E-mail"/>
+
+	<web TYPE="string" TITLE="##UiText.fields.web_site##" PREPROCESS-EXPR="
+			if ( StrBegins( NewValue, 'http://' ) )
+				return StrRightRangePos( NewValue, 7 );
+
+			return NewValue;
+	"/>
+
+	<industry_id TYPE="integer" FOREIGN-ARRAY="industries" TITLE="##UiText.fields.industry##" EXP-MAX-LEN="10" COL-ALIGN="center" base1:allow-hide="1"/>
+	<size_id TYPE="integer" FOREIGN-ARRAY="org_sizes" TITLE="Размер" EXP-MAX-LEN="10" COL-ALIGN="center" lang-en:TITLE="Size" base1:allow-hide="1" lang-ua:TITLE="Розмір"/>
+	<type_id TYPE="string" FOREIGN-ARRAY="org_types" TITLE="##UiText.titles.category##" EXP-MAX-LEN="15" COL-ALIGN="center"/>
+	<brand_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="brands" TITLE="##UiText.fields.brand##" EXP-MAX-LEN="15" COL-ALIGN="center" base1:allow-hide="1" base1:hide-by-default="1"/>
+
+	<main_expense_type_id TYPE="integer" FOREIGN-ARRAY="expense_types" TITLE="##UiText.fields.expense_service_type##" EXP-MAX-LEN="10" COL-ALIGN="center"/>
+
+	<base_org_id TYPE="integer" FOREIGN-ARRAY="orgs" TITLE="Базовая организация" lang-en:TITLE="Base company" lang-ua:TITLE="Базова організація"/>
+
+	<INHERIT TYPE="card_comment_base"/>
+
+	<last_contact_date TYPE="date" TITLE="##UiText.fields.last_contact_date##"/>
+
+
+	<is_own_org TYPE="bool" NULL-FALSE="1" TITLE="##UiText.objects.own_org##"/>
+
+	<is_customer TYPE="bool" NULL-FALSE="1" TITLE="##UiText.objects.client##" lang-en:TITLE="Client"/>
+	<is_sec_customer TYPE="bool" NULL-FALSE="1" TITLE="Клиент партнера" lang-en:TITLE="Client of a partner" lang-ua:TITLE="Клієнт партнера"/>
+	<is_supplier TYPE="bool" NULL-FALSE="1" TITLE="Поставщик" lang-en:TITLE="Supplier" lang-ua:TITLE="Постачальник"/>
+	<is_reseller TYPE="bool" NOT-NULL="1" TITLE="Реселлер" lang-en:TITLE="Reseller" lang-ua:TITLE="Реселлер"/>
+	<is_competitor TYPE="bool" NULL-FALSE="1" TITLE="##UiText.titles.competitor##"/>
+
+	<is_tentative TYPE="bool" NULL-FALSE="1" TITLE="Потенциальный" lang-en:TITLE="Tentative" lang-ua:TITLE="Потенційний"/>
+	<is_lost TYPE="bool" NULL-FALSE="1" TITLE="Потерянный" lang-en:TITLE="Lost" lang-ua:TITLE="Втрачений"/>
+
+
+	<legal_address TYPE="string" TITLE="##UiText.fields.legal_address##"/>
+	<inn TYPE="string" TITLE="##UiText.fields.tax_id##"/>
+	<kpp TYPE="string" TITLE="КПП" lang-en:TITLE="kpp" lang-ua:TITLE="КПП"/>
+
+	<bank_account>
+		<bank>
+			<name TYPE="string" TITLE="Наименование банка" lang-en:TITLE="Bank name" lang-ua:TITLE="Найменування банку"/>
+			<bic TYPE="string" TITLE="БИК" lang-en:TITLE="Bank code" lang-ua:TITLE="БІК"/>
+		</bank>
+
+		<has_custom_recipient TYPE="bool" NOT-NULL="1"/>
+		<custom_recipient_desc TYPE="string" EXPR="custom_recipient_desc == ''&& has_custom_recipient ? std_recipient_desc : custom_recipient_desc"/>
+
+		<std_recipient_desc PROPERTY="1" EXPR="UiText.fields.tax_id + ' ' + Parent.inn + '/' + Parent.kpp + ' ' + Parent.full_name"/>
+		<recipient_desc PROPERTY="1" EXPR="has_custom_recipient ? custom_recipient_desc : std_recipient_desc"/>
+
+		<no TYPE="string" TITLE="№ счета" lang-en:TITLE="Account No" lang-ua:TITLE="№ рахунку"/>
+		<cno TYPE="string" TITLE="Корр. счет" lang-en:TITLE="corr. account" lang-ua:TITLE="Корр. рахунок"/>
+	</bank_account>
+
+	<ceo TITLE="Руководитель" lang-en:TITLE="Boss" lang-ua:TITLE="Керівник">
+		<INHERIT TYPE="person_name_base"/>
+		<position_name TYPE="string" DEFAULT="Генеральный директор" TITLE="##UiText.fields.position##" lang-en:TITLE="Position"/>
+		<mod_name TYPE="person_name_base"/>
+	</ceo>
+
+	<chief_accountant TITLE="Главный бухгалтер" lang-en:TITLE="Chief accountant" lang-ua:TITLE="Головний бухгалтер">
+		<INHERIT TYPE="person_name_base"/>
+		<mod_name TYPE="person_name_base"/>
+	</chief_accountant>
+
+
+
+	<partner_org_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="orgs" TITLE="Ответственный партнер" lang-en:TITLE="Partner" lang-ua:TITLE="Відповідальний партнер"/>
+
+
+
+	<view TEMP="1" DOC-ONLY="1">
+		<filter>
+			<INHERIT TYPE="ft_filter"/>
+			<type_id TYPE="string" FOREIGN-ARRAY="event_types"/>
+			<min_date TYPE="date"/>
+			<max_date TYPE="date"/>
+		</filter>
+	</view>
+
+
+
+
+	
+	<records OBSOLETE="1" DOC-ONLY="1">
+		<record MULTIPLE="1">
+			<date TYPE="date"/>
+			<type_id TYPE="string"/>
+
+			<person_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="persons"/>
+
+			<comment TYPE="string"/>
+			<user_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="users"/>
+		</record>
+	</records>
+
+
+	<agents OBSOLETE="1" DOC-ONLY="1">
+		<agent MULTIPLE="1" PRIMARY-KEY="org_id">
+			<org_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="orgs"/>
+			<comission>
+				<percent TYPE="real"/>
+			</comission>
+		</agent>
+	</agents>
+
+
+
+	<legal_orgs OBSOLETE="1" DOC-ONLY="1">
+		<legal_org MULTIPLE="1">
+			<full_name TYPE="string"/>
+		</legal_org>
+	</legal_orgs>
+
+	<t1 TYPE="bool" EXPR="
+			if ( full_name == '' && legal_orgs.ChildNum != 0 )
+				full_name = legal_orgs[0].full_name;
+	" EXPR-SHOW-ERRORS="1"/>
+
+
+
+
+	<INHERIT TYPE="card_attachments"/>
+
+	<user_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="users" DIGEST="1" TITLE="##UiText.objects.user##" EXP-MAX-LEN="13" COL-ALIGN="center" lang-en:TITLE="User"/>
+	<group_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="groups" DIGEST="1" TITLE="##UiText.objects.group##" EXP-MAX-LEN="12" COL-ALIGN="center" lang-en:TITLE="Group"/>
+	<idata_group_id TYPE="integer" MULTIPLE="1" FOREIGN-ARRAY="groups" TITLE="##UiText.objects.group##" EXP-MAX-LEN="10"/>
+
+	<init_user_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="users"/>
+
+	<last_event_type_id TYPE="string" NOT-NULL="1" FOREIGN-ARRAY="event_types" SECONDARY="1" TITLE="Последнее событие" lang-en:TITLE="Last event" lang-ua:TITLE="Остання подія"/>
+	<last_event_occurrence_id TYPE="string" NOT-NULL="1" SECONDARY="1"/>
+	<last_event_date TYPE="date" SECONDARY="1" COL-TITLE="##UiText.fields.date##"/>
+	<last_comment TYPE="string" SECONDARY="1" TITLE="##UiText.fields.last_comment##" COL-TITLE="##UiText.fields.last_comment##" lang-en:TITLE="Last comment" lang-en:COL-TITLE="Last comment"/>
+
+
+	<INHERIT TYPE="card_info_base"/>
+
+
+
+	<persons_num TYPE="integer" SECONDARY="1"/>
+
+	<main_persons_desc TYPE="string" SECONDARY="1" TITLE="##UiText.objects.contact_person##" lang-en:TITLE="Contact Person"/>
+	<phones_desc TYPE="string" SECONDARY="1" TITLE="##UiText.fields.phone##"/>
+
+	<deals_num TYPE="integer" SECONDARY="1"/>
+	<is_active TYPE="bool" EXPR="! is_tentative && ! is_lost"/>
+
+	<ft_secondary_text TYPE="string" DOC-ONLY="1" SECONDARY="1"/>
+
+
+	<OnCheckReadAccess PROPERTY="1" DEPENDS="user_id,group_id"/>
+</org>
+
+
+
+
+</SPXML-FORM>

@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_professions SPXML-FORM="staff_std_professions.xmd" LANG="ua">
+
+
+<std_profession>
+	<id>214</id>
+	<name>Фінанси</name>
+
+	<std_professions>
+		<std_profession>
+			<id>11</id>
+			<name>бухгалтер</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>12</id>
+			<name>головний бухгалтер</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>13</id>
+			<name>аудитор</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>14</id>
+			<name>операціоніст / касир</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>220</id>
+			<name>банківський фахівець</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>19</id>
+			<name>спеціаліст бек-офісу</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>18</id>
+			<name>фахівець з оподаткування</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>17</id>
+			<name>співробітник кредитного відділу</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>15</id>
+			<name>фінансовий аналітик</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>21</id>
+			<name>фінансовий директор</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+		<std_profession>
+			<id>16</id>
+			<name>трейдер</name>
+			<parent_id>214</parent_id>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+
+<std_profession>
+	<id>204</id>
+	<name>Маркетинг</name>
+
+	<std_professions>
+		<std_profession>
+			<id>22</id>
+			<name>маркетолог</name>
+		</std_profession>
+		<std_profession>
+			<id>26</id>
+			<name>бренд-менеджер</name>
+		</std_profession>
+		<std_profession>
+			<id>230</id>
+			<name>менеджер по роботі з клієнтами</name>
+		</std_profession>
+		<std_profession>
+			<id>240</id>
+			<name>менеджер з розвитку бізнесу</name>
+		</std_profession>
+		<std_profession>
+			<id>27</id>
+			<name>мерчендайзер</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>216</id>
+	<name>Реклама / PR</name>
+
+	<std_professions>
+		<std_profession>
+			<id>23</id>
+			<name>менеджер з реклами</name>
+		</std_profession>
+		<std_profession>
+			<id>25</id>
+			<name>організатор виставок</name>
+		</std_profession>
+		<std_profession>
+			<id>238</id>
+			<name>промоутер</name>
+		</std_profession>
+		<std_profession>
+			<id>239</id>
+			<name>рекламний агент</name>
+		</std_profession>
+		<std_profession>
+			<id>24</id>
+			<name>фахівець з PR</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>207</id>
+	<name>Продаж товарів і послуг / Торгівля</name>
+
+	<std_professions>
+		<std_profession>
+			<id>115</id>
+			<name>продавець / касир</name>
+		</std_profession>
+		<std_profession>
+			<id>113</id>
+			<name>фахівець із закупівель</name>
+		</std_profession>
+		<std_profession>
+			<id>116</id>
+			<name>товарознавець / консультант</name>
+		</std_profession>
+		<std_profession>
+			<id>136</id>
+			<name>менеджер з продажу</name>
+		</std_profession>
+		<std_profession>
+			<id>114</id>
+			<name>фахівець в області зовнішньої торгівлі</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>211</id>
+	<name>Транспорт / Перевезення / Склади</name>
+
+	<std_professions>
+		<std_profession>
+			<id>51</id>
+			<name>логістик</name>
+		</std_profession>
+		<std_profession>
+			<id>53</id>
+			<name>транспортний диспетчер / оператор</name>
+		</std_profession>
+		<std_profession>
+			<id>54</id>
+			<name>авіадиспетчер</name>
+		</std_profession>
+		<std_profession>
+			<id>56</id>
+			<name>водій</name>
+		</std_profession>
+		<std_profession>
+			<id>55</id>
+			<name>працівник складу</name>
+		</std_profession>
+		<std_profession>
+			<id>52</id>
+			<name>фахівець з митного оформлення</name>
+		</std_profession>
+		<std_profession>
+			<id>118</id>
+			<name>експедитор</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>208</id>
+	<name>Виробництво</name>
+
+	<std_professions>
+		<std_profession>
+			<id>40</id>
+			<name>інженер / конструктор / проектувальник</name>
+		</std_profession>
+		<std_profession>
+			<id>44</id>
+			<name>виконроб / бригадир / майстер</name>
+		</std_profession>
+		<std_profession>
+			<id>47</id>
+			<name>робочий</name>
+		</std_profession>
+		<std_profession>
+			<id>43</id>
+			<name>керівник на виробництві</name>
+		</std_profession>
+		<std_profession>
+			<id>46</id>
+			<name>фахівець з контролю якості</name>
+		</std_profession>
+		<std_profession>
+			<id>42</id>
+			<name>технолог</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>217</id>
+	<name>Будівництво та архітектура</name>
+
+	<std_professions>
+		<std_profession>
+			<id>41</id>
+			<name>архітектор</name>
+		</std_profession>
+		<std_profession>
+			<id>249</id>
+			<name>начальник дільниці</name>
+		</std_profession>
+		<std_profession>
+			<id>250</id>
+			<name>виконроб</name>
+		</std_profession>
+		<std_profession>
+			<id>48</id>
+			<name>будівельник</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>210</id>
+	<name>Нерухомість</name>
+
+	<std_professions>
+		<std_profession>
+			<id>60</id>
+			<name>агент з нерухомості / ріелтор</name>
+		</std_profession>
+		<std_profession>
+			<id>63</id>
+			<name>експерт-оцінювач</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>218</id>
+	<name>Страхування</name>
+
+	<std_professions>
+		<std_profession>
+			<id>62</id>
+			<name>страховий агент</name>
+		</std_profession>
+		<std_profession>
+			<id>224</id>
+			<name>експерт-оцінювач</name>
+		</std_profession>
+		<std_profession>
+			<id>61</id>
+			<name>спеціаліст відділу страхування</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>203</id>
+	<name>Комп'ютери / Інформаційні технології</name>
+
+	<std_professions>
+		<std_profession>
+			<id>2</id>
+			<name>програміст</name>
+		</std_profession>
+		<std_profession>
+			<id>6</id>
+			<name>системний аналітик</name>
+		</std_profession>
+		<std_profession>
+			<id>4</id>
+			<name>спеціаліст з технічної підтримки</name>
+		</std_profession>
+		<std_profession>
+			<id>3</id>
+			<name>системний адміністратор</name>
+		</std_profession>
+		<std_profession>
+			<id>7</id>
+			<name>фахівець з комп'ютерної безпеки</name>
+		</std_profession>
+		<std_profession>
+			<id>5</id>
+			<name>комп'ютерний дизайнер</name>
+		</std_profession>
+		<std_profession>
+			<id>8</id>
+			<name>тестер ПЗ</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>221</id>
+	<name>Видавництво / Поліграфія</name>
+
+	<std_professions>
+		<std_profession>
+			<id>85</id>
+			<name>верстальник / набиральник</name>
+		</std_profession>
+		<std_profession>
+			<id>83</id>
+			<name>художник / дизайнер / оформлювач</name>
+		</std_profession>
+		<std_profession>
+			<id>84</id>
+			<name>фотограф</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>209</id>
+	<name>ЗМІ / Шоу-бізнес</name>
+
+	<std_professions>
+		<std_profession>
+			<id>78</id>
+			<name>ведучий програм на радіо</name>
+		</std_profession>
+		<std_profession>
+			<id>79</id>
+			<name>ведучий програм на ТБ</name>
+		</std_profession>
+		<std_profession>
+			<id>81</id>
+			<name>головний редактор</name>
+		</std_profession>
+		<std_profession>
+			<id>77</id>
+			<name>журналіст</name>
+		</std_profession>
+		<std_profession>
+			<id>82</id>
+			<name>звукорежисер</name>
+		</std_profession>
+		<std_profession>
+			<id>86</id>
+			<name>розповсюджувач ЗМІ</name>
+		</std_profession>
+		<std_profession>
+			<id>80</id>
+			<name>редактор / коректор</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>212</id>
+	<name>Туризм</name>
+
+	<std_professions>	
+		<std_profession>
+			<id>66</id>
+			<name>туристичний агент / консультант</name>
+		</std_profession>
+		<std_profession>
+			<id>68</id>
+			<name>організатор турпоїздок</name>
+		</std_profession>
+		<std_profession>
+			<id>67</id>
+			<name>гід / екскурсовод</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>223</id>
+	<name>Готелі / Ресторани</name>
+
+	<std_professions>	
+		<std_profession>
+			<id>73</id>
+			<name>керуючий готелями</name>
+		</std_profession>
+		<std_profession>
+			<id>74</id>
+			<name>керуючий ресторанами / барами</name>
+		</std_profession>
+		<std_profession>
+			<id>71</id>
+			<name>повар</name>
+		</std_profession>
+		<std_profession>
+			<id>72</id>
+			<name>шеф-повар</name>
+		</std_profession>
+		<std_profession>
+			<id>69</id>
+			<name>офіціант / буфетник / бармен</name>
+		</std_profession>
+		<std_profession>
+			<id>70</id>
+			<name>фахівець з організації конференцій, банкетів</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>213</id>
+	<name>Управління персоналом</name>
+
+	<std_professions>
+		<std_profession>
+			<id>30</id>
+			<name>менеджер з персоналу</name>
+		</std_profession>
+		<std_profession>
+			<id>33</id>
+			<name>співробітник відділу кадрів</name>
+		</std_profession>
+		<std_profession>
+			<id>34</id>
+			<name>рекрутер-консультант</name>
+		</std_profession>
+		<std_profession>
+			<id>31</id>
+			<name>менеджер з навчання та розвитку персоналу</name>
+		</std_profession>
+		<std_profession>
+			<id>35</id>
+			<name>ресерчер</name>
+		</std_profession>
+		<std_profession>
+			<id>36</id>
+			<name>тренер (HR)</name>
+		</std_profession>
+		<std_profession>
+			<id>32</id>
+			<name>психолог (тестування / консультування)</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>206</id>
+	<name>Освіта / Виховання</name>
+
+	<std_professions>
+		<std_profession>
+			<id>98</id>
+			<name>викладач</name>
+		</std_profession>
+		<std_profession>
+			<id>100</id>
+			<name>репетитор</name>
+		</std_profession>
+		<std_profession>
+			<id>99</id>
+			<name>тренер / інструктор</name>
+		</std_profession>
+		<std_profession>
+			<id>97</id>
+			<name>вихователь</name>
+		</std_profession>
+		<std_profession>
+			<id>102</id>
+			<name>гувернер / гувернантка</name>
+		</std_profession>
+		<std_profession>
+			<id>101</id>
+			<name>няня</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>205</id>
+	<name>Медицина / Охорона здоров'я</name>
+
+	<std_professions>
+		<std_profession>
+			<id>89</id>
+			<name>лікар</name>
+		</std_profession>
+		<std_profession>
+			<id>92</id>
+			<name>фельдшер</name>
+		</std_profession>
+		<std_profession>
+			<id>91</id>
+			<name>медсестра / санітар</name>
+		</std_profession>
+		<std_profession>
+			<id>90</id>
+			<name>медичний лаборант</name>
+		</std_profession>
+		<std_profession>
+			<id>93</id>
+			<name>фармацевт / провізор</name>
+		</std_profession>
+		<std_profession>
+			<id>94</id>
+			<name>ветеринар</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>202</id>
+	<name>Допоміжний персонал / Адміністрація</name>
+
+	<std_professions>
+		<std_profession>
+			<id>128</id>
+			<name>секретар / особистий помічник</name>
+		</std_profession>
+		<std_profession>
+			<id>129</id>
+			<name>рецепшіоніст</name>
+		</std_profession>
+		<std_profession>
+			<id>132</id>
+			<name>діловод</name>
+		</std_profession>
+		<std_profession>
+			<id>130</id>
+			<name>перекладач</name>
+		</std_profession>
+		<std_profession>
+			<id>131</id>
+			<name>керуючий офісом</name>
+		</std_profession>
+		<std_profession>
+			<id>133</id>
+			<name>співробітник охорони / служби безпеки</name>
+		</std_profession>
+		<std_profession>
+			<id>57</id>
+			<name>кур'єр</name>
+		</std_profession>
+		<std_profession>
+			<id>134</id>
+			<name>прибиральник приміщень</name>
+		</std_profession>
+		<std_profession>
+			<id>135</id>
+			<name>допоміжні спеціальності</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>201</id>
+	<name>Побутові послуги</name>
+
+	<std_professions>
+		<std_profession>
+			<id>120</id>
+			<name>косметолог</name>
+		</std_profession>
+		<std_profession>
+			<id>121</id>
+			<name>масажист</name>
+		</std_profession>
+		<std_profession>
+			<id>119</id>
+			<name>перукар</name>
+		</std_profession>
+		<std_profession>
+			<id>123</id>
+			<name>садівник</name>
+		</std_profession>
+		<std_profession>
+			<id>125</id>
+			<name>фахівець з обслуговування будівель</name>
+		</std_profession>
+		<std_profession>
+			<id>124</id>
+			<name>двірник / прибиральник</name>
+		</std_profession>
+		<std_profession>
+			<id>122</id>
+			<name>майстер по ремонту побутової техніки</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>215</id>
+	<name>Юриспруденція</name>
+
+	<std_professions>
+		<std_profession>
+			<id>109</id>
+			<name>юрисконсульт</name>
+		</std_profession>
+		<std_profession>
+			<id>110</id>
+			<name>юрист</name>
+		</std_profession>
+		<std_profession>
+			<id>105</id>
+			<name>адвокат</name>
+		</std_profession>
+		<std_profession>
+			<id>107</id>
+			<name>помічник адвоката</name>
+		</std_profession>
+		<std_profession>
+			<id>106</id>
+			<name>нотаріус</name>
+		</std_profession>
+		<std_profession>
+			<id>108</id>
+			<name>помічник нотаріуса</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+
+<std_profession>
+	<id>400</id>
+	<name>Загальне керівництво</name>
+
+	<std_professions>
+		<std_profession>
+			<id>411</id>
+			<name>генеральний директор</name>
+		</std_profession>
+		<std_profession>
+			<id>412</id>
+			<name>директор</name>
+		</std_profession>
+		<std_profession>
+			<id>413</id>
+			<name>заступник директора</name>
+		</std_profession>
+		<std_profession>
+			<id>414</id>
+			<name>комерційний директор</name>
+		</std_profession>
+		<std_profession>
+			<id>416</id>
+			<name>керівник проекту</name>
+		</std_profession>
+		<std_profession>
+			<id>415</id>
+			<name>керуючий</name>
+		</std_profession>
+	</std_professions>
+</std_profession>
+
+</std_professions>
+

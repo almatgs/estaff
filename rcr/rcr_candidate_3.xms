@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<UNIT NAME="event_actions_menu" SAMPLE="1">
+	<MENU RIGHT-CLICK="1">
+		<MENU-ENTRY TITLE="##UiText.actions.open##" ACTION="Ps.Doc.TopElem.open_target_event( _target_event )" PASSIVE="1"/>
+
+		<IF EXPR="_target_event.event.type.is_calendar_entry">
+			<MENU-ENTRY TITLE="Изменить дату/время" lang-en:TITLE="Change date/time" ACTION="
+					eventDoc = ObtainUiDoc( _target_event.event.PrimaryObjectUrl );
+					event = eventDoc.TopElem;
+					event.view.prev_data.AssignElem( event );
+
+					calendarOptions = new Object;
+					calendarOptions.eventType = event.type;
+					calendarOptions.autoSelectRoom = event.type.create_with_room_auto_selection;
+					calendarOptions.user_id = event.user_id;
+
+					obj = lib_calendar.select_date_and_room( event.date, calendarOptions );
+					
+					event.date = obj.date;
+					if ( obj.room_id != null )
+						event.room_id = obj.room_id;
+
+					event.update_local_date_by_date();
+					event.update_end_date_by_duration();
+
+					if ( event.type.use_ext_calendar &amp;&amp; lib_ext_calendar.is_ext_calendar_enabled &amp;&amp; ! ( event.user_id.HasValue &amp;&amp; event.user_id != lib_user.active_user_info.id ) )
+						lib_ext_calendar.put_entry_to_ext_calendar( event, {forcePut:true} );
+
+					UpdateUiDoc( eventDoc );
+					event.on_calendar_entry_ui_save();
+					Ps.Doc.TopElem.handle_ui_event_changed( event, 'save' );
+			" ENABLE-EXPR="Screen.EditMode" PASSIVE="1" lang-ua:TITLE="Змінити дату/час"/>
+		</IF>
+
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+				lib_base.ask_warning_to_continue( Screen, UiText.messages.event_will_be_deleted );
+
+				lib_event.delete_event( _target_event.event );
+				UpdateScreens( '*', '*view*' );
+		" ENABLE-EXPR="Screen.EditMode"/>
+
+		<IF EXPR="_target_event.event.type.is_group_event_reg &amp;&amp; _target_event.event.group_event_id.HasValue">
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE="##UiText.actions.cancel##..." ACTION="
+					lib_candidate.HandleCancelCandidateGroupEventRegistration( Ps.Doc.TopElem, _target_event.event );
+			" ENABLE-EXPR="_target_event.event != undefined &amp;&amp; _target_event.event.type.has_occurrence( 'cancelled' ) &amp;&amp; _target_event.event.occurrence_id != 'cancelled'"/>
+
+			<MENU-ENTRY TITLE="Перезаписать на другое мероприятие..." lang-en:TITLE="Change date/time..." lang-ua:TITLE="Перезаписати на інший захід..." ACTION="
+					lib_candidate.HandleChangeCandidateGroupEventRegistration( Ps.Doc.TopElem, _target_event.event );
+			"/>
+		</IF>
+
+		<IF EXPR="_target_event.event.type_id == 'testing' &amp;&amp; AppModuleUsed( 'module_sanofi' )">
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE="##UiText.actions.request_testing_report##..." ACTION="
+					testing = GetForeignElem( testings, _target_event.event.id );
+					lib_ontarget.HandleRequestTestingReport( testing );
+			"/>
+		</IF>
+
+		<IF EXPR="( _target_event.event.type_id == 'incoming_phone_call' || _target_event.event.type_id == 'outgoing_phone_call' ) &amp;&amp; AppModuleUsed( 'conn_naumen' )">
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE="Прослушать запись разговора" ACTION="
+					lib_naumen.HandleOpenCallRecord( _target_event.event );
+			" PASSIVE="1" ENABLE-EXPR="_target_event.event.eid.HasValue"/>
+		</IF>
+	</MENU>
+</UNIT>
+
+
+
+
+<PANEL NAME="candidate_events" STD-MARGINS="1" HEIGHT="auto" VERT-SCROLL="1" SAMPLE="1" PADDING="3">
+
+<LOOP EXPR="Ps.view.target_event_groups" VAR="_target_group">
+	<IF EXPR="_target_group.ChildIndex != 0">
+		<PANEL HEIGHT="2px">
+		</PANEL>
+
+		<DELIM STD-MARGINS="0"/>
+
+		<PANEL HEIGHT="2px">
+		</PANEL>
+	</IF>
+
+	<TABLE CHILD-VERT-ALIGN="justify">
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			
+			<COL WIDTH-EXPR="
+					str = _target_group.vacancy_id.ForeignDispName;
+
+					if ( global_settings.is_agency )
+						str2 = _target_group.vacancy_id.ForeignElem.org_id.ForeignDispName;
+					else
+						str2 = _target_group.vacancy_id.ForeignElem.division_id.ForeignDispName;
+
+					len = Max( StrLen( str ), StrLen( str2 ) );
+					
+					if ( len != 0 )
+						len += 3;
+
+					return len + 'zr';
+			" MAX-WIDTH="40%"/>
+		</COLUMNS>
+
+		<PANEL>
+			<LOOP EXPR="ArraySelectByKey( Ps.view.target_events, _target_group.ChildIndex, 'group_index' )" VAR="_target_event">
+				<PANEL KEY="_target_event.event_id" ON-CLICK-ACTION="
+						if ( _target_event.has_sel )
+							return;
+
+						for ( targetEvent in Ps.view.target_events )
+						{
+							if ( targetEvent.has_sel )
+							{
+								targetEvent.has_sel = false;
+								Screen.FindSubItemByKey( targetEvent.event_id ).UpdateStyle();
+							}
+						}
+
+						_target_event.has_sel = true;
+						Ps.set_target_event_sel( _target_event );
+						UpdateStyle();
+				" OPEN-ACTION="Ps.open_target_event( _target_event )" BK-COLOR-EXPR="
+						_target_event.has_sel ? MixColors( 'sys-bk-ctrl', 'sys-bk-panel' ) : ''
+				" PADDING="2" SOURCE="_target_event">
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="16px"/>
+							<IF EXPR="fields_usage.use_object_field( 'candidate', 'time_zone' ) && Ps.Doc.TopElem.time_zone.HasValue && Ps.Doc.TopElem.time_zone != GetLocalTimeZone()">
+								<COL WIDTH="24zr"/>
+							</IF>
+							<ELSE>
+								<COL WIDTH="16zr"/>
+							</ELSE>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<IMAGE URL-EXPR="_target_event.event.ImageUrl" URL=".ico" WIDTH="16px" HEIGHT="16px"/>
+
+						<LABEL TITLE-EXPR="lib_recruit.candidate_event_date_str( _target_event.event.state_date, Ps.Doc.TopElem, _target_event.event )"/>
+
+						<LINE>
+							<IF EXPR="_target_event.event.occurrence_id == 'scheduled'">
+								<LABEL TITLE-EXPR="_target_event.event.core_event_name" TEXT-COLOR-EXPR="_target_event.event.type.text_color" BK-COLOR-EXPR="_target_event.event.dyn_state_bk_color"/>
+					
+								<LABEL/>
+								<IMAGE URL="//base_pict/calendar.ico"/>
+									
+								<LABEL TITLE-EXPR="
+										str = lib_recruit.candidate_event_scheduled_date_str( _target_event.event.date, Ps.Doc.TopElem, _target_event.event );
+
+										if ( _target_event.event.type.use_room &amp;&amp; _target_event.event.room_id.HasValue )
+											str += ',   ' + _target_event.event.room_id.ForeignDispName;
+
+										return str;
+								"/>
+							</IF>
+							<ELSE>
+								<LABEL TITLE-EXPR="_target_event.event.core_event_name" TEXT-COLOR-EXPR="_target_event.event.type.text_color" BK-COLOR-EXPR="_target_event.event.type.bk_color"/>
+
+								<IF EXPR="lib_event.IsExtraResultOccurrence( _target_event.event.type, _target_event.event.occurrence_id )">
+									<IMAGE URL="//base_pict/right_arrow.png"/>
+									<LABEL TITLE-EXPR="
+											oc = _target_event.event.opt_occurrence();
+											if ( oc == undefined )
+												return '';
+
+											return StrTitleCase( oc.get_name() );
+									" TEXT-COLOR-EXPR="_target_event.event.occurrence.get_text_color()" BK-COLOR-EXPR="_target_event.event.dyn_state_bk_color"/>
+								</IF>
+							</ELSE>
+
+							<IF EXPR="_target_event.event.type.show_creation_date &amp;&amp; _target_event.event.state_date != _target_event.event.creation_date">
+								<LABEL TITLE-EXPR="'(' + _target_event.event.type.get_creation_date_title() + ' ' + lib_recruit.candidate_event_date_str( _target_event.event.creation_date, Ps.Doc.TopElem, _target_event.event ) + ')'"/>
+							</IF>
+
+							<IF EXPR="_target_event.event.author_id.HasValue">
+								<PANEL WIDTH="1zr"/>
+								<LINK TITLE-EXPR="StrFromCharCodesArray( [Int( '0x2022' )] ) + ' ' + _target_event.event.author_id.ForeignElem.shortname" TEXT-COLOR="60,60,60" UNDERLINE="0" ACTION="ObtainDocScreen( _target_event.event.author_id.ForeignObjectUrl )" PASSIVE="1"/>
+							</IF>
+
+							<IF EXPR="UseLds &amp;&amp; _target_event.event.user_id != LdsCurUserID &amp;&amp; ! _target_event.event.author_id.HasValue">
+								<LABEL TITLE-EXPR="'[' + _target_event.event.user_id.ForeignDispName + ']'"/>
+							</IF>
+
+							<IF EXPR="_target_event.event.reminder_date.HasValue">
+								<LABEL TITLE="   "/>
+								<IMAGE URL="//base_pict/reminder.ico" TIP-TEXT-EXPR="123"/>
+								<LABEL TITLE-EXPR="
+										if ( Hour( _target_event.event.reminder_date ) &lt;= 0 &amp;&amp; DateNewTime( _target_event.event.reminder_date ) == DateNewTime( CurDate ) )
+											return UiText.titles.today;
+
+										if ( Hour( _target_event.event.reminder_date ) > 0 )
+											dueDate = _target_event.event.reminder_date;
+										else
+											dueDate = DateNewTime( _target_event.event.reminder_date );
+										
+										return lib_base.DateOffsetFromTodayDescription( dueDate, 'd|h' );
+								"/>
+							</IF>
+						</LINE>
+					</TABLE>
+
+					<IF EXPR="_target_event.event.type.has_long_duration && _target_event.event.end_date.HasValue">
+						<IF EXPR="_target_event.event.occurrence_id.HasValue">
+							<TABLE>
+								<COLUMNS>
+									<COL WIDTH="16px"/>
+									<COL WIDTH="16zr"/>
+									<COL WIDTH="100%"/>
+								</COLUMNS>
+
+								<LABEL/>
+
+								<LABEL TITLE-EXPR="lib_recruit.candidate_event_date_str( _target_event.event.date, Ps.Doc.TopElem, _target_event.event )"/>
+
+								<!--
+								<LABEL TITLE-EXPR="_target_event.event.type.get_init_occurrence().get_name()" TEXT-COLOR-EXPR="_target_event.event.type.get_init_occurrence().get_text_color()" BK-COLOR-EXPR="_target_event.event.type.get_init_occurrence().get_bk_color()"/>
+								-->
+							</TABLE>
+						</IF>
+						<ELSE>
+							<TABLE>
+								<COLUMNS>
+									<COL WIDTH="20zr"/>
+									<COL WIDTH="100%"/>
+								</COLUMNS>
+
+								<LABEL/>
+
+								<LABEL TITLE-EXPR="'(' + UiText.titles.till + ' ' + lib_recruit.candidate_event_date_str( _target_event.event.end_date, Ps.Doc.TopElem, _target_event.event ) + ')'"/>
+							</TABLE>
+						</ELSE>
+					</IF>
+
+
+
+					<IF EXPR="_target_event.event.type.is_group_event_reg &amp;&amp; _target_event.event.group_event_id.HasValue &amp;&amp; lib_app2.AppFeatureEnabled( 'mass_recruit' )">
+						<BR HEIGHT="1px"/>
+						<LINE>
+							<PANEL WIDTH="20zr">
+							</PANEL>
+
+							<PANEL>
+								<LINE>
+									<IMAGE URL="//base_pict/calendar.ico"/>
+									<LINK TITLE-EXPR="_target_event.event.type.group_event_type_id.ForeignDispName + '   ' + lib_recruit.candidate_event_date_str( _target_event.groupEvent.date, Ps.Doc.TopElem, _target_event.event )" ACTION="
+											ObtainDocScreen( _target_event.event.group_event_id.ForeignPrimaryObjectUrl );
+									" PASSIVE="1" UNDERLINE="0"/>
+								</LINE>
+
+								<IF EXPR="_target_event.group_event_requires_completion">
+									<BR HEIGHT="4px"/>
+									
+									<LINE MULTILINE="1">
+										<LOOP EXPR="_target_event.groupEventResultEventType.occurrences" VAR="_occurrence">
+											<CHECK TITLE-EXPR="_occurrence.get_name()" SOURCE="false" SET-VALUE-ACTION="
+													if ( DateNewTime( _target_event.groupEvent.date ) > DateNewTime( CurDate ) )
+														lib_base.ask_warning_to_continue( Screen, UiText.messages.event_date_has_not_occured_yet );
+
+													lib_candidate.HandleSetCandidateState( Ps.Doc.TopElem, lib_event.build_state_id( _target_event.groupEventResultEventType.id, _occurrence.id ), {vacancy_id:_target_event.event.vacancy_id,group_event_id:_target_event.groupEvent.id} );
+											" PASSIVE="1"/>
+										</LOOP>
+									</LINE>
+								</IF>
+							</PANEL>
+						</LINE>
+						<BR HEIGHT="2px"/>
+					</IF>
+
+
+					<IF EXPR="_target_event.event.type_id == 'testing'">
+						<LINE>
+							<PANEL WIDTH="7zr">
+							</PANEL>
+
+							<SUBST TYPE="testing_preview_base" SOURCE="_target_event.event"/>
+						</LINE>
+					</IF>
+
+
+					<IF EXPR="false && _target_event.event.type_id.ForeignElem.prefer_ext_calendar_planner">
+						<TABLE>
+							<COLUMNS>
+								<IF EXPR="! _target_event.event.edit_mode">
+									<COL WIDTH="32px"/>
+								</IF>
+
+								<COL WIDTH="100%"/>
+							</COLUMNS>
+
+							<IF EXPR="! _target_event.event.edit_mode">
+								<LABEL/>
+							</IF>
+
+							<LINE MULTILINE="1">
+								<LOOP EXPR="_target_event.event.attendees" VAR="ListElem">
+									<LABEL TITLE-EXPR="ListElem.ext_name" TEXT-COLOR-EXPR="ListElem.resp_state_id.ForeignElem.text_color" ITALIC-EXPR="ListElem.type_id == 2" UNDERLINE="1"/>
+									<LABEL TITLE-EXPR="ListElem.resp_state_id != null ? ListElem.resp_state_id.ForeignElem.mark_prefix : ''" TEXT-COLOR-EXPR="ListElem.resp_state_id.ForeignElem.text_color"/>
+									<LABEL TITLE=" "/>
+								</LOOP>
+							</LINE>
+						</TABLE>
+					</IF>
+
+					<IF EXPR="_target_event.event.web_url.HasValue">
+						<TABLE>
+							<COLUMNS>
+								<COL WIDTH="30zr"/>
+								<COL WIDTH="100%"/>
+							</COLUMNS>
+
+							<LABEL/>
+							<LINK TITLE="##UiText.titles.portal_link##" HREF-EXPR="_target_event.event.web_url" TARGET="_web"/>
+						</TABLE>
+					</IF>
+
+					<IF EXPR="_target_event.event.wts_eid.HasValue || ( _target_event.event.type_id == 'video_interview_poll' &amp;&amp; _target_event.event.occurrence_id == 'succeeded' ) &amp;&amp; ! _target_event.event.web_url.HasValue">
+						<TABLE>
+							<COLUMNS>
+								<COL WIDTH="30zr"/>
+								<COL WIDTH="100%"/>
+							</COLUMNS>
+
+							<LABEL/>
+							<LINK TITLE="Показать результат" lang-en:TITLE="View Result" lang-ua:TITLE="Показати результат" ACTION="lib_wts.HandleShowPollResult( _target_event.event )" PASSIVE="1"/>
+						</TABLE>
+					</IF>
+
+					<IF EXPR="_target_event.event.requires_completion() &amp;&amp; ! _target_event.event.type.is_automatic_occurrence &amp;&amp; ! _target_event.event.occurrence.is_participant_duty_state" IGNORE-ERRORS="0">
+						<BR HEIGHT="2px"/>
+
+						<LINE>
+							<PANEL WIDTH="20zr">
+							</PANEL>
+
+							<BUTTON TITLE="##UiText.fields.result##..." ACTION="
+									lib_candidate.SelectCandidateEventResult( Ps.Doc.TopElem, _target_event.event );
+							" WIDTH="22zr"/>
+						</LINE>
+						<BR HEIGHT="2px"/>
+					</IF>
+
+					<IF EXPR="_target_event.event.type.use_contact_type &amp;&amp; _target_event.event.multi_contact_type_id.HasValue">
+						<LINE>
+							<PANEL WIDTH="22zr">
+							</PANEL>
+							<LABEL TITLE-EXPR="_target_event.event.multi_contact_type_id.ForeignDispName"/>
+						</LINE>
+					</IF>
+
+					<IF EXPR="lib_event.IsRejectOccurrence( _target_event.event.type, _target_event.event.occurrence_id ) &amp;&amp; _target_event.event.candidate_reject_reason_id.HasValue">
+						<LINE>
+							<PANEL WIDTH="22zr">
+							</PANEL>
+							<LABEL TITLE-EXPR="_target_event.event.candidate_reject_reason_id.ForeignDispName"/>
+						</LINE>
+					</IF>
+					<IF EXPR="lib_event.IsWithdrawalOccurrence( _target_event.event.type, _target_event.event.occurrence_id ) &amp;&amp; _target_event.event.candidate_withdrawal_reason_id.HasValue">
+						<LINE>
+							<PANEL WIDTH="22zr">
+							</PANEL>
+							<LABEL TITLE-EXPR="_target_event.event.candidate_withdrawal_reason_id.ForeignDispName"/>
+						</LINE>
+					</IF>
+					<IF EXPR="_target_event.event.type_id == 'blacklist' &amp;&amp; _target_event.event.candidate_blacklist_reason_id.HasValue">
+						<LINE>
+							<PANEL WIDTH="22zr">
+							</PANEL>
+							<LABEL TITLE-EXPR="_target_event.event.candidate_blacklist_reason_id.ForeignDispName"/>
+						</LINE>
+					</IF>
+
+					<IF EXPR="_target_event.event.comment != ''">
+						<TABLE>
+							<COLUMNS>
+								<COL WIDTH="16px"/>
+								<COL WIDTH="100%"/>
+							</COLUMNS>
+
+							<LABEL/>
+							<LABEL TITLE-EXPR="Trim( _target_event.event.comment )"/>
+						</TABLE>
+					</IF>
+
+
+					<IF EXPR="_target_event.event.talk_transcript.HasValue || _target_event.event.talk_recording_url.HasValue">
+						<BR HEIGHT="1px"/>
+						<TABLE>
+							<COLUMNS>
+								<COL WIDTH="16px"/>
+								<COL WIDTH="100%"/>
+							</COLUMNS>
+
+							<LABEL/>
+							
+							<LINE>
+								<IF EXPR="_target_event.event.talk_transcript.HasValue">
+									<LINK TITLE="##UiText.titles.call_recording##" ACTION="lib_base.show_info_message( ActiveScreen, _target_event.event.talk_transcript )" PASSIVE="1"/>
+								</IF>
+								<IF EXPR="_target_event.event.talk_recording_url.HasValue">
+									<IMAGE URL="//base_pict/start.ico" TIP-TEXT="##UiText.titles.call_recording##" HREF-EXPR="_target_event.event.talk_recording_url" TARGET="_web"/>
+									<IF EXPR="! _target_event.event.talk_transcript.HasValue">
+										<LINK TITLE="##UiText.titles.call_recording##" HREF-EXPR="_target_event.event.talk_recording_url" TARGET="_web"/>
+									</IF>
+								</IF>
+							</LINE>
+						</TABLE>
+					</IF>
+
+					<INHERIT TYPE="event_actions_menu"/>
+				</PANEL>
+			</LOOP>
+		</PANEL>
+
+		<PANEL BK-COLOR-EXPR__="_target_group.events_count > 0 ? '230,230,240' : ''">
+			<LINK TITLE-EXPR="_target_group.vacancy_id.ForeignDispName" ACTION="ObtainDocScreen( _target_group.vacancy_id.ForeignObjectUrl )" PASSIVE="1" UNDERLINE="0" TEXT-COLOR="0,0,128" ALIGN="right"/>
+
+			<IF EXPR="global_settings.is_agency">
+				<LINK TITLE-EXPR="_target_group.vacancy_id.ForeignElem.org_id.ForeignDispName" ACTION="ObtainDocScreen( _target_group.vacancy_id.ForeignElem.org_id.ForeignObjectUrl )" PASSIVE="1" UNDERLINE="0" TEXT-COLOR="0,0,128" ALIGN="right"/>
+			</IF>
+			<ELSE>
+				<LINK TITLE-EXPR="_target_group.vacancy_id.ForeignElem.division_id.ForeignDispName" ACTION="ObtainDocScreen( _target_group.vacancy_id.ForeignElem.division_id.ForeignObjectUrl )" PASSIVE="1" UNDERLINE="0" TEXT-COLOR="0,0,128" ALIGN="right"/>
+			</ELSE>
+		</PANEL>
+	</TABLE>
+</LOOP>
+
+</PANEL>
+
+
+
+</SPXML-SCREEN>

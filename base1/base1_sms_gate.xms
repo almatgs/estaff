@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<WITH VAR="_voc_info" EXPR="lib_voc.get_voc_info_by_id( 'currencies' )">
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<EDIT SOURCE="Ps.send_code" MULTILINE="1" HEIGHT="-10zr" AUTO-LABEL="1"/>
+	<BR/>
+	<BR/>
+
+	<LINE>
+		<BUTTON TITLE="##UiText.actions.send_test_message##" IMAGE-URL="//base_pict/email.ico" WIDTH="35zr" ACTION="
+				if ( Ps.test_phone == '' )
+					throw UserError( UiText.errors.test_phone_not_specified );
+
+				if ( Screen.Doc.IsChanged )
+					Screen.SaveDoc();
+
+				lib_sms.send_test_sms_message( Ps.test_phone, Ps );
+		"/>
+
+		<LABEL TITLE="##UiText.titles.test_phone_number##:"/>
+		<ITEM TYPE="phone_edit" SOURCE="Ps.test_phone" WIDTH="30zr"/>
+	</LINE>
+</PANEL>
+
+
+</WITH>
+
+</SPXML-SCREEN>
+

@@ -1,0 +1,53 @@
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Отклики с сайтов по вакансии" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/list.ico">
+	<PANEL SUNKEN="1" STD-MARGINS="1" BK-COLOR-EXPR="SysColors.PanelLightBackground">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="38zr"/>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="19zr"/>
+			</COLUMNS>
+			<ITEM TYPE="ft_filter" SOURCE="Ps.filter"/>
+			<PANEL/>
+			<PANEL>
+				<LABEL TITLE="Статус:"/>
+				<ITEM TYPE="elem_selector" usage="filter" SOURCE="Ps.filter.completion_id" UPDATE-ACTION="lib_view.store_filter_elem( 'resp_candidates_of_vacancy', Source );"/>
+			</PANEL>
+		</TABLE>
+		<PANEL HEIGHT="2px"/>
+		<TABLE>
+			<COLUMNS/>
+		</TABLE>
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="Очистить форму" ACTION="lib_view.clear_filters( 'resp_candidates_of_vacancy', Ps ); lib_view.clear_stored_filters( 'resp_candidates_of_vacancy' ); lib_view.adjust_filters( 'resp_candidates_of_vacancy', Ps );Screen.Update()" PASSIVE="1"/>
+		</MENU>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+	<PANEL BK-COLOR-EXPR="" HEIGHT="40%">
+		<LIST NAME="MainList" USE-KEY-SEL="1" MOVE-SEL-ON-DELETE="1" SUNKEN="1" LOOP-CATALOG="resp_candidates" FT-FILTER="Ps.filter" XQUERY-QUAL-EXPR="lib_view.build_xquery_qual( 'resp_candidates_of_vacancy', Ps )" XQUERY-FIELDS-EXPR="['id','completion_id','resp_date','fullname','age','desired_position_name','exp_years','salary','last_job_org_name','site_id']" AFTER-BUILD-ASYNC-ACTION="if ( StrContains( Screen.FrameName, 'Sub' ) ) return; size = ArrayOptSize( MainArray ); if ( size == undefined ) { StatusMsg( '' ); return; }; StatusMsg( UiText.titles.items_in_list + ': ' + StrInt( size, 0, true ) + ( lib_view.is_some_filter_applied( 'resp_candidates_of_vacancy', Ps ) ? '  (с учетом фильтра)' : '' ) )">
+			<ROW IMAGE-URL-EXPR="ListElem.ImageUrl" OPEN-ACTION="Cancel();" SET-SEL-ACTION="Screen.FindItem( 'FrameSubView' ).InnerScreen.Doc.TopElem.SetCurRespCandidate( ListElem );">
+				<COL COL-TITLE="Дата" WIDTH="14zr" TITLE-EXPR="StrDate( ListElem.resp_date, false )" ORDER="resp_date" ORDER-DIR="-"/>
+				<COL COL-TITLE="Время" WIDTH="8zr" TITLE-EXPR="StrTime( ListElem.resp_date, false )" ORDER="resp_date" ALIGN="center"/>
+				<COL COL-TITLE="ФИО" WIDTH="36zr" TITLE-EXPR="ListElem.fullname" ORDER="fullname"/>
+				<COL COL-TITLE="Возраст" WIDTH="5zr" TITLE-EXPR="StrIntZero( ListElem.age )" ORDER="age" ALIGN="right"/>
+				<COL COL-TITLE="Предполагаемая должность" WIDTH="60%" TITLE-EXPR="ListElem.desired_position_name" ORDER="desired_position_name"/>
+				<COL COL-TITLE="Стаж" WIDTH="5zr" TITLE-EXPR="StrIntZero( ListElem.exp_years )" ORDER="exp_years" ALIGN="right"/>
+				<COL COL-TITLE="З/п" WIDTH="8zr" TITLE-EXPR="StrIntZero( ListElem.salary )" ORDER="salary" ALIGN="right"/>
+				<COL COL-TITLE="Последнее место работы" WIDTH="40%" TITLE-EXPR="ListElem.last_job_org_name" ORDER="last_job_org_name" TEXT-COLOR="90,0,120"/>
+				<COL COL-TITLE="Сайт" WIDTH="20zr" TITLE-EXPR="ListElem.site_id.ForeignDispName" ORDER="site_id.ForeignDispName" ALIGN="left" TEXT-COLOR="90,120,0"/>
+			</ROW>
+			<MENU RIGHT-CLICK="1">
+				<MENU-ENTRY TITLE="Открыть" CMD="OpenSel"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Удалить" CMD="Clear"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name" ACTION="lib_view.ShowScreenInExcel( Screen, List )" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Перезагрузить содержимое откликов" ACTION="lib_base.run_list_object_action( List, 'reload_response_details', 'reload_response_details' )"/>
+			</MENU>
+		</LIST>
+	</PANEL>
+	<SPLIT/>
+	<FRAME NAME="FrameSubView" HREF="//imod/imod_view_resp.xml"/>
+	<INHERIT TYPE="view_commands"/>
+	<INHERIT TYPE="view_commands_2"/>
+</SPXML-SCREEN>

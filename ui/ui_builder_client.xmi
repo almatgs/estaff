@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INTERFACE>
+
+<ui_builder_client>
+	<template_editor CLASS="1">
+		<base_elem TYPE="object"/>
+		<screen TYPE="object"/>
+
+		<cur_elem TYPE="object"/>
+
+		<cur_elem_extra>
+			<is_aux TYPE="bool"/>
+			<field_ext_type_id TYPE="string" FOREIGN-ARRAY="ui_common.field_ext_types"/>
+			<field_foreign_array_type TYPE="string"/>
+			<aux_item_type_id TYPE="string" FOREIGN-ARRAY="ui_common.template_aux_item_types"/>
+		</cur_elem_extra>
+	</template_editor>
+</ui_builder_client>
+
+
+</SPXML-INTERFACE>
+
+
+
+

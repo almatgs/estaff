@@ -1,0 +1,94 @@
+namespace LibScrollBar {
+
+
+function GetSliderBkColor( item )
+{
+	switch ( item.State )
+	{
+		case 'normal':
+			return AppUi.gThemeData.colors.scrollbar_slider;
+
+		case 'hover':
+			return AppUi.gThemeData.colors.scrollbar_slider_hover;
+
+		case 'pressed':
+			return AppUi.gThemeData.colors.scrollbar_slider_pressed;
+	}
+}
+
+
+function GetSliderPos( item )
+{
+	if ( item.AuxData.totalSize == 0 )
+		return 0;
+
+	if ( item.AuxData.pageSize >= item.AuxData.totalSize )
+		return 0;
+
+	//pos = ( item.AuxData.curPos * item.AuxData.pageSize ) / item.AuxData.totalSize;
+
+	contentSize = ( item.AuxData.isVertical ? item.SizeY : item.SizeX );
+	pos = ( item.AuxData.curPos * ( contentSize * ( item.AuxData.totalSize - item.AuxData.pageSize ) ) ) / ( ( item.AuxData.totalSize - item.AuxData.pageSize ) * item.AuxData.totalSize );
+
+	pos = Min( pos, item.AuxData.pageSize - GetSliderMinSize( item ) );
+
+	//LogEvent( '', item.AuxData.curPos + '--' + item.AuxData.totalSize + '--' + item.AuxData.pageSize + '--' + pos );
+	return pos;
+}
+
+
+function GetSliderSize( item )
+{
+	//DebugMsg( item.AuxData.totalSize );
+	if ( item.AuxData.totalSize != 0 )
+	{
+		contentSize = ( item.AuxData.isVertical ? item.SizeY : item.SizeX );
+		//DebugMsg( contentSize );
+		size = ( contentSize * item.AuxData.pageSize ) / item.AuxData.totalSize;
+		//DebugMsg( size );
+	}
+	else
+	{
+		size = 0;
+	}
+	
+	//LogEvent( '', contentSize + '--' + item.AuxData.totalSize + '--' + item.AuxData.pageSize + '--' + size );
+	return Max( size, GetSliderMinSize( item ) );
+}
+
+
+function GetSliderMinSize( item )
+{
+	return 17;
+}
+
+
+function OnNextAreaMouseDown( item )
+{
+	if ( item.AuxData.isVertical )
+		item.Parent.OnVertScrollEvent( 'PageDown' );
+	else
+		item.Parent.OnHorizScrollEvent( 'PageDown' );
+}
+
+
+function OnPrevAreaMouseDown( item )
+{
+	if ( item.AuxData.isVertical )
+		item.Parent.OnVertScrollEvent( 'PageUp' );
+	else
+		item.Parent.OnHorizScrollEvent( 'PageUp' );
+}
+
+
+function OnSliderMove( item, event )
+{
+	if ( item.AuxData.isVertical )
+		item.Parent.OnVertScrollEvent( 'SliderMove', event.DeltaY );
+	else
+		item.Parent.OnHorizScrollEvent( 'SliderMove', event.DeltaX );
+}
+
+
+
+}

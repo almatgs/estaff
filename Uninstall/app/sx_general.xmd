@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<spxml_machine_settings_base SAMPLE="1">
+	<is_shared_install TYPE="bool" NOT-NULL="1"/>
+	<use_sep_data TYPE="bool" NOT-NULL="1"/>
+
+	<use_machine_lds TYPE="bool" NOT-NULL="1"/>
+	<use_lds TYPE="bool" NOT-NULL="1"/>
+	<lds>
+		<address TYPE="string"/>
+	</lds>
+</spxml_machine_settings_base>
+
+
+<spxml_settings_base SAMPLE="1">
+	<use_wininet TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<use_proxy TYPE="bool" NOT-NULL="1"/>
+	<proxy>
+		<address TYPE="string"/>
+		<port TYPE="integer"/>
+	</proxy>
+	<proxy_auth>
+		<login TYPE="string"/>
+		<password TYPE="string"/>
+		<save_password TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	</proxy_auth>
+
+	<use_lds TYPE="bool" NOT-NULL="1"/>
+	<lds>
+		<address TYPE="string"/>
+	</lds>
+
+	<use_sep_sn TYPE="bool" NOT-NULL="1"/>
+
+	<mail_send_method_id TYPE="string" NOT-NULL="1" DEFAULT="mapi"/>
+
+	<use_list_async_update TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<disable_list_auto_update TYPE="bool" NOT-NULL="1"/>
+
+	<logs>
+		<http TYPE="bool" NOT-NULL="1"/>
+		<lds TYPE="bool" NOT-NULL="1"/>
+		<mail_trans TYPE="bool" NOT-NULL="1"/>
+	</logs>
+</spxml_settings_base>
+
+
+</SPXML-FORM>

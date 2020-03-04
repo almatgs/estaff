@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_object_actions SPXML-FORM="//base1/base1_std_object_actions.xmd">
+	<std_object_action>
+		<id>add_candidate_spot</id>
+		<name VALUE="##UiText.actions.select_for_vacancy##..."/>
+		<object_type_id>candidate</object_type_id>
+		<enable_expr>lib_app2.AppFeatureEnabled( 'classic_recruit' )</enable_expr>
+
+		<lib_name>lib_recruit</lib_name>
+		<mass_method_name>handle_select_candidates_for_vacancy</mass_method_name>
+
+		<show_in_context_menu>1</show_in_context_menu>
+	</std_object_action>
+
+	<std_object_action>
+		<id>add_candidate_event</id>
+		<name VALUE="##UiText.actions.change_state##..."/>
+		<object_type_id>candidate</object_type_id>
+
+		<lib_name>lib_recruit</lib_name>
+		<mass_method_name>handle_change_candidates_state</mass_method_name>
+		<show_in_context_menu>1</show_in_context_menu>
+	</std_object_action>
+
+	<std_object_action>
+		<id>send_to_cbot_first_contact</id>
+		<name VALUE="Отправить на роботизированный обзвон" lang-en:VALUE="Call via bot" lang-ua:VALUE="Надіслати на роботизований дзвінки"/>
+		<object_type_id>candidate</object_type_id>
+
+		<lib_name>lib_cbot_ui</lib_name>
+		<mass_method_name>RunActionSendToCbotFirstContact</mass_method_name>
+
+		<show_in_context_menu>1</show_in_context_menu>
+	</std_object_action>
+
+	<std_object_action>
+		<id>send_candidate_to_rr_person</id>
+		<name VALUE="Отправить контактным лицам по вакансии..." lang-en:VALUE="Send to contact persons of the vacancy..." lang-ua:VALUE="Відправити контактним особам по вакансії..."/>
+		<object_type_id>candidate</object_type_id>
+
+		<lib_name>lib_recruit</lib_name>
+		<mass_method_name>handle_send_candidates_to_rr_person</mass_method_name>
+
+		<show_in_context_menu>1</show_in_context_menu>
+	</std_object_action>
+
+	<std_object_action>
+		<id>send_candidate_to_arbitrary_person</id>
+		<name VALUE="Отправить произвольным контактным лицам..." lang-en:VALUE="Send to arbitrary contact persons..." lang-ua:VALUE="Відправити довільним контактним особам..."/>
+		<object_type_id>candidate</object_type_id>
+
+		<lib_name>lib_recruit</lib_name>
+		<mass_method_name>handle_send_candidates_to_arbitrary_person</mass_method_name>
+
+		<show_in_context_menu>1</show_in_context_menu>
+	</std_object_action>
+
+	<std_object_action>
+		<id>convert_division_to_org</id>
+		<name VALUE="Изменить подразделение (3.x) на контрагента" lang-en:VALUE="Convert division (3.x) to a company" lang-ua:VALUE="Змінити підрозділ (3.x) на контрагента"/>
+		<object_type_id>division</object_type_id>
+
+		<lib_name>lib_recruit</lib_name>
+		<mass_method_name>handle_convert_divisions_to_orgs</mass_method_name>
+	</std_object_action>
+
+	<std_object_action>
+		<id>update_candidate_state</id>
+		<name VALUE="Обновить статус" lang-en:VALUE="Update state" lang-ua:VALUE="Оновити статус"/>
+		<object_type_id>candidate</object_type_id>
+
+		<lib_name>lib_recruit</lib_name>
+		<method_name>handle_update_candidate_state</method_name>
+	</std_object_action>
+
+	<std_object_action>
+		<id>find_candidate_dup_candidates</id>
+		<name VALUE="Найти дубликаты" lang-en:VALUE="Find duplicates" lang-ua:VALUE="Знайти дублікати"/>
+		<object_type_id>candidate</object_type_id>
+
+		<lib_name>lib_candidate_dup</lib_name>
+		<mass_method_name>handle_find_candidates_dup_candidates</mass_method_name>
+
+		<show_in_context_menu>1</show_in_context_menu>
+	</std_object_action>
+</std_object_actions>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

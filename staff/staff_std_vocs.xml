@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<std_vocs SPXML-FORM="//base1/base1_std_vocs.xmd">
+	<std_voc>
+		<id>division_types</id>
+		<name VALUE="Категории подразделений" lang-en:VALUE="Division types" lang-ua:VALUE="Категорії підрозділів"/>
+		<section_id>staff</section_id>
+
+		<object_form_url>//staff/staff_division_type.xmd</object_form_url>
+		<key_type>string</key_type>
+
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>position_types</id>
+		<name VALUE="Типовые должности" lang-en:VALUE="Position types" lang-ua:VALUE="Типові посади"/>
+		<section_id>staff</section_id>
+
+		<object_form_url>//staff/staff_position_type.xmd</object_form_url>
+		<key_type>integer</key_type>
+		<auto_order>name</auto_order>
+
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>position_levels</id>
+		<name VALUE="Уровни должностей" lang-en:VALUE="Position levels" lang-ua:VALUE="Рівні посад"/>
+		<section_id>hidden</section_id>
+
+		<key_type>string</key_type>
+
+		<use_text_color>0</use_text_color>
+		<use_bk_color>0</use_bk_color>
+
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>staff_categories</id>
+		<name VALUE="##UiText.titles.staff_categories##"/>
+		<section_id>staff</section_id>
+
+		<key_type>integer</key_type>
+
+		<use_text_color>0</use_text_color>
+		<use_bk_color>0</use_bk_color>
+
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>cost_centers</id>
+		<name VALUE="Центры затрат" lang-en:VALUE="Cost centers" lang-ua:VALUE="Центри витрат"/>
+		<section_id>staff</section_id>
+
+		<key_type>string</key_type>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+	</std_voc>
+
+	<std_voc>
+		<id>professions</id>
+		<name VALUE="##UiText.titles.professions##"/>
+		<section_id>common</section_id>
+
+		<object_form_url>//staff/staff_profession.xmd</object_form_url>
+		<key_type>integer</key_type>
+		<is_hier>1</is_hier>
+
+		<is_optional_std_elems>1</is_optional_std_elems>
+		<edit_std_prohibit_fields>
+			<field>name</field>
+			<field>parent_id</field>
+		</edit_std_prohibit_fields>
+
+		<extra_actions>
+			<extra_action>
+				<name VALUE="Импорт из MS Excel..." lang-en:VALUE="Import from MS Excel..." lang-ua:VALUE="Імпорт з MS Excel..."/>
+				<code>OpenCodeLib('x-app://staff/staff_lib_uni_hier_import.js').UniPorfessionsHierImport()</code>
+			</extra_action>
+		</extra_actions>
+	</std_voc>
+
+	<std_voc>
+		<id>skill_types</id>
+		<name VALUE="##UiText.fields.skills##"/>
+		<section_id>common</section_id>
+
+		<object_form_url>//staff/staff_skill_type.xmd</object_form_url>
+		<key_type>string</key_type>
+		<is_hier>1</is_hier>
+
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>employee_states</id>
+		<name VALUE="Статусы сотрудника" lang-en:VALUE="Employee statuses" lang-ua:VALUE="Статуси співробітника"/>
+		<section_id>staff</section_id>
+
+		<key_type>string</key_type>
+	</std_voc>
+
+	<std_voc>
+		<id>person_struct_role_types</id>
+		<name VALUE="##UiText.titles.struct_roles##"/>
+		<section_id>staff</section_id>
+
+		<key_type>string</key_type>
+
+		<use_text_color>1</use_text_color>
+		<use_bk_color>1</use_bk_color>
+	</std_voc>
+
+	<std_voc>
+		<id>training_programs</id>
+		<name VALUE="##UiText.titles.training_programs##"/>
+		<section_id></section_id>
+
+		<object_form_url>//staff/staff_training_program.xmd</object_form_url>
+		<key_type>string</key_type>
+	</std_voc>
+
+	<std_voc>
+		<id>testing_systems</id>
+		<name VALUE="Внешние системы тестирования" lang-en:VALUE="External testing systems" lang-ua:VALUE="Зовнішні системи тестування"/>
+		<section_id>integration</section_id>
+
+		<object_form_url>//staff/staff_testing_system.xmd</object_form_url>
+		<key_type>string</key_type>
+
+		<edit_std_prohibit_fields>
+			<field>name</field>
+		</edit_std_prohibit_fields>
+	</std_voc>
+
+	<std_voc>
+		<id>external_tests</id>
+		<name VALUE="Внешние тесты" lang-en:VALUE="External tests" lang-ua:VALUE="Зовнішні тести"/>
+		<section_id>integration</section_id>
+
+		<object_form_url>//staff/staff_external_test.xmd</object_form_url>
+		<key_type>string</key_type>
+		<selector_type>dlg</selector_type>
+
+		<extra_actions>
+			<extra_action>
+				<name VALUE="##UiText.actions.load##..."/>
+				<code>lib_testing.load_all_external_tests()</code>
+			</extra_action>
+		</extra_actions>
+
+		<edit_std_prohibit>0</edit_std_prohibit>
+		<is_optional_std_elems>1</is_optional_std_elems>
+	</std_voc>
+
+	<std_voc>
+		<id>testing_samples</id>
+		<name VALUE="Наборы тестов" lang-en:VALUE="Tests sets" lang-ua:VALUE="Набори тестів"/>
+		<section_id>integration</section_id>
+
+		<object_form_url>//staff/staff_testing_sample.xmd</object_form_url>
+		<key_type>string</key_type>
+		<selector_type>dlg</selector_type>
+	</std_voc>
+</std_vocs>
+

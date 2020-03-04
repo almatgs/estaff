@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<web_form SPXML-FORM="//base1/base1_web_form.xmd">
+	<object_type_id>candidate</object_type_id>
+	<title>Карточка кандидата</title>
+
+	<fields>
+		<field>
+			<id>fullname</id>
+		</field>
+		<field>
+			<id>birth_date</id>
+		</field>
+		<field>
+			<id>location_id</id>
+		</field>
+		<field>
+			<id>address</id>
+		</field>
+		<field>
+			<id>marital_status_id</id>
+		</field>
+		<field>
+			<id>children_num</id>
+		</field>
+
+		<field>
+			<id>educ_type_id</id>
+		</field>
+		<field>
+			<id>disp_phone</id>
+		</field>
+		<field>
+			<id>email</id>
+		</field>
+
+		<field>
+			<id>entrance_type_id</id>
+		</field>
+		<field>
+			<id>source_id</id>
+		</field>
+		<field>
+			<id>profession_id</id>
+		</field>
+		<field>
+			<id>exp_years</id>
+		</field>
+		<field>
+			<id>salary</id>
+		</field>
+		<field>
+			<id>score</id>
+		</field>
+
+		<field>
+			<id>prev_educations</id>
+			<is_array>0</is_array>
+
+			<fields>
+				<field>
+					<id>start_date</id>
+					<title>Дата начала</title>
+				</field>
+				<field>
+					<id>end_date</id>
+					<title>Дата окончания</title>
+				</field>
+				<field>
+					<id>org_name</id>
+					<title>Организация</title>
+				</field>
+				<field>
+					<id>speciality_name</id>
+					<title>Специальность</title>
+				</field>
+				<field>
+					<id>comment</id>
+				</field>
+			</fields>
+		</field>
+
+		<field>
+			<id>prev_jobs</id>
+			<is_array>0</is_array>
+
+			<fields>
+				<field>
+					<id>start_date</id>
+					<title>Дата начала</title>
+				</field>
+				<field>
+					<id>end_date</id>
+					<title>Дата окончания</title>
+				</field>
+				<field>
+					<id>org_name</id>
+					<title>Организация</title>
+				</field>
+				<field>
+					<id>position_name</id>
+					<title>Должность</title>
+				</field>
+				<field>
+					<id>comment</id>
+					<title>Обязанности</title>
+				</field>
+			</fields>
+		</field>
+	</fields>
+</web_form>
+
+
+
+
+
+
+

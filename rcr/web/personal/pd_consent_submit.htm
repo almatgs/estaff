@@ -1,0 +1,42 @@
+﻿<%
+Request.RespWriteMode = 'single';
+
+if ( ! global_settings.pd_processing.auto_consent_request )
+	throw UiError( 'Page disabled' );
+
+if ( global_settings.pd_processing.consent_request_method != 'own_page' )
+	throw UiError( 'Page disabled' );
+
+candidateID = Request.Form.candidate_id;
+if ( candidateID == '' )
+	throw UiError( 'Required parameter missing: candidate_id' );
+
+candidateID = Int( candidateID );
+
+candidate = ArrayOptFirstElem( XQuery( 'for $elem in candidates where $elem/id = ' + XQueryLiteral( candidateID ) + ' return $elem' ) );
+if ( candidate == undefined )
+	throw UiError( 'Candidate is not found' );
+
+candidateDoc = OpenDoc( candidate.ObjectUrl );
+candidate = candidateDoc.TopElem;
+candidate.pd_consent_received = true;
+candidate.pd_consent_date = CurDate;
+candidateDoc.RunActionOnSave = false;
+candidateDoc.Save();
+
+EnableLog( 'pd-consent', true );
+LogEvent( 'pd-consent', 'PD processing consent received.\t' + candidate.fullname + '\t' + Request.RemoteIP );
+%><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Согласие на обработку персональных даннык</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<p>Согласие отправлено. Благодарим вас!</p>
+
+</body>
+</html>

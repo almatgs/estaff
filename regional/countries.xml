@@ -1,0 +1,1741 @@
+<?xml version="1.0" encoding="utf-8"?>
+<std_countries SPXML-FORM="//base2/base2_std_countries.xmd" xmlns:lang-en="http://www.datex-soft.com/ns/lang-en/" xmlns:lang-ru="http://www.datex-soft.com/ns/lang-ru/" xmlns:lang-ua="http://www.datex-soft.com/ns/lang-ua/" xmlns:lang-et="http://www.datex-soft.com/ns/lang-et/">
+	<std_country>
+		<id>BLR</id>
+		<name VALUE="Белоруссия" lang-en:VALUE="Belarus" lang-ua:VALUE="Білорусь" lang-et:VALUE="Valgevene"/>
+		<currency_id>BYR</currency_id>
+		<phone_code>375</phone_code>
+		<full_name VALUE="Республика Беларусь" lang-en:VALUE="Republic of Belarus" lang-ua:VALUE="Республика Беларусь"/>
+	</std_country>
+	<std_country>
+		<id>KAZ</id>
+		<name VALUE="Казахстан" lang-en:VALUE="Kazakhstan" lang-ua:VALUE="Казахстан" lang-et:VALUE="Kasahstan"/>
+		<currency_id>KZT</currency_id>
+		<phone_code>76</phone_code>
+		<full_name VALUE="Республика Казахстан" lang-en:VALUE="Republic of Kazakhstan" lang-ua:VALUE="Республика Казахстан"/>
+	</std_country>
+	<std_country>
+		<id>RUS</id>
+		<name VALUE="Россия" lang-en:VALUE="Russia" lang-ua:VALUE="Росія" lang-et:VALUE="Venemaa"/>
+		<currency_id>RUB</currency_id>
+		<phone_code>7</phone_code>
+		<full_name VALUE="Российская Федерация" lang-en:VALUE="Russian Federation" lang-ua:VALUE="Російська Федерація"/>
+	</std_country>
+	<std_country>
+		<id>UKR</id>
+		<name VALUE="Украина" lang-en:VALUE="Ukraine" lang-ua:VALUE="Україна" lang-et:VALUE="Ukraina"/>
+		<currency_id>UAH</currency_id>
+		<phone_code>380</phone_code>
+		<region_phone_code_len>2</region_phone_code_len>
+		<full_name VALUE="Украина" lang-en:VALUE="Ukraine" lang-ua:VALUE="Украина"/>
+	</std_country>
+	<std_country>
+		<id>ABW</id>
+		<name VALUE="Аруба" lang-en:VALUE="Aruba" lang-ua:VALUE="Аруба" lang-et:VALUE="Aruba"/>
+		<currency_id>AWG</currency_id>
+		<phone_code>297</phone_code>
+		<full_name VALUE="Аруба" lang-en:VALUE="Aruba" lang-ua:VALUE="Аруба"/>
+	</std_country>
+	<std_country>
+		<id>AFG</id>
+		<name VALUE="Афганистан" lang-en:VALUE="Afghanistan" lang-ua:VALUE="Афганистан" lang-et:VALUE="Afganistan"/>
+		<currency_id>AFN</currency_id>
+		<phone_code>93</phone_code>
+		<full_name VALUE="Исламская Республика Афганистан" lang-en:VALUE="Islamic Republic of Afghanistan" lang-ua:VALUE="Исламская Республика Афганистан"/>
+	</std_country>
+	<std_country>
+		<id>AGO</id>
+		<name VALUE="Ангола" lang-en:VALUE="Angola" lang-ua:VALUE="Ангола" lang-et:VALUE="Angola"/>
+		<currency_id>AOA</currency_id>
+		<phone_code>244</phone_code>
+		<full_name VALUE="Республика Ангола" lang-en:VALUE="Republic of Angola" lang-ua:VALUE="Республика Ангола"/>
+	</std_country>
+	<std_country>
+		<id>AIA</id>
+		<name VALUE="Ангилья" lang-en:VALUE="Anguilla" lang-ua:VALUE="Ангилья" lang-et:VALUE="Anguilla"/>
+		<currency_id>XCD</currency_id>
+		<phone_code>1264</phone_code>
+		<full_name VALUE="Ангилья" lang-en:VALUE="Anguilla" lang-ua:VALUE="Ангилья"/>
+	</std_country>
+	<std_country>
+		<id>ALA</id>
+		<name VALUE="Аландские острова" lang-en:VALUE="Aland Islands" lang-ua:VALUE="Аландские острова" lang-et:VALUE="Ahvenamaa"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>358</phone_code>
+		<full_name VALUE="Аландские острова" lang-en:VALUE="Aland Islands" lang-ua:VALUE="Аландские острова"/>
+	</std_country>
+	<std_country>
+		<id>ALB</id>
+		<name VALUE="Албания" lang-en:VALUE="Albania" lang-ua:VALUE="Албания" lang-et:VALUE="Albaania"/>
+		<currency_id>ALL</currency_id>
+		<phone_code>355</phone_code>
+		<full_name VALUE="Республика Албания" lang-en:VALUE="Republic of Albania" lang-ua:VALUE="Республика Албания"/>
+	</std_country>
+	<std_country>
+		<id>AND</id>
+		<name VALUE="Андорра" lang-en:VALUE="Andorra" lang-ua:VALUE="Андорра" lang-et:VALUE="Andorra"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>376</phone_code>
+		<full_name VALUE="Княжество Андорра" lang-en:VALUE="Principality of Andorra" lang-ua:VALUE="Княжество Андорра"/>
+	</std_country>
+	<std_country>
+		<id>ARE</id>
+		<name VALUE="Объединённые Арабские Эмираты" lang-en:VALUE="United Arab Emirates" lang-ua:VALUE="Объединённые Арабские Эмираты" lang-et:VALUE="Araabia Ühendemiraadid"/>
+		<currency_id>AED</currency_id>
+		<phone_code>971</phone_code>
+		<full_name VALUE="Объединенные Арабские Эмираты" lang-en:VALUE="United Arab Emirates" lang-ua:VALUE="Объединенные Арабские Эмираты"/>
+	</std_country>
+	<std_country>
+		<id>ARG</id>
+		<name VALUE="Аргентина" lang-en:VALUE="Argentina" lang-ua:VALUE="Аргентина" lang-et:VALUE="Argentina"/>
+		<currency_id>ARS</currency_id>
+		<phone_code>54</phone_code>
+		<full_name VALUE="Аргентинская Республика" lang-en:VALUE="Argentine Republic" lang-ua:VALUE="Аргентинская Республика"/>
+	</std_country>
+	<std_country>
+		<id>ARM</id>
+		<name VALUE="Армения" lang-en:VALUE="Armenia" lang-ua:VALUE="Армения" lang-et:VALUE="Armeenia"/>
+		<currency_id>AMD</currency_id>
+		<phone_code>374</phone_code>
+		<full_name VALUE="Республика Армения" lang-en:VALUE="Republic of Armenia" lang-ua:VALUE="Республика Армения"/>
+	</std_country>
+	<std_country>
+		<id>ASM</id>
+		<name VALUE="Американское Самоа" lang-en:VALUE="American Samoa" lang-ua:VALUE="Американское Самоа" lang-et:VALUE="Ameerika Samoa"/>
+		<currency_id>USD</currency_id>
+		<phone_code>1684</phone_code>
+		<full_name VALUE="американское Самоа" lang-en:VALUE="American Samoa" lang-ua:VALUE="американское Самоа"/>
+	</std_country>
+	<std_country>
+		<id>ATA</id>
+		<name VALUE="Антарктида" lang-en:VALUE="Antarctica" lang-ua:VALUE="Антарктида" lang-et:VALUE="Anta"/>
+		<currency_id/>
+		<phone_code/>
+		<full_name VALUE="Антарктида" lang-en:VALUE="Antarctica" lang-ua:VALUE="Антарктида"/>
+	</std_country>
+	<std_country>
+		<id>ATF</id>
+		<name VALUE="Французские Южные и Антарктические территории" lang-en:VALUE="French Southern and Antarctic Lands" lang-ua:VALUE="Французские Южные и Антарктические территории" lang-et:VALUE="Prantsuse Lõunaalad"/>
+		<currency_id>EUR</currency_id>
+		<phone_code/>
+		<full_name VALUE="Территория Французские Южные и Антарктические земли" lang-en:VALUE="Territory of the French Southern and Antarctic Lands" lang-ua:VALUE="Территория Французские Южные и Антарктические земли"/>
+	</std_country>
+	<std_country>
+		<id>ATG</id>
+		<name VALUE="Антигуа и Барбуда" lang-en:VALUE="Antigua and Barbuda" lang-ua:VALUE="Антигуа и Барбуда" lang-et:VALUE="Antigua ja Barbuda"/>
+		<currency_id>XCD</currency_id>
+		<phone_code>1268</phone_code>
+		<full_name VALUE="Антигуа и Барбуда" lang-en:VALUE="Antigua and Barbuda" lang-ua:VALUE="Антигуа и Барбуда"/>
+	</std_country>
+	<std_country>
+		<id>AUS</id>
+		<name VALUE="Австралия" lang-en:VALUE="Australia" lang-ua:VALUE="Австралия" lang-et:VALUE="Austraalia"/>
+		<currency_id>AUD</currency_id>
+		<phone_code>61</phone_code>
+		<region_phone_code_len>1</region_phone_code_len>
+		<full_name VALUE="Содружество Австралии" lang-en:VALUE="Commonwealth of Australia" lang-ua:VALUE="Содружество Австралии"/>
+	</std_country>
+	<std_country>
+		<id>AUT</id>
+		<name VALUE="Австрия" lang-en:VALUE="Austria" lang-ua:VALUE="Австрия" lang-et:VALUE="Austria"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>43</phone_code>
+		<full_name VALUE="Австрийская Республика" lang-en:VALUE="Republic of Austria" lang-ua:VALUE="Австрийская Республика"/>
+	</std_country>
+	<std_country>
+		<id>AZE</id>
+		<name VALUE="Азербайджан" lang-en:VALUE="Azerbaijan" lang-ua:VALUE="Азербайджан" lang-et:VALUE="Aserbaidžaan"/>
+		<currency_id>AZN</currency_id>
+		<phone_code>994</phone_code>
+		<full_name VALUE="Азербайджанская Республика" lang-en:VALUE="Republic of Azerbaijan" lang-ua:VALUE="Азербайджанская Республика"/>
+	</std_country>
+	<std_country>
+		<id>BDI</id>
+		<name VALUE="Бурунди" lang-en:VALUE="Burundi" lang-ua:VALUE="Бурунди" lang-et:VALUE="Burundi"/>
+		<currency_id>BIF</currency_id>
+		<phone_code>257</phone_code>
+		<full_name VALUE="Республика Бурунди" lang-en:VALUE="Republic of Burundi" lang-ua:VALUE="Республика Бурунди"/>
+	</std_country>
+	<std_country>
+		<id>BEL</id>
+		<name VALUE="Бельгия" lang-en:VALUE="Belgium" lang-ua:VALUE="Бельгия" lang-et:VALUE="Belgia"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>32</phone_code>
+		<full_name VALUE="Королевство Бельгия" lang-en:VALUE="Kingdom of Belgium" lang-ua:VALUE="Королевство Бельгия"/>
+	</std_country>
+	<std_country>
+		<id>BEN</id>
+		<name VALUE="Бенин" lang-en:VALUE="Benin" lang-ua:VALUE="Бенин" lang-et:VALUE="Benin"/>
+		<currency_id>XOF</currency_id>
+		<phone_code>229</phone_code>
+		<full_name VALUE="Республика Бенин" lang-en:VALUE="Republic of Benin" lang-ua:VALUE="Республика Бенин"/>
+	</std_country>
+	<std_country>
+		<id>BFA</id>
+		<name VALUE="Буркина-Фасо" lang-en:VALUE="Burkina Faso" lang-ua:VALUE="Буркина-Фасо" lang-et:VALUE="Burkina Faso"/>
+		<currency_id>XOF</currency_id>
+		<phone_code>226</phone_code>
+		<full_name VALUE="Буркина -Фасо" lang-en:VALUE="Burkina Faso" lang-ua:VALUE="Буркина -Фасо"/>
+	</std_country>
+	<std_country>
+		<id>BGD</id>
+		<name VALUE="Бангладеш" lang-en:VALUE="Bangladesh" lang-ua:VALUE="Бангладеш" lang-et:VALUE="Bangladesh"/>
+		<currency_id>BDT</currency_id>
+		<phone_code>880</phone_code>
+		<full_name VALUE="Народная Республика Бангладеш" lang-en:VALUE="People's Republic of Bangladesh" lang-ua:VALUE="Народная Республика Бангладеш"/>
+	</std_country>
+	<std_country>
+		<id>BGR</id>
+		<name VALUE="Болгария" lang-en:VALUE="Bulgaria" lang-ua:VALUE="Болгария" lang-et:VALUE="Bulgaaria"/>
+		<currency_id>BGN</currency_id>
+		<phone_code>359</phone_code>
+		<full_name VALUE="Республика Болгария" lang-en:VALUE="Republic of Bulgaria" lang-ua:VALUE="Республика Болгария"/>
+	</std_country>
+	<std_country>
+		<id>BHR</id>
+		<name VALUE="Бахрейн" lang-en:VALUE="Bahrain" lang-ua:VALUE="Бахрейн" lang-et:VALUE="Bahrein"/>
+		<currency_id>BHD</currency_id>
+		<phone_code>973</phone_code>
+		<full_name VALUE="Королевство Бахрейн" lang-en:VALUE="Kingdom of Bahrain" lang-ua:VALUE="Королевство Бахрейн"/>
+	</std_country>
+	<std_country>
+		<id>BHS</id>
+		<name VALUE="Багамские Острова" lang-en:VALUE="Bahamas" lang-ua:VALUE="Багамские Острова" lang-et:VALUE="Bahama"/>
+		<currency_id>BSD</currency_id>
+		<phone_code>1242</phone_code>
+		<full_name VALUE="Содружество Багамских Островов" lang-en:VALUE="Commonwealth of the Bahamas" lang-ua:VALUE="Содружество Багамских Островов"/>
+	</std_country>
+	<std_country>
+		<id>BIH</id>
+		<name VALUE="Босния и Герцеговина" lang-en:VALUE="Bosnia and Herzegovina" lang-ua:VALUE="Босния и Герцеговина" lang-et:VALUE="Bosnia ja Hertsegoviina"/>
+		<currency_id>BAM</currency_id>
+		<phone_code>387</phone_code>
+		<full_name VALUE="Босния и Герцеговина" lang-en:VALUE="Bosnia and Herzegovina" lang-ua:VALUE="Босния и Герцеговина"/>
+	</std_country>
+	<std_country>
+		<id>BLM</id>
+		<name VALUE="Сен-Бартелеми" lang-en:VALUE="Saint Barthelemy" lang-ua:VALUE="Сен-Бартелеми" lang-et:VALUE="Saint-Barthélemy"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>590</phone_code>
+		<full_name VALUE="Коллективность Санкт -БартельмиСент Бартелеми" lang-en:VALUE="Collectivity of Saint BarthelemySaint Barthelemy" lang-ua:VALUE="Коллективность Санкт -БартельмиСент Бартелеми"/>
+	</std_country>
+	<std_country>
+		<id>BLZ</id>
+		<name VALUE="Белиз" lang-en:VALUE="Belize" lang-ua:VALUE="Белиз" lang-et:VALUE="Belize"/>
+		<currency_id>BZD</currency_id>
+		<phone_code>501</phone_code>
+		<full_name VALUE="Белиз" lang-en:VALUE="Belize" lang-ua:VALUE="Белиз"/>
+	</std_country>
+	<std_country>
+		<id>BMU</id>
+		<name VALUE="Бермудские Острова" lang-en:VALUE="Bermuda" lang-ua:VALUE="Бермудские Острова" lang-et:VALUE="Bermuda"/>
+		<currency_id>BMD</currency_id>
+		<phone_code>1441</phone_code>
+		<full_name VALUE="Бермудские острова" lang-en:VALUE="Bermuda" lang-ua:VALUE="Бермудские острова"/>
+	</std_country>
+	<std_country>
+		<id>BOL</id>
+		<name VALUE="Боливия" lang-en:VALUE="Bolivia" lang-ua:VALUE="Боливия" lang-et:VALUE="Boliivia"/>
+		<currency_id>BOB</currency_id>
+		<phone_code>591</phone_code>
+		<full_name VALUE="Многонациональное Государство Боливия" lang-en:VALUE="Plurinational State of Bolivia" lang-ua:VALUE="Многонациональное Государство Боливия"/>
+	</std_country>
+	<std_country>
+		<id>BRA</id>
+		<name VALUE="Бразилия" lang-en:VALUE="Brazil" lang-ua:VALUE="Бразилия" lang-et:VALUE="Brasiilia"/>
+		<currency_id>BRL</currency_id>
+		<phone_code>55</phone_code>
+		<full_name VALUE="Федеративная Республика Бразилия" lang-en:VALUE="Federative Republic of Brazil" lang-ua:VALUE="Федеративная Республика Бразилия"/>
+	</std_country>
+	<std_country>
+		<id>BRB</id>
+		<name VALUE="Барбадос" lang-en:VALUE="Barbados" lang-ua:VALUE="Барбадос" lang-et:VALUE="Barbados"/>
+		<currency_id>BBD</currency_id>
+		<phone_code>1246</phone_code>
+		<full_name VALUE="Барбадос" lang-en:VALUE="Barbados" lang-ua:VALUE="Барбадос"/>
+	</std_country>
+	<std_country>
+		<id>BRN</id>
+		<name VALUE="Бруней" lang-en:VALUE="Brunei" lang-ua:VALUE="Бруней" lang-et:VALUE="Brunei"/>
+		<currency_id>BND</currency_id>
+		<phone_code>673</phone_code>
+		<full_name VALUE="Нация Бруней, обитель мира" lang-en:VALUE="Nation of Brunei, Abode of Peace" lang-ua:VALUE="Нация Бруней, обитель мира"/>
+	</std_country>
+	<std_country>
+		<id>BTN</id>
+		<name VALUE="Бутан" lang-en:VALUE="Bhutan" lang-ua:VALUE="Бутан" lang-et:VALUE="Bhutan"/>
+		<currency_id>BTN</currency_id>
+		<phone_code>975</phone_code>
+		<full_name VALUE="Королевство Бутан" lang-en:VALUE="Kingdom of Bhutan" lang-ua:VALUE="Королевство Бутан"/>
+	</std_country>
+	<std_country>
+		<id>BVT</id>
+		<name VALUE="Остров Буве" lang-en:VALUE="Bouvet Island" lang-ua:VALUE="Остров Буве" lang-et:VALUE="Flag of Norw"/>
+		<currency_id>NOK</currency_id>
+		<phone_code/>
+		<full_name VALUE="Остров Буве" lang-en:VALUE="Bouvet Island" lang-ua:VALUE="Остров Буве"/>
+	</std_country>
+	<std_country>
+		<id>BWA</id>
+		<name VALUE="Ботсвана" lang-en:VALUE="Botswana" lang-ua:VALUE="Ботсвана" lang-et:VALUE="Botswana"/>
+		<currency_id>BWP</currency_id>
+		<phone_code>267</phone_code>
+		<full_name VALUE="Республика Ботсвана" lang-en:VALUE="Republic of Botswana" lang-ua:VALUE="Республика Ботсвана"/>
+	</std_country>
+	<std_country>
+		<id>CAF</id>
+		<name VALUE="Центральноафриканская Республика" lang-en:VALUE="Central African Republic" lang-ua:VALUE="Центральноафриканская Республика" lang-et:VALUE="Kesk-Aafrika Vabariik"/>
+		<currency_id>XAF</currency_id>
+		<phone_code>236</phone_code>
+		<full_name VALUE="Центрально-Африканская Республика" lang-en:VALUE="Central African Republic" lang-ua:VALUE="Центрально-Африканская Республика"/>
+	</std_country>
+	<std_country>
+		<id>CAN</id>
+		<name VALUE="Канада" lang-en:VALUE="Canada" lang-ua:VALUE="Канада" lang-et:VALUE="Kanada"/>
+		<currency_id>CAD</currency_id>
+		<phone_code>1</phone_code>
+		<full_name VALUE="Канада" lang-en:VALUE="Canada" lang-ua:VALUE="Канада"/>
+	</std_country>
+	<std_country>
+		<id>CCK</id>
+		<name VALUE="Кокосовые острова" lang-en:VALUE="Cocos (Keeling) Islands" lang-ua:VALUE="Кокосовые острова" lang-et:VALUE="Kookossaared"/>
+		<currency_id>AUD</currency_id>
+		<phone_code>61</phone_code>
+		<full_name VALUE="Территория Кокосовые (Килинг) острова" lang-en:VALUE="Territory of the Cocos (Keeling) Islands" lang-ua:VALUE="Территория Кокосовые (Килинг) острова"/>
+	</std_country>
+	<std_country>
+		<id>CHE</id>
+		<name VALUE="Швейцария" lang-en:VALUE="Switzerland" lang-ua:VALUE="Швейцария" lang-et:VALUE="Šveits"/>
+		<currency_id>CHE</currency_id>
+		<phone_code>41</phone_code>
+		<full_name VALUE="Швейцарская Конфедерация" lang-en:VALUE="Swiss Confederation" lang-ua:VALUE="Швейцарская Конфедерация"/>
+	</std_country>
+	<std_country>
+		<id>CHL</id>
+		<name VALUE="Чили" lang-en:VALUE="Chile" lang-ua:VALUE="Чили" lang-et:VALUE="Tšiili"/>
+		<currency_id>CLF</currency_id>
+		<phone_code>56</phone_code>
+		<full_name VALUE="Республика Чили" lang-en:VALUE="Republic of Chile" lang-ua:VALUE="Республика Чили"/>
+	</std_country>
+	<std_country>
+		<id>CHN</id>
+		<name VALUE="Китай" lang-en:VALUE="China" lang-ua:VALUE="Китай" lang-et:VALUE="Hiina"/>
+		<currency_id>CNY</currency_id>
+		<phone_code>86</phone_code>
+		<full_name VALUE="Народная Республика Китай" lang-en:VALUE="People's Republic of China" lang-ua:VALUE="Народная Республика Китай"/>
+	</std_country>
+	<std_country>
+		<id>CIV</id>
+		<name VALUE="Кот-д’Ивуар" lang-en:VALUE="Ivory Coast" lang-ua:VALUE="Кот-д’Ивуар" lang-et:VALUE="Elevandiluurannik"/>
+		<currency_id>XOF</currency_id>
+		<phone_code>225</phone_code>
+		<full_name VALUE="Республика Кот- д'Ивуаре" lang-en:VALUE="Republic of Cote d'Ivoire" lang-ua:VALUE="Республика Кот- д'Ивуаре"/>
+	</std_country>
+	<std_country>
+		<id>CMR</id>
+		<name VALUE="Камерун" lang-en:VALUE="Cameroon" lang-ua:VALUE="Камерун" lang-et:VALUE="Kamerun"/>
+		<currency_id>XAF</currency_id>
+		<phone_code>237</phone_code>
+		<full_name VALUE="Республика Камерун" lang-en:VALUE="Republic of Cameroon" lang-ua:VALUE="Республика Камерун"/>
+	</std_country>
+	<std_country>
+		<id>COD</id>
+		<name VALUE="Демократическая Республика Конго" lang-en:VALUE="DR Congo" lang-ua:VALUE="Демократическая Республика Конго" lang-et:VALUE="Kongo Demokraatlik Vabariik"/>
+		<currency_id>CDF</currency_id>
+		<phone_code>243</phone_code>
+		<full_name VALUE="Демократическая Республика Конго" lang-en:VALUE="Democratic Republic of the Congo" lang-ua:VALUE="Демократическая Республика Конго"/>
+	</std_country>
+	<std_country>
+		<id>COG</id>
+		<name VALUE="Республика Конго" lang-en:VALUE="Republic of the Congo" lang-ua:VALUE="Республика Конго" lang-et:VALUE="Kongo Vabariik"/>
+		<currency_id>XAF</currency_id>
+		<phone_code>242</phone_code>
+		<full_name VALUE="Республика Конго" lang-en:VALUE="Republic of the Congo" lang-ua:VALUE="Республика Конго"/>
+	</std_country>
+	<std_country>
+		<id>COK</id>
+		<name VALUE="Острова Кука" lang-en:VALUE="Cook Islands" lang-ua:VALUE="Острова Кука" lang-et:VALUE="Cooki saared"/>
+		<currency_id>NZD</currency_id>
+		<phone_code>682</phone_code>
+		<full_name VALUE="острова Кука" lang-en:VALUE="Cook Islands" lang-ua:VALUE="острова Кука"/>
+	</std_country>
+	<std_country>
+		<id>COL</id>
+		<name VALUE="Колумбия" lang-en:VALUE="Colombia" lang-ua:VALUE="Колумбия" lang-et:VALUE="Colombia"/>
+		<currency_id>COP</currency_id>
+		<phone_code>57</phone_code>
+		<full_name VALUE="Республика Колумбия" lang-en:VALUE="Republic of Colombia" lang-ua:VALUE="Республика Колумбия"/>
+	</std_country>
+	<std_country>
+		<id>COM</id>
+		<name VALUE="Коморы" lang-en:VALUE="Comoros" lang-ua:VALUE="Коморы" lang-et:VALUE="Komoorid"/>
+		<currency_id>KMF</currency_id>
+		<phone_code>269</phone_code>
+		<full_name VALUE="Союз Коморских Островов" lang-en:VALUE="Union of the Comoros" lang-ua:VALUE="Союз Коморских Островов"/>
+	</std_country>
+	<std_country>
+		<id>CPV</id>
+		<name VALUE="Кабо-Верде" lang-en:VALUE="Cape Verde" lang-ua:VALUE="Кабо-Верде" lang-et:VALUE="Roheneemesaared"/>
+		<currency_id>CVE</currency_id>
+		<phone_code>238</phone_code>
+		<full_name VALUE="Республика Кабо -Верде" lang-en:VALUE="Republic of Cabo Verde" lang-ua:VALUE="Республика Кабо -Верде"/>
+	</std_country>
+	<std_country>
+		<id>CRI</id>
+		<name VALUE="Коста-Рика" lang-en:VALUE="Costa Rica" lang-ua:VALUE="Коста-Рика" lang-et:VALUE="Costa Rica"/>
+		<currency_id>CRC</currency_id>
+		<phone_code>506</phone_code>
+		<full_name VALUE="Республика Коста-Рика" lang-en:VALUE="Republic of Costa Rica" lang-ua:VALUE="Республика Коста-Рика"/>
+	</std_country>
+	<std_country>
+		<id>CUB</id>
+		<name VALUE="Куба" lang-en:VALUE="Cuba" lang-ua:VALUE="Куба" lang-et:VALUE="Kuuba"/>
+		<currency_id>CUC</currency_id>
+		<phone_code>53</phone_code>
+		<full_name VALUE="Республика Куба" lang-en:VALUE="Republic of Cuba" lang-ua:VALUE="Республика Куба"/>
+	</std_country>
+	<std_country>
+		<id>CUW</id>
+		<name VALUE="Кюрасао" lang-en:VALUE="Curacao" lang-ua:VALUE="Кюрасао"/>
+		<currency_id>ANG</currency_id>
+		<phone_code>5999</phone_code>
+		<full_name VALUE="Страна Кюрасао" lang-en:VALUE="Country of Curacao" lang-ua:VALUE="Страна Кюрасао"/>
+	</std_country>
+	<std_country>
+		<id>CXR</id>
+		<name VALUE="Остров Рождества" lang-en:VALUE="Christmas Island" lang-ua:VALUE="Остров Рождества" lang-et:VALUE="Jõulusaar"/>
+		<currency_id>AUD</currency_id>
+		<phone_code>61</phone_code>
+		<full_name VALUE="Территория острова Рождества" lang-en:VALUE="Territory of Christmas Island" lang-ua:VALUE="Территория острова Рождества"/>
+	</std_country>
+	<std_country>
+		<id>CYM</id>
+		<name VALUE="Каймановы острова" lang-en:VALUE="Cayman Islands" lang-ua:VALUE="Каймановы острова" lang-et:VALUE="Kaimanisaared"/>
+		<currency_id>KYD</currency_id>
+		<phone_code>1345</phone_code>
+		<full_name VALUE="Каймановы острова" lang-en:VALUE="Cayman Islands" lang-ua:VALUE="Каймановы острова"/>
+	</std_country>
+	<std_country>
+		<id>CYP</id>
+		<name VALUE="Кипр" lang-en:VALUE="Cyprus" lang-ua:VALUE="Кипр" lang-et:VALUE="Küpros"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>357</phone_code>
+		<full_name VALUE="Республика Кипр" lang-en:VALUE="Republic of Cyprus" lang-ua:VALUE="Республика Кипр"/>
+	</std_country>
+	<std_country>
+		<id>CZE</id>
+		<name VALUE="Чехия" lang-en:VALUE="Czech Republic" lang-ua:VALUE="Чехия" lang-et:VALUE="Tšehhi"/>
+		<currency_id>CZK</currency_id>
+		<phone_code>420</phone_code>
+		<full_name VALUE="Чешская Республика" lang-en:VALUE="Czech Republic" lang-ua:VALUE="Чешская Республика"/>
+	</std_country>
+	<std_country>
+		<id>DEU</id>
+		<name VALUE="Германия" lang-en:VALUE="Germany" lang-ua:VALUE="Германия" lang-et:VALUE="Saksamaa"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>49</phone_code>
+		<full_name VALUE="Федеративная Республика Германия" lang-en:VALUE="Federal Republic of Germany" lang-ua:VALUE="Федеративная Республика Германия"/>
+	</std_country>
+	<std_country>
+		<id>DJI</id>
+		<name VALUE="Джибути" lang-en:VALUE="Djibouti" lang-ua:VALUE="Джибути" lang-et:VALUE="Djibouti"/>
+		<currency_id>DJF</currency_id>
+		<phone_code>253</phone_code>
+		<full_name VALUE="Республика Джибути" lang-en:VALUE="Republic of Djibouti" lang-ua:VALUE="Республика Джибути"/>
+	</std_country>
+	<std_country>
+		<id>DMA</id>
+		<name VALUE="Доминика" lang-en:VALUE="Dominica" lang-ua:VALUE="Доминика" lang-et:VALUE="Dominica"/>
+		<currency_id>XCD</currency_id>
+		<phone_code>1767</phone_code>
+		<full_name VALUE="Содружество Доминики" lang-en:VALUE="Commonwealth of Dominica" lang-ua:VALUE="Содружество Доминики"/>
+	</std_country>
+	<std_country>
+		<id>DNK</id>
+		<name VALUE="Дания" lang-en:VALUE="Denmark" lang-ua:VALUE="Дания" lang-et:VALUE="Taani"/>
+		<currency_id>DKK</currency_id>
+		<phone_code>45</phone_code>
+		<full_name VALUE="Королевство Дания" lang-en:VALUE="Kingdom of Denmark" lang-ua:VALUE="Королевство Дания"/>
+	</std_country>
+	<std_country>
+		<id>DOM</id>
+		<name VALUE="Доминиканская Республика" lang-en:VALUE="Dominican Republic" lang-ua:VALUE="Доминиканская Республика" lang-et:VALUE="Dominikaani Vabariik"/>
+		<currency_id>DOP</currency_id>
+		<phone_code>1809</phone_code>
+		<full_name VALUE="Доминиканская Республика" lang-en:VALUE="Dominican Republic" lang-ua:VALUE="Доминиканская Республика"/>
+	</std_country>
+	<std_country>
+		<id>DZA</id>
+		<name VALUE="Алжир" lang-en:VALUE="Algeria" lang-ua:VALUE="Алжир" lang-et:VALUE="Alžeeria"/>
+		<currency_id>DZD</currency_id>
+		<phone_code>213</phone_code>
+		<full_name VALUE="Народно-Демократическая Республика Алжир" lang-en:VALUE="People's Democratic Republic of Algeria" lang-ua:VALUE="Народно-Демократическая Республика Алжир"/>
+	</std_country>
+	<std_country>
+		<id>ECU</id>
+		<name VALUE="Эквадор" lang-en:VALUE="Ecuador" lang-ua:VALUE="Эквадор" lang-et:VALUE="Ecuador"/>
+		<currency_id>USD</currency_id>
+		<phone_code>593</phone_code>
+		<full_name VALUE="Республика Эквадор" lang-en:VALUE="Republic of Ecuador" lang-ua:VALUE="Республика Эквадор"/>
+	</std_country>
+	<std_country>
+		<id>EGY</id>
+		<name VALUE="Египет" lang-en:VALUE="Egypt" lang-ua:VALUE="Египет" lang-et:VALUE="Egiptus"/>
+		<currency_id>EGP</currency_id>
+		<phone_code>20</phone_code>
+		<full_name VALUE="Арабская Республика Египет" lang-en:VALUE="Arab Republic of Egypt" lang-ua:VALUE="Арабская Республика Египет"/>
+	</std_country>
+	<std_country>
+		<id>ERI</id>
+		<name VALUE="Эритрея" lang-en:VALUE="Eritrea" lang-ua:VALUE="Эритрея" lang-et:VALUE="Eritrea"/>
+		<currency_id>ERN</currency_id>
+		<phone_code>291</phone_code>
+		<full_name VALUE="Государство Эритрея" lang-en:VALUE="State of Eritrea" lang-ua:VALUE="Государство Эритрея"/>
+	</std_country>
+	<std_country>
+		<id>ESH</id>
+		<name VALUE="Западная Сахара" lang-en:VALUE="Western Sahara" lang-ua:VALUE="Западная Сахара" lang-et:VALUE="Lääne-Sahara"/>
+		<currency_id>MAD</currency_id>
+		<phone_code>212</phone_code>
+		<full_name VALUE="Sahrawi Арабская Демократическая Республика" lang-en:VALUE="Sahrawi Arab Democratic Republic" lang-ua:VALUE="Sahrawi Арабская Демократическая Республика"/>
+	</std_country>
+	<std_country>
+		<id>ESP</id>
+		<name VALUE="Испания" lang-en:VALUE="Spain" lang-ua:VALUE="Испания" lang-et:VALUE="Hispaania"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>34</phone_code>
+		<full_name VALUE="Королевство Испания" lang-en:VALUE="Kingdom of Spain" lang-ua:VALUE="Королевство Испания"/>
+	</std_country>
+	<std_country>
+		<id>EST</id>
+		<name VALUE="Эстония" lang-en:VALUE="Estonia" lang-ua:VALUE="Эстония" lang-et:VALUE="Eesti"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>372</phone_code>
+		<full_name VALUE="Эстонская Республика" lang-en:VALUE="Republic of Estonia" lang-ua:VALUE="Эстонская Республика"/>
+	</std_country>
+	<std_country>
+		<id>ETH</id>
+		<name VALUE="Эфиопия" lang-en:VALUE="Ethiopia" lang-ua:VALUE="Эфиопия" lang-et:VALUE="Etioopia"/>
+		<currency_id>ETB</currency_id>
+		<phone_code>251</phone_code>
+		<full_name VALUE="Федеративная Демократическая Республика Эфиопия" lang-en:VALUE="Federal Democratic Republic of Ethiopia" lang-ua:VALUE="Федеративная Демократическая Республика Эфиопия"/>
+	</std_country>
+	<std_country>
+		<id>FIN</id>
+		<name VALUE="Финляндия" lang-en:VALUE="Finland" lang-ua:VALUE="Финляндия" lang-et:VALUE="Soome"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>358</phone_code>
+		<full_name VALUE="Финляндская Республика" lang-en:VALUE="Republic of Finland" lang-ua:VALUE="Финляндская Республика"/>
+	</std_country>
+	<std_country>
+		<id>FJI</id>
+		<name VALUE="Фиджи" lang-en:VALUE="Fiji" lang-ua:VALUE="Фиджи" lang-et:VALUE="Fidži"/>
+		<currency_id>FJD</currency_id>
+		<phone_code>679</phone_code>
+		<full_name VALUE="Республика Фиджи" lang-en:VALUE="Republic of Fiji" lang-ua:VALUE="Республика Фиджи"/>
+	</std_country>
+	<std_country>
+		<id>FLK</id>
+		<name VALUE="Фолклендские острова" lang-en:VALUE="Falkland Islands" lang-ua:VALUE="Фолклендские острова" lang-et:VALUE="Falklandi saared"/>
+		<currency_id>FKP</currency_id>
+		<phone_code>500</phone_code>
+		<full_name VALUE="Фолклендские острова" lang-en:VALUE="Falkland Islands" lang-ua:VALUE="Фолклендские острова"/>
+	</std_country>
+	<std_country>
+		<id>FRA</id>
+		<name VALUE="Франция" lang-en:VALUE="France" lang-ua:VALUE="Франция" lang-et:VALUE="Prantsusmaa"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>33</phone_code>
+		<full_name VALUE="Французская Республика" lang-en:VALUE="French Republic" lang-ua:VALUE="Французская Республика"/>
+	</std_country>
+	<std_country>
+		<id>FRO</id>
+		<name VALUE="Фарерские острова" lang-en:VALUE="Faroe Islands" lang-ua:VALUE="Фарерские острова" lang-et:VALUE="Fääri saared"/>
+		<currency_id>DKK</currency_id>
+		<phone_code>298</phone_code>
+		<full_name VALUE="Фарерские острова" lang-en:VALUE="Faroe Islands" lang-ua:VALUE="Фарерские острова"/>
+	</std_country>
+	<std_country>
+		<id>FSM</id>
+		<name VALUE="Федеративные Штаты Микронезии" lang-en:VALUE="Micronesia" lang-ua:VALUE="Федеративные Штаты Микронезии" lang-et:VALUE="Mikroneesia Liiduriigid"/>
+		<currency_id>USD</currency_id>
+		<phone_code>691</phone_code>
+		<full_name VALUE="Федеративные Штаты Микронезии" lang-en:VALUE="Federated States of Micronesia" lang-ua:VALUE="Федеративные Штаты Микронезии"/>
+	</std_country>
+	<std_country>
+		<id>GAB</id>
+		<name VALUE="Габон" lang-en:VALUE="Gabon" lang-ua:VALUE="Габон" lang-et:VALUE="Gabon"/>
+		<currency_id>XAF</currency_id>
+		<phone_code>241</phone_code>
+		<full_name VALUE="Габона Республика" lang-en:VALUE="Gabonese Republic" lang-ua:VALUE="Габона Республика"/>
+	</std_country>
+	<std_country>
+		<id>GBR</id>
+		<name VALUE="Великобритания" lang-en:VALUE="United Kingdom" lang-ua:VALUE="Великобритания" lang-et:VALUE="Suurbritannia"/>
+		<currency_id>GBP</currency_id>
+		<phone_code>44</phone_code>
+		<full_name VALUE="Соединенное Королевство Великобритании и Северной Ирландии" lang-en:VALUE="United Kingdom of Great Britain and Northern Ireland" lang-ua:VALUE="Соединенное Королевство Великобритании и Северной Ирландии"/>
+	</std_country>
+	<std_country>
+		<id>GEO</id>
+		<name VALUE="Грузия" lang-en:VALUE="Georgia" lang-ua:VALUE="Грузия" lang-et:VALUE="Gruusia"/>
+		<currency_id>GEL</currency_id>
+		<phone_code>995</phone_code>
+		<full_name VALUE="Грузия" lang-en:VALUE="Georgia" lang-ua:VALUE="Грузия"/>
+	</std_country>
+	<std_country>
+		<id>GGY</id>
+		<name VALUE="Гернси" lang-en:VALUE="Guernsey" lang-ua:VALUE="Гернси" lang-et:VALUE="Guernsey"/>
+		<currency_id>GBP</currency_id>
+		<phone_code>44</phone_code>
+		<full_name VALUE="Коронное владение Гернси" lang-en:VALUE="Bailiwick of Guernsey" lang-ua:VALUE="Коронное владение Гернси"/>
+	</std_country>
+	<std_country>
+		<id>GHA</id>
+		<name VALUE="Гана" lang-en:VALUE="Ghana" lang-ua:VALUE="Гана" lang-et:VALUE="Ghana"/>
+		<currency_id>GHS</currency_id>
+		<phone_code>233</phone_code>
+		<full_name VALUE="Республика Гана" lang-en:VALUE="Republic of Ghana" lang-ua:VALUE="Республика Гана"/>
+	</std_country>
+	<std_country>
+		<id>GIB</id>
+		<name VALUE="Гибралтар" lang-en:VALUE="Gibraltar" lang-ua:VALUE="Гибралтар" lang-et:VALUE="Gibraltar"/>
+		<currency_id>GIP</currency_id>
+		<phone_code>350</phone_code>
+		<full_name VALUE="Гибралтар" lang-en:VALUE="Gibraltar" lang-ua:VALUE="Гибралтар"/>
+	</std_country>
+	<std_country>
+		<id>GIN</id>
+		<name VALUE="Гвинея" lang-en:VALUE="Guinea" lang-ua:VALUE="Гвинея" lang-et:VALUE="Guinea"/>
+		<currency_id>GNF</currency_id>
+		<phone_code>224</phone_code>
+		<full_name VALUE="Республика Гвинея" lang-en:VALUE="Republic of Guinea" lang-ua:VALUE="Республика Гвинея"/>
+	</std_country>
+	<std_country>
+		<id>GLP</id>
+		<name VALUE="Гваделупа" lang-en:VALUE="Guadeloupe" lang-ua:VALUE="Гваделупа" lang-et:VALUE="Guadeloupe"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>590</phone_code>
+		<full_name VALUE="Гваделупа" lang-en:VALUE="Guadeloupe" lang-ua:VALUE="Гваделупа"/>
+	</std_country>
+	<std_country>
+		<id>GMB</id>
+		<name VALUE="Гамбия" lang-en:VALUE="Gambia" lang-ua:VALUE="Гамбия" lang-et:VALUE="Gambia"/>
+		<currency_id>GMD</currency_id>
+		<phone_code>220</phone_code>
+		<full_name VALUE="Республика Гамбия" lang-en:VALUE="Republic of the Gambia" lang-ua:VALUE="Республика Гамбия"/>
+	</std_country>
+	<std_country>
+		<id>GNB</id>
+		<name VALUE="Гвинея-Бисау" lang-en:VALUE="Guinea-Bissau" lang-ua:VALUE="Гвинея-Бисау" lang-et:VALUE="Guinea-Bissau"/>
+		<currency_id>XOF</currency_id>
+		<phone_code>245</phone_code>
+		<full_name VALUE="Республика Гвинея -Бисау" lang-en:VALUE="Republic of Guinea-Bissau" lang-ua:VALUE="Республика Гвинея -Бисау"/>
+	</std_country>
+	<std_country>
+		<id>GNQ</id>
+		<name VALUE="Экваториальная Гвинея" lang-en:VALUE="Equatorial Guinea" lang-ua:VALUE="Экваториальная Гвинея" lang-et:VALUE="Ekvatoriaal-Guinea"/>
+		<currency_id>XAF</currency_id>
+		<phone_code>240</phone_code>
+		<full_name VALUE="Республика Экваториальная Гвинея" lang-en:VALUE="Republic of Equatorial Guinea" lang-ua:VALUE="Республика Экваториальная Гвинея"/>
+	</std_country>
+	<std_country>
+		<id>GRC</id>
+		<name VALUE="Греция" lang-en:VALUE="Greece" lang-ua:VALUE="Греция" lang-et:VALUE="Kreeka"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>30</phone_code>
+		<full_name VALUE="Греческая Республика" lang-en:VALUE="Hellenic Republic" lang-ua:VALUE="Греческая Республика"/>
+	</std_country>
+	<std_country>
+		<id>GRD</id>
+		<name VALUE="Гренада" lang-en:VALUE="Grenada" lang-ua:VALUE="Гренада" lang-et:VALUE="Grenada"/>
+		<currency_id>XCD</currency_id>
+		<phone_code>1473</phone_code>
+		<full_name VALUE="Гренада" lang-en:VALUE="Grenada" lang-ua:VALUE="Гренада"/>
+	</std_country>
+	<std_country>
+		<id>GRL</id>
+		<name VALUE="Гренландия" lang-en:VALUE="Greenland" lang-ua:VALUE="Гренландия" lang-et:VALUE="Gröönimaa"/>
+		<currency_id>DKK</currency_id>
+		<phone_code>299</phone_code>
+		<full_name VALUE="Гренландия" lang-en:VALUE="Greenland" lang-ua:VALUE="Гренландия"/>
+	</std_country>
+	<std_country>
+		<id>GTM</id>
+		<name VALUE="Гватемала" lang-en:VALUE="Guatemala" lang-ua:VALUE="Гватемала" lang-et:VALUE="Guatemala"/>
+		<currency_id>GTQ</currency_id>
+		<phone_code>502</phone_code>
+		<full_name VALUE="Республика Гватемала" lang-en:VALUE="Republic of Guatemala" lang-ua:VALUE="Республика Гватемала"/>
+	</std_country>
+	<std_country>
+		<id>GUF</id>
+		<name VALUE="Французская Гвиана" lang-en:VALUE="French Guiana" lang-ua:VALUE="Французская Гвиана" lang-et:VALUE="Flag of France.svg"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>594</phone_code>
+		<full_name VALUE="Гвиана" lang-en:VALUE="Guiana" lang-ua:VALUE="Гвиана"/>
+	</std_country>
+	<std_country>
+		<id>GUM</id>
+		<name VALUE="Гуам" lang-en:VALUE="Guam" lang-ua:VALUE="Гуам" lang-et:VALUE="Guam"/>
+		<currency_id>USD</currency_id>
+		<phone_code>1671</phone_code>
+		<full_name VALUE="Гуам" lang-en:VALUE="Guam" lang-ua:VALUE="Гуам"/>
+	</std_country>
+	<std_country>
+		<id>GUY</id>
+		<name VALUE="Гайана" lang-en:VALUE="Guyana" lang-ua:VALUE="Гайана" lang-et:VALUE="Guyana"/>
+		<currency_id>GYD</currency_id>
+		<phone_code>592</phone_code>
+		<full_name VALUE="Кооперативная Республика Гайана" lang-en:VALUE="Co-operative Republic of Guyana" lang-ua:VALUE="Кооперативная Республика Гайана"/>
+	</std_country>
+	<std_country>
+		<id>HKG</id>
+		<name VALUE="Гонконг" lang-en:VALUE="Hong Kong" lang-ua:VALUE="Гонконг" lang-et:VALUE="Hongkong"/>
+		<currency_id>HKD</currency_id>
+		<phone_code>852</phone_code>
+		<full_name VALUE="Hong Kong Специальный административный район Китайской Народной Республики Китая" lang-en:VALUE="Hong Kong Special Administrative Region of the People's Republic of China" lang-ua:VALUE="Hong Kong Специальный административный район Китайской Народной Республики Китая"/>
+	</std_country>
+	<std_country>
+		<id>HMD</id>
+		<name VALUE="Остров Херд и острова Макдональд" lang-en:VALUE="Heard Island and McDonald Islands" lang-ua:VALUE="Остров Херд и острова Макдональд" lang-et:VALUE="Flag of Australia.s"/>
+		<currency_id>AUD</currency_id>
+		<phone_code/>
+		<full_name VALUE="Остров Херд и острова Макдональд" lang-en:VALUE="Heard Island and McDonald Islands" lang-ua:VALUE="Остров Херд и острова Макдональд"/>
+	</std_country>
+	<std_country>
+		<id>HND</id>
+		<name VALUE="Гондурас" lang-en:VALUE="Honduras" lang-ua:VALUE="Гондурас" lang-et:VALUE="Honduras"/>
+		<currency_id>HNL</currency_id>
+		<phone_code>504</phone_code>
+		<full_name VALUE="Республика Гондурас" lang-en:VALUE="Republic of Honduras" lang-ua:VALUE="Республика Гондурас"/>
+	</std_country>
+	<std_country>
+		<id>HRV</id>
+		<name VALUE="Хорватия" lang-en:VALUE="Croatia" lang-ua:VALUE="Хорватия" lang-et:VALUE="Horvaatia"/>
+		<currency_id>HRK</currency_id>
+		<phone_code>385</phone_code>
+		<full_name VALUE="Республика Хорватия" lang-en:VALUE="Republic of Croatia" lang-ua:VALUE="Республика Хорватия"/>
+	</std_country>
+	<std_country>
+		<id>HTI</id>
+		<name VALUE="Гаити" lang-en:VALUE="Haiti" lang-ua:VALUE="Гаити" lang-et:VALUE="Haiti"/>
+		<currency_id>HTG</currency_id>
+		<phone_code>509</phone_code>
+		<full_name VALUE="Республика Гаити" lang-en:VALUE="Republic of Haiti" lang-ua:VALUE="Республика Гаити"/>
+	</std_country>
+	<std_country>
+		<id>HUN</id>
+		<name VALUE="Венгрия" lang-en:VALUE="Hungary" lang-ua:VALUE="Венгрия" lang-et:VALUE="Ungari"/>
+		<currency_id>HUF</currency_id>
+		<phone_code>36</phone_code>
+		<full_name VALUE="Венгрия" lang-en:VALUE="Hungary" lang-ua:VALUE="Венгрия"/>
+	</std_country>
+	<std_country>
+		<id>IDN</id>
+		<name VALUE="Индонезия" lang-en:VALUE="Indonesia" lang-ua:VALUE="Индонезия" lang-et:VALUE="Indoneesia"/>
+		<currency_id>IDR</currency_id>
+		<phone_code>62</phone_code>
+		<full_name VALUE="Республика Индонезия" lang-en:VALUE="Republic of Indonesia" lang-ua:VALUE="Республика Индонезия"/>
+	</std_country>
+	<std_country>
+		<id>IMN</id>
+		<name VALUE="Остров Мэн" lang-en:VALUE="Isle of Man" lang-ua:VALUE="Остров Мэн" lang-et:VALUE="Man"/>
+		<currency_id>GBP</currency_id>
+		<phone_code>44</phone_code>
+		<full_name VALUE="Остров Мэн" lang-en:VALUE="Isle of Man" lang-ua:VALUE="Остров Мэн"/>
+	</std_country>
+	<std_country>
+		<id>IND</id>
+		<name VALUE="Индия" lang-en:VALUE="India" lang-ua:VALUE="Индия" lang-et:VALUE="India"/>
+		<currency_id>INR</currency_id>
+		<phone_code>91</phone_code>
+		<full_name VALUE="Республика Индия" lang-en:VALUE="Republic of India" lang-ua:VALUE="Республика Индия"/>
+	</std_country>
+	<std_country>
+		<id>IOT</id>
+		<name VALUE="Британская территория в Индийском океане" lang-en:VALUE="British Indian Ocean Territory" lang-ua:VALUE="Британская территория в Индийском океане" lang-et:VALUE="Briti India ookeani ala"/>
+		<currency_id>USD</currency_id>
+		<phone_code>246</phone_code>
+		<full_name VALUE="Британская территория Индийского океана" lang-en:VALUE="British Indian Ocean Territory" lang-ua:VALUE="Британская территория Индийского океана"/>
+	</std_country>
+	<std_country>
+		<id>IRL</id>
+		<name VALUE="Ирландия" lang-en:VALUE="Ireland" lang-ua:VALUE="Ирландия" lang-et:VALUE="Iirimaa"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>353</phone_code>
+		<full_name VALUE="Ирландия" lang-en:VALUE="Republic of Ireland" lang-ua:VALUE="Ирландия"/>
+	</std_country>
+	<std_country>
+		<id>IRN</id>
+		<name VALUE="Иран" lang-en:VALUE="Iran" lang-ua:VALUE="Иран" lang-et:VALUE="Iraan"/>
+		<currency_id>IRR</currency_id>
+		<phone_code>98</phone_code>
+		<full_name VALUE="Исламская Республика Иран" lang-en:VALUE="Islamic Republic of Iran" lang-ua:VALUE="Исламская Республика Иран"/>
+	</std_country>
+	<std_country>
+		<id>IRQ</id>
+		<name VALUE="Ирак" lang-en:VALUE="Iraq" lang-ua:VALUE="Ирак" lang-et:VALUE="Iraak"/>
+		<currency_id>IQD</currency_id>
+		<phone_code>964</phone_code>
+		<full_name VALUE="Республика Ирак" lang-en:VALUE="Republic of Iraq" lang-ua:VALUE="Республика Ирак"/>
+	</std_country>
+	<std_country>
+		<id>ISL</id>
+		<name VALUE="Исландия" lang-en:VALUE="Iceland" lang-ua:VALUE="Исландия" lang-et:VALUE="Island"/>
+		<currency_id>ISK</currency_id>
+		<phone_code>354</phone_code>
+		<full_name VALUE="Исландия" lang-en:VALUE="Iceland" lang-ua:VALUE="Исландия"/>
+	</std_country>
+	<std_country>
+		<id>ISR</id>
+		<name VALUE="Израиль" lang-en:VALUE="Israel" lang-ua:VALUE="Израиль" lang-et:VALUE="Iisrael"/>
+		<currency_id>ILS</currency_id>
+		<phone_code>972</phone_code>
+		<full_name VALUE="Государство Израиль" lang-en:VALUE="State of Israel" lang-ua:VALUE="Государство Израиль"/>
+	</std_country>
+	<std_country>
+		<id>ITA</id>
+		<name VALUE="Италия" lang-en:VALUE="Italy" lang-ua:VALUE="Италия" lang-et:VALUE="Itaalia"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>39</phone_code>
+		<full_name VALUE="итальянская Республика" lang-en:VALUE="Italian Republic" lang-ua:VALUE="итальянская Республика"/>
+	</std_country>
+	<std_country>
+		<id>JAM</id>
+		<name VALUE="Ямайка" lang-en:VALUE="Jamaica" lang-ua:VALUE="Ямайка" lang-et:VALUE="Jamaica"/>
+		<currency_id>JMD</currency_id>
+		<phone_code>1876</phone_code>
+		<full_name VALUE="Ямайка" lang-en:VALUE="Jamaica" lang-ua:VALUE="Ямайка"/>
+	</std_country>
+	<std_country>
+		<id>JEY</id>
+		<name VALUE="Джерси" lang-en:VALUE="Jersey" lang-ua:VALUE="Джерси" lang-et:VALUE="Jersey"/>
+		<currency_id>GBP</currency_id>
+		<phone_code>44</phone_code>
+		<full_name VALUE="Коронное владение Джерси" lang-en:VALUE="Bailiwick of Jersey" lang-ua:VALUE="Коронное владение Джерси"/>
+	</std_country>
+	<std_country>
+		<id>JOR</id>
+		<name VALUE="Иордания" lang-en:VALUE="Jordan" lang-ua:VALUE="Иордания" lang-et:VALUE="Jordaania"/>
+		<currency_id>JOD</currency_id>
+		<phone_code>962</phone_code>
+		<full_name VALUE="Иорданского Хашимитского Королевства" lang-en:VALUE="Hashemite Kingdom of Jordan" lang-ua:VALUE="Иорданского Хашимитского Королевства"/>
+	</std_country>
+	<std_country>
+		<id>JPN</id>
+		<name VALUE="Япония" lang-en:VALUE="Japan" lang-ua:VALUE="Япония" lang-et:VALUE="Jaapan"/>
+		<currency_id>JPY</currency_id>
+		<phone_code>81</phone_code>
+		<full_name VALUE="Япония" lang-en:VALUE="Japan" lang-ua:VALUE="Япония"/>
+	</std_country>
+	<std_country>
+		<id>KEN</id>
+		<name VALUE="Кения" lang-en:VALUE="Kenya" lang-ua:VALUE="Кения" lang-et:VALUE="Keenia"/>
+		<currency_id>KES</currency_id>
+		<phone_code>254</phone_code>
+		<full_name VALUE="Республика Кения" lang-en:VALUE="Republic of Kenya" lang-ua:VALUE="Республика Кения"/>
+	</std_country>
+	<std_country>
+		<id>KGZ</id>
+		<name VALUE="Киргизия" lang-en:VALUE="Kyrgyzstan" lang-ua:VALUE="Киргизия" lang-et:VALUE="Kõrgõzstan"/>
+		<currency_id>KGS</currency_id>
+		<phone_code>996</phone_code>
+		<full_name VALUE="Кыргызская Республика" lang-en:VALUE="Kyrgyz Republic" lang-ua:VALUE="Кыргызская Республика"/>
+	</std_country>
+	<std_country>
+		<id>KHM</id>
+		<name VALUE="Камбоджа" lang-en:VALUE="Cambodia" lang-ua:VALUE="Камбоджа" lang-et:VALUE="Kambodža"/>
+		<currency_id>KHR</currency_id>
+		<phone_code>855</phone_code>
+		<full_name VALUE="Королевство Камбоджа" lang-en:VALUE="Kingdom of Cambodia" lang-ua:VALUE="Королевство Камбоджа"/>
+	</std_country>
+	<std_country>
+		<id>KIR</id>
+		<name VALUE="Кирибати" lang-en:VALUE="Kiribati" lang-ua:VALUE="Кирибати" lang-et:VALUE="Kiribati"/>
+		<currency_id>AUD</currency_id>
+		<phone_code>686</phone_code>
+		<full_name VALUE="Независимой и суверенной Республики Кирибати" lang-en:VALUE="Independent and Sovereign Republic of Kiribati" lang-ua:VALUE="Независимой и суверенной Республики Кирибати"/>
+	</std_country>
+	<std_country>
+		<id>KNA</id>
+		<name VALUE="Сент-Китс и Невис" lang-en:VALUE="Saint Kitts and Nevis" lang-ua:VALUE="Сент-Китс и Невис" lang-et:VALUE="Saint Kitts ja Nevis"/>
+		<currency_id>XCD</currency_id>
+		<phone_code>1869</phone_code>
+		<full_name VALUE="Федерация Сент- Кристофер и Nevisa" lang-en:VALUE="Federation of Saint Christopher and Nevisa" lang-ua:VALUE="Федерация Сент- Кристофер и Nevisa"/>
+	</std_country>
+	<std_country>
+		<id>KOR</id>
+		<name VALUE="Южная Корея" lang-en:VALUE="South Korea" lang-ua:VALUE="Южная Корея" lang-et:VALUE="Lõuna-Korea"/>
+		<currency_id>KRW</currency_id>
+		<phone_code>82</phone_code>
+		<full_name VALUE="Республика Корея" lang-en:VALUE="Republic of Korea" lang-ua:VALUE="Республика Корея"/>
+	</std_country>
+	<std_country>
+		<id>KOS</id>
+		<name VALUE="Республика Косово" lang-en:VALUE="Kosovo" lang-ua:VALUE="Республика Косово"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>383</phone_code>
+		<full_name VALUE="Республика Косово" lang-en:VALUE="Republic of Kosovo" lang-ua:VALUE="Республика Косово"/>
+	</std_country>
+	<std_country>
+		<id>KWT</id>
+		<name VALUE="Кувейт" lang-en:VALUE="Kuwait" lang-ua:VALUE="Кувейт" lang-et:VALUE="Kuveit"/>
+		<currency_id>KWD</currency_id>
+		<phone_code>965</phone_code>
+		<full_name VALUE="Государство Кувейт" lang-en:VALUE="State of Kuwait" lang-ua:VALUE="Государство Кувейт"/>
+	</std_country>
+	<std_country>
+		<id>LAO</id>
+		<name VALUE="Лаос" lang-en:VALUE="Laos" lang-ua:VALUE="Лаос" lang-et:VALUE="Laos"/>
+		<currency_id>LAK</currency_id>
+		<phone_code>856</phone_code>
+		<full_name VALUE="Лаосская Народно-Демократическая Республика" lang-en:VALUE="Lao People's Democratic Republic" lang-ua:VALUE="Лаосская Народно-Демократическая Республика"/>
+	</std_country>
+	<std_country>
+		<id>LBN</id>
+		<name VALUE="Ливан" lang-en:VALUE="Lebanon" lang-ua:VALUE="Ливан" lang-et:VALUE="Liibanon"/>
+		<currency_id>LBP</currency_id>
+		<phone_code>961</phone_code>
+		<full_name VALUE="Ливанская Республика" lang-en:VALUE="Lebanese Republic" lang-ua:VALUE="Ливанская Республика"/>
+	</std_country>
+	<std_country>
+		<id>LBR</id>
+		<name VALUE="Либерия" lang-en:VALUE="Liberia" lang-ua:VALUE="Либерия" lang-et:VALUE="Libeeria"/>
+		<currency_id>LRD</currency_id>
+		<phone_code>231</phone_code>
+		<full_name VALUE="Республика Либерия" lang-en:VALUE="Republic of Liberia" lang-ua:VALUE="Республика Либерия"/>
+	</std_country>
+	<std_country>
+		<id>LBY</id>
+		<name VALUE="Ливия" lang-en:VALUE="Libya" lang-ua:VALUE="Ливия" lang-et:VALUE="Liibüa"/>
+		<currency_id>LYD</currency_id>
+		<phone_code>218</phone_code>
+		<full_name VALUE="Государство Ливии" lang-en:VALUE="State of Libya" lang-ua:VALUE="Государство Ливии"/>
+	</std_country>
+	<std_country>
+		<id>LCA</id>
+		<name VALUE="Сент-Люсия" lang-en:VALUE="Saint Lucia" lang-ua:VALUE="Сент-Люсия" lang-et:VALUE="Saint Lucia"/>
+		<currency_id>XCD</currency_id>
+		<phone_code>1758</phone_code>
+		<full_name VALUE="Сент-Люсия" lang-en:VALUE="Saint Lucia" lang-ua:VALUE="Сент-Люсия"/>
+	</std_country>
+	<std_country>
+		<id>LIE</id>
+		<name VALUE="Лихтенштейн" lang-en:VALUE="Liechtenstein" lang-ua:VALUE="Лихтенштейн" lang-et:VALUE="Liechtenstein"/>
+		<currency_id>CHF</currency_id>
+		<phone_code>423</phone_code>
+		<full_name VALUE="Княжество Лихтенштейн" lang-en:VALUE="Principality of Liechtenstein" lang-ua:VALUE="Княжество Лихтенштейн"/>
+	</std_country>
+	<std_country>
+		<id>LKA</id>
+		<name VALUE="Шри-Ланка" lang-en:VALUE="Sri Lanka" lang-ua:VALUE="Шри-Ланка" lang-et:VALUE="Sri Lanka"/>
+		<currency_id>LKR</currency_id>
+		<phone_code>94</phone_code>
+		<full_name VALUE="Демократическая Социалистическая Республика Шри-Ланка" lang-en:VALUE="Democratic Socialist Republic of Sri Lanka" lang-ua:VALUE="Демократическая Социалистическая Республика Шри-Ланка"/>
+	</std_country>
+	<std_country>
+		<id>LSO</id>
+		<name VALUE="Лесото" lang-en:VALUE="Lesotho" lang-ua:VALUE="Лесото" lang-et:VALUE="Lesotho"/>
+		<currency_id>LSL</currency_id>
+		<phone_code>266</phone_code>
+		<full_name VALUE="Королевство Лесото" lang-en:VALUE="Kingdom of Lesotho" lang-ua:VALUE="Королевство Лесото"/>
+	</std_country>
+	<std_country>
+		<id>LTU</id>
+		<name VALUE="Литва" lang-en:VALUE="Lithuania" lang-ua:VALUE="Литва" lang-et:VALUE="Leedu"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>370</phone_code>
+		<full_name VALUE="Литовская Республика" lang-en:VALUE="Republic of Lithuania" lang-ua:VALUE="Литовская Республика"/>
+	</std_country>
+	<std_country>
+		<id>LUX</id>
+		<name VALUE="Люксембург" lang-en:VALUE="Luxembourg" lang-ua:VALUE="Люксембург" lang-et:VALUE="Luksemburg"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>352</phone_code>
+		<full_name VALUE="Великое Герцогство Люксембург" lang-en:VALUE="Grand Duchy of Luxembourg" lang-ua:VALUE="Великое Герцогство Люксембург"/>
+	</std_country>
+	<std_country>
+		<id>LVA</id>
+		<name VALUE="Латвия" lang-en:VALUE="Latvia" lang-ua:VALUE="Латвия" lang-et:VALUE="Läti"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>371</phone_code>
+		<full_name VALUE="Латвийская Республика" lang-en:VALUE="Republic of Latvia" lang-ua:VALUE="Латвийская Республика"/>
+	</std_country>
+	<std_country>
+		<id>MAC</id>
+		<name VALUE="Макао" lang-en:VALUE="Macau" lang-ua:VALUE="Макао" lang-et:VALUE="Macau"/>
+		<currency_id>MOP</currency_id>
+		<phone_code>853</phone_code>
+		<full_name VALUE="Специальный административный район Макао Китайской Народной Республики Китай" lang-en:VALUE="Macao Special Administrative Region of the People's Republic of China" lang-ua:VALUE="Специальный административный район Макао Китайской Народной Республики Китай"/>
+	</std_country>
+	<std_country>
+		<id>MAF</id>
+		<name VALUE="Сен-Мартен" lang-en:VALUE="Saint Martin" lang-ua:VALUE="Сен-Мартен" lang-et:VALUE="Saint-Martin"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>590</phone_code>
+		<full_name VALUE="Сен-Мартен" lang-en:VALUE="Saint Martin" lang-ua:VALUE="Сен-Мартен"/>
+	</std_country>
+	<std_country>
+		<id>MAR</id>
+		<name VALUE="Марокко" lang-en:VALUE="Morocco" lang-ua:VALUE="Марокко" lang-et:VALUE="Maroko"/>
+		<currency_id>MAD</currency_id>
+		<phone_code>212</phone_code>
+		<full_name VALUE="Королевство Марокко" lang-en:VALUE="Kingdom of Morocco" lang-ua:VALUE="Королевство Марокко"/>
+	</std_country>
+	<std_country>
+		<id>MCO</id>
+		<name VALUE="Монако" lang-en:VALUE="Monaco" lang-ua:VALUE="Монако" lang-et:VALUE="Monaco"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>377</phone_code>
+		<full_name VALUE="Княжество Монако" lang-en:VALUE="Principality of Monaco" lang-ua:VALUE="Княжество Монако"/>
+	</std_country>
+	<std_country>
+		<id>MDA</id>
+		<name VALUE="Молдавия" lang-en:VALUE="Moldova" lang-ua:VALUE="Молдавия" lang-et:VALUE="Moldova"/>
+		<currency_id>MDL</currency_id>
+		<phone_code>373</phone_code>
+		<full_name VALUE="Молдова" lang-en:VALUE="Republic of Moldova" lang-ua:VALUE="Молдова"/>
+	</std_country>
+	<std_country>
+		<id>MDG</id>
+		<name VALUE="Мадагаскар" lang-en:VALUE="Madagascar" lang-ua:VALUE="Мадагаскар" lang-et:VALUE="Madagaskar"/>
+		<currency_id>MGA</currency_id>
+		<phone_code>261</phone_code>
+		<full_name VALUE="Республика Мадагаскар" lang-en:VALUE="Republic of Madagascar" lang-ua:VALUE="Республика Мадагаскар"/>
+	</std_country>
+	<std_country>
+		<id>MDV</id>
+		<name VALUE="Мальдивы" lang-en:VALUE="Maldives" lang-ua:VALUE="Мальдивы" lang-et:VALUE="Maldiivid"/>
+		<currency_id>MVR</currency_id>
+		<phone_code>960</phone_code>
+		<full_name VALUE="Республика Мальдивы" lang-en:VALUE="Republic of the Maldives" lang-ua:VALUE="Республика Мальдивы"/>
+	</std_country>
+	<std_country>
+		<id>MEX</id>
+		<name VALUE="Мексика" lang-en:VALUE="Mexico" lang-ua:VALUE="Мексика" lang-et:VALUE="Mehhiko"/>
+		<currency_id>MXN</currency_id>
+		<phone_code>52</phone_code>
+		<full_name VALUE="Мексиканских Соединенных Штатов" lang-en:VALUE="United Mexican States" lang-ua:VALUE="Мексиканских Соединенных Штатов"/>
+	</std_country>
+	<std_country>
+		<id>MHL</id>
+		<name VALUE="Маршалловы Острова" lang-en:VALUE="Marshall Islands" lang-ua:VALUE="Маршалловы Острова" lang-et:VALUE="Marshalli Saared"/>
+		<currency_id>USD</currency_id>
+		<phone_code>692</phone_code>
+		<full_name VALUE="Республика Маршалловы острова" lang-en:VALUE="Republic of the Marshall Islands" lang-ua:VALUE="Республика Маршалловы острова"/>
+	</std_country>
+	<std_country>
+		<id>MKD</id>
+		<name VALUE="Республика Македония" lang-en:VALUE="Macedonia" lang-ua:VALUE="Республика Македония" lang-et:VALUE="Makedoonia"/>
+		<currency_id>MKD</currency_id>
+		<phone_code>389</phone_code>
+		<full_name VALUE="Республика Македония" lang-en:VALUE="Republic of Macedonia" lang-ua:VALUE="Республика Македония"/>
+	</std_country>
+	<std_country>
+		<id>MLI</id>
+		<name VALUE="Мали" lang-en:VALUE="Mali" lang-ua:VALUE="Мали" lang-et:VALUE="Mali"/>
+		<currency_id>XOF</currency_id>
+		<phone_code>223</phone_code>
+		<full_name VALUE="Республика Мали" lang-en:VALUE="Republic of Mali" lang-ua:VALUE="Республика Мали"/>
+	</std_country>
+	<std_country>
+		<id>MLT</id>
+		<name VALUE="Мальта" lang-en:VALUE="Malta" lang-ua:VALUE="Мальта" lang-et:VALUE="Malta"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>356</phone_code>
+		<full_name VALUE="Республика Мальта" lang-en:VALUE="Republic of Malta" lang-ua:VALUE="Республика Мальта"/>
+	</std_country>
+	<std_country>
+		<id>MMR</id>
+		<name VALUE="Мьянма" lang-en:VALUE="Myanmar" lang-ua:VALUE="Мьянма" lang-et:VALUE="Birma"/>
+		<currency_id>MMK</currency_id>
+		<phone_code>95</phone_code>
+		<full_name VALUE="Республика Союза Мьянма" lang-en:VALUE="Republic of the Union of Myanmar" lang-ua:VALUE="Республика Союза Мьянма"/>
+	</std_country>
+	<std_country>
+		<id>MNE</id>
+		<name VALUE="Черногория" lang-en:VALUE="Montenegro" lang-ua:VALUE="Черногория" lang-et:VALUE="Montenegro"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>382</phone_code>
+		<full_name VALUE="Черногория" lang-en:VALUE="Montenegro" lang-ua:VALUE="Черногория"/>
+	</std_country>
+	<std_country>
+		<id>MNG</id>
+		<name VALUE="Монголия" lang-en:VALUE="Mongolia" lang-ua:VALUE="Монголия" lang-et:VALUE="Mongoolia"/>
+		<currency_id>MNT</currency_id>
+		<phone_code>976</phone_code>
+		<full_name VALUE="Монголия" lang-en:VALUE="Mongolia" lang-ua:VALUE="Монголия"/>
+	</std_country>
+	<std_country>
+		<id>MNP</id>
+		<name VALUE="Северные Марианские острова" lang-en:VALUE="Northern Mariana Islands" lang-ua:VALUE="Северные Марианские острова" lang-et:VALUE="Põhja-Mariaanid"/>
+		<currency_id>USD</currency_id>
+		<phone_code>1670</phone_code>
+		<full_name VALUE="Содружество Северных Марианских островов" lang-en:VALUE="Commonwealth of the Northern Mariana Islands" lang-ua:VALUE="Содружество Северных Марианских островов"/>
+	</std_country>
+	<std_country>
+		<id>MOZ</id>
+		<name VALUE="Мозамбик" lang-en:VALUE="Mozambique" lang-ua:VALUE="Мозамбик" lang-et:VALUE="Mosambiik"/>
+		<currency_id>MZN</currency_id>
+		<phone_code>258</phone_code>
+		<full_name VALUE="Республика Мозамбик" lang-en:VALUE="Republic of Mozambique" lang-ua:VALUE="Республика Мозамбик"/>
+	</std_country>
+	<std_country>
+		<id>MRT</id>
+		<name VALUE="Мавритания" lang-en:VALUE="Mauritania" lang-ua:VALUE="Мавритания" lang-et:VALUE="Mauritaania"/>
+		<currency_id>MRO</currency_id>
+		<phone_code>222</phone_code>
+		<full_name VALUE="Исламская Республика Мавритания" lang-en:VALUE="Islamic Republic of Mauritania" lang-ua:VALUE="Исламская Республика Мавритания"/>
+	</std_country>
+	<std_country>
+		<id>MSR</id>
+		<name VALUE="Монтсеррат" lang-en:VALUE="Montserrat" lang-ua:VALUE="Монтсеррат" lang-et:VALUE="Montserrat"/>
+		<currency_id>XCD</currency_id>
+		<phone_code>1664</phone_code>
+		<full_name VALUE="Монтсеррат" lang-en:VALUE="Montserrat" lang-ua:VALUE="Монтсеррат"/>
+	</std_country>
+	<std_country>
+		<id>MTQ</id>
+		<name VALUE="Мартиника" lang-en:VALUE="Martinique" lang-ua:VALUE="Мартиника" lang-et:VALUE="Martinique"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>596</phone_code>
+		<full_name VALUE="Мартиника" lang-en:VALUE="Martinique" lang-ua:VALUE="Мартиника"/>
+	</std_country>
+	<std_country>
+		<id>MUS</id>
+		<name VALUE="Маврикий" lang-en:VALUE="Mauritius" lang-ua:VALUE="Маврикий" lang-et:VALUE="Mauritius"/>
+		<currency_id>MUR</currency_id>
+		<phone_code>230</phone_code>
+		<full_name VALUE="Республика Маврикий" lang-en:VALUE="Republic of Mauritius" lang-ua:VALUE="Республика Маврикий"/>
+	</std_country>
+	<std_country>
+		<id>MWI</id>
+		<name VALUE="Малави" lang-en:VALUE="Malawi" lang-ua:VALUE="Малави" lang-et:VALUE="Malawi"/>
+		<currency_id>MWK</currency_id>
+		<phone_code>265</phone_code>
+		<full_name VALUE="Республика Малави" lang-en:VALUE="Republic of Malawi" lang-ua:VALUE="Республика Малави"/>
+	</std_country>
+	<std_country>
+		<id>MYS</id>
+		<name VALUE="Малайзия" lang-en:VALUE="Malaysia" lang-ua:VALUE="Малайзия" lang-et:VALUE="Malaisia"/>
+		<currency_id>MYR</currency_id>
+		<phone_code>60</phone_code>
+		<full_name VALUE="Малайзия" lang-en:VALUE="Malaysia" lang-ua:VALUE="Малайзия"/>
+	</std_country>
+	<std_country>
+		<id>MYT</id>
+		<name VALUE="Майотта" lang-en:VALUE="Mayotte" lang-ua:VALUE="Майотта" lang-et:VALUE="Flag of Fran"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>262</phone_code>
+		<full_name VALUE="Департамент Майотта" lang-en:VALUE="Department of Mayotte" lang-ua:VALUE="Департамент Майотта"/>
+	</std_country>
+	<std_country>
+		<id>NAM</id>
+		<name VALUE="Намибия" lang-en:VALUE="Namibia" lang-ua:VALUE="Намибия" lang-et:VALUE="Namiibia"/>
+		<currency_id>NAD</currency_id>
+		<phone_code>264</phone_code>
+		<full_name VALUE="Республика Намибия" lang-en:VALUE="Republic of Namibia" lang-ua:VALUE="Республика Намибия"/>
+	</std_country>
+	<std_country>
+		<id>NCL</id>
+		<name VALUE="Новая Каледония" lang-en:VALUE="New Caledonia" lang-ua:VALUE="Новая Каледония" lang-et:VALUE="Uus-Kaledoonia"/>
+		<currency_id>XPF</currency_id>
+		<phone_code>687</phone_code>
+		<full_name VALUE="Новая Каледония" lang-en:VALUE="New Caledonia" lang-ua:VALUE="Новая Каледония"/>
+	</std_country>
+	<std_country>
+		<id>NER</id>
+		<name VALUE="Нигер" lang-en:VALUE="Niger" lang-ua:VALUE="Нигер" lang-et:VALUE="Niger"/>
+		<currency_id>XOF</currency_id>
+		<phone_code>227</phone_code>
+		<full_name VALUE="Республика Нигер" lang-en:VALUE="Republic of Niger" lang-ua:VALUE="Республика Нигер"/>
+	</std_country>
+	<std_country>
+		<id>NFK</id>
+		<name VALUE="Норфолк" lang-en:VALUE="Norfolk Island" lang-ua:VALUE="Норфолк" lang-et:VALUE="Norfolk"/>
+		<currency_id>AUD</currency_id>
+		<phone_code>672</phone_code>
+		<full_name VALUE="Территория острова Норфолк" lang-en:VALUE="Territory of Norfolk Island" lang-ua:VALUE="Территория острова Норфолк"/>
+	</std_country>
+	<std_country>
+		<id>NGA</id>
+		<name VALUE="Нигерия" lang-en:VALUE="Nigeria" lang-ua:VALUE="Нигерия" lang-et:VALUE="Nigeeria"/>
+		<currency_id>NGN</currency_id>
+		<phone_code>234</phone_code>
+		<full_name VALUE="Федеративная Республика Нигерия" lang-en:VALUE="Federal Republic of Nigeria" lang-ua:VALUE="Федеративная Республика Нигерия"/>
+	</std_country>
+	<std_country>
+		<id>NIC</id>
+		<name VALUE="Никарагуа" lang-en:VALUE="Nicaragua" lang-ua:VALUE="Никарагуа" lang-et:VALUE="Nicaragua"/>
+		<currency_id>NIO</currency_id>
+		<phone_code>505</phone_code>
+		<full_name VALUE="Республика Никарагуа" lang-en:VALUE="Republic of Nicaragua" lang-ua:VALUE="Республика Никарагуа"/>
+	</std_country>
+	<std_country>
+		<id>NIU</id>
+		<name VALUE="Ниуэ" lang-en:VALUE="Niue" lang-ua:VALUE="Ниуэ" lang-et:VALUE="Niue"/>
+		<currency_id>NZD</currency_id>
+		<phone_code>683</phone_code>
+		<full_name VALUE="Ниуэ" lang-en:VALUE="Niue" lang-ua:VALUE="Ниуэ"/>
+	</std_country>
+	<std_country>
+		<id>NLD</id>
+		<name VALUE="Нидерланды" lang-en:VALUE="Netherlands" lang-ua:VALUE="Нидерланды" lang-et:VALUE="Holland"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>31</phone_code>
+		<full_name VALUE="Нидерланды" lang-en:VALUE="Netherlands" lang-ua:VALUE="Нидерланды"/>
+	</std_country>
+	<std_country>
+		<id>NOR</id>
+		<name VALUE="Норвегия" lang-en:VALUE="Norway" lang-ua:VALUE="Норвегия" lang-et:VALUE="Norra"/>
+		<currency_id>NOK</currency_id>
+		<phone_code>47</phone_code>
+		<full_name VALUE="Королевство Норвегия" lang-en:VALUE="Kingdom of Norway" lang-ua:VALUE="Королевство Норвегия"/>
+	</std_country>
+	<std_country>
+		<id>NPL</id>
+		<name VALUE="Непал" lang-en:VALUE="Nepal" lang-ua:VALUE="Непал" lang-et:VALUE="Nepal"/>
+		<currency_id>NPR</currency_id>
+		<phone_code>977</phone_code>
+		<full_name VALUE="Федеративная Демократическая Республика Непал" lang-en:VALUE="Federal Democratic Republic of Nepal" lang-ua:VALUE="Федеративная Демократическая Республика Непал"/>
+	</std_country>
+	<std_country>
+		<id>NRU</id>
+		<name VALUE="Науру" lang-en:VALUE="Nauru" lang-ua:VALUE="Науру" lang-et:VALUE="Nauru"/>
+		<currency_id>AUD</currency_id>
+		<phone_code>674</phone_code>
+		<full_name VALUE="Республика Науру" lang-en:VALUE="Republic of Nauru" lang-ua:VALUE="Республика Науру"/>
+	</std_country>
+	<std_country>
+		<id>NZL</id>
+		<name VALUE="Новая Зеландия" lang-en:VALUE="New Zealand" lang-ua:VALUE="Новая Зеландия" lang-et:VALUE="Uus-Meremaa"/>
+		<currency_id>NZD</currency_id>
+		<phone_code>64</phone_code>
+		<full_name VALUE="Новая Зеландия" lang-en:VALUE="New Zealand" lang-ua:VALUE="Новая Зеландия"/>
+	</std_country>
+	<std_country>
+		<id>OMN</id>
+		<name VALUE="Оман" lang-en:VALUE="Oman" lang-ua:VALUE="Оман" lang-et:VALUE="Omaan"/>
+		<currency_id>OMR</currency_id>
+		<phone_code>968</phone_code>
+		<full_name VALUE="Султанат Оман" lang-en:VALUE="Sultanate of Oman" lang-ua:VALUE="Султанат Оман"/>
+	</std_country>
+	<std_country>
+		<id>PAK</id>
+		<name VALUE="Пакистан" lang-en:VALUE="Pakistan" lang-ua:VALUE="Пакистан" lang-et:VALUE="Pakistan"/>
+		<currency_id>PKR</currency_id>
+		<phone_code>92</phone_code>
+		<full_name VALUE="Исламская Республика Пакистан" lang-en:VALUE="Islamic Republic of Pakistan" lang-ua:VALUE="Исламская Республика Пакистан"/>
+	</std_country>
+	<std_country>
+		<id>PAN</id>
+		<name VALUE="Панама" lang-en:VALUE="Panama" lang-ua:VALUE="Панама" lang-et:VALUE="Panama"/>
+		<currency_id>PAB</currency_id>
+		<phone_code>507</phone_code>
+		<full_name VALUE="Республика Панама" lang-en:VALUE="Republic of Panama" lang-ua:VALUE="Республика Панама"/>
+	</std_country>
+	<std_country>
+		<id>PCN</id>
+		<name VALUE="Острова Питкэрн" lang-en:VALUE="Pitcairn Islands" lang-ua:VALUE="Острова Питкэрн" lang-et:VALUE="Pitcairn"/>
+		<currency_id>NZD</currency_id>
+		<phone_code>64</phone_code>
+		<full_name VALUE="Питкэрн группа островов" lang-en:VALUE="Pitcairn Group of Islands" lang-ua:VALUE="Питкэрн группа островов"/>
+	</std_country>
+	<std_country>
+		<id>PER</id>
+		<name VALUE="Перу" lang-en:VALUE="Peru" lang-ua:VALUE="Перу" lang-et:VALUE="Peruu"/>
+		<currency_id>PEN</currency_id>
+		<phone_code>51</phone_code>
+		<full_name VALUE="Республика Перу" lang-en:VALUE="Republic of Peru" lang-ua:VALUE="Республика Перу"/>
+	</std_country>
+	<std_country>
+		<id>PHL</id>
+		<name VALUE="Филиппины" lang-en:VALUE="Philippines" lang-ua:VALUE="Филиппины" lang-et:VALUE="Filipiinid"/>
+		<currency_id>PHP</currency_id>
+		<phone_code>63</phone_code>
+		<full_name VALUE="Республика Филиппины" lang-en:VALUE="Republic of the Philippines" lang-ua:VALUE="Республика Филиппины"/>
+	</std_country>
+	<std_country>
+		<id>PLW</id>
+		<name VALUE="Палау" lang-en:VALUE="Palau" lang-ua:VALUE="Палау" lang-et:VALUE="Belau"/>
+		<currency_id>USD</currency_id>
+		<phone_code>680</phone_code>
+		<full_name VALUE="Республика Палау" lang-en:VALUE="Republic of Palau" lang-ua:VALUE="Республика Палау"/>
+	</std_country>
+	<std_country>
+		<id>PNG</id>
+		<name VALUE="Папуа — Новая Гвинея" lang-en:VALUE="Papua New Guinea" lang-ua:VALUE="Папуа — Новая Гвинея" lang-et:VALUE="Paapua Uus-Guinea"/>
+		<currency_id>PGK</currency_id>
+		<phone_code>675</phone_code>
+		<full_name VALUE="Независимое Государство Папуа-Новой Гвинеи" lang-en:VALUE="Independent State of Papua New Guinea" lang-ua:VALUE="Независимое Государство Папуа-Новой Гвинеи"/>
+	</std_country>
+	<std_country>
+		<id>POL</id>
+		<name VALUE="Польша" lang-en:VALUE="Poland" lang-ua:VALUE="Польша" lang-et:VALUE="Poola"/>
+		<currency_id>PLN</currency_id>
+		<phone_code>48</phone_code>
+		<full_name VALUE="Республика Польша" lang-en:VALUE="Republic of Poland" lang-ua:VALUE="Республика Польша"/>
+	</std_country>
+	<std_country>
+		<id>PRI</id>
+		<name VALUE="Пуэрто-Рико" lang-en:VALUE="Puerto Rico" lang-ua:VALUE="Пуэрто-Рико" lang-et:VALUE="Puerto Rico"/>
+		<currency_id>USD</currency_id>
+		<phone_code>1787</phone_code>
+		<full_name VALUE="Содружество Пуэрто- Рико" lang-en:VALUE="Commonwealth of Puerto Rico" lang-ua:VALUE="Содружество Пуэрто- Рико"/>
+	</std_country>
+	<std_country>
+		<id>PRK</id>
+		<name VALUE="Северная Корея" lang-en:VALUE="North Korea" lang-ua:VALUE="Северная Корея" lang-et:VALUE="Põhja-Korea"/>
+		<currency_id>KPW</currency_id>
+		<phone_code>850</phone_code>
+		<full_name VALUE="Корейская Народно-Демократическая Республика Корея" lang-en:VALUE="Democratic People's Republic of Korea" lang-ua:VALUE="Корейская Народно-Демократическая Республика Корея"/>
+	</std_country>
+	<std_country>
+		<id>PRT</id>
+		<name VALUE="Португалия" lang-en:VALUE="Portugal" lang-ua:VALUE="Португалия" lang-et:VALUE="Portugal"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>351</phone_code>
+		<full_name VALUE="Португальская Республика" lang-en:VALUE="Portuguese Republic" lang-ua:VALUE="Португальская Республика"/>
+	</std_country>
+	<std_country>
+		<id>PRY</id>
+		<name VALUE="Парагвай" lang-en:VALUE="Paraguay" lang-ua:VALUE="Парагвай" lang-et:VALUE="Paraguay"/>
+		<currency_id>PYG</currency_id>
+		<phone_code>595</phone_code>
+		<full_name VALUE="Республика Парагвай" lang-en:VALUE="Republic of Paraguay" lang-ua:VALUE="Республика Парагвай"/>
+	</std_country>
+	<std_country>
+		<id>PSE</id>
+		<name VALUE="Палестина" lang-en:VALUE="Palestine" lang-ua:VALUE="Палестина" lang-et:VALUE="Palestiina"/>
+		<currency_id>ILS</currency_id>
+		<phone_code>970</phone_code>
+		<full_name VALUE="Государство Палестина" lang-en:VALUE="State of Palestine" lang-ua:VALUE="Государство Палестина"/>
+	</std_country>
+	<std_country>
+		<id>PYF</id>
+		<name VALUE="Французская Полинезия" lang-en:VALUE="French Polynesia" lang-ua:VALUE="Французская Полинезия" lang-et:VALUE="Prantsuse Polüneesia"/>
+		<currency_id>XPF</currency_id>
+		<phone_code>689</phone_code>
+		<full_name VALUE="Французская Полинезия" lang-en:VALUE="French Polynesia" lang-ua:VALUE="Французская Полинезия"/>
+	</std_country>
+	<std_country>
+		<id>QAT</id>
+		<name VALUE="Катар" lang-en:VALUE="Qatar" lang-ua:VALUE="Катар" lang-et:VALUE="Katar"/>
+		<currency_id>QAR</currency_id>
+		<phone_code>974</phone_code>
+		<full_name VALUE="Государство Катар" lang-en:VALUE="State of Qatar" lang-ua:VALUE="Государство Катар"/>
+	</std_country>
+	<std_country>
+		<id>REU</id>
+		<name VALUE="Реюньон" lang-en:VALUE="Reunion" lang-ua:VALUE="Реюньон" lang-et:VALUE="Flag of Franc"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>262</phone_code>
+		<full_name VALUE="Реюньон" lang-en:VALUE="Reunion Island" lang-ua:VALUE="Реюньон"/>
+	</std_country>
+	<std_country>
+		<id>ROU</id>
+		<name VALUE="Румыния" lang-en:VALUE="Romania" lang-ua:VALUE="Румыния" lang-et:VALUE="Rumeenia"/>
+		<currency_id>RON</currency_id>
+		<phone_code>40</phone_code>
+		<full_name VALUE="Румыния" lang-en:VALUE="Romania" lang-ua:VALUE="Румыния"/>
+	</std_country>
+	<std_country>
+		<id>RWA</id>
+		<name VALUE="Руанда" lang-en:VALUE="Rwanda" lang-ua:VALUE="Руанда" lang-et:VALUE="Rwanda"/>
+		<currency_id>RWF</currency_id>
+		<phone_code>250</phone_code>
+		<full_name VALUE="Республика Руанда" lang-en:VALUE="Republic of Rwanda" lang-ua:VALUE="Республика Руанда"/>
+	</std_country>
+	<std_country>
+		<id>SAU</id>
+		<name VALUE="Саудовская Аравия" lang-en:VALUE="Saudi Arabia" lang-ua:VALUE="Саудовская Аравия" lang-et:VALUE="Saudi Araabia"/>
+		<currency_id>SAR</currency_id>
+		<phone_code>966</phone_code>
+		<full_name VALUE="Королевство Саудовская Аравия" lang-en:VALUE="Kingdom of Saudi Arabia" lang-ua:VALUE="Королевство Саудовская Аравия"/>
+	</std_country>
+	<std_country>
+		<id>SDN</id>
+		<name VALUE="Судан" lang-en:VALUE="Sudan" lang-ua:VALUE="Судан" lang-et:VALUE="Sudaan"/>
+		<currency_id>SDG</currency_id>
+		<phone_code>249</phone_code>
+		<full_name VALUE="Республика Судан" lang-en:VALUE="Republic of the Sudan" lang-ua:VALUE="Республика Судан"/>
+	</std_country>
+	<std_country>
+		<id>SEN</id>
+		<name VALUE="Сенегал" lang-en:VALUE="Senegal" lang-ua:VALUE="Сенегал" lang-et:VALUE="Senegal"/>
+		<currency_id>XOF</currency_id>
+		<phone_code>221</phone_code>
+		<full_name VALUE="Республика Сенегал" lang-en:VALUE="Republic of Senegal" lang-ua:VALUE="Республика Сенегал"/>
+	</std_country>
+	<std_country>
+		<id>SGP</id>
+		<name VALUE="Сингапур" lang-en:VALUE="Singapore" lang-ua:VALUE="Сингапур" lang-et:VALUE="Singapur"/>
+		<currency_id>SGD</currency_id>
+		<phone_code>65</phone_code>
+		<full_name VALUE="Республика Сингапур" lang-en:VALUE="Republic of Singapore" lang-ua:VALUE="Республика Сингапур"/>
+	</std_country>
+	<std_country>
+		<id>SGS</id>
+		<name VALUE="Южная Георгия и Южные Сандвичевы острова" lang-en:VALUE="South Georgia" lang-ua:VALUE="Южная Георгия и Южные Сандвичевы острова" lang-et:VALUE="Lõuna-Georgia ja Lõuna-Sandwichi saared"/>
+		<currency_id>GBP</currency_id>
+		<phone_code>500</phone_code>
+		<full_name VALUE="Южная Георгия и Южные Сандвичевы острова" lang-en:VALUE="South Georgia and the South Sandwich Islands" lang-ua:VALUE="Южная Георгия и Южные Сандвичевы острова"/>
+	</std_country>
+	<std_country>
+		<id>SJM</id>
+		<name VALUE="Шпицберген и Ян-Майен" lang-en:VALUE="Svalbard and Jan Mayen" lang-ua:VALUE="Шпицберген и Ян-Майен" lang-et:VALUE="Flag of Norway.svgS"/>
+		<currency_id>NOK</currency_id>
+		<phone_code>4779</phone_code>
+		<full_name VALUE="Свальбарда ог Ян-Майен" lang-en:VALUE="Svalbard og Jan Mayen" lang-ua:VALUE="Свальбарда ог Ян-Майен"/>
+	</std_country>
+	<std_country>
+		<id>SLB</id>
+		<name VALUE="Соломоновы Острова" lang-en:VALUE="Solomon Islands" lang-ua:VALUE="Соломоновы Острова" lang-et:VALUE="Saalomoni Saared"/>
+		<currency_id>SBD</currency_id>
+		<phone_code>677</phone_code>
+		<full_name VALUE="Соломоновы острова" lang-en:VALUE="Solomon Islands" lang-ua:VALUE="Соломоновы острова"/>
+	</std_country>
+	<std_country>
+		<id>SLE</id>
+		<name VALUE="Сьерра-Леоне" lang-en:VALUE="Sierra Leone" lang-ua:VALUE="Сьерра-Леоне" lang-et:VALUE="Sierra Leone"/>
+		<currency_id>SLL</currency_id>
+		<phone_code>232</phone_code>
+		<full_name VALUE="Республика Сьерра- Леоне" lang-en:VALUE="Republic of Sierra Leone" lang-ua:VALUE="Республика Сьерра- Леоне"/>
+	</std_country>
+	<std_country>
+		<id>SLV</id>
+		<name VALUE="Сальвадор" lang-en:VALUE="El Salvador" lang-ua:VALUE="Сальвадор" lang-et:VALUE="El Salvador"/>
+		<currency_id>SVC</currency_id>
+		<phone_code>503</phone_code>
+		<full_name VALUE="Республика Эль- Сальвадор" lang-en:VALUE="Republic of El Salvador" lang-ua:VALUE="Республика Эль- Сальвадор"/>
+	</std_country>
+	<std_country>
+		<id>SMR</id>
+		<name VALUE="Сан-Марино" lang-en:VALUE="San Marino" lang-ua:VALUE="Сан-Марино" lang-et:VALUE="San Marino"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>378</phone_code>
+		<full_name VALUE="Большинство Serene Республика Сан- Марино" lang-en:VALUE="Most Serene Republic of San Marino" lang-ua:VALUE="Большинство Serene Республика Сан- Марино"/>
+	</std_country>
+	<std_country>
+		<id>SOM</id>
+		<name VALUE="Сомали" lang-en:VALUE="Somalia" lang-ua:VALUE="Сомали" lang-et:VALUE="Somaalia"/>
+		<currency_id>SOS</currency_id>
+		<phone_code>252</phone_code>
+		<full_name VALUE="Федеративная Республика Сомали" lang-en:VALUE="Federal Republic of Somalia" lang-ua:VALUE="Федеративная Республика Сомали"/>
+	</std_country>
+	<std_country>
+		<id>SPM</id>
+		<name VALUE="Сен-Пьер и Микелон" lang-en:VALUE="Saint Pierre and Miquelon" lang-ua:VALUE="Сен-Пьер и Микелон" lang-et:VALUE="Saint-Pierre ja Miquelon"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>508</phone_code>
+		<full_name VALUE="Сен-Пьер и Микелон" lang-en:VALUE="Saint Pierre and Miquelon" lang-ua:VALUE="Сен-Пьер и Микелон"/>
+	</std_country>
+	<std_country>
+		<id>SRB</id>
+		<name VALUE="Сербия" lang-en:VALUE="Serbia" lang-ua:VALUE="Сербия" lang-et:VALUE="Serbia"/>
+		<currency_id>RSD</currency_id>
+		<phone_code>381</phone_code>
+		<full_name VALUE="Республика Сербия" lang-en:VALUE="Republic of Serbia" lang-ua:VALUE="Республика Сербия"/>
+	</std_country>
+	<std_country>
+		<id>SSD</id>
+		<name VALUE="Южный Судан" lang-en:VALUE="South Sudan" lang-ua:VALUE="Южный Судан"/>
+		<currency_id>SSP</currency_id>
+		<phone_code>211</phone_code>
+		<full_name VALUE="Республика Южный Судан" lang-en:VALUE="Republic of South Sudan" lang-ua:VALUE="Республика Южный Судан"/>
+	</std_country>
+	<std_country>
+		<id>STP</id>
+		<name VALUE="Сан-Томе и Принсипи" lang-en:VALUE="Sao Tome and Principe" lang-ua:VALUE="Сан-Томе и Принсипи" lang-et:VALUE="São Tomé ja Príncipe"/>
+		<currency_id>STD</currency_id>
+		<phone_code>239</phone_code>
+		<full_name VALUE="Демократическая Республика Сан-Томе и Принсипи" lang-en:VALUE="Democratic Republic of Sao Tome and Principe" lang-ua:VALUE="Демократическая Республика Сан-Томе и Принсипи"/>
+	</std_country>
+	<std_country>
+		<id>SUR</id>
+		<name VALUE="Суринам" lang-en:VALUE="Suriname" lang-ua:VALUE="Суринам" lang-et:VALUE="Suriname"/>
+		<currency_id>SRD</currency_id>
+		<phone_code>597</phone_code>
+		<full_name VALUE="Республика Суринам" lang-en:VALUE="Republic of Suriname" lang-ua:VALUE="Республика Суринам"/>
+	</std_country>
+	<std_country>
+		<id>SVK</id>
+		<name VALUE="Словакия" lang-en:VALUE="Slovakia" lang-ua:VALUE="Словакия" lang-et:VALUE="Slovakkia"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>421</phone_code>
+		<full_name VALUE="Словацкая Республика" lang-en:VALUE="Slovak Republic" lang-ua:VALUE="Словацкая Республика"/>
+	</std_country>
+	<std_country>
+		<id>SVN</id>
+		<name VALUE="Словения" lang-en:VALUE="Slovenia" lang-ua:VALUE="Словения" lang-et:VALUE="Sloveenia"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>386</phone_code>
+		<full_name VALUE="Республика Словения" lang-en:VALUE="Republic of Slovenia" lang-ua:VALUE="Республика Словения"/>
+	</std_country>
+	<std_country>
+		<id>SWE</id>
+		<name VALUE="Швеция" lang-en:VALUE="Sweden" lang-ua:VALUE="Швеция" lang-et:VALUE="Rootsi"/>
+		<currency_id>SEK</currency_id>
+		<phone_code>46</phone_code>
+		<full_name VALUE="Королевство Швеция" lang-en:VALUE="Kingdom of Sweden" lang-ua:VALUE="Королевство Швеция"/>
+	</std_country>
+	<std_country>
+		<id>SWZ</id>
+		<name VALUE="Свазиленд" lang-en:VALUE="Swaziland" lang-ua:VALUE="Свазиленд" lang-et:VALUE="Svaasimaa"/>
+		<currency_id>SZL</currency_id>
+		<phone_code>268</phone_code>
+		<full_name VALUE="Королевство Свазиленд" lang-en:VALUE="Kingdom of Swaziland" lang-ua:VALUE="Королевство Свазиленд"/>
+	</std_country>
+	<std_country>
+		<id>SXM</id>
+		<name VALUE="Синт-Мартен" lang-en:VALUE="Sint Maarten" lang-ua:VALUE="Синт-Мартен"/>
+		<currency_id>ANG</currency_id>
+		<phone_code>1721</phone_code>
+		<full_name VALUE="Синт-Маартен" lang-en:VALUE="Sint Maarten" lang-ua:VALUE="Синт-Маартен"/>
+	</std_country>
+	<std_country>
+		<id>SYC</id>
+		<name VALUE="Сейшельские Острова" lang-en:VALUE="Seychelles" lang-ua:VALUE="Сейшельские Острова" lang-et:VALUE="Seišellid"/>
+		<currency_id>SCR</currency_id>
+		<phone_code>248</phone_code>
+		<full_name VALUE="Республика Сейшельские Острова" lang-en:VALUE="Republic of Seychelles" lang-ua:VALUE="Республика Сейшельские Острова"/>
+	</std_country>
+	<std_country>
+		<id>SYR</id>
+		<name VALUE="Сирия" lang-en:VALUE="Syria" lang-ua:VALUE="Сирия" lang-et:VALUE="Süüria"/>
+		<currency_id>SYP</currency_id>
+		<phone_code>963</phone_code>
+		<full_name VALUE="Сирийская Арабская Республика" lang-en:VALUE="Syrian Arab Republic" lang-ua:VALUE="Сирийская Арабская Республика"/>
+	</std_country>
+	<std_country>
+		<id>TCA</id>
+		<name VALUE="Теркс и Кайкос" lang-en:VALUE="Turks and Caicos Islands" lang-ua:VALUE="Теркс и Кайкос" lang-et:VALUE="Turks ja Caicos"/>
+		<currency_id>USD</currency_id>
+		<phone_code>1649</phone_code>
+		<full_name VALUE="Теркс и Кайкос острова" lang-en:VALUE="Turks and Caicos Islands" lang-ua:VALUE="Теркс и Кайкос острова"/>
+	</std_country>
+	<std_country>
+		<id>TCD</id>
+		<name VALUE="Чад" lang-en:VALUE="Chad" lang-ua:VALUE="Чад" lang-et:VALUE="Tšaad"/>
+		<currency_id>XAF</currency_id>
+		<phone_code>235</phone_code>
+		<full_name VALUE="Республика Чад" lang-en:VALUE="Republic of Chad" lang-ua:VALUE="Республика Чад"/>
+	</std_country>
+	<std_country>
+		<id>TGO</id>
+		<name VALUE="Того" lang-en:VALUE="Togo" lang-ua:VALUE="Того" lang-et:VALUE="Togo"/>
+		<currency_id>XOF</currency_id>
+		<phone_code>228</phone_code>
+		<full_name VALUE="Того Республика" lang-en:VALUE="Togolese Republic" lang-ua:VALUE="Того Республика"/>
+	</std_country>
+	<std_country>
+		<id>THA</id>
+		<name VALUE="Таиланд" lang-en:VALUE="Thailand" lang-ua:VALUE="Таиланд" lang-et:VALUE="Tai"/>
+		<currency_id>THB</currency_id>
+		<phone_code>66</phone_code>
+		<full_name VALUE="Королевство Таиланд" lang-en:VALUE="Kingdom of Thailand" lang-ua:VALUE="Королевство Таиланд"/>
+	</std_country>
+	<std_country>
+		<id>TJK</id>
+		<name VALUE="Таджикистан" lang-en:VALUE="Tajikistan" lang-ua:VALUE="Таджикистан" lang-et:VALUE="Tadžikistan"/>
+		<currency_id>TJS</currency_id>
+		<phone_code>992</phone_code>
+		<full_name VALUE="Республика Таджикистан" lang-en:VALUE="Republic of Tajikistan" lang-ua:VALUE="Республика Таджикистан"/>
+	</std_country>
+	<std_country>
+		<id>TKL</id>
+		<name VALUE="Токелау" lang-en:VALUE="Tokelau" lang-ua:VALUE="Токелау" lang-et:VALUE="Tokelau"/>
+		<currency_id>NZD</currency_id>
+		<phone_code>690</phone_code>
+		<full_name VALUE="Токелау" lang-en:VALUE="Tokelau" lang-ua:VALUE="Токелау"/>
+	</std_country>
+	<std_country>
+		<id>TKM</id>
+		<name VALUE="Туркмения" lang-en:VALUE="Turkmenistan" lang-ua:VALUE="Туркмения" lang-et:VALUE="Türkmenistan"/>
+		<currency_id>TMT</currency_id>
+		<phone_code>993</phone_code>
+		<full_name VALUE="Туркменистан" lang-en:VALUE="Turkmenistan" lang-ua:VALUE="Туркменистан"/>
+	</std_country>
+	<std_country>
+		<id>TLS</id>
+		<name VALUE="Восточный Тимор" lang-en:VALUE="Timor-Leste" lang-ua:VALUE="Восточный Тимор" lang-et:VALUE="Ida-Timor"/>
+		<currency_id>USD</currency_id>
+		<phone_code>670</phone_code>
+		<full_name VALUE="Демократическая Республика Тимор -Лешти" lang-en:VALUE="Democratic Republic of Timor-Leste" lang-ua:VALUE="Демократическая Республика Тимор -Лешти"/>
+	</std_country>
+	<std_country>
+		<id>TON</id>
+		<name VALUE="Тонга" lang-en:VALUE="Tonga" lang-ua:VALUE="Тонга" lang-et:VALUE="Tonga"/>
+		<currency_id>TOP</currency_id>
+		<phone_code>676</phone_code>
+		<full_name VALUE="Королевство Тонга" lang-en:VALUE="Kingdom of Tonga" lang-ua:VALUE="Королевство Тонга"/>
+	</std_country>
+	<std_country>
+		<id>TTO</id>
+		<name VALUE="Тринидад и Тобаго" lang-en:VALUE="Trinidad and Tobago" lang-ua:VALUE="Тринидад и Тобаго" lang-et:VALUE="Trinidad ja Tobago"/>
+		<currency_id>TTD</currency_id>
+		<phone_code>1868</phone_code>
+		<full_name VALUE="Республика Тринидад и Тобаго" lang-en:VALUE="Republic of Trinidad and Tobago" lang-ua:VALUE="Республика Тринидад и Тобаго"/>
+	</std_country>
+	<std_country>
+		<id>TUN</id>
+		<name VALUE="Тунис" lang-en:VALUE="Tunisia" lang-ua:VALUE="Тунис" lang-et:VALUE="Tuneesia"/>
+		<currency_id>TND</currency_id>
+		<phone_code>216</phone_code>
+		<full_name VALUE="Тунисской Республики" lang-en:VALUE="Tunisian Republic" lang-ua:VALUE="Тунисской Республики"/>
+	</std_country>
+	<std_country>
+		<id>TUR</id>
+		<name VALUE="Турция" lang-en:VALUE="Turkey" lang-ua:VALUE="Турция" lang-et:VALUE="Türgi"/>
+		<currency_id>TRY</currency_id>
+		<phone_code>90</phone_code>
+		<full_name VALUE="Республика Турции" lang-en:VALUE="Republic of Turkey" lang-ua:VALUE="Республика Турции"/>
+	</std_country>
+	<std_country>
+		<id>TUV</id>
+		<name VALUE="Тувалу" lang-en:VALUE="Tuvalu" lang-ua:VALUE="Тувалу" lang-et:VALUE="Tuvalu"/>
+		<currency_id>AUD</currency_id>
+		<phone_code>688</phone_code>
+		<full_name VALUE="Тувалу" lang-en:VALUE="Tuvalu" lang-ua:VALUE="Тувалу"/>
+	</std_country>
+	<std_country>
+		<id>TWN</id>
+		<name VALUE="Тайвань" lang-en:VALUE="Taiwan" lang-ua:VALUE="Тайвань" lang-et:VALUE="Taiwan"/>
+		<currency_id>TWD</currency_id>
+		<phone_code>886</phone_code>
+		<full_name VALUE="Китайская Республика" lang-en:VALUE="Republic of China" lang-ua:VALUE="Китайская Республика"/>
+	</std_country>
+	<std_country>
+		<id>TZA</id>
+		<name VALUE="Танзания" lang-en:VALUE="Tanzania" lang-ua:VALUE="Танзания" lang-et:VALUE="Tansaania"/>
+		<currency_id>TZS</currency_id>
+		<phone_code>255</phone_code>
+		<full_name VALUE="Объединенная Республика Танзания" lang-en:VALUE="United Republic of Tanzania" lang-ua:VALUE="Объединенная Республика Танзания"/>
+	</std_country>
+	<std_country>
+		<id>UGA</id>
+		<name VALUE="Уганда" lang-en:VALUE="Uganda" lang-ua:VALUE="Уганда" lang-et:VALUE="Uganda"/>
+		<currency_id>UGX</currency_id>
+		<phone_code>256</phone_code>
+		<full_name VALUE="Республика Уганда" lang-en:VALUE="Republic of Uganda" lang-ua:VALUE="Республика Уганда"/>
+	</std_country>
+	<std_country>
+		<id>UMI</id>
+		<name VALUE="Внешние малые острова США" lang-en:VALUE="United States Minor Outlying Islands" lang-ua:VALUE="Внешние малые острова США" lang-et:VALUE="Flag of the United States."/>
+		<currency_id>USD</currency_id>
+		<phone_code/>
+		<full_name VALUE="Внешние малые острова США" lang-en:VALUE="United States Minor Outlying Islands" lang-ua:VALUE="Внешние малые острова США"/>
+	</std_country>
+	<std_country>
+		<id>URY</id>
+		<name VALUE="Уругвай" lang-en:VALUE="Uruguay" lang-ua:VALUE="Уругвай" lang-et:VALUE="Uruguay"/>
+		<currency_id>UYI</currency_id>
+		<phone_code>598</phone_code>
+		<full_name VALUE="Восточной Республики Уругвай" lang-en:VALUE="Oriental Republic of Uruguay" lang-ua:VALUE="Восточной Республики Уругвай"/>
+	</std_country>
+	<std_country>
+		<id>USA</id>
+		<name VALUE="Соединённые Штаты Америки" lang-en:VALUE="United States" lang-ua:VALUE="США" lang-et:VALUE="Ameerika Ühendriigid"/>
+		<currency_id>USD</currency_id>
+		<phone_code>1</phone_code>
+		<full_name VALUE="Соединенные Штаты Америки" lang-en:VALUE="United States of America" lang-ua:VALUE="Соединенные Штаты Америки"/>
+	</std_country>
+	<std_country>
+		<id>UZB</id>
+		<name VALUE="Узбекистан" lang-en:VALUE="Uzbekistan" lang-ua:VALUE="Узбекистан" lang-et:VALUE="Usbekistan"/>
+		<currency_id>UZS</currency_id>
+		<phone_code>998</phone_code>
+		<full_name VALUE="Республика Узбекистан" lang-en:VALUE="Republic of Uzbekistan" lang-ua:VALUE="Республика Узбекистан"/>
+	</std_country>
+	<std_country>
+		<id>VAT</id>
+		<name VALUE="Ватикан" lang-en:VALUE="Vatican City" lang-ua:VALUE="Ватикан" lang-et:VALUE="Vatikan"/>
+		<currency_id>EUR</currency_id>
+		<phone_code>3906698</phone_code>
+		<full_name VALUE="Город-государство Ватикан" lang-en:VALUE="Vatican City State" lang-ua:VALUE="Город-государство Ватикан"/>
+	</std_country>
+	<std_country>
+		<id>VCT</id>
+		<name VALUE="Сент-Винсент и Гренадины" lang-en:VALUE="Saint Vincent and the Grenadines" lang-ua:VALUE="Сент-Винсент и Гренадины" lang-et:VALUE="Saint Vincent ja Grenadiinid"/>
+		<currency_id>XCD</currency_id>
+		<phone_code>1784</phone_code>
+		<full_name VALUE="Сент-Винсент и Гренадины" lang-en:VALUE="Saint Vincent and the Grenadines" lang-ua:VALUE="Сент-Винсент и Гренадины"/>
+	</std_country>
+	<std_country>
+		<id>VEN</id>
+		<name VALUE="Венесуэла" lang-en:VALUE="Venezuela" lang-ua:VALUE="Венесуэла" lang-et:VALUE="Venezuela"/>
+		<currency_id>VEF</currency_id>
+		<phone_code>58</phone_code>
+		<full_name VALUE="Боливарианская Республика Венесуэла" lang-en:VALUE="Bolivarian Republic of Venezuela" lang-ua:VALUE="Боливарианская Республика Венесуэла"/>
+	</std_country>
+	<std_country>
+		<id>VGB</id>
+		<name VALUE="Британские Виргинские острова" lang-en:VALUE="British Virgin Islands" lang-ua:VALUE="Британские Виргинские острова" lang-et:VALUE="Briti Neitsisaared"/>
+		<currency_id>USD</currency_id>
+		<phone_code>1284</phone_code>
+		<full_name VALUE="Виргинские острова" lang-en:VALUE="Virgin Islands" lang-ua:VALUE="Виргинские острова"/>
+	</std_country>
+	<std_country>
+		<id>VIR</id>
+		<name VALUE="Виргинские Острова" lang-en:VALUE="United States Virgin Islands" lang-ua:VALUE="Виргинские Острова" lang-et:VALUE="USA Neitsisaared"/>
+		<currency_id>USD</currency_id>
+		<phone_code>1340</phone_code>
+		<full_name VALUE="Виргинские острова Соединенных Штатов" lang-en:VALUE="Virgin Islands of the United States" lang-ua:VALUE="Виргинские острова Соединенных Штатов"/>
+	</std_country>
+	<std_country>
+		<id>VNM</id>
+		<name VALUE="Вьетнам" lang-en:VALUE="Vietnam" lang-ua:VALUE="Вьетнам" lang-et:VALUE="Vietnam"/>
+		<currency_id>VND</currency_id>
+		<phone_code>84</phone_code>
+		<full_name VALUE="Социалистическая Республика Вьетнам" lang-en:VALUE="Socialist Republic of Vietnam" lang-ua:VALUE="Социалистическая Республика Вьетнам"/>
+	</std_country>
+	<std_country>
+		<id>VUT</id>
+		<name VALUE="Вануату" lang-en:VALUE="Vanuatu" lang-ua:VALUE="Вануату" lang-et:VALUE="Vanuatu"/>
+		<currency_id>VUV</currency_id>
+		<phone_code>678</phone_code>
+		<full_name VALUE="Республика Вануату" lang-en:VALUE="Republic of Vanuatu" lang-ua:VALUE="Республика Вануату"/>
+	</std_country>
+	<std_country>
+		<id>WLF</id>
+		<name VALUE="Уоллис и Футуна" lang-en:VALUE="Wallis and Futuna" lang-ua:VALUE="Уоллис и Футуна" lang-et:VALUE="Wallis ja Futuna"/>
+		<currency_id>XPF</currency_id>
+		<phone_code>681</phone_code>
+		<full_name VALUE="Территория Уоллис и Футуна острова" lang-en:VALUE="Territory of the Wallis and Futuna Islands" lang-ua:VALUE="Территория Уоллис и Футуна острова"/>
+	</std_country>
+	<std_country>
+		<id>WSM</id>
+		<name VALUE="Самоа" lang-en:VALUE="Samoa" lang-ua:VALUE="Самоа" lang-et:VALUE="Samoa"/>
+		<currency_id>WST</currency_id>
+		<phone_code>685</phone_code>
+		<full_name VALUE="Независимое Государство Самоа" lang-en:VALUE="Independent State of Samoa" lang-ua:VALUE="Независимое Государство Самоа"/>
+	</std_country>
+	<std_country>
+		<id>YEM</id>
+		<name VALUE="Йемен" lang-en:VALUE="Yemen" lang-ua:VALUE="Йемен" lang-et:VALUE="Jeemen"/>
+		<currency_id>YER</currency_id>
+		<phone_code>967</phone_code>
+		<full_name VALUE="Йеменская Республика" lang-en:VALUE="Republic of Yemen" lang-ua:VALUE="Йеменская Республика"/>
+	</std_country>
+	<std_country>
+		<id>ZAF</id>
+		<name VALUE="Южно-Африканская Республика" lang-en:VALUE="South Africa" lang-ua:VALUE="Южно-Африканская Республика" lang-et:VALUE="Lõuna-Aafrika Vabariik"/>
+		<currency_id>ZAR</currency_id>
+		<phone_code>27</phone_code>
+		<full_name VALUE="Южно-Африканская Республика" lang-en:VALUE="Republic of South Africa" lang-ua:VALUE="Южно-Африканская Республика"/>
+	</std_country>
+	<std_country>
+		<id>ZMB</id>
+		<name VALUE="Замбия" lang-en:VALUE="Zambia" lang-ua:VALUE="Замбия" lang-et:VALUE="Sambia"/>
+		<currency_id>ZMW</currency_id>
+		<phone_code>260</phone_code>
+		<full_name VALUE="Республика Замбия" lang-en:VALUE="Republic of Zambia" lang-ua:VALUE="Республика Замбия"/>
+	</std_country>
+	<std_country>
+		<id>ZWE</id>
+		<name VALUE="Зимбабве" lang-en:VALUE="Zimbabwe" lang-ua:VALUE="Зимбабве" lang-et:VALUE="Zimbabwe"/>
+		<currency_id>ZWL</currency_id>
+		<phone_code>263</phone_code>
+		<full_name VALUE="Республика Зимбабве" lang-en:VALUE="Republic of Zimbabwe" lang-ua:VALUE="Республика Зимбабве"/>
+	</std_country>
+</std_countries>

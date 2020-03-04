@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE__="single-xml" IMAGE-URL="//base_pict/generic_item.ico" IMAGE-URL-EXPR="
+		is_tentative ? '//base_pict/generic_item_tentative.ico' : '//base_pict/generic_item.ico'
+">
+
+<USE FORM="//imod/imod_general.xmd"/>
+
+
+<vacancy_template>	
+	<id TYPE="integer"/>
+	<name TYPE="string" TITLE="##UiText.fields.name##"/>
+
+	<position_type_id TYPE="integer" FOREIGN-ARRAY="position_types" TITLE="##UiText.objects.position_type##"/>
+
+	<profession_id TYPE="integer" FOREIGN-ARRAY="professions" IDATA="1" TITLE="##UiText.fields.profession##"/>
+	<location_id TYPE="string" DOC-ID="1" FOREIGN-ARRAY="locations" TITLE="##UiText.fields.location##"/>
+	<brand_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="brands" TITLE="##UiText.fields.brand##" EXP-MAX-LEN="15" COL-ALIGN="center"/>
+
+	<inet_data DOC-ONLY="1">
+		<INHERIT TYPE="vacancy_inet_data"/>
+	</inet_data>
+
+	<is_tentative TYPE="bool" NULL-FALSE="1" TITLE="Требует утверждения" lang-en:TITLE="Requires approval" lang-ua:TITLE="Вимагає затвердження"/>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</vacancy_template>
+
+
+
+</SPXML-FORM>

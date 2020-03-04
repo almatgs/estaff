@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems.xmd" LANG="ru">
+	<std_voc_elem>
+		<id>a</id>
+		<name VALUE="вспомогательный персонал" lang-en:VALUE="service personnel"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>m</id>
+		<name VALUE="специалист" lang-en:VALUE="specialist"/>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>m2</id>
+		<name>руководитель среднего звена</name>
+	</std_voc_elem>
+
+	<std_voc_elem>
+		<id>t</id>
+		<name>руководитель высшего звена</name>
+	</std_voc_elem>
+</std_voc_elems>
+
+
+
+

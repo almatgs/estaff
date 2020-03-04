@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="Object.vacancy" ObjectType="vacancy" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<Page ID="Common" Layout="table1">
+	<UI:Item Field="name"/>
+	<UI:Item Field="code"/>
+	<UI:Item Field="division_id"/>
+
+	<UI:Break/>
+
+	<UI:Item Field="orig_rr_person_id"/>
+	<UI:Item Field="rr_persons" Layout="line"/>
+
+	<UI:Break/>
+
+	<UI:Item Field="start_date"/>
+	
+	<UI:Item Field="reason_id"/>
+	<UI:Item Field="staff_category_id" PutWithField="reason_id"/>
+	<UI:Item Field="difficulty_level_id" PutWithField="staff_category_id"/>
+	<UI:Item Field="priority_id" PutWithField="difficulty_level_id"/>
+	<UI:Item Field="req_empl_start_date"/>
+
+	<UI:Break/>
+
+	<UI:Item Field="state_id"/>
+	<UI:Item Field="state_date" PutWithField="state_id"/>
+
+	<UI:Break/>
+	<UI:Item Field="user_id"/>
+	<UI:Break/>
+
+	<UI:CustomFields/>
+</Page>
+
+
+<UI:ObjectList Template="List.candidates">
+	<UI:Filter Field="spots.spot.vacancy_id" Fixed="1" ValueExpr="vacancy.id"/>
+	<UI:Filter Field="state_id" Multiple="1" Fixed="1" ValueExpr="lib_recruit_hm.GetRrPersonAllowedCandidateStateIDs()" ShowCondition="global_settings.hm_recruit.restrict_shown_candidates"/>
+</UI:ObjectList>
+
+
+<UI:Attachments/>
+
+
+</UiTemplate>
+

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.person_id.ForeignDispName" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<GROUP>
+		<ITEM TYPE="object_selector" SOURCE="Ps.person_id" AUTO-LABEL="1" WIDTH="45zr"/>
+		<BUTTON TITLE="##UiText.titles.load_from_external_calendar##" ACTION="lib_calendar_slots.HandleLoadSlotSetFromExtCalendar( Ps )" WIDTH="35zr"/>
+		<CHECK SOURCE="Ps.is_disabled" AUTO-LABEL="1" KEEP-RIGHT="1"/>
+	</GROUP>
+	<DELIM/>
+
+	<LINE HEIGHT="100%">
+		<PANEL WIDTH="50%">
+			<GROUP>
+				<LABEL TITLE-EXPR="Ps.slot_dates.Title + ':'"/>
+
+				<IMAGE URL="//base_pict/plus.ico" WIDTH="16px" HEIGHT="16px" KEEP-RIGHT="1" ACTION="
+						Ps.HandleAddNewSlot();
+				"/>
+			</GROUP>
+			<BR/>
+
+			<TABLE>
+				<COLUMNS>
+					<COL WIDTH="20zr"/>
+					<COL WIDTH="100%"/>
+					<COL WIDTH="16px"/>
+				</COLUMNS>
+
+				<LOOP EXPR="ArraySort( Ps.slot_dates, 'date', '+' )" VAR="_slot_date">
+					<ITEM TYPE="date_selector" SOURCE="_slot_date.date"/>
+
+					<LINE>
+						<LOOP EXPR="_slot_date.slots" VAR="_slot">
+							<LABEL TITLE-EXPR="
+									endCombMinute = _slot.comb_minute + _slot.size;
+									endCombMinute = Min( endCombMinute, 24 * 60 );
+									return ( _slot.comb_minute / 60 ) + ':' + StrInt( _slot.comb_minute % 60, 2 ) + '-' + ( endCombMinute / 60 ) + ':' + StrInt( endCombMinute % 60, 2 )
+							"/>
+						</LOOP>
+					</LINE>
+
+					<IMAGE URL="//base_pict/more_actions.ico" WIDTH="16px" HEIGHT="16px" KEEP-RIGHT="1">
+						<MENU>
+							<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+									_slot_date.Delete();
+									Ps.Doc.SetChanged( true );
+							"/>
+						</MENU>
+					</IMAGE>
+				</LOOP>
+			</TABLE>
+		</PANEL>
+		<SPLIT FIXED="1"/>
+		<PANEL WIDTH="100%">
+		</PANEL>
+	</LINE>
+
+</PANEL>
+
+
+</SPXML-SCREEN>
+
+
+

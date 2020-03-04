@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" TITLE="##UiText.objects.division_type##" IMAGE-URL-EXPR="is_active ? '//base_pict/generic_item.ico' : '//base_pict/generic_item_inactive.ico'">
+
+<division_type>
+	<id TYPE="string"/>
+	<name TYPE="string" INDEXED="1" TITLE="##UiText.fields.name##"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<is_mass_recruit_division TYPE="bool" NULL-FALSE="1" TITLE="Подразделение массового подбора" lang-en:TITLE="Mass recruitment division" lang-ua:TITLE="Підрозділ масового підбору"/>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</division_type>
+
+
+</SPXML-FORM>
+
+
+

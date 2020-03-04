@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_countries>
+	<std_country MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT TYPE="country_base"/>
+		<phone_code TYPE="string"/>
+		<region_phone_code_len TYPE="integer"/>
+		<international_dialing_prefix TYPE="string"/>
+		<domestic_dialing_prefix TYPE="string"/>
+	</std_country>
+</std_countries>
+
+
+</SPXML-FORM>

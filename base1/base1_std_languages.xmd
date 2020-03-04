@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SPXML-FORM>
+
+<std_languages>
+	<std_language MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT FORM="base1_language.xmd" TYPE="language"/>
+	</std_language>
+</std_languages>
+
+
+</SPXML-FORM>
+

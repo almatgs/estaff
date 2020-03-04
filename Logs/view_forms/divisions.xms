@@ -1,0 +1,47 @@
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Подразделения" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/list.ico">
+	<PANEL SUNKEN="1" STD-MARGINS="1" BK-COLOR-EXPR="SysColors.PanelLightBackground">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="38zr"/>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="14zr"/>
+			</COLUMNS>
+			<ITEM TYPE="ft_filter" SOURCE="Ps.filter"/>
+			<PANEL/>
+			<PANEL>
+				<LABEL TITLE="Действующее:"/>
+				<ITEM TYPE="tri_state_selector" usage="filter" SOURCE="Ps.filter.is_active"/>
+			</PANEL>
+		</TABLE>
+		<PANEL HEIGHT="2px"/>
+		<TABLE>
+			<COLUMNS/>
+		</TABLE>
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="Очистить форму" ACTION="lib_view.clear_filters( 'divisions', Ps ); lib_view.clear_stored_filters( 'divisions' ); lib_view.adjust_filters( 'divisions', Ps );Screen.Update()" PASSIVE="1"/>
+		</MENU>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+	<PANEL BK-COLOR-EXPR="" HEIGHT="40%">
+		<LIST NAME="MainList" USE-KEY-SEL="1" SUNKEN="1" HIER="1" LOOP-CATALOG="divisions" FT-FILTER="Ps.filter" XQUERY-QUAL-EXPR="lib_view.build_xquery_qual( 'divisions', Ps )" XQUERY-FIELDS-EXPR="['id','parent_id','is_active','image_url','name','code','short_name','filled_positions_num','free_positions_num']" AFTER-BUILD-ASYNC-ACTION="if ( StrContains( Screen.FrameName, 'Sub' ) ) return; size = ArrayOptSize( MainArray ); if ( size == undefined ) { StatusMsg( '' ); return; }; StatusMsg( UiText.titles.items_in_list + ': ' + StrInt( size, 0, true ) + ( lib_view.is_some_filter_applied( 'divisions', Ps ) ? '  (с учетом фильтра)' : '' ) )">
+			<ROW IMAGE-URL-EXPR="ListElem.ImageUrl" SET-SEL-ACTION="item = Screen.FindOptItem( 'FrameSubView' );if ( item == undefined ) Cancel();item.InnerScreen.Doc.TopElem.filter.division_id = ListElem.id;item.InnerScreen.Update();Cancel();">
+				<COL COL-TITLE="Наименование" WIDTH="50%" TITLE-EXPR="ListElem.name" ORDER="name"/>
+				<COL COL-TITLE="Номер" WIDTH="10zr" TITLE-EXPR="ListElem.code" ORDER="code" ALIGN="center"/>
+				<COL COL-TITLE="Сокращенное наименование" WIDTH="28zr" TITLE-EXPR="ListElem.short_name" ORDER="short_name"/>
+				<COL COL-TITLE="ЗШД" WIDTH="7zr" TITLE-EXPR="StrIntZero( ListElem.filled_positions_num )" ORDER="filled_positions_num" ALIGN="right"/>
+				<COL COL-TITLE="НШД" WIDTH="7zr" TITLE-EXPR="StrIntZero( ListElem.free_positions_num )" ORDER="free_positions_num" ALIGN="right"/>
+			</ROW>
+			<MENU RIGHT-CLICK="1">
+				<MENU-ENTRY TITLE="Открыть" CMD="OpenSel"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Удалить" CMD="Clear"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name" ACTION="lib_view.ShowScreenInExcel( Screen, List )" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+			</MENU>
+		</LIST>
+	</PANEL>
+	<SPLIT/>
+	<FRAME NAME="FrameSubView" HREF-EXPR="lib_view.obtain_view_url( 'positions_of_division' )"/>
+	<INHERIT TYPE="view_commands"/>
+	<INHERIT TYPE="view_commands_2"/>
+</SPXML-SCREEN>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>candidates_duty</id>
+	<name VALUE="Кандидаты - Принять решение" lang-en:VALUE="Candidates - To Do" lang-ua:VALUE="Кандидати - Прийняти рішення"/>
+	<parent_id>candidates</parent_id>
+
+	<static_filters>
+		<static_filter>
+			<id>is_user_duty</id>
+			<value>true</value>
+		</static_filter>
+	</static_filters>
+
+	<drop_all_dyn_filters>1</drop_all_dyn_filters>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>state_id</id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}</view_filter_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>fullname</id>
+		</field>
+		<field>
+			<id>state_duration_desc</id>
+			<col_title VALUE="##UiText.fields.state_duration##"/>
+			<width>11zr</width>
+			<align>center</align>
+			<order>state_date</order>
+		</field>
+		<field>
+			<id>state_term_rest_desc</id>
+			<col_title VALUE="##UiText.titles.left__days##"/>
+			<bk_color_expr>state_term_rest_bk_color</bk_color_expr>
+			<width>11zr</width>
+			<align>center</align>
+			<order>max_state_date == null</order>
+			<order_dir>+</order_dir>
+			<order1>state_term_rest_seconds</order1>
+			<order_dir1>+</order_dir1>
+			<is_default_sort>1</is_default_sort>
+		</field>
+		<field>
+			<id>state_id</id>
+			<bk_color_expr>get_state_bk_color()</bk_color_expr>
+		</field>
+		<field>
+			<id>main_vacancy_id</id>
+			<width>40%</width>
+		</field>
+		<field>
+			<id>main_vacancy_org_id</id>
+			<exist_req_expr>global_settings.is_agency</exist_req_expr>
+			<width>30%</width>
+		</field>
+		<field>
+			<id>main_vacancy_division_id</id>
+			<exist_req_expr>! global_settings.is_agency</exist_req_expr>
+			<width>30%</width>
+		</field>
+		<field>
+			<id>last_job_org_name</id>
+			<text_color>90,0,120</text_color>
+			<width>30%</width>
+		</field>
+		<field__>
+			<id>last_comment</id>
+			<width>13zr</width>
+		</field__>
+		<field>
+			<id>user_id</id>
+		</field>
+	</fields>
+</std_view>
+

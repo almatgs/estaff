@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="110zr" HEIGHT="50zr" TITLE="##UiText.titles.record##" INIT-ACTION="
+		Screen.FindItemBySource( Ps.comment ).SetFocus();
+		Cancel();
+" OK-ACTION="
+		if ( ! Ps.comment.HasValue )
+			Cancel();
+">
+
+<PANEL HEIGHT-EXPR="lib_base.dlg_body_height">
+
+<LABEL TITLE="##UiText.fields.comment##:"/>
+<EDIT SOURCE="Ps.comment" MULTILINE="1" HEIGHT="100%" VERT-SCROLL="1" PASSIVE="1"/>
+
+
+</PANEL>
+
+
+<ITEM TYPE="dlg_footer"/>
+
+
+</SPXML-SCREEN>

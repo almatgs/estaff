@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<lib_candidate_dup>
+	<METHOD NAME="find_all_dup_candidates" PROGRESS="1" RUN-UI="1">
+		<PARAM NAME="destData" TYPE="variant"/>
+	</METHOD>
+</lib_candidate_dup>
+
+
+</SPXML-INLINE-FORM>

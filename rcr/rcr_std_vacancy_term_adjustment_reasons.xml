@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_vacancy_term_adjustment_reasons SPXML-FORM="rcr_std_vacancy_term_adjustment_reasons.xmd">
+	<std_vacancy_term_adjustment_reason>
+		<id>client_review_extended</id>
+		<name VALUE="Продлен срок рассмотрения заказчиком" lang-en:VALUE="Client review extended" lang-ua:VALUE="Продовжено термін розгляду замовником"/>
+	</std_vacancy_term_adjustment_reason>
+	<std_vacancy_term_adjustment_reason>
+		<id>self_reject_after_offer</id>
+		<name VALUE="Отказ кандидата после предложения" lang-en:VALUE="Refusal after job offer" lang-ua:VALUE="Відмова кандидата після пропозиції"/>
+	</std_vacancy_term_adjustment_reason>
+	<std_vacancy_term_adjustment_reason>
+		<id>security_check_extended</id>
+		<name VALUE="Продлен срок проверки СБ" lang-en:VALUE="Security check extended" lang-ua:VALUE="Продлен срок проверки в СБ"/>
+	</std_vacancy_term_adjustment_reason>
+	<std_vacancy_term_adjustment_reason>
+		<id>security_check_failed</id>
+		<name VALUE="Отказ СБ финальному кандидату" lang-en:VALUE="Final candidate had not passed security check" lang-ua:VALUE="Відмова фінального кандидата по СБ"/>
+	</std_vacancy_term_adjustment_reason>
+	<std_vacancy_term_adjustment_reason>
+		<id>not_came_to_work</id>
+		<name VALUE="Кандидат не вышел" lang-en:VALUE="Candidate had not turned up to work" lang-ua:VALUE="Кандидат не вийшов"/>
+	</std_vacancy_term_adjustment_reason>
+	<std_vacancy_term_adjustment_reason>
+		<id>prev_dismissal_extended</id>
+		<name VALUE="Срок оформления перенесен, в связи с увеличением времени увольнения" lang-en:VALUE="Dismissal of previous employee delayed" lang-ua:VALUE="Продовжено термін звільнення попереднього співробітника"/>
+	</std_vacancy_term_adjustment_reason>
+	<std_vacancy_term_adjustment_reason>
+		<id>job_conditions_changed</id>
+		<name VALUE="Изменены требования/условия" lang-en:VALUE="Job conditions had changed" lang-ua:VALUE="Змінено вимоги / умови"/>
+	</std_vacancy_term_adjustment_reason>
+	<std_vacancy_term_adjustment_reason>
+		<id>other</id>
+		<name VALUE="##UiText.titles.other##"/>
+	</std_vacancy_term_adjustment_reason>
+</std_vacancy_term_adjustment_reasons>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

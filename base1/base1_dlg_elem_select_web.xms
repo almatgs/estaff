@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.elem_selection##" WIDTH="110zr" HEIGHT="80zr" STD-MARGINS="1">
+
+
+<IF EXPR="Ps.catalog_ref.HasValue">
+	<LINE>
+		<PANEL STD-MARGINS="0">
+			<PANEL HEIGHT="2px">
+			</PANEL>
+			<LABEL TITLE="##UiText.titles.ft_search##:"/>
+		</PANEL>
+
+		<EDIT SOURCE="Ps.filter.used_fulltext" WIDTH="26zr"/>
+		<BUTTON TITLE="##UiText.actions.ft_find##" ACTION="1" WIDTH="10zr"/>
+	</LINE>
+</IF>
+
+<BR/>
+
+
+<PANEL HEIGHT-EXPR="lib_base.dlg_body_height">
+	<LIST NAME="MainList" HIER="1" SUNKEN="1" SINGLE-SEL-EXPR="! Ps.multi_select">
+		<COLUMNS>
+			<COL WIDTH="100%" TITLE="##UiText.fields.name##"/>
+		</COLUMNS>
+
+		<LOOP EXPR="
+				if ( Ps.array_ref.HasValue )
+					return Ps.array;
+
+				queryStr = 'for $elem in ' + Ps.catalog.Name;
+				
+				qualStr = '';
+
+				if ( Ps.filter_obj_ref.HasValue )
+				{
+					for ( propName in Ps.filter_obj )
+					{
+						qualStr += ' and $elem/' + propName + ' = ' + XQueryLiteral( Ps.filter_obj[propName] );
+					}
+				}
+
+				recordFormElem = Ps.catalog.Form.TopElem[0];
+
+				if ( Ps.filter.used_fulltext != '' )
+				{
+					if ( recordFormElem.Name == 'profession' )
+						qualStr += ' and contains( $elem/name, ' + Ps.filter.used_fulltext.XQueryLiteral + ' )';
+					else
+						qualStr += ' and doc-contains( $elem/id, \'data\', ' + Ps.filter.used_fulltext.XQueryLiteral + ', \'' + CatalogNameToObjectName( Ps.catalog.Name ) + '\' )';
+				}
+
+				queryStr += StrReplaceOne( qualStr, ' and ', ' where ' );
+				
+				try
+				{
+					primaryDispName = recordFormElem.OptPrimaryDispName.Name;
+				}
+				catch ( e )
+				{
+					if ( recordFormElem.ChildExists( 'name' ) )
+						primaryDispName = 'name';
+					else if ( recordFormElem.ChildExists( 'fullname' ) )
+						primaryDispName = 'fullname';
+				}
+
+				if ( recordFormElem.ChildExists( 'parent_id' ) &amp;&amp; recordFormElem.Name != 'profession' )
+					queryStr += ' order by $elem/Hier(), $elem/' + primaryDispName;
+				else
+					queryStr += ' order by $elem/' + primaryDispName;
+				
+				queryStr += ' return $elem';
+
+				//alert( queryStr );
+				return XQuery( queryStr );
+		" VAR="ListElem" IGNORE-ERRORS="0">
+			<ROW OPEN-ACTION="Ps.finish()" IMAGE-URL_="//base_pict/generic_item.ico" HIER-LEVEL-EXPR="
+					ListElem.ChildExists( 'hlevel' ) ? ListElem.hlevel : 0
+			">
+				<COL TITLE-EXPR="ListElem.PrimaryDispName"/>
+			</ROW>
+		</LOOP>
+	</LIST>
+</PANEL>
+
+
+
+
+
+	<BR/>
+	<PANEL HEIGHT="3px">
+	</PANEL>
+
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<BUTTON TITLE="OK" CMD="1" ENABLE-EXPR="Screen.FindItem( 'MainList' ).HasSel" ACTION="
+			Ps.finish();
+	" PASSIVE="1"/>
+	
+	<BUTTON TITLE="##UiText.actions.cancel##" ACTION="Screen.Close()" PASSIVE="1"/>
+</TABLE>
+
+
+
+</SPXML-SCREEN>

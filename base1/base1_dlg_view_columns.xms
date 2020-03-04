@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.columns##" WIDTH="150zr" HEIGHT="95zr">
+
+<PANEL HEIGHT-EXPR="lib_base.dlg_body_height">
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="60%"/>
+		<COL WIDTH="40%"/>
+	</COLUMNS>
+
+	<PANEL>
+		<LABEL TITLE="##UiText.titles.all_fields##:"/>
+
+		<GRID FIXED-ROW-HEIGHT="1" MARKS="0" HEIGHT="100%">
+			<COLUMNS>
+				<COL WIDTH="3zr"/>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="25zr"/>
+			</COLUMNS>
+
+			<ROW HEADER="1">
+				<LABEL/>
+				<LABEL TITLE="##UiText.fields.field##"/>
+				<LABEL TITLE="##UiText.titles.type##" ALIGN="center"/>
+			</ROW>
+
+			<LOOP EXPR="
+					array = new Array;
+
+					for ( formElem in Ps.param.recordForm )
+					{
+						innerKeyFormElem = undefined;
+
+						if ( formElem.Name == 'id' || formElem.Name == 'parent_id' || formElem.Name == 'hce' || formElem.Name == 'hlevel' )
+							continue;
+
+						if ( formElem.Name == 'is_candidate' )
+							continue;
+
+						if ( formElem.Title == '' && formElem.ColTitle == '' )
+							continue;
+
+						if ( formElem.ResultDataType == '' && ( innerKeyFormElem = lib_view.get_simple_array_inner_key_form_elem( formElem ) ) == undefined )
+							continue;
+
+						if ( innerKeyFormElem != undefined )
+							array.push( innerKeyFormElem );
+						else
+							array.push( formElem );
+					}
+
+					return array;
+			" VAR="_form_elem">
+				<ROW>
+					<CHECK SOURCE="
+							return ( Ps.view.fields.GetOptChildByKey( lib_view.get_record_form_elem_relative_path( Ps.param.recordForm, _form_elem ), 'id' ) != undefined );
+					" SET-VALUE-ACTION="
+							if ( NewValue )
+							{
+								field = Ps.view.fields.GetOptChildByKey( lib_view.get_record_form_elem_relative_path( Ps.param.recordForm, _form_elem ), 'id' );
+								if ( field != undefined )
+									return;
+
+								field = lib_view.insert_form_elem_id( Ps.param, _form_elem, Ps.view.fields );
+								if ( _form_elem.Type == 'date' )
+									field.use_time = false;
+							}
+							else
+							{
+								Ps.view.fields.DeleteChildByKey( lib_view.get_record_form_elem_relative_path( Ps.param.recordForm, _form_elem ), 'id' );
+							}
+					" FLAT="1" ALIGN="center"/>
+
+					<LABEL TITLE-EXPR="lib_view.get_form_elem_upper_title( _form_elem ) + ( StrBegins( _form_elem.Name, 'idata_' ) ? ' ' + UiText.titles.idata_comment : '' )" FLAT="1" TIP-TEXT-EXPR="
+							'<' + lib_view.get_record_form_elem_relative_path( Ps.param.recordForm, _form_elem ) + '>  ' + lib_view.get_form_elem_upper_title( _form_elem );
+					"/>
+					
+					<LABEL TITLE-EXPR="
+							if ( _form_elem.ForeignArrayExpr != '' )
+							{
+								if ( lib_voc.get_opt_voc_info( _form_elem.ForeignArrayExpr ) != undefined )
+									return UiText.titles.voc_elem_reference;
+								else if ( DefaultDb.GetOptCatalog( _form_elem.ForeignArrayExpr ) != undefined )
+									return UiText.titles.object_reference;
+								else
+									return UiText.titles.elem_reference;
+							}
+
+							return GetForeignElem( base1_common.data_types, _form_elem.ResultDataType ).name
+					" FLAT="1" ALIGN="center"/>
+				</ROW>
+			</LOOP>
+		</GRID>
+	</PANEL>
+
+	<PANEL>
+		<LABEL TITLE="##UiText.titles.columns##:"/>
+
+		<LIST LOOP-EXPR="
+				Ps.view.fields
+		" HEIGHT="100%" SUNKEN="1">
+			<ROW IMAGE-URL="//base_pict/generic_item.ico" DELETE-ACTION="ListElem.Delete()">
+				<COL WIDTH="100%" COL-TITLE="##UiText.fields.field##" TITLE-EXPR="
+						if ( ListElem.col_title.HasValue )
+							return ListElem.col_title;
+						
+						if ( Ps.param.recordForm.PathExists( ListElem.id ) )
+						{
+							elem = Ps.param.recordForm.EvalPath( ListElem.id );
+							
+							if ( elem.ColTitle != '' )
+								return elem.ColTitle;
+							else if ( elem.Title != '' )
+								return elem.Title;
+							else
+								return lib_view.get_outer_form_elem( elem ).Title;
+						}
+
+						return ListElem.id;
+				"/>
+
+				<COL WIDTH="4zr" COL-TITLE="*" TITLE-EXPR="
+						if ( ListElem.id == '' )
+							return '*';
+
+						return '';
+				"/>
+			</ROW>
+
+			<MENU RIGHT-CLICK="1">
+				<MENU-ENTRY TITLE="##UiText.actions.del##&#09;Del" CMD="Clear"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				
+				<MENU-ENTRY TITLE="##UiText.actions.move_up##" ACTION="
+						curElem = List.SelRow.Env.ListElem;
+						if ( curElem.ChildIndex == 0 )
+							return;
+
+						curElem.SetChildIndex( curElem.ChildIndex - 1 );
+				" ENABLE-EXPR="List.HasSingleSel"/>
+
+				<MENU-ENTRY TITLE="##UiText.actions.move_down##" ACTION="
+						curElem = List.SelRow.Env.ListElem;
+						if ( curElem.ChildIndex == curElem.Parent.ChildNum - 1 )
+							return;
+
+						curElem.SetChildIndex( curElem.ChildIndex + 1 );
+				" ENABLE-EXPR="List.HasSingleSel"/>
+			</MENU>
+		</LIST>
+	</PANEL>
+
+
+
+</TABLE>
+
+</PANEL>
+
+<INHERIT TYPE="dlg_view_footer"/>
+
+</SPXML-SCREEN>

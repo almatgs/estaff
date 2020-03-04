@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_stat SPXML-FORM="//base1/base1_std_stat.xmd">
+	<id>vacancies_by_candidate_sources</id>
+	<name VALUE="По источникам подбора" lang-en:VALUE="By candidate source" lang-ua:VALUE="За джерелами підбору"/>
+	<section_id>vacancies</section_id>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>close_date</id>
+			<source_id>vacancies</source_id>
+			<title VALUE="Дата закрытия вакансии" lang-en:VALUE="Vacancy close date" lang-ua:VALUE="Дата закриття вакансії"/>
+			<use_range>1</use_range>
+			<use_period_quick_selector>1</use_period_quick_selector>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>recruit_type_id</id>
+			<source_id>vacancies</source_id>
+			<width>25zr</width>
+		</dyn_filter>
+	</dyn_filters>
+
+	<sources>
+		<source>
+			<id>vacancies</id>
+			<stat_only>1</stat_only>
+		</source>
+	</sources>
+
+	<static_filters>
+		<static_filter>
+			<id>state_id</id>
+			<source_id>vacancies</source_id>
+			<value>vacancy_closed</value>
+		</static_filter>
+	</static_filters>
+
+	<groups>
+		<group>
+			<id>final_candidate_source_id</id>
+			<is_hier>1</is_hier>
+			<show_full_range>1</show_full_range>
+		</group>
+	</groups>
+
+	<fields>
+		<field>
+			<col_title VALUE="##UiText.fields.source##"/>
+			<width>60%</width>
+		</field>
+
+		<field>
+			<col_title VALUE="##UiText.fields.quantity__short##"/>
+			<stat_func>count</stat_func>
+		</field>
+
+		<field>
+			<col_title>%</col_title>
+			<align>center</align>
+			<data_type>real</data_type>
+			<is_percent>1</is_percent>
+			<stat_func>count_percent</stat_func>
+		</field>
+	</fields>
+
+	<show_total>1</show_total>
+</std_stat>
+

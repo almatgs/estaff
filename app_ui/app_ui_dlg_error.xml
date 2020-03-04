@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_error>
+	<error_info_ref TYPE="variant"/>
+	<error_info PROPERTY="1" EXPR="error_info_ref.Object"/>
+
+	<user_desc TYPE="string" MULTILINE="1"/>
+
+	<width TYPE="integer"/>
+	<height TYPE="integer"/>
+
+	<show_details TYPE="bool" NOT-NULL="1"/>
+
+
+	<init PROPERTY="1" EXPR="
+			user_desc = error_info.UserDesc;
+
+			width = calc_width();
+			height = calc_height();
+	"/>
+
+
+	<calc_width PROPERTY="1" EXPR="
+			maxLineLen = 0;
+
+			for ( line in String( user_desc ).split( '\n' ) )
+			{
+				lineLen = CalcTextScreenWidth( line );
+				if ( lineLen > maxLineLen )
+					maxLineLen = lineLen;
+			}
+			
+			return Min( Max( maxLineLen + 60, 360 ), 720 );
+	"/>
+
+	
+	<calc_height PROPERTY="1" EXPR="
+			linesNum = 0;
+
+			for ( line in String( user_desc ).split( '\n' ) )
+			{
+				linesNum++;
+
+				lineLen = StrCharCount( line );
+				if ( lineLen > 100 )
+					linesNum++;
+			}
+
+			zrNum = Int( linesNum * 2 );
+			
+			return Min( Max( zrNum + 20, 25 ), 300 );
+	"/>
+</dlg_error>
+
+
+
+</SPXML-INLINE-FORM>
+
+
+
+

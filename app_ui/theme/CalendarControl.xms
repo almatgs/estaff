@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+<PANEL NAME="CALENDAR" SAMPLE="1" INNER-ALIAS="calendarView" BORDER="1" DROP-DOWN__="1" STD-MARGINS="0"
+	BORDER-COLOR-EXPR="AppUi.themeColors.edit_border"
+	BK-COLOR-EXPR="AppUi.gThemeData.colors.background" BOX-SHADOW="8px" SHADOW-COLOR-EXPR="AppUi.gThemeData.colors.shadow_inner" SHADOW-GRADIENT-OPACITY="0"
+	OnBeforeBuild="
+		//LogEvent( '', 'OnBeforeBuild' );
+		item = calendarView;
+
+		if ( ! item.IsDisplayed )
+			LibCalendarControl.OnCreateCalendarControl( item );
+
+		LibCalendarControl.OnBuildCalendarControl( item );
+">
+	<PANEL FULL-WIDTH="1" STD-MARGINS="0" PADDING="0.3em 0.6em 0.3em 1.2em">
+		<LINE FULL-WIDTH="1">
+			<LABEL TITLE-EXPR="
+					item = BaseSampleItem;
+					str = UiText.months[item.AuxData.activeMonth - 1];
+					str += ' ';
+					str += item.AuxData.activeYear;
+					return str;
+			" BOLD="1" TEXT-COLOR-EXPR="AppUi.gThemeData.colors.text"/>
+
+			<ITEM TYPE="FlatButton2" IMAGE-URL="pict/arrow_left.svg" ACTION="LibCalendarControl.OnMonthShift( BaseSampleItem, -1 )" PASSIVE="1" KEEP-RIGHT="1"/>
+			<ITEM TYPE="FlatButton2" IMAGE-URL="pict/arrow_right.svg" ACTION="LibCalendarControl.OnMonthShift( BaseSampleItem, 1 )" PASSIVE="1" KEEP-RIGHT="1"/>
+		</LINE>
+	</PANEL>
+
+	<PANEL FULL-WIDTH="1" HEIGHT="1px" BK-COLOR-EXPR="AppUi.gThemeData.colors.calendar_delim"/>
+
+	<PANEL STD-MARGINS="0" PADDING="0.5em">
+		<TABLE>
+			<COLUMNS>
+				<LOOP EXPR="PlainSeq( 7 )" VAR="_weekDayIndex">
+					<COL WIDTH="4zr"/>
+				</LOOP>
+			</COLUMNS>
+
+			<LOOP EXPR="PlainSeq( 7 )" VAR="_weekDayIndex">
+				<PANEL STD-MARGINS="0" PADDING="0.2em 0 0.5em 0" FULL-WIDTH="1">
+					<LABEL TITLE-EXPR="
+							StrLowerCase( UiText.week_days__short[BaseSampleItem.AuxData.weekDaysSeq[_weekDayIndex]] );
+					" TEXT-COLOR-EXPR="AppUi.gThemeData.colors.gray_text" ALIGN="center"/>
+				</PANEL>
+			</LOOP>
+
+			<LOOP EXPR="PlainSeq( 42 )" VAR="_offset">
+				<PANEL STD-MARGINS="0" PADDING="0.1em 0" STATES="hover,pressed" ACTION="
+						LibCalendarControl.OnCellClick( BaseSampleItem, BaseSampleItem.AuxData.coreCellDates[_offset] );
+				" PASSIVE="1" BK-COLOR-EXPR="LibCalendarControl.GetCellBkColor( calendarView, Item, calendarView.AuxData.coreCellDates[_offset] )"
+				BORDER-WIDTH-EXPR="LibCalendarControl.GetCellBorderWidth( BaseSampleItem, Item, BaseSampleItem.AuxData.coreCellDates[_offset] )"
+				BORDER-COLOR-EXPR="AppUi.gThemeData.colors.primary"
+				INNER-BORDER="1"
+				FULL-WIDTH="1"
+				NAME="Cell">
+					<LABEL TITLE-EXPR="
+							Day( calendarView.AuxData.coreCellDates[_offset] );
+					" TEXT-COLOR-EXPR="LibCalendarControl.GetCellTextColor( BaseSampleItem, FindOptUpperItemByName( 'Cell' ), BaseSampleItem.AuxData.coreCellDates[_offset] )" ALIGN="center"/>
+				</PANEL>
+			</LOOP>
+		</TABLE>
+	</PANEL>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

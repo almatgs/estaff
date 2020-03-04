@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="dlg_auth" TITLE="##UiText.titles.user_auth##" WIDTH="48zr" HEIGHT="42zr" INIT-ACTION="
+		if ( dlg_auth.login != '' && dlg_auth.password != '' )
+			Screen.FindItem( 'Ok' ).SetFocus();
+		else if ( dlg_auth.login != '' )
+			Screen.FindItem( 'Password' ).SetFocus();
+		else
+			Screen.FindItem( 'Login' ).SetFocus();
+">
+
+<LINE>
+	<IMAGE URL="pict/auth.ico" WIDTH="32px" HEIGHT="32px"/>
+	<LABEL TITLE-EXPR="
+			coreName = AppConfig.GetOptProperty( 'LDS-SERVER-CORE-NAME' );
+			return ( coreName != undefined ? StrReplaceOne( UiText.titles.lds_xxx_auth, '%s', coreName ): UiText.titles.lds_auth ) + ':'"/>
+</LINE>
+<DELIM/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="8zr"/>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="button"/>
+	</COLUMNS>
+
+	<LABEL TITLE="##UiText.fields.server##:" ALIGN="right"/>
+	<EDIT SOURCE="spxml_machine_settings.lds.address != '' ? spxml_machine_settings.lds.address : spxml_settings.lds.address" READ-ONLY="1"/>
+
+	<BUTTON TITLE="..." TIP-TEXT="Изменить адрес сервера" ACTION="
+			dlgDoc = OpenNewDoc( 'sx_dlg_lds_settings.xml' );
+			dlgDoc.TopElem.lds.AssignElem( spxml_machine_settings.lds );
+			
+			Screen.ModalDlg( dlgDoc );
+
+			spxml_machine_settings.lds.AssignElem( dlgDoc.TopElem.lds );
+			spxml_machine_settings.Doc.Save();
+
+			Screen.RunCommand( 'Cancel' );
+	" PASSIVE="1" lang-en:TIP-TEXT="Change server" lang-ua:TIP-TEXT="Змінити адресу сервера"/>
+</TABLE>
+<DELIM/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="18zr"/>
+		<COL WIDTH="100%"/>
+	</COLUMNS>
+
+	<LABEL TITLE="##UiText.fields.user_name##:" ALIGN="right" lang-en:TITLE="User name:"/>
+	<EDIT SOURCE="Ps.login" NAME="Login" ACTION="Screen.RunCommand( 'Ok' )" PASSIVE="1"/>
+
+	<LABEL TITLE="##UiText.fields.password##:" ALIGN="right" lang-en:TITLE="Password:"/>
+	<EDIT SOURCE="Ps.password" PASSWORD="1" NAME="Password" ACTION="Screen.RunCommand( 'Ok' )" PASSIVE="1"/>
+
+	<LABEL/>
+	
+	<IF EXPR="! Ps.prohibit_save_password && ( ! AppConfig.HasProperty( 'LDS-HTTPS' ) || AppConfig.GetProperty( 'LDS-HTTPS' ) != '1' )">
+		<CHECK TITLE="##UiText.titles.save_password##" SOURCE="Ps.save_password"/>
+	</IF>
+</TABLE>
+<DELIM/>
+
+<PANEL HEIGHT="1px">
+</PANEL>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+	<LABEL/>
+	<BUTTON TITLE="OK" CMD="Ok" NAME="Ok"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="Cancel" lang-en:TITLE="Cancel"/>
+</TABLE>
+
+</SPXML-SCREEN>

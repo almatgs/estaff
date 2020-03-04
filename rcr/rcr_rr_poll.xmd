@@ -1,0 +1,35 @@
+<SPXML-FORM BASE-OBJECT="event" TITLE="##UiText.objects.rr_poll##" CODE-LIB="1" IMAGE-URL-EXPR="type_id.ForeignElem.get_image_url()" SCREEN-FORM-URL="//base2/base2_event.xms">
+
+
+<rr_poll>
+	<poll_result>
+		<spec_id TYPE="string" FOREIGN-ARRAY="poll_specs" TITLE="##UiText.fields.poll_form##"/>
+		<INHERIT TYPE="poll_result_base"/>
+	</poll_result>
+
+	<participant_poll_results>
+		<participant_poll_result MULTIPLE="1" PRIMARY-KEY="person_id">
+			<person_id TYPE="integer" FOREIGN-ARRAY="persons"/>
+			<spec_id TYPE="string" FOREIGN-ARRAY="poll_specs" TITLE="##UiText.fields.poll_form##" EXPR="Parent.Parent.poll_result.spec_id"/>
+			<INHERIT TYPE="poll_result_base"/>
+
+			<start_date TYPE="date"/>
+			<end_date TYPE="date"/>
+		</participant_poll_result>
+	</participant_poll_results>
+	
+	<average_score TYPE="real" PRECISION="2" TITLE="##UiText.fields.average_score##"/>
+
+	<t1 TYPE="bool" TEMP="1" EXPR="
+			sync_participant_poll_results();
+			update_sum_results();
+			update_poll_occurrence();
+	" EXPR-SHOW-ERRORS="1"/>
+
+
+	<resp_person_id TYPE="integer" FOREIGN-ARRAY="persons"/>
+</rr_poll>
+
+
+
+</SPXML-FORM>

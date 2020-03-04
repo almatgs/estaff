@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-INIT-ACTION="
+		Ps.SyncTargetRecruitPhases();
+" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<GROUP>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.recruit_type_id" AUTO-LABEL="1" WIDTH="35zr"/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.location_id" AUTO-LABEL="1" WIDTH="-30zr"/>
+
+		<CHECK SOURCE="Ps.use_agency" AUTO-LABEL="1"/>
+	</GROUP>
+	<DELIM/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="50zr"/>
+			<COL WIDTH="20zr"/>
+			<COL WIDTH="20zr"/>
+			<COL WIDTH="20zr"/>
+			<COL WIDTH="20zr"/>
+		</COLUMNS>
+
+		<LABEL TITLE="##UiText.fields.recruit_phase##:"/>
+
+		<LABEL TITLE="##UiText.titles.estimated_duration## (##UiText.titles.wdays__short##):"/>
+		<LABEL TITLE="##UiText.titles.for_each_additional_vacancy_instance##:"/>
+
+		<LABEL TITLE="##UiText.titles.estimated_effort## (##UiText.titles.hours##):"/>
+		<LABEL TITLE="##UiText.titles.for_each_additional_vacancy_instance##:"/>
+
+		<LOOP EXPR="Ps.target_recruit_phases" VAR="ListElem">
+			<EDIT SOURCE="ListElem.recruit_phase_id.ForeignDispName" READ-ONLY="1"/>
+
+			<EDIT SOURCE="ListElem.wdays_num" WIDTH="10zr"/>
+			<EDIT SOURCE="ListElem.add_instance_wdays_num" WIDTH="10zr"/>
+
+			<EDIT SOURCE="ListElem.effort_hours" WIDTH="10zr"/>
+			<EDIT SOURCE="ListElem.add_instance_effort_hours" WIDTH="10zr"/>
+		</LOOP>
+	</TABLE>
+</PANEL>
+
+
+</SPXML-SCREEN>
+
+
+
+

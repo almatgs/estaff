@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" MAXIMIZED="1">
+
+
+<INHERIT TYPE="card_menu_start"/>
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="card_toolbar_start_entries"/>
+
+	<PANEL NAME="ZoneToolbar">
+	</PANEL>
+
+	<INHERIT TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="38zr" STD-MARGINS="0">
+	<TREE HEIGHT="50%" SUNKEN="1" SWITCH-TYPE="selector" TARGET="main_selector">
+	</TREE>
+	<SPLIT FIXED="1"/>
+
+	<PANEL NAME="ZoneLeft" HEIGHT-EXPR="'-' + lib_base.GetCardInfoHeightMeasure( TopElem )" SUNKEN="1" BK-COLOR="255,255,255" STD-MARGINS="1">
+	</PANEL>
+
+	<ITEM TYPE="card_info"/>
+</PANEL>
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE-EXPR="( name = GetForeignElem( card_object_types, Ps.Name ).name ) != '' ? name : DefaultDb.GetObjectForm( Ps.Name ).Title" EXPANDED="1" SUNKEN="1" IMAGE-URL-EXPR="Ps.ImageUrl">
+
+
+<PAGE NAME="PageCommon" TITLE="##UiText.sections.general##" IMAGE-URL="//base_pict/common.ico" SUNKEN="1" VERT-SCROLL="1" lang-en:TITLE="General">
+</PAGE>
+
+</PAGE>
+
+
+
+</SELECTOR>
+
+
+
+
+
+</LINE>
+
+
+
+
+
+</SPXML-SCREEN>
+
+
+
+

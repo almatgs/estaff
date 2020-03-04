@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<metro_map xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<location_name VALUE="Днепропетровск" lang-ua:VALUE="Дніпропетровськ"/>
+	<lines>
+		<line>
+			<id>25</id>
+			<name VALUE="Центрально-Заводская" lang-ua:VALUE="Центрально-Заводська"/>
+		</line>
+	</lines>
+	<stations>
+		<station>
+			<id>404</id>
+			<name VALUE="Вокзальная" lang-en:VALUE="Vokzalnaya" lang-ua:VALUE="Вокзальна"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>405</id>
+			<name VALUE="Заводская" lang-en:VALUE="Zavodskaya" lang-ua:VALUE="Заводська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>406</id>
+			<name VALUE="Коммунаровская" lang-en:VALUE="Kommunarovskaya" lang-ua:VALUE="Комунарівська"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>407</id>
+			<name VALUE="Металлургов" lang-en:VALUE="Metallurgov" lang-ua:VALUE="Металургів"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>408</id>
+			<name VALUE="Метростроителей" lang-en:VALUE="Metrostroitelej" lang-ua:VALUE="Метробудівників"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>409</id>
+			<name VALUE="Проспект Свободы" lang-en:VALUE="Prospekt Svobody" lang-ua:VALUE="Проспект Свободи"/>
+			<line_id>0</line_id>
+		</station>
+	</stations>
+</metro_map>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<base1_ui_text xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<titles>
+		<lotus_id_files VALUE="ID-файлы Lotus Notes" lang-en:VALUE="Lotus Notes ID files" lang-ua:VALUE="ID-файли Lotus Notes"/>
+	</titles>
+	<sections>
+		<settings_lotus VALUE="Интеграция с Lotus Notes" lang-en:VALUE="Lotus Notes integration" lang-ua:VALUE="Інтеграція з Lotus Notes"/>
+	</sections>
+	<errors>
+		<unable_to_switch_to_id_file VALUE="Ошибка авторизации Lotus Notes" lang-en:VALUE="Unable to authorize with Lotus Notes" lang-ua:VALUE="Помилка авторизації Lotus Notes"/>
+		<unable_to_open_resource_db VALUE="Невозможно открыть базу Resource.nsf" lang-en:VALUE="Unable to open Resource.nsf database" lang-ua:VALUE="Неможливо відкрити базу Resource.nsf"/>
+	</errors>
+</base1_ui_text>

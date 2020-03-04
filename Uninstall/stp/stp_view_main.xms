@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="package.name + ' - ' + StrLowerCase( UiText.titles.setup )" WIDTH="86zr" HEIGHT="60zr" INIT-ACTION="
+		SetTimer( 'Ps.timer_action()', 100 );
+		Cancel();
+" CLOSE-ACTION="
+		Ps.was_killed = true;
+		//Ps.quit();
+" WINDOW-ICON-URL="pict/setup.ico" STD-MARGINS="0" OWNED="1" DLG-BUTTONS="1">
+
+
+<PANEL HEIGHT="-14zr">
+	<PANEL HEIGHT="2zr">
+	</PANEL>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="3zr"/>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="3zr"/>
+		</COLUMNS>
+
+		<LABEL/>
+
+		<PANEL>
+			<IF EXPR="Ps.cur_stage.id == 'init'">
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="11zr"/>
+						<COL WIDTH="100%"/>
+					</COLUMNS>
+
+					<PANEL>
+						<PANEL HEIGHT="9px">
+						</PANEL>
+
+						<IMAGE URL="pict/setup.ico" WIDTH="48px" HEIGHT="48px"/>
+					</PANEL>
+
+					<PANEL>
+						<BR/>
+						<LABEL TITLE-EXPR="StrReplace( UiText.messages.welcome_to_xxx_setup, '%s', package.name )" BOLD="1"/>
+						<BR/>
+						<BR/>
+
+						<LABEL TITLE-EXPR="StrReplace( UiText.messages.this_will_install_xxx, '%s', package.full_name )"/>
+						<BR/>
+						<BR/>
+						<BR/>
+						<BR/>
+						<BR/>
+						<BR/>
+						<LABEL TITLE="Нажмите кнопку 'Далее' для продолжения установки или кнопку 'Отмена' для выхода." lang-en:TITLE="Clink Next to continue, or Cancel to exit setup" lang-ua:TITLE="Натисніть кнопку 'Далі' для продовження установки або кнопку 'Скасувати' для виходу."/>
+					</PANEL>
+				</TABLE>
+			</IF>
+
+
+			<IF EXPR="Ps.cur_stage.id == 'instance'">
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="11zr"/>
+						<COL WIDTH="100%"/>
+					</COLUMNS>
+
+					<PANEL>
+						<PANEL HEIGHT="9px">
+						</PANEL>
+
+						<IMAGE URL="pict/setup.ico" WIDTH="48px" HEIGHT="48px"/>
+					</PANEL>
+
+					<PANEL STD-MARGINS="1">
+						<LABEL TITLE="Укажите экземпляр сервера для установки:" lang-en:TITLE="Select server instance:" lang-ua:TITLE="Вкажіть екземпляр сервера для встановлення:"/>
+						<BR/>
+						<BR/>
+						<BR/>
+
+						<RADIO-BUTTON TITLE="Экземпляр по умолчанию (рекомендуется)" lang-en:TITLE="Default instance (recommended)" SOURCE="Ps.use_named_instance" SWITCH-VALUE="false" lang-ua:TITLE="Екземпляр за замовчуванням (рекомендовано)"/>
+						<RADIO-BUTTON TITLE="Именованный экземпляр" lang-en:TITLE="Named instance" SOURCE="Ps.use_named_instance" SWITCH-VALUE="true" lang-ua:TITLE="Іменований екземпляр"/>
+						<BR/>
+						<BR/>
+
+						<COMBO SOURCE="Ps.instance_suffix" CHECK-VALUE-ACTION="Ps.check_instance_suffix( NewValue )" EDITABLE="1" LABEL-TITLE="Наименование экземпляра сервера:" lang-en:LABEL-TITLE="Instance name:" ENABLE-EXPR="Ps.use_named_instance" WIDTH="40zr" lang-ua:LABEL-TITLE="Найменування екземпляра сервера:">
+							<LOOP EXPR="Ps.Doc.TopElem.get_installed_instance_suffixes()" VAR="_suffix">
+								<COMBO-ENTRY TITLE-EXPR="_suffix" VALUE-EXPR="_suffix"/>
+							</LOOP>
+						</COMBO>
+					</PANEL>
+				</TABLE>
+			</IF>
+
+
+			<IF EXPR="Ps.cur_stage.id == 'license'">
+				<LABEL TITLE="Ознакомьтесь, пожалуйста, с прилагаемым лицензионным соглашением. Для продолжения установки Вы должны принять его." lang-en:TITLE="Please read the following license agreement." lang-ua:TITLE="Ознайомтеся, будь-ласка, з доданою ліцензійною угодою. Для продовження встановлення Ви повинні прийняти її."/>
+				<BR/>
+				<BR/>
+
+				<EDIT SOURCE="Ps.license.text" MULTILINE="1" READ-ONLY="1" VERT-SCROLL="1" HEIGHT="-6zr"/>
+				<BR/>
+				<BR/>
+
+				<CHECK SOURCE="Ps.license.is_accepted" TITLE="Я принимаю условия лицензионного соглашения" lang-en:TITLE="I accept the agreement" lang-ua:TITLE="Я приймаю умови ліцензійної угоди"/>
+			</IF>
+
+
+			<IF EXPR="Ps.cur_stage.id == 'sn'">
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="11zr"/>
+						<COL WIDTH="100%"/>
+					</COLUMNS>
+
+					<PANEL>
+						<PANEL HEIGHT="9px">
+						</PANEL>
+
+						<IMAGE URL="pict/setup.ico" WIDTH="48px" HEIGHT="48px"/>
+					</PANEL>
+
+					<PANEL STD-MARGINS="1">
+						<LABEL TITLE="Введите серийный номер Вашей копии продукта:" lang-en:TITLE="Enter the serial number:" lang-ua:TITLE="Введіть серійний номер Вашої копії продукту:"/>
+						<BR/>
+						<BR/>
+						<BR/>
+						
+						<LINE>
+							<LABEL TITLE="  "/>
+							<EDIT SOURCE="Ps.sn1" WIDTH="7zr" SET-VALUE-ACTION="
+									if ( StrLen( NewValue ) == 14 &amp;&amp; ( obj = StrOptScan( NewValue, '%s-%s-%s' ) ) != undefined )
+									{
+										Ps.sn1 = obj[0];
+										Ps.sn2 = obj[1];
+										Ps.sn3 = obj[2];
+									}
+									else
+									{
+										Ps.sn1 = NewValue;
+									}
+							"/>
+							
+							<LABEL TITLE=" - "/>
+							<EDIT SOURCE="Ps.sn2" WIDTH="7zr"/>
+							<LABEL TITLE=" - "/>
+							<EDIT SOURCE="Ps.sn3" WIDTH="7zr"/>
+						</LINE>
+					</PANEL>
+				</TABLE>
+			</IF>
+
+
+			<IF EXPR="Ps.cur_stage.id == 'dest_dir'">
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="8zr"/>
+						<COL WIDTH="100%"/>
+					</COLUMNS>
+
+					<PANEL>
+						<PANEL HEIGHT="9px">
+						</PANEL>
+
+						<IMAGE URL="pict/folder.ico" WIDTH="32px" HEIGHT="32px"/>
+					</PANEL>
+
+					<PANEL STD-MARGINS="1">
+						<BR/>
+						<LABEL TITLE-EXPR="StrReplace( UiText.messages.select_setup_folder_for_xxx, '%s', Ps.instance_link_name ) + ':'"/>
+
+						<TABLE>
+							<COLUMNS>
+								<COL WIDTH="100%"/>
+								<COL WIDTH="button"/>
+							</COLUMNS>
+
+							<EDIT SOURCE="Ps.dest_dir"/>
+
+							<BUTTON IMAGE-URL="pict/folder.ico" TIP-TEXT="##UiText.actions.browse##" ACTION="
+									Ps.dest_dir = UrlToFilePath( Screen.AskDir( FilePathToUrl( Ps.dest_dir ) ) );
+							"/>
+						</TABLE>
+					</PANEL>
+				</TABLE>
+			</IF>
+
+
+			<IF EXPR="Ps.cur_stage.id == 'plugins'">
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="8zr"/>
+						<COL WIDTH="100%"/>
+					</COLUMNS>
+
+					<PANEL>
+						<PANEL HEIGHT="9px">
+						</PANEL>
+
+						<IMAGE URL="pict/setup.ico" WIDTH="32px" HEIGHT="32px"/>
+					</PANEL>
+
+					<PANEL STD-MARGINS="1">
+						<BR/>
+						<LABEL TITLE="Зарегистрировать модули импорта резюме в E-Staff для приложений:" lang-en:TITLE="Register E-Staff add-ons for:" lang-ua:TITLE="Зареєструвати модулі імпорту резюме в E- Staff для додатків:"/>
+						<BR/>
+
+						<LINE>
+							<PANEL WIDTH="1zr">
+							</PANEL>
+							<PANEL>
+								<CHECK SOURCE="Ps.sel_plugins.ie" TITLE="Internet Explorer"/>
+								<CHECK SOURCE="Ps.sel_plugins.firefox" TITLE="Mozilla Firefox"/>
+								<CHECK SOURCE="Ps.sel_plugins.chrome" TITLE="Google Chrome"/>
+								<BR/>
+
+								<CHECK SOURCE="Ps.sel_plugins.outlook" TITLE="Microsoft Outlook"/>
+								<CHECK SOURCE="Ps.sel_plugins.thunderbird" TITLE="Mozilla Thunderbird"/>
+								<CHECK SOURCE="Ps.sel_plugins.lotus" TITLE="Lotus Notes"/>
+							</PANEL>
+						</LINE>
+					</PANEL>
+				</TABLE>
+			</IF>
+
+
+			<IF EXPR="Ps.cur_stage.id == 'progress'">
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="11zr"/>
+						<COL WIDTH="100%"/>
+					</COLUMNS>
+
+					<PANEL>
+						<PANEL HEIGHT="9px">
+						</PANEL>
+
+						<IMAGE URL="pict/setup.ico" WIDTH="48px" HEIGHT="48px"/>
+					</PANEL>
+
+					<PANEL STD-MARGINS="1">
+						<LABEL TITLE="##UiText.titles.copying_files##..." lang-en:TITLE="Copying files..."/>
+						<BR/>
+
+						<IF EXPR="true">
+							<PROGRESS-BAR SOURCE="Ps.processed_items_num" RANGE-EXPR="package.items.ChildNum" HEIGHT="19px"/>
+						</IF>
+						<ELSE>
+							<PANEL HEIGHT="19px" STD-MARGINS="0" SUNKEN="1" BK-COLOR="white">
+								<PANEL HEIGHT="100%" WIDTH-EXPR="( Ps.processed_items_num * 100 ) / package.items.ChildNum + '%'" BK-COLOR="10,36,106">
+								</PANEL>
+							</PANEL>
+						</ELSE>
+
+						<BR/>
+						<BR/>
+						<BR/>
+						<BR/>
+						<BR/>
+						<BR/>
+						<BR/>
+
+						<LABEL TITLE-EXPR="package.items[Ps.processed_items_num].name" ERROR-TEXT=""/>
+					</PANEL>
+				</TABLE>
+			</IF>
+
+
+			<IF EXPR="Ps.cur_stage.id == 'finish'">
+				<TABLE>
+					<COLUMNS>
+						<COL WIDTH="11zr"/>
+						<COL WIDTH="100%"/>
+					</COLUMNS>
+
+					<PANEL>
+						<PANEL HEIGHT="9px">
+						</PANEL>
+
+						<IMAGE URL="pict/setup.ico" WIDTH="48px" HEIGHT="48px"/>
+					</PANEL>
+
+					<PANEL STD-MARGINS="1">
+						<LABEL TITLE="Установка программы завершена." lang-en:TITLE="Setup completed" lang-ua:TITLE="Встановлення програми завершено."/>
+						<BR/>
+						<BR/>
+						<BR/>
+						<BR/>
+						<BR/>
+
+						<CHECK SOURCE="Ps.launch_app" TITLE-EXPR="StrReplace( UiText.messages.launch_xxx_program, '%s', Ps.instance_link_name )" MULTILINE="1"/>
+					</PANEL>
+				</TABLE>
+			</IF>
+		</PANEL>
+
+		<LABEL/>
+
+	</TABLE>
+</PANEL>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="100%"/>
+	</COLUMNS>
+
+	<LABEL/>
+	<LABEL TITLE-EXPR="package.copyright"/>
+</TABLE>
+
+
+<PANEL STD-MARGINS="1">
+	<DELIM/>
+
+	<PANEL HEIGHT="2px">
+	</PANEL>
+
+	<TABLE STD-MARGINS="0">
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="14zr"/>
+			<COL WIDTH="14zr"/>
+			<COL WIDTH="2zr"/>
+			<COL WIDTH="14zr"/>
+			<COL WIDTH="2zr"/>
+		</COLUMNS>
+
+		<LABEL/>
+
+		<IF EXPR="Ps.cur_stage_index != 0 && Ps.cur_stage.id != 'progress' && Ps.cur_stage.id != 'finish'">
+			<BUTTON TITLE="##UiText.actions.btn_back##" ACTION="
+					Ps.cur_stage_index--;
+			" ENABLE-EXPR="Ps.cur_stage.id != 'progress'"/>
+		</IF>
+		<ELSE>
+			<LABEL/>
+		</ELSE>
+
+		<IF EXPR="Ps.cur_stage.id != 'progress'">
+			<IF EXPR="Ps.cur_stage_index + 1 < Ps.stages.ChildNum">
+				<IF EXPR="Ps.stages[Ps.cur_stage_index + 1].id != 'progress'">
+					<BUTTON TITLE="##UiText.actions.btn_next##" HANDLE-CMD="Ok" ACTION="
+							Ps.check_cur_stage();
+							Ps.cur_stage_index++;
+					" ENABLE-EXPR="Ps.cur_stage.id != 'license' || Ps.license.is_accepted == true"/>
+				</IF>
+				<ELSE>
+					<BUTTON TITLE="##UiText.titles.setup##" HANDLE-CMD="Ok" ACTION="
+							Ps.check_cur_stage();
+							Ps.cur_stage_index++;
+							Ps.start_progress();
+					"/>
+				</ELSE>
+			</IF>
+			<ELSE>
+				<BUTTON TITLE="##UiText.actions.btn_finish##" HANDLE-CMD="Ok" ACTION="
+						if ( Ps.launch_app )
+							ShellExecute( 'open', Ps.dest_app_path );
+
+						Ps.quit();
+				"/>
+			</ELSE>
+		</IF>
+		<ELSE>
+			<LABEL/>
+		</ELSE>
+
+		<LABEL/>
+
+		<IF EXPR="Ps.cur_stage.id != 'finish'">
+			<BUTTON TITLE="##UiText.actions.cancel##" HANDLE-CMD="Cancel" ACTION="MainScreen.RunCommand( 'Quit' )"/>
+		</IF>
+		<ELSE>
+			<LABEL/>
+			<COMMAND-HANDLER HANDLE-CMD="Cancel" ACTION="MainScreen.RunCommand( 'Quit' )"/>
+		</ELSE>
+
+		<LABEL/>
+	</TABLE>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>appointment_slot_sets</id>
+	<name VALUE="##UiText.titles.appointment_slot_sets##"/>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>person_id</id>
+		</dyn_filter>
+		<dyn_filter>
+			<id>division_id</id>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>person_id</id>
+			<width>45zr</width>
+		</field>
+		<field>
+			<id>division_id</id>
+			<width>100%</width>
+		</field>
+		<field>
+			<id>slots_num</id>
+		</field>
+	</fields>
+</std_view>
+

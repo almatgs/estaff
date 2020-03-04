@@ -1,0 +1,85 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1251"/>
+<title></title>
+<style>
+<!--
+*
+{
+	font-family: Calibri,Arial,sans-serif;
+	font-size: 16px;
+	__margin: 2px;
+}
+
+
+p, li
+{
+	__margin: 0px;
+}
+
+-->
+</style>
+</head>
+<body>
+<h1>Интеграция с календарем Lotus Notes</h1>
+
+<P class="MsoNormal" style="margin: 6pt 0cm 0pt; text-align: justify; text-indent: 35.45pt;">Для 
+ настройки выгрузки запланированных событий (как правило,   
+<STRONG>Интервью</STRONG> и <STRONG>Интервью с заказчиком</STRONG>) в календарь  
+ <SPAN lang="EN-US" style="mso-ansi-language: EN-US;">Lotus Notes</SPAN><SPAN lang="EN-US"> </SPAN>и (или) их загрузки из него, необходимо выполнить  
+следующее:<o:p></o:p></P>
+<UL>
+  <LI>
+  <DIV class="MsoNormal" style="margin: 6pt 0cm 0pt; text-align: justify; text-indent: 35.45pt; mso-list: l0 level1 lfo1; tab-stops: list 36.0pt;">Нажмите 
+     <STRONG>Сервис</STRONG>-&gt;<STRONG>Персональные   настройки</STRONG></DIV>
+  <LI>
+  <DIV class="MsoNormal" style="margin: 6pt 0cm 0pt; text-align: justify; text-indent: 35.45pt; mso-list: l0 level1 lfo1; tab-stops: list 36.0pt;">Откройте 
+    пункт <STRONG>Календарь</STRONG>. Укажите    <SPAN lang="EN-US" style="mso-ansi-language: EN-US;"><STRONG>Lotus 
+    Notes</STRONG>   </SPAN>в качестве внешнего календаря.</DIV>
+  <LI>
+  <DIV class="MsoNormal" style="margin: 6pt 0cm 0pt; text-align: justify; text-indent: 35.45pt; mso-list: l0 level1 lfo1; tab-stops: list 36.0pt;">
+  <P class="MsoNormal" style="margin: 6pt 0cm 0pt; text-align: justify; text-indent: 35.45pt; mso-list: l0 level1 lfo1; tab-stops: list 36.0pt;">Откройте 
+    пункт <B style="mso-bidi-font-weight: normal;">Интеграция с </B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="mso-ansi-language: EN-US;">Lotus</SPAN><SPAN lang="EN-US"> 
+    </SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="mso-ansi-language: EN-US;">Notes</SPAN></B>.    Установочная директория 
+  Lotus Notes обычно   определяется автоматически, но   при необходимости ее 
+  можно указать вручную    <SPAN style="mso-no-proof: yes;">кнопкой <B style="mso-bidi-font-weight: normal;">Просмотр</B></SPAN>. 
+  Чтобы <SPAN style="color: black;">при</SPAN>   <SPAN style="color: black;">работе</SPAN>   каждый раз не вводить пароль для    
+  Lotus Notes, в этом разделе можно настроить   автоматическую авторизацию,    
+  указав путь к <SPAN lang="EN-US" style="mso-ansi-language: EN-US; mso-no-proof: yes;">ID</SPAN><SPAN style="mso-no-proof: yes;"> файлу пользователя и пароль. Если путь к       
+  </SPAN><SPAN lang="EN-US" style="mso-ansi-language: EN-US; mso-no-proof: yes;">ID</SPAN><SPAN style="mso-no-proof: yes;"> 
+    файлу пользователя   автоматически не определился – укажите его вручную   
+  кнопкой <B style="mso-bidi-font-weight: normal;">Просмотр</B>.</SPAN><o:p></o:p></P></DIV></LI><SPAN style="background: rgb(225, 230, 234);"><o:p></o:p></SPAN><o:p></o:p><o:p>     
+
+  <LI>
+  <DIV class="MsoNormal" style="margin: 6pt 0cm 0pt; text-align: justify; text-indent: 35.45pt; mso-list: l0 level1 lfo1; tab-stops: list 36.0pt;">Откройте 
+    пункт <STRONG>Модули к внешним программам</STRONG>.    Напротив записи    
+  <STRONG>Lotus Notes</STRONG> нажмите кнопку       
+  <STRONG>Установить</STRONG>.</DIV></LI></o:p></UL>
+<P class="MsoNormal" style="margin: 6pt 0cm 0pt; text-align: justify; text-indent: 35.45pt;">После 
+ этого запланированное интервью будет автоматически  выгружаться в календарь  
+<SPAN lang="EN-US" style="mso-ansi-language: EN-US;">Lotus  Notes</SPAN>. При 
+ изменении даты/времени этого события в <SPAN lang="EN-US" style="mso-ansi-language: EN-US;">E</SPAN>-<SPAN lang="EN-US" style="mso-ansi-language: EN-US;">Staff</SPAN> в календаре <SPAN lang="EN-US" style="mso-ansi-language: EN-US;">Lotus Notes </SPAN>оно тоже  
+передвинется.</P>
+<UL><o:p><SPAN style="font-family:;" ar-sa="" ru="" roman="" new="" times="" 12pt="" serif=""><o:p>
+  <LI>
+  <DIV class="MsoNormal" style="margin: 6pt 0cm 0pt; text-align: justify; text-indent: 35.45pt; mso-list: l0 level1 lfo1; tab-stops: list 36.0pt;">Для 
+    загрузки запланированных событий из календаря Lotus Notes    во внутренний   
+  календарь E-Staff используется фоновая задача <B style="mso-bidi-font-weight: normal;">Загрузка 
+    из внешнего календаря</B>.    Настройка этой фоновой задачи производится 
+  <SPAN style="color: black;">в   разделе <STRONG>Администрирование</STRONG> 
+  -&gt;   <STRONG>Справочники</STRONG>   –&gt; <STRONG>Прочие</STRONG> -&gt;   
+  <STRONG>Локальные фоновые   задачи</STRONG></SPAN><SPAN style="color: black;">.</SPAN><o:p></o:p></DIV></LI></o:p></SPAN></o:p></UL><o:p>
+<P class="MsoNormal" style="margin: 6pt 0cm 0pt; text-align: justify; text-indent: 35.45pt; mso-layout-grid-align: none;"><SPAN style="color: black;">В ручном режиме данная задача  запускается из главного 
+ меню программы командой <STRONG>Сервис</STRONG> -&gt; <STRONG>Ручной запуск 
+ фоновой задачи</STRONG> -&gt; <STRONG>Загрузка из внешнего  
+календаря</STRONG>.<o:p></o:p></SPAN></P>
+<P class="MsoNormal" style="margin: 6pt 0cm 0pt; text-align: justify; text-indent: 35.45pt;"><SPAN style="color: black;">Для настройки загрузки по расписанию  (ежедневно или через 
+ иной промежуток времени) в полях <STRONG>Час</STRONG> и  
+<STRONG>Минута</STRONG> укажите требуемые значения.</SPAN><o:p></o:p></P><SPAN style="font-family:;" ar-sa="" ru="" roman="" new="" times="" 12pt="" serif=""><o:p>
+<P class="MsoNormal" style="margin: 6pt 0cm 0pt; text-align: justify; text-indent: 35.45pt;">После 
+ этого при изменении даты/времени запланированного события в календаре <SPAN lang="EN-US" style="mso-ansi-language: EN-US;">Lotus Notes  </SPAN>в календаре  
+<SPAN lang="EN-US" style="mso-ansi-language: EN-US;">E</SPAN>-<SPAN lang="EN-US" style="mso-ansi-language: EN-US;">Staff</SPAN> оно тоже передвинется (после 
+отработки фоновой задачи<SPAN style="color: black;"> <B style="mso-bidi-font-weight: normal;">Загрузка 
+из внешнего календаря</B></SPAN> в  ручном или автоматическом  
+режиме).<o:p></o:p></P></o:p></SPAN></o:p> </body>
+</html>

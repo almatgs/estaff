@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<USE FORM="old_general.xmd"/>
+
+
+<rc_global_settings>
+	<is_agency TYPE="bool"/>
+	<is_hier_orgs TYPE="bool" NOT-NULL="1"/>
+	<is_hier_locations TYPE="bool" NOT-NULL="1"/>
+
+	<use_orders TYPE="bool" EXPR-INIT="is_agency != true"/>
+	<show_orders_section TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<order_req_close_term TYPE="au_term"/>
+	<order_req_offer_term TYPE="au_term"/>
+
+	<use_position_dual_users TYPE="bool" NOT-NULL="1"/>
+	<use_org_init_users TYPE="bool" NOT-NULL="1"/>
+
+	<use_candidate_dual_professions TYPE="bool" NOT-NULL="1" DEFAULT="false"/>
+	<use_candidate_grades TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<show_position_priority TYPE="bool" NOT-NULL="1"/>
+	<show_last_job_first TYPE="bool" NOT-NULL="1"/>
+
+	<default_location_id TYPE="string" FOREIGN-ARRAY="locations.items"/>
+	<default_currency_id TYPE="string" FOREIGN-ARRAY="currencies.items"/>
+
+	<use_multi_currencies>
+		<position_salary TYPE="bool" NOT-NULL="1"/>
+		<candidate_salary TYPE="bool" NOT-NULL="1"/>
+	</use_multi_currencies>
+
+	<candidate_auto_deactivate>
+		<days_num TYPE="integer" NOT-NULL="1" DEFAULT="30"/>
+	</candidate_auto_deactivate>
+
+	<use_candidate_auto_purge TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<candidate_auto_purge>
+		<days_num TYPE="integer" NOT-NULL="1" DEFAULT="30"/>
+	</candidate_auto_purge>
+
+	<rparse>
+		<start_str TYPE="string"/>
+		<position_mail_prefix TYPE="string"/>
+	</rparse>
+
+	<own_mail_domain TYPE="string" MULTIPLE="1"/>
+
+
+	<auto_mailing>
+		<smtp>
+			<server_address TYPE="string"/>
+			<delay TYPE="integer" NOT-NULL="1"/>
+
+			<use_auth TYPE="bool" NOT-NULL="1"/>
+			<login TYPE="string"/>
+			<password TYPE="string"/>
+		</smtp>
+	</auto_mailing>
+
+	<use_vacancy_close_notif TYPE="bool" NOT-NULL="1"/>
+	<vacancy_close_notif>
+		<template_id TYPE="string" FOREIGN-ARRAY="mail_templates.items" DEFAULT="vacancy_close_notification"/>
+		<confirm TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+		<sender>
+			<address TYPE="string"/>
+			<name TYPE="string"/>
+		</sender>
+
+		<test_email TYPE="string"/>
+	</vacancy_close_notif>
+
+
+	<portal>
+		<address TYPE="string"/>
+	</portal>
+
+	<staff_connector>
+		<service_url TYPE="string"/>
+		<base_method_name TYPE="string" DEFAULT="GetVacancies"/>
+
+		<last_run_date TYPE="date"/>
+		<schedule>
+			<term TYPE="au_term"/>
+		</schedule>
+	</staff_connector>
+
+
+
+	<std_stat_specs>
+		<cpos>
+			<show_columns>
+				<org_name TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+				<person_fullname TYPE="bool" NOT-NULL="1" DEFAULT="false"/>
+				<date TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+				<close_date TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+				<state TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+				<days_in_work TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+				<req_days_in_work TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+				<days_match TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+				<days_match_percent TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+				<candidate TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+				<comment TYPE="bool" NOT-NULL="1" DEFAULT="false"/>
+			</show_columns>
+		</cpos>
+
+		<rpos>
+			<show_columns>
+				<code TYPE="bool" NOT-NULL="1" DEFAULT="false"/>
+				<open_date TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+				<close_date TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+				<priority TYPE="bool" NOT-NULL="1" DEFAULT="false"/>
+				<org_name TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+				<person_fullname TYPE="bool" NOT-NULL="1" DEFAULT="false"/>
+			</show_columns>
+		</rpos>
+	</std_stat_specs>
+
+
+	<own_site>
+		<is_enabled TYPE="bool" NOT-NULL="1"/>
+
+		<name TYPE="string"/>
+		<short_name TYPE="string"/>
+		<use_common_professions TYPE="bool" NOT-NULL="1"/>
+		
+		<use_std_interface TYPE="bool" NOT-NULL="1"/>
+		<use_std_interface2 TYPE="bool" NOT-NULL="1"/>
+
+		<std_interface>
+			<target_url TYPE="string"/>
+			<load_professions_url TYPE="string"/>
+		</std_interface>
+
+		<custom_interface>
+			<code_str TYPE="string"/>
+			<load_professions_str TYPE="string"/>
+		</custom_interface>
+	</own_site>
+
+
+	<set_custom_names PROPERTY="1" EXPR="
+			if ( is_agency )
+			{
+				bs_config.names.Clear();
+			}
+			else
+			{
+				bs_config.names.client = 'подразделение';
+				bs_config.names.client_mod2 = 'подразделения';
+				bs_config.names.clients = 'подразделения';
+				bs_config.names.new_client = 'новое подразделение';
+				bs_config.names.org = 'подразделение';
+			}
+	"/>
+</rc_global_settings>
+
+
+</SPXML-FORM>

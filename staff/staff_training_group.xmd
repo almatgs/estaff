@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM TITLE="##UiText.objects.training_group##" CODE-LIB="1" IMAGE-URL="//base_pict/generic_item.ico" IMAGE-URL-EXPR="image_url()">
+
+<training_group PRIMARY-DISP-NAME="code">
+	<id TYPE="integer"/>
+	<code TYPE="string" TITLE="##UiText.fields.code##" COL-TITLE="#" EXP-MAX-LEN="6" COL-ALIGN="center"/>
+	<training_program_id TYPE="string" FOREIGN-ARRAY="training_programs" TITLE="##UiText.objects.training_program##"/>
+	<start_date TYPE="date" TIME="0" TITLE="##UiText.fields.start_date##" INDEXED="1"/>
+	<end_date TYPE="date" TIME="0" TITLE="##UiText.fields.end_date##"/>
+	
+	<location_id TYPE="string" DOC-ID="1" FOREIGN-ARRAY="locations" TITLE="##UiText.fields.location##"/>
+
+	<teacher_user_id TYPE="integer" FOREIGN-ARRAY="users" TITLE="##UiText.titles.teacher##"/>
+
+	<part_entries DOC-ONLY="1">
+		<part_entry MULTIPLE="1" PRIMARY-KEY="part_id">
+			<part_id TYPE="integer" FOREIGN-ARRAY="Parent.Parent.training_program_id.ForeignElem.parts" TITLE="##UiText.objects.training_program_part##"/>
+			<date TYPE="date"/>
+			<end_date TYPE="date"/>
+			<teacher_user_id TYPE="integer" FOREIGN-ARRAY="users"/>
+
+			<calendar_entry_id TYPE="integer" FOREIGN-ARRAY="calendar_entries"/>
+		</part_entry>
+	</part_entries>
+
+	<participants DOC-ONLY="1">
+		<participant MULTIPLE="1" PRIMARY-KEY="person_id">
+			<person_id TYPE="integer" FOREIGN-ARRAY="persons"/>
+
+			<target_parts>
+				<target_part MULTIPLE="1" PRIMARY-KEY="part_id">
+					<part_id TYPE="integer" FOREIGN-ARRAY="TopElem.training_program_id.ForeignElem.parts" TITLE="##UiText.objects.training_program_part##"/>
+					<not_required TYPE="bool" NULL-FALSE="1"/>
+					<attended TYPE="bool" NULL-FALSE="1"/>
+					<score TYPE="real"/>
+				</target_part>
+			</target_parts>
+
+			<completion_id TYPE="string"/>
+
+			<person TYPE="variant" STRICT="1" TEMP="1"/>
+		</participant>
+	</participants>
+
+	<participants_num TYPE="integer" EXPR="participants.ChildNum" TITLE="##UiText.fields.participants_num##"/>
+
+	<is_completed TYPE="bool" NULL-FALSE="1"/>
+
+	<group_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="groups" TITLE="##UiText.objects.group##" EXP-MAX-LEN="10" COL-ALIGN="center"/>
+
+	<is_active PROPERTY="1" DEPENDS="start_date,end_date"/>
+	<image_url PROPERTY="1"/>
+
+	<INHERIT TYPE="card_info_base"/>
+
+
+	<OnCheckReadAccess PROPERTY="1" DEPENDS="group_id"/>
+</training_group>
+
+
+
+</SPXML-FORM>

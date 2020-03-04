@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" CODE-LIB="1" STORAGE-TYPE="single-xml" IMAGE-URL="//base_pict/generic_item.ico">
+
+<custom_action>
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<trigger_event_id TYPE="string" FOREIGN-ARRAY="base2_common.custom_action_trigger_events" TITLE="Срабатывает на событие" lang-en:TITLE="Trigger" lang-ua:TITLE="Спрацьовує на подію"/>
+
+	<target_object_type_id TYPE="string" FOREIGN-ARRAY="card_object_types" TITLE="##UiText.fields.target_object_type##"/>
+
+	<condition>
+		<vacancy_state_id TYPE="string" FOREIGN-ARRAY="vacancy_states" TITLE="##UiText.titles.vacancy_state##"/>
+
+		<candidate_state_id TYPE="string" FOREIGN-ARRAY="candidate_states" TITLE="##UiText.titles.candidate_state##"/>
+		<state_duration TYPE="term" TITLE="##UiText.fields.state_duration##"/>
+		<expr TYPE="string" SUBTYPE="code" TITLE="##UiText.titles.exist_req_expr##"/>
+	</condition>
+
+	<repeat_interval TYPE="term" TITLE="Интервал для повторного срабатывания" lang-en:TITLE="Repeat Interval" lang-ua:TITLE="Інтервал для повторного спрацьовування"/>
+
+	<INHERIT TYPE="state_core_actions_base"/>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</custom_action>
+
+
+</SPXML-FORM>

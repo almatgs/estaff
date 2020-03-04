@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<cn_global_settings>
+	<entry_default_duration_minutes TYPE="integer" NOT-NULL="1" DEFAULT="60"/>
+
+	<ext_calendar_type_id TYPE="string" FOREIGN-ARRAY="cn_common.ext_calendar_types"/>
+	<ext_calendar>
+		<global_external_account_id TYPE="integer" FOREIGN-ARRAY="external_accounts" TITLE="Учетная запись для доступа к календарям других пользователей" lang-en:TITLE="Global account to access calendars of other users" lang-ua:TITLE="Обліковий запис, щоб отримати доступ до календарів інших користувачів"/>
+	</ext_calendar>
+
+	<check_ext_calendar_room_busy_info TYPE="bool" NOT-NULL="1" TITLE="Проверять занятость комнат во внешнем календаре" lang-en:TITLE="Check free/busy info for rooms in external calendar" lang-ua:TITLE="Перевіряти зайнятість кімнат в зовнішньому календарі"/>
+
+	<show_cancelled_events TYPE="bool" NOT-NULL="1" TITLE="Показывать отмененные события в календаре" lang-en:TITLE="Display cancelled events in calendar" lang-ua:TITLE="Показувати скасовані події в календарі"/>
+	<export_cancelled_events_to_ext_calendar TYPE="bool" NOT-NULL="1" TITLE="Выгружать отмененные события во внешний календарь" lang-en:TITLE="Export cancelled events to external calendar" lang-ua:TITLE="Вивантажувати скасовані події у зовнішній календар"/>
+</cn_global_settings>
+
+
+</SPXML-FORM>

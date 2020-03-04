@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="80zr" HEIGHT="40zr" SOURCE="TopElem" TITLE="##UiText.sections.settings_lds##" RESIZE="1" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<IF EXPR="false">
+		<CHECK TITLE="Использовать внутренний сервер" SOURCE="Ps.use_lds" lang-en:TITLE="Use internal server" lang-ua:TITLE="Використовувати внутрішній сервер"/>
+	</IF>
+
+	<LABEL TITLE="##UiText.fields.lds_address##:" lang-en:TITLE="Internal server address:"/>
+	<EDIT SOURCE="Ps.lds.address"/>
+	<DELIM/>
+
+	<CHECK TITLE="Хранить данные пользователя в профиле пользователя Windows" SOURCE="Ps.use_sep_data" lang-en:TITLE="Store local data in Windows user profile" lang-ua:TITLE="Зберігати дані користувача в профілі користувача Windows"/>
+	<DELIM/>
+</PANEL>
+
+
+</SPXML-SCREEN>

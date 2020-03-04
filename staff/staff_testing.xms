@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="Ps.candidate_id.ForeignDispName + ' - ' + StrTitleCase( UiText.objects.testing )" SAVE-ACTION="
+		Ps.on_ui_save();
+" MAXIMIZED="1" LAYOUT-URL="//base1/base1_layout_card.xms">
+
+
+<MENU TITLE="##UiText.sections.service##" GLOBAL="1">
+	<MENU-ENTRY TITLE="Загрузить набор тестов" lang-en:TITLE="Load Tests Set" ACTION="
+			Ps.handle_load_testing_sample();
+	" lang-ua:TITLE="Завантажити набір тестів"/>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+	<MENU-ENTRY TITLE="Зарегистрировать кандидата в системе тестирования" lang-en:TITLE="Register Candidate in Testing System" ACTION="
+			Ps.handle_register_candidate_in_testing_system();
+	" lang-ua:TITLE="Зареєструвати кандидата в системі тестування" ENABLE-EXPR="Ps.candidate_id.HasValue &amp;&amp; ArrayOptFind( lib_voc.get_sorted_voc( recruit_providers ), 'features.outside_test_assignment' ) != undefined"/>
+
+	<MENU-ENTRY SEPARATOR="1"/>
+
+	<MENU-ENTRY TITLE="Копировать Web-ссылки" ACTION="
+			SetClipboard( ArrayMerge( Ps.assigned_tests, 'lib_testing.build_assigned_test_url( This )', '\r\n' ) );
+	" ENABLE-EXPR="ArrayCount( ArraySelect( Ps.assigned_tests, 'url.HasValue' ) ) == Ps.assigned_tests.ChildNum" lang-en:TITLE="Copy Web links" lang-ua:TITLE="Копіювати Web-посилання"/>
+
+	<MENU-ENTRY TITLE="Отправить ссылки по E-Mail" ACTION="
+			str = ArrayMerge( Ps.assigned_tests, 'lib_testing.build_assigned_test_url( This )', '\r\n' );
+			candidate = Ps.candidate_id.ForeignElem;
+
+			message = new MailMessage();
+
+			if ( candidate.email.HasValue )
+				message.recipients.AddChild().address = candidate.email;
+
+			message.body = str;
+
+			lib_mail.show_mail_message( message );
+	" ENABLE-EXPR="ArrayCount( ArraySelect( Ps.assigned_tests, 'url.HasValue' ) ) == Ps.assigned_tests.ChildNum" lang-en:TITLE="Copy Web links" lang-ua:TITLE="Відправити посилання по E-Mail"/>
+
+	<IF EXPR="AppModuleUsed( 'module_sanofi' )">
+		<MENU-ENTRY SEPARATOR="1"/>
+
+		<MENU-ENTRY TITLE="##UiText.actions.request_testing_report##" ACTION="
+				lib_ontarget.HandleRequestTestingReport( testing );
+		" PASSIVE="1"/>
+	</IF>
+</MENU>
+
+
+<UNIT ZONE="ZoneToolbar">
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<IF EXPR="! AppModuleUsed( 'module_sanofi' )">
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/plus.ico" ACTION="
+				Ps.handle_add_tests();
+		" TITLE="##UiText.actions.add_tests##"/>
+
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/start.ico" ACTION="
+				Ps.activate();
+				Ps.Doc.SetChanged( true );
+		" TITLE="Активировать и отправить кандидату" lang-en:TITLE="Activate and Send to Candidate" lang-ua:TITLE="Активувати і відправити кандидату"/>
+
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+	</IF>
+
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/load.ico" ACTION="
+			Ps.update();
+			
+			if ( AppModuleUsed( 'module_sanofi' ) )
+				return;
+
+			Ps.Doc.SetChanged( true );
+	" TITLE="##UiText.actions.check_state##" ENABLE-EXPR="Ps.was_activated"/>
+
+	<IF EXPR="AppModuleUsed( 'module_sanofi' )">
+		<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+		<TOOLBAR-ENTRY IMAGE-URL="//base_pict/generic_item.ico" ACTION="
+				lib_ontarget.HandleRequestTestingReport( testing );
+		" TITLE="##UiText.actions.request_testing_report##" PASSIVE="1"/>
+	</IF>
+</UNIT>
+
+
+<UNIT ZONE="ZoneLeft">
+	<PANEL HEIGHT="-7zr">
+	</PANEL>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="13zrc"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<ITEM TYPE="object_preview" SOURCE="Ps.user_id"/>
+		<ITEM TYPE="object_preview" SOURCE="Ps.group_id"/>
+	</TABLE>
+</UNIT>
+
+
+<PANEL ZONE="PageCommon" STD-MARGINS="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="44zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="object_selector" SOURCE="Ps.candidate_id" AUTO-LABEL="1"/>
+	</TABLE>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<ITEM TYPE="object_selector" SOURCE="Ps.vacancy_id" AUTO-LABEL="1"/>
+	</TABLE>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="22zr"/>
+			<COL WIDTH="1zr"/>
+			<COL WIDTH="20zr"/>
+			<COL WIDTH="5zr"/>
+			<COL WIDTH="22zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="date_time_selector" SOURCE="Ps.date" LABEL-TITLE="Дата назначения:" lang-en:LABEL-TITLE="Assignment date:" lang-ua:LABEL-TITLE="Дата призначення:"/>
+		<LABEL/>
+
+		<ITEM TYPE="elem_selector" SOURCE="Ps.occurrence_id" LABEL-TITLE="##UiText.fields.state##:" foreign-array="Ps.Doc.TopElem.type_id.ForeignElem.occurrences" foreign-disp-name="get_name()"/>
+		<LABEL/>
+
+		<ITEM TYPE="date_time_selector" SOURCE="Ps.end_date" AUTO-LABEL="1"/>
+	</TABLE>
+	<DELIM/>
+
+	<PANEL NAME="DefaultCsdAnchor">
+	</PANEL>
+
+	<LOOP EXPR="Ps.assigned_tests" VAR="ListElem">
+		<BR/>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="20zr"/>
+				
+				<IF EXPR="Ps.use_activation_code">
+					<COL WIDTH="15zr"/>
+				</IF>
+
+				<COL WIDTH="20zr"/>
+				<COL WIDTH="11zr"/>
+				<COL WIDTH="20zrc"/>
+				<COL WIDTH="20zrc"/>
+
+				<COL WIDTH="10zr"/>
+				<IF EXPR="AppModuleUsed( 'module_lukoil' )">
+					<COL WIDTH="11zr"/>
+					<COL WIDTH="10zr"/>
+					<COL WIDTH="22zr"/>
+				</IF>
+				<ELSE>
+					<COL WIDTH="13zr"/>
+				</ELSE>
+
+				<COL WIDTH="button"/>
+			</COLUMNS>
+
+			<ITEM TYPE="voc_elem_selector" SOURCE="ListElem.external_test_id" AUTO-LABEL="1"/>
+			<EDIT SOURCE="ListElem.uid" READ-ONLY="1" LABEL-TITLE=" "/>
+
+			<IF EXPR="Ps.use_activation_code">
+				<EDIT SOURCE="ListElem.activation_code" READ-ONLY="1" LABEL-TITLE="##UiText.fields.activation_code##:"/>
+			</IF>
+
+			<ITEM TYPE="elem_selector" SOURCE="ListElem.completion_id" AUTO-LABEL="1"/>
+
+			<IF EXPR="ListElem.completion_id == 1 &amp;&amp; ListElem.result_url.HasValue">
+				<PANEL>
+					<BR HEIGHT="3zrc"/>
+					<LINK TITLE="##UiText.fields.link##" HREF-EXPR="ListElem.result_url" TARGET="_web"/>
+				</PANEL>
+			</IF>
+			<ELSE>
+				<LABEL/>
+			</ELSE>
+
+			<ITEM TYPE="date_time_selector" SOURCE="ListElem.start_date" AUTO-LABEL="1"/>
+			<ITEM TYPE="date_time_selector" SOURCE="ListElem.end_date" AUTO-LABEL="1"/>
+
+			<EDIT SOURCE="ListElem.score" LABEL-TITLE="##UiText.fields.score##:" UPDATE-ACTION="
+					if ( ! AppModuleUsed( 'module_lukoil' ) )
+						return;
+
+					if ( ! ListElem.score_percent.HasValue )
+						return;
+
+					ListElem.score_level_name = lib_lukoil.get_test_score_level_name( ListElem );
+			"/>
+			
+			<IF EXPR="AppModuleUsed( 'module_lukoil' )">
+				<EDIT SOURCE="ListElem.max_score" AUTO-LABEL="1"/>
+				<EDIT SOURCE="ListElem.score_percent + '%'" ALIGN="right" READ-ONLY="1" LABEL-TITLE=" "/>
+			</IF>
+			
+			<IF EXPR="AppModuleUsed( 'module_lukoil' )">
+				<COMBO SOURCE="ListElem.score_level_name" LABEL-TITLE="##UiText.fields.level##:">
+					<LOOP EXPR="ListElem.external_test_id == 'lukoil_english' ? lib_lukoil.get_english_test_levels() : []" VAR="_level">
+						<COMBO-ENTRY TITLE-EXPR="_level" VALUE-EXPR="_level"/>
+					</LOOP>
+				</COMBO>
+			</IF>
+			<ELSE>
+				<EDIT SOURCE="ListElem.is_passed == true ? UiText.fields.passed_n : ( ListElem.is_passed == false ? UiText.titles.not_passed_n : '' )" LABEL-TITLE="##UiText.fields.result##:"/>
+			</ELSE>
+
+			<PANEL HEIGHT="7zr" STD-MARGINS="0">
+				<PANEL HEIGHT="-18px">
+				</PANEL>
+
+				<IMAGE URL="//base_pict/more_actions.ico">
+					<MENU>
+						<MENU-ENTRY TITLE="##UiText.actions.activate##" ACTION="
+								Ps.activate_tests( ListElem.external_test_id.ForeignElem.testing_system_id.ForeignElem, [ListElem] );
+								Ps.Doc.SetChanged( true );
+						"/>
+
+						<MENU-ENTRY SEPARATOR="1"/>
+
+						<MENU-ENTRY TITLE="##UiText.actions.check_state##" ACTION="
+								Ps.update_tests( ListElem.external_test_id.ForeignElem.testing_system_id.ForeignElem, [ListElem] );
+								Ps.Doc.SetChanged( true );
+						" ENABLE-EXPR="ListElem.eid != ''"/>
+
+
+						<MENU-ENTRY SEPARATOR="1"/>
+
+						<MENU-ENTRY TITLE="Открыть Web-ссылку" HREF-EXPR="lib_testing.build_assigned_test_url( ListElem )" TARGET="_web" ENABLE-EXPR="ListElem.url != ''" lang-en:TITLE="Open Web link" lang-ua:TITLE="Відкрити Web-посилання"/>
+						<MENU-ENTRY TITLE="##UiText.actions.copy_web_link##" ACTION="SetClipboard( lib_testing.build_assigned_test_url( ListElem ) )" ENABLE-EXPR="ListElem.url != ''"/>
+						<MENU-ENTRY TITLE="##UiText.actions.send_web_link##" ACTION="lib_recruit_provider.HandleSendPersonTestingNotif( ListElem.external_test_id.ForeignElem.testing_system_id, Ps, [ListElem] )" ENABLE-EXPR="ListElem.url != ''"/>
+
+						<MENU-ENTRY SEPARATOR="1"/>
+
+						<MENU-ENTRY TITLE="##UiText.actions.del##" LABEL-TITLE=" " ACTION="
+								ListElem.Delete();
+								Ps.Doc.SetChanged( true );
+						"/>
+					</MENU>
+				</IMAGE>
+			</PANEL>
+		</TABLE>
+	</LOOP>
+
+	<EDIT SOURCE="Ps.comment" MULTILINE="1" HEIGHT="-2zr" VERT-SCROLL="1" PASSIVE="1" AUTO-LABEL="1"/>
+</PANEL>
+
+
+<IF EXPR="AppModuleUsed( 'module_sanofi' )">
+	<PAGE TITLE="##UiText.sections.add_info##" IMAGE-URL="//base_pict/aux_info.ico" SUNKEN="1" VERT-SCROLL="1">
+		<GROUP>
+			<EDIT SOURCE="Ps.person_eid" WIDTH="20zr" AUTO-LABEL="1"/>
+			<SEPARATOR/>
+			<EDIT SOURCE="lib_ontarget.BuildTestingLink( ObtainUiDoc( Ps.candidate_id.ForeignObjectUrl ).TopElem, Ps )" READ-ONLY="1" LABEL-TITLE="##UiText.titles.testing_link##:"/>
+		</GROUP>
+		<DELIM/>
+
+	</PAGE>
+</IF>
+
+
+<ITEM TYPE="card_attachments"/>
+
+
+</SPXML-SCREEN>
+

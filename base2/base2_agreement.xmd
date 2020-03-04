@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM TITLE="##UiText.objects.agreement##" CODE-LIB="1" IMAGE-URL="//base_pict/agreement.ico" IMAGE-URL-EXPR="image_url()">
+
+
+<agreement PRIMARY-DISP-NAME="code">
+	<id TYPE="integer"/>	
+
+	<org_id TYPE="integer" FOREIGN-ARRAY="orgs" INDEXED="1" TITLE="##UiText.fields.counterpart##" FT-FOREIGN-DISP-NAME="1"/>
+
+	<code TYPE="string" TITLE="##UiText.fields.code##" MAX-LEN="15"/>
+	<date TYPE="date" TIME="0" TITLE="##UiText.fields.date##"/>
+	<end_date TYPE="date" TIME="0" TITLE="Срок действия" lang-en:TITLE="End date" lang-ua:TITLE="Термін дії"/>
+
+	<amount TYPE="real" TITLE="##UiText.titles.sum##"/>
+	<currency_id TYPE="string" TITLE="##UiText.fields.currency##" FOREIGN-ARRAY="currencies"/>
+
+	<desc TYPE="string" TITLE="Условия договора" lang-en:TITLE="Agreement conditions" lang-ua:TITLE="Умови договору"/>
+
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+
+	<INHERIT TYPE="card_attachments"/>
+	<INHERIT TYPE="card_info_base"/>
+</agreement>
+
+
+
+</SPXML-FORM>

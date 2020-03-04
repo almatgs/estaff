@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" WIDTH="80zr" HEIGHT="50zr" TITLE="##UiText.sections.global_settings_web##" WINDOW-ICON-URL="//base_pict/settings.ico" RESIZE="1">
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" SUNKEN="1" STD-MARGINS="1">
+	<EDIT SOURCE="Ps.hostname" LABEL-TITLE-EXPR="StrReplaceOne( UiText.titles.xxx_server_hostname_for_web, '%s', 'E-Staff' ) + ':'"/>
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.outer_url" LABEL-TITLE="URL внешнего портала:" lang-en:LABEL-TITLE="Portal URL:" lang-ua:LABEL-TITLE="URL зовнішнього порталу:"/>
+	</TABLE>
+
+</PANEL>
+
+
+<COMMAND-HANDLER CMD="Help1" HREF="help/settings_numbering.htm" TARGET="FrameHelp" ACTION="ui_client.PrepareHelpView()" PASSIVE="1" TARGET-NEW-WINDOW="1"/>
+
+
+</SPXML-SCREEN>

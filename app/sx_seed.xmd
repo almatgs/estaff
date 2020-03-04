@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<SPXML-FORM>
+
+<collection-map>
+	<indices>
+		<index MULTIPLE="1">
+			<id TYPE="integer" POSITIVE="1"/>
+			<part-elem TYPE="string" MULTIPLE="1"/>
+			
+			<is-used TYPE="bool" NOT-NULL="1" TEMP="1"/>
+		</index>
+	</indices>
+
+	<data-blocks>
+		<block MULTIPLE="1">
+			<id TYPE="integer" POSITIVE="1"/>
+			<records-num TYPE="integer" NOT-NEG="1"/>
+		</block>
+	</data-blocks>
+</collection-map>
+
+</SPXML-FORM>

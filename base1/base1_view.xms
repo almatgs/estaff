@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-INIT-ACTION="
+		//if ( ! Ps.catalog_name.HasValue && ! Ps.is_std )
+			//Ps.catalog_name = 'orgs';
+" BEFORE-SAVE-ACTION="
+		Ps.check();
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+		Screen.MsgBox( UiText.messages.changes_require_app_restart, UiText.messages.info_msg_title, 'info' );
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+
+<COMBO NAME="object_field_selector" SAMPLE="1">
+	<LOOP EXPR="
+			return ArraySelect( Ps.Doc.TopElem.catalog_form.TopElem[0], '! IsMethod' );
+	" VAR="_elem">
+		<COMBO-ENTRY TITLE-EXPR="_elem.Title != '' ? _elem.Title : '<' + _elem.Name + '>'" VALUE-EXPR="_elem.Name"/>
+	</LOOP>
+</COMBO>
+
+
+
+
+
+
+<INHERIT TYPE="card_menus"/>
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<INHERIT TYPE="base_toolbar_start_entries"/>
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY TITLE="##UiText.actions.add##" IMAGE-URL="//base_pict/plus.ico" lang-en:TITLE="Add">
+		<MENU>
+			<MENU-ENTRY TITLE="##UiText.fields.static_filter##" ACTION="
+					elem = Ps.static_filters.AddChild();
+					Screen.Update();
+					Screen.ExposeItemBySource( elem.id );
+			" PASSIVE="1"/>
+
+			<MENU-ENTRY TITLE="##UiText.fields.dynamic_filter##" ACTION="
+					elem = Ps.dyn_filters.AddChild();
+					Screen.Update();
+					Screen.ExposeItemBySource( elem.id );
+			" PASSIVE="1"/>
+
+			<MENU-ENTRY TITLE="##UiText.fields.column##" ACTION="
+					elem = Ps.fields.AddChild();
+					Screen.Update();
+					Screen.ExposeItemBySource( elem.id );
+			" PASSIVE="1"/>
+		</MENU>
+	</TOOLBAR-ENTRY>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/start.ico" TITLE="Показать список" ACTION="
+			Ps.check();
+
+			if ( Screen.Doc.IsChanged )
+				Screen.SaveDoc()
+	" PASSIVE="1" HREF-EXPR="lib_view.obtain_view_url( Ps.id )" TARGET="FrameTestView" lang-en:TITLE="View list" lang-ua:TITLE="Показати список"/>
+
+	<INHERIT TYPE="card_toolbar_end_entries"/>
+</TOOLBAR>
+
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+<LINE STD-MARGINS="0">
+
+<PANEL WIDTH="40zr" STD-MARGINS="0">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<TREE SWITCH-TYPE="selector" TARGET="main_selector" SUNKEN="0">
+		</TREE>
+	</PANEL>
+</PANEL>
+
+
+
+
+<SELECTOR NAME="main_selector">
+
+<PAGE TITLE="##UiText.titles.object_list##" SUNKEN="1" EXPANDED="1" IMAGE-URL="//base_pict/generic_item.ico">
+
+
+<PAGE TITLE="##UiText.sections.general##" SUNKEN="1" IMAGE-URL="//base_pict/common.ico" lang-en:TITLE="General">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<CHECK SOURCE="Ps.is_card_page" TITLE="Раздел карточки другого объекта" lang-en:TITLE="Other object's card section" lang-ua:TITLE="Розділ картки іншого об'єкта"/>
+	<IF EXPR="Ps.is_card_page">
+		<BR/>
+		
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="30zr"/>
+				<COL WIDTH="35zr"/>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+		
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.card_object_type_id" LABEL-TITLE="Другой объект" lang-en:LABEL-TITLE="Other object" lang-ua:LABEL-TITLE="Інший об'єкт"/>
+			<EDIT SOURCE="Ps.card_page_title" LABEL-TITLE="Название раздела" lang-en:LABEL-TITLE="Section title" lang-ua:LABEL-TITLE="Назва розділу"/>
+			<EDIT SOURCE="Ps.exist_req_expr" LABEL-TITLE="##UiText.titles.exist_req_expr##"/>
+		</TABLE>
+	</IF>
+	<DELIM/>
+
+	<GROUP>
+		<CHECK SOURCE="Ps.is_main_section" TITLE="##UiText.titles.main_section##"/>
+
+		<COMBO SOURCE="Ps.parent_main_section_id" WIDTH="35zr" LABEL-TITLE="##UiText.titles.section##">
+			<COMBO-ENTRY TITLE="##UiText.titles.vacancies##" VALUE="vacancies"/>
+			<COMBO-ENTRY TITLE="##UiText.titles.candidates##" VALUE="candidates"/>
+			<COMBO-ENTRY TITLE="##UiText.sections.orgs##" VALUE="orgs"/>
+		</COMBO>
+	</GROUP>
+	<DELIM/>
+
+	<COMBO SOURCE="Ps.catalog_name" WIDTH="35zr" LABEL-TITLE="Каталог объектов" lang-en:LABEL-TITLE="Catalog" lang-ua:LABEL-TITLE="Каталог об'єктів">
+		<LOOP EXPR="card_object_types" VAR="_card_object_type">
+			<COMBO-ENTRY TITLE-EXPR="_card_object_type.name" VALUE-EXPR="lib_base.object_name_to_catalog_name( _card_object_type.id )"/>
+		</LOOP>
+	</COMBO>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.drop_all_dyn_filters" TITLE="Не наследовать динамические фильтры из родительского списка" lang-en:TITLE="Drop dynamic filters of the parent view" ENABLE-EXPR="Ps.parent_id.HasValue" lang-ua:TITLE="Не наслідувати динамічні фільтри з батьківського списку"/>
+	<CHECK SOURCE="Ps.drop_all_fields" TITLE="Не наследовать список столбцов из родительского списка" lang-en:TITLE="Drop column of the parent view" ENABLE-EXPR="Ps.parent_id.HasValue" lang-ua:TITLE="Не наслідувати список стовпців з батьківського списку"/>
+	<DELIM/>
+
+	<CHECK SOURCE="Ps.hier_collapsed" TITLE="Показывать иерархию в свернутом виде" lang-en:TITLE="Show collapsed" lang-ua:TITLE="Показувати ієрархію в згорнутому вигляді"/>
+	<CHECK SOURCE="Ps.allow_preview" TITLE="Разрешить режим предварительного просмотра" lang-en:TITLE="Allow preview mode" lang-ua:TITLE="Дозволити режим попереднього перегляду"/>
+	<DELIM/>
+</PAGE>
+
+
+
+<PAGE TITLE="##UiText.fields.static_filters##" IMAGE-URL="//base_pict/folder.ico" EXPANDED="1">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<LIST>
+			<COLUMNS>
+				<COL WIDTH="50zr" TITLE="##UiText.fields.field##"/>
+				<COL WIDTH="12zr" TITLE="##UiText.fields.predicate##"/>
+				<COL WIDTH="12zr" TITLE="##UiText.fields.value##" ALIGN="center"/>
+				<COL WIDTH="100%" TITLE="##UiText.fields.value_expr##" ALIGN="center"/>
+			</COLUMNS>
+
+			<LOOP EXPR="Ps.static_filters" VAR="ListElem">
+				<ROW OPEN-ACTION="Screen.ExposeItemBySource( ListElem.id )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );" IMAGE-URL="//base_pict/generic_item.ico">
+					<COL TITLE-EXPR="lib_base.object_field_desc( ListElem.id, Ps.object_name )"/>
+					<COL TITLE-EXPR="ListElem.cmp_pred.ForeignDispName"/>
+					<COL TITLE-EXPR="ListElem.value"/>
+					<COL TITLE-EXPR="ListElem.value_expr"/>
+				</ROW>
+
+				<PAGE TITLE-EXPR="lib_base.object_field_desc( ListElem.id, Ps.object_name )" IMAGE-URL="//base_pict/generic_item.ico" SOURCE="ListElem" SUNKEN="1" VERT-SCROLL="1">
+					<LABEL TITLE="##UiText.fields.static_filter##:" BOLD="1"/>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="40zr"/>
+							<COL WIDTH="24zr"/>
+							<COL WIDTH="13zr"/>
+							<COL WIDTH="22zr"/>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<ITEM TYPE="object_field_selector" SOURCE="Ps.id" LABEL-TITLE="##UiText.fields.field##:"/>
+						<EDIT SOURCE="Ps.id" LABEL-TITLE="##UiText.fields.id##:"/>
+						<COMBO SOURCE="Ps.cmp_pred" ELEM="ListElem.name" LABEL-TITLE="##UiText.fields.predicate##:"/>
+						<EDIT SOURCE="Ps.value" LABEL-TITLE="##UiText.fields.value##:"/>
+						<EDIT SOURCE="Ps.value_expr" LABEL-TITLE="##UiText.fields.value_expr##:"/>
+					</TABLE>
+				</PAGE>
+			</LOOP>
+		</LIST>
+	</PANEL>
+</PAGE>
+
+
+
+<PAGE TITLE="##UiText.fields.dynamic_filters##" IMAGE-URL="//base_pict/folder.ico" EXPANDED="1">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<LIST>
+			<COLUMNS>
+				<COL WIDTH="50zr" TITLE="##UiText.fields.field##"/>
+				<COL WIDTH="100%" TITLE="##UiText.fields.name##"/>
+			</COLUMNS>
+
+			<LOOP EXPR="Ps.dyn_filters" VAR="ListElem">
+				<ROW OPEN-ACTION="Screen.ExposeItemBySource( ListElem.id )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );" IMAGE-URL="//base_pict/generic_item.ico">
+					<COL TITLE-EXPR="lib_base.object_field_desc( ListElem.id, Ps.object_name )"/>
+					<COL TITLE-EXPR="ListElem.title"/>
+				</ROW>
+
+				<PAGE TITLE-EXPR="lib_base.object_field_desc( ListElem.id, Ps.object_name )" IMAGE-URL="//base_pict/generic_item.ico" SOURCE="ListElem" SUNKEN="1" VERT-SCROLL="1">
+					<LABEL TITLE="##UiText.fields.dynamic_filter##:" BOLD="1"/>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="45zr"/>
+							<COL WIDTH="25zr"/>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<ITEM TYPE="object_field_selector" SOURCE="Ps.id" LABEL-TITLE="##UiText.fields.field##:"/>
+						<EDIT SOURCE="Ps.id" LABEL-TITLE="##UiText.fields.id##:"/>
+						<EDIT SOURCE="Ps.title" LABEL-TITLE="##UiText.fields.name##:"/>
+					</TABLE>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="30zr"/>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<COMBO SOURCE="Ps.data_type" LABEL-TITLE="##UiText.fields.data_type##:">
+							<INHERIT TYPE="data_type_combo_entries"/>
+						</COMBO>
+
+						<EDIT SOURCE="Ps.exist_req_expr" LABEL-TITLE="##UiText.titles.exist_req_expr##:"/>
+					</TABLE>
+					<BR/>
+
+					<CHECK SOURCE="Ps.is_multiple" TITLE="##UiText.titles.multiple_choice##"/>
+					<BR/>
+
+					<EDIT SOURCE="Ps.view_filter_expr" LABEL-TITLE="Фильтр значений из списка (формула):" lang-en:LABEL-TITLE="List values filter formula:" lang-ua:LABEL-TITLE="Фільтр значень зі списку (формула):"/>
+					<DELIM/>
+
+					<CHECK SOURCE="Ps.use_range" TITLE="Фильтр по диапазону значений" lang-en:TITLE="Range filter" lang-ua:TITLE="Фільтр по діапазону значень"/>
+					<CHECK SOURCE="Ps.use_ft" TITLE="##UiText.titles.ft_search##"/>
+					<CHECK SOURCE="Ps.is_auto" TITLE="##UiText.titles.apply_automatically##"/>
+					<DELIM/>
+
+					<EDIT SOURCE="Ps.xquery_qual_expr" LABEL-TITLE="Фильтр XQuery (формула):" lang-en:LABEL-TITLE="XQuery filter formula:" lang-ua:LABEL-TITLE="Фільтр XQuery (формула):"/>
+					<DELIM/>
+
+					<ITEM TYPE="width_edit" SOURCE="Ps.width" LABEL-TITLE="##UiText.fields.width##:"/>
+					<DELIM/>
+
+					<CHECK SOURCE="Ps.use_new_line" TITLE="##UiText.fields.use_new_line##"/>
+					<CHECK SOURCE="Ps.use_store" TITLE="Сохранять выбранное значение" lang-en:TITLE="Save selected value" lang-ua:TITLE="Зберігати вибране значення"/>
+					<DELIM/>
+				</PAGE>
+			</LOOP>
+		</LIST>
+	</PANEL>
+</PAGE>
+
+
+
+
+
+<PAGE TITLE="##UiText.titles.columns##" IMAGE-URL="//base_pict/folder.ico" EXPANDED="1">
+	<PANEL HEIGHT="100%" SUNKEN="1">
+		<LIST>
+			<COLUMNS>
+				<COL WIDTH="50zr" TITLE="##UiText.fields.field##"/>
+				<COL WIDTH="100%" TITLE="##UiText.fields.name##"/>
+			</COLUMNS>
+
+			<LOOP EXPR="Ps.fields" VAR="ListElem">
+				<ROW OPEN-ACTION="Screen.ExposeItemBySource( ListElem.id )" DELETE-ACTION="ListElem.Delete(); Ps.Doc.SetChanged( true );" IMAGE-URL="//base_pict/generic_item.ico">
+					<COL TITLE-EXPR="lib_base.object_field_desc( ListElem.id, Ps.object_name )"/>
+					<COL TITLE-EXPR="ListElem.col_title"/>
+				</ROW>
+
+				<PAGE TITLE-EXPR="lib_base.object_field_desc( ListElem.id, Ps.object_name )" IMAGE-URL="//base_pict/generic_item.ico" SOURCE="ListElem" SUNKEN="1" VERT-SCROLL="1">
+					<LABEL TITLE="##UiText.fields.column##:" BOLD="1"/>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="45zr"/>
+							<COL WIDTH="25zr"/>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<ITEM TYPE="object_field_selector" SOURCE="Ps.id" LABEL-TITLE="##UiText.fields.field##:" lang-en:LABEL-TITLE="Field:"/>
+						<EDIT SOURCE="Ps.id" LABEL-TITLE="##UiText.fields.id##:" lang-en:LABEL-TITLE="ID:"/>
+						<EDIT SOURCE="Ps.col_title" LABEL-TITLE="##UiText.titles.column_titlle##:"/>
+					</TABLE>
+					<BR/>
+
+					<EDIT SOURCE="Ps.col_tip_text" LABEL-TITLE="##UiText.titles.column_tip_text##:"/>
+					<BR/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="30zr"/>
+							<COL WIDTH="100%"/>
+						</COLUMNS>
+
+						<COMBO SOURCE="Ps.data_type" LABEL-TITLE="##UiText.fields.data_type##:">
+							<INHERIT TYPE="data_type_combo_entries"/>
+						</COMBO>
+
+						<EDIT SOURCE="Ps.exist_req_expr" LABEL-TITLE="##UiText.titles.exist_req_expr##:"/>
+					</TABLE>
+					<BR/>
+
+					<EDIT SOURCE="Ps.elem_expr" LABEL-TITLE="##UiText.fields.elem_expr##:"/>
+					<EDIT SOURCE="Ps.title_expr" LABEL-TITLE="Вычисляемый текст (формула):" lang-en:LABEL-TITLE="Text formula:" lang-ua:LABEL-TITLE="Обчислюваний текст (формула):"/>
+					<BR/>
+
+					<IF EXPR="true">
+						<CHECK SOURCE="Ps.use_time == true" SET-VALUE-ACTION="
+								if ( NewValue )
+									Ps.use_time = true;
+								else
+									Ps.use_time.Clear();
+
+								Ps.Doc.SetChanged( true );
+						" TITLE="Всегда показывать время" lang-en:TITLE="Always show time" lang-ua:TITLE="Завжди показувати час"/>
+
+						<CHECK SOURCE="Ps.use_time == false" SET-VALUE-ACTION="
+								if ( NewValue )
+									Ps.use_time = false;
+								else
+									Ps.use_time.Clear();
+
+								Ps.Doc.SetChanged( true );
+						" TITLE="Не показывать время" lang-en:TITLE="Hide time" lang-ua:TITLE="Не показувати час"/>
+
+						<CHECK SOURCE="Ps.time_only" TITLE="Показывать только время" lang-en:TITLE="Show time only" lang-ua:TITLE="Показувати тільки час"/>
+					</IF>
+					<DELIM/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="35zr"/>
+							<COL WIDTH="18zr"/>
+							<COL WIDTH="35zr"/>
+							<COL WIDTH="18zr"/>
+						</COLUMNS>
+
+						<EDIT SOURCE="Ps.order" LABEL-TITLE="Сортировка по полю:" lang-en:LABEL-TITLE="Sort by field:" lang-ua:LABEL-TITLE="Сортування по полю:"/>
+						<COMBO SOURCE="Ps.order_dir" LABEL-TITLE="##UiText.fields.direction_of_order##:">
+							<COMBO-ENTRY VALUE="+" TITLE="##UiText.titles.ascending##" lang-en:TITLE="ascending"/>
+							<COMBO-ENTRY VALUE="-" TITLE="##UiText.titles.descending##"/>
+						</COMBO>
+
+						<EDIT SOURCE="Ps.order1" LABEL-TITLE="Сортировка по полю 2:" lang-en:LABEL-TITLE="Sort by field 2:" lang-ua:LABEL-TITLE="Сортування по полю 2:"/>
+						<COMBO SOURCE="Ps.order_dir1" LABEL-TITLE="##UiText.fields.direction_of_order##:">
+							<COMBO-ENTRY VALUE="+" TITLE="##UiText.titles.ascending##"/>
+							<COMBO-ENTRY VALUE="-" TITLE="##UiText.titles.descending##"/>
+						</COMBO>
+					</TABLE>
+					<DELIM/>
+
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="20zr"/>
+						</COLUMNS>
+
+						<ITEM TYPE="text_align" SOURCE="Ps.align"/>
+					</TABLE>
+					<DELIM/>
+
+
+					<ITEM TYPE="width_edit" SOURCE="Ps.width" LABEL-TITLE="##UiText.fields.width##:"/>
+					<DELIM/>
+
+					<TABLE>
+						<COLUMNS>
+							<COL WIDTH="15zr"/>
+							<COL WIDTH="50%"/>
+							<COL WIDTH="15zr"/>
+							<COL WIDTH="50%"/>
+						</COLUMNS>
+
+						<ITEM TYPE="color_selector" SOURCE="Ps.text_color" LABEL-TITLE="##UiText.titles.text_color##:"/>
+						<EDIT SOURCE="Ps.text_color_expr" LABEL-TITLE="##UiText.fields.text_color_expr##:" lang-en:LABEL-TITLE="Text color formula:"/>
+						<ITEM TYPE="color_selector" SOURCE="Ps.bk_color" LABEL-TITLE="##UiText.fields.bk_color##:"/>
+						<EDIT SOURCE="Ps.bk_color_expr" LABEL-TITLE="##UiText.fields.bk_color_expr##:" lang-en:LABEL-TITLE="Background color formula:"/>
+					</TABLE>
+					<BR/>
+
+					<CHECK SOURCE="Ps.is_default_sort" TITLE="По умолчанию сортировать по данному столбцу" lang-en:TITLE="Sort by this column by default" lang-ua:TITLE="За замовчуванням сортувати по даному стовпцю"/>
+					<DELIM/>
+				</PAGE>
+			</LOOP>
+
+			<MENU RIGHT-CLICK="1">
+				<MENU-ENTRY TITLE="##UiText.actions.add##" ACTION="
+						if ( List.HasSel )
+							curIndex = List.SelRow.Env.ListElem.ChildIndex;
+						else
+							curIndex = undefined;
+
+						elem = Ps.fields.AddChild();
+
+						if ( curIndex != undefined )
+							elem.SetChildIndex( curIndex );
+
+						Screen.Update();
+						Screen.ExposeItemBySource( elem.id );
+
+						Ps.Doc.SetChanged( true );
+				" PASSIVE="1"/>
+
+				<MENU-ENTRY SEPARATOR="1"/>
+				
+				<MENU-ENTRY TITLE="##UiText.actions.move_up##" ACTION="
+						curElem = List.SelRow.Env.ListElem;
+						if ( curElem.ChildIndex == 0 )
+							return;
+
+						curElem.SetChildIndex( curElem.ChildIndex - 1 );
+						curElem.Doc.SetChanged( true );
+				" ENABLE-EXPR="List.HasSingleSel"/>
+
+				<MENU-ENTRY TITLE="##UiText.actions.move_down##" ACTION="
+						curElem = List.SelRow.Env.ListElem;
+						if ( curElem.ChildIndex == curElem.Parent.ChildNum - 1 )
+							return;
+
+						curElem.SetChildIndex( curElem.ChildIndex + 1 );
+						curElem.Doc.SetChanged( true );
+				" ENABLE-EXPR="List.HasSingleSel"/>
+			</MENU>
+		</LIST>
+	</PANEL>
+</PAGE>
+
+
+
+
+
+
+
+
+
+
+</PAGE>
+
+
+</SELECTOR>
+
+
+
+</LINE>
+
+
+</SPXML-SCREEN>
+

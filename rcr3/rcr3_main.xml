@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="Main" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<UI:Section Template="List.vacancies.hm.my" Title="##UiText.sections.my_vacancies##">
+	<UI:Section Template="List.vacancies.hm.my.active" Title="##UiText.fields.active_s##"/>
+	<UI:Section Template="List.vacancies.hm.my.inactive" Title="##UiText.titles.archived##"/>
+</UI:Section>
+
+<UI:Section Template="List.candidates.hm.my" Title="##UiText.titles.candidates##">
+	<UI:Section Template="List.candidates.hm.my.active" Title="##UiText.fields.active_s##"/>
+	<UI:Section Template="List.candidates.hm.my.inactive" Title="##UiText.titles.archived##"/>
+	<UI:Section Template="List.candidates.hm.my.todo" Title="##UiText.fields.is_user_duty##"/>
+</UI:Section>
+
+<UI:Section Template="List.comments.hm.subscribed" Title="##UiText.titles.comments##">
+	<UI:Section Template="List.comments.hm.my" Title="##UiText.titles.my_comments##"/>
+</UI:Section>
+
+<UI:Section Template="List.vacancy_requests.my" Title="##UiText.titles.vacancy_requests##">
+	<UI:Section Template="List.vacancy_requests.my.active" Title="##UiText.fields.active_s##"/>
+	<UI:Section Template="List.vacancy_requests.my.inactive" Title="##UiText.titles.archived##"/>
+</UI:Section>
+
+<UI:Section Template="List.vacancy_requests.todo" Title="##UiText.sections.todo_requests##"/>
+<UI:Section Template="List.events.my" Title="##UiText.sections.events##"/>
+
+<UI:Section Catalog="divisions" Title="##UiText.sections.org_structure##" ShowCondition="! global_settings.hm_recruit.hide_divisions_section">
+	<UI:Section Template="List.employees"/>
+</UI:Section>
+
+
+</UiTemplate>

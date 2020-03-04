@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_voc_elems SPXML-FORM="//base1/base1_std_voc_elems.xmd">
+	<std_voc_elem>
+		<id>consumer</id>
+		<name VALUE="Потребитель продукта" lang-en:VALUE="Product Consumer" lang-ua:VALUE="Споживач продукту"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>dh</id>
+		<name VALUE="##UiText.fields.division_head##"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>ceo</id>
+		<name VALUE="Руководитель компании" lang-en:VALUE="CEO" lang-ua:VALUE="Керівник компанії"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>it</id>
+		<name VALUE="ИТ" lang-en:VALUE="IT" lang-ua:VALUE="ІТ"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>accountant</id>
+		<name VALUE="Бухгалтерия" lang-en:VALUE="Finance" lang-ua:VALUE="Бухгалтерія"/>
+	</std_voc_elem>
+	<std_voc_elem>
+		<id>legal</id>
+		<name VALUE="Юрист" lang-en:VALUE="Legal" lang-ua:VALUE="Юрист"/>
+	</std_voc_elem>
+</std_voc_elems>
+

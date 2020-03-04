@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="List.candidates.hm.my" BaseTemplate="List.candidates" Title="##UiText.titles.candidates##" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<UI:Filter Field="spots.spot.vacancy_id" Multiple="1" Fixed="1" ValueExpr="lib_recruit_hm.GetRrPersonFocusVacancyIDs( lib_user.active_user_person.id )"/>
+<UI:Filter Field="state_id" Multiple="1" Fixed="1" ValueExpr="lib_recruit_hm.GetRrPersonAllowedCandidateStateIDs()" ShowCondition="global_settings.hm_recruit.restrict_shown_candidates"/>
+
+<UI:Delete Item="Filter" Field="user_id"/>
+
+</UiTemplate>

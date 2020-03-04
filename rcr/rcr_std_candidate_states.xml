@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_candidate_states SPXML-FORM="//rcr/rcr_std_candidate_states.xmd">
+	<std_candidate_state>
+		<id>new</id>
+		<name VALUE="[Новый кандидат]" lang-en:VALUE="[New candidate]" lang-ua:VALUE="[Новий кандидат]"/>
+		<text_color>255,128,0</text_color>
+
+		<is_standalone>1</is_standalone>
+		<is_user_duty>1</is_user_duty>
+	</std_candidate_state>
+
+
+	<std_candidate_state>
+		<id>unused</id>
+		<name VALUE="[Не использован]" lang-en:VALUE="[Unused]" lang-ua:VALUE="[Не використаний]"/>
+		<text_color>100,100,100</text_color>
+		<deactivate_object>1</deactivate_object>
+
+		<is_standalone>1</is_standalone>
+	</std_candidate_state>
+
+</std_candidate_states>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="view_trash" MAXIMIZED="1">
+
+
+<PANEL SUNKEN="1">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="41zr"/>
+		</COLUMNS>
+
+		<ITEM TYPE="ft_filter" SOURCE="Ps.filter"/>
+	</TABLE>
+</PANEL>
+
+
+<PANEL HEIGHT="100%" SUNKEN="1">
+	<LIST LOOP-CATALOG="trash_objects" FT-FILTER="Ps.filter">
+		<ROW OPEN-ACTION="ObtainDocScreen( ObjectDocUrl( 'trash', 'trash_object', ListElem.id ) )" DELETE-ACTION="
+				if ( ! lib_user.active_user_access.allow_change_trash )
+					throw UiError( UiText.errors.permission_denied );
+
+				DeleteDoc( ObjectDocUrl( 'trash', 'trash_object', ListElem.id ) );
+		" IMAGE-URL-EXPR="DefaultDb.GetObjectForm( ListElem.object_name ).ImageUrl">
+			<COL WIDTH="19zr" COL-TITLE="Дата удаления" TITLE-EXPR="StrDate( ListElem.del_date, true, false )" ORDER="del_date" ORDER-DIR="-" lang-en:COL-TITLE="Deletion date" lang-ua:COL-TITLE="Дата видалення"/>
+			<COL WIDTH="100%" COL-TITLE="##UiText.fields.object##" TITLE-EXPR="ListElem.disp_name" lang-en:COL-TITLE="Object"/>
+		</ROW>
+
+		<MENU>
+			<MENU-ENTRY TITLE="Восстановить" ACTION="
+					for ( selRow in List.SelRows )
+					{
+						docUrl = ObjectDocUrl( 'trash', 'trash_object', selRow.Env.ListElem.id );
+						doc = OpenDoc( docUrl );
+						doc.Save( ObjectDocUrl( 'data', selRow.Env.ListElem.object_name, selRow.Env.ListElem.id ) );
+						DeleteDoc( docUrl );
+					}
+			" lang-en:TITLE="Restore" lang-ua:TITLE="Відновити"/>
+			<MENU-ENTRY SEPARATOR="1"/>
+
+			<MENU-ENTRY TITLE="##UiText.actions.open##" CMD="OpenSel" lang-en:TITLE="Open"/>
+			<MENU-ENTRY SEPARATOR="1"/>
+			<MENU-ENTRY TITLE="##UiText.actions.del##&#09;Del" CMD="Clear"/>
+		</MENU>
+	</LIST>
+</PANEL>
+
+
+<INHERIT TYPE="view_commands"/>
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+

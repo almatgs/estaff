@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<base2_ui_text xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<objects>
+		<org VALUE="Организация" lang-en:VALUE="Company" lang-ua:VALUE="Організація"/>
+		<own_org VALUE="Собственная компания" lang-en:VALUE="My company" lang-ua:VALUE="Власна компанія"/>
+		<customer VALUE="Клиент" lang-en:VALUE="Customer" lang-ua:VALUE="Клієнт"/>
+		<client VALUE="Клиент" lang-en:VALUE="Company" lang-ua:VALUE="Клієнт"/>
+		<person VALUE="Физическое лицо" lang-en:VALUE="Person" lang-ua:VALUE="Фізична особа"/>
+		<contact_person VALUE="Контактное лицо" lang-en:VALUE="Contact Person" lang-ua:VALUE="Контактна особа"/>
+		<contact_list VALUE="Список контактов" lang-en:VALUE="Contacts list" lang-ua:VALUE="Список контактів"/>
+		<employee VALUE="Сотрудник" lang-en:VALUE="Employee" lang-ua:VALUE="Співробітник"/>
+		<candidate VALUE="Кандидат" lang-en:VALUE="Candidate" lang-ua:VALUE="Кандидат"/>
+		<agreement VALUE="Договор" lang-en:VALUE="Agreement" lang-ua:VALUE="Договір"/>
+		<expense VALUE="Затрата" lang-en:VALUE="Expense" lang-ua:VALUE="Витрата"/>
+		<division VALUE="Структурное подразделение" lang-en:VALUE="Division" lang-ua:VALUE="Структурний підрозділ"/>
+		<division__short VALUE="Подразделение" lang-en:VALUE="Division" lang-ua:VALUE="Підрозділ"/>
+		<position VALUE="Штатная должность" lang-en:VALUE="Position" lang-ua:VALUE="Штатна посада"/>
+		<event VALUE="Событие" lang-en:VALUE="Event" lang-ua:VALUE="Подія"/>
+		<office VALUE="Офис" lang-en:VALUE="Office" lang-ua:VALUE="Офіс"/>
+		<room VALUE="Комната" lang-en:VALUE="Room" lang-ua:VALUE="Кімната"/>
+		<task VALUE="Задача" lang-en:VALUE="Task" lang-ua:VALUE="Задача"/>
+		<company VALUE="Компания" lang-en:VALUE="Company" lang-ua:VALUE="Компанія"/>
+		<vacancy VALUE="Вакансия" lang-en:VALUE="Vacancy" lang-ua:VALUE="Вакансія"/>
+		<notification VALUE="Уведомление" lang-en:VALUE="Notification" lang-ua:VALUE="Сповіщення"/>
+		<object_request VALUE="Заявка" lang-en:VALUE="Request" lang-ua:VALUE="Заявка"/>
+		<workflow_document VALUE="Электронный документ" lang-en:VALUE="Workflow document" lang-ua:VALUE="Електронний документ"/>
+		<external_account VALUE="Внешняя учетная запись" lang-en:VALUE="External account" lang-ua:VALUE="Зовнішня обліковий запис"/>
+		<division_type VALUE="Категория подразделений" lang-en:VALUE="Division type" lang-ua:VALUE="Категорія підрозділів"/>
+	</objects>
+	<fields>
+		<industry VALUE="Сфера деятельности" lang-en:VALUE="Industry" lang-ua:VALUE="Сфера діяльності"/>
+		<brand VALUE="Бренд" lang-en:VALUE="Brand" lang-ua:VALUE="Бренд"/>
+		<expense_type VALUE="Статься затрат" lang-en:VALUE="Type of expense" lang-ua:VALUE="Статті витрат"/>
+		<profession VALUE="Специальность" lang-en:VALUE="Profession" lang-ua:VALUE="Спеціальність"/>
+		<metro_station VALUE="Станция метро" lang-en:VALUE="Metro station" lang-ua:VALUE="Станція метро"/>
+		<division_head VALUE="Руководитель подразделения" lang-en:VALUE="Head of Division" lang-ua:VALUE="Керівник підрозділу"/>
+		<root_division VALUE="Корневое подразделение" lang-en:VALUE="Root division" lang-ua:VALUE="Корінний підрозділ"/>
+		<contact_persons VALUE="Контактные лица" lang-en:VALUE="Contact Persons" lang-ua:VALUE="Контактні особи"/>
+		<employment_percent VALUE="% занятости" lang-en:VALUE="employment %" lang-ua:VALUE="% зайнятості"/>
+		<is_user_duty VALUE="Принять решение" lang-en:VALUE="To Do" lang-ua:VALUE="Прийняти рішення"/>
+		<expense_service_type VALUE="Статья затрат" lang-en:VALUE="Type of expense" lang-ua:VALUE="Стаття витрат"/>
+		<payment_date VALUE="Дата оплаты" lang-en:VALUE="Payment date" lang-ua:VALUE="Дата оплати"/>
+		<last_contact_date VALUE="Дата последн. контакта" lang-en:VALUE="Last Contact Date" lang-ua:VALUE="Дата остан. контакту"/>
+		<deactivate_object VALUE="Деактивирует объект" lang-en:VALUE="Deactivate Object" lang-ua:VALUE="Деактивує об'єкт"/>
+		<position VALUE="Должность" lang-en:VALUE="Position" lang-ua:VALUE="Посада"/>
+		<contacts VALUE="Контактные лица" lang-en:VALUE="Contacts" lang-ua:VALUE="Контактні особи"/>
+		<counterpart VALUE="Контрагент" lang-en:VALUE="Company" lang-ua:VALUE="Контрагент"/>
+		<no_of_passport VALUE="Номер" lang-en:VALUE="No" lang-ua:VALUE="Номер"/>
+		<deal_code VALUE="Номер договора" lang-en:VALUE="Agreement No." lang-ua:VALUE="Номер договору"/>
+		<education VALUE="Образование" lang-en:VALUE="Education" lang-ua:VALUE="Освіта"/>
+		<is_state VALUE="Определяет статус объекта" lang-en:VALUE="Sets object state" lang-ua:VALUE="Визначає статус об'єкта"/>
+		<work_experience VALUE="Опыт работы" lang-en:VALUE="Work experience" lang-ua:VALUE="Досвід роботи"/>
+		<work_experience_in_years VALUE="Опыт работы по специальности, лет" lang-en:VALUE="Work experience, years" lang-ua:VALUE="Досвід роботи за фахом, років"/>
+		<key_skills VALUE="Ключевые навыки" lang-en:VALUE="Top skills" lang-ua:VALUE="Ключові навички"/>
+		<main_group VALUE="Основная группа" lang-en:VALUE="Primary Group" lang-ua:VALUE="Основна група"/>
+		<primary_contact VALUE="Основное контактное лицо" lang-en:VALUE="Primary Contact" lang-ua:VALUE="Основна контактна особа"/>
+		<refusal VALUE="отказ" lang-en:VALUE="refusal" lang-ua:VALUE="відмова"/>
+		<refused_n VALUE="отклонено" lang-en:VALUE="rejected" lang-ua:VALUE="відхилено"/>
+		<max_state_term VALUE="Предельный срок нахождения" lang-en:VALUE="Maximal State Time" lang-ua:VALUE="Граничний термін знаходження"/>
+		<prev_jobs VALUE="Места работы" lang-en:VALUE="Previous Jobs" lang-ua:VALUE="Місця роботи"/>
+		<cur_state VALUE="Текущий статус" lang-en:VALUE="Current State" lang-ua:VALUE="Поточний статус"/>
+		<phones VALUE="Телефоны" lang-en:VALUE="Phones" lang-ua:VALUE="Телефони"/>
+		<conventional_name VALUE="Условное наименование" lang-en:VALUE="Name" lang-ua:VALUE="Умовне найменування"/>
+		<participants VALUE="Участники" lang-en:VALUE="Participants" lang-ua:VALUE="Учасники"/>
+		<tax_id VALUE="ИНН" lang-en:VALUE="Tax ID" lang-ua:VALUE="ІПН"/>
+		<skills VALUE="Навыки" lang-en:VALUE="Skills" lang-ua:VALUE="Навики"/>
+		<skills_desc VALUE="Навыки (описание)" lang-en:VALUE="Skills (description)" lang-ua:VALUE="Навики (опис)"/>
+		<last_contact VALUE="Последний контакт" lang-en:VALUE="Last Contact" lang-ua:VALUE="Останній контакт"/>
+		<main_occurrence_name VALUE="Основной" lang-en:VALUE="Main" lang-ua:VALUE="Основний"/>
+		<age VALUE="Возраст" lang-en:VALUE="Age" lang-ua:VALUE="Вік"/>
+		<alt_phone__s VALUE="Альт. телефон" lang-en:VALUE="Alt. Phone" lang-ua:VALUE="Альт. телефон"/>
+		<home_phone__s VALUE="Дом. телефон" lang-en:VALUE="Home Phone" lang-ua:VALUE="Дом. телефон"/>
+		<mob_phone__s VALUE="Моб. телефон" lang-en:VALUE="Mobile Phone" lang-ua:VALUE="Моб. телефон"/>
+		<priority VALUE="Приоритет" lang-en:VALUE="Priority" lang-ua:VALUE="Пріоритет"/>
+		<work_phone__s VALUE="Раб. телефон" lang-en:VALUE="Work phone" lang-ua:VALUE="Роб. телефон"/>
+		<marital_status VALUE="Семейное положение" lang-en:VALUE="Marital status" lang-ua:VALUE="Сімейний стан"/>
+		<actions_group VALUE="Группа действий" lang-en:VALUE="Actions group" lang-ua:VALUE="Група дій"/>
+		<citizenship VALUE="Гражданство" lang-en:VALUE="Citizenship" lang-ua:VALUE="Громадянство"/>
+		<foreign_language VALUE="Иностранный язык" lang-en:VALUE="Foreign language" lang-ua:VALUE="Іноземна мова"/>
+		<cur_org VALUE="Текущая организация" lang-en:VALUE="Current company" lang-ua:VALUE="Теперішня організація"/>
+		<cur_position VALUE="Текущая должность" lang-en:VALUE="Current position" lang-ua:VALUE="Поточна посада"/>
+		<std_state_name VALUE="Стандартное наименование статуса" lang-en:VALUE="Standard status name" lang-ua:VALUE="Стандартне найменування статусу"/>
+		<custom_state_name VALUE="Пользовательское наименование статуса" lang-en:VALUE="Custom status name" lang-ua:VALUE="Користувача найменування статусу"/>
+		<time_in_status VALUE="В статусе" lang-en:VALUE="Time in Status" lang-ua:VALUE="У статусі"/>
+		<days_in_status VALUE="Дней в текущем статусе" lang-en:VALUE="Days in Current Status" lang-ua:VALUE="Днів в поточному статусі"/>
+		<wdays_in_status VALUE="Рабочих дней в текущем статусе" lang-en:VALUE="Working Days in Current Status" lang-ua:VALUE="Робочих днів у поточному статусі"/>
+		<reminder_time VALUE="Время напоминания" lang-en:VALUE="Reminder time" lang-ua:VALUE="Час нагадування"/>
+		<extra_reminder_time VALUE="Дополнительное напоминание" lang-en:VALUE="Additional reminder" lang-ua:VALUE="Додаткове нагадування"/>
+		<state_date VALUE="Дата перехода в статус" lang-en:VALUE="Status Date" lang-ua:VALUE="Дата переходу в статус"/>
+		<participants_num VALUE="Кол-во участников" lang-en:VALUE="Number of Participants" lang-ua:VALUE="Кількість учасників"/>
+		<hire_date VALUE="Дата приема" lang-en:VALUE="Hire Date" lang-ua:VALUE="Дата прийому"/>
+		<outlook_name VALUE="Имя в Microsoft Outlook" lang-en:VALUE="Name in Microsoft Outlook" lang-ua:VALUE="Ім'я в Microsoft Outlook"/>
+		<lotus_name VALUE="Имя в Lotus Notes" lang-en:VALUE="Name in Lotus Notes" lang-ua:VALUE="Ім'я в Lotus Notes"/>
+		<cur_resp_person VALUE="Ответственный за текущий этап" lang-en:VALUE="Current Approver" lang-ua:VALUE="Відповідальний за затвердження"/>
+		<desired_position_name VALUE="Предполагаемая должность" lang-en:VALUE="Desired Position Name" lang-ua:VALUE="Ймовірна посада"/>
+		<is_delegate VALUE="Только организатор" lang-en:VALUE="Planned for someone else" lang-ua:VALUE="Тільки організатор"/>
+		<workflow_stage VALUE="Этап документооборота" lang-en:VALUE="Workflow stage" lang-ua:VALUE="Етап документообігу"/>
+		<state_duration VALUE="В статусе" lang-en:VALUE="State Duration" lang-ua:VALUE="У статусі"/>
+	</fields>
+	<titles>
+		<event_types VALUE="Типы событий" lang-en:VALUE="Event types" lang-ua:VALUE="Типи подій"/>
+		<job_title VALUE="Должность" lang-en:VALUE="Job Title" lang-ua:VALUE="Посада"/>
+		<took_place VALUE="Состоялось" lang-en:VALUE="Completed" lang-ua:VALUE="Відбулося"/>
+		<home_phone_prefix VALUE="(д)" lang-en:VALUE="(h)" lang-ua:VALUE="(д)"/>
+		<work_phone_prefix VALUE="(р)" lang-en:VALUE="(w)" lang-ua:VALUE="(р)"/>
+		<mobile_phone_prefix VALUE="(м)" lang-en:VALUE="(m)" lang-ua:VALUE="(м)"/>
+		<person_card VALUE="Карточка физического лица" lang-en:VALUE="Person's card" lang-ua:VALUE="Картка фізичної особи"/>
+		<own_person_card VALUE="Карточка сотрудника" lang-en:VALUE="Employee's card" lang-ua:VALUE="Картка співробітника"/>
+		<participant_xxx_poll_result VALUE="Результаты опроса участника '%s'" lang-en:VALUE="Assessment result from '%s'" lang-ua:VALUE="Результати опитування учасника '%s'"/>
+		<finished_successfully VALUE="успешно завершено" lang-en:VALUE="finished successfully" lang-ua:VALUE="успішно завершено"/>
+		<completed_successfully VALUE="успешно состоялось" lang-en:VALUE="completed successfully" lang-ua:VALUE="успішно відбулося"/>
+		<waiting_to_start VALUE="Ожидает начала" lang-en:VALUE="Waiting to Start" lang-ua:VALUE="Очікує початку"/>
+		<started VALUE="Начато" lang-en:VALUE="Started" lang-ua:VALUE="Почато"/>
+		<finished VALUE="Завершено" lang-en:VALUE="Finished" lang-ua:VALUE="Завершено"/>
+		<approved VALUE="Одобрено" lang-en:VALUE="Approved" lang-ua:VALUE="Схвалено"/>
+		<approved__m VALUE="Одобрен" lang-en:VALUE="Approved" lang-ua:VALUE="Схвалений"/>
+		<approved__f VALUE="Одобрена" lang-en:VALUE="Approved" lang-ua:VALUE="Схвалена"/>
+		<approved__passed__m VALUE="Одобрен" lang-en:VALUE="Passed" lang-ua:VALUE="Схвалено"/>
+		<rejected VALUE="Отклонено" lang-en:VALUE="Rejected" lang-ua:VALUE="Відхилено"/>
+		<rejected__f VALUE="Отклонена" lang-en:VALUE="Rejected" lang-ua:VALUE="Відхилена"/>
+		<rejected__m VALUE="Отклонен" lang-en:VALUE="Rejected" lang-ua:VALUE="Відхилений"/>
+		<rejected__p VALUE="Отклонены" lang-en:VALUE="Rejected" lang-ua:VALUE="Відхилено"/>
+		<accepted VALUE="Принято" lang-en:VALUE="Accepted" lang-ua:VALUE="Прийнято"/>
+		<declined VALUE="Отклонено" lang-en:VALUE="Declined" lang-ua:VALUE="Отклонено"/>
+		<reminder VALUE="Напоминание" lang-en:VALUE="Reminder" lang-ua:VALUE="Нагадування"/>
+		<external_calendar VALUE="Внешний календарь" lang-en:VALUE="External calendar" lang-ua:VALUE="Зовнішній календар"/>
+		<default_creation_date_title VALUE="Создано" lang-en:VALUE="Created" lang-ua:VALUE="Створено"/>
+		<notifications VALUE="Уведомления" lang-en:VALUE="Notifications" lang-ua:VALUE="Сповіщення"/>
+		<end_date_reach VALUE="Завершение события" lang-en:VALUE="Ending event" lang-ua:VALUE="Завершення події"/>
+		<state_overdue VALUE="Статус просрочен" lang-en:VALUE="State Overdue" lang-ua:VALUE="Статус прострочений"/>
+		<rus_male_middlename_suffix VALUE="ич" lang-en:VALUE="ich" lang-ua:VALUE="іч"/>
+		<rus_female_middlename_suffix VALUE="на" lang-en:VALUE="na" lang-ua:VALUE="на"/>
+		<active_vacancies__num VALUE="Активных вакансий" lang-en:VALUE="Active vacancies" lang-ua:VALUE="Активних вакансій"/>
+		<budget VALUE="Бюджет" lang-en:VALUE="Budget" lang-ua:VALUE="Бюджет"/>
+		<load_locations VALUE="Загрузка справочника регионов" lang-en:VALUE="Load list of locations" lang-ua:VALUE="Завантаження довідника регіонів"/>
+		<record VALUE="Запись" lang-en:VALUE="Record" lang-ua:VALUE="Запис"/>
+		<scheduled VALUE="Запланировано" lang-en:VALUE="Scheduled" lang-ua:VALUE="Заплановано"/>
+		<completed VALUE="Состоялось" lang-en:VALUE="Completed" lang-ua:VALUE="Відбулося"/>
+		<completed__m VALUE="Состоялся" lang-en:VALUE="Completed" lang-ua:VALUE="Відбувся"/>
+		<suspended VALUE="Подвешено" lang-en:VALUE="Suspended" lang-ua:VALUE="Підвішено"/>
+		<cancelled__recalled VALUE="Отозвано" lang-en:VALUE="Cancelled" lang-ua:VALUE="Скасовано"/>
+		<cancelled__recalled__f VALUE="Отозвана" lang-en:VALUE="Revoked" lang-ua:VALUE="Скасована"/>
+		<suspended__frozen VALUE="Заморожено" lang-en:VALUE="Suspended" lang-ua:VALUE="Припинено"/>
+		<returned_to_orig_person VALUE="Возвращена инициатору" lang-en:VALUE="Returned to originator" lang-ua:VALUE="Повернено ініціатору"/>
+		<change_history VALUE="История изменений" lang-en:VALUE="Change History" lang-ua:VALUE="Історія змін"/>
+		<staffing_agency VALUE="Кадровое агентство" lang-en:VALUE="Recruiting agency" lang-ua:VALUE="Кадрове агентство"/>
+		<recruiting_agency VALUE="Рекрутинговое агентство" lang-en:VALUE="Recruiting agency" lang-ua:VALUE="Рекрутингове агентство"/>
+		<quarterly_budget VALUE="Квартальный бюджет" lang-en:VALUE="Quarterly budget" lang-ua:VALUE="квартальний бюджет"/>
+		<max_age__s VALUE="Макс. возраст" lang-en:VALUE="Max. age" lang-ua:VALUE="Макс. вік"/>
+		<min_age__s VALUE="Мин. возраст" lang-en:VALUE="Min. age" lang-ua:VALUE="Мін. вік"/>
+		<divisions VALUE="Подразделения" lang-en:VALUE="Divisions" lang-ua:VALUE="Підрозділи"/>
+		<locations VALUE="Регионы" lang-en:VALUE="Locations" lang-ua:VALUE="Регіони"/>
+		<portal_link VALUE="Ссылка на портал" lang-en:VALUE="Portal Link" lang-ua:VALUE="Посилання на портал"/>
+		<candidate_state VALUE="Статус кандидата" lang-en:VALUE="Candidate state" lang-ua:VALUE="Статус кандидата"/>
+		<states VALUE="Статусы" lang-en:VALUE="Statuses" lang-ua:VALUE="Статуси"/>
+		<record_type VALUE="Тип записи" lang-en:VALUE="Record type" lang-ua:VALUE="Тип запису"/>
+		<target_group VALUE="Целевая группа" lang-en:VALUE="Target group" lang-ua:VALUE="Цільова група"/>
+		<valid_only_for_user VALUE="Актуально только для пользователя" lang-en:VALUE="Valid only for user" lang-ua:VALUE="Актуально тільки для користувача"/>
+		<valid_only_for_group VALUE="Актуально только для группы" lang-en:VALUE="Valid only for group" lang-ua:VALUE="Актуально тільки для групи"/>
+		<inner_groups VALUE="Дочерние группы" lang-en:VALUE="Child groups" VALUE="Дочірні групи"/>
+		<default_state VALUE="Статус по умолчанию" lang-en:VALUE="Default status" lang-ua:VALUE="Статус за замовчуванням"/>
+		<state_name VALUE="Наименование статуса" lang-en:VALUE="Custom name" lang-ua:VALUE="Найменування користувача"/>
+		<contacts VALUE="Контакты" lang-en:VALUE="Contacts" lang-ua:VALUE="Контакти"/>
+		<additional_education VALUE="Дополнительное образование" lang-en:VALUE="Additional education" lang-ua:VALUE="Додаткова освіта"/>
+		<additional_education__2 VALUE="Тесты, экзамены" lang-en:VALUE="Tests and examinations" lang-ua:VALUE="Тести, іспити"/>
+		<desired_work_trip_time VALUE="Желательное время в пути до работы" lang-en:VALUE="Desired trip to work time" lang-ua:VALUE="Бажане час у дорозі до роботи"/>
+		<imod_site VALUE="Карьерный сайт" lang-en:VALUE="Job site" lang-ua:VALUE="Job-сайт"/>
+		<recruit_types VALUE="Направления подбора" lang-en:VALUE="Recruitment categories" lang-ua:VALUE="Напрямки підбору"/>
+		<parameters VALUE="Параметры" lang-en:VALUE="Parameters" lang-ua:VALUE="Параметри"/>
+		<details__parameters VALUE="Параметры" lang-en:VALUE="Details" lang-ua:VALUE="Параметри"/>
+		<access_role VALUE="Уровень доступа" lang-en:VALUE="Access level" lang-ua:VALUE="Рівень доступу"/>
+		<at_this_exact_time VALUE="Ровно в это время" lang-en:VALUE="At this exact time" lang-ua:VALUE="Рівно о цей час"/>
+		<scheduled_events VALUE="Запланированные события" lang-en:VALUE="Scheduled events" lang-us:VALUE="Заплановані події"/>
+		<upcoming VALUE="Ожидается" lang-en:VALUE="Upcoming" lang-ua:VALUE="Очікується"/>
+		<ongoing VALUE="Происходит сейчас" lang-en:VALUE="Ongoing" lang-us:VALUE="Відбувається зараз"/>
+		<overdue VALUE="Просрочено" lang-en:VALUE="Overdue" lang-ua:VALUE="Прострочено"/>
+		<deadline VALUE="Крайний срок" lang-en:VALUE="Deadline" lang-ua:VALUE="Крайній термін"/>
+		<deadline__short VALUE="Срок" lang-en:VALUE="Deadline" lang-ua:VALUE="Термін"/>
+		<reserve VALUE="Резерв" lang-en:VALUE="Reserve" lang-ua:VALUE="Резерв"/>
+		<current_progress VALUE="Текущий прогресс" lang-en:VALUE="Current progress" lang-ua:VALUE="Поточний прогрес"/>
+		<date_of_opening VALUE="Дата открытия" lang-en:VALUE="Opened" lang-ua:VALUE="Дата відкриття"/>
+		<planned__date VALUE="План" lang-en:VALUE="Planned" lang-ua:VALUE="План"/>
+		<planned_duration VALUE="Плановый срок" lang-en:VALUE="Planned Duration" lang-ua:VALUE="Плановий термін"/>
+		<actual_duration VALUE="Фактический срок" lang-en:VALUE="Actual Duration" lang-ua:VALUE="Фактичний термін"/>
+		<deviation VALUE="Отклонение" lang-en:VALUE="Deviation" lang-ua:VALUE="Відхилення"/>
+		<deviation_from_plan VALUE="Отклонение от плана" lang-en:VALUE="Deviation from Plan" lang-ua:VALUE="Відхилення від плану"/>
+		<attended VALUE="Пришел" lang-en:VALUE="Attended" lang-ua:VALUE="Прийшов"/>
+		<dismissed VALUE="Уволен" lang-en:VALUE="Dismissed" lang-ua:VALUE="Звільнено"/>
+		<dismissed__n VALUE="Уволено" lang-en:VALUE="Dismissed" lang-ua:VALUE="Звільнено"/>
+		<application_withdrawn VALUE="Самоотказ" lang-en:VALUE="Application Withdrawn" lang-ua:VALUE="Самовідмова"/>
+		<withdrawals VALUE="Самоотказы" lang-en:VALUE="Withdrawals" lang-ua:VALUE="Самовідмова"/>
+		<reason VALUE="Причина" lang-en:VALUE="Reason" lang-ua:VALUE="Причина"/>
+		<children VALUE="Дети" lang-en:VALUE="Children" lang-ua:VALUE="Діти"/>
+		<employee_num VALUE="Количество сотрудников" lang-en:VALUE="Number of Employees" lang-ua:VALUE="Кількість співробітників"/>
+		<contact VALUE="Контакт" lang-en:VALUE="Contact" lang-ua:VALUE="Контакт"/>
+		<mark_vacancy_closed VALUE="Обозначает закрытие вакансии" lang-en:VALUE="Mark vacancy as closed" lang-ua:VALUE="Позначає закриття вакансії"/>
+		<marks_inactive VALUE="Обозначает переход в неактивное состояние" lang-en:VALUE="Marks As Inactive" lang-ua:VALUE="Позначає перехід в неактивний стан"/>
+		<shared_comment VALUE="Публичный комментарий" lang-en:VALUE="Shared comment" lang-ua:VALUE="Публічний коментар"/>
+		<mass_media VALUE="СМИ" lang-en:VALUE="Mass Media" lang-ua:VALUE="ЗМІ"/>
+		<estimated_duration VALUE="Расчетная продолжительность" lang-en:VALUE="Estimated duration" lang-ua:VALUE="Розрахункова тривалість"/>
+		<estimated_effort VALUE="Расчетные трудозатраты" lang-en:VALUE="Estimated Effort" lang-ua:VALUE="Розрахункові трудовитрати"/>
+		<workflow_type VALUE="Тип документооборота" lang-en:VALUE="Workflow type" lang-ua:VALUE="Тип документообігу"/>
+		<workflow_types VALUE="Типы документооборота" lang-en:VALUE="Workflow types" lang-ua:VALUE="Типи документообігу"/>
+		<event_participation VALUE="Участие в мероприятиях" lang-en:VALUE="Event Participation" lang-ua:VALUE="Участь в заходах"/>
+		<actual_duration__s VALUE="Факт. срок" lang-en:VALUE="Actual Duration" lang-ua:VALUE="Факт. термін"/>
+		<candidate_not_interested VALUE="Кандидат не заинтересован" lang-en:VALUE="Candidate is not interested" lang-ua:VALUE="Кандидат не зацікавлений"/>
+		<candidate_undecided VALUE="Кандидат думает" lang-en:VALUE="Candidate is undecided" lang-ua:VALUE="Кандидат думає"/>
+		<salary VALUE="Зарплата" lang-en:VALUE="Salary" lang-ua:VALUE="Зарплата"/>
+		<workflow_stages VALUE="Этапы документооборота" lang-en:VALUE="Workflow stages" lang-ua:VALUE="Етапи документообігу"/>
+		<call_result VALUE="Результат звонка" lang-en:VALUE="Call Result" lang-ua:VALUE="Результат дзвінка"/>
+		<call_recording VALUE="Запись разговора" lang-en:VALUE="Call Recording" lang-ua:VALUE="Запис розмови"/>
+		<call_transcript VALUE="Текст разговора" lang-en:VALUE="Call Transcript" lang-ua:VALUE="Текст розмови"/>
+		<workflow_error VALUE="Ошибка документооборота" lang-en:VALUE="Workflow error" lang-ua:VALUE="Помилка документообігу"/>
+		<bot_template VALUE="Скрипт для бота" lang-en:VALUE="Bot Template" lang-ua:VALUE="Скрипт для бота"/>
+		<bot_templates VALUE="Скрипты для бота" lang-en:VALUE="Bot templates" lang-ua:VALUE="Скрипти для бота"/>
+		<resp_person VALUE="Ответственное лицо" lang-en:VALUE="Approver" lang-en:VALUE="Відповідальна особа"/>
+		<author VALUE="Автор" lang-en:VALUE="Author" lang-en:VALUE="Автор"/>
+		<hiring_manager VALUE="Нанимающий менеджер" lang-en:VALUE="Hiring Manager" lang-ua:VALUE="Наймає менеджер"/>
+		<request_to_approve VALUE="Заявка на согласование" lang-en:VALUE="Pending request" lang-ua:VALUE="Заявка на узгодження"/>
+		<workflow_notification VALUE="Уведомление документооборота" lang-en:VALUE="Workflow notification" lang-ua:VALUE="Повідомлення документообігу"/>
+		<resp_person__approver VALUE="Ответственный" lang-en:VALUE="Approver" lang-ua:VALUE="Відповідальний"/>
+		<prev_stage VALUE="Предыдущий этап" lang-en:VALUE="Previous stage" lang-ua:VALUE="Попередній етап"/>
+		<contact_type VALUE="Тип контакта" lang-en:VALUE="Contact Type" lang-ua:VALUE="Тип контакту"/>
+		<contact_types VALUE="Типы контактов" lang-en:VALUE="Contact Types" lang-ua:VALUE="Типи контактів"/>
+		<reccuring_task VALUE="Регулярная задача" lang-en:VALUE="Reccuring Task" lang-ua:VALUE="Регулярна завдання"/>
+		<reccuring_tasks VALUE="Регулярные задачи" lang-en:VALUE="Reccuring Tasks" lang-ua:VALUE="Регулярні завдання"/>
+		<custom_action VALUE="Настраиваемое действие" lang-en:VALUE="Custom Action" lang-ua:VALUE="Налаштування дія"/>
+		<custom_actions VALUE="Настраиваемые действия" lang-en:VALUE="Custom Actions" lang-ua:VALUE="Налаштування дийи"/>
+		<recruit_provider VALUE="Внешний провайдер HR-сервисов" lang-en:VALUE="External HR service provider" lang-ua:VALUE="Зовнішній провайдер HR-сервісів"/>
+		<recruit_providers VALUE="Внешние провайдеры HR-сервисов" lang-en:VALUE="External HR service providers" lang-ua:VALUE="Зовнішні провайдери HR-сервісів"/>
+		<selected_for_vacancy VALUE="Отобран на вакансию" lang-en:VALUE="Selected for vacancy" lang-ua:VALUE="Відібраний на вакансію"/>
+		<require_comment VALUE="Наличие комментария обязательно" lang-en:VALUE="Comment is required" lang-ua:VALUE="Наявність коментаря обов'язково"/>
+		<vacancy_state VALUE="Статус вакансии" lang-en:VALUE="Vacancy status" lang-ua:VALUE="Статус вакансії"/>
+		<state_change VALUE="Смена статуса" lang-en:VALUE="Status change" lang-ua:VALUE="Зміна статусу"/>
+		<email_conversation VALUE="Переписка по E-mail" lang-en:VALUE="E-mail conversation" lang-ua:VALUE="Листування по E-mail"/>
+		<incoming VALUE="Входящее" lang-en:VALUE="Incoming" lang-ua:VALUE="Вхідне"/>
+		<outgoing VALUE="Исходящее" lang-en:VALUE="Outgoing" lang-ua:VALUE="Вихідне"/>
+		<survey_form VALUE="Опросная форма" lang-en:VALUE="Questionnaire Form" lang-ua:VALUE="Опитувальна форма"/>
+		<survey_forms VALUE="Опросные формы" lang-en:VALUE="Questionnaire forms" lang-ua:VALUE="Опитувальні форми"/>
+		<survey_document VALUE="Опросный лист" lang-en:VALUE="Survey Document" lang-ua:VALUE="Опитувальний лист"/>
+		<survey_documents VALUE="Опросные листы" lang-en:VALUE="Survey Documents" lang-ua:VALUE="Опитувальні листи"/>
+	</titles>
+	<sections>
+		<vocs_org VALUE="Контрагенты" lang-en:VALUE="Clients" lang-ua:VALUE="Контрагенти"/>
+		<birtdays VALUE="Дни рождения" lang-en:VALUE="Birthdays" lang-ua:VALUE="Дні народження"/>
+		<agreements VALUE="Договора" lang-en:VALUE="Agreements" lang-ua:VALUE="Договори"/>
+		<add_info VALUE="Доп. сведения" lang-en:VALUE="Additional Info" lang-ua:VALUE="Дод. відомості"/>
+		<inactive_contact_persons VALUE="Неактивные контактные лица" lang-en:VALUE="Inactive Contact Persons" lang-ua:VALUE="Неактивні контактні особи"/>
+		<orgs VALUE="Организации" lang-en:VALUE="Companies" lang-ua:VALUE="Організації"/>
+		<partners VALUE="Партнеры" lang-en:VALUE="Partners" lang-ua:VALUE="Партнери"/>
+		<events VALUE="События" lang-en:VALUE="Events" lang-ua:VALUE="Події"/>
+		<tasks VALUE="Задачи" lang-en:VALUE="Tasks" lang-ua:VALUE="Задачі"/>
+		<workflow_documents VALUE="Электронные заявки" lang-en:VALUE="Electronic documents" lang-ua:VALUE="Електронні заявки"/>
+		<employees VALUE="Сотрудники" lang-en:VALUE="Employees" lang-ua:VALUE="Співробітники"/>
+		<contact_lists VALUE="Списки контактов" lang-en:VALUE="Contacts lists" lang-ua:VALUE="Списки контактів"/>
+		<call_again VALUE="Перезвонить" lang-en:VALUE="Call later" lang-ua:VALUE="Передзвонити"/>
+		<my_requests VALUE="Мои заявки" lang-en:VALUE="My requests" lang-ua:VALUE="Мої заявки"/>
+		<todo_requests VALUE="Заявки на согласование мне" lang-en:VALUE="Pending approval requests" lang-ua:VALUE="Заявки на узгодження мені"/>
+		<reminder VALUE="Напоминания" lang-en:VALUE="Reminder" lang-ua:VALUE="Нагадування"/>
+	</sections>
+	<actions>
+		<decide_later VALUE="Решить позже" lang-en:VALUE="Decide later" lang-ua:VALUE="Вирішити пізніше"/>
+		<select_person VALUE="Выбрать контактное лицо из списка" lang-en:VALUE="Select contact person from list" lang-ua:VALUE="Вибрати контактну особу зі списку"/>
+		<add_event VALUE="Добавить событие" lang-en:VALUE="Add Event" lang-ua:VALUE="Додати подію"/>
+		<add_past_event_manually VALUE="Добавить событие задним числом" lang-en:VALUE="Add Past Event Manually" lang-ua:VALUE="Додати подію заднім числом"/>
+		<set_state_manually VALUE="Изменить статус вручную" lang-en:VALUE="Change status manually" lang-ua:VALUE="Змінити статус вручну"/>
+		<set_state_in_the_past VALUE="Изменить статус задним числом" lang-en:VALUE="Change status in the past" lang-ua:VALUE="Змінити статус заднім числом"/>
+		<add_comment VALUE="Добавить комментарий" lang-en:VALUE="Add Comment" lang-ua:VALUE="Додати коментар"/>
+		<new_client VALUE="Новый клиент" lang-en:VALUE="New Client" lang-ua:VALUE="Новий клієнт"/>
+		<new_cpart VALUE="Новый контрагент" lang-en:VALUE="New Company" lang-ua:VALUE="Новий контрагент"/>
+		<new_contact_person VALUE="Новое контактное лицо" lang-en:VALUE="New contact person" lang-ua:VALUE="Нова контактна особа"/>
+		<new_contact_list VALUE="Новый список контактов" lang-en:VALUE="New contacts list" lang-ua:VALUE="Новий список контактів"/>
+		<new_agreement VALUE="Новый договор" lang-en:VALUE="New Agreement" lang-ua:VALUE="Новий договір"/>
+		<new_own_person VALUE="Новый сотрудник" lang-en:VALUE="New Employee" lang-ua:VALUE="Новий співробітник"/>
+		<edit_event_in_ext_calendar VALUE="Редактировать параметры события во внешнем календаре" lang-en:VALUE="Edit event in external calendar" lang-ua:VALUE="Редагувати параметри події в зовнішньому календарі"/>
+		<edit_event_in_xxx VALUE="Редактировать параметры события в %s" lang-en:VALUE="Edit event in %s" lang-ua:VALUE="Редагувати параметри події в %s"/>
+		<copy_web_link VALUE="Копировать Web-ссылку" lang-en:VALUE="Copy Web link" lang-ua:VALUE="Копіювати Web-посилання"/>
+		<send_web_link VALUE="Отправить Web-ссылку" lang-en:VALUE="Send Web link" lang-ua:VALUE="Відправити Web-посилання"/>
+		<approve VALUE="Одобрить" lang-en:VALUE="Approve" lang-ua:VALUE="Схвалити"/>
+		<reject VALUE="Отклонить" lang-en:VALUE="Reject" lang-ua:VALUE="Відхилити"/>
+		<return_to_orig_person VALUE="Вернуть на корректировку инициатору" lang-en:VALUE="Return to Originator" lang-ua:VALUE="Дозволено повернення заявки на коригування ініціатору"/>
+		<submit_request VALUE="Отправить заявку" lang-en:VALUE="Submit request" lang-ua:VALUE="Відправити запит"/>
+		<resubmit VALUE="Изменить и отправить повторно" lang-en:VALUE="Resubmit" lang-ua:VALUE="Змінити і відправити повторно"/>
+		<revoke VALUE="Отозвать" lang-en:VALUE="Revoke" lang-ua:VALUE="Відкликати"/>
+		<submit_request_again VALUE="Отправить заявку повторно" lang-en:VALUE="Submit another request" lang-ua:VALUE="Надіслати заявку повторно"/>
+		<add_to_contact_list VALUE="Добавить в список контактов" lang-en:VALUE="Add to contacts list" lang-ua:VALUE="Додати до списку контактів"/>
+		<remind_later VALUE="Напомнить позже" lang-en:VALUE="Remind later" lang-ua:VALUE="Нагадати пізніше"/>
+		<change_reminder VALUE="Перенести напоминание" lang-en:VALUE="Change reminder" lang-ua:VALUE="Перенести нагадування"/>
+		<delete_reminder VALUE="Удалить напоминание" lang-en:VALUE="Delete reminder" lang-ua:VALUE="Видалити нагадування"/>
+		<open_event VALUE="Открыть карточку события" lang-en:VALUE="Open Event" lang-ua:VALUE="Відкрити картку події"/>
+		<submit_entry_pass_request VALUE="Отправить заявку на пропуск" lang-en:VALUE="Submit entry pass request" lang-ua:VALUE="Надіслати заявку на пропуск"/>
+		<hide_pd VALUE="Обезличить данные" lang-en:VALUE="Remove Personal Data"/>
+		<restore_pd VALUE="Восстановить обезличенные данные" lang-en:VALUE="Restore Personal Data"/>
+	</actions>
+	<messages>
+		<person_with_fullname_already_exists VALUE="Физ. лицо с таким именем уже существует в базе. Создать новое?" lang-en:VALUE="Person with this name already exists. Create new?" lang-ua:VALUE="Фіз. особа з таким ім'ям вже існує в базі. Створити нове?"/>
+		<target_outlook_calendar_item_not_found VALUE="Соответствующая запись в календаре MS Outlook не найдена. Создать запись?" lang-en:VALUE="Matching MS Outlook appointment not found. Create new?" lang-ua:VALUE="Відповідний запис у календарі MS Outlook не знайдена. Створити запис?"/>
+		<searching_for_duplicates VALUE="Поиск дубликатов" lang-en:VALUE="Searching for duplicates" lang-ua:VALUE="Пошук дублікатів"/>
+		<duplicates_merged VALUE="Объединено дубликатов" lang-en:VALUE="Duplicates merged" lang-ua:VALUE="Об'єднано дублікатів"/>
+		<event_req_end_date_changed VALUE="Дата запланированного события изменилась. Обновить запись в календаре?" lang-en:VALUE="The date of scheduled event has changed. Update corresponding calendar entry?" lang-ua:VALUE="Дата запланованої події змінилася. Оновити запис в календарі?"/>
+		<user_not_real VALUE="Вы работаете в системе под логином технического администратора. Данный логин предназначен только для заведения реальных пользователей. Продолжить?" lang-en:VALUE="You are logged in under default server administrator. This login should be used to create actual users only. Continue?" lang-ua:VALUE="Ви працюєте в системі під логіном технічного адміністратора. Даний логін призначений тільки для заведення реальних користувачів. Продовжити?"/>
+		<old_locations_exist VALUE="В программу уже загружен справочник регионов со старой системой присвоения идентификаторов. Загрузка нового справочника может привести к дублированию информации. Продолжить?" lang-en:VALUE="There is already loaded list of locations with old-style IDs. If you load locations again, duplicates may appear. Continue?" lang-ua:VALUE="У програму вже завантажений довідник регіонів зі старою системою присвоєння ідентифікаторів. Завантаження нового довідника може привести до дублювання інформації. Продовжити?"/>
+		<too_many_districts_to_load VALUE="Вы выбрали загрузку детализированного справочника для слишком большого числа регионов. Это может привести к замедлению работы программы. Продолжить?" lang-en:VALUE="You have chosen to load detailed list of cities for too many regions. This may cause the program to work slower. Continue?" lang-ua:VALUE="Ви вибрали завантаження деталізованого довідника для надто великого числа регіонів. Це може привести до уповільнення роботи програми. Продовжити?"/>
+		<division_xxx_already_in_base_divisions VALUE="Для подразделения '%s' в списке уже присутствует подразделение верхнего уровня" lang-en:VALUE="Upper divisions for '%s' is already in the list" lang-ua:VALUE="Для підрозділу '%s' у списку вже присутній підрозділ верхнього рівня"/>
+		<group_xxx_includes_this_group VALUE="Группа '%s' сама включает в себя данную группу" lang-en:VALUE="'%s' group itself includes this group" lang-ua:VALUE="Група '%s' сама включає в себе дану групу"/>
+		<request_submitted VALUE="Заявка отправлена" lang-en:VALUE="Your request has been submitted successfully" lang-ua:VALUE="Заявку відправлено"/>
+		<custom_occurrence_will_be_added VALUE="Внимание! Перед тем как добавить пользовательский признак завершения, убедитесь, что Вам не подходит по смыслу ни один из стандартных. Продолжить?" lang-en:VALUE="Attention! Before adding custom completion state, please make sure that none of the standard completion states suits your needs. Continue?" lang-ua:VALUE="Увага! Перед тим як додати користувальницький ознака завершення, переконайтеся, що Вам не підходить за змістом жоден зі стандартних. Продовжити?"/>
+		<occurrence_name_will_be_changed VALUE="Внимание! Перед тем как изменить наименование стандартного признака завершения, убедитесь, что новое наименование не изменит его сути. В противном случае логика работы события может быть нарушена. Продолжить?" lang-en:VALUE="Attention! Before changing the name of completion state, please make sure that the new name will not change the meaning of this completion state. Otherwise, the event would not behave as expected. Continue?" lang-ua:VALUE="Увага! Перед тим як змінити найменування стандартного ознаки завершення, переконайтеся, що нове найменування не змінить його суті. В іншому випадку логіка роботи події може бути порушена. Продовжити?"/>
+		<possible_duplicates_found VALUE="Внимание! Найдены возможные дубликаты." lang-en:VALUE="Warning! Possible duplicates found." lang-ua:VALUE="Увага! Виявлено можливі дублікати."/>
+		<move_participants_with_occurrence_xxx_to_next_state_xxx VALUE="Участники с признаком завершения '%s' будут переведены в статус '%s'. Продолжить?" lang-en:VALUE="This will move participants with '%s' status to '%s' status. Continue?" lang-ua:VALUE="Учасники з ознакою завершення '%s' будуть переведені в статус '%s'. Продовжити?"/>
+		<document_submitted VALUE="Документ отправлен" lang-en:VALUE="The document has been submitted" lang-ua:VALUE="Документ відправлений"/>
+		<request_will_be_revoked VALUE="Заявка будет отменена. Продолжить?" lang-en:VALUE="This will revoke the document. Continue?" lang-ua:VALUE="Заявка буде скасована. Продовжити?"/>
+		<candidate_aux_documents_request_will_be_submitted VALUE="Кандидату будет отправлен запрос на предоставление дополнительной информации. Продолжить?" lang-en:VALUE="This will sent request to the candidate. Continue?" lang-ua:VALUE="Кандидату буде відправлений запит на надання додаткової інформації. Продовжити?"/>
+	</messages>
+	<questions>
+		<submit_entry_pass_request VALUE="Отправить заявку на пропуск?" lang-en:VALUE="Submit entry pass request?" lang-ua:VALUE="Надіслати заявку на пропуск?"/>
+	</questions>
+	<errors>
+		<no_events_scheduled VALUE="Запланированные события отсутствуют" lang-en:VALUE="No events scheduled" lang-ua:VALUE="Заплановані події відсутні"/>
+		<no_free_spaces_for_event VALUE="На данное мероприятие нет свободных мест" lang-en:VALUE="There are no free spaces for this event" lang-ua:VALUE="На даний захід немає вільних місць"/>
+		<participants_not_specified VALUE="Не заполнен список участников" lang-en:VALUE="Empty participants list"/>
+		<person_with_email_xxx_not_found VALUE="Человек с адресом xxx не найден в базе" lang-en:VALUE="Person with email xxx is not found in database" lang-ua:VALUE="Людина з адресою xxx не знайдене в базі"/>
+		<user_person_not_specified VALUE="Не указан сотрудник, соответствующий данному пользователю" lang-en:VALUE="Employee has not been specified" lang-ua:VALUE="Не вказаний співробітник, який відповідає цьому користувачу"/>
+		<user_person_email_not_specified VALUE="Не указан E-Mail сотрудника" lang-en:VALUE="Employee's E-Mail has not been specified" lang-ua:VALUE="Не вказаний E-Mail співробітника"/>
+		<change_user_prohibited VALUE="У Вас недостаточно прав доступа для смены пользователя в карточке" lang-en:VALUE="You do not have enough permissions to change user"/>
+		<change_group_prohibited VALUE="У Вас недостаточно прав доступа для смены группы в карточке" lang-en:VALUE="You do not have enough permissions to change group"/>
+		<set_state_prohibited VALUE="У Вас недостаточно прав доступа для установки данного статуса" lang-en:VALUE="You do not have enough permissions to set this state" lang-ua:VALUE="У Вас недостатньо прав для вивантаження установки даного статусу"/>
+		<date_in_past VALUE="Вы выбрали дату и время в прошлом" lang-en:VALUE="Selected date is in the past" lang-ua:VALUE="Ви вибрали дату і час в минулому"/>
+		<reject_reason_not_specified VALUE="Не указана причина отклонения" lang-en:VALUE="Reject reason has not been specified" lang-ua:VALUE="Не вказана причина відхилення"/>
+		<withdrawal_reason_not_specified VALUE="Не указана причина самоотказа" lang-en:VALUE="Withdrawal reason has not been specified" lang-ua:VALUE="Не вказана причина самовідмова"/>
+		<office_access_not_enabled VALUE="Интеграция с системой заказа пропусков не настроена" lang-en:VALUE="Integration with office access control system has not been set up" lang-ua:VALUE="Інтеграція з системою замовлення перепусток не настроєна"/>
+		<users_num_limit_of_xxx_exceeded VALUE="Вы не можете добавить нового пользователя.&#10;Ограничение на количество активных пользователей для данной лицензии: %s" lang-en:VALUE="The number of users is limited by your license: %s" lang-ua:VALUE="Ви не можете додати нового користувача.&#10;Обмеження на кількість активних користувачів для даної ліцензії:"/>
+		<matching_workflow_type_not_found VALUE="Не найден тип документооборота, соответствующий условиям заявки" lang-en:VALUE="No matching workflow has been found" lang-ua:VALUE="Не вдалося знайти тип документообігу, що відповідає умовам заявки"/>
+		<cur_user_smtp_account_not_found VALUE="Не найдена учетная запись SMTP для текущего пользователя" lang-en:VALUE="Current user's SMTP account has not been found" lang-ua:VALUE="Не знайдено обліковий запис SMTP для поточного користувача"/>
+	</errors>
+	<notify_resp_person_on_workflow_document>
+		<subject VALUE="Вам поступила заявка на согласование" lang-en:VALUE="Requisition requires your attention" lang-ua:VALUE="Вам надійшла заявка на узгодження"/>
+		<body_footer VALUE="Для одобрения или отклонения заявки пройдите по ссылке" lang-en:VALUE="Click the link to approve or reject the document" lang-ua:VALUE="Для схвалення або відхилення заявки пройдіть по посиланню"/>
+	</notify_resp_person_on_workflow_document>
+	<notify_orig_person_on_workflow_document_state>
+		<subject VALUE="Смена статуса электронной заявки" lang-en:VALUE="Change of the status of your requisition" lang-ua:VALUE="Зміна статусу електронної заявки"/>
+		<body_footer VALUE="Для одобрения или отклонения заявки пройдите по ссылке" lang-en:VALUE="Click the link to approve or reject the document" lang-ua:VALUE="Для схвалення або відхилення заявки пройдіть по посиланню"/>
+	</notify_orig_person_on_workflow_document_state>
+	<notify_resp_person_on_workflow_document_cancel>
+		<subject VALUE="Заявка отозвана инициатором" lang-en:VALUE="Requisition has been revoked" lang-ua:VALUE="Заявка відкликана ініціатором"/>
+		<body_footer VALUE="" lang-en:VALUE="" lang-ua:VALUE=""/>
+	</notify_resp_person_on_workflow_document_cancel>
+</base2_ui_text>

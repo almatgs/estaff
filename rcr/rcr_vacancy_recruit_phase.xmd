@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml">
+
+
+<vacancy_recruit_phase>
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<text_color TYPE="string"/>
+	<bk_color TYPE="string"/>
+
+	<req_candidate_conditions TITLE="Требуемые условия по кандидатам" lang-en:TITLE="Required conditions for candidates" TITLE="Необхідні умови по кандидатам">
+		<req_candidate_condition MULTIPLE="1">
+			<event_type_id TYPE="string" FOREIGN-ARRAY="event_types"/>
+			<state_id TYPE="string" FOREIGN-ARRAY="candidate_states"/>
+		</req_candidate_condition>
+	</req_candidate_conditions>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</vacancy_recruit_phase>
+
+
+</SPXML-FORM>

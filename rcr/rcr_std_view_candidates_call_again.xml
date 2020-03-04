@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>candidates_call_again</id>
+	<name VALUE="##UiText.titles.candidates## - ##UiText.sections.call_again##"/>
+	<parent_id>candidates</parent_id>
+
+	<static_filters>
+		<static_filter>
+			<xquery_qual_expr>'MatchSome( $elem/state_id, + (' + ArrayMerge( ArraySelect( candidate_states, 'event_occurrence_id == \'call_failed\' || event_occurrence_id == \'call_later\'' ), 'XQueryLiteral( This.id )', ',' ) + ') )'</xquery_qual_expr>
+		</static_filter>
+	</static_filters>
+
+	<drop_all_dyn_filters>1</drop_all_dyn_filters>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>state_id</id>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>user_id</id>
+			<view_filter_expr>filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}</view_filter_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+
+		<dyn_filter>
+			<id>group_id</id>
+			<exist_req_expr>lib_user.use_groups</exist_req_expr>
+			<use_store>1</use_store>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>state_date</id>
+			<use_time>0</use_time>
+			<col_title VALUE="##UiText.fields.date##"/>
+		</field>
+		<field>
+			<id>fullname</id>
+		</field>
+		<field>
+			<id>state_id</id>
+			<bk_color_expr>get_state_bk_color()</bk_color_expr>
+			<width>30zr</width>
+		</field>
+		<field>
+			<id>state_duration_days_num</id>
+			<col_title VALUE="##UiText.fields.state_duration## (##UiText.titles.days__mod2##)"/>
+			<width>9zr</width>
+			<align>right</align>
+			<title_expr>StrIntZero( state_duration_days_num )</title_expr>
+			<order>state_date</order>
+		</field>
+		<field>
+			<id>state_duration_today_time_desc</id>
+			<col_title VALUE="##UiText.fields.state_duration## (##UiText.titles.hours__mod2##)"/>
+			<width>8zr</width>
+			<align>center</align>
+			<title_expr>state_duration_today_time_desc</title_expr>
+			<order>state_date</order>
+		</field>
+		<field>
+			<id>main_vacancy_id</id>
+			<width>60%</width>
+		</field>
+		<field>
+			<id>main_vacancy_org_id</id>
+			<exist_req_expr>global_settings.is_agency</exist_req_expr>
+			<width>40%</width>
+		</field>
+		<field>
+			<id>main_vacancy_division_id</id>
+			<exist_req_expr>! global_settings.is_agency</exist_req_expr>
+			<width>40%</width>
+		</field>
+		<field>
+			<id>user_id</id>
+		</field>
+	</fields>
+</std_view>
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_card_object_types>
+	<std_card_object_type MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT TYPE="card_object_type_base"/>
+	</std_card_object_type>
+</std_card_object_types>
+
+
+</SPXML-FORM>
+

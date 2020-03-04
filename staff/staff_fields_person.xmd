@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+
+<skills>
+	<skill MULTIPLE="1" FT-NAME-EXPR="'skill.' + type_id" FT-VALUE-EXPR="level_id != null ? StrInt( level_id, 4 ) : '0000'">
+		<type_id TYPE="string" FOREIGN-ARRAY="skill_types" TITLE="Вид навыка" lang-en:TITLE="Skill type" lang-ua:TITLE="Вид навику"/>
+
+		<level_id TYPE="integer" FOREIGN-ARRAY="type_id.ForeignElem.implicit_levels" TITLE="Уровень владения" lang-en:TITLE="Knowledge level" lang-ua:TITLE="Рівень володіння"/>
+		<comment TYPE="string"/>
+		<date TYPE="date" TIME="0" EXPR-INIT="Date()"/>
+	</skill>
+</skills>
+
+
+</SPXML-FORM>

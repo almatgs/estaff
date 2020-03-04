@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+<COMPLEX-ITEM NAME="COMBO-PICKER" SAMPLE="1" VIEW="ComboPickerView">
+	<ATTRIBUTE NAME="EDITABLE" TYPE="bool"/>
+</COMPLEX-ITEM>
+
+
+
+<PANEL NAME="ComboPickerView" SAMPLE="1" INNER-ALIAS="comboPickerView"
+	STATES="focused"
+	WIDTH="100%" HEIGHT-EXPR="AppUi.metrics.editHeightMeasure" MIN-WIDTH="6zr"
+	STD-MARGINS="0" BORDER-WIDTH="1px" BORDER-COLOR-EXPR="
+			switch ( comboPickerView.State )
+			{
+				case 'focused':		
+					return AppUi.gThemeData.colors.primary;
+				
+				default:
+					return AppUi.gThemeData.colors.edit_border;
+			}
+	"
+	BORDER-RADIUS-EXPR="AppUi.metrics.editBorderRadiusMeasure"
+	DROP-DOWN-BASE="1"
+	OnBeforeBuild="
+		comboPicker = comboPickerView.MasterItem;
+		
+		comboPickerView.AuxData.masterLabel = comboPickerView.MasterItem.FindOptSubItemByType( 'LABEL' );
+		if ( comboPickerView.AuxData.masterLabel != undefined &amp;&amp; comboPickerView.MasterItem.DropDownItem != undefined &amp;&amp; comboPickerView.AuxData.masterLabel.IsDescendantOf( comboPickerView.MasterItem.DropDownItem ) )
+			comboPickerView.AuxData.masterLabel = undefined;
+		
+		comboPickerView.AuxData.masterEdit = comboPickerView.MasterItem.FindOptSubItemByType( 'EDIT' );
+		if ( comboPickerView.AuxData.masterEdit != undefined &amp;&amp; comboPickerView.MasterItem.DropDownItem != undefined &amp;&amp; comboPickerView.AuxData.masterEdit.IsDescendantOf( comboPickerView.MasterItem.DropDownItem ) )
+			comboPickerView.AuxData.masterEdit = undefined;
+"	OnMouseDown="
+		if ( comboPickerView.AuxData.masterEdit != undefined )
+			return;
+
+		if ( comboPickerView.MasterItem.DropDownItem != undefined )
+		{
+			if ( comboPickerView.MasterItem.DropDownItem.IsDisplayed )
+				comboPickerView.MasterItem.DropDownItem.CloseDropDown();
+			else
+				comboPickerView.MasterItem.DropDownItem.OpenDropDown( comboPickerView, 'bottom-left', 0, -1 );
+		}
+"	OnContextMenu="
+		if ( comboPickerView.MasterItem.ContextMenu != undefined )
+			comboPickerView.MasterItem.ContextMenu.OpenDropDown( comboPickerView, 'bottom-left', 0, -1 );
+">
+	<LINE HEIGHT="100%">
+		<PANEL PADDING-EXPR="'0px ' + AppUi.metrics.editPaddingLeftMeasure + ' 0px ' + AppUi.metrics.editPaddingLeftMeasure" STD-MARGINS="0">
+			<IF EXPR="comboPickerView.AuxData.masterLabel != undefined">
+				<LABEL TITLE-EXPR="
+						if ( comboPickerView.AuxData.masterLabel != undefined )
+							return comboPickerView.AuxData.masterLabel.Title;
+
+						return '';
+				" MULTILINE="0" WIDTH="100%" END-ELLIPSIS="1" TEXT-COLOR-EXPR="
+						switch ( BaseSampleItem.State )
+						{
+							case 'normal':
+								return AppUi.gThemeData.colors.text;
+
+							case 'hover':
+								return AppUi.gThemeData.colors.primary;
+
+							case 'pressed':
+								return AppUi.gThemeData.colors.dark;
+						}
+				"/>
+			</IF>
+			<IF EXPR="comboPickerView.AuxData.masterEdit != undefined">
+				<EDIT BORDER="0" SOURCE="comboPickerView.AuxData.masterEdit.Source"
+				SET-VALUE-ACTION="comboPickerView.AuxData.masterEdit.SetSourceValue( NewValue )"
+				PASSIVE="1"
+				WIDTH="100%"/>
+			</IF>
+		</PANEL>
+
+		<IF EXPR="! comboPickerView.MasterItem.IsReadOnly">
+			<IF EXPR="comboPickerView.MasterItem.DropDownItem != undefined">
+				<PANEL HEIGHT="100%"
+						PADDING-EXPR="'0px ' + AppUi.metrics.dropDownBoxPaddingRightMeasure + ' 0px ' + AppUi.metrics.dropDownBoxPaddingRightMeasure"
+						OnMouseDown="
+								//if ( comboPickerView.AuxData.masterEdit != undefined )
+								{
+									if ( comboPickerView.MasterItem.DropDownItem.IsDisplayed )
+										comboPickerView.MasterItem.DropDownItem.CloseDropDown();
+									else
+										comboPickerView.MasterItem.DropDownItem.OpenDropDown( comboPickerView, 'bottom-left', 0, -1 );
+								}
+						"
+						ACTION="comboPickerView.MasterItem.RunActions()"
+						PASSIVE="1"
+						ALIGN="right">
+					<IMAGE URL-EXPR="
+							colorMapping = new Object;
+							colorMapping.hover = AppUi.gThemeData.colors.primary;
+							colorMapping.pressed = AppUi.gThemeData.colors.dark;
+
+							return AppUi.GetStateImageUrl2( '/theme/pict/dropdown.svg', comboPickerView.State, colorMapping );
+					" VERT-ALIGN="center" WIDTH="8epx" HEIGHT="4epx"/>
+				</PANEL>
+			</IF>
+			<ELSE>
+				<PANEL INNER-ALIAS="dropDownBox" HEIGHT="100%"
+						STATES="hover,pressed"
+						PADDING-EXPR="'0px ' + AppUi.metrics.dropDownBoxPaddingRightMeasure + ' 0px ' + AppUi.metrics.dropDownBoxPaddingRightMeasure"
+						ACTION="comboPickerView.MasterItem.RunActions()"
+						PASSIVE="1"
+						ALIGN="right">
+					<IMAGE URL-EXPR="
+							colorMapping = new Object;
+							colorMapping.hover = AppUi.gThemeData.colors.primary;
+							colorMapping.pressed = AppUi.gThemeData.colors.dark;
+
+							return AppUi.GetStateImageUrl2( '/theme/pict/dropdown.svg', dropDownBox.State, colorMapping );
+					" VERT-ALIGN="center" WIDTH="8epx" HEIGHT="4epx"/>
+				</PANEL>
+			</ELSE>
+		</IF>
+	</LINE>
+</PANEL>
+
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+
+
+

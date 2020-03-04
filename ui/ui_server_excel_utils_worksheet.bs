@@ -1,0 +1,153 @@
+"META:NAMESPACE:ui_server_excel_utils"
+
+
+"META:ALLOW-CALL-FROM-CLIENT:1"
+function BuildExcelFileFromWorksheetData( worksheetData )
+{
+	destDir = 'x-local://share/uploaded_files/' + UniqueStrID( 32 );
+	destFileUrl = destDir + '/List.xlsx';
+	ObtainDirectory( destDir, true );
+
+	excelBuilder = OpenNewDoc( '//base1/base1_excel_builder.xml' ).TopElem;
+	excelBuilder.Init();
+
+	ExportWorksheetDataExcelColumns( worksheetData, excelBuilder );
+
+	if ( worksheetData.header_rows_num == undefined )
+		ExportWorksheetDataExcelHeader( worksheetData, excelBuilder );
+
+	rowIndex = 0;
+
+	for ( row in worksheetData.rows )
+	{
+		if ( worksheetData.header_rows_num != undefined && rowIndex < worksheetData.header_rows_num )
+			ExportWorksheetDataExcelHeaderRow( worksheetData, excelBuilder, row );
+		else
+			ExportWorksheetDataExcelRow( worksheetData, excelBuilder, row );
+
+		rowIndex++;
+	}
+	
+	excelBuilder.SaveToFile( destFileUrl );
+
+	respInfo = new Object;
+	respInfo.fileUrl = destFileUrl;
+	return respInfo;
+}
+
+
+function ExportWorksheetDataExcelColumns( worksheetData, excelBuilder )
+{
+	columnWidths = new Array;
+
+	sumFixedWidth = 0;
+
+	for ( i = 0; i < worksheetData.columns.length; i++ )
+	{
+		columnSpec = worksheetData.columns[i];
+		if ( ( obj = StrOptScan( columnSpec.width, '%szr' ) ) != undefined )
+			width = Int( obj[0] );
+		else if ( ( obj = StrOptScan( columnSpec.width, '%szrc' ) ) != undefined )
+			width = Int( obj[0] );
+		else if ( ( obj = StrOptScan( columnSpec.width, '%s%%' ) ) != undefined )
+			continue;
+		else
+			width = 30;
+
+		columnWidths[i] = width;
+		sumFixedWidth += width;
+	}
+
+	restWidth = Max( 170 - sumFixedWidth, 50 );
+
+	for ( i = 0; i < worksheetData.columns.length; i++ )
+	{
+		columnSpec = worksheetData.columns[i];
+		if ( ( obj = StrOptScan( columnSpec.width, '%s%%' ) ) != undefined )
+			width = ( restWidth * Int( obj[0] ) ) / 100;
+		else
+			continue;
+
+		//DebugMsg( columnSpec.width + ' ' + width );
+		columnWidths[i] = width;
+	}
+
+	excelBuilder.SetColumnWidths( columnWidths );
+}
+
+
+function ExportWorksheetDataExcelHeader( worksheetData, excelBuilder )
+{
+	excelBuilder.AddRow();
+
+	for ( columnSpec in worksheetData.columns )
+	{
+		cellData = excelBuilder.CreateCellData();
+		
+		cellData.value = columnSpec.title;
+
+		cellData.bkColor = '217,217,217';
+		cellData.border = true;
+		cellData.horizAlign = 'center';
+		cellData.wrapText = true;
+
+		excelBuilder.AddCell( cellData );
+	}
+}
+
+
+function ExportWorksheetDataExcelHeaderRow( worksheetData, excelBuilder, row )
+{
+	excelBuilder.AddRow();
+
+	for ( cell in row.cells )
+	{
+		cellData = excelBuilder.CreateCellData();
+		cellData.value = cell.value;
+
+		cellData.border = true;
+		cellData.bkColor = '217,217,217';
+		
+		cellData.wrapText = true;
+
+		if ( cell.rotation != undefined )
+			cellData.textRotation = cell.rotation;
+
+		excelBuilder.AddCell( cellData );
+	}
+}
+
+
+function ExportWorksheetDataExcelRow( worksheetData, excelBuilder, row )
+{
+	excelBuilder.AddRow();
+	columnIndex = 0;
+
+	for ( cell in row.cells )
+	{
+		cellData = excelBuilder.CreateCellData();
+		cellData.value = cell.value;
+
+		if ( columnIndex == 0 && row.hier_level > 0 )
+			cellData.value = String( '    ' ).repeat( row.hier_level ) + cellData.value;
+
+		if ( DataType( cell.value ) == 'string' )
+			cellData.wrapText = true;
+
+		cellData.border = true;
+		
+		if ( cell.text_color != undefined )
+			cellData.textColor = cell.text_color;
+
+		if ( cell.bk_color != undefined )
+			cellData.bkColor = cell.bk_color;
+		
+		if ( cell.align != undefined )
+			cellData.horizAlign = cell.align;
+
+		excelBuilder.AddCell( cellData );
+		columnIndex++;
+	}
+}
+
+

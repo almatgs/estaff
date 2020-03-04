@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<mail_template SPXML-FORM="x-app://base1/base1_mail_template.xmd"><id>request_candidate_pd_consent</id><name>Запрос согласия на обработку персональных данных</name><is_active>1</is_active><dest_type>candidate</dest_type><is_group_starter>0</is_group_starter><is_notif>1</is_notif><subject>Запрос согласия на обработку персональных данных</subject><text>&lt;%=request.web_link%&gt;&#13;&#10;</text><register_event>0</register_event><is_std>1</is_std><order_index>19</order_index></mail_template>

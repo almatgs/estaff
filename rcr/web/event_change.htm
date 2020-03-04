@@ -1,0 +1,38 @@
+<%
+Server.Execute( 'include/std_head.htm' );
+
+eventID = Int( Request.Query.id );
+event = GetOptForeignElem( events, eventID );
+if ( event == undefined )
+	throw 'Event not found';
+
+eventDoc = OpenDoc( DefaultDb.GetRecordPrimaryObjectUrl( event ) );
+event = eventDoc.TopElem;
+
+//participant = event.participants.GetChildByKey( curPerson.id );
+
+if ( ! Request.Form.HasProperty( 'occurrence_id' ) )
+	HandlePostError( 'Не выбран ответ' );
+
+event.occurrence_id = Request.Form.occurrence_id;
+event.comment = Request.Form.comment;
+
+if ( event.type_id == 'rr_poll_co' /*&& event.occurrence_id == 'cancelled'*/ && ! event.comment.HasValue )
+	HandlePostError( 'Не указан комментарий по причине отклонения' );
+
+eventType = event.type_id.ForeignElem;
+
+if ( eventType.use_end_date && eventType.has_long_duration && ! event.end_date.HasValue )
+	event.end_date = CurDate;
+
+
+LogEvent( '', 'event_change ' + curPerson.fullname );
+
+eventDoc.Save();
+
+candidate = event.candidate_id.ForeignElem;
+lib_candidate.RunCandidateStateCoreActions( candidate, event, event.type.get_opt_occurrence( event.occurrence_id ), 1 );
+
+if ( outerEnv == undefined )
+	Response.Redirect( 'event.htm?id=' + eventID );
+%>

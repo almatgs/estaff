@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<metro_map xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<location_name>Нижний Новгород</location_name>
+	<lines>
+		<line>
+			<id>27</id>
+			<name VALUE="Автозаводская"/>
+		</line>
+		<line>
+			<id>28</id>
+			<name VALUE="Сормовская"/>
+		</line>
+	</lines>
+	<stations>
+		<station>
+			<id>263</id>
+			<name VALUE="Автозаводская" lang-en:VALUE="Avtozavodskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>264</id>
+			<name VALUE="Буревестник" lang-en:VALUE="Burevestnik"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>265</id>
+			<name VALUE="Бурнаковская" lang-en:VALUE="Burnakovskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>266</id>
+			<name VALUE="Горьковская" lang-en:VALUE="Gorkovskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>267</id>
+			<name VALUE="Двигатель Революции" lang-en:VALUE="Dvigatel Revolyucii"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>268</id>
+			<name VALUE="Заречная" lang-en:VALUE="Zarechnaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>269</id>
+			<name VALUE="Канавинская" lang-en:VALUE="Kanavinskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>270</id>
+			<name VALUE="Кировская" lang-en:VALUE="Kirovskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>271</id>
+			<name VALUE="Комсомольская" lang-en:VALUE="Komsomolskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>272</id>
+			<name VALUE="Ленинская" lang-en:VALUE="Leninskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>273</id>
+			<name VALUE="Московская" lang-en:VALUE="Moskovskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>274</id>
+			<name VALUE="Парк культуры" lang-en:VALUE="Park kultury"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>275</id>
+			<name VALUE="Пролетарская" lang-en:VALUE="Proletarskaya"/>
+			<line_id>0</line_id>
+		</station>
+		<station>
+			<id>276</id>
+			<name VALUE="Чкаловская" lang-en:VALUE="Chkalovskaya"/>
+			<line_id>0</line_id>
+		</station>
+	</stations>
+</metro_map>

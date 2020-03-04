@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<view_task_board>
+	<filter>
+		<used_fulltext TYPE="string"/>
+		<user_id TYPE="integer" FOREIGN-ARRAY="users"/>
+		<group_id TYPE="integer" FOREIGN-ARRAY="groups"/>
+	</filter>
+
+	<reminderEvents TYPE="variant" STRICT="1"/>
+	
+	<activeTasks>
+		<activeTask MULTIPLE="1">
+			<candidate TYPE="variant" STRICT="1"/>
+			<event TYPE="variant" STRICT="1"/>
+			<object TYPE="variant" STRICT="1"/>
+
+			<date TYPE="date"/>
+			<name TYPE="string"/>
+
+			<hasReminder TYPE="bool" NULL-FALSE="1"/>
+
+			<dueDate TYPE="date"/>
+			<secondsToDeadline TYPE="integer"/>
+			<timeToDeadlineDescription TYPE="string"/>
+			<timeToDeadlineBkColor TYPE="string"/>
+
+			<isCloseToDeadline TYPE="bool" NULL-FALSE="1"/>
+			<isOverdue TYPE="bool" NULL-FALSE="1"/>
+
+			<rawTimeInStatus TYPE="integer"/>
+			<timeInStatusBkColor TYPE="string"/>
+
+			<orderIndex TYPE="integer"/>
+		</activeTask>
+	</activeTasks>
+
+	<activeTaskCount TYPE="integer" NOT-NULL="1"/>
+	<closeToDeadlineTaskCount TYPE="integer" NOT-NULL="1"/>
+	<overdueTaskCount TYPE="integer" NOT-NULL="1"/>
+</view_task_board>
+
+
+</SPXML-INLINE-FORM>

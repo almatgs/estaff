@@ -1,0 +1,35 @@
+"META:NAMESPACE:xml_utils";
+
+function GetElemCoreName( elem )
+{
+	name = elem.Name;
+
+	pos = StrOptSubStrPos( name, ':' );
+	if ( pos == undefined )
+		return name;
+
+	return StrRightRangePos( name, pos + 1 );
+}
+
+
+function GetElemOptChildChildren( elem, childName )
+{
+	childElem = elem.OptChild( childName );
+	if ( childElem == undefined )
+		return [];
+
+	return childElem;
+}
+
+
+function ObtainElemDynamicChild( elem, childName, childType ? )
+{
+	childElem = elem.OptChild( childName );
+	if ( childElem != undefined )
+		return childElem;
+
+	if ( childType != undefined )
+		return elem.AddDynamicChild( childName, childType );
+	else
+		return elem.AddDynamicChild( childName );
+}

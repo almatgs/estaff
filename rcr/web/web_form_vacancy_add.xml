@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<web_form SPXML-FORM="//base1/base1_web_form.xmd">
+	<object_type_id>vacancy</object_type_id>
+
+	<fields>
+		<field>
+			<id>name</id>
+			<title>Название должности</title>
+		</field>
+		<field>
+			<id>division_id</id>
+			<title>Наименование структурного подразделения</title>
+			<use_selector>1</use_selector>
+		</field>
+		<field>
+			<title>Образование</title>
+			<id>req_info.educ_type_id</id>
+			<web_id>educ_type_id</web_id>
+			<is_optional>1</is_optional>
+		</field>
+		<field>
+			<title>Образование/Предпочтительная специализация</title>
+			<web_id>educ_desc</web_id>
+			<dest_attc_type_id>vacancy_desc</dest_attc_type_id>
+			<is_optional>1</is_optional>
+		</field>
+		<field>
+			<id>min_salary</id>
+			<title>Уровень з.п. в рублях, от</title>
+			<is_optional>1</is_optional>
+		</field>
+		<field>
+			<id>max_salary</id>
+			<title>Уровень з.п. в рублях, до</title>
+			<is_optional>1</is_optional>
+		</field>
+
+		<field>
+			<id>is_mass_vacancy</id>
+			<title>Массовый подбор</title>
+			<is_optional>1</is_optional>
+		</field>
+
+		<field>
+			<id>req_quantity</id>
+			<title>Требуемое количество кандидатов</title>
+			<is_optional>1</is_optional>
+		</field>
+	</fields>
+</web_form>
+
+
+
+
+
+
+

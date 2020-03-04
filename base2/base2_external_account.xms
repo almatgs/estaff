@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="130zr" HEIGHT="90zr" SOURCE="TopElem" TITLE-EXPR="TopElem.name" RESIZE="1">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<GROUP>
+		<ITEM TYPE="elem_selector" SOURCE="Ps.type_id" WIDTH="45zr" AUTO-LABEL="1"/>
+		<CHECK SOURCE="Ps.is_active" AUTO-LABEL="1" WIDTH="auto" KEEP-RIGHT="1"/>
+	</GROUP>
+	<DELIM/>
+
+	<IF EXPR="Ps.type_id == 'smtp' || Ps.type_id == 'imap'">
+		<GROUP>
+			<EDIT SOURCE="Ps.server_address" WIDTH="40zr" AUTO-LABEL="1" UPDATE-ACTION="lib_base.adjust_account_ssl_attr_by_server_address( Ps, Ps.type_id )"/>
+
+			<LABEL/>
+			<CHECK SOURCE="Ps.use_ssl" AUTO-LABEL="1" UPDATE-ACTION="
+					if ( Ps.use_ssl )
+						Ps.use_ssl_port = false;
+			"/>
+				
+			<CHECK SOURCE="Ps.use_ssl_port" AUTO-LABEL="1" UPDATE-ACTION="
+					if ( Ps.use_ssl_port )
+						Ps.use_ssl = false;
+			"/>
+		</GROUP>
+		<DELIM/>
+	</IF>
+	
+	<IF EXPR="Ps.type_id == 'imod_site'">
+		<GROUP>
+			<ITEM TYPE="elem_selector" SOURCE="Ps.imod_site_id" WIDTH="30zr" AUTO-LABEL="1"/>
+			<ITEM TYPE="elem_selector" SOURCE="Ps.auth_method_id" WIDTH="22zr" AUTO-LABEL="1" READ-ONLY="1"/>
+		</GROUP>
+		<DELIM/>
+	</IF>
+	<IF EXPR="Ps.type_id == 'recruit_provider'">
+		<GROUP>
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.recruit_provider_id" WIDTH-EXPR="lib_voc.CalcVocElemSelectorWidthMeasure( Ps.recruit_provider_id, 30, 60 )" AUTO-LABEL="1"/>
+		</GROUP>
+		<DELIM/>
+	</IF>
+
+	<BR/>
+
+	
+	<GROUP>
+		<IF EXPR="Ps.use_login">
+			<EDIT SOURCE="Ps.login" WIDTH="40zr" AUTO-LABEL="1"/>
+		</IF>
+
+		<IF EXPR="Ps.use_password">
+			<EDIT SOURCE="Ps.password_ed.HasValue ? ( System.IsWebClient ? 'xxxx' : StrStdDecrypt( Ps.password_ed ) ) : ''" SET-VALUE-ACTION="
+					Ps.password_ed = StrStdEncrypt( NewValue );
+					Ps.Doc.SetChanged( true );
+			" LABEL-TITLE="##UiText.fields.password##:" WIDTH="20zr" PASSWORD="1"/>
+		</IF>
+
+		<IF EXPR="Ps.use_access_token">
+			<SEPARATOR/>
+			<EDIT SOURCE="Ps.access_token" LABEL-TITLE="##UiText.fields.access_token##:" DELETE-ACTION="
+					Ps.access_token.Clear();
+					Ps.Doc.SetChanged( true );
+			" READ-ONLY-EXPR="Ps.access_token_is_read_only"/>
+		
+			<IF EXPR="Ps.use_refresh_token">
+				<SEPARATOR/>
+				<EDIT SOURCE="Ps.refresh_token" READ-ONLY="1" LABEL-TITLE="##UiText.fields.refresh_token##:" DELETE-ACTION="
+						Ps.refresh_token.Clear();
+						Ps.Doc.SetChanged( true );
+				"/>
+			</IF>
+
+			<SEPARATOR/>
+			<SEPARATOR/>
+
+			<LABEL/>
+			<BUTTON IMAGE-URL="//base_pict/auth.ico" TITLE="##UiText.actions.request_app_access##" WIDTH="41zr" ACTION="
+					if ( Ps.type_id == 'imod_site' )
+						lib_imod.HandleRequestAppAccess( Ps );
+					else if ( Ps.type_id == 'recruit_provider' )
+						lib_recruit_provider.HandleRequestAppAccess( Ps );
+					else if ( Ps.type_id == 'google' )
+						lib_google.HandleRequestAppAccess( Ps );
+
+					Ps.Doc.SetChanged( true );
+			" PASSIVE="1"/>
+
+			<IF EXPR="Ps.auth_method_id == 'oauth'">
+				<BUTTON IMAGE-URL="//base_pict/paste.ico" TITLE="##UiText.actions.paste_auth_code##" WIDTH="54zr" ACTION="
+						if ( Ps.type_id == 'imod_site' )
+							lib_imod.HandlePasteAuthCode( Ps );
+						else if ( Ps.type_id == 'google' )
+							lib_google.HandlePasteAuthCode( Ps );
+
+						Ps.Doc.SetChanged( true );
+				" ENABLE-EXPR="ClipboardFormatAvailable( 'text/plain' )"/>
+			</IF>
+		</IF>
+	</GROUP>
+	<DELIM/>
+	<BR/>
+
+	<GROUP>
+		<ITEM TYPE="object_selector" SOURCE="Ps.person_id" WIDTH="45zr" AUTO-LABEL="1" view-filter-expr="({is_own_person:true})"/>
+		<ITEM TYPE="object_selector" SOURCE="Ps.user_id" WIDTH="25zr" AUTO-LABEL="1" view-filter-expr="({is_active:true})"/>
+	</GROUP>
+	<DELIM/>
+	<BR/>
+	<BR/>
+
+	<BUTTON IMAGE-URL="//base_pict/load.ico" TITLE="##UiText.actions.check_account##" WIDTH="25zr" ACTION="lib_base.handle_check_account( Ps )" PASSIIVE="1" KEEP-RIGHT="1"/>
+</PANEL>
+
+</SPXML-SCREEN>

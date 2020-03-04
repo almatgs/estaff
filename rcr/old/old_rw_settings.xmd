@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM AUTO-SAVE="1">
+
+<rw_settings>
+	<is_agency TYPE="bool" NOT-NULL="1" EXPR="rc_global_settings.is_agency != false"/>
+
+	<sites>
+		<site MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<short_name TYPE="string"/>
+			<is_custom TYPE="bool" NOT-NULL="1"/>
+
+			<is_default  TYPE="bool" NOT-NULL="1"/>
+
+			<icon_url TYPE="string"/>
+
+			<may_use1 TYPE="bool" NOT-NULL="1" DEFAULT="false"/>
+			<may_use2 TYPE="bool" NOT-NULL="1" DEFAULT="false"/>
+
+			<use1 TYPE="bool"/>
+			<use2 TYPE="bool"/>
+
+			<use_ext_service TYPE="bool" NOT-NULL="1"/>
+
+			<login TYPE="string"/>
+			<password TYPE="string"/>
+
+			<keep_days_num TYPE="integer" POSITIVE="1"/>
+			
+			<update_always TYPE="bool" NOT-NULL="1"/>
+			<min_update_days_num TYPE="integer" POSITIVE="1"/>
+
+			<show_column TYPE="bool"/>
+
+
+			<login_done TYPE="bool" NOT-NULL="1" TEMP="1"/>
+			<init1_done TYPE="bool" NOT-NULL="1" TEMP="1"/>
+			
+			<web_session TEMP="1">
+				<sid TYPE="string"/>
+				<view_state TYPE="string"/>
+			</web_session>
+
+
+			<may_use PROPERTY="1" EXPR="may_use1 || may_use2"/>
+		</site>
+	</sites>
+
+
+	<use_job_service TYPE="bool" NOT-NULL="1"/>
+
+	<job_service>
+		<org_id TYPE="integer"/>
+		<org_name TYPE="string"/>
+
+		<managers>
+			<manager MULTIPLE="1" PRIMARY-KEY="id">
+				<id TYPE="integer"/>
+				<fullname TYPE="string"/>
+				<email TYPE="string"/>
+			</manager>
+		</managers>
+	</job_service>
+
+
+	<last_ad>
+		<contacts>
+			<fullname TYPE="string"/>
+			<phone TYPE="string"/>
+			<email TYPE="string"/>
+		</contacts>
+
+		<city TYPE="string"/>
+		<org_name TYPE="string"/>
+	</last_ad>
+
+	<last_mnt_date TYPE="date"/>
+
+	<usage_counter>
+		<last_date TYPE="date" TIME="0"/>
+		<count TYPE="integer"/>
+	</usage_counter>
+
+</rw_settings>
+
+
+
+</SPXML-FORM>

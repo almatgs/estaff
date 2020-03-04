@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<base1_common>
+	<person_genders>
+		<person_gender MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+		</person_gender>
+	</person_genders>
+
+	<marital_statuses>
+		<marital_status MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+			<name_male TYPE="string" EXPR-INIT="name"/>
+			<name_female TYPE="string" EXPR-INIT="name"/>
+		</marital_status>
+	</marital_statuses>
+
+	<quarters>
+		<quarter MULTIPLE="1" PRIMARY-KEY="id" PRIMARY-DISP-NAME="id">
+			<id TYPE="integer"/>
+		</quarter>
+	</quarters>
+
+	<months>
+		<month MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+			<short_name TYPE="string"/>
+		</month>
+	</months>
+
+	<week_days>
+		<week_day MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+			<short_name TYPE="string"/>
+		</week_day>
+	</week_days>
+
+	<period_units>
+		<period_unit MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<plural_name TYPE="string"/>
+			<mod2_name TYPE="string"/>
+		</period_unit>
+	</period_units>
+
+	<filter_period_units>
+		<filter_period_unit MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</filter_period_unit>
+	</filter_period_units>
+
+	<filter_period_specifiers>
+		<filter_period_specifier MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</filter_period_specifier>
+	</filter_period_specifiers>
+
+	<mailbox_access_methods>
+		<mailbox_access_method MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+
+			<has_server TYPE="bool"/>
+			<has_stores TYPE="bool"/>
+			<has_folders TYPE="bool"/>
+			<has_force_download TYPE="bool"/>
+			<has_read_flags TYPE="bool"/>
+		</mailbox_access_method>
+	</mailbox_access_methods>
+
+	<office_apps>
+		<office_app MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<editor_name TYPE="string"/>
+			<editor_process_name TYPE="string"/>
+			<calc_name TYPE="string"/>
+		</office_app>
+	</office_apps>
+
+	<cmp_predicates>
+		<cmp_predicate MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</cmp_predicate>
+	</cmp_predicates>
+
+	<fulltext_search_logics>
+		<fulltext_search_logic MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</fulltext_search_logic>
+	</fulltext_search_logics>
+
+	<std_colors>
+		<duplicate TYPE="string" DEFAULT="192,255,255"/>
+		<inactive_voc_elem TYPE="string" DEFAULT="180,180,180"/>
+		<object_preview_label TYPE="string" DEFAULT="64,64,64"/>
+		<object_preview_value TYPE="string" DEFAULT="0,0,92"/>
+	</std_colors>
+
+	<data_types>
+		<data_type MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</data_type>
+	</data_types>
+
+	<tri_states>
+		<tri_state MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="bool"/>
+			<name TYPE="string"/>
+		</tri_state>
+	</tri_states>
+
+	<sys_countries>
+		<sys_country MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name_en TYPE="string"/>
+			<name_ru TYPE="string"/>
+			<name_native TYPE="string"/>
+		</sys_country>
+	</sys_countries>
+
+	<phone_call_directions>
+		<phone_call_direction MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+		</phone_call_direction>
+	</phone_call_directions>
+
+	<phone_call_states>
+		<phone_call_state MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<text_color TYPE="string"/>
+			<bk_color TYPE="string"/>
+		</phone_call_state>
+	</phone_call_states>
+
+	<phone_call_failure_reasons>
+		<phone_call_failure_reason MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</phone_call_failure_reason>
+	</phone_call_failure_reasons>
+
+	<std_telephony_providers>
+		<std_telephony_provider MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+			<use_server_address TYPE="bool" NULL-FALSE="1"/>
+			<use_access_token TYPE="bool" NULL-FALSE="1"/>
+			<use_access_token_2 TYPE="bool" NULL-FALSE="1"/>
+			<use_line_prefix TYPE="bool" NULL-FALSE="1"/>
+		</std_telephony_provider>
+	</std_telephony_providers>
+
+	<poll_question_types>
+		<poll_question_type MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</poll_question_type>
+	</poll_question_types>
+
+	<chart_colors>
+		<chart_color MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<bk_color TYPE="string"/>
+		</chart_color>
+	</chart_colors>
+</base1_common>
+
+
+</SPXML-FORM>
+

@@ -1,0 +1,27 @@
+<SPXML-FORM OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" TITLE="##UiText.objects.position##" IMAGE-URL-EXPR="is_active ? '//base_pict/generic_item.ico' : '//base_pict/generic_item_inactive.ico'">
+
+<position_type>
+	<id TYPE="integer"/>
+	<name TYPE="string" INDEXED="1" TITLE="##UiText.fields.name##" lang-en:TITLE="Name"/>
+	<code TYPE="string" TITLE="##UiText.fields.code##" lang-en:TITLE="#"/>
+	<eid TYPE="string" INDEXED="1" FT-IGNORE="1"/>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+
+	<start_date TYPE="date" TIME="0" TITLE="##UiText.fields.position_start_date##"/>
+	<end_date TYPE="date" TIME="0" TITLE="##UiText.fields.position_end_date##" lang-en:TITLE="Closed"/>
+
+	<is_active TYPE="bool" EXPR="! end_date.HasValue || end_date > CurDate" TITLE="##UiText.fields.position_is_active##" EXPR-ON-DEMAND="1"/>
+
+
+	<target_recruit_type_id TYPE="string" MULTIPLE="1" FOREIGN-ARRAY="recruit_types" TITLE="##UiText.titles.recruit_types##"/>
+</position_type>
+
+
+</SPXML-FORM>
+
+
+
+
+
+	

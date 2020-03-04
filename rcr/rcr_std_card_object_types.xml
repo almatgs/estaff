@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_card_object_types SPXML-FORM="//base1/base1_std_card_object_types.xmd">
+	<std_card_object_type>
+		<id>vacancy</id>
+		<use_coding>1</use_coding>
+		<use_auto_coding>1</use_auto_coding>
+		<coding_digits_num>4</coding_digits_num>
+		<use_csd>1</use_csd>
+	</std_card_object_type>
+
+	<std_card_object_type>
+		<id>candidate</id>
+		<use_coding>1</use_coding>
+		<use_auto_coding>1</use_auto_coding>
+		<use_event_state>1</use_event_state>
+		<use_csd>1</use_csd>
+	</std_card_object_type>
+
+	<std_card_object_type>
+		<id>budget</id>
+	</std_card_object_type>
+
+	<std_card_object_type>
+		<id>vacancy_request</id>
+		<use_coding>1</use_coding>
+		<use_auto_coding>1</use_auto_coding>
+		<use_csd>1</use_csd>
+	</std_card_object_type>
+</std_card_object_types>
+

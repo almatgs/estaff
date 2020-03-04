@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<std_event_types>
+	<std_event_type MULTIPLE="1" PRIMARY-KEY="id">
+		<INHERIT FORM="base2_event_type.xmd" TYPE="event_type"/>
+	</std_event_type>
+</std_event_types>
+
+
+</SPXML-FORM>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+<dlg_app_activate_manual>
+	<activation_code TYPE="string"/>
+</dlg_app_activate_manual>
+
+
+</SPXML-INLINE-FORM>
+

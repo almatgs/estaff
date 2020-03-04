@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<title></title>
+<style>
+<!--
+*
+{
+	font-family: Calibri,Arial,sans-serif;
+	font-size: 12pt;
+	__margin: 2px;
+}
+
+
+p, li
+{
+	__margin: 0px;
+}
+
+-->
+</style>
+</head>
+<body>
+<h1>NTLM-autentimise seadistus</h1>
+<p>Juhul,
+kui Datex Recruit&nbsp; kasutajate t&ouml;&ouml;jaamade arvutid  on &uuml;hendatud v&otilde;rguga, mille
+koosseisu kuulub domeeni kontroller Active Directory, siis Datex Recruit&nbsp;s&uuml;steemi
+saab seadistada NTLM-autentimise t&ouml;&ouml;re&#382;iimiks.</p>
+<p>NTLM-autentimise
+kasutamiseks s&uuml;steemis Datex Recruit&nbsp;Recruiter tuleb teostada
+allj&auml;rgnevat:</p>
+<p><i><u>Arvutil,
+kus on paigaldatud Datex Recruit server:</u></i></p>
+<p>· Datex Recruit serveri kataloogi
+juures luua faili <b>xHttp1.ini</b>&nbsp;ning lisada sellesse kirje</p>
+<p><b>LDS-NTLM-AUTH: 1</b></p>
+<p>·K&auml;ivitage &quot;<b>Datex
+Recruit&nbsp;Server</b>&quot; men&uuml;&uuml;st <b>Start-&gt;Tarkvarad
+(Start-&gt;Programs)</b></p>
+<p>·V&auml;ljas <b>Kasutajanimi</b> sisestage seadistusi teostava tehnilise
+s&uuml;steemadministraatori nimi formaadis<b> domain\user</b>, kus&nbsp;<b>domain</b>&nbsp;ja&nbsp;<b>user</b>&nbsp;–
+on vastavalt Active Directory domeeni nimetus ning kasutajanimi, v&auml;lja <b>Salas&otilde;na </b>tuleb t&uuml;hjendada.</p>
+<p>·K&auml;ivituge server Datex
+Recruit uuesti, vajutades nuppu <b>L&uuml;litada server </b>ning seej&auml;rel –&nbsp;<b>L&uuml;litada
+server sisse</b>.</p>
+<p><i><u>Klientide
+suvalisel t&ouml;&ouml;kohal</u></i></p>
+<p>· Datex
+Recruit kliendikoha kataloogi juures looge fail <b>SpXml2.ini</b>&nbsp;ning
+lisage sellesse kirje</p>
+<p><b>EXTERNAL-LDS: 1</b></p>
+<p>·K&auml;ivitage &quot;<b>Datex
+Recruit&nbsp;Server</b>&quot; men&uuml;&uuml;st <b>Start-&gt;Tarkvarad
+(Start-&gt;Programs)</b></p>
+<p>·Sisestage tehnilise
+administraatori nimi (formaadis <b>user</b>) ning salas&otilde;na. Salas&otilde;nana
+kasutage vastava Active Directory konto salas&otilde;na.</p>
+<p>·Sektsioonis <b>Administreerimine-&gt;Ligip&auml;&auml;s-&gt;Kasutajad</b>&nbsp;m&auml;&auml;rake
+iga kasutaja jaoks jooksva nime asemel Active Directory  kasutajanimi (ainult login, kusjuures kui
+selles on olemas suurt&auml;hed – vahetage neid v&auml;lja
+v&auml;iket&auml;htede vastu), v&auml;lja <b>Salas&otilde;na
+</b>tuleb t&uuml;hjendada.</p>
+<p>·Sulgege tarkvara, seej&auml;rel
+k&auml;ivitage see uuesti. Tarkvara peab avanema automaatselt tegeliku arvutil
+t&ouml;&ouml;tava kasutaja all. Kui see ei toimi, tuleb &auml;ra muuta Internet&nbsp;Explorer
+brauseri seadistusi. Brauseri omadustes vahelehel <b>Turvalisus</b>&nbsp;tsooni
+jaoks, mis vastab kliendikoha asukohale, vajutage nupp <b>Muu</b>&nbsp;(<b>Custom&nbsp;level</b>).
+Turvalisuse parameetrite seadistuste aknas sektsioonis<b> Kasutaja autentimine-&gt;Sissep&auml;&auml;s</b>&nbsp;(<b>User&nbsp;Authentication-&gt;Logon</b>)
+paigaldage l&uuml;liti seisukorda <b>Automaatne sissep&auml;&auml;s jooksva kasutajanimega
+ning salas&otilde;naga</b> (<b>Automatic&nbsp;logon&nbsp;with&nbsp;current&nbsp;user&nbsp;name&nbsp;and&nbsp;password</b>).</p>
+<p><i><u>&Uuml;lej&auml;&auml;nud klientide
+t&ouml;&ouml;kohtadel:</u></i></p>
+<p>·Datex Recruit kliendikoha kataloogi juures looge
+fail <b>SpXml2.ini</b>&nbsp;ning lisage sellesse kirje</p>
+<p><b>EXTERNAL-LDS: 1</b></p>
+<p>·K&auml;ivitage „<b>Datex Recruit</b>&quot;
+men&uuml;&uuml;st<b> Start-&gt;Tarkvarad</b>&nbsp;(<b>Start-&gt;Programs</b>). Tarkvara
+peab avanema automaatselt tegeliku arvutil t&ouml;&ouml;tava kasutaja all. Kui
+see ei toimi, tuleb &auml;ra muuta Internet&nbsp;Explorer brauseri seadistusi,
+t&auml;pselt samamoodi, nagu see on &uuml;lespool kirjeldatud.</p></body>
+</html>

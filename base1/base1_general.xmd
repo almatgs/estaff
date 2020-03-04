@@ -1,0 +1,1151 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<person_shortname_prop SAMPLE="1" PROPERTY="1" TITLE="##UiText.fields.shortname##" EXPR="lib_person_details.BuildPersonShortName( lastname, firstname, middlename )"/>
+
+
+<person_name_core IGNORE-SPELLING="1" SAMPLE="1">
+	<lastname TYPE="string" TITLE="##UiText.fields.lastname##"/>
+	<firstname TYPE="string" TITLE="##UiText.fields.firstname##"/>
+	<middlename TYPE="string" TITLE="##UiText.fields.middlename##"/>
+
+	<shortname TYPE="person_shortname_prop"/>
+</person_name_core>
+
+
+<person_name_en_core IGNORE-SPELLING="1" SAMPLE="1">
+	<lastname_en TYPE="string" TITLE="Фамилия (англ.)" lang-en:TITLE="Lastname (eng.)" EXPR-INIT="lib_cproc.translit_str( lastname )" EXPR-SHOW-ERRORS="1" lang-ua:TITLE="Прізвище (англ.)"/>
+	<firstname_en TYPE="string" TITLE="Имя (англ.)" lang-en:TITLE="Firstname (eng.)" EXPR-INIT="lib_cproc.translit_str( firstname )" EXPR-SHOW-ERRORS="1" lang-ua:TITLE="Ім'я (англ.)"/>
+</person_name_en_core>
+
+
+<person_fullname SAMPLE="1" TYPE="string" IGNORE-SPELLING="1" TITLE="##UiText.fields.fullname##" EXPR="lib_base.get_person_fullname( lastname.Parent )" EXP-MAX-LEN="34"/>
+
+<person_fullname_prop SAMPLE="1" PROPERTY="1" TITLE="##UiText.fields.fullname##" EXPR="lib_base.get_person_fullname( lastname.Parent )" EXP-MAX-LEN="34"/>
+
+
+
+<person_name_base IGNORE-SPELLING="1" SAMPLE="1">
+	<INHERIT TYPE="person_name_core"/>
+	<fullname TYPE="person_fullname"/>
+</person_name_base>
+
+
+<phone TYPE="string" SAMPLE="1" FT-EXPR="lib_base.build_ft_phone( Value )"/>
+
+
+<emails_base SAMPLE="1">
+	<email TYPE="string" IGNORE-SPELLING="1" FT-SOLID="1" TITLE="E-Mail"/>
+	<email2 TYPE="string" IGNORE-SPELLING="1" FT-SOLID="1" TITLE="##UiText.fields.email2##"/>
+</emails_base>
+
+
+<ft_filter SAMPLE="1">
+	<used_fulltext TYPE="string"/>
+</ft_filter>
+
+
+
+<card_comment_base SAMPLE="1">
+	<comment TYPE="string" LARGE="1" TITLE="##UiText.fields.card_comment##" STORE-SECTION__="cdata"/>
+</card_comment_base>
+
+
+<card_attachment SAMPLE="1" PRIMARY-DISP-NAME="name_desc">
+	<id TYPE="integer" EXPR-INIT="UniqueID()"/>
+
+	<type_id TYPE="string" FOREIGN-ARRAY="card_attachment_types"/>
+	<code TYPE="string"/>
+	<name TYPE="string"/>
+	
+	<date TYPE="date" EXPR-INIT="Date()"/>
+	<content_type TYPE="string" DEFAULT="text/html"/>
+
+	<plain_text TYPE="string" MULTILINE="1" EXT-DATA="1"/>
+	<text TYPE="string" RICH-TEXT="1" EXT-DATA="1"/>
+	<data TYPE="binary" EXT-DATA="1" CONTENT-TYPE-EXPR="is_encrypted ? '' : UrlPathSuffix( file_name )"/>
+	<file_name TYPE="string"/>
+
+	<files>
+		<file MULTIPLE="1">
+			<data TYPE="binary" EXT-DATA="1" CONTENT-TYPE-EXPR="Parent.Parent.is_encrypted ? '' : UrlPathSuffix( file_name )"/>
+			<file_name TYPE="string"/>
+		</file>
+	</files>
+
+	<is_encrypted TYPE="bool" NULL-FALSE="1"/>
+
+
+	<name_desc PROPERTY="1" EXPR="
+			str = '';
+
+			try
+			{
+				str = str + type_id.ForeignElem.name;
+			}
+			catch ( e )
+			{
+			}
+			
+			if ( name != '' )
+			{
+				if ( str != '' )
+					str = str + ' - ';
+
+				str = str + name;
+			}
+
+			if ( ! is_text && name == '' && file_name != '' )
+			{
+				if ( str != '' )
+					str = str + ' - ';
+
+				str = str + file_name;
+			}
+
+			return str;
+	"/>
+
+
+	<is_plain_text PROPERTY="1" EXPR="
+			content_type == 'text/plain';
+	"/>
+
+	<is_text PROPERTY="1" EXPR="
+			StrBegins( content_type, 'text/' ) && ! is_plain_text;
+	"/>
+
+	<is_binary PROPERTY="1" EXPR="
+			! StrBegins( content_type, 'text/' );
+	"/>
+
+
+	<resolve_plain_text PROPERTY="1" EXPR="
+			if ( is_plain_text )
+				return plain_text;
+			else if ( is_text )
+				return HtmlToPlainText( text );
+			else
+				return '';
+	"/>
+
+
+	<image_url PROPERTY="1" EXPR="
+			if ( is_binary )
+			{
+				if ( files.ChildNum != 0 )
+					fileName = files[0].file_name;
+				else
+					fileName = file_name;
+
+				if ( System.IsWebClient )
+				{
+					switch ( StrLowerCase( UrlPathSuffix( fileName ) ) )
+					{
+						case '.doc':
+						case '.docx':
+							return '//base_pict/word_doc.ico';
+					}
+				}
+
+				return 'x-sys-image://shell-icon/' + UrlPathSuffix( fileName );
+			}
+			
+			if ( type_id.HasValue &amp;&amp; type_id.ForeignElem.mark_older_as_inactive &amp;&amp; ArrayOptFind( Parent, 'This.type_id == ' + CodeLiteral( type_id ) + ' &amp;&amp; This.date > ' + CodeLiteral( date ) ) != undefined )
+				return '//base_pict/text_attachment_inactive.ico';
+
+			return '//base_pict/text_attachment.ico';
+	"/>
+
+
+	<build_preview_data PROPERTY="1" EXPR="
+			if ( ! is_binary )
+				return;
+
+			text.Clear();
+			plain_text.Clear();
+
+			if ( StrLowerCase( UrlPathSuffix( file_name ) ) == '.pdf' )
+			{
+				tempFileUrl = ObtainTempFile( '.pdf' );
+				data.SaveToFile( tempFileUrl );
+
+				try
+				{
+					plain_text = lib_base.extract_plain_text_form_pdf_file( tempFileUrl );
+				}
+				catch( e )
+				{
+					alert( e );
+				}
+
+				DeleteFile( tempFileUrl );
+			}
+	"/>
+
+
+	<allow_file_preview PROPERTY="1" EXPR="
+			if ( ! is_binary )
+				return false;
+
+			suffix = StrLowerCase( UrlPathSuffix( file_name ) );
+			switch ( suffix )
+			{
+				case '.doc':
+				case '.docx':
+				case '.xls':
+				case '.xlsx':
+				case '.rtf':
+				case '.pdf':
+					return true;
+
+				default:
+					return false;
+			}
+	"/>
+
+	<allow_access PROPERTY="1" EXPR="
+			if ( Parent.Parent.Name == 'candidate' )
+			{
+				if ( lib_user.active_user_access.prohibit_view_other_group_candidates_attachments &amp;&amp; Parent.Parent.group_id != lib_user.active_user_info.main_group_id )
+				{
+					if ( ! lib_user.active_user_access.other_group_candidate_attachment_type_id.HasValue )
+						return false;
+
+					if ( lib_user.active_user_access.other_group_candidate_attachment_type_id.ByValueExists( type_id ) )
+						return false;
+				}
+			}
+			
+			return true;
+	"/>
+</card_attachment>
+
+
+
+<card_attachments SAMPLE="1">
+	<attachments DOC-ONLY="1">
+		<attachment TYPE="card_attachment" MULTIPLE="1" PRIMARY-KEY="id"/>
+	</attachments>
+
+
+	<sorted_attachments PROPERTY="1" EXPR="
+			ArraySort( attachments, 'type_id.HasValue', '-', 'type_id.ForeignElem.order_index', '+', 'date', '-', 'name', '+' );
+	"/>
+
+	<active_attachment PROPERTY="1" EXPR="
+			edit = Screen.FindOptItem( 'CardAttachmentEdit' );
+			if ( edit == undefined )
+				return undefined;
+
+			return edit.Source.Parent;
+	"/>
+
+
+	<opt_attachment_plain_text PROPERTY="1" PARAM="attcID" EXPR="
+			if ( ( attachment = attachments.ObtainChildByKey( attcID, 'type_id' ) ) != undefined )
+				return attachment.resolve_plain_text();
+
+			return '';
+	"/>
+</card_attachments>
+
+
+
+<card_info_base SAMPLE="1">
+	<creation_date TYPE="date" TITLE="Дата создания" lang-en:TITLE="Creation date" lang-ua:TITLE="Дата створення"/>
+	<last_mod_date TYPE="date" TITLE="##UiText.fields.last_mod_date##" INDEXED="1"/>
+
+	<doc_info DOC-ONLY="1" IGNORE-SPELLING="1">
+		<creation>
+			<user_login TYPE="string"/>
+			<user_id TYPE="integer" FOREIGN-ARRAY="users"/>
+		</creation>
+
+		<modification>
+			<user_login TYPE="string"/>
+			<user_id TYPE="integer" FOREIGN-ARRAY="users"/>
+		</modification>
+	</doc_info>
+</card_info_base>
+
+
+
+<voc_info SAMPLE="1">
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<section_id TYPE="string" FOREIGN-ARRAY="base1_config.voc_sections"/>
+
+	<object_name TYPE="string"/>
+	<object_form_url TYPE="string"/>
+	<object_screen_form_url TYPE="string"/>
+	<admin_view_url TYPE="string"/>
+	<db_name TYPE="string"/>
+	<view_qual TYPE="string"/>
+	<primary_voc_id TYPE="string"/>
+
+	<key_type TYPE="string" DEFAULT="integer"/>
+	<key_synonym TYPE="string"/>
+	<key_numeric_base TYPE="integer"/>
+	<use_random_key TYPE="bool"/>
+	<is_hier TYPE="bool" NOT-NULL="1"/>
+	<use_hier_disp_names TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<auto_order TYPE="string"/>
+	<selector_type TYPE="string"/>
+
+	<use_full_name TYPE="bool" NULL-FALSE="1"/>
+	<use_text_color TYPE="bool" NOT-NULL="1"/>
+	<use_bk_color TYPE="bool" NOT-NULL="1"/>
+	<use_keywords TYPE="bool" NOT-NULL="1"/>
+
+	<no_edit TYPE="bool" NOT-NULL="1"/>
+	<is_optional_std_elems TYPE="bool" NOT-NULL="1"/>
+
+	<edit_std_prohibit TYPE="bool" NOT-NULL="1"/>
+	<edit_std_prohibit_fields>
+		<field TYPE="string" MULTIPLE="1"/>
+	</edit_std_prohibit_fields>
+	<edit_std_allow_fields>
+		<field TYPE="string" MULTIPLE="1"/>
+	</edit_std_allow_fields>
+
+	<extra_columns>
+		<extra_column MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<title_expr TYPE="string" SUBTYPE="code"/>
+			<text_color_expr TYPE="string" SUBTYPE="code"/>
+			<width TYPE="string"/>
+		</extra_column>
+	</extra_columns>
+
+	<extra_actions>
+		<extra_action MULTIPLE="1">
+			<name TYPE="string"/>
+			<code TYPE="string" SUBTYPE="code"/>
+		</extra_action>
+	</extra_actions>
+
+	<std_field_editable PROPERTY="1" PARAM="vocElem" PARAM="fieldName" EXPR="
+			if ( ! vocElem.is_std )
+				return true;
+
+			if ( edit_std_prohibit )
+				return edit_std_allow_fields.ChildByValueExists( fieldName );
+			else
+				return ! edit_std_prohibit_fields.ChildByValueExists( fieldName );
+	"/>
+</voc_info>
+
+
+
+<view_voc_elems_base SAMPLE="1">
+	<voc_id TYPE="string" FOREIGN-ARRAY="vocs"/>
+
+	<voc_ref TYPE="variant"/>
+	<voc PROPERTY="1" EXPR="voc_ref.Object"/>
+
+	<voc_info_ref TYPE="variant"/>
+	<voc_info PROPERTY="1" EXPR="voc_info_ref.Object"/>
+
+	<filter>
+		<INHERIT TYPE="ft_filter"/>
+	</filter>
+
+	
+	<init PROPERTY="1" EXPR="
+			voc_id = UrlQuery( Screen.Doc.Url ).voc_id;
+			voc_id;
+			voc_ref = eval( voc_id );
+			voc_info_ref = lib_voc.get_voc_info( voc );
+	"/>
+
+	
+	<voc_elem_form PROPERTY="1" EXPR="
+			return DefaultDb.GetObjectForm( voc_info.object_name );
+
+	"/>
+</view_voc_elems_base>
+
+
+
+<card_object_type_base SAMPLE="1">
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+
+	<create_action_name TYPE="string"/>
+
+	<use_coding TYPE="bool" NULL-FALSE="1"/>
+	<use_auto_coding TYPE="bool" NULL-FALSE="1"/>
+	<coding_prefix TYPE="string"/>
+	<coding_digits_num TYPE="integer" DEFAULT="5"/>
+
+	<use_reverse_hier_disp_name TYPE="bool" NULL-FALSE="1"/>
+
+	<use_event_state TYPE="bool" NULL-FALSE="1"/>
+	<use_csd TYPE="bool" NULL-FALSE="1"/>
+
+	<prohibit_change TYPE="bool" NULL-FALSE="1"/>
+	<prohibit_change_ext TYPE="bool" NULL-FALSE="1"/>
+
+	<hidden_fields>
+		<hidden_field MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="integer"/>
+		</hidden_field>
+	</hidden_fields>
+</card_object_type_base>
+
+
+
+<view_base SAMPLE="1">
+	<id TYPE="string"/>
+	<parent_id TYPE="string" FOREIGN-ARRAY="views"/>
+	<name TYPE="string"/>
+	<image_url TYPE="string"/>
+	<order_index TYPE="integer"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<width TYPE="string"/>
+	<height TYPE="string"/>
+
+	<is_card_page TYPE="bool" NULL-FALSE="1"/>
+	<card_object_type_id TYPE="string" FOREIGN-ARRAY="card_object_types"/>
+	<card_page_title TYPE="string"/>
+	
+	<is_main_section TYPE="bool" NULL-FALSE="1"/>
+	<parent_main_section_id TYPE="string"/>
+	
+	<exist_req_expr TYPE="string" SUBTYPE="code"/>
+
+	<catalog_name TYPE="string"/>
+	<is_hier TYPE="bool"/>
+
+	<open_action TYPE="string" SUBTYPE="code"/>
+	<delete_action TYPE="string" SUBTYPE="code"/>
+	<set_sel_action TYPE="string" SUBTYPE="code"/>
+	<deferred_set_sel_action TYPE="string" SUBTYPE="code"/>
+
+	<static_filters>
+		<static_filter MULTIPLE="1">
+			<id TYPE="string"/>
+			<cmp_pred TYPE="string" DEFAULT="equal" FOREIGN-ARRAY="base1_common.cmp_predicates"/>
+			<value TYPE="string"/>
+			<value_expr TYPE="string"/>
+			<xquery_qual_expr TYPE="string" SUBTYPE="code"/>
+		</static_filter>
+	</static_filters>
+
+	<drop_all_dyn_filters TYPE="bool" NULL-FALSE="1"/>
+	<drop_ft TYPE="bool" NULL-FALSE="1"/>
+
+	<dyn_filters>
+		<dyn_filter MULTIPLE="1">
+			<id TYPE="string"/>
+			<data_type TYPE="string"/>
+			<is_multiple TYPE="bool" NULL-FALSE="1"/>
+			<title TYPE="string"/>
+			<exist_req_expr TYPE="string" SUBTYPE="code"/>
+			<view_filter_expr TYPE="string" SUBTYPE="code"/>
+			<validate_action TYPE="string" SUBTYPE="code"/>
+			<is_auto TYPE="bool" NULL-FALSE="1"/>
+			<is_optional TYPE="bool" NULL-FALSE="1"/>
+			<default_value TYPE="string"/>
+			<expr_init TYPE="string" SUBTYPE="code"/>
+			<foreign_array_expr TYPE="string"/>
+			<xquery_qual_expr TYPE="string" SUBTYPE="code"/>
+			<use_ft TYPE="bool" NULL-FALSE="1"/>
+			<use_range TYPE="bool" NULL-FALSE="1"/>
+			<use_range_min TYPE="bool" NULL-FALSE="1"/>
+			<use_checkbox TYPE="bool" NULL-FALSE="1"/>
+			<use_period_quick_selector TYPE="bool" NULL-FALSE="1"/>
+			<use_foreign_rec_child TYPE="bool" NULL-FALSE="1"/>
+
+			<width TYPE="string"/>
+
+			<is_join_switcher TYPE="bool" NULL-FALSE="1"/>
+			<join_catalog_name TYPE="string"/>
+			<join_key TYPE="string"/>
+
+			<use_new_line TYPE="bool" NULL-FALSE="1"/>
+			<use_store TYPE="bool" NULL-FALSE="1"/>
+		</dyn_filter>
+	</dyn_filters>
+
+	<drop_all_fields TYPE="bool" NULL-FALSE="1"/>
+
+	<fields>
+		<field MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<elem_expr TYPE="string"/>
+			<use_time TYPE="bool"/>
+			<time_only TYPE="bool" NULL-FALSE="1"/>
+			<show_zeroes TYPE="bool" NULL-FALSE="1"/>
+			<title_expr TYPE="string" SUBTYPE="code"/>
+			<exist_req_expr TYPE="string" SUBTYPE="code"/>
+
+			<col_title TYPE="string"/>
+			<col_tip_text TYPE="string"/>
+			<order TYPE="string"/>
+			<order_dir TYPE="string"/>
+			<order1 TYPE="string"/>
+			<order_dir1 TYPE="string"/>
+			<use_local_sort TYPE="bool" NULL-FALSE="1"/>
+			<align TYPE="string"/>
+			<width TYPE="string"/>
+			<text_color TYPE="string"/>
+			<text_color_expr TYPE="string" SUBTYPE="code"/>
+			<bk_color_expr TYPE="string" SUBTYPE="code"/>
+			<is_default_sort TYPE="bool" NULL-FALSE="1"/>
+		</field>
+	</fields>
+
+	<extra_field_ids>
+		<extra_field_id TYPE="string" MULTIPLE="1"/>
+	</extra_field_ids>
+
+	<hier_collapsed TYPE="bool" NULL-FALSE="1"/>
+
+	<context_menu_sample>
+		<form_url TYPE="string"/>
+		<name TYPE="string"/>
+	</context_menu_sample>
+
+	<context_actions>
+		<context_action MULTIPLE="1">
+			<title TYPE="string"/>
+			<cmd TYPE="string"/>
+			<code TYPE="string" SUBTYPE="code"/>
+			<use_new_group TYPE="bool" NULL-FALSE="1"/>
+		</context_action>
+	</context_actions>
+
+	<drop_all_context_actions TYPE="bool" NULL-FALSE="1"/>
+
+	<use_manual_update TYPE="bool" NULL-FALSE="1"/>
+
+	<frame_sub_url TYPE="string"/>
+	<frame_sub_view_id TYPE="string" MULTIPLE="1"/>
+	<allow_preview TYPE="bool" NULL-FALSE="1"/>
+	<use_preview_expr TYPE="string"/>
+	<list_with_preview_height TYPE="string"/>
+
+	<allow_add_new_in_select_dlg TYPE="bool" NULL-FALSE="1"/>
+
+	<check_access_expr TYPE="string" SUBTYPE="code"/>
+	<before_init_action TYPE="string" SUBTYPE="code"/>
+
+	<action>
+		<title TYPE="string"/>
+		<image_url TYPE="string"/>
+		<code TYPE="string" SUBTYPE="code"/>
+		<exist_req_expr TYPE="string" SUBTYPE="code"/>
+	</action>
+
+
+	<object_name PROPERTY="1" EXPR="
+			if ( catalog_name.HasValue )
+				return lib_base.catalog_name_to_object_name( catalog_name );
+
+			if ( parent_id.HasValue )
+				return parent_id.ForeignElem.object_name;
+
+			return lib_base.catalog_name_to_object_name( id );
+	"/>
+
+
+	<object_form PROPERTY="1" EXPR="
+			DefaultDb.GetObjectForm( object_name );
+	"/>
+
+
+	<get_catalog_name PROPERTY="1" EXPR="
+			if ( catalog_name.HasValue )
+				return catalog_name;
+
+			if ( parent_id.HasValue )
+				return parent_id.ForeignElem.get_catalog_name();
+
+			return id;
+	"/>
+
+
+	<catalog_form PROPERTY="1" EXPR="
+			catalog = DefaultDb.GetOptCatalog( get_catalog_name() );
+			if ( catalog == undefined )
+				throw UserError( 'Unable to get view catalog' );
+
+			return catalog.Form;
+	"/>
+
+
+	<check PROPERTY="1" EXPR="
+			if ( object_name == '' )
+				throw UserError( UiText.errors.object_type_not_specified );
+
+			if ( fields.ChildNum == 0 && ! parent_id.HasValue )
+				throw UserError( UiText.errors.columns_not_specified );
+
+			for ( field in fields )
+			{
+				if ( field.id == '' && field.elem_expr == '' && field.title_expr == '' )
+					throw UserError( UiText.errors.field_not_specified );
+
+				if ( field.id == '' && field.col_title == '' )
+					throw UserError( UiText.errors.field_id_or_col_title_required );
+			}
+
+	"/>
+</view_base>
+
+
+
+<view_data_preview SAMPLE="1">
+	<timer_started TYPE="bool" NULL-FALSE="1"/>
+
+	<cur_record_ref TYPE="variant"/>
+	<cur_start_ticks TYPE="integer" NOT-NULL="1"/>
+
+
+	<handle_set_sel PROPERTY="1" PARAM="record" EXPR="
+			cur_record_ref = record;
+			cur_start_ticks = GetCurTicks();
+
+			if ( ! timer_started )
+			{
+				Screen.SetTimer( 'Ps.preview.timer_action()', 1000 );
+				timer_started = true;
+			}
+	"/>
+
+
+	<timer_action PROPERTY="1" EXPR="
+			if ( ! cur_record_ref.HasValue )
+				return;
+
+			if ( GetCurTicks() - cur_start_ticks < local_settings.deferred_read_flag_delay_seconds * 1000 )
+				return;
+
+			var ListElem = cur_record_ref.Object;
+			cur_record_ref.Clear();
+			eval( deferred_set_sel_action );
+	"/>
+</view_data_preview>
+
+
+
+<abstract_time SAMPLE="1">
+	<hour TYPE="integer"/>
+	<minute TYPE="integer"/>
+
+	<day_minute PROPERTY="1" EXPR="
+			if ( ! hour.HasValue )
+				return null;
+
+			return hour * 60 + ( minute.HasValue ? minute : 0 );
+	"/>
+
+	<desc PROPERTY="1" EXPR="
+			if ( ! hour.HasValue )
+				return '';
+
+			return hour + ':' + ( minute.HasValue ? StrInt( minute, 2 ) : 0 );
+	"/>
+</abstract_time>
+
+
+<period_core SAMPLE="1">
+	<length TYPE="integer"/>
+	<unit_id TYPE="string" FOREIGN-ARRAY="base1_common.period_units" DEFAULT="d"/>
+</period_core>
+
+
+<period_methods SAMPLE="1">
+	<days_num PROPERTY="1" EXPR="
+			if ( length == null )
+				return null;
+
+			switch ( unit_id )
+			{
+				case 'd':
+					return length;
+
+				case 'wd':
+					return ( length * 7 ) / 5;
+
+				case 'm':
+					return length * 30;
+
+				case 'y':
+					return length * 365;
+
+				default:
+					return 0;
+			}
+	"/>
+
+
+	<wdays_num PROPERTY="1" EXPR="
+			if ( length == null )
+				return null;
+
+			switch ( unit_id )
+			{
+				case 'd':
+					return ( length * 5 ) / 7;
+
+				case 'wd':
+					return length;
+
+				case 'm':
+					return length * 22;
+
+				case 'y':
+					return length * 275;
+
+				default:
+					return 0;
+			}
+	"/>
+
+
+	<get_seconds_num PROPERTY="1" EXPR="
+			if ( length == null )
+				return null;
+
+			switch ( unit_id )
+			{
+				case 'second':
+					return length;
+
+				case 'minute':
+					return length * 60;
+
+				case 'hour':
+					return length * 3600;
+
+				default:
+					return days_num() * 86400;
+			}
+	"/>
+
+	<set_seconds_num PROPERTY="1" PARAM="seconds" EXPR="
+			if ( seconds % 86400 == 0 || seconds / 86400 >= 3 )
+			{
+				length = seconds / 86400;
+				unit_id = 'd';
+			}
+			else
+			{
+				length = seconds / 3600;
+				unit_id = 'hour';
+			}
+	
+	"/>
+
+	<get_desc PROPERTY="1" EXPR="
+			if ( ! length.HasValue )
+				return '-';
+
+			return length + ' ' + IntModSelector( length, unit_id.ForeignElem.mod2_name )
+	"/>
+
+	<short_desc PROPERTY="1" EXPR="
+			if ( ! length.HasValue )
+				return '';
+
+			str = '' + length;
+			
+			switch ( unit_id )
+			{
+				case 'second':
+					str += 's';
+					break;
+
+				case 'minute':
+					str += 'm';
+					break;
+
+				case 'hour':
+					str += 'h';
+					break;
+
+				case 'd':
+					str += 'D';
+					break;
+
+				default:
+					str += ' ' + unit_id;
+			}
+
+			return str;
+	"/>
+</period_methods>
+
+
+<period SAMPLE="1">
+	<INHERIT TYPE="period_core"/>
+	<INHERIT TYPE="period_methods"/>
+</period>
+
+
+<mh_period SAMPLE="1">
+	<length TYPE="integer"/>
+	<unit_id TYPE="string" FOREIGN-ARRAY="base1_common.period_units" DEFAULT="hour"/>
+	<INHERIT TYPE="period_methods"/>
+</mh_period>
+
+
+<sm_period SAMPLE="1">
+	<length TYPE="integer"/>
+	<unit_id TYPE="string" FOREIGN-ARRAY="base1_common.period_units"/>
+	<INHERIT TYPE="period_methods"/>
+</sm_period>
+
+
+<term SAMPLE="1" OBSOLETE="1">
+	<INHERIT TYPE="period_core"/>
+	<INHERIT TYPE="period_methods"/>
+</term>
+
+
+
+<save_trigger_base SAMPLE="1">
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<object_type_id TYPE="string" FOREIGN-ARRAY="card_object_types"/>
+	<before_save_action_code TYPE="string" SUBTYPE="code"/>
+	<action_code TYPE="string" SUBTYPE="code"/>
+	<run_on_server TYPE="bool" NULL-FALSE="1"/>
+</save_trigger_base>
+
+
+
+<object_action_base SAMPLE="1">
+	<id TYPE="string"/>
+	<name TYPE="string"/>
+	<is_active TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<object_type_id TYPE="string" FOREIGN-ARRAY="card_object_types"/>
+	<exist_req_expr TYPE="string" SUBTYPE="code"/>
+	<enable_expr TYPE="string" SUBTYPE="code"/>
+
+	<use_doc TYPE="bool" NULL-FALSE="1"/>
+
+	<lib_name TYPE="string"/>
+	<method_name TYPE="string"/>
+	<mass_method_name TYPE="string"/>
+	<code TYPE="string" SUBTYPE="code"/>
+	<is_passive TYPE="bool" NULL-FALSE="1"/>
+
+	<run_on_server TYPE="bool" NULL-FALSE="1"/>
+	<show_in_main_menu TYPE="bool" NULL-FALSE="1"/>
+	<show_in_context_menu TYPE="bool" NULL-FALSE="1"/>
+</object_action_base>
+
+
+
+<mail_template_id SAMPLE="1" TYPE="string" FOREIGN-ARRAY="mail_templates"/>
+
+
+
+
+<smtp_settings_base SAMPLE="1">
+	<server_address TYPE="string"/>
+	<delay TYPE="integer" NOT-NULL="1"/>
+
+	<use_auth TYPE="bool" NOT-NULL="1"/>
+	<use_ssl TYPE="bool" NOT-NULL="1" TITLE="##UiText.titles.use_ssl##"/>
+	<use_ssl_port TYPE="bool" NOT-NULL="1" TITLE="##UiText.titles.dedicated_ssl_port##"/>
+	<login TYPE="string"/>
+	<password TYPE="string"/>
+</smtp_settings_base>
+
+
+
+<base1_global_settings SAMPLE="1">
+	<default_location_id TYPE="string" FOREIGN-ARRAY="locations" TITLE="Основной регион" lang-en:TITLE="Default location" lang-ua:TITLE="Основний регіон"/>
+	<default_currency_id TYPE="string" FOREIGN-ARRAY="currencies" TITLE="Основная валюта" lang-en:TITLE="Default currency" lang-ua:TITLE="Основна валюта"/>
+
+	<use_multi_currencies TITLE="Разрешить выбор из нескольких валют для полей" lang-en:TITLE="Allow multiple currencies for the fields" lang-ua:TITLE="Дозволити вибір з декількох валют для полів">
+		<position_salary TYPE="bool" NULL-FALSE="1" TITLE="Уровень зарплаты для штатной должности" lang-en:TITLE="Salary level for position" lang-ua:TITLE="Рівень зарплати для штатної посади"/>
+		<vacancy_salary TYPE="bool" NULL-FALSE="1" TITLE="Уровень зарплаты по вакансии" lang-en:TITLE="Position salary" lang-ua:TITLE="Рівень зарплати по вакансії"/>
+		<candidate_salary TYPE="bool" NULL-FALSE="1" TITLE="Уровень зарплаты кандидата" lang-en:TITLE="Candidate salary" lang-ua:TITLE="Рівень зарплати кандидата"/>
+	</use_multi_currencies>
+
+	<own_mail_domain TYPE="string" MULTIPLE="1"/>
+
+	<adjust_phones TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Автоматически приводить номера телефонов к стандартному виду" lang-en:TITLE="Adjust phone numbers format" lang-ua:TITLE="Автоматично приводити номера телефонів до стандартного вигляду"/>
+	<use_phone_base_object_country TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="При вводе номера телефона без кода страны использовать код страны, указанной в карточке человека" lang-en:TITLE="For phone numbers without a country code, use the country code shown in the person's card" lang-ua:TITLE="Коли ви набираєте номер телефону без коду країни використовувати код країни, зазначеної в картці людини"/>
+	<use_strict_mobile_phones TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Контроль формата номера мобильного телефона" lang-en:TITLE="Check mobile phone number format" lang-ua:TITLE="Контроль формату номера мобільного телефону"/>
+	<use_strict_other_phones TYPE="bool" NOT-NULL="1" DEFAULT="false" TITLE="Контроль формата других телефонных номеров" lang-en:TITLE="Check other phone numbers format" lang-ua:TITLE="Контроль формату інших телефонних номерів"/>
+	
+	<use_national_call_phone_format TYPE="bool" NULL-FALSE="1" TITLE="При звонке через программный телефон использовать формат вызова, принятый внутри страны" lang-en:TITLE="Use country dialing prefix for softphone calls" lang-ua:TITLE="При дзвінку через програмний телефон використовувати формат виклику, прийнятий для країни"/>
+	<outside_line_dialing_prefix TYPE="string" TITLE="Префикс для набора внешнего номера" lang-en:TITLE="Prefix for outside phone numbers" lang-ua:TITLE="Префікс для набору зовнішнього номера"/>
+	<default_country_dialing_code TYPE="string" TITLE="Телефонный код страны" lang-en:TITLE="Country calling code" lang-ua:TITLE="Телефонний код країни"/>
+
+	<use_phone_formatting TYPE="bool" NOT-NULL="1" DEFAULT="true" TITLE="Отображать телефонные номера в форматированном виде" lang-en:TITLE="Use phone number formatting" lang-ua:TITLE="Відображати телефонні номери в форматованому вигляді"/>
+	<phone_formatting>
+		<patterns>
+			<pattern TYPE="string" MULTIPLE="1"/>
+		</patterns>
+	</phone_formatting>
+
+	<max_attachment_size TYPE="integer" TITLE="Максимальный размер вложенного файла" lang-en:TITLE="Maximum attachment size" lang-ua:TITLE="Максимальний розмір вкладеного файлу"/>
+	<prohibited_attachment_suffixes>
+		<prohibited_attachment_suffixes TYPE="string" MULTIPLE="1"/>
+	</prohibited_attachment_suffixes>
+
+	<auto_mailing>
+		<smtp>
+			<INHERIT TYPE="smtp_settings_base"/>
+		</smtp>
+
+		<default_sender>
+			<name TYPE="string"/>
+			<address TYPE="string"/>
+		</default_sender>
+
+		<run_on_server TYPE="bool" NULL-FALSE="1" TITLE="##UiText.titles.send_via_lds_server##"/>
+
+		<test_email TYPE="string"/>
+	</auto_mailing>
+
+	<web>
+		<hostname TYPE="string"/>
+		<outer_url TYPE="string"/>
+	</web>
+
+	<backup>
+		<dest_dir_path TYPE="string" TITLE="Папка для выгрузки резервных копий" lang-en:TITLE="Backup folder" lang-ua:TITLE="Каталог для вивантаження резервних копій"/>
+
+		<use_inc_backup TYPE="bool" NULL-FALSE="1" TITLE="Использовать инкрементальную выгрузку" lang-en:TITLE="Use incremental backup" lang-ua:TITLE="Використовувати інкрементальне вивантаження"/>
+		<min_full_backup_days_range TYPE="integer"/>
+
+		<last_full_backup_date TYPE="date" TITLE="Дата последней полной выгрузки" lang-en:TITLE="Last full backup date" lang-ua:TITLE="Дата останнього повного вивантаження"/>
+		<last_inc_backup_date TYPE="date" TITLE="Дата последней инкрементальной выгрузки" lang-en:TITLE="Last incremental backup date" lang-ua:TITLE="Дата останнього інкрементального вивантаження"/>
+	</backup>
+
+	<voc_params>
+		<voc_param MULTIPLE="1" PRIMARY-KEY="voc_id">
+			<voc_id TYPE="string" FOREIGN-ARRAY="vocs"/>
+			<selector_type TYPE="string"/>
+			<auto_order TYPE="string"/>
+		</voc_param>
+	</voc_params>
+</base1_global_settings>
+
+
+
+
+<base1_local_settings SAMPLE="1">
+	<use_save_and_close TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<deferred_read_flag_delay_seconds TYPE="integer" NOT-NULL="1" DEFAULT="3"/>
+
+	<active_office_app_id TYPE="string" FOREIGN-ARRAY="base1_common.office_apps"/>
+	<use_office_editor_visible_mode TYPE="bool" NOT-NULL="1"/>
+	
+	<mail_signature TYPE="string" MULTILINE="1"/>
+	<mail_method_id TYPE="string" EXPR-INIT="lib_mail.guess_default_mail_method_id()"/>
+
+	<use_local_auto_mailing_settings TYPE="bool" NULL-FALSE="1"/>
+
+	<auto_mailing>
+		<smtp>
+			<INHERIT TYPE="smtp_settings_base"/>
+		</smtp>
+
+		<test_email TYPE="string"/>
+	</auto_mailing>
+
+	<sender>
+		<address TYPE="string"/>
+		<name TYPE="string"/>
+	</sender>
+
+	<show_toolbar_entry_admin TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	<show_toolbar_entry_local TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+	<replica>
+		<server_address TYPE="string"/>
+		<delay TYPE="integer" NOT-NULL="1"/>
+
+		<login TYPE="string"/>
+		<password TYPE="string"/>
+
+		<compress TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+
+		<local_last_mod_date TYPE="date"/>
+		<remote_last_mod_date TYPE="date"/>
+	</replica>
+
+	<import_db_last_data>
+		<src_dir_path TYPE="string"/>
+		<import_static_data TYPE="bool" NOT-NULL="1"/>
+
+		<processed_object_type_id TYPE="string" MULTIPLE="1"/>
+		<last_processed_object_url TYPE="string"/>
+	</import_db_last_data>
+
+	<export_db_config_last_data>
+		<dest_dir_path TYPE="string"/>
+	</export_db_config_last_data>
+
+	<malware>
+		<nod32_warning_done TYPE="bool" NOT-NULL="1"/>
+	</malware>
+
+	<collapsed_card_info_object_types>
+		<collapsed_card_info_object_type MULTIPLE="1" PRIMARY-KEY="object_type_id">
+			<object_type_id TYPE="string"/>
+			<is_collapsed TYPE="bool" NOT-NULL="1"/>
+		</collapsed_card_info_object_type>
+	</collapsed_card_info_object_types>
+
+	<telephony>
+		<display_panel_on_incoming_call TYPE="bool" NOT-NULL="1"/>
+		<make_outgoing_calls_via_softphone TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	</telephony>
+</base1_local_settings>
+
+
+
+<poll_result_base SAMPLE="1">
+	<question_answers>
+		<question_answer MULTIPLE="1" PRIMARY-KEY="question_id">
+			<question_id TYPE="string"/>
+			<answer_id TYPE="integer" MULTIPLE="1"/>
+			<score TYPE="real" PRECISION="2"/>
+			<comment TYPE="string"/>
+		</question_answer>
+	</question_answers>
+
+	<average_score TYPE="real" PRECISION="2"/>
+	<completion_id TYPE="integer" EXPR-INIT="is_completed() ? 1 : completion_id"/>
+
+
+	<get_opt_answer_id PROPERTY="1" PARAM="questionID" EXPR="
+			questionAnswer = question_answers.GetOptChildByKey( questionID );
+			if ( questionAnswer == undefined )
+				return 0;
+
+			instances = questionAnswer.answer_id.Instances;
+			if ( instances.length == 0 )
+				return 0;
+
+			val = instances[0];
+			if ( val == null )
+				return 0;
+
+			return val;
+	"/>
+
+	
+	<get_opt_answer_score PROPERTY="1" PARAM="questionID" EXPR="
+			questionAnswer = question_answers.GetOptChildByKey( questionID );
+			if ( questionAnswer == undefined )
+				return 0;
+
+			//DebugMsg( questionAnswer.Xml );
+			return questionAnswer.score;
+	"/>
+
+
+	<is_completed PROPERTY="1" EXPR="
+			if ( ! spec_id.HasValue )
+				return false;
+
+			spec = spec_id.ForeignElem;
+
+			for ( question in spec.questions )
+			{
+				if ( question.is_separator || question.type == 'undefined' )
+					continue;
+
+				questionAnswer = question_answers.GetOptChildByKey( question.id );
+				if ( questionAnswer == undefined )
+					return false;
+
+				if ( ! questionAnswer.answer_id.HasValue && ! question.is_optional )
+					return false;
+			}
+
+			return true;
+	"/>
+
+
+	<update_stat PROPERTY="1" EXPR="
+			if ( ! spec_id.HasValue )
+				return;
+
+			spec = spec_id.ForeignElem;
+
+			if ( spec.average_score_expr.HasValue )
+			{
+				//DebugMsg( question_answers.Xml );
+				
+				try
+				{
+					average_score = eval( spec.average_score_expr );
+				}
+				catch ( e )
+				{
+				}
+				
+				return;
+			}
+
+			sum = 0;
+			count = 0;
+
+			for ( question in spec.questions )
+			{
+				if ( question.is_separator )
+					continue;
+				
+				count++;
+
+				questionAnswer = question_answers.GetOptChildByKey( question.id );
+				if ( questionAnswer == undefined )
+					continue;
+
+				if ( ! questionAnswer.answer_id.HasValue )
+					continue;
+
+				sum += ArrayFirstElem( questionAnswer.answer_id );
+			}
+
+			if ( count == 0 )
+			{
+				average_score.Clear();
+				return;
+			}
+
+			average_score = Math.round( Real( sum ) / count );
+	"/>
+</poll_result_base>
+
+
+
+<print_format_base>
+	<font_name TYPE="string"/>
+	<font_size TYPE="integer"/>
+
+
+	<build_tag_attr PROPERTY="1" EXPR="
+			str = '';
+
+			if ( font_name.HasValue )
+				str += ' FONT-NAME=&quot;' + font_name + '&quot;';
+	
+			if ( font_size.HasValue )
+				str += ' FONT-SIZE=&quot;' + font_size + '&quot;';
+
+			return str;
+	"/>
+</print_format_base>
+
+
+
+
+</SPXML-FORM>

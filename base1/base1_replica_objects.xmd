@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<replica_objects>
+	<replica_object MULTIPLE="1" PRIMARY-KEY="url">
+		<url TYPE="string"/>
+		<last_mod_date TYPE="date"/>
+
+		<object_type_order_index TYPE="integer"/>
+	</replica_object>
+</replica_objects>
+
+
+</SPXML-FORM>
+

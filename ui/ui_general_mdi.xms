@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+<PANEL NAME="mdi_selector" SAMPLE="1" WIDTH="100%" HEIGHT="100%" BK-COLOR-EXPR="" STD-MARGINS="0">
+	<WITH VAR="screensArray" EXPR="ui_client.GetMdiSelectorScreens()">
+		<IF EXPR="screensArray.length != 0">
+			<LINE HORIZ-SPACING="0.6em" HEIGHT="100%">
+				<LOOP EXPR="screensArray" VAR="screen">
+					<WITH VAR="isCurrent" EXPR="screen === ActiveScreen">
+						<SUBST TYPE="mdi_selector_entry"/>
+					</WITH>
+				</LOOP>
+
+				<PrimaryActionImage IMAGE-URL="//app_ui/theme/pict/drop_double.svg">
+					<MENU>
+						<MENU-ENTRY TITLE="##UiText.titles.main_section##" ACTION="ui_client.BringMain1ScreenToFront()" PASSIVE="1"/>
+						<MENU-ENTRY SEPARATOR="1"/>
+
+						<LOOP EXPR="screensArray" VAR="screen">
+							<MENU-ENTRY TITLE-EXPR="screen.Doc.TopElem.PrimaryDispName + '\t' + ui_client.GetScreenObjectTypeDesc( screen )" CHECKED-EXPR="screen === Item.Screen" ACTION="screen.BringWindowToFront()" PASSIVE="1"/>
+						</LOOP>
+					</MENU>
+				</PrimaryActionImage>
+			</LINE>
+		</IF>
+	</WITH>
+</PANEL>
+
+
+<PANEL NAME="mdi_selector_entry" SAMPLE="1" BORDER="1" WIDTH__="120epx" HEIGHT__="40vpx" STATES="hover,pressed"
+STD-MARGINS="0" PADDING="5vpx 10vpx 5vpx 10vpx" BK-COLOR-EXPR="
+		switch ( Item.State )
+		{
+			case 'hover':
+				return AppUi.gThemeData.colors.mdi_selector_hover;
+
+			case 'pressed':
+				return AppUi.gThemeData.colors.mdi_selector_pressed;
+
+			default:
+				return AppUi.gThemeData.colors.mdi_selector;
+		}
+" BORDER-COLOR-EXPR="
+		switch ( Item.State )
+		{
+			case 'hover':
+				return AppUi.gThemeData.colors.mdi_selector_border_hover;
+
+			case 'pressed':
+				return AppUi.gThemeData.colors.mdi_selector_border_pressed;
+
+			default:
+				return AppUi.gThemeData.colors.mdi_selector_border;
+		}
+" PARAM-sub-title-expr="subtype=code;optional=1;default=''" BORDER-RADIUS="3px" ACTION="
+		screen.BringWindowToFront();
+" PASSIVE="1" FLEX-SHRINK="1">
+	<LABEL TITLE-EXPR="
+			str = screen.Doc.TopElem.PrimaryDispName;
+			if ( str == '' )
+				return ' ';
+			
+			return str;
+	" TEXT-COLOR-EXPR="
+			switch ( GetSampleItem().State )
+			{
+				//case 'hover':
+				//case 'pressed':
+					//return AppUi.gThemeData.colors.blue_text;
+
+				default:
+					if ( isCurrent )
+						return AppUi.gThemeData.colors.blue_text;
+			}
+
+			return '';
+	" FONT-CLASS="small" MULTILINE="0" END-ELLIPSIS="1"/>
+
+	<BR HEIGHT-EXPR="System.IsWebClient ? '2vpx' : '1vpx'"/>
+
+	<LABEL TITLE-EXPR="ui_client.GetScreenObjectTypeDesc( screen )" TEXT-COLOR-EXPR="
+			switch ( GetSampleItem().State )
+			{
+				default:
+					return AppUi.gThemeData.colors.gray_text;
+			}
+
+			return '';
+	" FONT-CLASS="small" MULTILINE="0" END-ELLIPSIS="1"/>
+
+	<IF EXPR="isCurrent">
+		<IMAGE URL="//app_ui/theme/pict/corner_triangle_bottom_right.svg" POSITION="-7epx -7epx" POSITION-BASE="bottom-right"/>
+	</IF>
+	<ELSE>
+		<IMAGE URL="//app_ui/theme/pict/corner_triangle_top_right.svg" POSITION="-7epx 3epx" POSITION-BASE="top-right"/>
+	</ELSE>
+
+	<MENU RIGHT-CLICK="1">
+		<MENU-ENTRY TITLE="##UiText.actions.close##" ACTION="screen.Close();" PASSIVE="1"/>
+	</MENU>
+</PANEL>
+
+
+
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+

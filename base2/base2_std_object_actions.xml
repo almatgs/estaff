@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_object_actions SPXML-FORM="//base1/base1_std_object_actions.xmd">
+	<std_object_action>
+		<id>add_person_to_contact_list</id>
+		<name VALUE="##UiText.actions.add_to_contact_list##..."/>
+		<object_type_id>person</object_type_id>
+
+		<lib_name>lib_person</lib_name>
+		<mass_method_name>handle_add_persons_to_contact_list</mass_method_name>
+		<is_passive>1</is_passive>
+		<show_in_main_menu>1</show_in_main_menu>
+		<show_in_context_menu>1</show_in_context_menu>
+	</std_object_action>
+
+	<std_object_action__>
+		<id>open_event_candidate</id>
+		<name VALUE="Открыть карточку организации" lang-en:VALUE="Open company" lang-ua:VALUE="Відкрити картку організації"/>
+		<object_type_id>event</object_type_id>
+
+		<action>ObtainDocScreen( ObjectDocUrl( 'data', 'org', org_id )</action>
+		<is_passive>1</is_passive>
+
+		<enable_expr>org_id.HasValue</enable_expr>
+		<show_in_context_menu>1</show_in_context_menu>
+	</std_object_action__>
+</std_object_actions>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

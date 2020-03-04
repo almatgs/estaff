@@ -1,0 +1,8 @@
+<%
+	doc = DefaultDb.OpenObjectDoc( Request.Query.object_name, Int( Request.Query.object_id ) );
+
+	attachment = ArrayOptFindByKey( doc.TopElem.attachments, Int( Request.Query.attc_id ), 'id' );
+
+	Response.ContentType = UrlStdContentType( Request.Query.res_id );
+	Response.Write( GetCompoundHtmlAttc( attachment.text, Request.Query.res_id ), false );
+%>

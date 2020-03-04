@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<dlg_candidate_hire_info>
+	<empl_start_date TYPE="date" TIME="0" TITLE="##UiText.fields.empl_start_date##"/>
+	<probation_period TYPE="period" TITLE="##UiText.fields.probation_period##"/>
+</dlg_candidate_hire_info>
+
+
+
+</SPXML-INLINE-FORM>

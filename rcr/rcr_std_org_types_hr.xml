@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_org_types SPXML-FORM="//base2/base2_std_org_types.xmd">
+	<std_org_type>
+		<id>agency</id>
+		<name VALUE="КА" lang-en:VALUE="Agency" lang-ua:VALUE="КА"/>
+		<is_recruiting_agency>1</is_recruiting_agency>
+	</std_org_type>
+
+	<std_org_type>
+		<id>mass_media</id>
+		<name VALUE="##UiText.titles.mass_media##"/>
+	</std_org_type>
+
+	<std_org_type>
+		<id>src_competitor</id>
+		<name VALUE="Компания-донор" lang-en:VALUE="Competitor" lang-ua:VALUE="Компанія-донор"/>
+		<is_competitor>1</is_competitor>
+	</std_org_type>
+</std_org_types>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

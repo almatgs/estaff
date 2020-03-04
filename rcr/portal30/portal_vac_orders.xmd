@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<vac_orders>
+	<vac_order MULTIPLE="1">
+		<eid TYPE="string"/>
+		<code TYPE="string"/>
+		<name TYPE="string"/>
+
+		<position_eid TYPE="string"/>
+		<date TYPE="date"/>
+
+		<subdivision_eid TYPE="string"/>
+		<person_eid TYPE="string"/>
+
+		<req_end_date TYPE="date"/>
+		<priority_id TYPE="integer"/>
+
+		<profession_id TYPE="integer"/>
+		<min_salary TYPE="integer"/>
+		<max_salary TYPE="integer"/>
+
+		<comment TYPE="string"/>
+
+		<publish_on_portal TYPE="bool" NOT-NULL="1" DEFAULT="true"/>
+	</vac_order>
+</vac_orders>
+
+
+</SPXML-FORM>
+
+
+

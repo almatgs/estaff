@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+<COMPLEX-ITEM NAME="CHECK-BOX" SAMPLE="1" VIEW="CheckBoxView" OWN-TITLE="1">
+	<ATTRIBUTE NAME="INVERTED" TYPE="bool"/>
+</COMPLEX-ITEM>
+
+
+<COMPLEX-ITEM NAME="CHECK" SAMPLE="1" VIEW="CheckBoxView" OWN-TITLE="1">
+	<ATTRIBUTE NAME="INVERTED" TYPE="bool"/>
+</COMPLEX-ITEM>
+
+	
+<PANEL NAME="CheckBoxView" INNER-ALIAS="checkBoxView" SAMPLE="1" STD-MARGINS="0" STATES="hover,pressed,disabled" OnCreate="BaseSampleItem.AuxData.isChecked = false" ACTION="
+		BaseSampleItem.AuxData.isChecked = ! BaseSampleItem.AuxData.isChecked;
+		
+		if ( checkBoxView.MasterItem.GetOptAttrValue( 'INVERTED' ) == true )
+			MasterItem.SetSourceValue( ! BaseSampleItem.AuxData.isChecked );
+		else
+			MasterItem.SetSourceValue( BaseSampleItem.AuxData.isChecked );
+		
+		if ( MasterItem.IsPassive )
+			BaseSampleItem.Update();
+		else
+			Screen.Update();
+" PASSIVE="1">
+	<WITH VAR="dummy" EXPR="
+			newIsChecked = checkBoxView.MasterItem.Source;
+			if ( checkBoxView.MasterItem.GetOptAttrValue( 'INVERTED' ) == true )
+				newIsChecked = ! newIsChecked;
+
+			checkBoxView.AuxData.isChecked = newIsChecked;
+
+	"/>
+
+	<LINE>
+		<IMAGE URL-EXPR="
+				if ( BaseSampleItem.AuxData.isChecked )
+					return '/theme/pict/check.svg';
+				else
+					return '/theme/pict/uncheck.svg';
+		" EFFECTS-EXPR="
+				switch ( BaseSampleItem.State )
+				{
+					case 'hover':
+						return {primary_color:AppUi.gThemeData.colors.primary};
+
+					case 'pressed':
+						return {primary_color:AppUi.gThemeData.colors.dark};
+
+					case 'disabled':
+						return {primary_color:AppUi.gThemeData.colors.edit_border_disabled};
+
+					default:
+						if ( BaseSampleItem.AuxData.isChecked )
+							return {primary_color:AppUi.gThemeData.colors.primary};
+						else
+							return undefined;
+				}
+		"/>
+
+		<PANEL WIDTH="0.5em">
+		</PANEL>
+
+
+		<LABEL TITLE-EXPR="BaseSampleItem.MasterItem.Title" TEXT-COLOR-EXPR="
+				switch ( BaseSampleItem.State )
+				{
+					case 'normal':
+						return AppUi.gThemeData.colors.text;
+
+					case 'hover':
+						return AppUi.gThemeData.colors.primary;
+
+					case 'pressed':
+						return AppUi.gThemeData.colors.dark;
+				}
+		" MULTILINE="0"/>
+	</LINE>
+</PANEL>
+
+
+
+</SPXML-SCREEN>
+
+
+
+
+
+
+

@@ -1,0 +1,67 @@
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Вакансии + кандидаты" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/list.ico">
+	<PANEL SUNKEN="1" STD-MARGINS="1" BK-COLOR-EXPR="SysColors.PanelLightBackground">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="38zr"/>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="19zr"/>
+				<COL WIDTH="30zr"/>
+				<COL WIDTH="25zr"/>
+				<COL WIDTH="21zr"/>
+			</COLUMNS>
+			<ITEM TYPE="ft_filter" SOURCE="Ps.filter"/>
+			<PANEL/>
+			<PANEL>
+				<LABEL TITLE="Текущий статус:"/>
+				<ITEM TYPE="voc_elem_selector" usage="filter" SOURCE="Ps.filter.state_id"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Специальность:"/>
+				<ITEM TYPE="voc_elem_selector" usage="filter" SOURCE="Ps.filter.profession_id"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="По моим подразделениям:"/>
+				<ITEM TYPE="tri_state_selector" usage="filter" SOURCE="Ps.filter.is_of_my_divisions" UPDATE-ACTION="lib_view.store_filter_elem( 'vacancies_active_with_candidates', Source );"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Рекрутер:"/>
+				<ITEM TYPE="object_selector" view-filter-expr="with ( Ps ) { return filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}; }" usage="filter" SOURCE="Ps.filter.user_id" UPDATE-ACTION="lib_view.store_filter_elem( 'vacancies_active_with_candidates', Source );"/>
+			</PANEL>
+		</TABLE>
+		<PANEL HEIGHT="2px"/>
+		<TABLE>
+			<COLUMNS/>
+		</TABLE>
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="Очистить форму" ACTION="lib_view.clear_filters( 'vacancies_active_with_candidates', Ps ); lib_view.clear_stored_filters( 'vacancies_active_with_candidates' ); lib_view.adjust_filters( 'vacancies_active_with_candidates', Ps );Screen.Update()" PASSIVE="1"/>
+		</MENU>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+	<PANEL BK-COLOR-EXPR="" HEIGHT="25%">
+		<LIST NAME="MainList" USE-KEY-SEL="1" MOVE-SEL-ON-DELETE="1" SUNKEN="1" LOOP-CATALOG="vacancies" FT-FILTER="Ps.filter" XQUERY-QUAL-EXPR="lib_view.build_xquery_qual( 'vacancies_active_with_candidates', Ps )" XQUERY-FIELDS-EXPR="['id','is_tentative','is_active','image_url','name','division_id','req_quantity','active_req_quantity','start_date','cur_work_days_num','state_id','state_date','final_candidate_id','user_id']" AFTER-BUILD-ASYNC-ACTION="if ( StrContains( Screen.FrameName, 'Sub' ) ) return; size = ArrayOptSize( MainArray ); if ( size == undefined ) { StatusMsg( '' ); return; }; StatusMsg( UiText.titles.items_in_list + ': ' + StrInt( size, 0, true ) + ( lib_view.is_some_filter_applied( 'vacancies_active_with_candidates', Ps ) ? '  (с учетом фильтра)' : '' ) )">
+			<ROW IMAGE-URL-EXPR="ListElem.ImageUrl" SET-SEL-ACTION="Screen.FindItem( 'FrameSubView' ).InnerScreen.Doc.TopElem.SetCurVacancy( ListElem );">
+				<COL COL-TITLE="Наименование" WIDTH="60%" TITLE-EXPR="ListElem.name" ORDER="name"/>
+				<COL COL-TITLE="Структурное подразделение" WIDTH="40%" TITLE-EXPR="ListElem.division_id.ForeignDispName" ORDER="division_id.ForeignDispName" ALIGN="left"/>
+				<COL COL-TITLE="Кол-во позиций" WIDTH="4zr" TITLE-EXPR="StrIntZero( ListElem.req_quantity )" ORDER="req_quantity" ALIGN="center"/>
+				<COL COL-TITLE="Кол-во открытых позиций" WIDTH="4zr" TITLE-EXPR="StrIntZero( ListElem.active_req_quantity )" ORDER="active_req_quantity" ALIGN="center"/>
+				<COL COL-TITLE="Открыта" WIDTH="12zr" TITLE-EXPR="StrDate( ListElem.start_date, false )" ORDER="start_date" ORDER-DIR="-" ALIGN="center"/>
+				<COL COL-TITLE="Дней в работе" WIDTH="5zr" TITLE-EXPR="StrIntZero( ListElem.cur_work_days_num )" ORDER="cur_work_days_num" ALIGN="center" BK-COLOR-EXPR="with ( Ps ) { with ( ListElem ) {  return cur_work_wdays_num_bk_color; }}"/>
+				<COL COL-TITLE="Текущий статус" WIDTH="17zr" TITLE-EXPR="ListElem.state_id.ForeignDispName" ORDER="state_id.ForeignDispName" ALIGN="center" TEXT-COLOR-EXPR="ListElem.state_id.ForeignElem.text_color" BK-COLOR-EXPR="ListElem.state_id.ForeignElem.bk_color"/>
+				<COL COL-TITLE="Дата" WIDTH="12zr" TITLE-EXPR="StrDate( ListElem.state_date, false )" ORDER="state_date" ORDER-DIR="-" ALIGN="center"/>
+				<COL COL-TITLE="Финальный кандидат" WIDTH="21zr" TITLE-EXPR="ListElem.final_candidate_id.ForeignDispName" ORDER="final_candidate_id.ForeignDispName" ALIGN="left"/>
+				<COL COL-TITLE="Рекрутер" WIDTH="15zr" TITLE-EXPR="ListElem.user_id.ForeignDispName" ORDER="user_id.ForeignDispName" ALIGN="center"/>
+			</ROW>
+			<MENU RIGHT-CLICK="1">
+				<MENU-ENTRY TITLE="Открыть" CMD="OpenSel"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Удалить" CMD="Clear"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name" ACTION="lib_view.ShowScreenInExcel( Screen, List )" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+			</MENU>
+		</LIST>
+	</PANEL>
+	<SPLIT/>
+	<FRAME NAME="FrameSubView" HREF="//rcr/rcr_view_candidates_of_vacancy.xml"/>
+	<INHERIT TYPE="view_commands"/>
+	<INHERIT TYPE="view_commands_2"/>
+</SPXML-SCREEN>

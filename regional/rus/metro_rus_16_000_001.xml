@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<metro_map xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<location_name>Казань</location_name>
+	<lines/>
+	<stations>
+		<station>
+			<id>306</id>
+			<name VALUE="Аметьево" lang-en:VALUE="Ametevo"/>
+		</station>
+		<station>
+			<id>307</id>
+			<name VALUE="Горки" lang-en:VALUE="Gorki"/>
+		</station>
+		<station>
+			<id>308</id>
+			<name VALUE="Кремлёвская" lang-en:VALUE="Kremljovskaya"/>
+		</station>
+		<station>
+			<id>309</id>
+			<name VALUE="Площадь Габдуллы Тукая" lang-en:VALUE="Ploschad Gabdully Tukaya"/>
+		</station>
+		<station>
+			<id>310</id>
+			<name VALUE="Суконная слобода" lang-en:VALUE="Sukonnaya sloboda"/>
+		</station>
+	</stations>
+</metro_map>

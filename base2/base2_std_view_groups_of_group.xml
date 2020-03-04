@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>groups_of_group</id>
+	<name VALUE="##UiText.titles.inner_groups##"/>
+	<parent_id>groups</parent_id>
+
+	<drop_all_dyn_filters>1</drop_all_dyn_filters>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>parent_id</id>
+			<is_auto>1</is_auto>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>name</id>
+		</field>
+	</fields>
+</std_view>

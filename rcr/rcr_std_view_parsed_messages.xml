@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>parsed_messages</id>
+	<name VALUE="Загруженные письма" lang-en:VALUE="Imported messages" lang-ua:VALUE="Завантажені листи"/>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>user_id</id>
+			<view_filter_expr>{is_active:true}</view_filter_expr>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>sender.address</id>
+			<width>50zr</width>
+		</field>
+		<field>
+			<id>has_dup_candidates</id>
+		</field>
+		<field>
+			<id>subject</id>
+		</field>
+		<field>
+			<id>date</id>
+			<use_time>1</use_time>
+			<is_default_sort>1</is_default_sort>
+		</field>
+		<field>
+			<id>raw_storage_id</id>
+		</field>
+	</fields>
+
+	<open_action>return;</open_action>
+
+	<use_preview_expr>true</use_preview_expr>
+	<deferred_set_sel_action>ListElem.set_read_state( true, Screen )</deferred_set_sel_action>
+
+	<context_menu_sample>
+		<form_url>//rcr/rcr_fields_view_parsed_messages.xms</form_url>
+		<name>context_menu_entries</name>
+	</context_menu_sample>
+	
+	<drop_all_context_actions>1</drop_all_context_actions>
+
+
+	<action>
+		<title VALUE="Добавить источник" lang-en:VALUE="Add source" lang-ua:VALUE="Додати джерело"/>
+		<image_url>//base_pict/generic_item.ico</image_url>
+		<code>
+				subDoc = DefaultDb.OpenNewObjectDoc( 'raw_storage', lib_voc.obtain_next_voc_elem_id( raw_storages ) );
+				CreateDocScreen( subDoc );
+		</code>
+		<exist_req_expr>! UseLds</exist_req_expr>
+	</action>
+</std_view>
+

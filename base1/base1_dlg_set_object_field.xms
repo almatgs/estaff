@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Выбор значения поля" WIDTH="90zr" HEIGHT="34zr" lang-en:TITLE="Select field value" lang-ua:TITLE="Вибір значення поля">
+
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="30zr"/>
+	</COLUMNS>
+
+	<EDIT SOURCE="Ps.object_type_id.ForeignDispName" READ-ONLY="1" LABEL-TITLE="##UiText.fields.object_type##:"/>
+</TABLE>
+<BR/>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="60%"/>
+		<COL WIDTH="40%"/>
+	</COLUMNS>
+
+	<ITEM TYPE="elem_selector" SOURCE="Ps.field_id" LABEL-TITLE="##UiText.fields.field##:"/>
+
+	<IF EXPR="Ps.field_id.HasValue">
+		<IF EXPR="Ps.field_form_elem.ForeignArrayExpr != ''">
+			<IF EXPR="lib_voc.get_opt_voc_info( Ps.field_form_elem.ForeignArrayExpr ) != undefined">
+				<ITEM TYPE="voc_elem_selector" SOURCE="Ps.field_value" LABEL-TITLE="##UiText.fields.value##:"/>
+			</IF>
+			<ELSE>
+				<IF EXPR="DefaultDb.GetOptCatalog( Ps.field_form_elem.ForeignArrayExpr ) != undefined">
+					<ITEM TYPE="object_selector" SOURCE="Ps.field_value" LABEL-TITLE="##UiText.fields.value##:"/>
+				</IF>
+				<ELSE>
+					<ITEM TYPE="elem_selector" SOURCE="Ps.field_value" LABEL-TITLE="##UiText.fields.value##:"/>
+				</ELSE>
+			</ELSE>
+		</IF>
+		<ELSE>
+			<IF EXPR="Ps.field_form_elem.Type == 'string'">
+				<EDIT SOURCE="Ps.field_value" LABEL-TITLE="##UiText.fields.value##:"/>
+			</IF>
+			<IF EXPR="Ps.field_form_elem.Type == 'integer' || Ps.field_form_elem.Type == 'real'">
+				<EDIT SOURCE="Ps.field_value" LABEL-TITLE="##UiText.fields.value##:" WIDTH="12zr"/>
+			</IF>
+			<IF EXPR="Ps.field_form_elem.Type == 'bool'">
+				<PANEL>
+					<PANEL HEIGHT="3zr">
+					</PANEL>
+
+					<CHECK SOURCE="Ps.field_value" TITLE="##UiText.titles.yes##"/>
+				</PANEL>
+			</IF>
+			<IF EXPR="Ps.field_form_elem.Type == 'date'">
+				<ITEM TYPE="date_selector" SOURCE="Ps.field_value" LABEL-TITLE="##UiText.fields.value##:"/>
+			</IF>
+		</ELSE>
+	</IF>
+</TABLE>
+
+
+<PANEL HEIGHT="5zr">
+
+<IF EXPR="Ps.field_form_elem.IsMultiple">
+	<CHECK SOURCE="Ps.append" TITLE="Добавлять к существующим значениям" lang-en:TITLE="Append to existing value" lang-ua:TITLE="Додавати до існуючих значень"/>
+</IF>
+
+</PANEL>
+
+
+<ITEM TYPE="dlg_footer_start"/>
+
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<BUTTON TITLE="OK" CMD="1"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2" lang-en:TITLE="Cancel"/>
+</TABLE>
+
+</SPXML-SCREEN>

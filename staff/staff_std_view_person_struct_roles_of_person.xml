@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>person_struct_roles_of_person</id>
+	<name VALUE="Роли в орг. структуре по сотруднику" lang-en:VALUE="Employee roles for a person" lang-ua:VALUE="Ролі в орг. структурі по співробітнику"/>
+	<parent_id>person_struct_roles</parent_id>
+
+	<is_card_page>1</is_card_page>
+	<card_object_type_id>person</card_object_type_id>
+	<card_page_title VALUE="##UiText.titles.struct_roles##"/>
+
+	<drop_all_dyn_filters>1</drop_all_dyn_filters>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>person_id</id>
+			<is_auto>1</is_auto>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>type_id</id>
+			<width>40zr</width>
+			<align>center</align>
+		</field>
+		<field>
+			<id>division_id</id>
+			<width>100%</width>
+		</field>
+		<field>
+			<id>priority_id</id>
+			<width>12zr</width>
+			<align>center</align>
+		</field>
+	</fields>
+</std_view>

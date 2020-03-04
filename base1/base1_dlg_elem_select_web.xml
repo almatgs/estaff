@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM>
+
+
+<dlg_elem_select>
+	<array_ref TYPE="variant"/>
+	<array PROPERTY="1" EXPR="array_ref.Object"/>
+
+	<catalog_ref TYPE="variant"/>
+	<catalog PROPERTY="1" EXPR="catalog_ref.Object"/>
+
+	<filter_obj_ref TYPE="variant"/>
+	<filter_obj PROPERTY="1" EXPR="filter_obj_ref.Object"/>
+
+	<multi_select TYPE="bool" NOT-NULL="1"/>
+	<dest_item_ref TYPE="variant"/>
+
+	<sel_array_ref TYPE="variant"/>
+	<sel_array PROPERTY="1" EXPR="sel_array_ref.Object"/>
+
+	<ok_action_code TYPE="string" SUBTYPE="code"/>
+
+	<filter>
+		<used_fulltext TYPE="string"/>
+	</filter>
+
+
+	<finish PROPERTY="1" EXPR="
+			list = Screen.FindItem( 'MainList' );
+
+			sel_array_ref = new Array;
+
+			for ( row in list.SelRows )
+			{
+				sel_array.push( row.Env.ListElem );
+				NewValue = row.Env.ListElem;
+				if ( ! multi_select )
+					break;
+			}
+
+			if ( ArrayCount( sel_array ) != 0 )
+			{
+				okActionCode = ok_action_code;
+				with ( dest_item_ref.Object )
+				{
+					eval( okActionCode );
+				}
+
+				dest_item_ref.Object.Screen.Update();
+			}
+
+			Screen.Close();
+	"/>
+</dlg_elem_select>
+
+
+</SPXML-INLINE-FORM>

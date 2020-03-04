@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" WIDTH="85zr" HEIGHT="60zr" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+<PANEL SUNKEN="1" HEIGHT="100%">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<GROUP>
+		<ITEM TYPE="time_zone_edit" SOURCE="Ps.time_zone" AUTO-LABEL="1"/>
+	</GROUP>
+	<DELIM/>
+</PANEL>
+
+</SPXML-SCREEN>
+

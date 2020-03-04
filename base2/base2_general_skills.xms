@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<PAGE NAME="person_skills_page" SAMPLE="1" TITLE-EXPR="UiText.fields.skills + ( Ps.skills.ChildNum != 0 ? ' (+)' : '' )" IMAGE-URL="//base_pict/skill.ico" HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+
+<IF EXPR="Ps.skills.ChildNum != 0">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="45zr"/>
+			<COL WIDTH="28zr"/>
+			<COL WIDTH="5zr"/>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="12zr"/>
+			<COL WIDTH="16px"/>
+		</COLUMNS>
+
+		<LABEL TITLE="Навык:" lang-en:TITLE="Skill:" lang-ua:TITLE="Навик:"/>
+		<LABEL TITLE="##UiText.fields.level##:"/>
+		<LABEL/>
+		<LABEL TITLE="Примечание:" lang-en:TITLE="Comment:" lang-ua:TITLE="Примітка:"/>
+		<LABEL TITLE="##UiText.fields.date##:" lang-en:TITLE="Date:"/>
+		<LABEL/>
+	</TABLE>
+</IF>
+
+
+<LOOP EXPR="ArraySort( Ps.skills, 'type_id.ForeignElem.order_index', '+' )" VAR="ListElem" VAR-PREV="_skill_prev">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="45zr"/>
+			<COL WIDTH="28zr"/>
+			<COL WIDTH="5zr"/>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="12zr"/>
+			<COL WIDTH="22px"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="ListElem.type_id.ForeignDispName" READ-ONLY="1"/>
+
+		<IF EXPR="ListElem.type_id.ForeignElem.use_levels">
+			<COMBO SOURCE="ListElem.level_id" ELEM="ListElem.name"/>
+		</IF>
+		<ELSE>
+			<LABEL/>
+		</ELSE>
+
+		<LABEL/>
+		<EDIT SOURCE="ListElem.comment"/>
+		<EDIT SOURCE="ListElem.date"/>
+
+		<IMAGE URL="//base_pict/more_actions.ico">
+			<MENU>
+				<MENU-ENTRY TITLE="##UiText.actions.del##" ACTION="
+						ListElem.Delete();
+						Ps.Doc.SetChanged( true );
+				"/>
+			</MENU>
+		</IMAGE>
+	</TABLE>
+</LOOP>
+
+<IF EXPR="Ps.skills.ChildNum != 0">
+	<DELIM/>
+</IF>
+
+
+
+</PAGE>
+
+
+
+
+</SPXML-SCREEN>

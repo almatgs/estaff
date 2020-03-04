@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<lib_storage_load>
+	<METHOD NAME="process_raw_mailbox_storage" PROGRESS="1" RUN-UI="1" RUN-ASYNC="1" SHOW-COMPLETION-MESSAGE="1">
+		<PARAM NAME="storageID" TYPE="integer"/>
+
+		<STATISTICS>
+			<total_count TYPE="integer" TITLE="##UiText.titles.messages_checked##"/>
+			<new_count TYPE="integer" TITLE="##UiText.titles.of_them_resumes_loaded##"/>
+		</STATISTICS>
+	</METHOD>
+
+	<METHOD NAME="process_raw_folder_storage" PROGRESS="1" RUN-UI="1" RUN-ASYNC="1" SHOW-COMPLETION-MESSAGE="1">
+		<PARAM NAME="storageID" TYPE="integer"/>
+
+		<STATISTICS>
+			<total_count TYPE="integer" TITLE="##UiText.titles.files_checked##"/>
+			<new_count TYPE="integer" TITLE="##UiText.titles.of_them_resumes_loaded##"/>
+		</STATISTICS>
+	</METHOD>
+</lib_storage_load>
+
+
+</SPXML-INLINE-FORM>

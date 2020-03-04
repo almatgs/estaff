@@ -1,0 +1,59 @@
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Календарные события по типу" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/list.ico">
+	<PANEL SUNKEN="1" STD-MARGINS="1" BK-COLOR-EXPR="SysColors.PanelLightBackground">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="38zr"/>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="28zr"/>
+				<COL WIDTH="21zr"/>
+			</COLUMNS>
+			<ITEM TYPE="ft_filter" SOURCE="Ps.filter"/>
+			<PANEL/>
+			<PANEL>
+				<LABEL TITLE="Дата:"/>
+				<TABLE SPACING="short">
+					<COLUMNS>
+						<COL WIDTH="50%"/>
+						<COL WIDTH="50%"/>
+					</COLUMNS>
+					<ITEM TYPE="date_selector" SOURCE="Ps.filter.min_date"/>
+					<ITEM TYPE="date_selector" SOURCE="Ps.filter.max_date"/>
+				</TABLE>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Пользователь:"/>
+				<ITEM TYPE="object_selector" view-filter-expr="with ( Ps ) { return filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}; }" usage="filter" SOURCE="Ps.filter.user_id" UPDATE-ACTION="lib_view.store_filter_elem( 'calendar_entries_with_type', Source );"/>
+			</PANEL>
+		</TABLE>
+		<PANEL HEIGHT="2px"/>
+		<TABLE>
+			<COLUMNS/>
+		</TABLE>
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="Очистить форму" ACTION="lib_view.clear_filters( 'calendar_entries_with_type', Ps ); lib_view.clear_stored_filters( 'calendar_entries_with_type' ); lib_view.adjust_filters( 'calendar_entries_with_type', Ps );Screen.Update()" PASSIVE="1"/>
+		</MENU>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+	<PANEL BK-COLOR-EXPR="" HEIGHT="100%">
+		<LIST NAME="MainList" USE-KEY-SEL="1" SUNKEN="1" LOOP-CATALOG="calendar_entries" FT-FILTER="Ps.filter" XQUERY-QUAL-EXPR="lib_view.build_xquery_qual( 'calendar_entries_with_type', Ps )" XQUERY-FIELDS-EXPR="['id','is_derived','is_calendar_entry','image_url','is_rr_poll','is_testing','date','type_id','contacts_desc','vacancy_id','comment','user_id']" AFTER-BUILD-ASYNC-ACTION="if ( StrContains( Screen.FrameName, 'Sub' ) ) return; size = ArrayOptSize( MainArray ); if ( size == undefined ) { StatusMsg( '' ); return; }; StatusMsg( UiText.titles.items_in_list + ': ' + StrInt( size, 0, true ) + ( lib_view.is_some_filter_applied( 'calendar_entries_with_type', Ps ) ? '  (с учетом фильтра)' : '' ) )">
+			<ROW IMAGE-URL-EXPR="ListElem.ImageUrl" OPEN-ACTION="screen = lib_event.open_event_ext( ListElem );&#10;&#09;&#09;&#09;&#10;&#09;&#09;&#09;if ( Ps.ChildExists( 'filter' ) &amp;&amp; Ps.filter.used_fulltext.HasValue )&#10;&#09;&#09;&#09;&#09;screen.SetInitSearch( Ps.filter.used_fulltext );" DELETE-ACTION="lib_event.delete_event( ListElem );">
+				<COL COL-TITLE="Дата" WIDTH="14zr" TITLE-EXPR="StrDate( ListElem.date, false )" ORDER="date" ORDER-DIR="-"/>
+				<COL COL-TITLE="Время" WIDTH="8zr" TITLE-EXPR="StrTime( ListElem.date, false )" ORDER="date" ALIGN="center"/>
+				<COL COL-TITLE="Тип события" WIDTH="27zr" TITLE-EXPR="ListElem.type_id.ForeignDispName" ORDER="type_id.ForeignElem.order_index" ORDER1="occurrence_id" ALIGN="left" TEXT-COLOR-EXPR="with ( Ps ) { with ( ListElem ) {  return state_text_color; }}" BK-COLOR-EXPR="with ( Ps ) { with ( ListElem ) {  return dyn_state_bk_color; }}"/>
+				<COL COL-TITLE="Контактные лица" WIDTH="35zr" TITLE-EXPR="ListElem.contacts_desc" ORDER="contacts_desc"/>
+				<COL COL-TITLE="Вакансия" WIDTH="70%" TITLE-EXPR="ListElem.vacancy_id.ForeignDispName" ORDER="vacancy_id.ForeignDispName" ALIGN="left"/>
+				<COL COL-TITLE="Комментарий" WIDTH="30%" TITLE-EXPR="ListElem.comment" ORDER="comment"/>
+				<COL COL-TITLE="Пользователь" WIDTH="15zr" TITLE-EXPR="ListElem.user_id.ForeignDispName" ORDER="user_id.ForeignDispName" ALIGN="center"/>
+			</ROW>
+			<MENU RIGHT-CLICK="1">
+				<MENU-ENTRY TITLE="Открыть" CMD="OpenSel"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Удалить" CMD="Clear"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name" ACTION="lib_view.ShowScreenInExcel( Screen, List )" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+			</MENU>
+		</LIST>
+	</PANEL>
+	<INHERIT TYPE="view_commands"/>
+	<INHERIT TYPE="view_commands_2"/>
+</SPXML-SCREEN>

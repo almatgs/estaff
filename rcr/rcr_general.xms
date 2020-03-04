@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN>
+
+
+<UNIT NAME="vacancy_position_type_selector_base" SAMPLE="1">
+	<ITEM  TYPE="voc_elem_selector" SOURCE="Ps.position_type_id" AUTO-LABEL="1" LABEL-TITLE__="##UiText.fields.position##:" UPDATE-ACTION="
+			positionType = Ps.position_type_id.ForeignElem;
+		
+			if ( Ps.recruit_type_id.ForeignElem.select_name_from_position_types || AppModuleUsed( 'module_mdmbank' ) )
+				Ps.name = positionType.name;
+
+			if ( AppModuleUsed( 'module_mdmbank' ) )
+			{
+				if ( positionType.max_work_term.length.HasValue )
+				{
+					Ps.orig_max_term_to_vacancy_close.AssignElem( positionType.max_work_term );
+					if ( positionType.max_job_offer_term.length.HasValue )
+						Ps.orig_max_term_to_job_offer.AssignElem( positionType.max_job_offer_term );
+
+					lib_vacancy.UpdateVacancyTermDatesByOrigMaxTerms( Ps, false );
+				}
+			}
+	" view-filter-expr="
+			viewFilter = new Object;
+			
+			if ( AppModuleUsed( 'module_mdmbank' ) )
+			{
+				viewFilter.cs_elem_10 = Ps.cs_elem_10;
+			}
+			else
+			{
+				if ( Ps.recruit_type_id.HasValue )
+					viewFilter.target_recruit_type_id = Ps.recruit_type_id;
+			}
+
+			return viewFilter;
+	" READ-ONLY-EXPR__="! lib_user.active_user_access.allow_all"/>
+</UNIT>
+
+
+
+<TABLE NAME="amount_edit" SAMPLE="1" PARAM-class="optional=1;default=''" SPACING="short">
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+
+		<IF EXPR="global_settings.use_multi_currencies.Child( GetSampleParam( 'class' ) )">
+			<COL WIDTH="10zr"/>
+		</IF>
+	</COLUMNS>
+
+	<EDIT SOURCE="Ps" BK-COLOR-EXPR="lib_base.amount_bk_color( GetSampleParam( 'class' ), Ps.Parent.Child( Ps.Name + '_currency_id' ) )"/>
+
+	<IF EXPR="global_settings.use_multi_currencies.Child( GetSampleParam( 'class' ) )">
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.Parent.Child( Ps.Name + '_currency_id' )"/>
+	</IF>
+</TABLE>
+
+
+
+
+<UNIT NAME="vacancy_planned_dates" SAMPLE="1" PARAM-section="optional=1;default=''">
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="22zr" WIDTH-EXPR="
+					array = [];
+					for ( vacancyTerm in rcr_common.active_vacancy_term_types )
+						array.push( Ps.Child( vacancyTerm.req_date_field_name ).Title + ':' );
+					if ( array.length == 0 )
+						return '22zr';
+					return ArrayOptMax( ArrayExtract( array, 'CalcTextScreenWidth( This )' ) ) + 'px';
+			"/>
+			<COL WIDTH="16zr"/>
+			<COL WIDTH="23zr"/>
+
+			<COL WIDTH="22zr" WIDTH-EXPR="
+					array = [];
+					for ( vacancyTerm in rcr_common.active_vacancy_term_types )
+						array.push( Ps.Child( vacancyTerm.date_field_name ).Title + ':' );
+					if ( array.length == 0 )
+						return '22zr';
+					return ArrayOptMax( ArrayExtract( array, 'CalcTextScreenWidth( This )' ) ) + 'px';
+			"/>
+			<COL WIDTH="14zr"/>
+			<COL WIDTH="5zr"/>
+		</COLUMNS>
+
+		<LOOP EXPR="rcr_common.active_vacancy_term_types" VAR="vacancyTerm">
+			<IF EXPR="GetSampleParam( 'section' ) == '' || fields_usage.use_object_field( 'vacancy', vacancyTerm.req_date_field_name, GetSampleParam( 'section' ) )">
+				<LABEL TITLE-EXPR="Ps.Child( vacancyTerm.req_date_field_name ).Title + ':'" ALIGN="right"/>
+				<ITEM TYPE="date_selector" SOURCE="Ps.Child( vacancyTerm.req_date_field_name )" READ-ONLY-EXPR="lib_user.active_user_access.prohibit_change_vacancy_max_work_term"/>
+			
+				<IF EXPR="Ps.Child( vacancyTerm.date_field_name ).HasValue">
+					<LABEL/>
+				</IF>
+				<ELSE>
+					<IF EXPR="global_settings.use_vacancy_work_wdays">
+						<ITEM TYPE="deadline_from_cur_date_offset_label" SOURCE="Ps.Child( vacancyTerm.req_date_field_name )" format="wd"/>
+					</IF>
+					<ELSE>
+						<ITEM TYPE="deadline_from_cur_date_offset_label" SOURCE="Ps.Child( vacancyTerm.req_date_field_name )"/>
+					</ELSE>
+				</ELSE>
+
+				<LABEL TITLE-EXPR="Ps.Child( vacancyTerm.date_field_name ).Title + ':'" ALIGN="right"/>
+				<ITEM TYPE="date_selector" SOURCE="Ps.Child( vacancyTerm.date_field_name )" UPDATE-ACTION="
+						if ( vacancyTerm.date_field_name == 'close_date' )
+						{
+							if ( Ps.state_id.ForeignElem.close_object )
+								Ps.state_date = Ps.close_date;
+						}
+
+						lib_vacancy.UpdateVacancyWorkDaysNum( Ps );
+				"/>
+		
+				<ITEM TYPE="planned_actual_deviation_label" SOURCE="Ps.Child( vacancyTerm.req_date_field_name )" actual-date="Ps.Child( vacancyTerm.date_field_name )" ALIGN="right"/>
+			</IF>
+		</LOOP>
+	</TABLE>
+</UNIT>
+
+</SPXML-SCREEN>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM BASE-OBJECT="event" TITLE="##UiText.objects.testing##" CODE-LIB="1" IMAGE-URL="//base_pict/testing.ico" IMAGE-URL-EXPR="image_url()">
+
+
+<testing PRIMARY-DISP-NAME="date">
+	<person_eid TYPE="string" INDEXED="1" TITLE="Идентификатор человека в системе тестирования" lang-en:TITLE="ID of candidate in testing system" lang-ua:TITLE="Ідентифікатор людини у системі тестування" FT-IGNORE="1"/>
+
+	<assigned_tests>
+		<assigned_test MULTIPLE="1" PRIMARY-KEY="external_test_id">
+			<external_test_id TYPE="string" FOREIGN-ARRAY="external_tests" TITLE="##UiText.objects.test##"/>
+
+			<eid TYPE="string" FT-IGNORE="1"/>
+			<uid TYPE="string" FT-IGNORE="1"/>
+			<activation_code TYPE="string"/>
+			<url TYPE="string" FT-IGNORE="1"/>
+
+			<start_date TYPE="date" TITLE="##UiText.fields.start_date##"/>
+			<completion_id TYPE="integer" FOREIGN-ARRAY="staff_common.testing_completions" TITLE="##UiText.fields.state##"/>
+			<end_date TYPE="date" TITLE="##UiText.fields.end_date##"/>
+
+			<score TYPE="integer"/>
+			<max_score TYPE="integer" TITLE="##UiText.titles.max_score__s##" EXPR-INIT="external_test_id.ForeignElem.max_score"/>
+			<result_url TYPE="string" FT-IGNORE="1"/>
+
+			<is_passed TYPE="bool" TITLE="Пройден" lang-en:TITLE="Passed" lang-ua:TITLE="Пройдено"/>
+			<possible_cheating_flag TYPE="bool" NULL-FALSE="1"/>
+
+			<score_percent TYPE="real" PRECISION="1" EXPR="
+					if ( score == null )
+						return null;
+
+					if ( max_score.HasValue )
+						maxScore = max_score;
+					else
+						maxScore = external_test_id.ForeignElem.max_score;
+					
+					if ( maxScore == null || maxScore == 0 )
+						return;
+
+					return ( Real( score * 100 ) / maxScore );
+			" EXPR-SHOW-ERRORS="1"/>
+
+			<score_level_name TYPE="string" EXPR-INIT="
+					if ( AppModuleUsed( 'module_lukoil' ) )
+						return lib_lukoil.get_test_score_level_name( this );
+
+					return '';
+			"/>
+		</assigned_test>
+	</assigned_tests>
+
+	<is_active TYPE="bool" TITLE="Активно" lang-en:TITLE="Active" lang-ua:TITLE="Активно"/>
+
+
+	<external_test_id TYPE="string" OBSOLETE="1"/>
+	<activation_code TYPE="string" OBSOLETE="1"/>
+	<url TYPE="string" OBSOLETE="1"/>
+	<testing_state_id TYPE="integer" OBSOLETE="1"/>
+	<score TYPE="integer" OBSOLETE="1"/>
+</testing>
+
+
+
+</SPXML-FORM>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_event_types SPXML-FORM="//base2/base2_std_event_types.xmd">
+	<std_event_type>
+		<id>meeting</id>
+		<name VALUE="Встреча у клиента" lang-en:VALUE="Meeting" lang-ua:VALUE="Зустріч у клієнта"/>
+		<is_calendar_entry>1</is_calendar_entry>
+
+		<use_end_date>1</use_end_date>
+
+		<use_road_time>1</use_road_time>
+		<default_road_time>
+			<unit_id>minute</unit_id>
+			<length>60</length>
+		</default_road_time>
+
+		<use_org>1</use_org>
+		<use_participants>1</use_participants>
+
+		<occurrences>
+			<main>
+				<is_enabled>1</is_enabled>
+			</main>
+		</occurrences>
+	</std_event_type>
+
+
+	<std_event_type>
+		<id>office_meeting</id>
+		<name VALUE="Встреча у нас" lang-en:VALUE="Office meeting" lang-ua:VALUE="Зустріч у нас"/>
+		<is_calendar_entry>1</is_calendar_entry>
+
+		<use_end_date>1</use_end_date>
+
+		<use_room>1</use_room>
+		<use_org>1</use_org>
+		<use_participants>1</use_participants>
+
+		<occurrences>
+			<main>
+				<is_enabled>1</is_enabled>
+			</main>
+		</occurrences>
+	</std_event_type>
+</std_event_types>

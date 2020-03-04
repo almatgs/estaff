@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>persons_of_contact_list</id>
+	<name VALUE="Люди в списке контактов" lang-en:VALUE="Persons in contacts list" lang-ua:VALUE="Люди в списку контактів"/>
+	<parent_id>persons</parent_id>
+
+	<drop_all_dyn_filters>1</drop_all_dyn_filters>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>contact_list_id</id>
+			<is_auto>1</is_auto>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>fullname</id>
+		</field>
+		<field>
+			<id>org_id</id>
+			<width>60%</width>
+		</field>
+		<field>
+			<id>position_name</id>
+			<width>40%</width>
+		</field>
+		<field>
+			<id>disp_phone</id>
+		</field>
+		<field>
+			<id>user_id</id>
+		</field>
+	</fields>
+
+	<allow_preview>0</allow_preview>
+</std_view>
+

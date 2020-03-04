@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.sections.administration##" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/design.ico">
+
+
+<MENU TITLE="##UiText.titles.file##" GLOBAL="1">
+	<MENU-ENTRY TITLE="##UiText.actions.print##&#09;Ctrl+P" CMD="Print" lang-en:TITLE="Print&#09;Ctrl+P"/>
+</MENU>
+
+<INHERIT TYPE="edit_menu"/>
+
+<MENU TITLE="##UiText.titles.actions##" GLOBAL="1">
+	<INHERIT TYPE="main_actions_menu_end_entries"/>
+</MENU>
+
+
+<TOOLBAR GLOBAL="1" RIGHT-LABELS="1">
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/print.ico" CMD="Print" TIP-TEXT="##UiText.actions.print##" lang-en:TIP-TEXT="Print"/>
+	<INHERIT TYPE="edit_toolbar_entries"/>
+
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/help.ico" CMD="Help" TIP-TEXT="##UiText.sections.help##"/>
+</TOOLBAR>
+
+
+<STATUS-BAR>
+	<STATUS-BAR-ENTRY WIDTH="100%"/>
+	<STATUS-BAR-ENTRY WIDTH="20zr"/>
+</STATUS-BAR>
+
+
+<LINE STD-MARGINS="0">
+
+<PANEL SUNKEN="1" WIDTH="56zr">
+	<TREE SWITCH-TYPE="frame" TARGET="FrameAdminMain" SUNKEN="0">
+		<TREE-ENTRY TITLE="##UiText.sections.administration##" EXPANDED="1" IMAGE-URL="//base_pict/folder.ico">
+			<TREE-ENTRY TITLE="##UiText.sections.global_settings##" HREF="base1_view_global_settings.xml" IMAGE-URL="//base_pict/settings.ico"/>
+		</TREE-ENTRY>
+
+		<TREE-ENTRY TITLE="Доступ" EXPANDED="1" IMAGE-URL="//base_pict/folder.ico" lang-en:TITLE="Access" lang-ua:TITLE="Доступ">
+			<TREE-ENTRY TITLE="##UiText.sections.users##" HREF-EXPR="lib_view.obtain_view_url( 'users' )" IMAGE-URL="//base_pict/user.ico" lang-en:TITLE="Users"/>
+			<TREE-ENTRY TITLE="##UiText.sections.groups##" HREF-EXPR="lib_view.obtain_view_url( 'groups' )" IMAGE-URL="//base_pict/group.ico" lang-en:TITLE="Groups"/>
+		</TREE-ENTRY>
+
+		<TREE-ENTRY TITLE="##UiText.sections.service##" EXPANDED="1" IMAGE-URL="//base_pict/folder.ico">
+			<LOOP EXPR="ArraySelect( vocs, 'section_id == \'service\'' )" VAR="_voc_info">
+				<TREE-ENTRY TITLE-EXPR="_voc_info.name" HREF-EXPR="( _voc_info.is_hier ? 'base1_view_voc_elems_hier.xml' : 'base1_view_voc_elems.xml' ) + '?voc_id=' + _voc_info.id" IMAGE-URL="//base_pict/settings.ico"/>
+			</LOOP>
+
+			<TREE-ENTRY TITLE="##UiText.sections.custom_fields##" HREF="base1_view_object_csd.xml" IMAGE-URL="//base_pict/settings.ico"/>
+			<TREE-ENTRY TITLE="##UiText.sections.agents##" HREF-EXPR="lib_view.obtain_view_url( 'agents' )" IMAGE-URL="//base_pict/settings.ico"/>
+			<TREE-ENTRY TITLE="##UiText.sections.external_accounts##" HREF-EXPR="lib_view.obtain_view_url( 'external_accounts' )" IMAGE-URL="//base_pict/settings.ico"/>
+		</TREE-ENTRY>
+
+		<TREE-ENTRY TITLE="##UiText.titles.vocs##" EXPANDED="1" IMAGE-URL="//base_pict/folder.ico">
+			<LOOP EXPR="base1_config.voc_sections" VAR="_section">
+				<TREE-ENTRY TITLE-EXPR="_section.name" EXPANDED="1" IMAGE-URL="//base_pict/folder.ico">
+					<LOOP EXPR="ArraySelect( vocs, 'section_id == ' + CodeLiteral( _section.id ) )" VAR="_voc_info">
+						<TREE-ENTRY TITLE-EXPR="_voc_info.name" HREF-EXPR="_voc_info.admin_view_url.HasValue ? _voc_info.admin_view_url : ( ( _voc_info.is_hier ? 'base1_view_voc_elems_hier.xml' : 'base1_view_voc_elems.xml' ) + '?voc_id=' + _voc_info.id )" IMAGE-URL="//base_pict/settings.ico"/>
+					</LOOP>
+				</TREE-ENTRY>
+			</LOOP>
+		</TREE-ENTRY>
+	</TREE>
+</PANEL>
+
+<SPLIT FIXED="1"/>
+
+<FRAME NAME="FrameAdminMain" HREF="base1_view_global_settings.xml"/>
+
+</LINE>
+
+
+<INHERIT TYPE="generic_screen_commands"/>
+
+
+</SPXML-SCREEN>
+
+
+
+
+

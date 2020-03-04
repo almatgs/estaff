@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>budgets</id>
+	<name VALUE="Квартальные бюджеты" lang-en:VALUE="Budgets" lang-ua:VALUE="Квартальні бюджети"/>
+	<is_std>0</is_std>
+
+	<fields>
+		<field>
+			<id>year</id>
+			<align>left</align>
+			<order>yq_date</order>
+			<order_dir>-</order_dir>
+		</field>
+		<field>
+			<id>quarter</id>
+			<align>center</align>
+		</field>
+		<field>
+			<id>amount</id>
+		</field>
+	</fields>
+</std_view>
+

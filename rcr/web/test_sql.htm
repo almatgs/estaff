@@ -1,0 +1,92 @@
+<%
+	Request.CheckLdsAuth();
+	
+	if ( ! Request.IsLdsAdminAuth && ! Request.AuthObject.access_role_id.ForeignElem.allow_all )
+		throw "Access denied";
+
+	queryStr = Request.Form.GetOptProperty( 'query_str', '' );
+%>
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<%=AppCharset%>"/>
+<title>SQL Test Page</title>
+</head>
+
+
+<body>
+
+<form method="post" action__="sql_test.htm">
+
+<p>SQL query:</p>
+<p><input name="query_str" value="<%=queryStr%>" style="width:100%"/></p>
+
+<p><input type="submit"/></p>
+
+</form>
+
+<br/>
+
+<%
+	if ( queryStr != '' )
+	{
+		rs = DefaultDb.SqlConnection.Execute( queryStr );
+
+		Response.Write( '<table>' );
+
+		if ( ! rs.EOF )
+		{
+			colNum = Min( rs.Fields.count, 10 );
+
+			Response.Write( '<tr>' );
+			for ( i = 0; i < colNum; i++ )
+			{
+				field = rs.Fields( i );
+
+				Response.Write( '<td>' );
+				Response.Write( field.Name );
+				Response.Write( '</td>' );
+			}
+
+			Response.Write( '</tr>' );
+		}
+
+		count = 0;
+
+		while ( ! rs.EOF )
+		{
+			Response.Write( '<tr>' );
+
+			for ( i = 0; i < colNum; i++ )
+			{
+				field = rs.Fields( i );
+
+				Response.Write( '<td>' );
+
+				Response.Write( field.Value );
+
+				Response.Write( '</td>' );
+			}
+
+			Response.Write( '</tr>' );
+
+			rs.MoveNext();
+			count++;
+		}
+
+		Response.Write( '</table>' );
+
+		//Response.Write( '<br/>' );
+
+		Response.Write( '<p>' );
+		Response.Write( '<b>' );
+		Response.Write( 'Total: ' + count );
+		Response.Write( '</b>' );
+		Response.Write( '</p>' );
+	}
+%>
+
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<app_ui_theme>
+	<colors>
+		<background>#FFFFFF</background>
+		<primary>#315DFA</primary>
+		<primary_bright>#4551F5</primary_bright>
+		<dark>#274AC8</dark>
+		<icon>#D1DCF8</icon>
+
+		<window_border>#E4EAF6</window_border>
+		<window_title_bar>#F7F8FE</window_title_bar>
+
+		<edit_border>#D1DCF8</edit_border>
+		<edit_border_hover>#BDC6E0</edit_border_hover>
+		<edit_border_focused>#315DFA</edit_border_focused>
+		<edit_border_disabled>#F0F2FC</edit_border_disabled>
+		<edit_disabled>#F0F2FC</edit_disabled>
+
+		<split>#D1DCF6</split>
+		<split2>#DFE7F8</split2>
+		<delim>#EEF3F7</delim>
+		<menu_separator>#EEF3F9</menu_separator>
+
+		<button_gray_text>#5C657D</button_gray_text>
+		<button_pressed_text>#7996FC</button_pressed_text>
+
+		<root_header>#FFFFFF</root_header>
+		<separator>209,221,247</separator>
+		
+		<text>#111A2C</text>
+		<gray_text>#8C98B5</gray_text>
+		<blue_text>#315DFA</blue_text>
+		<red_text>#E84C3D</red_text>
+		<bleak_red_text>#E2AEAA</bleak_red_text>
+		<light_blue_text>#0C85D1</light_blue_text>
+		<bleak_light_blue_text>#89B8D6</bleak_light_blue_text>
+		<disabled_text>#BCC5DE</disabled_text>
+
+		<menu_border>#E6EAF6</menu_border>
+		<shadow_inner>#EBEBEB</shadow_inner>
+
+		<button_border>#D1DCF8</button_border>
+		<button_border_hover>228,234,248</button_border_hover>
+
+		<gray_background>#EEF3F7</gray_background>
+
+		<tab_bar_background>#F7F8FE</tab_bar_background>
+
+		<gray_hover>#F7F8FE</gray_hover>
+		<gray_pressed>227,231,244</gray_pressed>
+
+		<check_box_fill>#D1DCF8</check_box_fill>
+		<gray_fill>#BDC6E0</gray_fill>
+
+		<scrollbar_slider>209,221,247</scrollbar_slider>
+		<scrollbar_slider_hover>160,186,239</scrollbar_slider_hover>
+		<scrollbar_slider_pressed>81,128,225</scrollbar_slider_pressed>
+
+		<progress_bar>#E6EAF6</progress_bar>
+
+		<calendar_delim>228,234,245</calendar_delim>
+
+		<list_border_focused>#BDC6E0</list_border_focused>
+
+		<list_header>#F7F8FE</list_header>
+		<list_header_border_bottom>#E6EAF6</list_header_border_bottom>
+		<list_header_entry_current>#F0F2FC</list_header_entry_current>
+		<list_header_entry_hover>#E5E9FC</list_header_entry_hover>
+
+		<list_row_delim>#F0F2FC</list_row_delim>
+		<list_row_selected>#F7F8FE</list_row_selected>
+
+		<tip_border>#E6EAF6</tip_border>
+
+		<mdi_selector>#FFFFFF</mdi_selector>
+		<mdi_selector_hover>#F0F2FC</mdi_selector_hover>
+		<mdi_selector_pressed>#E3E7F9</mdi_selector_pressed>
+		<mdi_selector_border>#D1DCF8</mdi_selector_border>
+		<mdi_selector_border_hover>#F0F2FC</mdi_selector_border_hover>
+		<mdi_selector_border_pressed>#E3E7F9</mdi_selector_border_pressed>
+
+		<used_filter>#F0F2FC</used_filter>
+	</colors>
+</app_ui_theme>

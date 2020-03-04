@@ -1,0 +1,23 @@
+<%
+	doc = DefaultDb.OpenObjectDoc( Request.Query.object_name, Int( Request.Query.object_id ) );
+
+	attachment = ArrayOptFindByKey( doc.TopElem.attachments, Int( Request.Query.attc_id ), 'id' );
+
+	contentType = UrlStdContentType( attachment.file_name );
+	if ( contentType == '' )
+	{
+		switch ( UrlPathSuffix( attachment.file_name ) )
+		{
+			case '.pdf':
+				contentType = 'application/pdf';
+				break;
+
+			default:
+				contentType = 'application/binary';
+		}
+	}
+
+	Response.ContentType = contentType;
+	Response.AddHeader( 'Content-Disposition', 'attachment; filename=' + attachment.file_name );
+	Response.WriteBinary( attachment.data );
+%>

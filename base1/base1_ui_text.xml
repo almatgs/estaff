@@ -1,0 +1,652 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<base1_ui_text xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<objects>
+		<voc VALUE="Справочник" lang-en:VALUE="Reference list" lang-ua:VALUE="Довідник"/>
+		<agent VALUE="Фоновая задача" lang-en:VALUE="Background task" lang-ua:VALUE="Фонове завдання"/>
+		<user VALUE="Пользователь" lang-en:VALUE="User" lang-ua:VALUE="Користувач"/>
+		<group VALUE="Группа" lang-en:VALUE="Group" lang-ua:VALUE="Група"/>
+	</objects>
+	<fields>
+		<name VALUE="Наименование" lang-en:VALUE="Name" lang-ua:VALUE="Найменування"/>
+		<std_name VALUE="Стандартное наименование" lang-en:VALUE="Standard name" lang-ua:VALUE="Стандартне найменування"/>
+		<custom_name VALUE="Пользовательское наименование" lang-en:VALUE="Custom name" lang-ua:VALUE="Найменування користувача"/>
+		<code VALUE="Номер" lang-en:VALUE="#" lang-ua:VALUE="Номер"/>
+		<next_index VALUE="След. номер" lang-en:VALUE="Next number" lang-ua:VALUE="Слід. номер"/>
+		<card_comment VALUE="Дополнительные сведения" lang-en:VALUE="Comment" lang-ua:VALUE="Додаткові відомості"/>
+		<object_type VALUE="Тип объекта" lang-en:VALUE="Object type" lang-ua:VALUE="Тип об'єкта"/>
+		<field VALUE="Поле" lang-en:VALUE="Field" lang-ua:VALUE="Поле"/>
+		<value VALUE="Значение" lang-en:VALUE="Value" lang-ua:VALUE="Значення"/>
+		<value_expr VALUE="Значение (формула)" lang-en:VALUE="Value formula" lang-ua:VALUE="Значення (формула)"/>
+		<level VALUE="Уровень" lang-en:VALUE="Level" lang-ua:VALUE="Рівень"/>
+		<country VALUE="Страна" lang-en:VALUE="Country" lang-ua:VALUE="Країна"/>
+		<location VALUE="Регион" lang-en:VALUE="Location" lang-ua:VALUE="Регіон"/>
+		<location__place VALUE="Расположение" lang-en:VALUE="Location" lang-ua:VALUE="Розташування"/>
+		<city VALUE="Город" lang-en:VALUE="City" lang-ua:VALUE="Місто"/>
+		<address VALUE="Адрес" lang-en:VALUE="Address" lang-ua:VALUE="Адреса"/>
+		<address__of_person VALUE="Адрес проживания" lang-en:VALUE="Address" lang-ua:VALUE="Адреса проживання"/>
+		<actual_address VALUE="Фактический адрес" lang-en:VALUE="Actual address" lang-ua:VALUE="Фактична адреса"/>
+		<legal_address VALUE="Юридический адрес" lang-en:VALUE="Official address" lang-ua:VALUE="Юридична адреса"/>
+		<phone VALUE="Телефон" lang-en:VALUE="Phone" lang-ua:VALUE="Телефон"/>
+		<home_phone VALUE="Домашний телефон" lang-en:VALUE="Home phone" lang-ua:VALUE="Домашній телефон"/>
+		<work_phone VALUE="Рабочий телефон" lang-en:VALUE="Work phone" lang-ua:VALUE="Робочий телефон"/>
+		<mobile_phone VALUE="Мобильный телефон" lang-en:VALUE="Mobile phone" lang-ua:VALUE="Мобільний телефон"/>
+		<fax VALUE="Факс" lang-en:VALUE="Fax" lang-ua:VALUE="Факс"/>
+		<web_site VALUE="Web-сайт" lang-en:VALUE="Web site" lang-ua:VALUE="Web-сайт"/>
+		<comment VALUE="Комментарий" lang-en:VALUE="Comment" lang-ua:VALUE="Коментар"/>
+		<date VALUE="Дата" lang-en:VALUE="Date" lang-ua:VALUE="Дата"/>
+		<subject VALUE="Тема" lang-en:VALUE="Subject" lang-ua:VALUE="Тема"/>
+		<target_object_type VALUE="Базовый объект" lang-en:VALUE="Target object" lang-ua:VALUE="Базовий об'єкт"/>
+		<state VALUE="Статус" lang-en:VALUE="Status" lang-ua:VALUE="Статус"/>
+		<active_s VALUE="Активные" lang-en:VALUE="Active" lang-ua:VALUE="Активні"/>
+		<currency VALUE="Валюта" lang-en:VALUE="Currency" lang-ua:VALUE="Валюта"/>
+		<eid VALUE="Внешний ID" lang-en:VALUE="External ID" lang-ua:VALUE="Зовнішній ID"/>
+		<elem_expr VALUE="Вычисляемое значение (формула)" lang-en:VALUE="Value formula" lang-ua:VALUE="Обчислюване значення (формула)"/>
+		<text_color_expr VALUE="Цвет текста (формула)" lang-en:VALUE="Text color formula" lang-ua:VALUE="Колір тексту (формула)"/>
+		<bk_color_expr VALUE="Цвет фона (формула)" lang-en:VALUE="Background color formula" lang-ua:VALUE="Колір фону (формула)"/>
+		<birth_year__short VALUE="Год рожд." lang-en:VALUE="Year of birth" lang-ua:VALUE="Рік нар."/>
+		<birth_date_short VALUE="Д/р" lang-en:VALUE="DoB" lang-ua:VALUE="Д/р"/>
+		<start_date VALUE="Дата начала" lang-en:VALUE="Start Date" lang-ua:VALUE="Дата початку"/>
+		<end_date VALUE="Дата окончания" lang-en:VALUE="End Date" lang-ua:VALUE="Дата закінчення"/>
+		<end_year VALUE="Год окончания" lang-en:VALUE="End year" lang-ua:VALUE="Рік закінчення"/>
+		<last_mod_date VALUE="Дата последнего изменения" lang-en:VALUE="Last change date" lang-ua:VALUE="Дата останньої зміни"/>
+		<sender_address VALUE="Адрес отправителя" lang-en:VALUE="Sender address" lang-ua:VALUE="Адреса відправника"/>
+		<id VALUE="Идентификатор" lang-en:VALUE="ID" lang-ua:VALUE="Ідентифікатор"/>
+		<dynamic_filter VALUE="Динамический фильтр" lang-en:VALUE="Dynamic filter" lang-ua:VALUE="Динамічний фільтр"/>
+		<question_group_separator VALUE="Заголовок группы вопросов" lang-en:VALUE="Question group title" lang-ua:VALUE="Тема групи питань"/>
+		<sender_name VALUE="Имя отправителя" lang-en:VALUE="Sender name" lang-ua:VALUE="Ім'я відправника"/>
+		<executable_code VALUE="Исполняемый код" lang-en:VALUE="Executable code" lang-ua:VALUE="Виконуваний код"/>
+		<entrance_source VALUE="Источник поступления" lang-en:VALUE="Source" lang-ua:VALUE="Джерело надходження"/>
+		<id_of_voc_elem VALUE="Код" lang-en:VALUE="#" lang-ua:VALUE="Код"/>
+		<activation_code VALUE="Код активации" lang-en:VALUE="Activation code" lang-ua:VALUE="Код активації"/>
+		<quantity VALUE="Количество" lang-en:VALUE="Quantity" lang-ua:VALUE="Кількість"/>
+		<login VALUE="Логин" lang-en:VALUE="Login" lang-ua:VALUE="Логін"/>
+		<direction_of_order VALUE="Направление" lang-en:VALUE="Direction" lang-ua:VALUE="Напрямок"/>
+		<object VALUE="Объект" lang-en:VALUE="Object" lang-ua:VALUE="Об'єкт"/>
+		<poll_form VALUE="Оценочная форма" lang-en:VALUE="Assessment form" lang-ua:VALUE="Оціночна форма"/>
+		<launch_settings VALUE="Параметры запуска" lang-en:VALUE="Launch settings" lang-ua:VALUE="Параметри запуску"/>
+		<stat_only VALUE="Показывать только агрегированные данные" lang-en:VALUE="Show statistical data only" lang-ua:VALUE="Показувати тільки агреговані дані"/>
+		<gender VALUE="Пол" lang-en:VALUE="Gender" lang-ua:VALUE="Стать"/>
+		<full_official_name VALUE="Полное (официальное) наименование" lang-en:VALUE="Full / Official Name" lang-ua:VALUE="Повне (офіційне) найменування"/>
+		<full_name VALUE="Полное наименование" lang-en:VALUE="Full name" lang-ua:VALUE="Повне найменування"/>
+		<short_name VALUE="Сокращенное наименование" lang-en:VALUE="Short name" lang-ua:VALUE="Скорочене найменування"/>
+		<last_comment VALUE="Последний комментарий" lang-en:VALUE="Last comment" lang-ua:VALUE="Останній коментар"/>
+		<predicate VALUE="Предикат" lang-en:VALUE="Predicate" lang-ua:VALUE="Предикат"/>
+		<passed_n VALUE="Пройдено" lang-en:VALUE="Passed" lang-ua:VALUE="Пройдено"/>
+		<passed__f VALUE="Пройдена" lang-en:VALUE="Passed" lang-ua:VALUE="Пройдена"/>
+		<not_passed__f VALUE="Не пройдена" lang-en:VALUE="Failed" lang-ua:VALUE="Не пройдена"/>
+		<result VALUE="Результат" lang-en:VALUE="Result" lang-ua:VALUE="Результат"/>
+		<serial_number VALUE="Серийный номер" lang-en:VALUE="Serial Number" lang-ua:VALUE="Серійний номер"/>
+		<entrance_type VALUE="Способ занесения" lang-en:VALUE="Entrance type" lang-ua:VALUE="Спосіб занесення"/>
+		<average_score VALUE="Средний балл" lang-en:VALUE="Average score" lang-ua:VALUE="Середній бал"/>
+		<static_filter VALUE="Статический фильтр" lang-en:VALUE="Static Filter" lang-ua:VALUE="Статичний фільтр"/>
+		<static_filters VALUE="Статические фильтры" lang-en:VALUE="Static Filters" lang-ua:VALUE="Статичні фільтри"/>
+		<column VALUE="Столбец" lang-en:VALUE="Column" lang-ua:VALUE="Стовпець"/>
+		<scenario VALUE="Сценарий" lang-en:VALUE="Scenario" lang-ua:VALUE="Сценарій"/>
+		<data_type VALUE="Тип данных" lang-en:VALUE="Data type" lang-ua:VALUE="Тип даних"/>
+		<attachment_type VALUE="Тип приложения" lang-en:VALUE="Attachment type" lang-ua:VALUE="Тип додатка"/>
+		<event_type VALUE="Тип события" lang-en:VALUE="Event type" lang-ua:VALUE="Тип події"/>
+		<elem_type VALUE="Тип элемента" lang-en:VALUE="Element type" lang-ua:VALUE="Тип елемента"/>
+		<levels VALUE="Уровни" lang-en:VALUE="Levels" lang-ua:VALUE="Рівні"/>
+		<filter VALUE="Фильтр" lang-en:VALUE="Filter" lang-ua:VALUE="Фільтр"/>
+		<fullname VALUE="ФИО" lang-en:VALUE="Fullname" lang-ua:VALUE="ПІБ"/>
+		<shortname VALUE="Фамилия, И.О." lang-en:VALUE="Shortname" lang-ua:VALUE="Прізвище, І.П."/>
+		<first_and_middle_name VALUE="Имя, отчество" lang-en:VALUE="Firstname" lang-ua:VALUE="Ім'я, по батькові"/>
+		<bk_color VALUE="Цвет фона" lang-en:VALUE="Background color" lang-ua:VALUE="Колір фону"/>
+		<cents__mod2 VALUE="центов" lang-en:VALUE="cents" lang-ua:VALUE="центів"/>
+		<width VALUE="Ширина" lang-en:VALUE="Width" lang-ua:VALUE="Ширина"/>
+		<height VALUE="Высота" lang-en:VALUE="Height" lang-ua:VALUE="Висота"/>
+		<font VALUE="Шрифт" lang-en:VALUE="Font" lang-ua:VALUE="Шрифт"/>
+		<recipients VALUE="Получатели" lang-en:VALUE="Recipients" lang-ua:VALUE="Одержувачі"/>
+		<source VALUE="Источник" lang-en:VALUE="Source" lang-ua:VALUE="Джерело"/>
+		<quantity__short VALUE="Кол-во" lang-en:VALUE="Quantity" lang-ua:VALUE="Кількість"/>
+		<folder VALUE="Папка" lang-en:VALUE="Folder" lang-ua:VALUE="Каталог"/>
+		<signature VALUE="Подпись" lang-en:VALUE="Signature" lang-ua:VALUE="Підпис"/>
+		<birth_date VALUE="Дата рождения" lang-en:VALUE="Date of birth" lang-ua:VALUE="Дата народження"/>
+		<birth_year VALUE="Год рождения" lang-en:VALUE="Year of birth" lang-ua:VALUE="Рік народження"/>
+		<score VALUE="Балл" lang-en:VALUE="Score" lang-ua:VALUE="Бал"/>
+		<score__n VALUE="Баллы" lang-en:VALUE="Score" lang-ua:VALUE="Бали"/>
+		<rating VALUE="Рейтинг" lang-en:VALUE="Rating" lang-ua:VALUE="Рейтинг"/>
+		<dynamic_filters VALUE="Динамические фильтры" lang-en:VALUE="Dynamic filters" lang-ua:VALUE="Динамічні фільтри"/>
+		<email2 VALUE="Доп. E-Mail" lang-en:VALUE="Add. E-Mail" lang-ua:VALUE="Доп. E-Mail"/>
+		<firstname VALUE="Имя" lang-en:VALUE="Firstname" lang-ua:VALUE="Ім'я"/>
+		<duties VALUE="Обязанности" lang-en:VALUE="Duties" lang-ua:VALUE="Обов'язки"/>
+		<sender VALUE="Отправитель" lang-en:VALUE="Sender" lang-ua:VALUE="Відправник"/>
+		<middlename VALUE="Отчество" lang-en:VALUE="Middlename" lang-ua:VALUE="По батькові"/>
+		<parent_element VALUE="Родительский элемент" lang-en:VALUE="Parent element" lang-ua:VALUE="Дочірній елемент"/>
+		<lastname VALUE="Фамилия" lang-en:VALUE="Lastname" lang-ua:VALUE="Прізвище"/>
+		<fullname_en VALUE="ФИО (англ.)" lang-en:VALUE="Fullnname (eng.)" lang-ua:VALUE="ПІБ (англ.)"/>
+		<access_token VALUE="Ключ доступа" lang-en:VALUE="Access token" lang-ua:VALUE="Ключ доступу"/>
+		<refresh_token VALUE="Ключ доступа 2" lang-en:VALUE="Refresh token" lang-ua:VALUE="Ключ доступу 2"/>
+		<role VALUE="Роль" lang-en:VALUE="Role" lang-ua:VALUE="Роль"/>
+		<keywords VALUE="Ключевые слова" lang-en:VALUE="Keywords" lang-ua:VALUE="Ключові слова"/>
+		<link VALUE="Ссылка" lang-en:VALUE="Link" lang-ua:VALUE="Посилання"/>
+		<other_info VALUE="Дополнительная информация" lang-en:VALUE="Additional information" lang-ua:VALUE="Додаткова інформаці"/>
+		<active__employee VALUE="Действующий" lang-en:VALUE="Active" lang-ua:VALUE="Чинний"/>
+		<from__sender VALUE="От" lang-en:VALUE="From" lang-ua:VALUE="Від"/>
+		<to__recipient VALUE="Кому" lang-en:VALUE="To" lang-ua:VALUE="Кому"/>
+		<location_desc VALUE="Описание проезда" lang-en:VALUE="Location Description" lang-ua:VALUE="Опис проїзду"/>
+		<default_period VALUE="Период по умолчанию" lang-en:VALUE="Default Time Range" lang-ua:VALUE="Період за замовчуванням"/>
+		<source_field VALUE="Поле источника" lang-en:VALUE="Source field" lang-ua:VALUE="Поле джерела"/>
+		<use_new_line VALUE="Разместить с новой строки" lang-en:VALUE="Start New Line" lang-ua:VALUE="Розмістити з нового рядка"/>
+		<template_is_notif VALUE="Скрыть шаблон из списка доступных для выбора пользователем" lang-en:VALUE="Hide from user templates list" lang-ua:VALUE="Приховати шаблон зі списку доступних для вибору користувачем"/>
+		<source_type VALUE="Тип источника" lang-en:VALUE="Source Type" lang-ua:VALUE="Тип джерела"/>
+		<recipient_type VALUE="Тип получателя" lang-en:VALUE="Type of Recipient" lang-ua:VALUE="Тип одержувача"/>
+		<max_preparation_time VALUE="Максимальное время на подготовку" lang-en:VALUE="Maximum Time to Prepare" lang-ua:VALUE="Максимальний час на підготовку"/>
+		<max_duration VALUE="Максимальная продолжительность" lang-en:VALUE="Maximum Duration" lang-ua:VALUE="Максимальна тривалість"/>
+	</fields>
+	<vacancy_fields>
+		<internal_desc VALUE="Внутреннее описание" lang-en:VALUE="Internal Job Description" lang-ua:VALUE="Внутрішній опис"/>
+		<public_desc VALUE="Публичное описание" lang-en:VALUE="Public Job Description" lang-ua:VALUE="Внутрішній опис"/>
+	</vacancy_fields>
+	<titles>
+		<yesterday VALUE="Вчера" lang-en:VALUE="Yesterday" lang-ua:VALUE="Вчора"/>
+		<tomorrow VALUE="Завтра" lang-en:VALUE="Tomorrow" lang-ua:VALUE="Завтра"/>
+		<now VALUE="Сейчас" lang-en:VALUE="Now"/>
+		<after__period VALUE="Через" lang-en:VALUE="In" lang-ua:VALUE="Через"/>
+		<after_xxx__period VALUE="Через %s" lang-en:VALUE="In %s" lang-ua:VALUE="Через %s"/>
+		<ago_xxx__period VALUE="%s назад" lang-en:VALUE="%s ago" lang-ua:VALUE="%s тому"/>
+		<year_xxx VALUE="%s год" lang-en:VALUE="year %s" lang-ua:VALUE="%s рік"/>
+		<since_xxx VALUE="с %s" lang-en:VALUE="Since %s" lang-ua:VALUE="з %s"/>
+		<build VALUE="Сборка" lang-en:VALUE="Build" lang-ua:VALUE="Збірка"/>
+		<left__days VALUE="Осталось" lang-en:VALUE="Days left" lang-ua:VALUE="Залишилось"/>
+		<days_left VALUE="Осталось дней" lang-en:VALUE="Days Left" lang-ua:VALUE="Залишилося днів"/>
+		<wdays__short VALUE="раб. дни" lang-en:VALUE="workdays" lang-ua:VALUE="роб. дні"/>
+		<standard VALUE="стандартный" lang-en:VALUE="standard" lang-ua:VALUE="стандартний"/>
+		<custom VALUE="пользовательский" lang-en:VALUE="custom" lang-ua:VALUE="користувацький"/>
+		<standard_elem VALUE="Стандартный элемент" lang-en:VALUE="Standard element" lang-ua:VALUE="Стандартний елемент"/>
+		<custom_elem VALUE="Пользовательский элемент" lang-en:VALUE="Custom element" lang-ua:VALUE="Елемент користувача"/>
+		<view VALUE="Вид" lang-en:VALUE="View" lang-ua:VALUE="Вигляд"/>
+		<question VALUE="Вопрос" lang-en:VALUE="Question" lang-ua:VALUE="Питання"/>
+		<questions VALUE="Вопросы" lang-en:VALUE="Questions" lang-ua:VALUE="Запитання"/>
+		<actions VALUE="Действия" lang-en:VALUE="Actions" lang-ua:VALUE="Дії"/>
+		<euro VALUE="евро" lang-en:VALUE="EUR" lang-ua:VALUE="євро"/>
+		<closed_f VALUE="Закрыта" lang-en:VALUE="Closed" lang-ua:VALUE="Закрита"/>
+		<import VALUE="Импорт" lang-en:VALUE="Import" lang-ua:VALUE="Імпорт"/>
+		<export VALUE="Экспорт" lang-en:VALUE="Export" lang-ua:VALUE="Експорт"/>
+		<list VALUE="Список" lang-en:VALUE="List" lang-ua:VALUE="Список"/>
+		<calendar VALUE="Календарь" lang-en:VALUE="Calendar" lang-ua:VALUE="Календар"/>
+		<catalog VALUE="Каталог" lang-en:VALUE="Catalog" lang-ua:VALUE="Каталог"/>
+		<category VALUE="Категория" lang-en:VALUE="Category" lang-ua:VALUE="Категорія"/>
+		<copeck_short VALUE="коп." lang-en:VALUE="c." lang-ua:VALUE="коп."/>
+		<copeck_mod2_m VALUE="копеек" lang-en:VALUE="c." lang-ua:VALUE="копійок"/>
+		<copeck VALUE="копейка" lang-en:VALUE="c." lang-ua:VALUE="копійка"/>
+		<copeck_mod2 VALUE="копейки" lang-en:VALUE="c." lang-ua:VALUE="копійки"/>
+		<large VALUE="Крупный" lang-en:VALUE="Large" lang-ua:VALUE="Великий"/>
+		<mass_mailing VALUE="Массовая рассылка" lang-en:VALUE="Mass Mailing" lang-ua:VALUE="Масова розсилка"/>
+		<mass_sms VALUE="Массовая SMS-рассылка" lang-en:VALUE="Mass SMS" lang-ua:VALUE="Масова SMS-розсилка"/>
+		<small VALUE="Мелкий" lang-en:VALUE="Small" lang-ua:VALUE="Дрібний"/>
+		<minutes_mod2 VALUE="минут" lang-en:VALUE="min" lang-ua:VALUE="хвилин"/>
+		<minute VALUE="Минута" lang-en:VALUE="Minute" lang-ua:VALUE="хвилина"/>
+		<minute__short VALUE="м" lang-en:VALUE="m" lang-ua:VALUE="м"/>
+		<not_passed_n VALUE="Не пройдено" lang-en:VALUE="Not passed" lang-ua:VALUE="Не пройдено"/>
+		<inactive_p VALUE="Неактивные" lang-en:VALUE="Inactive" lang-ua:VALUE="Неактивні"/>
+		<ascending VALUE="по возрастанию" lang-en:VALUE="ascending" lang-ua:VALUE="по зростанню"/>
+		<descending VALUE="по убыванию" lang-en:VALUE="descending" lang-ua:VALUE="за зменшенням"/>
+		<ft_search VALUE="Поиск по тексту" lang-en:VALUE="Content search" lang-ua:VALUE="Пошук по тексту"/>
+		<menu_edit VALUE="Правка" lang-en:VALUE="Edit" lang-ua:VALUE="Редагування"/>
+		<site VALUE="Сайт" lang-en:VALUE="Site" lang-ua:VALUE="Сайт"/>
+		<voc_params VALUE="Свойства справочника" lang-en:VALUE="Reference list settings" lang-ua:VALUE="Властивості довідника"/>
+		<symbols VALUE="символов" lang-en:VALUE="symbols" lang-ua:VALUE="символів"/>
+		<columns VALUE="Столбцы" lang-en:VALUE="Columns" lang-ua:VALUE="Стовпці"/>
+		<string VALUE="Строка" lang-en:VALUE="String" lang-ua:VALUE="Рядок"/>
+		<sum VALUE="Сумма" lang-en:VALUE="Sum" lang-ua:VALUE="Сума"/>
+		<recipient VALUE="Получатель" lang-en:VALUE="Recipient" lang-ua:VALUE="Одержувач"/>
+		<text VALUE="Текст" lang-en:VALUE="Text" lang-ua:VALUE="Текст"/>
+		<static_text VALUE="Статический текст" lang-en:VALUE="Static Text" lang-ua:VALUE="Статичний текст"/>
+		<message VALUE="Сообщение" lang-en:VALUE="Message" lang-ua:VALUE="Повідомлення"/>
+		<message_text VALUE="Текст письма" lang-en:VALUE="Message text" lang-ua:VALUE="Текст листа"/>
+		<tenge VALUE="тенге" lang-en:VALUE="tenge" lang-ua:VALUE="тенге"/>
+		<file VALUE="Файл" lang-en:VALUE="File" lang-ua:VALUE="Файл"/>
+		<text_color VALUE="Цвет текста" lang-en:VALUE="Text color" lang-ua:VALUE="Колір тексту"/>
+		<integer VALUE="Целое число" lang-en:VALUE="Integer number" lang-ua:VALUE="Ціле число"/>
+		<real_number VALUE="Действительное число" lang-en:VALUE="Real number" lang-ua:VALUE="Дійсне число"/>
+		<object_reference VALUE="Ссылка на объект" lang-en:VALUE="Object reference" lang-ua:VALUE="Посилання на об'єкт"/>
+		<voc_elem_reference VALUE="Значение из справочника" lang-en:VALUE="List selection" lang-ua:VALUE="Значення з довідника"/>
+		<elem_reference VALUE="Значение из списка" lang-en:VALUE="Value selection" lang-ua:VALUE="Значення зі списку"/>
+		<cent VALUE="цент" lang-en:VALUE="cent" lang-ua:VALUE="цент"/>
+		<cent__mod2 VALUE="цента" lang-en:VALUE="cents" lang-ua:VALUE="цента"/>
+		<hour VALUE="Час" lang-en:VALUE="Hour" lang-ua:VALUE="Година"/>
+		<hour__short VALUE="ч" lang-en:VALUE="h" lang-ua:VALUE="г"/>
+		<hours VALUE="часы" lang-en:VALUE="Hours" lang-ua:VALUE="години"/>
+		<years__mod2 VALUE="лет" lang-en:VALUE="years" lang-ua:VALUE="років"/>
+		<mail_template VALUE="Шаблон письма" lang-en:VALUE="Mail template" lang-ua:VALUE="Шаблон листа"/>
+		<sms_template VALUE="Шаблон SMS-сообщения" lang-en:VALUE="SMS template" lang-ua:VALUE="Шаблон SMS-повідомлення"/>
+		<elem__or__field VALUE="Элемент" lang-en:VALUE="Field" lang-ua:VALUE="Елемент"/>
+		<msword_documents VALUE="Документы Microsoft Word" lang-en:VALUE="Microsoft Word documents" lang-ua:VALUE="Документи Microsoft Word"/>
+		<msexcel_documents VALUE="Документы Microsoft Excel" lang-en:VALUE="Microsoft Excel documents" lang-ua:VALUE="Документи Microsoft Excel"/>
+		<oo_editor_documents VALUE="Документы OpenOffice.org" lang-en:VALUE="OpenOffice.org documents" lang-ua:VALUE="Документи OpenOffice.org"/>
+		<xml_documents VALUE="Документы XML" lang-en:VALUE="XML documents" lang-ua:VALUE="Документи XML"/>
+		<pdf_documents VALUE="Документы PDF" lang-en:VALUE="PDF documents" lang-ua:VALUE="Документи PDF"/>
+		<all_files VALUE="Все файлы" lang-en:VALUE="All Files" lang-ua:VALUE="Всі файли"/>
+		<object_deleted VALUE="Объект удален" lang-en:VALUE="Object has been deleted" lang-ua:VALUE="Об'єкт видалений"/>
+		<elem_deleted VALUE="Элемент удален" lang-en:VALUE="Item has been deleted" lang-ua:VALUE="Елемент видалено"/>
+		<deleted__n VALUE="Удалено" lang-en:VALUE="Deleted" lang-ua:VALUE="Видалено"/>
+		<export_to VALUE="Экспорт в" lang-en:VALUE="Export to" lang-ua:VALUE="Експорт в"/>
+		<from_to_suffix VALUE="(от,до)" lang-en:VALUE="(min,max)" lang-ua:VALUE="(від,до)"/>
+		<for__scheduled VALUE="на" lang-en:VALUE="for" lang-ua:VALUE="на"/>
+		<till VALUE="до" lang-en:VALUE="till" lang-ua:VALUE="до"/>
+		<reports VALUE="Отчеты" lang-en:VALUE="Reports" lang-ua:VALUE="Звіти"/>
+		<stat_total VALUE="ИТОГО" lang-en:VALUE="TOTAL" lang-ua:VALUE="РАЗОМ"/>
+		<stat_average VALUE="СРЕДНЕЕ" lang-en:VALUE="AVERAGE" lang-ua:VALUE="СЕРЕДНЄ"/>
+		<object_selection VALUE="Выбор объекта" lang-en:VALUE="Object selection" lang-ua:VALUE="Вибір об'єкта"/>
+		<items_in_list VALUE="Записей в списке" lang-en:VALUE="Items" lang-ua:VALUE="Записів у списку"/>
+		<with_filter VALUE="с учетом фильтра" lang-en:VALUE="with filter" lang-ua:VALUE="з урахуванням фільтра"/>
+		<time VALUE="Время" lang-en:VALUE="Time" lang-ua:VALUE="Час"/>
+		<date_time VALUE="Дата и время" lang-en:VALUE="Date and Time" lang-ua:VALUE="Дата і час"/>
+		<closed VALUE="Закрыто" lang-en:VALUE="Closed" lang-ua:VALUE="Зачинено"/>
+		<idata_comment VALUE="(иерарх.)" lang-en:VALUE="(hier.)" lang-ua:VALUE="(ієрарх.)"/>
+		<present_time__short VALUE="наст. время" lang-en:VALUE="present" lang-ua:VALUE="наст. час"/>
+		<help__menu VALUE="Справка" lang-en:VALUE="Help" lang-ua:VALUE="Довідка"/>
+		<support_end_date VALUE="Срок действия технической поддержки" lang-en:VALUE="Support end date" lang-ua:VALUE="Термін дії технічної підтримки"/>
+		<server_address VALUE="Адрес сервера" lang-en:VALUE="Server address" lang-ua:VALUE="Адреса сервера"/>
+		<port VALUE="Порт" lang-en:VALUE="Port" lang-ua:VALUE="Порт"/>
+		<db_field VALUE="Внутреннее поле" lang-en:VALUE="Native field" lang-ua:VALUE="Внутрішнє поле"/>
+		<all_actions VALUE="Все действия" lang-en:VALUE="All actions" lang-ua:VALUE="Всі дії"/>
+		<all_fields VALUE="Все поля" lang-en:VALUE="All fields" lang-ua:VALUE="Всі поля"/>
+		<column_tip_text VALUE="Всплывающий текст к заголовку столбца" lang-en:VALUE="Column tip text" lang-ua:VALUE="Спливаючий текст до заголовка стовпця"/>
+		<multiple_choice VALUE="Выбор из нескольких значений" lang-en:VALUE="Multiple choice" lang-ua:VALUE="Вибір з кількох значень"/>
+		<select_leaf_nodes_only VALUE="Выбор только конечных элементов в иерархии" lang-en:VALUE="Select Only Leaf Nodes" lang-ua:VALUE="Вибір тільки кінцевих елементів в ієрархії"/>
+		<selection_order_is_important VALUE="Важен порядок выбора" lang-en:VALUE="Order of choices is important" lang-ua:VALUE="Важливий порядок вибору"/>
+		<choice_num_limit VALUE="Лимит числа опций" lang-en:VALUE="Limit the number of choices" lang-ua:VALUE="Ліміт числа опцій"/>
+		<elem_selection VALUE="Выбор элемента" lang-en:VALUE="List element selection" lang-ua:VALUE="Вибір елемента"/>
+		<voc_elem_selection VALUE="Выбор элемента справочника" lang-en:VALUE="List element selection" lang-ua:VALUE="Вибір елемента довідника"/>
+		<dedicated_ssl_port VALUE="Выделенный SSL-порт" lang-en:VALUE="Dedicated SSL port" lang-ua:VALUE="Виділений SSL-порт"/>
+		<last_load_date VALUE="Дата последней загрузки" lang-en:VALUE="Last load date" lang-ua:VALUE="Дата останнього завантаження"/>
+		<loaded_objects__num VALUE="Загружено объектов" lang-en:VALUE="Loaded objects" lang-ua:VALUE="Завантажено об'єктів"/>
+		<not_loaded VALUE="Не загружено" lang-en:VALUE="Not loaded" lang-ua:VALUE="Не завантажене"/>
+		<column_titlle VALUE="Заголовок столбца" lang-en:VALUE="Column title" lang-ua:VALUE="Заголовок стовпця"/>
+		<import_database VALUE="Импорт базы" lang-en:VALUE="Import database" lang-ua:VALUE="Імпорт бази"/>
+		<file_name VALUE="Имя файла" lang-en:VALUE="File name" lang-ua:VALUE="Ім`я файла"/>
+		<originator VALUE="Инициатор" lang-en:VALUE="Originator" lang-ua:VALUE="Ініціатор"/>
+		<use_ssl VALUE="Использовать SSL" lang-en:VALUE="Use SSL" lang-ua:VALUE="Використовувати SSL"/>
+		<use_local_logins VALUE="Использовать персональный логин для каждого рабочего места" lang-en:VALUE="Use personal login for each user" lang-ua:VALUE="Використовувати персональний логін для кожного робочого місця"/>
+		<use_only_for_group VALUE="Использовать только внутри группы пользователей" lang-en:VALUE="Use only for group of users" lang-ua:VALUE="Використовувати тільки всередині групи користувачів"/>
+		<data_source VALUE="Источник данных" lang-en:VALUE="Data Source" lang-ua:VALUE="Джерело даних"/>
+		<max_score__s VALUE="Макс. балл" lang-en:VALUE="Max. score" lang-ua:VALUE="Макс. бал"/>
+		<details__more VALUE="Подробнее" lang-en:VALUE="Details" lang-ua:VALUE="Детальніше"/>
+		<protocol VALUE="Протокол" lang-en:VALUE="Protocol" lang-ua:VALUE="Протокол"/>
+		<smtp_server VALUE="Сервер SMTP" lang-en:VALUE="SMTP server" lang-ua:VALUE="Сервер SMTP"/>
+		<server_requires_auth VALUE="Сервер требует авторизации" lang-en:VALUE="The server requires authorization" lang-ua:VALUE="Сервер потребує авторизації"/>
+		<vocs VALUE="Справочники" lang-en:VALUE="Reference Lists" lang-ua:VALUE="Довідники"/>
+		<test_email VALUE="Тестовый E-mail" lang-en:VALUE="Test E-mail" lang-ua:VALUE="Тестовий E-mail"/>
+		<type VALUE="Тип" lang-en:VALUE="Type" lang-ua:VALUE="Тип"/>
+		<requirements VALUE="Требования" lang-en:VALUE="Requirements" lang-ua:VALUE="Вимоги"/>
+		<exist_req_expr VALUE="Условие существования (формула)" lang-en:VALUE="Existence formula" lang-ua:VALUE="Умова існування (формула)"/>
+		<conditions VALUE="Условия" lang-en:VALUE="Conditions" lang-ua:VALUE="Умови"/>
+		<filters VALUE="Фильтры" lang-en:VALUE="Filters" lang-ua:VALUE="Фільтри"/>
+		<desc VALUE="Описание" lang-en:VALUE="Description" lang-ua:VALUE="Опис"/>
+		<xxx_server_hostname_for_web VALUE="Имя сервера %s для доступа через Web" lang-en:VALUE="%s server name for Web access" lang-ua:VALUE="Ім'я сервера %s для доступу через Web"/>
+		<call VALUE="Звонок" lang-en:VALUE="Call" lang-ua:VALUE="Дзвінок"/>
+		<internal VALUE="Внутренний" lang-en:VALUE="Internal" lang-ua:VALUE="Внутрішній"/>
+		<incoming__call VALUE="Входящий" lang-en:VALUE="Incoming" lang-ua:VALUE="Вхідний"/>
+		<outgoing__call VALUE="Исходящий" lang-en:VALUE="Outgoing" lang-ua:VALUE="Вихідний"/>
+		<incoming_call VALUE="Входящий звонок" lang-en:VALUE="Incoming call" lang-ua:VALUE="Вхідний дзвінок"/>
+		<outgoing_call VALUE="Исходящий звонок" lang-en:VALUE="Outgoing call" lang-ua:VALUE="Вихідний дзвінок"/>
+		<attachments VALUE="Вложения" lang-en:VALUE="Attachments" lang-ua:VALUE="Вкладення"/>
+		<everywhere VALUE="Везде" lang-en:VALUE="Everywhere" lang-ua:VALUE="Всюди"/>
+		<language VALUE="Язык" lang-en:VALUE="Language" lang-ua:VALUE="Мова"/>
+		<languages VALUE="Языки" lang-en:VALUE="Languages" lang-ua:VALUE="Мови"/>
+		<languages_knowledge VALUE="Знание языков" lang-en:VALUE="Languages" lang-ua:VALUE="Знання мов"/>
+		<week VALUE="неделя" lang-en:VALUE="week" lang-ua:VALUE="тиждень"/>
+		<day VALUE="день" lang-en:VALUE="day" lang-ua:VALUE="день"/>
+		<days VALUE="дни" lang-en:VALUE="days" lang-ua:VALUE="дні"/>
+		<working_day VALUE="рабочий день" lang-en:VALUE="working day" lang-ua:VALUE="робочий день"/>
+		<working_days VALUE="рабочие дни" lang-en:VALUE="working days" lang-ua:VALUE="робочі дні"/>
+		<quarter VALUE="квартал" lang-en:VALUE="quarter" lang-ua:VALUE="квартал"/>
+		<years__mod VALUE="лет|год|года" lang-en:VALUE="years|year|years" lang-ua:VALUE="років|рік|року"/>
+		<years__mod2i VALUE="лет|года|лет" lang-en:VALUE="years|year|years" lang-ua:VALUE="років|року|років"/>
+		<month VALUE="месяц" lang-en:VALUE="month" lang-ua:VALUE="місяць"/>
+		<months__mod VALUE="месяцев|месяц|месяца" lang-en:VALUE="months|month|months" lang-ua:VALUE="місяців|місяць|місяці"/>
+		<year VALUE="год" lang-en:VALUE="year" lang-ua:VALUE="рік"/>
+		<more_than_xxx VALUE="Более %s" lang-en:VALUE="More than %s" lang-ua:VALUE="Понад %s"/>
+		<less_than_xxx VALUE="Менее %s" lang-en:VALUE="Less than %s" lang-ua:VALUE="До %s"/>
+		<from VALUE="от" lang-en:VALUE="from" lang-ua:VALUE="від"/>
+		<to VALUE="до" lang-en:VALUE="to" lang-ua:VALUE="до"/>
+		<total VALUE="Всего" lang-en:VALUE="Total" lang-ua:VALUE="Всього"/>
+		<found VALUE="Найдено" lang-en:VALUE="Found" lang-ua:VALUE="Знайдено"/>
+		<shown VALUE="Показано" lang-en:VALUE="Shown" lang-ua:VALUE="Показано"/>
+		<new__p VALUE="Новые" lang-en:VALUE="New" lang-ua:VALUE="Нові"/>
+		<unique__p VALUE="Уникальные" lang-en:VALUE="Unique" lang-ua:VALUE="Унікальні"/>
+		<account VALUE="Учетная запись" lang-en:VALUE="Accounts" lang-ua:VALUE="Обліковий запис"/>
+		<days__mod2 VALUE="дней" lang-en:VALUE="days" lang-ua:VALUE="днів"/>
+		<day__short VALUE="д" lang-en:VALUE="d" lang-ua:VALUE="д"/>
+		<hours__mod2 VALUE="часов" lang-en:VALUE="hours" lang-ua:VALUE="годин"/>
+		<show VALUE="Показывать" lang-en:VALUE="Show" lang-ua:VALUE="Показувати"/>
+		<in_progress VALUE="В работе" lang-en:VALUE="In progress" lang-ua:VALUE="В роботі"/>
+		<in_progress__active VALUE="В работе" lang-en:VALUE="Active" lang-ua:VALUE="В роботі"/>
+		<in_progress__elapsed VALUE="В работе" lang-en:VALUE="Elapsed" lang-ua:VALUE="В роботі"/>
+		<in_progress__duration VALUE="В работе" lang-en:VALUE="Duration" lang-ua:VALUE="В роботі"/>
+		<processed VALUE="Обработана" lang-en:VALUE="Processed" lang-ua:VALUE="В роботі"/>
+		<draft VALUE="Черновик" lang-en:VALUE="Draft" lang-ua:VALUE="Чернетка"/>
+		<present_time VALUE="настоящее время" lang-en:VALUE="present time" lang-ua:VALUE="теперішній час"/>
+		<charts VALUE="Диаграммы" lang-en:VALUE="Charts" lang-ua:VALUE="Діаграми"/>
+		<history VALUE="История" lang-en:VALUE="History" lang-ua:VALUE="Історія"/>
+		<duplicates VALUE="Дубликаты" lang-en:VALUE="Duplicates" lang-ua:VALUE="Дублікати"/>
+		<created__card VALUE="Карточка создана" lang-en:VALUE="Created" lang-ua:VALUE="Картка створена"/>
+		<last_modified__card VALUE="Изменена" lang-en:VALUE="Last Modified" lang-ua:VALUE="Змінена"/>
+		<condition VALUE="Условие" lang-en:VALUE="Condition" lang-ua:VALUE="Умова"/>
+		<test_phone_number VALUE="Тестовый номер телефона" lang-en:VALUE="Test phone number" lang-ua:VALUE="Тестовий номер телефону"/>
+		<phone_number VALUE="Номер телефона" lang-en:VALUE="Phone Number" lang-ua:VALUE="Номер телефону"/>
+		<phone_numbers VALUE="Телефонные номера" lang-en:VALUE="Phone Numbers" lang-ua:VALUE="Телефонні номери"/>
+		<phone_extension VALUE="Внутренний телефонный номер" lang-en:VALUE="Telephone Extension" lang-ua:VALUE="Внутрішній телефонний номер"/>
+		<extension__phone VALUE="Внутренний номер" lang-en:VALUE="Extension" lang-ua:VALUE="Внутрішній номер"/>
+		<duration VALUE="Продолжительность" lang-en:VALUE="Duration" lang-ua:VALUE="Тривалість"/>
+		<schedule VALUE="Расписание" lang-en:VALUE="Schedule" lang-ua:VALUE="Розклад"/>
+		<not_required VALUE="Не требуется" lang-en:VALUE="Not required" lang-ua:VALUE="Не вимагається"/>
+		<time_period VALUE="Период" lang-en:VALUE="Time period" lang-ua:VALUE="Період"/>
+		<of_them VALUE="Из них" lang-en:VALUE="Including" lang-ua:VALUE="З них"/>
+		<other__n VALUE="Другое" lang-en:VALUE="Other" lang-ua:VALUE="Інше"/>
+		<quantity__short VALUE="Кол-во" lang-en:VALUE="Count" lang-ua:VALUE="Кількість"/>
+		<hide_section VALUE="Скрыть раздел" lang-en:VALUE="Hide section" lang-ua:VALUE="Приховати розділ"/>
+		<active_element VALUE="Активный элемент" lang-en:VALUE="Active element" lang-ua:VALUE="Активний елемент"/>
+		<details__of_stat VALUE="Детализация" lang-en:VALUE="Details" lang-ua:VALUE="Деталізація"/>
+		<of_them_new VALUE="Из них новых" lang-en:VALUE="New" lang-ua:VALUE="З них нових"/>
+		<database_engine VALUE="Используемая СУБД" lang-en:VALUE="Database engine" lang-ua:VALUE="Використовувана СУБД"/>
+		<call_history VALUE="История звонков" lang-en:VALUE="Call History" lang-ua:VALUE="Історія дзвінків"/>
+		<competitor VALUE="Конкурент" lang-en:VALUE="Competitor" lang-ua:VALUE="Конкурент"/>
+		<new_group_in_menu VALUE="Новая группа в меню" lang-en:VALUE="New group in menu" lang-ua:VALUE="Нова група в меню"/>
+		<max_term__norm VALUE="Норматив" lang-en:VALUE="Max. term" lang-ua:VALUE="Норматив"/>
+		<sent VALUE="Отправлено" lang-en:VALUE="Sent" lang-ua:VALUE="Відправлено"/>
+		<apply_automatically VALUE="Применять автоматически" lang-en:VALUE="Apply automatically" lang-ua:VALUE="Застосовувати автоматично"/>
+		<section VALUE="Раздел" lang-en:VALUE="Section" lang-ua:VALUE="Розділ"/>
+		<other VALUE="другой" lang-en:VALUE="other" lang-ua:VALUE="інший"/>
+		<all VALUE="все" lang-en:VALUE="all" lang-ua:VALUE="всі"/>
+		<script__code VALUE="Скрипт" lang-en:VALUE="Script" lang-ua:VALUE="Скрипт"/>
+		<options VALUE="Параметры" lang-en:VALUE="Options" lang-ua:VALUE="Параметри"/>
+		<active_only VALUE="Только активные" lang-en:VALUE="Active only" lang-ua:VALUE="Тільки активні"/>
+		<actual__fact VALUE="Факт" lang-en:VALUE="Actual" lang-ua:VALUE="Факт"/>
+		<direct VALUE="Прямой" lang-en:VALUE="Direct" lang-ua:VALUE="Прямий"/>
+		<message_sample VALUE="Образец сообщения" lang-en:VALUE="Message sample" lang-ua:VALUE="Зразок повідомлення"/>
+		<message_subject VALUE="Тема сообщения" lang-en:VALUE="Message subject" lang-ua:VALUE="Тема повідомлення"/>
+		<message_text VALUE="Текст сообщения" lang-en:VALUE="Message text" lang-ua:VALUE="Текст повідомлення"/>
+		<recipients_num VALUE="Количество получателей" lang-en:VALUE="Number of recipients" lang-ua:VALUE="Кількість отримувачів"/>
+		<questionnaire_form VALUE="Опросный лист" lang-en:VALUE="Questionnaire Form" lang-ua:VALUE="Опитувальний лист"/>
+		<questionnaire_forms VALUE="Опросные листы" lang-en:VALUE="Questionnaire forms" lang-ua:VALUE="Опитувальні листи"/>
+		<assessment_forms VALUE="Оценочные листы" lang-en:VALUE="Assessment forms" lang-ua:VALUE="Оціночні листи"/>
+		<questionnaire_forms VALUE="Опросные листы" lang-en:VALUE="Questionnaire forms" lang-ua:VALUE="Опитувальні листи"/>
+		<dropdown_list VALUE="Выпадающий список" lang-en:VALUE="Drop-Down List" lang-ua:VALUE="Випадаючий список"/>
+		<video VALUE="Видео" lang-en:VALUE="Video" lang-ua:VALUE="Відео"/>
+		<separator VALUE="Разделитель" lang-en:VALUE="Separator" lang-ua:VALUE="Роздільник"/>
+		<domain VALUE="Домен" lang-en:VALUE="Domain" lang-ua:VALUE="Домен"/>
+		<pattern VALUE="Образец" lang-en:VALUE="Pattern" lang-ua:VALUE="Зразок"/>
+		<telephony VALUE="Телефония" lang-en:VALUE="Telephony" lang-ua:VALUE="Телефонія"/>
+		<send_via_lds_server VALUE="Отправлять с сервера приложения" lang-en:VALUE="Send from application server" lang-ua:VALUE="Відправляти з сервера програми"/>
+		<cancelled VALUE="Отменено" lang-en:VALUE="Cancelled" lang-ua:VALUE="Скасовано"/>
+		<cancelled__f VALUE="Отменена" lang-en:VALUE="Cancelled" lang-ua:VALUE="Скасована"/>
+		<cancelled__n VALUE="Отменено" lang-en:VALUE="Cancelled" lang-ua:VALUE="Скасовано"/>
+		<archived VALUE="Архив" lang-en:VALUE="Archived" lang-ua:VALUE="Архів"/>
+		<enabled VALUE="Включено" lang-en:VALUE="Enabled" lang-ua:VALUE="Включено"/>
+		<disabled VALUE="Отключено" lang-en:VALUE="Disabled" lang-ua:VALUE="Відключено"/>
+		<step VALUE="Шаг" lang-en:VALUE="Step" lang-ua:VALUE="Крок"/>
+		<variable VALUE="Переменная" lang-en:VALUE="Variable" lang-ua:VALUE="Змінна"/>
+		<variables VALUE="Переменные" lang-en:VALUE="Variables" lang-ua:VALUE="Змінні"/>
+		<comments VALUE="Комментарии" lang-en:VALUE="Comments" lang-ua:VALUE="Коментарі"/>
+		<my_comments VALUE="Мои комментарии" lang-en:VALUE="My Comments" lang-ua:VALUE="Мої коментарі"/>
+		<check VALUE="Проверка" lang-en:VALUE="Check" lang-en:VALUE="Перевірка"/>
+		<test_data VALUE="Данные для тестирования" lang-en:VALUE="Test Data" lang-en:VALUE="Дані для тестування"/>
+		<simulation VALUE="Симуляция" lang-en:VALUE="Simulation" lang-ua:VALUE="Симуляція"/>
+		<simulation_mode VALUE="Режим симуляции" lang-en:VALUE="Simulation Mode" lang-ua:VALUE="Режим симуляції"/>
+		<required__to_fill VALUE="Обязательно для заполнения" lang-en:VALUE="Required" lang-ua:VALUE="Обов'язкове для заповнення"/>
+		<unlimited VALUE="Не ограничено" lang-en:VALUE="Unlimited" lang-ua:VALUE="Не обмежено"/>
+		<default_value VALUE="Значение по умолчанию" lang-en:VALUE="Default Value" lang-ua:VALUE="Значення за замовчуванням"/>
+		<loop VALUE="Цикл" lang-en:VALUE="Loop" lang-ua:VALUE="Цикл"/>
+		<time_zone VALUE="Часовой пояс" lang-en:VALUE="Time zone" lang-ua:VALUE="Часовий пояс"/>
+		<activities VALUE="Активности" lang-en:VALUE="Activities" lang-ua:VALUE="Активності"/>
+		<data VALUE="Данные" lang-en:VALUE="Data" lang-ua:VALUE="Дані"/>
+		<content VALUE="Содержимое" lang-en:VALUE="Content" lang-ua:VALUE="Вміст"/>
+		<aux_elem TITLE="Вспомогательный элемент" lang-en:TITLE="Auxiliary Element" lang-ua:TITLE="Допоміжний елемент"/>
+		<provider VALUE="Провайдер" lang-en:VALUE="Provider" lang-ua:VALUE="Провайдер"/>
+		<std_provider VALUE="Провайдер из списка" lang-en:VALUE="Built-in Provider" lang-ua:VALUE="Провайдер зі списку"/>
+		<stopped__off VALUE="Выключен" lang-en:VALUE="Stopped" lang-ua:VALUE="Вимкнений"/>
+		<running__on VALUE="Включен" lang-en:VALUE="Running" lang-ua:VALUE="Включений"/>
+		<starting VALUE="Начинает работу" lang-en:VALUE="Starting" lang-ua:VALUE="Починає роботу"/>
+		<stopping VALUE="Завершает работу" lang-en:VALUE="Stopping" lang-ua:VALUE="Завершує роботу"/>
+		<database__short VALUE="База" lang-en:VALUE="Database" lang-ua:VALUE="База"/>
+		<charset VALUE="Кодировка" lang-en:VALUE="Encoding" lang-ua:VALUE="Кодування"/>
+		<mobile_app VALUE="Мобильное приложение" lang-en:VALUE="Mobile Application" lang-ua:VALUE="Мобільний додаток"/>
+		<allow_access VALUE="Разрешить доступ" lang-en:VALUE="Allow access" lang-ua:VALUE="Дозволити доступ"/>
+		<plain_text VALUE="Неформатированный текст" lang-en:VALUE="Plain Text" lang-ua:VALUE="Простий текст"/>
+		<preview VALUE="Предварительный просмотр" lang-en:VALUE="Preview" lang-ua:VALUE="Попередній перегляд"/>
+		<run_on_workstation VALUE="Запуск на рабочем месте" lang-en:VALUE="Run on workstation" lang-ua:VALUE="Запуск на робочому місці"/>
+		<loading VALUE="Загрузка" lang-en:VALUE="Loading" lang-ua:VALUE="Завантаження"/>
+		<publish_date VALUE="Дата публикации" lang-en:VALUE="Publish date" lang-ua:VALUE="Дата публікації"/>
+		<action_name VALUE="Наименование действия" lang-en:VALUE="Action Name" lang-ua:VALUE="Найменування дії"/>
+		<default__a VALUE="По умолчанию" lang-en:VALUE="Default" lang-ua:VALUE="За замовчуванням"/>
+		<object_list VALUE="Список объектов" lang-en:VALUE="Object List" lang-ua:VALUE="Список об'єктів"/>
+		<inline_list VALUE="Список значений" lang-en:VALUE="Inline List" lang-ua:VALUE="Список значень"/>
+		<max_len VALUE="Макс. длина" lang-en:VALUE="Max. Length" lang-ua:VALUE="Макс. довжина"/>
+	</titles>
+	<sections>
+		<stats VALUE="Статистика" lang-en:VALUE="Statistics" lang-ua:VALUE="Статистика"/>
+		<global_settings_region VALUE="Региональные настройки" lang-en:VALUE="Regional settings" lang-ua:VALUE="Регіональні налаштування"/>
+		<common VALUE="Общие" lang-en:VALUE="Common" lang-ua:VALUE="Загальні"/>
+		<settings_view VALUE="Просмотр" lang-en:VALUE="View" lang-ua:VALUE="Вигляд"/>
+		<settings_technical VALUE="Технические" lang-en:VALUE="Technical" lang-ua:VALUE="Технічні"/>
+		<settings_ui VALUE="Пользовательский интерфейс" lang-en:VALUE="User interface" lang-ua:VALUE="Інтерфейс користувача"/>
+		<settings_conn VALUE="Доступ в Интернет" lang-en:VALUE="Internet Access" lang-ua:VALUE="Доступ в Інтернет"/>
+		<settings_office_app VALUE="Офисные приложения" lang-en:VALUE="Office application" lang-ua:VALUE="Офісні програми"/>
+		<settings_mail VALUE="Отправка почты" lang-en:VALUE="Sending Email" lang-ua:VALUE="Відправлення пошти"/>
+		<settings_mail_plugins VALUE="Модули к внешним программам" lang-en:VALUE="External application plug-ins" lang-ua:VALUE="Модулі до зовнішніх програмам"/>
+		<settings_replica VALUE="Синхронизация данных" lang-en:VALUE="Replication" lang-ua:VALUE="Синхронізація даних"/>
+		<settings_lds VALUE="##UiText.titles.lds##"/>
+		<vocs_common VALUE="##UiText.sections.common##"/>
+		<vocs_integration VALUE="Интеграция" lang-en:VALUE="Integration" lang-ua:VALUE="Інтеграція"/>
+		<vocs_misc VALUE="Прочие" lang-en:VALUE="Miscellaneous" lang-ua:VALUE="Інше"/>
+		<misc VALUE="Прочее" lang-en:VALUE="Other" lang-ua:VALUE="Інше"/>
+		<administration VALUE="Администрирование" lang-en:VALUE="Administration" lang-ua:VALUE="Адміністрування"/>
+		<global_settings VALUE="Общие настройки" lang-en:VALUE="Global settings" lang-ua:VALUE="Загальні налаштування"/>
+		<general_settings VALUE="Общие настройки" lang-en:VALUE="General settings" lang-ua:VALUE="Загальні налаштування"/>
+		<groups VALUE="Группы" lang-en:VALUE="Groups" lang-ua:VALUE="Групи"/>
+		<logs VALUE="Журналы" lang-en:VALUE="Logs" lang-ua:VALUE="Журнали"/>
+		<card_numbering VALUE="Нумерация карточек" lang-en:VALUE="Card numbering" lang-ua:VALUE="Нумерація карток"/>
+		<about_program VALUE="О программе" lang-en:VALUE="About" lang-ua:VALUE="Про програму"/>
+		<general VALUE="Общие сведения" lang-en:VALUE="General" lang-ua:VALUE="Загальні відомості"/>
+		<settings VALUE="Настройки" lang-en:VALUE="Settings" lang-ua:VALUE="Налаштування"/>
+		<personal_settings VALUE="Персональные настройки" lang-en:VALUE="Personal Settings" lang-ua:VALUE="Персональні налаштування"/>
+		<users VALUE="Пользователи" lang-en:VALUE="Users" lang-ua:VALUE="Користувачі"/>
+		<service VALUE="Сервис" lang-en:VALUE="Service" lang-ua:VALUE="Сервіс"/>
+		<help VALUE="Справки" lang-en:VALUE="Help" lang-ua:VALUE="Довідки"/>
+		<agents VALUE="Фоновые задачи" lang-en:VALUE="Agents" lang-ua:VALUE="Фонові завдання"/>
+		<custom_fields VALUE="Дополнительные поля" lang-en:VALUE="Custom Fields" lang-ua:VALUE="Додаткові поля"/>
+		<global_settings_field_usage VALUE="Управление полями карточек" lang-en:VALUE="Card fields management" lang-ua:VALUE="Управління полями карток"/>
+		<global_settings_auto_mailing VALUE="Автоматическая отправка почты" lang-en:VALUE="Automatic mail sending" lang-ua:VALUE="Автоматична відправка пошти"/>
+		<global_settings_backup VALUE="Резервное копирование" lang-en:VALUE="Backup" lang-ua:VALUE="Резервне копіювання"/>
+		<global_settings_web VALUE="Корпоративный портал" lang-en:VALUE="Corporate portal" lang-ua:VALUE="Корпоративний портал"/>
+		<user_accounts VALUE="Учетные записи" lang-en:VALUE="User accounts" lang-en:VALUE="Облікові записи"/>
+		<external_accounts VALUE="Внешние учетные записи" lang-en:VALUE="External accounts" lang-ua:VALUE="Зовнішні облікові записи"/>
+	</sections>
+	<actions>
+		<create__new VALUE="Создать" lang-en:VALUE="New" lang-ua:VALUE="Створити"/>
+		<modify VALUE="Изменить" lang-en:VALUE="Modify" lang-ua:VALUE="Змінити"/>
+		<undo VALUE="Отменить" lang-en:VALUE="Undo" lang-ua:VALUE="Скасувати"/>
+		<preview_mode VALUE="Режим предварительного просмотра" lang-en:VALUE="Preview mode" lang-ua:VALUE="Режим попереднього перегляду"/>
+		<add VALUE="Добавить" lang-en:VALUE="Add" lang-ua:VALUE="Додати"/>
+		<move_up VALUE="Переместить выше" lang-en:VALUE="Move up" lang-ua:VALUE="Перемістити вище"/>
+		<move_down VALUE="Переместить ниже" lang-en:VALUE="Move down" lang-ua:VALUE="Перемістити нижче"/>
+		<paste VALUE="Вставить" lang-en:VALUE="Paste" lang-ua:VALUE="Вставити"/>
+		<select_all VALUE="Выделить все" lang-en:VALUE="Select All" lang-ua:VALUE="Виділити все"/>
+		<cut VALUE="Вырезать" lang-en:VALUE="Cut" lang-ua:VALUE="Вирізати"/>
+		<deactivate VALUE="Деактивировать" lang-en:VALUE="Deactivate" lang-ua:VALUE="Деактивувати"/>
+		<attach_file VALUE="Прикрепить файл" lang-en:VALUE="Attach file" lang-ua:VALUE="Прикріпити файл"/>
+		<attach_files VALUE="Прикрепить файлы" lang-en:VALUE="Attach files" lang-ua:VALUE="Прикріпити файли"/>
+		<copy VALUE="Копировать" lang-en:VALUE="Copy" lang-ua:VALUE="Копіювати"/>
+		<ft_find VALUE="Найти" lang-en:VALUE="Search" lang-ua:VALUE="Знайти"/>
+		<new_elem_of_voc VALUE="Новый элемент" lang-en:VALUE="New entry" lang-ua:VALUE="Новий елемент"/>
+		<open_object_card VALUE="Открыть карточку объекта" lang-en:VALUE="Open object card" lang-ua:VALUE="Відкрити картку об'єкта"/>
+		<clear_field VALUE="Очистить поле" lang-en:VALUE="Clear field" lang-ua:VALUE="Очистити поле"/>
+		<clear_form VALUE="Очистить форму" lang-en:VALUE="Clear form" lang-ua:VALUE="Очистити форму"/>
+		<print VALUE="Печать" lang-en:VALUE="Print" lang-ua:VALUE="Друк"/>
+		<print_profile VALUE="Печать профиля" lang-en:VALUE="Print Profile" lang-ua:VALUE="Друк профілю"/>
+		<check_spelling VALUE="Проверить правописание" lang-en:VALUE="Check spelling" lang-ua:VALUE="Перевірити правопис"/>
+		<save VALUE="Сохранить" lang-en:VALUE="Save" lang-ua:VALUE="Зберегти"/>
+		<export_to_file VALUE="Экспорт в файл" lang-en:VALUE="Export to file" lang-ua:VALUE="Експорт в файл"/>
+		<edit_attachment_in_xxx VALUE="Редактировать приложение в %s" lang-en:VALUE="Edit attachment in %s" lang-ua:VALUE="Редагувати додаток в %s"/>
+		<show VALUE="Показать" lang-en:VALUE="Show" lang-ua:VALUE="Показати"/>
+		<load VALUE="Загрузить" lang-en:VALUE="Load" lang-ua:VALUE="Завантажити"/>
+		<import_to_estaff VALUE="Импорт в E-Staff" lang-en:VALUE="Import to E-Staff" lang-ua:VALUE="Імпорт в E-Staff"/>
+		<import_resume_to_estaff VALUE="Импорт резюме в E-Staff" lang-en:VALUE="Import CV to E-Staff" lang-ua:VALUE="Імпорт резюме в E-Staff"/>
+		<send VALUE="Отправить" lang-en:VALUE="Send" lang-ua:VALUE="Відправити"/>
+		<submit VALUE="Отправить" lang-en:VALUE="Submit" lang-ua:VALUE="Відправити"/>
+		<activate VALUE="Активировать" lang-en:VALUE="Activate" lang-ua:VALUE="Активувати"/>
+		<insert_auto_field VALUE="Вставить вычисляемый элемент" lang-en:VALUE="Insert auto field" lang-ua:VALUE="Вставити обчислюваний елемент"/>
+		<open_in_new_window VALUE="Открыть в отдельном окне" lang-en:VALUE="Open in new window" lang-ua:VALUE="Відкрити в окремому вікні"/>
+		<make_test_call VALUE="Выполнить тестовый звонок" lang-en:VALUE="Make a Test Call" lang-ua:VALUE="Виконати тестовий дзвінок"/>
+		<send_test_message VALUE="Отправить тестовое сообщение" lang-en:VALUE="Send test message" lang-ua:VALUE="Відправити тестове повідомлення"/>
+		<print_attachment VALUE="Печать приложения" lang-en:VALUE="Print attachment" lang-ua:VALUE="Друк додатка"/>
+		<put_in_database VALUE="Поместить в базу" lang-en:VALUE="Save in database" lang-ua:VALUE="Помістити в базу"/>
+		<put_in_database_and_open_card VALUE="Поместить в базу и открыть карточку" lang-en:VALUE="Save in database and open" lang-ua:VALUE="Помістити в базу і відкрити картку"/>
+		<check_imod VALUE="Проверить актуальность Интернет-модуля" lang-en:VALUE="Validate Internet package" lang-ua:VALUE="Перевірити актуальність Інтернет-модуля"/>
+		<clear_app_local_storage VALUE="Сбросить визуальные настройки приложения" lang-en:VALUE="Reset application visual settings" lang-ua:VALUE="Скинути візуальні налаштування програми"/>
+		<check_state VALUE="Проверить статус" lang-en:VALUE="Check status" lang-ua:VALUE="Перевірити статус"/>
+		<uninstall VALUE="Удалить" lang-en:VALUE="Uninstall" lang-ua:VALUE="Видалити"/>
+		<install VALUE="Установить" lang-en:VALUE="Install" lang-ua:VALUE="Встановити"/>
+		<request_app_access VALUE="Запросить доступ для приложения" lang-en:VALUE="Request access for this application" lang-ua:VALUE="Запросити доступ для додатку"/>
+		<paste_auth_code VALUE="Вставить авторизационный код из буфера обмена" lang-en:VALUE="Paste authorization code from clipboard" lang-ua:VALUE="Вставити авторизаційний код з буфера обміну"/>
+		<check_account VALUE="Проверить аккаунт" lang-en:VALUE="Check account" lang-ua:VALUE="Перевірити аккаунт"/>
+		<change_state VALUE="Изменить статус" lang-en:VALUE="Change state" lang-ua:VALUE="Змінити статус"/>
+		<new_message__email VALUE="Новое письмо" lang-en:VALUE="New Message" lang-ua:VALUE="Новий Лист"/>
+		<send_email VALUE="Отправить E-Mail" lang-en:VALUE="Send E-Mail" lang-ua:VALUE="Надіслати E-Mail"/>
+		<send_sms VALUE="Отправить SMS" lang-en:VALUE="Send SMS" lang-ua:VALUE="Надіслати SMS"/>
+		<open_section_in_new_window VALUE="Открыть раздел в новом окне" lang-en:VALUE="Open section in new window" lang-ua:VALUE="Відкрити розділ в новому вікні"/>
+		<show_chart VALUE="Показать диаграмму" lang-en:VALUE="Show chart" lang-ua:VALUE="Показати діаграму"/>
+		<set_result VALUE="Указать результат" lang-en:VALUE="Set the Result" lang-ua:VALUE="Вказати результат"/>
+		<recalculate VALUE="Пересчитать" lang-en:VALUE="Recalculate" lang-ua:VALUE="Перерахувати"/>
+		<copy_text VALUE="Копировать текст" lang-en:VALUE="Copy Text" lang-ua:VALUE="Копіювати текст"/>
+		<call VALUE="Позвонить" lang-en:VALUE="Call" lang-ua:VALUE="Подзвонити"/>
+		<view_as_xml VALUE="Показать в виде XML" lang-en:VALUE="View as XML" lang-ua:VALUE="Показати у вигляді XML"/>
+		<launch VALUE="Запустить" lang-en:VALUE="launch" lang-ua:VALUE="Запустити"/>
+		<rebuild VALUE="Перестроить" lang-en:VALUE="Rebuild" lang-ua:VALUE="Перебудувати"/>
+		<select_from_list VALUE="Выбрать из списка" lang-en:VALUE="Select form list" lang-ua:VALUE="Вибрати зі списку"/>
+		<run_now VALUE="Выполнить сейчас" lang-en:VALUE="Run now" lang-ua:VALUE="Виконати зараз"/>
+		<launch_in_background VALUE="Запустить в фоновом режиме" lang-en:VALUE="Launch in background" lang-ua:VALUE="Запустити у фоновому режимі"/>
+		<logout VALUE="Выход" lang-en:VALUE="Logout" lang-ua:VALUE="Вихід"/>
+		<apply VALUE="Применить" lang-en:VALUE="Apply" lang-ua:VALUE="Застосувати"/>
+	</actions>
+	<messages>
+		<info_msg_title VALUE="##UiText.titles.attention##"/>
+		<question_msg_title VALUE="##UiText.titles.warning##"/>
+		<warning_msg_title VALUE="##UiText.titles.warning##"/>
+		<error_msg_title VALUE="##UiText.titles.error##"/>
+		<activation_successful VALUE="Ваша копия программного продукта успешно активирована.&#10;Если в будущем Вам потребуется перенести программный продукт на другой компьютер, необходимо предварительно деактивировать текущую копию." lang-en:VALUE="Your copy of the product has been successfully activated.&#10;To move your product to another computer, please deactivate it first." lang-ua:VALUE="Ваша копія програмного продукту успішно активована.&#10;Якщо в майбутньому Вам буде потрібно перенести програмний продукт на інший комп'ютер то необхідно попередньо деактивувати поточну копію."/>
+		<deactivation_successful VALUE="Ваша копия программного продукта успешно деактивирована" lang-en:VALUE="Your copy of the product has been successfully deactivated" lang-ua:VALUE="Ваша копія програмного продукту успішно деактивована"/>
+		<server_has_new_build VALUE="На внутреннем сервере обнаружена более новая версия программы, по сравнению с установленной у Вас. Обновить версию?" lang-en:VALUE="Newer version of the program is found on your server. Update your program?" lang-ua:VALUE="На внутрішньому сервері виявлена новіша версія програми, порівняно з встановленою у Вас. Оновити версію?"/>
+		<server_new_build_will_be_installed VALUE="Обнаружена более новая версия программы. Будет произведено обновление." lang-en:VALUE="Newer version of the program is found on your server" lang-ua:VALUE="Виявлена новіша версія програми. Буде проведено оновлення."/>
+		<agent_launched VALUE="Фоновая задача запущена" lang-en:VALUE="The task has been started" lang-ua:VALUE="Фонова задача запущена"/>
+		<agent_launched_on_server VALUE="Фоновая задача запущена на сервере" lang-en:VALUE="The task has been started on server" lang-ua:VALUE="Фонова задача запущена на сервері"/>
+		<mass_mail VALUE="Рассылка" lang-en:VALUE="Mass mailing" lang-ua:VALUE="Розсилка"/>
+		<mass_mail_dest_type_mismatch VALUE="Тип получателя в шаблоне письма не совпадает с типом выбранных объектов. Продолжить?" lang-en:VALUE="Type of recipient in mail template does not match type of selected objects. Continue?" lang-ua:VALUE="Тип одержувача в шаблоні листа не збігається з типом вибраних об'єктів. Продовжити?"/>
+		<attachment_xxx_is_opened_in_external_program VALUE="Приложение '%s' в настоящий момент открыто во внешней программе. Если Вы закроете карточку, изменения, сделанные во внешней программе могут быть потеряны. Продолжить?" lang-en:VALUE="Attachment '%s' is currently being edited in external program. If you close the card, all changes will be lost. Continue?" lang-ua:VALUE="Додаток '%s' зараз відкрито у зовнішній програмі. Якщо Ви закриєте картку, зміни, зроблені у зовнішній програмі можуть бути втрачені. Продовжити?"/>
+		<explorer_handler_installed VALUE="Кнопка добавлена. Функция будет доступна после следующего запуска Internet Explorer." lang-en:VALUE="Toolbar button added. The function will be available after you start Internet Explorer." lang-ua:VALUE="Кнопка додана. Функція буде доступна після наступного запуску Internet Explorer."/>
+		<outlook_plugin_installed VALUE="Обработчик установлен. Функция будет доступна после следующего запуска Microsoft Outlook." lang-en:VALUE="Mail handler installed. The function will be available after you start Microsoft Outlook." lang-ua:VALUE="Оброблювач встановлений. Функція буде доступна після наступного запуску Microsoft Outlook."/>
+		<thunderbird_plugin_installed VALUE="Обработчик установлен. Функция будет доступна после следующего запуска Mozilla Thunderbird." lang-en:VALUE="Mail handler installed. The function will be available after you start Mozilla Thunderbird." lang-ua:VALUE="Оброблювач встановлений. Функція буде доступна після наступного запуску Mozilla Thunderbird."/>
+		<lotus_handler_installed VALUE="Обработчик установлен. Функция будет доступна через меню Действия (Actions) внутри почтового ящика после следующего запуска Lotus Notes." lang-en:VALUE="Mail handler installed. The function will be available in Actions menu after you start Lotus Notes." lang-ua:VALUE="Оброблювач встановлений. Функція буде доступна через меню Дії (Actions) всередині поштової скриньки після наступного запуску Lotus Notes."/>
+		<plugin_unregistered VALUE="Модуль удален." lang-en:VALUE="Plug-in has been uninstalled." lang-ua:VALUE="Модуль видалений."/>
+		<catalog_files_deleted VALUE="Файлы каталога удалены. Файлы будут автоматически восстановлены после запуска сервера." lang-en:VALUE="Catalog files have been deleted. Files will be automatically restored after server startup." lang-ua:VALUE="Файли каталогу видалені. Файли будуть автоматично відновлені після запуску сервера."/>
+		<ft_files_deleted VALUE="Индексные файлы удалены. Файлы будут автоматически восстановлены после запуска сервера." lang-en:VALUE="Index files have been deleted." lang-ua:VALUE="Індексні файли видалені. Файли будуть автоматично відновлені після запуску сервера."/>
+		<app_will_be_deactivated VALUE="Ваша копия программы будет деактивирована через Интернет. Продолжить?" lang-en:VALUE="Your copy of the program will be deactivated through the Internet. Continue?" lang-ua:VALUE="Ваша копія програми буде деактивовано через Інтернет. Продовжити?"/>
+		<replicating_with_server_xxx VALUE="Синхронизация данных с сервером %s" lang-en:VALUE="Replicating with server %s" lang-ua:VALUE="Синхронізація даних з сервером %s"/>
+		<building_local_replica_list VALUE="Формирование локального списка измененных объектов" lang-en:VALUE="Building local replica list" lang-ua:VALUE="Формування локального списку змінених об'єктів"/>
+		<loading_remote_replica_list VALUE="Загрузка списка измененных объектов" lang-en:VALUE="Loading remote replica list" lang-ua:VALUE="Завантаження списку змінених об'єктів"/>
+		<sending_replica_items VALUE="Отправка данных на сервер" lang-en:VALUE="Sending data" lang-ua:VALUE="Відправлення даних на сервер"/>
+		<receiving_replica_items VALUE="Закачка данных с сервера" lang-en:VALUE="Receiving data" lang-ua:VALUE="Закачування даних з сервера"/>
+		<sending_deleted_replica_items VALUE="Отправка удаленных данных на сервер" lang-en:VALUE="Sending deletions" lang-ua:VALUE="Відправлення видалених даних на сервер"/>
+		<receiving_deleted_replica_items VALUE="Удаление данных" lang-en:VALUE="Receiving deletions" lang-ua:VALUE="Видалення даних"/>
+		<voc_elem_will_be_reset VALUE="Выделенный элемент справочника будет сброшен в первоначальное состояние, заданное в дистрибутиве программы. Продолжить?" lang-en:VALUE="This will reset selected list element to factory settings. Continue?" lang-ua:VALUE="Виділений елемент довідника буде скинутий в первинний стан, заданий в дистрибутиві програми. Продовжити?"/>
+		<merge_selected_objects VALUE="Выбранные объекты будут объединены. Продолжить?" lang-en:VALUE="This will merge selected objects. Continue?" lang-ua:VALUE="Вибрані об'єкти будуть об'єднані. Продовжити?"/>
+		<should_register_explorer_plugin VALUE="На Вашем компьютере в качестве Web-браузера используется Internet Explorer. Добавить кнопку 'Импорт в E-Staff' на панель инструментов Internet Explorer?&#10;&#10;Данная кнопка позволит быстро переносить выделенные фрагменты резюме в E-Staff." lang-en:VALUE="You default Web browser is Internet Explorer. Add 'Import to E-Staff' button to Internet Explorer toolbar?&#10;&#10;This button allows transferring selected resume text to E-Staff." lang-ua:VALUE="На Вашому комп'ютері в якості Web-браузера використовується Internet Explorer. Додати кнопку 'Імпорт в E-Staff' на панель інструментів Internet Explorer?&#10;&#10;Дана кнопка дозволить швидко переносити виділені фрагменти резюме в E-Staff."/>
+		<should_register_outlook_plugin VALUE="На Вашем компьютере установлен Microsoft Outlook. Добавить кнопку 'Импорт резюме в E-Staff' на панель инструментов Microsoft Outlook?&#10;&#10;Данная кнопка позволит быстро извлекать и переносить в E-Staff резюме кандидатов из выделенных писем." lang-en:VALUE="Microsoft Outlook is installed on your computer. Add 'Import to E-Staff' button to Microsoft Outlook toolbar?&#10;&#10;This button allows extracting CVs from selected messages and transferring them to E-Staff." lang-ua:VALUE="На Вашому комп'ютері встановлений Microsoft Outlook. Додати кнопку 'Імпорт резюме в E-Staff' на панель інструментів Microsoft Outlook?&#10;&#10;Дана кнопка дозволить швидко витягати і переносити в E-Staff резюме кандидатів з виділених листів."/>
+		<nod32_warning_xxx VALUE="На Вашем компьютере установлен антивирус ESET Nod32. Работа антивируса может привести к существенному снижению скорости связи рабочего места %s с сервером, а также возникновению ошибок соединения.&#10;&#10;Рекомендуется прописать %s в исключения антивируса в разделе 'Фильтрация протоколов'." lang-en:VALUE="ESET Nod32 antivirus is installed on your computer. This may significantly slow down connection speed between %s and the server. It is recommended to add %s as an exception to antivirus in 'Traffic filtering' section." lang-ua:VALUE="На Вашому комп'ютері встановлений антивірус ESET Nod32. Робота антивіруса може привести до відчутного зниження швидкості зв'язку робочого місця %s з сервером, а також виникненню помилок з'єднання.&#10;&#10;Рекомендується прописати %s у виключення антивіруса в розділі 'Фільтрація протоколів'."/>
+		<csd_imported VALUE="Структура дополнительных полей загружена." lang-en:VALUE="Custom fields structure has been imported." lang-ua:VALUE="Структура додаткових полів завантажена."/>
+		<restart_app_to_continue VALUE="Для продолжения работы перезапустите программу" lang-en:VALUE="Restart the program to continue." lang-ua:VALUE="Для продовження роботи перезавантажте програму"/>
+		<restart_server_to_continue VALUE="Для продолжения работы перезапустите сервер и саму программу" lang-en:VALUE="To continue restart your application server and the program." lang-ua:VALUE="Для продовження роботи перезавантажте сервер і саму програму"/>
+		<subst_view_will_be_reset VALUE="Персональные настройки списка объектов будут сброшены. Список будет выглядеть как у других пользователей программы. Продолжить?" lang-en:VALUE="Personal list settings will be reset to global settings. Continue?" lang-ua:VALUE="Персональні налаштування списку об'єктів будуть скинуті. Список буде виглядати як у інших користувачів програми. Продовжити?"/>
+		<sms_message_will_be_sent VALUE="Будет отправлено следующее SMS-сообщение. Продолжить?" lang-en:VALUE="The following SMS will be sent. Continue?" lang-ua:VALUE="Буде відправлено наступне SMS-повідомлення. Продовжити?"/>
+		<checking_successful VALUE="Проверка завершена успешно" lang-en:VALUE="Checking completed successfully" lang-ua:VALUE="Перевірка завершена успішно"/>
+		<loading_client_update VALUE="Загрузка обновления с сервера приложения" lang-en:VALUE="Loading the update package from the application server" lang-ua:VALUE="Завантаження оновлення з сервера додатки"/>
+		<subscription_expired VALUE="Подписка истекла" lang-en:VALUE="Subscription expired" lang-ua:VALUE="Підписка минула"/>
+		<building_report VALUE="Построение отчета" lang-en:VALUE="Building the report" lang-ua:VALUE="Побудова звіту"/>
+		<start_sending VALUE="Начать рассылку?" lang-en:VALUE="Start sending?" lang-ua:VALUE="Почати розсилку?"/>
+	</messages>
+	<errors>
+		<activation_code_not_specified VALUE="Не указан код активации" lang-en:VALUE="Activation code not specified" lang-ua:VALUE="Не вказаний код активації"/>
+		<already_activated VALUE="Копия программы с Вашим серийным номером уже была активирована" lang-en:VALUE="Your copy of the product has been already activated" lang-ua:VALUE="Копія програми з Вашим серійним номером вже була активована"/>
+		<invalid_value VALUE="Недопустимое значение поля" lang-en:VALUE="Invalid value" lang-ua:VALUE="Неприпустиме значення поля"/>
+		<invalid_time VALUE="Недопустимое время" lang-en:VALUE="Invalid time value" lang-ua:VALUE="Неприпустимий час"/>
+		<invalid_phone_number VALUE="Недопустимый формат номера телефона" lang-en:VALUE="Invalid phone number format" lang-ua:VALUE="Неприпустимий формат номера телефону"/>
+		<name_not_specified VALUE="Не указано наименование" lang-en:VALUE="Name has not been specified" lang-ua:VALUE="Не вказано найменування"/>
+		<voc_elem_id_not_specified VALUE="Не указан идентификатор" lang-en:VALUE="ID has not been specified" lang-ua:VALUE="Не вказаний ідентифікатор"/>
+		<voc_elem_id_xxx_already_used VALUE="Код %s уже используется" lang-en:VALUE="%s ID is already in use" lang-ua:VALUE="Код %s вже використовується"/>
+		<invalid_voc_elem_id VALUE="Код может содержать только буквы либо цифры" lang-en:VALUE="ID may contain alphanumeric symbols only" lang-ua:VALUE="Код може містити тільки букви або цифри"/>
+		<invalid_voc_id VALUE="Недопустимый код справочника" lang-en:VALUE="Invalid ID" lang-ua:VALUE="Неприпустимий код довідника"/>
+		<std_voc_elem_delete_prohibited VALUE="Стандартный элемент этого справочника не может быть удален" lang-en:VALUE="Standard element of this list cannot be deleted" lang-ua:VALUE="Стандартний елемент цього довідника не може бути видалений"/>
+		<secondary_voc_elem_delete_prohibited VALUE="Элемент вторичного справочника не может быть удален. Для удаления статуса используйте исходный справочник 'Типы событий'" lang-en:VALUE="Secondary element cannot be deleted. Use 'Event types' instead" lang-ua:VALUE="Елемент вторинного довідника не може бути видалений. Для видалення статусу використовуйте вихідний довідник 'Типи подій'"/>
+		<new_state_voc_elem_cannot_be_opened VALUE="Вы не можете редактировать встроенный статус" lang-en:VALUE="Build-in 'New' state cannot be edited" lang-ua:VALUE="Ви не можете редагувати вбудований статус"/>
+		<hier_loop_detected VALUE="В качестве родительского объекта не может быть выбран подчиненный объект" lang-en:VALUE="You may not select descendant object as parent" lang-ua:VALUE="В якості батьківського об'єкта не може бути вибраний підлеглий об'єкт"/>
+		<object_type_not_specified VALUE="Не выбран тип объекта" lang-en:VALUE="Object type has not been specified" lang-ua:VALUE="Не вибрано тип об'єкта"/>
+		<action_not_specified VALUE="Не выбрано действие" lang-en:VALUE="Action has not been specified" lang-ua:VALUE="Не вибрано дію"/>
+		<columns_not_specified VALUE="Не указана ни один столбец" lang-en:VALUE="No columns specified" lang-ua:VALUE="Не зазначено жодного стовпеця"/>
+		<dir_not_specified VALUE="Не указана директория" lang-en:VALUE="Folder has not been specified" lang-ua:VALUE="Не зазначена директорія"/>
+		<field_not_specified VALUE="Не выбрано поле или вычисляемое значение" lang-en:VALUE="Field or value expression has not been selected" lang-ua:VALUE="Не вибрано поле або обчислюване значення"/>
+		<field_is_empty VALUE="Поле на заполнено" lang-en:VALUE="Field is empty" lang-ua:VALUE="Поле на заповнене"/>
+		<eval_mail_template_failed VALUE="Ошибка в вычисляемом поле шаблона письма. Проверьте правильность составления шаблона" lang-en:VALUE="Error in E-mail template fields. Check the template.&#10;&#10;Diagnostics:" lang-ua:VALUE="Помилка в обчислюваному полі шаблона листа. Перевірте правильність складання шаблону"/>
+		<eval_sms_template_failed VALUE="Ошибка в вычисляемом поле шаблона SMS. Проверьте правильность составления шаблона" lang-en:VALUE="Error in SMS template fields. Check the template.&#10;&#10;Diagnostics:" lang-ua:VALUE="Помилка в обчислюваному полі шаблона SMS. Перевірте правильність складання шаблону"/>
+		<eval_exist_req_expr_failed VALUE="Ошибка в вычисляемом условии существования" lang-en:VALUE="Error in existence formula" lang-ua:VALUE="Помилка в обчислюваному умови існування"/>
+		<smtp_server_not_specified VALUE="В общих настройках отправки почты не указан адрес сервера SMTP" lang-en:VALUE="SMTP server is not specified in global settings" lang-ua:VALUE="У загальних налаштуваннях відправки пошти не вказана адреса сервера SMTP"/>
+		<local_smtp_server_not_specified VALUE="В персональных настройках отправки почты не указан адрес сервера SMTP" lang-en:VALUE="SMTP server is not specified in local settings" lang-ua:VALUE="У персональних налаштуваннях відправки пошти вказана адреса сервера SMTP"/>
+		<login_not_specified VALUE="Не указан логин" lang-en:VALUE="Login has not been specified" lang-ua:VALUE="Не вказаний логін"/>
+		<password_not_specified VALUE="Не указан пароль" lang-en:VALUE="Password has not been specified" lang-ua:VALUE="Не вказаний пароль"/>
+		<site_not_specified VALUE="Не указан сайт" lang-en:VALUE="Site has not been specified" lang-ua:VALUE="Не вказаний сайт"/>
+		<default_sender_address_not_specified VALUE="В общих настройках отправки почты не указан основной адрес отправителя" lang-en:VALUE="Default sender address for automatic mailing is not specified" lang-ua:VALUE="У загальних налаштуваннях відправки пошти не вказано адресу відправника"/>
+		<local_sender_address_not_specified VALUE="В персональных настройках отправки почты не указан адрес отправителя" lang-en:VALUE="Sender address for automatic mailing is not specified" lang-ua:VALUE="У персональних налаштуваннях відправки пошти не вказано адресу відправника"/>
+		<wrong_mass_mail_object_type VALUE="Массовая рассылка возможна только по контактным лицам или кандидатам" lang-en:VALUE="Mass mailing is available for candidates and contact persons only" lang-ua:VALUE="Масова розсилка можлива тільки по контактним особам або кандидатам"/>
+		<catalog_filter_constraint_denied VALUE="Ваши права доступа не позволяют осуществлять фильтр по выбранному значению" lang-en:VALUE="Your access level does not allow viewing with this filter" lang-ua:VALUE="Ваші права доступу не дозволяють здійснювати фільттрацію по обраним значенням"/>
+		<agent_xxx_failed VALUE="Ошибка выполнения задачи '%s'" lang-en:VALUE="Error running agent '%s'" lang-ua:VALUE="Помилка виконання завдання '%s'"/>
+		<sel_records_have_no_emails VALUE="Адреса E-mail в выбранных записях отсутствуют" lang-en:VALUE="Selected records have no E-mails" lang-ua:VALUE="Адреси E-mail в обраних записах відсутні"/>
+		<unable_to_open_file VALUE="Файл не может быть открыт" lang-en:VALUE="Unable to open file" lang-ua:VALUE="Файл не може бути відкритий"/>
+		<field_xxx_already_exists VALUE="Элемент %s уже существует" lang-en:VALUE="%s field already exists" lang-ua:VALUE="Елемент %s вже існує"/>
+		<field_id_must_start_with_cs VALUE="Идентификатор дополнительного поля должен начинаться на 'cs_' во избежание конфликта с идентификаторами стандартных полей" lang-en:VALUE="To avoid possible conflicts with standard field, custom field ID should start with 'cs_' prefix" lang-ua:VALUE="Ідентифікатор додаткового поля повинен починатися на 'cs_' щоб уникнути конфлікту з ідентифікаторами стандартних полів"/>
+		<id_must_start_with_alpha_char VALUE="Идентификатор может начинаться только на строчный латинский символ" lang-en:VALUE="ID should start with small alphabetical character" lang-ua:VALUE="Ідентифікатор може починатися тільки на латинський символ"/>
+		<invalid_id_char VALUE="Идентификатор может содержать только строчные латинские символы, цифры или символ '_'" lang-en:VALUE="ID may contain alphanumeric characters and underscores" lang-ua:VALUE="Ідентифікатор може містити тільки латинські символи, цифри або символ '_'"/>
+		<id_cannot_end_with_underscore VALUE="Идентификатор не может заканчиваться символом '_'" lang-en:VALUE="ID cannot end with underscore" lang-ua:VALUE="Ідентифікатор не може закінчуватися символом '_'"/>
+		<id_cannot_contain_double_underscore VALUE="Идентификатор не может содержать два символа '_' подряд" lang-en:VALUE="ID cannot contain 2 adjacent underscores" lang-ua:VALUE="Ідентифікатор не може містити два символа '_' поспіль"/>
+		<test_email_not_specified VALUE="Не указан тестовый e-mail" lang-en:VALUE="Test E-mail is not specified" lang-ua:VALUE="Не вказаний тестовий e-mail"/>
+		<test_phone_not_specified VALUE="Не указан тестовый номер телефона" lang-en:VALUE="Test phone is not specified" lang-ua:VALUE="Не вказаний тестовий номер телефону"/>
+		<file_xxx_not_found VALUE="Файл %s не найден" lang-en:VALUE="File %s not found" lang-ua:VALUE="Файл %s не знайдене"/>
+		<folder_xxx_not_found VALUE="Папка %s не найдена" lang-en:VALUE="%s folder not found" lang-ua:VALUE="Каталог %s не знайдено"/>
+		<empty_server_sn VALUE="Не указан серийный номер продукта. Переустановите сервер из дистрибутива." lang-en:VALUE="Serial number is not specified. Please reinstall the server." lang-ua:VALUE="Не вказаний серійний номер продукту. Встановіть сервер з дистрибутива заново."/>
+		<invalid_server_sn_xxx VALUE="Недопустимый серийный номер продукта: %s. Переустановите сервер из дистрибутива." lang-en:VALUE="Invalid product key: %s. Please reinstall the server." lang-ua:VALUE="Неприпустимий серійний номер продукту: %s. Встановіть сервер з дистрибутива заново."/>
+		<server_version_xxx_mismatch VALUE="Версия сервера приложения %s не совпадает с версией рабочего места %s" lang-en:VALUE="Server version %s does not match application version %s" lang-ua:VALUE="Версія сервера %s не співпадає з версією програми робочого місця %s"/>
+		<comment_not_specified VALUE="Не указан комментарий" lang-en:VALUE="Comment has not been specified" lang-ua:VALUE="Не вказаний коментар"/>
+		<comment_too_short VALUE="Слишком короткий комментарий" lang-en:VALUE="Comment is too short" lang-ua:VALUE="Занадто короткий коментар"/>
+		<invalid_mail_template_src_object_type_xxx VALUE="Недопустимый тип исходного объекта '%s' для данного шаблона" lang-en:VALUE="Source object '%s' is not valid for this mail template" lang-ua:VALUE="Неприпустимий тип вихідного об'єкта '%s' для даного шаблону"/>
+		<req_attachment_xxx_not_found VALUE="Отсутствует необходимое вложение: %s" lang-en:VALUE="Required attachment '%s' is not found" lang-ua:VALUE="Відсутній необхідний додаток: %s"/>
+		<req_attachment_not_found VALUE="Отсутствует приложение для отправки внутри письма" lang-en:VALUE="Required attachment is not found" lang-ua:VALUE="Відсутній додаток для відправки всередині листа"/>
+		<objects_not_selected VALUE="Объекты не выбраны" lang-en:VALUE="No objects are selected" lang-ua:VALUE="Об'єкти не вибрані"/>
+		<mso_2000_required VALUE="Для выполнения данной операции необходим установленный MS Office 2000 или более поздней версии" lang-en:VALUE="MS Office 2000 or later is required" lang-ua:VALUE="Для виконання даної операції необхідний встановлений MS Office 2000 або пізнішої версії"/>
+		<replica_seerver_address_not_specified VALUE="В разделе 'Персональные настройки->Синхронизация данных' не указан адрес сервера" lang-en:VALUE="Server address has not been specified in Personal Settings->Replication" lang-ua:VALUE="У розділі 'Персональні налаштування-> Синхронізація даних' немає адреси сервера"/>
+		<no_stat_sources_specified VALUE="Шаблон отчета не содержит ни одного источника данных" lang-en:VALUE="Report has no data sources" lang-ua:VALUE="Шаблон звіту не містить жодного джерела даних"/>
+		<no_stat_fields_specified VALUE="Шаблон отчета не содержит ни одного источника столбца" lang-en:VALUE="Report has no columns" lang-ua:VALUE="Шаблон звіту не містить жодного джерела стовпця"/>
+		<no_stat_source_catalog_specified VALUE="Не указан каталог для источника данных" lang-en:VALUE="Catalog has not been specified for the data source" lang-ua:VALUE="Не вказаний каталог для джерела даних"/>
+		<mandatory_fields_not_specified VALUE="Не заполнены обязательные поля" lang-en:VALUE="Not all required fields have been specified" lang-ua:VALUE="Не заповнені обов'язкові поля"/>
+		<src_folder_not_specified_in_settings VALUE="В настройках не указана исходная папка для импорта" lang-en:VALUE="Source folder have been specified in global settings" lang-ua:VALUE="В налаштуваннях не зазначена вихідна папка для імпорту"/>
+		<field_id_or_col_title_required VALUE="Для столбца требуется указать поле либо заголовок столбца" lang-en:VALUE="ID or column title is required for a column" lang-ua:VALUE="Для стовпця потрібно вказати поле або заголовок стовпця"/>
+		<selected_folder_is_not_db VALUE="Выбранная папка не содержит базы данных программы" lang-en:VALUE="Selected folder is not a program database" lang-ua:VALUE="Обраний каталог не містить бази даних програми"/>
+		<prohibited_by_usage_policy VALUE="Запрещено политикой использования" lang-en:VALUE="Prohibited by usage policy" lang-ua:VALUE="Заборонено політикою використання"/>
+		<required_fields_not_set VALUE="Не заполнены обязательные поля" lang-en:VALUE="Required fields have not been set" lang-ua:VALUE="Не заповнені обов'язкові поля"/>
+		<required_field_not_set VALUE="Не заполнено обязательное поле" lang-en:VALUE="Required field has not been set" lang-ua:VALUE="Не заповнене обов'язкове поле"/>
+		<required_card_attachments_not_set VALUE="Не заполнены приложения" lang-en:VALUE="Required attachments are empty" lang-ua:VALUE="Не заповнені додатки"/>
+		<auth_code_not_copied VALUE="Авторизационный код не был скопирован" lang-en:VALUE="Authorization code has not been copied" lang-ua:VALUE="Авторизаційний код не був скопійований"/>
+		<desktop_client_required VALUE="Действие недоступно через Web-интерфейс" lang-en:VALUE="Not available via Web interface" lang-ua:VALUE="Дія недоступно через Web-інтерфейс"/>
+		<no_message_attachments VALUE="Вложенных файлов нет" lang-en:VALUE="There are no attachments" lang-ua:VALUE="Вкладених файлів немає"/>
+		<max_attachment_size_exceeded VALUE="Превышен максимально допустимый размер файла" lang-en:VALUE="The file size exceeds allowed limit" lang-ua:VALUE="Перевищено максимально допустимий розмір файлу"/>
+		<attachment_suffix_prohibited VALUE="Недопустимый тип файла" lang-en:VALUE="File type is not allowed" lang-ua:VALUE="Неприпустимий тип файлу"/>
+		<view_filter_delete_prohibited  VALUE="Отсутствуют права доступа на отключение данного фильтра" lang-en:VALUE="You do not have enough permissions to disable this filter" lang-ua:VALUE="Відсутні права доступу на відключення даного фільтра"/>
+		<invalid_object_xxx_reference_to_xxx VALUE="Поле из карточки объекта '%s' ссылается на объект '%s', который был удален из базы" lang-en:VALUE="A field in object '%s' references object '%s' which has been deleted from database" lang-ua:VALUE="Поле з картки об'єкта '%s' посилається на об'єкт '%s', який був вилучений з бази"/>
+		<action_not_available_for_this_list VALUE="Действие недоступно для данного списка" lang-en:VALUE="Action is not available for this list" lang-ua:VALUE="Дія недоступно для даного списку"/>
+		<date_not_specified VALUE="Не указана дата" lang-en:VALUE="Date has not been specified" lang-ua:VALUE="Не вказана дата"/>
+		<cur_user_phone_extension_not_specified VALUE="В карточке сотрудника, соответствующего текущему пользователю, не указан внутренний телефонный номер" lang-en:VALUE="Telephone extension has not been specified for the current user" lang-ua:VALUE="У картці співробітника, що відповідає поточному користувачеві, не вказано внутрішній телефонний номер"/>
+		<stat_chart_not_supported VALUE="Данный отчет не поддерживает показ диаграмм" lang-en:VALUE="This report does not support charts" lang-ua:VALUE="Даний звіт не підтримує показ діаграм"/>
+		<telephony_not_enabled VALUE="Интеграция с телефонией не настроена" lang-en:VALUE="Telephony integration has not been set up" lang-ua:VALUE="Інтеграція з телефонією не настроєна"/>
+		<voc_is_empty VALUE="Справочник пуст" lang-en:VALUE="List is empty" lang-ua:VALUE="Довідник порожній"/>
+	</errors>
+</base1_ui_text>

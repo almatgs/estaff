@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SPXML-INLINE-FORM>
+
+<view_section>
+	<filter>
+		<used_fulltext TYPE="string"/>
+	</filter>
+
+	<columnsSpec TYPE="variant" STRICT="1" EXPR-INIT="[
+		{Width:'40zr'},
+		{Width:'30zr'},
+		{Width:'20zr'}
+	]"/>
+</view_section>
+
+
+</SPXML-INLINE-FORM>

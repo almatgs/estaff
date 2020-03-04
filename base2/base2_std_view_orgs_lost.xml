@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>orgs_lost</id>
+	<name VALUE="Потерянные клиенты" lang-en:VALUE="Lost clients" lang-ua:VALUE="Втрачені клієнти"/>
+	<parent_id>orgs</parent_id>
+
+	<static_filters>
+		<static_filter>
+			<id>is_lost</id>
+			<value>true</value>
+		</static_filter>
+	</static_filters>
+</std_view>
+

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="140zr" HEIGHT="58zr" SOURCE="TopElem" TITLE="##UiText.sections.settings_lotus##" RESIZE="1" BEFORE-INIT-ACTION="
+		if ( ! Ps.id_file_path.HasValue )
+		{
+			try
+			{
+				Ps.id_file_path = lib_lotus.get_id_file_path();
+			}
+			catch ( e )
+			{
+			}
+		}
+" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<ITEM TYPE="dir_path_selector" SOURCE="Ps.lotus_dir" AUTO-LABEL="1"/>
+	<DELIM/>
+
+	<LABEL TITLE="Авторизация в Lotus Notes:" lang-en:TITLE="Lotus Notes authentication:" lang-ua:TITLE="Авторизація в Lotus Notes:"/>
+	<BR/>
+	<RADIO-BUTTON SOURCE="Ps.use_auto_login" SWITCH-VALUE="false" TITLE="По требованию (Lotus Notes будет выдавать окно ввода пароля при первой попытке подключения к Lotus Notes в течение сеанса работы)" lang-en:TITLE="On demand (Lotus Notes will prompt for a password once per session)" lang-ua:TITLE="На вимогу (Lotus Notes видаватиме вікно введення пароля при першій спробі підключення до Lotus Notes протягом сеансу роботи)"/>
+	<RADIO-BUTTON SOURCE="Ps.use_auto_login" SWITCH-VALUE="true" TITLE="Автоматическая (Авторизация будет осуществляться заданным ID файлом и паролем без участия пользователя)" lang-en:TITLE="Automatic (with supplied ID file and password without user interaction)" lang-ua:TITLE="Автоматична (Авторизація здійснюватиметься заданим ID файлом і паролем без участі користувача)"/>
+	<BR/>
+	<BR/>
+
+	<ITEM TYPE="file_path_selector" SOURCE="Ps.id_file_path" suffix-pattern-expr="lib_lotus.id_file_suffix_pattern()" LABEL-TITLE="ID файл пользователя:" lang-en:LABEL-TITLE="User's ID file:" ENABLE-EXPR="Ps.use_auto_login" lang-ua:LABEL-TITLE="ID файл користувача:"/>
+
+	<EDIT SOURCE="StrStdDecrypt( Ps.password_ed )" SET-VALUE-ACTION="
+			Ps.password_ed = StrStdEncrypt( NewValue );
+			Ps.Doc.SetChanged( true );
+	" ENABLE-EXPR="Ps.use_auto_login" LABEL-TITLE="##UiText.fields.password##:" WIDTH="30zr" PASSWORD="1"/>
+</PANEL>
+
+
+</SPXML-SCREEN>

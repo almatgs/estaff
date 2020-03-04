@@ -1,0 +1,16 @@
+<svg width="16" height="16" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Canvas" fill="none">
+<g id="icon_import_res">
+<g id="Vector">
+<path d="M 8 0L 0 0L 0 14L 14 14L 14 6" stroke-width="2" stroke-linejoin="round" transform="translate(1 1)" stroke="#315DFA"/>
+</g>
+<g id="Vector_2">
+<path d="M 0 0L 0 5L 5 5" stroke-width="2" stroke-linejoin="round" transform="translate(6 5)" stroke="#315DFA"/>
+</g>
+<g id="Vector_3">
+<path d="M 0 8L 8 0" stroke-width="2" stroke-linejoin="round" transform="translate(7 1)" stroke="#315DFA"/>
+</g>
+</g>
+</g>
+</svg>
+

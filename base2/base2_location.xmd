@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM HIER="1" OWN-ID-SPACE="1" STORAGE-TYPE="single-xml" IMAGE-URL="//base_pict/generic_item.ico">
+
+<location>	
+	<id TYPE="string"/>
+	<parent_id TYPE="string" FOREIGN-ARRAY="locations"/>
+	<name TYPE="string"/>
+	<is_main_city TYPE="bool" NULL-FALSE="1"/>
+
+	<country_id TYPE="string"/>
+	<type_id TYPE="integer" FOREIGN-ARRAY="base2_common.location_types"/>
+	<has_metro TYPE="bool" NULL-FALSE="1"/>
+
+	<time_zone TYPE="real" PRECISION="0" TITLE="##UiText.titles.time_zone##"/>
+
+	<is_std TYPE="bool" NOT-NULL="1"/>
+</location>
+
+
+
+</SPXML-FORM>

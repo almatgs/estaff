@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1" WEB-SERVICE="1" AUTH="1" KEEP-REQUEST-BODY="1">
+
+<VacancyService>
+	<METHOD NAME="AddVacancy">
+		<PARAM NAME="vacancy">
+			<name TYPE="string"/>
+			<code TYPE="string" OPTIONAL="1"/>
+			<eid TYPE="string" OPTIONAL="1"/>
+
+			<position_id TYPE="integer" FOREIGN-ARRAY="positions" OPTIONAL="1"/>
+			<position_eid TYPE="string" OPTIONAL="1"/>
+
+			<division_id TYPE="integer" FOREIGN-ARRAY="divisions" OPTIONAL="1"/>
+			<division_eid TYPE="string" OPTIONAL="1"/>
+			<division_full_path TYPE="string" OPTIONAL="1"/>
+
+			<orig_rr_person_id TYPE="integer" FOREIGN-ARRAY="persons" OPTIONAL="1"/>
+			<orig_rr_person_eid TYPE="string" OPTIONAL="1"/>
+			<orig_rr_person_email TYPE="string" OPTIONAL="1"/>
+
+			<rr_persons OPTIONAL="1">
+				<rr_person MULTIPLE="1" PRIMARY-KEY="person_id">
+					<person_id TYPE="integer" FOREIGN-ARRAY="persons" OPTIONAL="1"/>
+					<person_eid TYPE="string" OPTIONAL="1"/>
+					<person_email TYPE="string" OPTIONAL="1"/>
+				</rr_person>
+			</rr_persons>
+
+			<location_id TYPE="string" FOREIGN-ARRAY="locations" OPTIONAL="1"/>
+
+			<start_date TYPE="date" TIME="0" OPTIONAL="1"/>
+			<req_close_date TYPE="date" TIME="0" OPTIONAL="1"/>
+			<req_quantity TYPE="integer" OPTIONAL="1"/>
+			<reason_id TYPE="string" OPTIONAL="1"/>
+
+			<recruit_type_id TYPE="string" FOREIGN-ARRAY="recruit_types" TITLE="##UiText.objects.recruit_type##" EXP-MAX-LEN="11" OPTIONAL="1"/>
+			<staff_category_id TYPE="integer" FOREIGN-ARRAY="staff_categories" TITLE="##UiText.fields.staff_category##" EXP-MAX-LEN="10" OPTIONAL="1"/>
+			<priority_id TYPE="integer" FOREIGN-ARRAY="vacancy_priorities" TITLE="##UiText.fields.priority##" EXP-MAX-LEN="1" OPTIONAL="1"/>
+			<difficulty_level_id TYPE="integer" FOREIGN-ARRAY="vacancy_difficulty_levels" TITLE="##UiText.objects.difficulty_level##" OPTIONAL="1"/>
+			<cost_center_id TYPE="string" TITLE="##UiText.fields.cost_center##" FOREIGN-ARRAY="cost_centers" OPTIONAL="1"/>
+
+			<min_salary TYPE="integer" OPTIONAL="1"/>
+			<max_salary TYPE="integer" OPTIONAL="1"/>
+			<salary_currency_id TYPE="string" OPTIONAL="1"/>
+
+			<work_type_id TYPE="integer" DEFAULT="1" OPTIONAL="1"/>
+			<work_schedule_type_id TYPE="integer" OPTIONAL="1"/>
+
+			<req_info OPTIONAL="1">
+				<educ_type_id TYPE="integer" FOREIGN-ARRAY="base2_common.educ_types" OPTIONAL="1"/>
+				<min_exp_years TYPE="integer" OPTIONAL="1"/>
+
+				<min_age TYPE="integer" OPTIONAL="1"/>
+				<max_age TYPE="integer" OPTIONAL="1"/>
+				<gender_id TYPE="integer" FOREIGN-ARRAY="base1_common.person_genders" OPTIONAL="1"/>
+			</req_info>
+
+			<description TYPE="string" MULTILINE="1" OPTIONAL="1"/>
+			<description_html TYPE="string" SUBTYPE="html" OPTIONAL="1"/>
+
+			<inet_data OPTIONAL="1">
+				<comment TYPE="string" LARGE="1" OPTIONAL="1"/>
+				<html_comment TYPE="string" SUBTYPE="html" OPTIONAL="1"/>
+
+				<comment_req TYPE="string" LARGE="1" OPTIONAL="1"/>
+				<comment_duty TYPE="string" LARGE="1" OPTIONAL="1"/>
+				<comment_cond TYPE="string" LARGE="1" OPTIONAL="1"/>
+			</inet_data>
+
+			<comment TYPE="string" MULTILINE="1" OPTIONAL="1"/>
+
+			<recruiter_person_id TYPE="integer" FOREIGN-ARRAY="persons" OPTIONAL="1"/>
+			<recruiter_person_eid TYPE="string" OPTIONAL="1"/>
+			<recruiter_person_email TYPE="string" OPTIONAL="1"/>
+
+			<csd DYN-CHILDREN="1" OPTIONAL="1">
+			</csd>
+		</PARAM>
+
+		<PARAM NAME="options" OPTIONAL="1">
+			<full_path_delim TYPE="string" OPTIONAL="1"/>
+			<divisions_auto_create TYPE="bool" NULL-FALSE="1" OPTIONAL="1"/>
+			<submit_request TYPE="bool" NULL-FALSE="1" OPTIONAL="1"/>
+		</PARAM>
+
+		<PARAM NAME="embedded" OPTIONAL="1">
+			<persons OPTIONAL="1">
+				<person MULTIPLE="1">
+					<eid TYPE="string" OPTIONAL="1"/>
+					<lastname TYPE="string"/>
+					<firstname TYPE="string"/>
+					<middlename TYPE="string" OPTIONAL="1"/>
+					<email TYPE="string" OPTIONAL="1"/>
+					<phone TYPE="string" OPTIONAL="1"/>
+					<position_name TYPE="string" OPTIONAL="1"/>
+					<division_full_path TYPE="string" OPTIONAL="1"/>
+				</person>
+			</persons>
+		</PARAM>
+
+		<RESULT NAME="vacancy_id" TYPE="integer" OPTIONAL="1"/>
+		<RESULT NAME="vacancy_request_id" TYPE="integer" OPTIONAL="1"/>
+		<RESULT NAME="vacancy_name" TYPE="string" OPTIONAL="1"/>
+	</METHOD>
+
+
+	<METHOD NAME="ChangeVacancy">
+		<PARAM NAME="vacancy">
+			<id TYPE="integer"/>
+			<name TYPE="string"/>
+			<code TYPE="string" OPTIONAL="1"/>
+			<eid TYPE="string" OPTIONAL="1"/>
+
+			<position_id TYPE="integer" FOREIGN-ARRAY="positions" OPTIONAL="1"/>
+			<position_eid TYPE="string" OPTIONAL="1"/>
+
+			<division_id TYPE="integer" FOREIGN-ARRAY="divisions" OPTIONAL="1"/>
+			<division_eid TYPE="string" OPTIONAL="1"/>
+			<division_full_path TYPE="string" OPTIONAL="1"/>
+
+			<orig_rr_person_id TYPE="integer" FOREIGN-ARRAY="persons" OPTIONAL="1"/>
+			<orig_rr_person_eid TYPE="string" OPTIONAL="1"/>
+			<orig_rr_person_email TYPE="string" OPTIONAL="1"/>
+
+			<rr_persons OPTIONAL="1">
+				<rr_person MULTIPLE="1" PRIMARY-KEY="person_id">
+					<person_id TYPE="integer" FOREIGN-ARRAY="persons" OPTIONAL="1"/>
+					<person_eid TYPE="string" OPTIONAL="1"/>
+					<person_email TYPE="string" OPTIONAL="1"/>
+				</rr_person>
+			</rr_persons>
+
+			<location_id TYPE="string" FOREIGN-ARRAY="locations" OPTIONAL="1"/>
+
+			<start_date TYPE="date" TIME="0" OPTIONAL="1"/>
+			<req_close_date TYPE="date" TIME="0" OPTIONAL="1"/>
+			<req_quantity TYPE="integer" OPTIONAL="1"/>
+			<reason_id TYPE="string" OPTIONAL="1"/>
+
+			<recruit_type_id TYPE="string" FOREIGN-ARRAY="recruit_types" TITLE="##UiText.objects.recruit_type##" EXP-MAX-LEN="11" OPTIONAL="1"/>
+			<staff_category_id TYPE="integer" FOREIGN-ARRAY="staff_categories" TITLE="##UiText.fields.staff_category##" EXP-MAX-LEN="10" OPTIONAL="1"/>
+			<priority_id TYPE="integer" FOREIGN-ARRAY="vacancy_priorities" TITLE="##UiText.fields.priority##" EXP-MAX-LEN="1" OPTIONAL="1"/>
+			<difficulty_level_id TYPE="integer" FOREIGN-ARRAY="vacancy_difficulty_levels" TITLE="##UiText.objects.difficulty_level##" OPTIONAL="1"/>
+			<cost_center_id TYPE="string" TITLE="##UiText.fields.cost_center##" FOREIGN-ARRAY="cost_centers" OPTIONAL="1"/>
+
+			<min_salary TYPE="integer" OPTIONAL="1"/>
+			<max_salary TYPE="integer" OPTIONAL="1"/>
+			<salary_currency_id TYPE="string" OPTIONAL="1"/>
+
+			<work_type_id TYPE="integer" DEFAULT="1" OPTIONAL="1"/>
+			<work_schedule_type_id TYPE="integer" OPTIONAL="1"/>
+
+			<req_info OPTIONAL="1">
+				<educ_type_id TYPE="integer" FOREIGN-ARRAY="base2_common.educ_types" OPTIONAL="1"/>
+				<min_exp_years TYPE="integer" OPTIONAL="1"/>
+
+				<min_age TYPE="integer" OPTIONAL="1"/>
+				<max_age TYPE="integer" OPTIONAL="1"/>
+				<gender_id TYPE="integer" FOREIGN-ARRAY="base1_common.person_genders" OPTIONAL="1"/>
+			</req_info>
+
+			<description TYPE="string" MULTILINE="1" OPTIONAL="1"/>
+			<description_html TYPE="string" SUBTYPE="html" OPTIONAL="1"/>
+
+			<inet_data OPTIONAL="1">
+				<comment TYPE="string" LARGE="1" OPTIONAL="1"/>
+				<html_comment TYPE="string" SUBTYPE="html" OPTIONAL="1"/>
+
+				<comment_req TYPE="string" LARGE="1" OPTIONAL="1"/>
+				<comment_duty TYPE="string" LARGE="1" OPTIONAL="1"/>
+				<comment_cond TYPE="string" LARGE="1" OPTIONAL="1"/>
+			</inet_data>
+
+			<comment TYPE="string" MULTILINE="1" OPTIONAL="1"/>
+
+			<recruiter_person_id TYPE="integer" FOREIGN-ARRAY="persons" OPTIONAL="1"/>
+			<recruiter_person_eid TYPE="string" OPTIONAL="1"/>
+			<recruiter_person_email TYPE="string" OPTIONAL="1"/>
+
+			<csd DYN-CHILDREN="1" OPTIONAL="1">
+			</csd>
+		</PARAM>
+
+		<PARAM NAME="options" OPTIONAL="1">
+			<full_path_delim TYPE="string" OPTIONAL="1"/>
+			<divisions_auto_create TYPE="bool" NULL-FALSE="1" OPTIONAL="1"/>
+		</PARAM>
+
+		<RESULT NAME="vacancy_id" TYPE="integer" OPTIONAL="1"/>
+		<RESULT NAME="vacancy_request_id" TYPE="integer" OPTIONAL="1"/>
+		<RESULT NAME="vacancy_name" TYPE="string" OPTIONAL="1"/>
+	</METHOD>
+	
+	<METHOD NAME="AddCandidateWithEmployeeReferral">
+		<PARAM NAME="candidateData">
+			<lastname TYPE="string"/>
+			<firstname TYPE="string"/>
+			<middlename TYPE="string"/>
+
+			<phone TYPE="string"/>
+			<work_phone TYPE="string"/>
+			<mobile_phone TYPE="string"/>
+			<email TYPE="string"/>
+
+			<html_resume TYPE="string" SUBTYPE="html"/>
+			
+			<file_resume>
+				<data TYPE="binary"/>
+				<file_name TYPE="string"/>
+			</file_resume>
+
+			<location_id TYPE="string" FOREIGN-ARRAY="locations" OPTIONAL="1"/>
+
+			<vacancy_id TYPE="string"/>
+			<src_person_id TYPE="string"/>
+			<letter_text TYPE="string" MULTILINE="1"/>
+		</PARAM>
+
+		<RESULT NAME="respData">
+			<status TYPE="string"/>
+		</RESULT>
+	</METHOD>
+</VacancyService>
+
+
+</SPXML-INLINE-FORM>

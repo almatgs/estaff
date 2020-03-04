@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<SHARE DOC="package.xml" FORM="stp_package.xmd" LOAD="1"/>
+
+
+<view_main>
+	<is_silent TYPE="bool" NOT-NULL="1"/>
+
+	<stages>
+		<stage MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+		</stage>
+	</stages>
+
+	<cur_stage_index TYPE="integer" NOT-NULL="1"/>
+
+	<cur_stage PROPERTY="1" EXPR="
+		stages[cur_stage_index];
+	"/>
+
+	<use_named_instance TYPE="bool" NULL-FALSE="1"/>
+	<instance_suffix TYPE="string"/>
+	<instance_port TYPE="integer"/>
+
+	<license>
+		<text TYPE="string"/>
+		<is_accepted TYPE="bool" NOT-NULL="1"/>
+	</license>
+
+	<is_new TYPE="bool" NOT-NULL="1"/>
+	<was_killed TYPE="bool" NOT-NULL="1"/>
+	<need_start_daemon TYPE="bool" NOT-NULL="1"/>
+
+	<instance_id TYPE="string"/>
+	<instance_link_name TYPE="string"/>
+
+	<prev_sn TYPE="string"/>
+	<sn_changed TYPE="bool" NOT-NULL="1"/>
+
+	<sn1 TYPE="string"/>
+	<sn2 TYPE="string"/>
+	<sn3 TYPE="string"/>
+
+	<src_dir TYPE="string"/>
+	<dest_dir TYPE="string"/>
+	<dest_app_path TYPE="string"/>
+	<launch_app TYPE="bool" NOT-NULL="1"/>
+
+	<sel_plugins>
+		<ie TYPE="bool" NULL-FALSE="1"/>
+		<firefox TYPE="bool" NULL-FALSE="1"/>
+		<chrome TYPE="bool" NULL-FALSE="1"/>
+
+		<outlook TYPE="bool" NULL-FALSE="1"/>
+		<thunderbird TYPE="bool" NULL-FALSE="1"/>
+		<lotus TYPE="bool" NULL-FALSE="1"/>
+	</sel_plugins>
+
+
+	<processed_items_num TYPE="integer" NOT-NULL="1"/>
+</view_main>
+
+
+</SPXML-INLINE-FORM>
+
+

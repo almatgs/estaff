@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="60zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.server_address" AUTO-LABEL="1"/>
+	</TABLE>
+
+	<LINE>
+		<CHECK TITLE="##UiText.titles.server_requires_auth##" SOURCE="Ps.use_auth"/>
+	</LINE>
+
+	<BR/>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="25zr"/>
+			<COL WIDTH="20zr"/>
+		</COLUMNS>
+
+		<EDIT SOURCE="Ps.login" LABEL-TITLE="##UiText.fields.login##:" ENABLE-EXPR="Ps.use_auth" lang-en:LABEL-TITLE="Login:"/>
+		<EDIT SOURCE="Ps.password" LABEL-TITLE="##UiText.fields.password##:" PASSWORD="1" ENABLE-EXPR="Ps.use_auth" lang-en:LABEL-TITLE="Password:"/>
+	</TABLE>
+
+	<DELIM/>
+</PANEL>
+
+
+</SPXML-SCREEN>
+

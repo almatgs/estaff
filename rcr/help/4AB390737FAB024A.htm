@@ -1,0 +1,121 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1251"/>
+<title></title>
+<style>
+<!--
+*
+{
+	font-family: Calibri,Arial,sans-serif;
+	font-size: 16px;
+	__margin: 2px;
+}
+
+
+p, li
+{
+	__margin: 0px;
+}
+
+-->
+</style>
+</head>
+<body>
+<h1>Настройка NTLM-авторизации</h1>
+
+<P class="MsoNormal" style="margin: 0cm 0cm 0pt;"><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">В 
+том случае,  если компьютеры рабочих станций пользователей </SPAN><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">E</SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">-</SPAN><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">Staff</SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt=""> подключены к 
+ сети, в состав которой входит контроллер домена <SPAN class="notlocalizable">Active Directory</SPAN>, то систему </SPAN><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">E</SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">-</SPAN><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">Staff</SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt=""> можно 
+настроить  на работу в режиме NTLM-авторизации.<o:p></o:p></SPAN></P>
+<P class="MsoNormal" style="margin: 0cm 0cm 0pt; mso-margin-bottom-alt: auto;"><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">Для 
+ использования в системе </SPAN><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">E</SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">-</SPAN><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">Staff</SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt=""> Рекрутер  
+NTLM-авторизации необходимо выполнить следующее:<o:p></o:p></SPAN></P>
+<P class="MsoBodyText" style="margin: 0cm 0cm 0pt;"><I style="mso-bidi-font-style: normal;"><U>На 
+компьютере, <SPAN style="mso-bidi-font-weight: bold;">на котором установлен 
+сервер  E-Staff</SPAN><o:p></o:p></U></I></P>
+<P class="MsoListParagraph" style="margin: 0cm 0cm 0pt; text-align: justify; text-indent: 35.45pt; mso-list: l0 level1 lfo1;"><SPAN style="font-family: Symbol; font-size: 12pt; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol;"><SPAN style="mso-list: Ignore;">·<SPAN style="font: 7pt/normal " Times="" New="" Roman="" font-size-adjust:="" none="" font-stretch:="" normal="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">в 
+корне  директории сервера E-Staff создать файл <B style="mso-bidi-font-weight: normal;">xHttp1.ini</B> 
+и добавить в него запись  <o:p></o:p></SPAN></P>
+<P class="MsoListParagraph" style="margin: 0cm 0cm 0pt 35.45pt;"><B style="mso-bidi-font-weight: normal;"><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">LDS-NTLM-AUTH: 
+ 1<o:p></o:p></SPAN></B></P>
+<P class="MsoListParagraph" style="margin: 0cm 0cm 0pt; text-align: justify; text-indent: 35.45pt; mso-list: l0 level1 lfo1;"><SPAN style="font-family: Symbol; font-size: 12pt; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol;"><SPAN style="mso-list: Ignore;">·<SPAN style="font: 7pt/normal " Times="" New="" Roman="" font-size-adjust:="" none="" font-stretch:="" normal="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">Запустите 
+"<B style="mso-bidi-font-weight: normal;">E-Staff </B></SPAN><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">Server</SPAN></B><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">" из меню <B style="mso-bidi-font-weight: normal;">Пуск-&gt;Программы  
+(Start-&gt;Programs)</B><o:p></o:p></SPAN></P>
+<P class="MsoListParagraph" style="margin: 0cm 0cm 0pt; text-align: justify; text-indent: 35.45pt; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo1;"><SPAN style="font-family: Symbol; font-size: 12pt; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol;"><SPAN style="mso-list: Ignore;">·<SPAN style="font: 7pt/normal " Times="" New="" Roman="" font-size-adjust:="" none="" font-stretch:="" normal="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">В 
+поле <B style="mso-bidi-font-weight: normal;">Имя пользователя</B> введите имя 
+ технического администратора системы в формате </SPAN><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">domain</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">\</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">user</SPAN></B><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">, где </SPAN><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">domain</SPAN></B><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt=""> и </SPAN><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">user</SPAN></B><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt=""> –  
+соответственно имя домена и имя пользователя <SPAN class="notlocalizable">Active 
+ Directory</SPAN>, производящего данные настройки, поле <B style="mso-bidi-font-weight: normal;">Пароль</B> 
+необходимо  очистить.<o:p></o:p></SPAN></P>
+<P class="MsoListParagraph" style="margin: 0cm 0cm 0pt; text-align: justify; text-indent: 35.45pt; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo1;"><SPAN style="font-family: Symbol; font-size: 12pt; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol;"><SPAN style="mso-list: Ignore;">·<SPAN style="font: 7pt/normal " Times="" New="" Roman="" font-size-adjust:="" none="" font-stretch:="" normal="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">Перезапустите 
+ сервер E-Staff, нажав кнопку <B style="mso-bidi-font-weight: normal;">Выключить 
+ сервер</B>, а затем – <B style="mso-bidi-font-weight: normal;">Включить 
+ сервер</B>.<o:p></o:p></SPAN></P>
+<P class="MsoListParagraph" style="margin: 0cm 0cm 0pt;"><I style="mso-bidi-font-style: normal;"><U><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">На любом из 
+ клиентских мест<o:p></o:p></SPAN></U></I></P>
+<P class="MsoListParagraph" style="margin: 0cm 0cm 0pt; text-indent: 0cm; mso-list: l0 level1 lfo1;"><SPAN style="font-family: Symbol; font-size: 12pt; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol;"><SPAN style="mso-list: Ignore;">·<SPAN style="font: 7pt/normal " Times="" New="" Roman="" font-size-adjust:="" none="" font-stretch:="" normal="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">в 
+корне  директории клиентского места E-Staff создайте файл <B style="mso-bidi-font-weight: normal;">SpXml2.ini</B>&nbsp; 
+и добавьте в него запись <o:p></o:p></SPAN></P>
+<P class="MsoListParagraph" style="margin: 0cm 0cm 0pt 35.45pt;"><B style="mso-bidi-font-weight: normal;"><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">EXTERNAL-LDS: 
+ 1<o:p></o:p></SPAN></B></P>
+<P class="MsoListParagraph" style="margin: 0cm 0cm 0pt; text-align: justify; text-indent: 35.45pt; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo1;"><SPAN style="font-family: Symbol; font-size: 12pt; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol;"><SPAN style="mso-list: Ignore;">·<SPAN style="font: 7pt/normal " Times="" New="" Roman="" font-size-adjust:="" none="" font-stretch:="" normal="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">Запустите 
+"<B style="mso-bidi-font-weight: normal;">E-Staff Рекрутер</B>" из меню <B style="mso-bidi-font-weight: normal;">Пуск-&gt;Программы</B> (<B style="mso-bidi-font-weight: normal;">Start-&gt;Programs</B>).<o:p></o:p></SPAN></P>
+<P class="MsoListParagraph" style="margin: 0cm 0cm 0pt; text-align: justify; text-indent: 35.45pt; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo1;"><SPAN style="font-family: Symbol; font-size: 12pt; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol;"><SPAN style="mso-list: Ignore;">·<SPAN style="font: 7pt/normal " Times="" New="" Roman="" font-size-adjust:="" none="" font-stretch:="" normal="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">Введите 
+имя (в  формате </SPAN><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">user</SPAN></B><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">) и пароль 
+ технического администратора. В качестве пароля используйте пароль 
+ соответствующей учетной записи <SPAN class="notlocalizable">Active 
+ Directory</SPAN>.<o:p></o:p></SPAN></P>
+<P class="MsoListParagraph" style="margin: 0cm 0cm 0pt; text-align: justify; text-indent: 35.45pt; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo1;"><SPAN style="font-family: Symbol; font-size: 12pt; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol;"><SPAN style="mso-list: Ignore;">·<SPAN style="font: 7pt/normal " Times="" New="" Roman="" font-size-adjust:="" none="" font-stretch:="" normal="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">В 
+разделе <B style="mso-bidi-font-weight: normal;">Администрирование-&gt;Доступ-&gt;Пользователи</B> 
+для каждого из пользователей вместо текущего укажите имя пользователя <SPAN class="notlocalizable">Active Directory (<SPAN class="notlocalizable"><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" RU="" mso-fareast-font-family:="" Calibri="" mso-fareast-theme-font:="" minor-latin="" mso-fareast-language:="" EN-US="" mso-bidi-language:="" AR-SA="">только 
+ логин, причем если в нем присутствуют </SPAN></SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" RU="" mso-fareast-font-family:="" Calibri="" mso-fareast-theme-font:="" minor-latin="" mso-fareast-language:="" EN-US="" mso-bidi-language:="" AR-SA="">заглавные 
+ буквы – замените их <SPAN class="notlocalizable">строчными</SPAN></SPAN>)</SPAN>,  поле <B style="mso-bidi-font-weight: normal;">Пароль</B> 
+необходимо  очистить.<o:p></o:p></SPAN></P>
+<P class="MsoListParagraph" style="margin: 0cm 0cm 0pt; text-align: justify; text-indent: 35.45pt; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo1;"><SPAN style="font-family: Symbol; font-size: 12pt; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol;"><SPAN style="mso-list: Ignore;">·<SPAN style="font: 7pt/normal " Times="" New="" Roman="" font-size-adjust:="" none="" font-stretch:="" normal="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">Закройте 
+ программу, затем снова запустите ее. Программа должна открыться автоматически 
+ под фактическим пользователем, который работает на этом компьютере. Если этого 
+ не произошло, необходимо изменить настройки обозревателя </SPAN><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">Internet</SPAN><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt=""> 
+</SPAN><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">Explorer</SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">. В свойствах 
+ обозревателя на вкладке <B style="mso-bidi-font-weight: normal;">Безопасность</B> для зоны, соответствующей 
+расположению клиентского места, нажмите кнопку <B style="mso-bidi-font-weight: normal;">Другой</B> 
+(</SPAN><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">Custom</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt=""> 
+</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">level</SPAN></B><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">). В окне 
+ настроек параметров безопасности в разделе <B style="mso-bidi-font-weight: normal;">Проверка 
+подлинности  пользователя-&gt;Вход</B> (</SPAN><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">User</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt=""> 
+</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">Authentication</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">-&gt;</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">Logon</SPAN></B><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">) установите 
+ переключатель в положение <B style="mso-bidi-font-weight: normal;">Автоматический вход в сеть с текущим 
+именем пользователя и паролем</B> (</SPAN><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">Automatic</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt=""> 
+</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">logon</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt=""> 
+</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">with</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt=""> 
+</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">current</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt=""> 
+</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">user</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt=""> 
+</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">name</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt=""> 
+</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">and</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt=""> 
+</SPAN></B><B style="mso-bidi-font-weight: normal;"><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">password</SPAN></B><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">).<o:p></o:p></SPAN></P>
+<P class="MsoListParagraph" style="margin: 0cm 0cm 0pt; text-align: justify;"><I style="mso-bidi-font-style: normal;"><U><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">На 
+остальных  клиентских местах:<o:p></o:p></SPAN></U></I></P>
+<P class="MsoListParagraph" style="margin: 0cm 0cm 0pt; text-align: justify; text-indent: 0cm; mso-list: l0 level1 lfo1;"><SPAN style="font-family: Symbol; font-size: 12pt; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol;"><SPAN style="mso-list: Ignore;">·<SPAN style="font: 7pt/normal " Times="" New="" Roman="" font-size-adjust:="" none="" font-stretch:="" normal="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">в 
+корне  директории клиентского места E-Staff создайте файл <B style="mso-bidi-font-weight: normal;">SpXml2.ini</B>&nbsp; 
+и добавьте в него  запись <o:p></o:p></SPAN></P>
+<P class="MsoListParagraph" style="margin: 0cm 0cm 0pt 35.45pt;"><B style="mso-bidi-font-weight: normal;"><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">EXTERNAL-LDS: 
+ 1<o:p></o:p></SPAN></B></P>
+<P class="MsoListParagraph" style="margin: 0cm 0cm 0pt; text-align: justify; text-indent: 35.45pt; mso-margin-bottom-alt: auto; mso-list: l0 level1 lfo1;"><SPAN style="font-family: Symbol; font-size: 12pt; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol;"><SPAN style="mso-list: Ignore;">·<SPAN style="font: 7pt/normal " Times="" New="" Roman="" font-size-adjust:="" none="" font-stretch:="" normal="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN></SPAN></SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">Запустите 
+"<B style="mso-bidi-font-weight: normal;">E-Staff Рекрутер</B>" из меню <B style="mso-bidi-font-weight: normal;">Пуск-&gt;Программы</B> (<B style="mso-bidi-font-weight: normal;">Start-&gt;Programs</B>). 
+Программа должна  открыться автоматически под фактическим пользователем, который 
+работает на этом  компьютере. Если этого не произошло, то необходимо изменить 
+настройки  обозревателя </SPAN><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">Internet</SPAN><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt=""> 
+</SPAN><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="" mso-ansi-language:="" EN-US="">Explorer</SPAN><SPAN lang="EN-US" style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt=""> 
+</SPAN><SPAN style="font-family: " Times="" New="" Roman="" serif="" font-size:="" 12pt="">точно так же,  
+как это было описано выше.<o:p></o:p></SPAN></P></body>
+</html>

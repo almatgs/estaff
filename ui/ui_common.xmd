@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM>
+
+<ui_common>
+	<field_ext_types>
+		<field_ext_type MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</field_ext_type>
+	</field_ext_types>
+
+	<template_aux_item_types>
+		<template_aux_item_type MULTIPLE="1" PRIMARY-KEY="id">
+			<id TYPE="string"/>
+			<name TYPE="string"/>
+		</template_aux_item_type>
+	</template_aux_item_types>
+</ui_common>
+
+
+</SPXML-FORM>
+

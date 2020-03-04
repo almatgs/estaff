@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE-EXPR="TopElem.name" BEFORE-INIT-ACTION="
+		Ps.SyncTargetStaffCategories();
+" BEFORE-SAVE-ACTION="
+		lib_voc.voc_elem_edit_before_save_action( Screen );
+" SAVE-ACTION="
+		lib_voc.voc_elem_edit_save_action();
+" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/generic_item.ico">
+
+
+<INHERIT TYPE="card_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<INHERIT TYPE="voc_elem_edit_header"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<INHERIT TYPE="voc_elem_edit"/>
+
+	<GROUP>
+		<IF EXPR="AppModuleUsed( 'module_efko' )">
+			<ITEM TYPE="object_selector" SOURCE="Ps.target_user_id" LABEL-TITLE="##UiText.titles.valid_only_for_user##:" WIDTH="45zr"/>
+		</IF>
+		<ITEM TYPE="object_selector" SOURCE="Ps.target_group_id" LABEL-TITLE="##UiText.titles.valid_only_for_group##:"/>
+		<SEPARATOR/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.target_access_role_id" AUTO-LABEL="1" WIDTH="50%"/>
+		<SEPARATOR/>
+		<ITEM TYPE="voc_elem_selector" SOURCE="Ps.target_recruit_type_id" AUTO-LABEL="1" WIDTH="50%"/>
+	</GROUP>
+	<DELIM/>
+
+	<LINE CHILD-VERT-ALIGN="top">
+		<PANEL WIDTH="90zr">
+			<GROUP>
+				<ITEM TYPE="d_period" SOURCE="Ps.max_term_to_job_offer" AUTO-LABEL="1" ENABLE-EXPR="global_settings.target_vacancy_terms.job_offer.is_enabled"/>
+				<SEPARATOR/>
+				<ITEM TYPE="d_period" SOURCE="Ps.max_term_to_job_offer_acceptance" AUTO-LABEL="1" ENABLE-EXPR="global_settings.target_vacancy_terms.job_offer_acceptance.is_enabled"/>
+				<SEPARATOR/>
+				<ITEM TYPE="d_period" SOURCE="Ps.max_term_to_vacancy_close" AUTO-LABEL="1" ENABLE-EXPR="global_settings.target_vacancy_terms.vacancy_close.is_enabled"/>
+			</GROUP>
+
+			<PANEL NAME="PostMaxTermCsdAnchor">
+			</PANEL>
+		</PANEL>
+
+		<PANEL>
+			<LABEL TITLE="##UiText.titles.for_different_staff_categories##:"/>
+
+			<GRID FIXED-ROW-HEIGHT="1" HEIGHT="auto">
+				<COLUMNS>
+					<COL WIDTH="100%"/>
+					<COL WIDTH="20zr"/>
+					<COL WIDTH="20zr"/>
+					<COL WIDTH="20zr"/>
+				</COLUMNS>
+
+				<ROW HEADER="1">
+					<LABEL TITLE="##UiText.fields.staff_category##"/>
+					<LABEL TITLE-EXPR="UiText.fields.max_term_to_job_offer + ' (' + Ps.max_term_to_job_offer.unit_id.ForeignElem.plural_name + ')'" ALIGN="center"/>
+					<LABEL TITLE-EXPR="UiText.fields.max_term_to_job_offer_acceptance + ' (' + Ps.max_term_to_job_offer_acceptance.unit_id.ForeignElem.plural_name + ')'" ALIGN="center"/>
+					<LABEL TITLE-EXPR="UiText.fields.max_term_to_vacancy_close + ' (' + Ps.max_term_to_vacancy_close.unit_id.ForeignElem.plural_name + ')'" ALIGN="center"/>
+				</ROW>
+
+				<LOOP EXPR="Ps.target_staff_categories" VAR="ListElem">
+					<ROW>
+						<LABEL TITLE-EXPR="ListElem.staff_category_id.ForeignDispName" FLAT="1"/>
+					
+						<IF EXPR="global_settings.target_vacancy_terms.job_offer.is_enabled">
+							<EDIT SOURCE="ListElem.max_term_to_job_offer.length" ALIGN="right"/>
+						</IF>
+						<ELSE>
+							<LABEL/>
+						</ELSE>
+
+						<IF EXPR="global_settings.target_vacancy_terms.job_offer_acceptance.is_enabled">
+							<EDIT SOURCE="ListElem.max_term_to_job_offer_acceptance.length" ALIGN="right"/>
+						</IF>
+						<ELSE>
+							<LABEL/>
+						</ELSE>
+
+						<IF EXPR="global_settings.target_vacancy_terms.vacancy_close.is_enabled">
+							<EDIT SOURCE="ListElem.max_term_to_vacancy_close.length" ALIGN="right"/>
+						</IF>
+						<ELSE>
+							<LABEL/>
+						</ELSE>
+					</ROW>
+				</LOOP>
+			</GRID>
+		</PANEL>
+	</LINE>
+	<DELIM/>
+	<BR/>
+
+	<GROUP>
+		<EDIT SOURCE="Ps.max_cur_workload" AUTO-LABEL="1" WIDTH="10zr"/>
+		<SEPARATOR/>
+		<EDIT SOURCE="Ps.max_monthly_workload" AUTO-LABEL="1" WIDTH="10zr"/>
+		<SEPARATOR/>
+		<EDIT SOURCE="Ps.req_monthly_closed_vacancies_num" AUTO-LABEL="1" WIDTH="10zr"/>
+	</GROUP>
+	<BR/>
+
+	<GRID FIXED-ROW-HEIGHT="1" HEIGHT="auto" WIDTH="110zr">
+		<COLUMNS>
+			<COL WIDTH="100%"/>
+			<COL WIDTH="18zr"/>
+			<IF EXPR="AppModuleUsed( 'module_efko' )">
+				<COL WIDTH="18zr"/>
+			</IF>
+		</COLUMNS>
+
+		<ROW HEADER="1">
+			<LABEL TITLE="##UiText.fields.staff_category##"/>
+			<LABEL TITLE-EXPR="Ps.FormElem.target_staff_categories[0].workload_multiplier.Title" ALIGN="center"/>
+			<IF EXPR="AppModuleUsed( 'module_efko' )">
+				<LABEL TITLE-EXPR="Ps.FormElem.target_staff_categories[0].closing_workload_multiplier.Title" ALIGN="center"/>
+			</IF>
+		</ROW>
+
+		<LOOP EXPR="Ps.target_staff_categories" VAR="ListElem">
+			<ROW>
+				<LABEL TITLE-EXPR="ListElem.staff_category_id.ForeignDispName" FLAT="1"/>
+				<EDIT SOURCE="ListElem.workload_multiplier" ALIGN="right"/>
+				<IF EXPR="AppModuleUsed( 'module_efko' )">
+					<EDIT SOURCE="ListElem.closing_workload_multiplier" ALIGN="right"/>
+				</IF>
+			</ROW>
+		</LOOP>
+	</GRID>
+</PANEL>
+
+
+</SPXML-SCREEN>
+
+
+
+

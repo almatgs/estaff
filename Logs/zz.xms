@@ -1,0 +1,39 @@
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Текущий прогресс" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/stat.ico">
+	<USE FORM="base1_general_stat_v2.xms"/>
+	<PANEL SUNKEN="1" STD-MARGINS="1" BK-COLOR-EXPR="SysColors.PanelLightBackground">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="169px"/>
+				<COL WIDTH="26zr"/>
+				<COL WIDTH="22zr"/>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="15zr"/>
+			</COLUMNS>
+			<PANEL>
+				<LABEL TITLE="Направление подбора:"/>
+				<ITEM TYPE="voc_elem_selector" usage="filter" SOURCE="Ps.filter.recruit_type_id" UPDATE-ACTION="lib_view.store_filter_elem( 'recruit_current_progress', Source )"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Рекрутер:"/>
+				<ITEM TYPE="object_selector" usage="filter" SOURCE="Ps.filter.user_id" UPDATE-ACTION="lib_view.store_filter_elem( 'recruit_current_progress', Source )"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Группа:"/>
+				<ITEM TYPE="object_selector" usage="filter" SOURCE="Ps.filter.group_id" UPDATE-ACTION="lib_view.store_filter_elem( 'recruit_current_progress', Source )"/>
+			</PANEL>
+			<PANEL/>
+			<PANEL>
+				<LABEL TITLE=" "/>
+				<BUTTON TITLE="Показать" IMAGE-URL="//base_pict/start.ico" STD-MARGINS="0" ACTION="lib_stat.calc_stat_result( Ps )"/>
+			</PANEL>
+		</TABLE>
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="Показать" ACTION="lib_stat.calc_stat_result( Ps )"/>
+			<MENU-ENTRY SEPARATOR="1"/>
+			<MENU-ENTRY TITLE="Очистить форму" ACTION="Ps.filter.Clear(); lib_stat.adjust_filters( 'recruit_current_progress', Ps );"/>
+		</MENU>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+	<INHERIT TYPE="stat_items_v2_base"/>
+	<INHERIT TYPE="stat_commands"/>
+</SPXML-SCREEN>

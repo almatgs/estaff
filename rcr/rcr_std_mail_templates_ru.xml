@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_mail_templates SPXML-FORM="rcr_std_mail_templates.xmd" LANG="ru">
+	<std_mail_template>
+		<id>first_call_arrange</id>
+		<name VALUE="Договориться о звонке (активный кандидат)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject><![CDATA[Вакансия <%=vacancy.name%>]]></subject>
+		<text><![CDATA[Здравствуйте, <%=candidate.firstname%> <%=candidate.middlename%>!
+
+Благодарю за присланное резюме на вакансию "<%=vacancy.name%>"!
+Когда Вам будет удобно организовать телефонный звонок для обсуждения деталей?
+В нашей компании открыта вакансия "<%=vacancy.name%>".
+Ваше резюме показалось нам очень интересным.
+
+Если Вам интересно наше предложение, пожалуйста, свяжитесь со мной любым удобным для Вас способом.
+Подробное описание вакансии - внизу письма.
+
+<%=signature%>
+
+
+--------------------------------
+Описание вакансии:
+<%=vacancy.public_job_desc%>
+
+]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>first_call_arrange_2</id>
+		<name VALUE="Договориться о звонке (пассивный кандидат)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject><![CDATA[Вакансия <%=vacancy.name%>]]></subject>
+		<text><![CDATA[Здравствуйте, <%=candidate.firstname%> <%=candidate.middlename%>!
+
+В нашей компании открыта вакансия "<%=vacancy.name%>".
+Мы нашли Ваше резюме<%=candidate.source_id.HasValue ? ' на ' + candidate.source_id.ForeignElem.name : '' %>, и мы очень хотели бы видеть Вас в числе кандидатов на данную позицию.
+
+Если Вам интересно наше предложение, пожалуйста, свяжитесь со мной любым удобным для Вас способом, или сообщите время, когда я смогу Вам позвонить.
+Подробное описание вакансии - внизу письма.
+
+<%=signature%>
+
+
+--------------------------------
+Описание вакансии:
+<%=vacancy.public_job_desc%>
+
+]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>interview_invite</id>
+		<name VALUE="Договориться об интервью (активный кандидат)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject><![CDATA[Вакансия <%=vacancy.name%>]]></subject>
+		<text><![CDATA[Здравствуйте, <%=candidate.firstname%> <%=candidate.middlename%>!
+
+Благодарю за присланное резюме на вакансию "<%=vacancy.name%>"!
+Мы бы хотели пригласить Вас на интервью. Когда Вам было бы удобно?
+
+<%=signature%>
+
+
+--------------------------------
+Описание вакансии:
+<%=vacancy.public_job_desc%>
+
+]]></text>
+
+		<register_event>1</register_event>
+		<event_type_id>invitation</event_type_id>
+	</std_mail_template>
+
+
+
+	<std_mail_template>
+		<id>interview_invite_2</id>
+		<name VALUE="Договориться об интервью (пассивный кандидат)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject>Интервью</subject>
+		<text><![CDATA[Здравствуйте, <%=candidate.firstname%> <%=candidate.middlename%>!
+
+В нашей компании открыта вакансия "<%=vacancy.name%>".
+Ваше резюме показалось нам очень интересным.
+
+Если Вам интересно наше предложение, пожалуйста, свяжитесь со мной любым удобным для Вас способом - мы обговорим время интервью.
+Подробное описание вакансии - внизу письма.
+
+<%=signature%>
+
+
+--------------------------------
+Описание вакансии:
+<%=vacancy.public_job_desc%>
+
+]]></text>
+	
+		<register_event>1</register_event>
+		<event_type_id>invitation</event_type_id>
+	</std_mail_template>
+
+
+
+
+	<std_mail_template>
+		<id>interview_date_notif</id>
+		<name VALUE="Уведомление о назначенном интервью (схема проезда)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject>Интервью</subject>
+		<text><![CDATA[Здравствуйте, <%=candidate.firstname%> <%=candidate.middlename%>!
+Согласно нашей договоренности ждем Вас <%=StrLongDate( candidate.find_scheduled_event( 'interview', vacancy_id ).date, false )%> (<%=base1_common.week_days.GetChildByKey( WeekDay( candidate.find_scheduled_event( 'interview', vacancy_id ).date, true ) ).name%>) в <%=StrTime( candidate.find_scheduled_event( 'interview', vacancy_id ).date )%>.
+
+<%=event.locationDesc%>
+
+<%=signature%>
+]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>rr_interview_date_notif</id>
+		<name VALUE="Уведомление о назначенном интервью с руководителем (схема проезда)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject>Интервью</subject>
+		<text><![CDATA[Здравствуйте, <%=candidate.firstname%> <%=candidate.middlename%>!
+
+Согласно нашей договоренности ждем Вас <%=StrLongDate( candidate.find_scheduled_event( 'rr_interview', vacancy_id ).date, false )%> (<%=base1_common.week_days.GetChildByKey( WeekDay( candidate.find_scheduled_event( 'rr_interview', vacancy_id ).date, true ) ).name%>) в <%=StrTime( candidate.find_scheduled_event( 'rr_interview', vacancy_id ).date )%>.
+
+<%=event.locationDesc%>
+
+<%=signature%>
+]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>org_rr_interview_date_notif</id>
+		<name VALUE="Уведомление о назначенном интервью с внешним заказчиком (схема проезда)"/>
+		<dest_type>candidate</dest_type>
+
+		<subject>Интервью</subject>
+		<text><![CDATA[Здравствуйте, <%=candidate.firstname%> <%=candidate.middlename%>!
+
+Подтверждаю время интервью "<%=StrDate( event.date, true, false )%>".
+
+Схему проезда в офис компании <%=org.name%> Вы найдете в приложении.
+
+<%=signature%>
+]]></text>
+
+		<card_attachments>
+			<card_attachment>
+				<card_attachment_type_id>location_desc</card_attachment_type_id>
+				<src_object_type_id>org</src_object_type_id>
+			</card_attachment>
+		</card_attachments>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>add_notify</id>
+		<name VALUE="Уведомление о включении в базу данных"/>
+		<dest_type>candidate</dest_type>
+
+		<subject></subject>
+		<text>Здравствуйте, &lt;%=candidate.firstname%> &lt;%=candidate.middlename%>!&#10;&#10;Благодарим Вас за высланное резюме в службу персонала нашей компании.&#10;Ваше резюме включено в базу данных; при появлении вакансии, соответствующей Вашим пожеланиям, профессиональной подготовке и навыкам, специалист свяжется с Вами по электронной почте или по телефону.&#10;&#10;&lt;%=signature%></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>reject</id>
+		<name>Отказ кандидату (после интервью)</name>
+		<dest_type>candidate</dest_type>
+
+		<subject>Конкурсный отбор завершен</subject>
+		<text><![CDATA[Здравствуйте, <%=candidate.firstname%> <%=candidate.middlename%>!
+
+Вы были у нас на интервью по вакансии "<%=vacancy.name%>". Мы признательны за Ваше время и возможность познакомиться с Вами. 
+Мы в полной мере оценили Ваши профессиональные и личные качества, которые Вы продемонстрировали на интервью. К сожалению, на данном этапе мы не готовы сделать Вам предложение.
+Желаем Вам успехов в профессиональной деятельности!
+
+<%=signature%>]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>vacancy_close</id>
+		<name>Уведомление об отказе</name>
+		<dest_type>candidate</dest_type>
+
+		<subject>Конкурсный отбор завершен</subject>
+		<text><![CDATA[Здравствуйте, <%=candidate.firstname%> <%=candidate.middlename%>!
+
+Настоящим письмом хотим проинформировать Вас о том, что конкурсный отбор на вакансию "<%=vacancy.name%>" завершен.
+В настоящий момент мы не готовы сделать Вам предложение о работе. В случае появления новых вакансий, будем рады обратиться к Вам снова.
+
+<%=signature%>]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>client_resume</id>
+		<name VALUE="Резюме кандидата" lang-en:VALUE="Candidate's resume"/>
+		<dest_type>person</dest_type>
+
+		<subject>Резюме</subject>
+		<text>Резюме кандидата на вакансию, &lt;%=vacancy.name%>.&#10;&#10;&lt;%=signature%></text>
+
+		<card_attachments>
+			<card_attachment>
+				<name>&lt;%=candidate.fullname%>.doc</name>
+				<card_attachment_type_id>resume</card_attachment_type_id>
+				<src_object_type_id>candidate</src_object_type_id>
+			</card_attachment>
+		</card_attachments>
+
+		<register_event>1</register_event>
+		<event_type_id>rr_resume_review</event_type_id>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>notify_vacancy_state_changed</id>
+		<name>Уведомление руководителя об изменении статуса вакансии</name>
+		<dest_type>person</dest_type>
+		<is_notif>1</is_notif>
+
+		<subject>Уведомление об изменении статуса вакансии</subject>
+
+		<text><![CDATA[Здравствуйте, <%=firstname%> <%=middlename%>!
+
+Сообщаем об изменении статуса вакансии "<%=vacancy.name%>" в структурном подразделении "<%=vacancy.division_id.ForeignDispName%>".
+Новый статус вакансии: "<%=vacancy.state_id.ForeignDispName%>"]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>notify_state_rr_approve</id>
+		<name>Уведомление руководителя о начале процедуры утверждения кандидата</name>
+		<dest_type>person</dest_type>
+		<is_notif>1</is_notif>
+
+		<subject>Уведомление о начале процедуры утверждения кандидата</subject>
+
+		<text><![CDATA[Здравствуйте, <%=firstname%> <%=middlename%>!
+
+Сообщаем о начале процедуры предварительного утверждения кандидата (<%=candidate.fullname%>) по итогам интервью.
+Для подтвержедния или отклонения кандидата необходимо пройти по ссылке <%=event_web_link%>]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>notify_state_rr_poll</id>
+		<name>Уведомление руководителя о начале процедуры оценки кандидата</name>
+		<dest_type>person</dest_type>
+		<is_notif>1</is_notif>
+
+		<subject>Уведомление о начале процедуры оценки кандидата</subject>
+
+		<text><![CDATA[Здравствуйте, <%=firstname%> <%=middlename%>!
+
+Сообщаем о начале процедуры оценки кандидата (<%=candidate.fullname%>) по итогам интервью.
+Для заполнения оценочной формы необходимо пройти по ссылке <%=event_web_link%>]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>notify_probation_assessment</id>
+		<name>Уведомление руководителя о дате окончания испытательного срока</name>
+		<dest_type>person</dest_type>
+		<is_notif>1</is_notif>
+
+		<subject>Уведомление о дате окончания испытательного срока</subject>
+
+		<text><![CDATA[Здравствуйте, <%=firstname%> <%=middlename%>!
+
+Напоминаем Вам, что испытательный срок сотрудника <%=candidate.fullname%> заканчивается <%=candidate.probation_end_date%>.
+Вам необходимо заполнить форму оценки прохождения испытательного срока сотрудником.
+
+С уважением,
+Служба персонала
+]]></text>
+	</std_mail_template>
+
+
+
+	<std_mail_template>
+		<id>notify_video_interview_poll_assigned</id>
+		<name>Ссылка на видеоинтервью для кандидата</name>
+		<dest_type>candidate</dest_type>
+		<is_notif>1</is_notif>
+
+		<subject>Видео-интервью</subject>
+
+		<text><![CDATA[Здравствуйте, <%=firstname%> <%=middlename%>!
+
+Для дальнейшего рассмотрения Вашей кандидатуры на вакансию нашей компании просим Вас пройти видеоинтервью по ссылке
+<%=event.participant_web_url%>
+
+С уважением,
+Служба персонала
+]]></text>
+	</std_mail_template>
+
+
+
+	<std_mail_template>
+		<id>candidate_form_request_link</id>
+		<name>Ссылка на заполнение анкеты кандидатом</name>
+		<dest_type>candidate</dest_type>
+		<is_notif>1</is_notif>
+
+		<subject>Анкета</subject>
+
+		<text><![CDATA[Здравствуйте, <%=firstname%> <%=middlename%>!
+
+Для дальнейшего рассмотрения Вашей кандидатуры на вакансию нашей компании просим Вас заполнить форму по ссылке
+<%=event.participant_web_url%>
+
+С уважением,
+Служба персонала
+]]></text>
+	</std_mail_template>
+
+
+	<std_mail_template>
+		<id>testing_link</id>
+		<name>Ссылка для прохождения тестирования</name>
+		<dest_type>candidate</dest_type>
+		<is_notif>1</is_notif>
+
+		<subject>Приглашение для тестирования</subject>
+
+		<text><![CDATA[Здравствуйте, <%=firstname%> <%=middlename%>!
+
+Приглашаем Вас пройти тестирование.
+Чтобы начать тестирование, пройдите по ссылке:  
+
+<%=web_link%>
+
+Желаем удачи!
+
+С уважением,
+Служба персонала
+]]></text>
+	</std_mail_template>
+</std_mail_templates>

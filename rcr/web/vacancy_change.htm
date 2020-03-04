@@ -1,0 +1,227 @@
+<%
+Server.Execute( 'include/std_head.htm' );
+
+PutUrlData( 'x-local://Logs/vacancy_change_req.txt', Request.Body );
+LogEvent( '', 'Form.name=' + Request.Form.GetOptProperty( 'name', '' ) );
+
+
+//if ( ! curPerson.is_division_head && ! AppModuleUsed( 'module_rgs' ) )
+	//HandlePostError( 'Возможность подачи заявки разрешена только для руководителей структурных подразделений' );
+
+if ( AppModuleUsed( 'module_rgs' ) )
+	webForm = OpenDoc( 'x-app://module_rgs/rgs_web_form_vacancy_add.xml' ).TopElem;
+else
+	webForm = OpenDoc( 'x-app://rcr/web/web_form_vacancy_add.xml' ).TopElem;
+
+form = DefaultDb.GetObjectForm( webForm.object_type_id );
+
+for ( field in webForm.fields )
+{
+	formElem = undefined;
+
+	if ( field.id.HasValue )
+		formElem = form.TopElem.EvalPath( field.id );
+
+	if ( field.web_id.HasValue )
+		fieldID = field.web_id;
+	else
+		fieldID = StrReplace( field.id, '.', '__' );
+
+	if ( field.title.HasValue )
+		title = field.title;
+	else if ( formElem != undefined )
+		title = formElem.Title;
+	else
+		title = '';
+
+	if ( ! field.is_optional )
+	{
+		if ( field.is_multi_value )
+		{
+			if ( ArrayOptFind( field.value_entries, 'Request.Form.GetOptProperty( fieldID + \'__\' + ( id.HasValue ? id : Childndex ) ) != undefined' ) == undefined )
+				HandlePostError( 'Не указано поле "' + title + '"' );
+		}
+		else
+		{
+			if ( Request.Form.GetOptProperty( fieldID, '' ) == '' )
+				HandlePostError( 'Не указано поле "' + title + '"' );
+		}
+	}
+
+	if ( field.web_id == 'exp_years_position_desc' && StrLen( Request.Form.GetProperty( fieldID ) ) > 100 )
+		HandlePostError( 'Максимальная длина поля "' + title + '": 100 символов' );
+
+	if ( field.web_id == 'duties_desc' && StrLen( Request.Form.GetProperty( fieldID ) ) < 60 )
+		HandlePostError( 'Минимальная длина поля "' + title + '": 60 символов' );
+
+	if ( field.web_id == 'skills_desc' && StrLen( Request.Form.GetProperty( fieldID ) ) < 60 )
+		HandlePostError( 'Минимальная длина поля "' + title + '": 60 символов' );
+
+	if ( field.web_id == 'trips_percent_desc' && ( OptInt( Request.Form.GetProperty( fieldID ) ) == undefined || Int( Request.Form.GetProperty( fieldID ) ) > 100 ) )
+		HandlePostError( 'Недопустимое значение поля "' + title + '"' );
+
+	if ( field.id == 'min_salary' && Request.Form.GetProperty( fieldID ) != '' && OptInt( Request.Form.GetProperty( fieldID ) ) == undefined )
+		HandlePostError( 'Недопустимое значение поля "' + title + '"' );
+
+	if ( field.id == 'max_salary' && Request.Form.GetProperty( fieldID ) != '' && OptInt( Request.Form.GetProperty( fieldID ) ) == undefined )
+		HandlePostError( 'Недопустимое значение поля "' + title + '"' );
+
+	if ( Request.Form.GetOptProperty( 'is_mass_vacancy' ) == 'on' && field.id == 'req_quantity' && OptInt( Request.Form.GetProperty( fieldID ) ) < 2 )
+		HandlePostError( 'Недопустимое значение поля "' + title + '"' );
+}
+
+doc = DefaultDb.OpenNewObjectDoc( 'vacancy' );
+vacancy = doc.TopElem;
+
+vacancy.name = Request.Form.name;
+vacancy.division_id = Int( Request.Form.division_id );
+vacancy.min_salary = Request.Form.min_salary;
+vacancy.max_salary = Request.Form.max_salary;
+vacancy.req_info.educ_type_id = Request.Form.educ_type_id;
+
+if ( Request.Form.GetOptProperty( 'is_mass_vacancy' ) == 'on' )
+{
+	vacancy.is_mp_vacancy = true;
+
+	reqQuantity = Int( Request.Form.req_quantity );
+
+	for ( i = 0; i < reqQuantity; i++ )
+	{
+		instance = vacancy.instances.AddChild();
+		instance.id = UniqueID();
+		instance.start_date = CurDate;
+	}
+	
+	//if ( Request.Form.req_quantity != '' )
+		//vacancy.req_quantity = Request.Form.req_quantity;
+}
+
+if ( vacancy.ChildExists( 'cs_reason' ) )
+	vacancy.cs_reason = Request.Form.cs_reason;
+
+vacancy.rr_persons.ObtainChildByKey( curPerson.id );
+//vacancy.load_rr_persons_by_division();
+
+if ( Request.Form.GetOptProperty( 'rr_person_eid', '' ) != '' )
+{
+	//alert( 'rr_person_eid: ' + Request.Form.rr_person_eid );
+
+	for ( rrPersonEid in String( Request.Form.rr_person_eid ).split( ';' ) )
+	{
+		if ( rrPersonEid == 'null' )
+			continue;
+
+		try
+		{
+			Int( rrPersonEid );
+		}
+		catch ( e )
+		{
+			HandlePostError( 'Недопустимый ID сотрудника: ' + rrPersonEid + '  (' + Request.Form.rr_person_eid + ')' );
+		}
+
+		rrPerson = ArrayOptFindByKey( persons, '0x' + StrHexInt( Int( rrPersonEid ), 16 ), 'eid' );
+		if ( rrPerson == undefined )
+			HandlePostError( 'Оценивающий руководитель не найден в E-Staff: ' +  rrPersonEid );
+
+		vacancy.rr_persons.ObtainChildByKey( rrPerson.id );
+	}
+}
+
+vacancy.orig_rr_person_id = curPerson.id;
+
+vacancy.user_id = global_settings.staff_connector.default_vacancy_user_id;
+
+
+if ( ( group = lib_recruit.get_group_by_division( vacancy.division_id ) ) != undefined )
+	vacancy.group_id = group.id;
+else
+	vacancy.group_id = global_settings.staff_connector.default_vacancy_group_id;
+
+
+
+htmlStr = '<html>' + lib_html.get_html_meta() + '<body>';
+htmlStr += '<span style="font-family:Verdana;font-size:11px">\r\n';
+
+for ( field in webForm.fields )
+{
+	if ( ! field.dest_attc_type_id.HasValue )
+		continue;
+
+	if ( field.id.HasValue && vacancy.ChildExists( field.id ) )
+		vacancy.Child( field.id ).Value = Request.Form.GetProperty( field.web_id );
+
+	htmlStr += HtmlEncode( field.title );
+	htmlStr += ': <b>';
+	
+	if ( field.is_multi_value )
+	{
+		count = 0;
+
+		for ( valueEntry in field.value_entries )
+		{
+			if ( Request.Form.GetOptProperty( field.web_id + '__' + ( valueEntry.id.HasValue ? valueEntry.id : valueEntry.ChildIndex ) ) == 'on' )
+			{
+				if ( count != 0 )
+					htmlStr += ', ';
+
+				htmlStr += ( valueEntry.value.HasValue ? valueEntry.value : valueEntry.id );
+
+				count++;
+			}
+		}
+	}
+	else
+	{
+		htmlStr += HtmlEncode( Request.Form.GetProperty( field.web_id ) );
+	}
+
+	htmlStr += '</b>';
+
+	htmlStr += HtmlEncode( field.suffix_title );
+
+	htmlStr += '<br/>';
+}
+
+htmlStr += '</span>';
+htmlStr += '</body></html>';
+
+
+attachment = vacancy.attachments.ObtainChildByKey( 'vacancy_desc', 'type_id' );
+attachment.text = htmlStr;
+
+//DebugMsg( ArrayMerge( ArrayExpand( rgs_global_settings.va_persons, 'division_id' ), 'XmlValue', ',' ) );
+
+needApproval = ( AppModuleUsed( 'module_rgs' ) && ArrayCount( ArrayIntersect( lib_voc.voc_implicit_chain( vacancy.division_id ), ArrayUnion( rgs_global_settings.va_divisions, ArrayExpand( rgs_global_settings.va_persons, 'division_id' ) ) ) ) != 0 );
+
+if ( needApproval )
+	vacancy.state_id = 'vacancy_approval';
+else
+	vacancy.state_id = global_settings.staff_connector.default_vacancy_state_id;
+
+
+if ( needApproval )
+{
+	lib = OpenCodeLib( 'x-app://module_rgs/rgs_lib_rgs.js' );
+	
+	lib.start_vacancy_approval( doc.TopElem, curPerson );
+}
+else
+{
+	doc.Save();
+	lib_recruit.create_loaded_vacancy_notif( vacancy );
+
+	if ( global_settings.staff_connector.vacancy_import.send_create_notif && global_settings.staff_connector.vacancy_import.create_notif_template_id.HasValue && global_settings.staff_connector.vacancy_import.create_notif_email.HasValue )
+	{
+		runner = new MethodRunner( lib_recruit, 'send_vacancy_create_notif' );
+		runner.SetArguments( doc.TopElem );
+		runner.RunAsync = true;
+		runner.Run();
+	}
+}
+
+
+
+if ( outerEnv == undefined )
+	Response.Redirect( Request.Form.redirect_url );
+%>

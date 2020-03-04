@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN TITLE="##UiText.titles.export##" WIDTH="95zr" HEIGHT="36zr" SOURCE="TopElem">
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+	</COLUMNS>
+
+	<ITEM TYPE="dir_path_selector" SOURCE="Ps.dest_dir_path" AUTO-LABEL="1"/>
+</TABLE>
+<BR/>
+<BR/>
+
+<CHECK SOURCE="Ps.export_static_data" AUTO-LABEL="1"/>
+<CHECK SOURCE="Ps.export_csd" AUTO-LABEL="1"/>
+<CHECK SOURCE="Ps.export_vocs" AUTO-LABEL="1"/>
+
+
+<PANEL HEIGHT="-5zrc">
+</PANEL>
+
+<TABLE>
+	<COLUMNS>
+		<COL WIDTH="100%"/>
+		<COL WIDTH="14zr"/>
+		<COL WIDTH="14zr"/>
+	</COLUMNS>
+
+	<LABEL/>
+
+	<BUTTON TITLE="OK" CMD="1"/>
+	<BUTTON TITLE="##UiText.actions.cancel##" CMD="2"/>
+</TABLE>
+
+
+</SPXML-SCREEN>

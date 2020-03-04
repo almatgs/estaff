@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM AUTO-SAVE="1">
+
+<USE FORM="sx_general.xmd"/>
+
+<spxml_machine_settings>
+	<INHERIT TYPE="spxml_machine_settings_base"/>
+</spxml_machine_settings>
+
+</SPXML-FORM>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INTERFACE>
+
+<ui_base>
+	<ui_start_info CLASS="1">
+		<init_section_url TYPE="string"/>
+	</ui_start_info>
+
+	<ui_section CLASS="1">
+		<title TYPE="string"/>
+		<url TYPE="string"/>
+		<icon_url TYPE="string"/>
+
+		<ui_sections ARRAY="1" TYPE="ui_section"/>
+	</ui_section>
+
+	<filter_spec CLASS="1">
+		<field_id TYPE="string"/>
+		<title TYPE="string"/>
+		<data_type TYPE="string"/>
+		<foreign_array_expr TYPE="string" SUBTYPE="code"/>
+		<is_multiple TYPE="bool"/>
+		<use_range TYPE="bool"/>
+		<with_all_descendants TYPE="bool"/>
+		<selector_type TYPE="string"/>
+
+		<is_fixed TYPE="bool"/>
+		<value_expr TYPE="string" SUBTYPE="code"/>
+
+		<is_popular TYPE="bool"/>
+		<show_condition TYPE="string" SUBTYPE="code"/>
+	</filter_spec>
+
+	<list_view_spec CLASS="1">
+		<id TYPE="string"/>
+		<catalog_name TYPE="string"/>
+		<is_inner_list TYPE="bool"/>
+		<filters ARRAY="1" TYPE="filter_spec"/>
+	</list_view_spec>
+
+	<list_view_dest_object CLASS="1">
+		<spec TYPE="list_view_spec"/>
+		<filter TYPE="object"/>
+		<editedFilter TYPE="object"/>
+		<idataKeysCache TYPE="object"/>
+	</list_view_dest_object>
+
+
+	<column_spec CLASS="1">
+		<id TYPE="string"/>
+		<title TYPE="string"/>
+		<value_expr TYPE="string"/>
+
+		<text_color_expr TYPE="string"/>
+		<bk_color_expr TYPE="string"/>
+		<align TYPE="string"/>
+		<width TYPE="string"/>
+
+		<show_time TYPE="bool"/>
+		<show_time_only TYPE="bool"/>
+	</column_spec>
+	
+	<uni_query_spec CLASS="1">
+		<catalog_name TYPE="string"/>
+		<is_hier TYPE="bool"/>
+
+		<xquery_qual_str TYPE="string"/>
+		<xquery_order_str TYPE="string"/>
+		<xquery_str TYPE="string"/>
+
+		<columns ARRAY="1" TYPE="column_spec"/>
+	</uni_query_spec>
+
+
+	
+	<worksheet_column CLASS="1">
+		<id TYPE="string"/>
+		<title TYPE="string"/>
+		<width TYPE="string"/>
+	</worksheet_column>
+	
+	
+	<worksheet_data CLASS="1">
+		<columns ARRAY="1" TYPE="worksheet_column"/>
+		<header_rows_num TYPE="integer"/>
+
+		<rows ARRAY="1">
+			<hier_level TYPE="integer"/>
+
+			<cells ARRAY="1">
+				<column_id TYPE="string"/>
+				<value TYPE="variant" RVALUE="1"/>
+
+				<font_weight TYPE="integer"/>
+				<text_color TYPE="string"/>
+				<bk_color TYPE="string"/>
+				<align TYPE="string"/>
+				<rotation TYPE="integer"/>
+			</cells>
+		</rows>
+	</worksheet_data>
+
+
+	<worksheet_data_build_options CLASS="1">
+		<export_for_xmp TYPE="bool"/>
+	</worksheet_data_build_options>
+</ui_base>
+
+
+</SPXML-INTERFACE>
+
+
+
+

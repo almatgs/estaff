@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-FORM TITLE="##UiText.objects.contact_list##" CODE-LIB="1" IMAGE-URL="//base_pict/contact_list.ico" IMAGE-URL-EXPR="image_url()">
+
+<contact_list>
+	<id TYPE="integer"/>
+	<name TYPE="string" TITLE="##UiText.fields.name##"/>
+
+	<members DOC-ONLY="1">
+		<member MULTIPLE="1" PRIMARY-KEY="person_id">
+			<person_id TYPE="integer" FOREIGN-ARRAY="persons"/>
+		</member>
+	</members>
+
+	<members_num TYPE="integer" TITLE="Кол-во контактов" lang-en:TITLE="Number of contacts" lang-ua:TITLE="Кількість контактів" EXPR="members.ChildNum"/>
+
+	<is_archived TYPE="bool" NULL-FALSE="1" TITLE="В архиве" lang-en:TITLE="Archived" lang-ua:TITLE="В архіві"/>
+
+	<user_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="users" TITLE="##UiText.objects.user##" EXP-MAX-LEN="13" COL-ALIGN="center" lang-en:TITLE="User"/>
+	<group_id TYPE="integer" DOC-ID="1" FOREIGN-ARRAY="groups" TITLE="##UiText.objects.group##" EXP-MAX-LEN="12" COL-ALIGN="center" lang-en:TITLE="Group"/>
+
+	<INHERIT TYPE="card_comment_base"/>
+	<INHERIT TYPE="card_attachments"/>
+	<INHERIT TYPE="card_info_base"/>
+
+	<view TEMP="1" DOC-ONLY="1">
+		<filter>
+			<INHERIT TYPE="ft_filter"/>
+			<contact_list_id TYPE="integer" EXPR="Doc.DocID"/>
+		</filter>
+	</view>
+
+	<is_active PROPERTY="1" DEPENDS="is_archived"/>
+</contact_list>
+
+
+
+</SPXML-FORM>

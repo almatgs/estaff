@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<SPXML-FORM>
+
+<mail_message>
+	<sender>
+		<address TYPE="string"/>
+		<name TYPE="string"/>
+	</sender>
+
+	<date TYPE="date"/>
+
+	<recipients>
+		<recipient MULTIPLE="1">
+			<address TYPE="string"/>
+			<name TYPE="string"/>
+		</recipient>
+	</recipients>
+
+	<subject TYPE="string"/>
+	<body TYPE="string" MULTILINE="1"/>
+	<html_body TYPE="string" SUBTYPE="html"/>
+
+	<attachments>
+		<attachment MULTIPLE="1">
+			<name TYPE="string"/>
+			<data TYPE="binary"/>
+			<id TYPE="string"/>
+		</attachment>
+	</attachments>
+
+	<draft_url TYPE="string"/>
+
+
+	<Show PROPERTY="1" EXPR="
+			ShowMailMessage( Doc.TopElem );
+	"/>
+
+	<Send PROPERTY="1" EXPR="
+			SendMailMessage( Doc.TopElem );
+	"/>
+</mail_message>
+
+</SPXML-FORM>

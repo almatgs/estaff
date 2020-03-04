@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-INLINE-FORM CODE-LIB="1">
+
+<lib_replica>
+	<METHOD NAME="replicate_db" PROGRESS="1" RUN-UI="1" SHOW-COMPLETION-MESSAGE="1">
+		<PARAM NAME="scenario"/>
+
+		<STATISTICS>
+			<sent_count TYPE="integer" TITLE="##UiText.titles.sent##"/>
+			<received_count TYPE="integer" TITLE="Получено" lang-en:TITLE="Received" lang-ua:TITLE="Отримано"/>
+			<sent_del_count TYPE="integer" TITLE="Отправлено удалений" lang-en:TITLE="Sent deletions" lang-ua:TITLE="Відправлено видалень"/>
+			<received_del_count TYPE="integer" TITLE="##UiText.titles.deleted__n##"/>
+			<collision_count TYPE="integer" TITLE="Коллизии" lang-en:TITLE="Collisions" lang-ua:TITLE="Колізії"/>
+		</STATISTICS>
+	</METHOD>
+</lib_replica>
+
+
+</SPXML-INLINE-FORM>

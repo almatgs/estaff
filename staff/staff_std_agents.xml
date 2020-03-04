@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<std_agents SPXML-FORM="//base1/base1_std_agents.xmd">
+	<std_agent>
+		<id>check_divisions</id>
+		<name VALUE="Проверка статусов подразделений" lang-en:VALUE="Division status checker" lang-ua:VALUE="Перевірка статусів підрозділів"/>
+		<is_active>1</is_active>
+		<code>OpenCodeLib( 'x-app://staff/staff_agent_check_divisions.js' ).RunAgentCheckDivisions()</code>
+
+		<schedule>
+			<time_entries>
+				<time_entry>
+					<hour>3</hour>
+					<minute>0</minute>
+				</time_entry>
+			</time_entries>
+		</schedule>
+	</std_agent>
+	<std_agent>
+		<id>check_testings</id>
+		<name VALUE="Проверка процессов тестирования" lang-en:VALUE="Testing checker" lang-ua:VALUE="Перевірка процесів тестування"/>
+		<is_active>1</is_active>
+		<code>lib_testing.check_testings()</code>
+		<run_on_client>1</run_on_client>
+
+		<show_in_main_menu>1</show_in_main_menu>
+	</std_agent>
+</std_agents>

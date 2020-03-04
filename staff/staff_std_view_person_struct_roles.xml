@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<std_view SPXML-FORM="//base1/base1_std_view.xmd">
+	<id>person_struct_roles</id>
+	<name VALUE="##UiText.titles.struct_roles##"/>
+
+	<dyn_filters>
+		<dyn_filter>
+			<id>type_id</id>
+		</dyn_filter>
+	</dyn_filters>
+
+	<fields>
+		<field>
+			<id>person_id</id>
+			<width>35zr</width>
+		</field>
+		<field>
+			<id>type_id</id>
+			<width>20zr</width>
+			<align>center</align>
+		</field>
+		<field>
+			<id>division_id</id>
+			<width>100%</width>
+		</field>
+	</fields>
+</std_view>
+

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN SOURCE="TopElem" TITLE="##UiText.titles.pd_processing##" SAVE-ACTION="
+		UpdateScreens( '*', '*' );
+" RESIZE="1" WIDTH="130zr" HEIGHT="80zr" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<CHECK SOURCE="Ps.auto_consent_request" AUTO-LABEL="1" WIDTH="auto" UPDATE-ACTION="
+			if ( Ps.auto_consent_request &amp;&amp; ! Ps.consent_request_mail_template_id.HasValue )
+				Ps.consent_request_mail_template_id = 'request_candidate_pd_consent';
+	"/>
+	
+	<IF EXPR="Ps.auto_consent_request">
+		<BR/>
+		<GROUP>
+			<COMBO SOURCE="Ps.consent_request_method" AUTO-LABEL="1" WIDTH="45zr">
+				<COMBO-ENTRY VALUE="eos" TITLE="Страница E-Staff в облаке" lang-en:TITLE="Web page inside E-Staff cloud" lang-ua:TITLE="Сторінка E-Staff в хмарі"/>
+				<COMBO-ENTRY VALUE="own_page" TITLE="Страница на собственном сервере E-Staff" lang-en:TITLE="Web page on own E-Staff server" lang-ua:TITLE="Сторінка на власному сервері E-Staff"/>
+			</COMBO>
+		
+			<IF EXPR="Ps.consent_request_method == 'eos'">
+				<BUTTON IMAGE-URL="//base_pict/settings.ico" TITLE="##UiText.sections.settings##..." ACTION="
+						lib_recruit_provider.HandleOpenStdRecruitProvider( 'eos' );
+				" PASSIVE="1"  WIDTH="20zr"/>
+			</IF>
+			<SEPARATOR/>
+			<ITEM TYPE="voc_elem_selector" SOURCE="Ps.consent_request_mail_template_id" LABEL-TITLE="##UiText.titles.mail_template##:"/>
+		</GROUP>
+		<DELIM/>
+		<IF EXPR="Ps.consent_request_method == 'own_page'">
+			<LABEL TITLE-EXPR="Ps.own_page.html_body.Title + ':'"/>
+			<PANEL SUNKEN="1" HEIGHT="-2zr">	
+				<TOOLBAR RIGHT-LABELS="1" TOP-DIVIDER="0">
+					<INHERIT TYPE="hedit_toolbar_entries"/>
+				</TOOLBAR>
+				<ITEM TYPE="html_ext_edit" SOURCE="Ps.own_page.html_body"/>
+			</PANEL>
+		</IF>
+	</IF>
+</PANEL>
+
+</SPXML-SCREEN>

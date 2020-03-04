@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<std_currencies SPXML-FORM="base1_std_currencies.xmd">
+
+<std_currency>
+	<id>RUR</id>
+	<name VALUE="руб." lang-en:VALUE="rur" lang-ua:VALUE="руб."/>
+	<full_name VALUE="Российский рубль" lang-en:VALUE="Russian ruble" lang-ua:VALUE="Російський рубль"/>
+	<cent_name VALUE="##UiText.titles.copeck_short##">коп.</cent_name>
+	<mod_names>
+		<mod_name>
+			<id>0</id>
+			<name VALUE="рублей" lang-en:VALUE="RUR" lang-ua:VALUE="рублів"/>
+			<cent_name VALUE="##UiText.titles.copeck_mod2_m##" lang-en:VALUE="kop"/>
+		</mod_name>
+		<mod_name>
+			<id>1</id>
+			<name VALUE="рубль" lang-en:VALUE="RUR" lang-ua:VALUE="рубль"/>
+			<cent_name VALUE="##UiText.titles.copeck##" lang-en:VALUE="kop"/>
+		</mod_name>
+		<mod_name>
+			<id>2</id>
+			<name VALUE="рубля" lang-en:VALUE="RUR" lang-ua:VALUE="рубля"/>
+			<cent_name VALUE="##UiText.titles.copeck_mod2##" lang-en:VALUE="kop"/>
+		</mod_name>
+	</mod_names>		
+
+	<rate>66</rate>
+</std_currency>
+
+
+<std_currency>
+	<id>USD</id>
+	<name>USD</name>
+	<full_name VALUE="Доллар США" lang-en:VALUE="USD" lang-ua:VALUE="Долар США"/>
+	<bk_color>210,255,210</bk_color>
+	<mod_names>
+		<mod_name>
+			<id>0</id>
+			<name VALUE="долларов США" lang-en:VALUE="USD" lang-ua:VALUE="доларів США"/>
+			<cent_name VALUE="##UiText.fields.cents__mod2##"/>
+		</mod_name>
+		<mod_name>
+			<id>1</id>
+			<name VALUE="доллар США" lang-en:VALUE="USD" lang-ua:VALUE="долар США"/>
+			<cent_name VALUE="##UiText.titles.cent##"/>
+		</mod_name>
+		<mod_name>
+			<id>2</id>
+			<name VALUE="доллара США" lang-en:VALUE="USD" lang-ua:VALUE="долара США"/>
+			<cent_name VALUE="##UiText.titles.cent__mod2##"/>
+		</mod_name>
+	</mod_names>		
+	<rate>1</rate>
+</std_currency>
+
+
+<std_currency>
+	<id>EUR</id>
+	<name>EUR</name>
+	<full_name VALUE="Евро" lang-en:VALUE="EUR" lang-ua:VALUE="Євро"/>
+	<bk_color>255,190,160</bk_color>
+	<mod_names>
+		<mod_name>
+			<id>0</id>
+			<name VALUE="##UiText.titles.euro##" lang-en:VALUE="EUR"/>
+			<cent_name VALUE="##UiText.fields.cents__mod2##"/>
+		</mod_name>
+		<mod_name>
+			<id>1</id>
+			<name VALUE="##UiText.titles.euro##" lang-en:VALUE="EUR"/>
+			<cent_name VALUE="##UiText.titles.cent##"/>
+		</mod_name>
+		<mod_name>
+			<id>2</id>
+			<name VALUE="##UiText.titles.euro##" lang-en:VALUE="EUR"/>
+			<cent_name VALUE="##UiText.titles.cent__mod2##"/>
+		</mod_name>
+	</mod_names>	
+
+	<rate>0.88</rate>
+</std_currency>
+
+
+<std_currency>
+	<id>UAH</id>
+	<name VALUE="грн." lang-en:VALUE="gr." lang-ua:VALUE="грн."/>
+	<full_name VALUE="Украинская гривна" lang-en:VALUE="Ukrainian hryvnia" lang-ua:VALUE="Гривня"/>
+	<cent_name VALUE="##UiText.titles.copeck_short##">коп.</cent_name>
+	<mod_names>
+		<mod_name>
+			<id>0</id>
+			<name VALUE="гривен" lang-en:VALUE="gr." lang-ua:VALUE="гривень"/>
+			<cent_name VALUE="##UiText.titles.copeck_mod2_m##" lang-en:VALUE="kop"/>
+		</mod_name>
+		<mod_name>
+			<id>1</id>
+			<name VALUE="гривна" lang-en:VALUE="gr." lang-ua:VALUE="гривна"/>
+			<cent_name VALUE="##UiText.titles.copeck##" lang-en:VALUE="kop"/>
+		</mod_name>
+		<mod_name>
+			<id>2</id>
+			<name VALUE="гривны" lang-en:VALUE="gr." lang-ua:VALUE="гривні"/>
+			<cent_name VALUE="##UiText.titles.copeck_mod2##" lang-en:VALUE="kop"/>
+		</mod_name>
+	</mod_names>		
+
+	<rate>21.9</rate>
+</std_currency>
+
+
+<std_currency>
+	<id>BYR</id>
+	<name VALUE="бел. рубль" lang-en:VALUE="BYR" lang-ua:VALUE="біл. рубль"/>
+	<full_name VALUE="Белорусский рубль" lang-en:VALUE="Belarusian ruble" lang-ua:VALUE="Білоруський рубль"/>
+	<cent_name VALUE="##UiText.titles.copeck_short##">коп.</cent_name>
+	<mod_names>
+		<mod_name>
+			<id>0</id>
+			<name VALUE="рублей" lang-en:VALUE="RUR" lang-ua:VALUE="рублів"/>
+			<cent_name VALUE="##UiText.titles.copeck_mod2_m##" lang-en:VALUE="kop"/>
+		</mod_name>
+		<mod_name>
+			<id>1</id>
+			<name VALUE="рубль" lang-en:VALUE="RUR" lang-ua:VALUE="рубль"/>
+			<cent_name VALUE="##UiText.titles.copeck##" lang-en:VALUE="kop"/>
+		</mod_name>
+		<mod_name>
+			<id>2</id>
+			<name VALUE="рубля" lang-en:VALUE="RUR" lang-ua:VALUE="рубля"/>
+			<cent_name VALUE="##UiText.titles.copeck_mod2##" lang-en:VALUE="kop"/>
+		</mod_name>
+	</mod_names>		
+
+	<rate>17540</rate>
+</std_currency>
+
+
+<std_currency>
+	<id>KZT</id>
+	<name VALUE="##UiText.titles.tenge##"/>
+	<full_name VALUE="Казахстанский тенге" lang-en:VALUE="Kazakhstan tenge" lang-ua:VALUE="Казахстанський теньге"/>
+	<cent_name></cent_name>
+	<mod_names>
+		<mod_name>
+			<id>0</id>
+			<name VALUE="##UiText.titles.tenge##"/>
+			<cent_name></cent_name>
+		</mod_name>
+		<mod_name>
+			<id>1</id>
+			<name VALUE="##UiText.titles.tenge##"/>
+			<cent_name></cent_name>
+		</mod_name>
+		<mod_name>
+			<id>2</id>
+			<name VALUE="##UiText.titles.tenge##"/>
+			<cent_name></cent_name>
+		</mod_name>
+	</mod_names>		
+
+	<rate>270.57</rate>
+</std_currency>
+
+
+</std_currencies>

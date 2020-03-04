@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<SPXML-FORM>
+
+<index-map>
+	<last-block-id TYPE="integer" NOT-NEG="1" NOT-NULL="1"/>
+
+	<blocks>
+		<block MULTIPLE="1">
+			<id TYPE="integer" POSITIVE="1"/>
+			<entries-num TYPE="integer" NOT-NEG="1"/>
+		</block>
+	</blocks>
+</index-map>
+
+</SPXML-FORM>

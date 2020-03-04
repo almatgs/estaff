@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<metro_map xmlns:lang-en="http://www.datex-soft.com/ns/">
+	<location_name>Волгоград</location_name>
+	<lines/>
+	<stations>
+		<station>
+			<id>311</id>
+			<name VALUE="31-я школа" lang-en:VALUE="31-ya shkola"/>
+		</station>
+		<station>
+			<id>312</id>
+			<name VALUE="Баррикады" lang-en:VALUE="Barrikady"/>
+		</station>
+		<station>
+			<id>313</id>
+			<name VALUE="Больница Ильича" lang-en:VALUE="Bolnica Ilicha"/>
+		</station>
+		<station>
+			<id>314</id>
+			<name VALUE="Водоотстой" lang-en:VALUE="Vodootstoj"/>
+		</station>
+		<station>
+			<id>315</id>
+			<name VALUE="Дворец спорта" lang-en:VALUE="Dvorec sporta"/>
+		</station>
+		<station>
+			<id>316</id>
+			<name VALUE="Завод «Красный Октябрь»" lang-en:VALUE="Zavod «Krasnyj Oktyabr»"/>
+		</station>
+		<station>
+			<id>317</id>
+			<name VALUE="Комсомольская" lang-en:VALUE="Komsomolskaya"/>
+		</station>
+		<station>
+			<id>318</id>
+			<name VALUE="Мамаев курган" lang-en:VALUE="Mamaev kurgan"/>
+		</station>
+		<station>
+			<id>319</id>
+			<name VALUE="Пионерская" lang-en:VALUE="Pionerskaya"/>
+		</station>
+		<station>
+			<id>320</id>
+			<name VALUE="Площадь Возрождения" lang-en:VALUE="Ploschad Vozrozhdeniya"/>
+		</station>
+		<station>
+			<id>321</id>
+			<name VALUE="Площадь Ленина" lang-en:VALUE="Ploschad Lenina"/>
+		</station>
+		<station>
+			<id>322</id>
+			<name VALUE="Площадь Чекистов" lang-en:VALUE="Ploschad Chekistov"/>
+		</station>
+		<station>
+			<id>323</id>
+			<name VALUE="Стадион «Монолит»" lang-en:VALUE="Stadion «Monolit»"/>
+		</station>
+		<station>
+			<id>324</id>
+			<name VALUE="Тракторный завод (ВГТЗ)" lang-en:VALUE="Traktornyj zavod (VGTZ)"/>
+		</station>
+		<station>
+			<id>325</id>
+			<name VALUE="Улица имени 39-й гвардейской дивизии" lang-en:VALUE="Ulica imeni 39-j gvardejskoj divizii"/>
+		</station>
+		<station>
+			<id>326</id>
+			<name VALUE="Хлебозавод" lang-en:VALUE="Hlebozavod"/>
+		</station>
+		<station>
+			<id>327</id>
+			<name VALUE="Центральный парк культуры и отдыха" lang-en:VALUE="Centralnyj park kultury i otdyha"/>
+		</station>
+		<station>
+			<id>328</id>
+			<name VALUE="Центральный стадион" lang-en:VALUE="Centralnyj stadion"/>
+		</station>
+	</stations>
+</metro_map>

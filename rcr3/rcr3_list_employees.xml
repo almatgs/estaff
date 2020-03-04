@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiTemplate ID="List.employees" ObjectList="1" ObjectType="person" Title="##UiText.sections.employees##" xmlns:UI="http://www.datex-soft.com/schemas/ui">
+
+<UI:Filter Field="is_own_person" Fixed="1" ValueExpr="true"/>
+<UI:Filter Field="is_active" Fixed="1" ValueExpr="true"/>
+
+<UI:Column Field="fullname"/>
+<UI:Column Field="position_name"/>
+<UI:Column Field="division_id"/>
+
+
+</UiTemplate>

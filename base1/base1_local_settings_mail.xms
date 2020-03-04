@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<SPXML-SCREEN WIDTH="100zr" HEIGHT="80zr" SOURCE="TopElem" TITLE="##UiText.sections.settings_mail##" RESIZE="1" WINDOW-ICON-URL="//base_pict/settings.ico">
+
+<INHERIT TYPE="min_menus"/>
+<ITEM TYPE="min_toolbar"/>
+
+
+<PANEL HEIGHT="100%" STD-MARGINS="1" SUNKEN="1" VERT-SCROLL="1">
+	<LABEL TITLE="Метод подготовки единичных писем:" lang-en:TITLE="Interface for composing email messages:" lang-ua:TITLE="Метод підготовки одиничних листів:"/>
+
+	<COMBO SOURCE="Ps.mail_method_id" WIDTH="57zr" ENABLE-EXPR="! System.IsWebClient">
+		<COMBO-ENTRY TITLE="Simple MAPI (Outlook Express, Microsoft Outlook, The Bat!)" VALUE="mapi"/>
+		<COMBO-ENTRY TITLE="Microsoft Outlook automation" VALUE="outlook"/>
+		<COMBO-ENTRY TITLE="Lotus Notes" VALUE="lotus"/>
+		<COMBO-ENTRY TITLE="SMTP" VALUE="smtp"/>
+	</COMBO>
+	<BR/>
+
+	<BUTTON TITLE="Подготовить тестовое сообщение" IMAGE-URL="//base_pict/email.ico" WIDTH="38zr" ACTION="
+			if ( Screen.Doc.IsChanged )
+				Screen.SaveDoc();
+
+			message = new MailMessage();
+			message.subject = 'Test';
+			message.body = 'Test';
+
+			lib_mail.show_mail_message( message );
+	" PASSIVE="1" lang-en:TITLE="Prepare test message" lang-ua:TITLE="Підготувати тестове повідомлення"/>
+	<DELIM/>
+	<BR/>
+	
+	<GROUP>
+		<LABEL TITLE="Настройки сервера SMTP:" lang-en:TITLE="SMTP server settings:" lang-ua:TITLE="Налаштування сервера SMTP:"/>
+		
+		<RADIO-BUTTON TITLE="Общие" lang-en:TITLE="Shared" SOURCE="Ps.use_local_auto_mailing_settings" SWITCH-VALUE="false" WIDTH="auto" lang-ua:TITLE="Загальні"/>
+		<RADIO-BUTTON TITLE="Персональные" lang-en:TITLE="Personal" SOURCE="Ps.use_local_auto_mailing_settings" SWITCH-VALUE="true" WIDTH="auto" lang-ua:TITLE="Персональні"/>
+
+		<IF EXPR="! Ps.use_local_auto_mailing_settings">
+			<LINK TITLE="Общие настройки SMTP" lang-en:TITLE="SMTP shared settings" ACTION="
+					ObtainSubDocScreen( global_settings.auto_mailing, 'base1_global_settings_auto_mailing.xms' );
+			" PASSIVE="1" WIDTH="25zr" KEEP-RIGHT="1" lang-ua:TITLE="Загальні налаштування SMTP"/>
+		</IF>
+	</GROUP>
+	<BR/>
+	<BR/>
+
+	<IF EXPR="Ps.use_local_auto_mailing_settings" SOURCE="Ps.auto_mailing">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="50zr"/>
+			</COLUMNS>
+
+			<EDIT SOURCE="Ps.smtp.server_address" LABEL-TITLE="##UiText.titles.smtp_server##:" UPDATE-ACTION="
+					if ( StrEnds( Ps.smtp.server_address, ':465' ) )
+					{
+						Ps.smtp.use_ssl_port = true;
+						Ps.smtp.use_ssl = false;
+					}
+			"/>
+		</TABLE>
+		<BR/>
+
+		<LINE>
+			<CHECK TITLE="##UiText.titles.server_requires_auth##" SOURCE="Ps.smtp.use_auth"/>
+			<CHECK SOURCE="Ps.smtp.use_ssl" AUTO-LABEL="1" UPDATE-ACTION="
+					if ( Ps.smtp.use_ssl )
+						Ps.smtp.use_ssl_port = false;
+			"/>
+			
+			<CHECK SOURCE="Ps.smtp.use_ssl_port" AUTO-LABEL="1" UPDATE-ACTION="
+					if ( Ps.smtp.use_ssl_port )
+						Ps.smtp.use_ssl = false;
+			"/>
+		</LINE>
+
+		<BR/>
+
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="25zr"/>
+				<COL WIDTH="20zr"/>
+			</COLUMNS>
+
+			<EDIT SOURCE="Ps.smtp.login" LABEL-TITLE="##UiText.fields.login##:" ENABLE-EXPR="Ps.smtp.use_auth" lang-en:LABEL-TITLE="Login:"/>
+			<EDIT SOURCE="Ps.smtp.password" LABEL-TITLE="##UiText.fields.password##:" PASSWORD="1" ENABLE-EXPR="Ps.smtp.use_auth" lang-en:LABEL-TITLE="Password:"/>
+		</TABLE>
+		<DELIM/>
+	</IF>
+
+	<TABLE>
+		<COLUMNS>
+			<COL WIDTH="18zr"/>
+			<COL WIDTH="100%"/>
+		</COLUMNS>
+
+		<LABEL TITLE="##UiText.fields.sender_address##:" ALIGN="right" lang-en:TITLE="Sender address 1:"/>
+		<EDIT SOURCE="Ps.sender.address" WIDTH="30zr"/>
+
+		<LABEL TITLE="##UiText.fields.sender_name##:" ALIGN="right" lang-en:TITLE="Sender name:"/>
+		<EDIT SOURCE="Ps.sender.name" WIDTH="30zr"/>
+	</TABLE>
+	<BR/>
+	<BR/>
+
+	<LINE SOURCE="Ps.auto_mailing">
+		<BUTTON TITLE="##UiText.actions.send_test_message##" IMAGE-URL="//base_pict/email.ico" WIDTH="36zr" ACTION="
+				if ( Ps.test_email == '' )
+					throw UserError( UiText.errors.test_email_not_specified );
+
+				if ( Screen.Doc.IsChanged )
+					Screen.SaveDoc();
+
+				lib_mail.send_test_mail_message( Ps.test_email );
+		"/>
+
+		<LABEL TITLE="##UiText.titles.test_email##:"/>
+		<EDIT SOURCE="Ps.test_email" WIDTH="30zr"/>
+	</LINE>
+	<DELIM/>
+</PANEL>
+
+
+</SPXML-SCREEN>
