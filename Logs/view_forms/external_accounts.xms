@@ -1,0 +1,57 @@
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Внешние учетные записи" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/list.ico">
+	<PANEL SUNKEN="1" STD-MARGINS="1" BK-COLOR-EXPR="SysColors.PanelLightBackground">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="38zr"/>
+				<COL WIDTH="70%"/>
+				<COL WIDTH="14zr"/>
+				<COL WIDTH="21zr"/>
+				<COL WIDTH="30%"/>
+				<COL WIDTH="21zr"/>
+			</COLUMNS>
+			<ITEM TYPE="ft_filter" SOURCE="Ps.filter"/>
+			<PANEL/>
+			<PANEL>
+				<LABEL TITLE="Действующий:"/>
+				<ITEM TYPE="tri_state_selector" usage="filter" SOURCE="Ps.filter.is_active"/>
+			</PANEL>
+			<PANEL>
+				<LABEL TITLE="Пользователь:"/>
+				<ITEM TYPE="object_selector" usage="filter" SOURCE="Ps.filter.user_id"/>
+			</PANEL>
+			<PANEL/>
+			<PANEL>
+				<LABEL TITLE=" "/>
+				<BUTTON TITLE="Новый элемент" IMAGE-URL="//base_pict/user.ico" STD-MARGINS="0" ACTION="doc = DefaultDb.OpenNewObjectDoc( 'external_account' );&#10;&#09;&#09;&#09;doc.TopElem.user_id = LdsCurUserID;&#10;&#09;&#09;&#09;doc.TopElem.person_id = doc.TopElem.user_id.ForeignElem.person_id;&#10;&#09;&#09;&#09;CreateDocScreen( doc );" PASSIVE="1"/>
+			</PANEL>
+		</TABLE>
+		<PANEL HEIGHT="2px"/>
+		<TABLE>
+			<COLUMNS/>
+		</TABLE>
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="Очистить форму" ACTION="lib_view.clear_filters( 'external_accounts', Ps ); lib_view.clear_stored_filters( 'external_accounts' ); lib_view.adjust_filters( 'external_accounts', Ps );Screen.Update()" PASSIVE="1"/>
+		</MENU>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+	<PANEL BK-COLOR-EXPR="" HEIGHT="100%">
+		<LIST NAME="MainList" USE-KEY-SEL="1" SUNKEN="1" LOOP-CATALOG="external_accounts" FT-FILTER="Ps.filter" XQUERY-QUAL-EXPR="lib_view.build_xquery_qual( 'external_accounts', Ps )" XQUERY-FIELDS-EXPR="['id','is_active','type_id','imod_site_id','recruit_provider_id','login','user_id']" AFTER-BUILD-ASYNC-ACTION="if ( StrContains( Screen.FrameName, 'Sub' ) ) return; size = ArrayOptSize( MainArray ); if ( size == undefined ) { StatusMsg( '' ); return; }; StatusMsg( UiText.titles.items_in_list + ': ' + StrInt( size, 0, true ) + ( lib_view.is_some_filter_applied( 'external_accounts', Ps ) ? '  (с учетом фильтра)' : '' ) )">
+			<ROW IMAGE-URL-EXPR="ListElem.ImageUrl">
+				<COL COL-TITLE="Тип" WIDTH="20zr" TITLE-EXPR="ListElem.type_id.ForeignDispName" ORDER="type_id.ForeignDispName"/>
+				<COL COL-TITLE="Карьерный сайт" WIDTH="22zr" TITLE-EXPR="ListElem.imod_site_id.ForeignDispName" ORDER="imod_site_id.ForeignDispName" ALIGN="center"/>
+				<COL COL-TITLE="Провайдер" WIDTH="22zr" TITLE-EXPR="ListElem.recruit_provider_id.ForeignDispName" ORDER="recruit_provider_id.ForeignDispName" ALIGN="center"/>
+				<COL COL-TITLE="Логин" WIDTH="25%" TITLE-EXPR="ListElem.login" ORDER="login"/>
+				<COL COL-TITLE="Пользователь" WIDTH="15zr" TITLE-EXPR="ListElem.user_id.ForeignDispName" ORDER="user_id.ForeignDispName" ALIGN="center"/>
+			</ROW>
+			<MENU RIGHT-CLICK="1">
+				<MENU-ENTRY TITLE="Открыть" CMD="OpenSel"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Удалить" CMD="Clear"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name" ACTION="lib_view.ShowScreenInExcel( Screen, List )" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+			</MENU>
+		</LIST>
+	</PANEL>
+	<INHERIT TYPE="view_commands"/>
+	<INHERIT TYPE="view_commands_2"/>
+</SPXML-SCREEN>

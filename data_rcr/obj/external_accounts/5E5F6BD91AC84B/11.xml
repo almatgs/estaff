@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<external_account SPXML-FORM="x-app://base2/base2_external_account.xmd"><id>0x5E5F6BD91AC84B11</id><type_id>recruit_provider</type_id><use_ssl>0</use_ssl><use_ssl_port>0</use_ssl_port><recruit_provider_id>proaction</recruit_provider_id><is_active>1</is_active><is_std>0</is_std></external_account>

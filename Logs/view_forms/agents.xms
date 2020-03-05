@@ -1,0 +1,42 @@
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Фоновые задачи" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/list.ico">
+	<PANEL SUNKEN="1" STD-MARGINS="1" BK-COLOR-EXPR="SysColors.PanelLightBackground">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="38zr"/>
+				<COL WIDTH="100%"/>
+			</COLUMNS>
+			<ITEM TYPE="ft_filter" SOURCE="Ps.filter"/>
+			<PANEL/>
+		</TABLE>
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="Очистить форму" ACTION="lib_view.clear_filters( 'agents', Ps ); lib_view.clear_stored_filters( 'agents' ); lib_view.adjust_filters( 'agents', Ps );Screen.Update()" PASSIVE="1"/>
+		</MENU>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+	<PANEL BK-COLOR-EXPR="" HEIGHT="100%">
+		<LIST NAME="MainList" USE-KEY-SEL="1" SUNKEN="1" LOOP-CATALOG="agents" FT-FILTER="Ps.filter" XQUERY-FIELDS-EXPR="['id','is_active','order_index','name','run_on_client','schedule_desc','is_running','get_last_run_start_date','get_last_run_end_date','get_last_run_error_str']" AFTER-BUILD-ASYNC-ACTION="if ( StrContains( Screen.FrameName, 'Sub' ) ) return; size = ArrayOptSize( MainArray ); if ( size == undefined ) { StatusMsg( '' ); return; }; StatusMsg( UiText.titles.items_in_list + ': ' + StrInt( size, 0, true ) + ( lib_view.is_some_filter_applied( 'agents', Ps ) ? '  (с учетом фильтра)' : '' ) )">
+			<ROW IMAGE-URL-EXPR="ListElem.ImageUrl">
+				<COL COL-TITLE="Наименование" WIDTH="65%" TITLE-EXPR="ListElem.name" ORDER="order_index"/>
+				<COL COL-TITLE="Запуск на рабочем месте" WIDTH="4zr" TITLE-EXPR="with ( Ps ) { with ( ListElem ) { return run_on_client ? 'v' : ''; }}" ALIGN="center"/>
+				<COL COL-TITLE="Расписание" WIDTH="14zr" TITLE-EXPR="ListElem.schedule_desc" ORDER="schedule_desc" ALIGN="center"/>
+				<COL COL-TITLE="Запущен" WIDTH="10zr" TITLE-EXPR="ListElem.is_running ? '+' : ''" ORDER="is_running" ALIGN="center" BK-COLOR-EXPR="with ( Ps ) { with ( ListElem ) {  return is_running ? '255,200,180' : ''; }}"/>
+				<COL COL-TITLE="Дата последнего запуска" WIDTH="19zr" TITLE-EXPR="StrDate( ListElem.get_last_run_start_date, true, false )" ORDER="get_last_run_start_date" ORDER-DIR="-" ALIGN="center"/>
+				<COL COL-TITLE="Дата последней отработки" WIDTH="19zr" TITLE-EXPR="StrDate( ListElem.get_last_run_end_date, true, false )" ORDER="get_last_run_end_date" ORDER-DIR="-" ALIGN="center"/>
+				<COL COL-TITLE="Результат последнего запуска" WIDTH="35%" TITLE-EXPR="with ( Ps ) { with ( ListElem ) { return ( err = get_last_run_error_str() ), err != '' ? err : ( get_last_run_start_date() != null ? 'OK' : '' ); }}" TEXT-COLOR-EXPR="with ( Ps ) { with ( ListElem ) {  return get_last_run_error_str() != '' ? '200,0,0' : ''; }}"/>
+				<COL COL-TITLE="" WIDTH="5zr" TITLE-EXPR="StrIntZero( ListElem.order_index )" ORDER="order_index" ALIGN="right" DEFAULT-SORT="1"/>
+			</ROW>
+			<MENU RIGHT-CLICK="1">
+				<MENU-ENTRY TITLE="Открыть" CMD="OpenSel"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Удалить" CMD="Clear"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name" ACTION="lib_view.ShowScreenInExcel( Screen, List )" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Запустить фоновую задачу" ACTION="lib_base.run_list_object_action( List, 'launch_agent', 'launch_agent' )"/>
+				<MENU-ENTRY TITLE="Выполнить фоновую задачу на рабочем месте" ACTION="lib_base.run_list_object_action( List, 'run_agent_sync', 'run_agent_sync' )"/>
+			</MENU>
+		</LIST>
+	</PANEL>
+	<INHERIT TYPE="view_commands"/>
+	<INHERIT TYPE="view_commands_2"/>
+</SPXML-SCREEN>

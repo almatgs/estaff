@@ -1,0 +1,50 @@
+<SPXML-SCREEN SOURCE="TopElem" BEFORE-INIT-ACTION="Ps.preview.timer_started = false;" TITLE="Загруженные письма" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/list.ico">
+	<PANEL SUNKEN="1" STD-MARGINS="1" BK-COLOR-EXPR="SysColors.PanelLightBackground">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="38zr"/>
+				<COL WIDTH="70%"/>
+				<COL WIDTH="21zr"/>
+				<COL WIDTH="30%"/>
+				<COL WIDTH="25zr"/>
+			</COLUMNS>
+			<ITEM TYPE="ft_filter" SOURCE="Ps.filter"/>
+			<PANEL/>
+			<PANEL>
+				<LABEL TITLE="Пользователь:"/>
+				<ITEM TYPE="object_selector" view-filter-expr="with ( Ps ) { return {is_active:true}; }" usage="filter" SOURCE="Ps.filter.user_id"/>
+			</PANEL>
+			<PANEL/>
+			<PANEL>
+				<LABEL TITLE=" "/>
+				<BUTTON TITLE="Добавить источник" IMAGE-URL="//base_pict/generic_item.ico" STD-MARGINS="0" ACTION="subDoc = DefaultDb.OpenNewObjectDoc( 'raw_storage', lib_voc.obtain_next_voc_elem_id( raw_storages ) );&#10;&#09;&#09;&#09;&#09;CreateDocScreen( subDoc );" PASSIVE="1"/>
+			</PANEL>
+		</TABLE>
+		<PANEL HEIGHT="2px"/>
+		<TABLE>
+			<COLUMNS/>
+		</TABLE>
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="Очистить форму" ACTION="lib_view.clear_filters( 'parsed_messages', Ps ); lib_view.clear_stored_filters( 'parsed_messages' ); lib_view.adjust_filters( 'parsed_messages', Ps );Screen.Update()" PASSIVE="1"/>
+		</MENU>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+	<PANEL BK-COLOR-EXPR="" HEIGHT="40%">
+		<LIST NAME="MainList" USE-KEY-SEL="1" SUNKEN="1" LOOP-CATALOG="parsed_messages" FT-FILTER="Ps.filter" XQUERY-QUAL-EXPR="lib_view.build_xquery_qual( 'parsed_messages', Ps )" XQUERY-FIELDS-EXPR="['id','image_url','sender','has_dup_candidates','subject','date','raw_storage_id']" AFTER-BUILD-ASYNC-ACTION="if ( StrContains( Screen.FrameName, 'Sub' ) ) return; size = ArrayOptSize( MainArray ); if ( size == undefined ) { StatusMsg( '' ); return; }; StatusMsg( UiText.titles.items_in_list + ': ' + StrInt( size, 0, true ) + ( lib_view.is_some_filter_applied( 'parsed_messages', Ps ) ? '  (с учетом фильтра)' : '' ) )">
+			<ROW IMAGE-URL-EXPR="ListElem.ImageUrl" OPEN-ACTION="return;" SET-SEL-ACTION="item = Screen.FindOptItem( 'FrameObjectPreview' );if ( ! true ) Cancel();doc = DefaultDb.OpenObjectDoc( 'parsed_message', ListElem.id );item.InnerScreen.EditMode = false;&#10;item.InnerScreen.SetDoc( doc, 'x-app://rcr/rcr_parsed_message_preview.xms' );Ps.preview.handle_set_sel( ListElem );&#10;Cancel();">
+				<COL COL-TITLE="Отправитель" WIDTH="50zr" TITLE-EXPR="ListElem.sender.address" ORDER="sender.address"/>
+				<COL COL-TITLE="Д" WIDTH="4zr" TITLE-EXPR="ListElem.has_dup_candidates ? '+' : ''" ORDER="has_dup_candidates" ALIGN="center"/>
+				<COL COL-TITLE="Тема" WIDTH="50%" TITLE-EXPR="ListElem.subject" ORDER="subject"/>
+				<COL COL-TITLE="Дата" WIDTH="18zr" TITLE-EXPR="StrDate( ListElem.date, true, false )" ORDER="date" ORDER-DIR="-" ALIGN="center" DEFAULT-SORT="1"/>
+				<COL COL-TITLE="Источник импорта" WIDTH="19zr" TITLE-EXPR="ListElem.raw_storage_id.ForeignDispName" ORDER="raw_storage_id.ForeignDispName" ALIGN="center"/>
+			</ROW>
+			<MENU RIGHT-CLICK="1">
+				<INHERIT FORM="//rcr/rcr_fields_view_parsed_messages.xms" TYPE="context_menu_entries"/>
+			</MENU>
+		</LIST>
+	</PANEL>
+	<SPLIT/>
+	<FRAME NAME="FrameObjectPreview" HREF="x-app://base1/base1_blank.xms"/>
+	<INHERIT TYPE="view_commands"/>
+	<INHERIT TYPE="view_commands_2"/>
+</SPXML-SCREEN>

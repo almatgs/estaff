@@ -1,0 +1,47 @@
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Списки контактов" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/list.ico">
+	<PANEL SUNKEN="1" STD-MARGINS="1" BK-COLOR-EXPR="SysColors.PanelLightBackground">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="38zr"/>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="21zr"/>
+			</COLUMNS>
+			<ITEM TYPE="ft_filter" SOURCE="Ps.filter"/>
+			<PANEL/>
+			<PANEL>
+				<LABEL TITLE="Пользователь:"/>
+				<ITEM TYPE="object_selector" view-filter-expr="with ( Ps ) { return filter.ChildExists( 'group_id' ) &amp;&amp; filter.group_id.HasValue ? {main_group_id:filter.group_id,is_active:true}:{is_active:true}; }" usage="filter" SOURCE="Ps.filter.user_id"/>
+			</PANEL>
+		</TABLE>
+		<PANEL HEIGHT="2px"/>
+		<TABLE>
+			<COLUMNS/>
+		</TABLE>
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="Очистить форму" ACTION="lib_view.clear_filters( 'contact_lists', Ps ); lib_view.clear_stored_filters( 'contact_lists' ); lib_view.adjust_filters( 'contact_lists', Ps );Screen.Update()" PASSIVE="1"/>
+		</MENU>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+	<PANEL BK-COLOR-EXPR="" HEIGHT-EXPR="lib_view.use_preview( 'contact_lists' ) ? '40%' : '100%'">
+		<LIST NAME="MainList" USE-KEY-SEL="1" SUNKEN="1" LOOP-CATALOG="contact_lists" FT-FILTER="Ps.filter" XQUERY-QUAL-EXPR="lib_view.build_xquery_qual( 'contact_lists', Ps )" XQUERY-FIELDS-EXPR="['id','is_active','image_url','name','members_num','user_id']" AFTER-BUILD-ASYNC-ACTION="if ( StrContains( Screen.FrameName, 'Sub' ) ) return; size = ArrayOptSize( MainArray ); if ( size == undefined ) { StatusMsg( '' ); return; }; StatusMsg( UiText.titles.items_in_list + ': ' + StrInt( size, 0, true ) + ( lib_view.is_some_filter_applied( 'contact_lists', Ps ) ? '  (с учетом фильтра)' : '' ) )">
+			<ROW IMAGE-URL-EXPR="ListElem.ImageUrl" SET-SEL-ACTION="if ( ! lib_view.use_preview( 'contact_lists' ) ) Cancel();item = Screen.FindOptItem( 'FrameObjectPreview' );doc = DefaultDb.OpenObjectDoc( 'contact_list', ListElem.id );item.InnerScreen.EditMode = false;&#10;item.InnerScreen.SetDoc( doc, 'x-app://base2/base2_contact_list.xms' );Cancel();">
+				<COL COL-TITLE="Наименование" WIDTH="100%" TITLE-EXPR="ListElem.name" ORDER="name"/>
+				<COL COL-TITLE="Кол-во контактов" WIDTH="19zr" TITLE-EXPR="StrIntZero( ListElem.members_num )" ORDER="members_num" ALIGN="right"/>
+				<COL COL-TITLE="Пользователь" WIDTH="15zr" TITLE-EXPR="ListElem.user_id.ForeignDispName" ORDER="user_id.ForeignDispName" ALIGN="center"/>
+			</ROW>
+			<MENU RIGHT-CLICK="1">
+				<MENU-ENTRY TITLE="Открыть" CMD="OpenSel"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Удалить" CMD="Clear"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name" ACTION="lib_view.ShowScreenInExcel( Screen, List )" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Режим предварительного просмотра" ACTION="lib_view.set_use_preview( 'contact_lists', ! lib_view.use_preview( 'contact_lists' ) )"/>
+			</MENU>
+		</LIST>
+	</PANEL>
+	<SPLIT/>
+	<FRAME NAME="FrameObjectPreview" HREF="x-app://base1/base1_blank.xms"/>
+	<INHERIT TYPE="view_commands"/>
+	<INHERIT TYPE="view_commands_2"/>
+</SPXML-SCREEN>

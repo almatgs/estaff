@@ -1,0 +1,54 @@
+<SPXML-SCREEN SOURCE="TopElem" TITLE="Учебные группы" MAXIMIZED="1" WINDOW-ICON-URL="//base_pict/list.ico">
+	<PANEL SUNKEN="1" STD-MARGINS="1" BK-COLOR-EXPR="SysColors.PanelLightBackground">
+		<TABLE>
+			<COLUMNS>
+				<COL WIDTH="38zr"/>
+				<COL WIDTH="100%"/>
+				<COL WIDTH="28zr"/>
+			</COLUMNS>
+			<ITEM TYPE="ft_filter" SOURCE="Ps.filter"/>
+			<PANEL/>
+			<PANEL>
+				<LABEL TITLE="Дата начала:"/>
+				<TABLE SPACING="short">
+					<COLUMNS>
+						<COL WIDTH="50%"/>
+						<COL WIDTH="50%"/>
+					</COLUMNS>
+					<ITEM TYPE="date_selector" SOURCE="Ps.filter.min_start_date"/>
+					<ITEM TYPE="date_selector" SOURCE="Ps.filter.max_start_date"/>
+				</TABLE>
+			</PANEL>
+		</TABLE>
+		<PANEL HEIGHT="2px"/>
+		<TABLE>
+			<COLUMNS/>
+		</TABLE>
+		<MENU RIGHT-CLICK="1">
+			<MENU-ENTRY TITLE="Очистить форму" ACTION="lib_view.clear_filters( 'training_groups', Ps ); lib_view.clear_stored_filters( 'training_groups' ); lib_view.adjust_filters( 'training_groups', Ps );Screen.Update()" PASSIVE="1"/>
+		</MENU>
+	</PANEL>
+	<SPLIT FIXED="1"/>
+	<PANEL BK-COLOR-EXPR="" HEIGHT="100%">
+		<LIST NAME="MainList" USE-KEY-SEL="1" SUNKEN="1" LOOP-CATALOG="training_groups" FT-FILTER="Ps.filter" XQUERY-QUAL-EXPR="lib_view.build_xquery_qual( 'training_groups', Ps )" XQUERY-FIELDS-EXPR="['id','is_active','image_url','is_tentative','creation_date','code','training_program_id','start_date','end_date','location_id','participants_num']" AFTER-BUILD-ASYNC-ACTION="if ( StrContains( Screen.FrameName, 'Sub' ) ) return; size = ArrayOptSize( MainArray ); if ( size == undefined ) { StatusMsg( '' ); return; }; StatusMsg( UiText.titles.items_in_list + ': ' + StrInt( size, 0, true ) + ( lib_view.is_some_filter_applied( 'training_groups', Ps ) ? '  (с учетом фильтра)' : '' ) )">
+			<ROW IMAGE-URL-EXPR="ListElem.ImageUrl">
+				<COL COL-TITLE="Дата создания" WIDTH="20zr" TITLE-EXPR="StrDate( ListElem.creation_date, false )" ORDER="creation_date" ORDER-DIR="-"/>
+				<COL COL-TITLE="#" WIDTH="8zr" TITLE-EXPR="ListElem.code" ORDER="code" ALIGN="center"/>
+				<COL COL-TITLE="Учебная программа" WIDTH="40zr" TITLE-EXPR="ListElem.training_program_id.ForeignDispName" ORDER="training_program_id.ForeignDispName" ALIGN="center"/>
+				<COL COL-TITLE="Дата начала" WIDTH="12zr" TITLE-EXPR="ListElem.start_date" ORDER="start_date" ALIGN="center"/>
+				<COL COL-TITLE="Дата окончания" WIDTH="17zr" TITLE-EXPR="ListElem.end_date" ORDER="end_date" ALIGN="center"/>
+				<COL COL-TITLE="Регион" WIDTH="50%" TITLE-EXPR="ListElem.location_id.ForeignDispName" ORDER="location_id.ForeignDispName" ALIGN="center"/>
+				<COL COL-TITLE="Кол-во участников" WIDTH="20zr" TITLE-EXPR="StrIntZero( ListElem.participants_num )" ORDER="participants_num" ALIGN="right"/>
+			</ROW>
+			<MENU RIGHT-CLICK="1">
+				<MENU-ENTRY TITLE="Открыть" CMD="OpenSel"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE="Удалить" CMD="Clear"/>
+				<MENU-ENTRY SEPARATOR="1"/>
+				<MENU-ENTRY TITLE-EXPR="UiText.titles.export_to + ' ' + lib_office.active_calc_name" ACTION="lib_view.ShowScreenInExcel( Screen, List )" PASSIVE="1" ENABLE-EXPR="lib_user.allow_list_copy"/>
+			</MENU>
+		</LIST>
+	</PANEL>
+	<INHERIT TYPE="view_commands"/>
+	<INHERIT TYPE="view_commands_2"/>
+</SPXML-SCREEN>

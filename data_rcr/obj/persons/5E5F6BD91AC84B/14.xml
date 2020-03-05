@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<person SPXML-FORM="x-app://base2/base2_person.xmd"><id>0x5E5F6BD91AC84B14</id><code>00004</code><firstname>Алан</firstname><fullname>Алан</fullname><is_own_person>1</is_own_person><position_id>0x5E5F6BD91AC84B13</position_id><position_name>Программист Frontend</position_name><is_active>1</is_active><creation_date>2020-03-05T14:16:12+06:00</creation_date><last_mod_date>2020-03-05T14:16:12+06:00</last_mod_date><prev_position_id>0x5E5F6BD91AC84B13</prev_position_id></person>

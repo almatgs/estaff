@@ -251,10 +251,10 @@
 
 
 	<TOOLBAR-ENTRY SEPARATOR="1"/>
-	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/vacancy.ico" TITLE="##UiText.actions.new_vacancy##" CMD="NewVacancy" lang-en:TITLE="New Vacancy"/>
-
-	<TOOLBAR-ENTRY SEPARATOR="1"/>
 	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/candidate.ico" TITLE="##UiText.actions.new_candidate##" CMD="NewCandidate" lang-en:TITLE="New Candidate"/>
+	
+	<TOOLBAR-ENTRY SEPARATOR="1"/>
+	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/vacancy.ico" TITLE="##UiText.actions.new_vacancy##" CMD="NewVacancy" lang-en:TITLE="New Vacancy"/>
 
 	<TOOLBAR-ENTRY SEPARATOR="1"/>
 	<TOOLBAR-ENTRY IMAGE-URL="//base_pict/paste.ico" TITLE="Вставка резюме" CMD="PasteResume" lang-en:TITLE="Paste Resume" lang-ua:TITLE="Вставка резюме"/>

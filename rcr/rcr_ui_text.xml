@@ -205,7 +205,7 @@
 	</sections>
 	<actions>
 		<import_cv VALUE="Импорт резюме" lang-en:VALUE="Import Resume" lang-ua:VALUE="Імпорт резюме"/>
-		<new_vacancy VALUE="Новая вакансия?" lang-en:VALUE="New Vacancy" lang-ua:VALUE="Нова вакансія"/>
+		<new_vacancy VALUE="Новая вакансия" lang-en:VALUE="New Vacancy" lang-ua:VALUE="Нова вакансія"/>
 		<new_position VALUE="Новая штатная должность" lang-en:VALUE="New Position" lang-ua:VALUE="Нова штатна посада"/>
 		<new_requests VALUE="Новые заявки" lang-en:VALUE="New Requests" lang-ua:VALUE="Нові заявки"/>
 		<new_candidate VALUE="Новый кандидат" lang-en:VALUE="New Candidate" lang-ua:VALUE="Новий кандидат"/>
